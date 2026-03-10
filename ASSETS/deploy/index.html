@@ -55,7 +55,9 @@
 
     /* HERO */
     .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8rem 2rem 5rem; position: relative; overflow: hidden; }
-    .hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at center, rgba(201,168,76,0.07) 0%, transparent 65%); pointer-events:none; }
+    .hero-video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; opacity:0.38; }
+    .hero::before { content:''; position:absolute; inset:0; background:linear-gradient(to bottom, rgba(8,8,8,0.72) 0%, rgba(8,8,8,0.3) 45%, rgba(8,8,8,0.82) 100%), radial-gradient(ellipse at center, rgba(201,168,76,0.09) 0%, transparent 65%); pointer-events:none; z-index:1; }
+    .hero > *:not(.hero-video) { position:relative; z-index:2; }
     .hero-eyebrow { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 1.5rem; }
     .hero-title { font-family: var(--font-serif); font-size: clamp(3.5rem,10vw,9rem); font-weight: 300; letter-spacing: -0.02em; line-height: 0.95; color: var(--white); margin-bottom: 0.15em; }
     .hero-title .k { color: var(--gold); }
@@ -155,7 +157,7 @@
     .trait::before { content:'◆'; color:var(--gold-dim); font-size:0.38rem; }
 
     /* CONTACT FORM */
-    .offerings-wrap { background:radial-gradient(ellipse at center top, rgba(201,168,76,0.06) 0%, transparent 55%); }
+    .offerings-wrap { background:radial-gradient(ellipse at center top, rgba(201,168,76,0.06) 0%, transparent 55%); } /* overridden below */
     .today-offer { border:1px solid var(--gold-dim); padding:1.75rem; margin-bottom:2.5rem; background:rgba(201,168,76,0.03); }
     .today-offer-label { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:0.6rem; }
     .today-offer-text { font-family:var(--font-serif); font-size:1.1rem; font-style:italic; color:var(--gold-light); line-height:1.6; }
@@ -198,6 +200,17 @@
 
     /* PROFESSIONAL SECTION */
     .pro-section { border-top: 3px solid var(--gold-dim); background: var(--surface-2); }
+
+    /* ANIMATED SECTION BACKGROUNDS */
+    .voice-section-wrap { position:relative; overflow:hidden; }
+    .voice-section-wrap::before { content:''; position:absolute; inset:0; background-image:url('images/bg/dark-abstract.gif'); background-size:cover; background-position:center; opacity:0.07; z-index:0; }
+    .voice-section-wrap > * { position:relative; z-index:1; }
+
+    /* CONTACT SECTION GLOW */
+    .offerings-wrap { background:radial-gradient(ellipse at center top, rgba(201,168,76,0.09) 0%, rgba(8,8,8,0) 60%), radial-gradient(ellipse at bottom right, rgba(201,168,76,0.05) 0%, transparent 50%); }
+
+    /* WISDOM SECTION BG */
+    .wisdom-section-bg { background: linear-gradient(135deg, var(--near-black) 0%, var(--surface) 50%, var(--near-black) 100%); border-top: 1px solid var(--border); }
     .pro-badge { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--black); background:var(--gold-dim); padding:0.22rem 0.65rem; border-radius:2px; }
     .pro-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); margin-top:2rem; }
     .pro-card { background:var(--surface-2); padding:2rem; transition:background .2s; }
@@ -254,6 +267,9 @@
 
 <!-- HERO -->
 <header class="hero">
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="video/dark-eye.mp4" type="video/mp4">
+  </video>
   <p class="hero-eyebrow">pitchblacknight.com · Updated Daily</p>
   <h1 class="hero-title">Pitch<span class="k">Blac</span>Knight</h1>
   <p class="hero-sub">Polymath &nbsp;·&nbsp; Fluxus Artist &nbsp;·&nbsp; iatric_MX</p>
@@ -470,7 +486,7 @@
 <hr class="div" />
 
 <!-- VOICEOVER -->
-<div class="section-full" id="voice">
+<div class="section-full voice-section-wrap" id="voice">
   <div class="section-inner">
     <div class="section-label">Sound & Voice</div>
     <h2 class="section-title">The Voice is the Instrument</h2>
@@ -516,7 +532,7 @@
 <hr class="div" />
 
 <!-- DAILY WISDOM -->
-<div class="section-full" id="wisdom" style="background: var(--near-black);">
+<div class="section-full wisdom-section-bg" id="wisdom">
   <div class="section-inner">
     <div class="section-label">Daily Wisdom</div>
     <h2 class="section-title">What I Know Today</h2>
