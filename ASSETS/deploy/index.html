@@ -801,13 +801,31 @@ function filterPortfolio(cat) {
     const first = document.querySelector('.series-btn');
     if (first) first.classList.add('active');
   }
+  // kick GIF animation for all visible art cards
+  if (cat === 'art' || cat === 'all') {
+    requestAnimationFrame(() => {
+      document.querySelectorAll('.art-gif-card[style*="flex"] img, .art-gif-card:not([style]) img').forEach(img => {
+        if (img.src) { const s = img.src; img.src = ''; requestAnimationFrame(() => { img.src = s; }); }
+      });
+    });
+  }
 }
 
 function filterSeries(series) {
   document.querySelectorAll('.series-btn').forEach(b => b.classList.remove('active'));
   event.target.classList.add('active');
   document.querySelectorAll('.art-gif-card').forEach(c => {
-    c.style.display = (series === 'all' || c.dataset.series === series) ? 'flex' : 'none';
+    const show = series === 'all' || c.dataset.series === series;
+    c.style.display = show ? 'flex' : 'none';
+    // re-kick GIF animation for newly revealed cards
+    if (show) {
+      const img = c.querySelector('img');
+      if (img && img.src) {
+        const src = img.src;
+        img.src = '';
+        requestAnimationFrame(() => { img.src = src; });
+      }
+    }
   });
 }
 
@@ -824,6 +842,34 @@ function handleSubmit(e) {
   document.getElementById('form-success').style.display = 'block';
 }
 
+// ── GIF ANIMATION FIX ────────────────────────────────────────
+// lazy-loaded GIFs freeze on first frame; this forces them to play
+// when they scroll into view
+function initGifObserver() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        if (img.complete && img.src) {
+          // force GIF to restart animation
+          const src = img.src;
+          img.src = '';
+          requestAnimationFrame(() => { img.src = src; });
+        } else {
+          img.addEventListener('load', () => {
+            const src = img.src;
+            img.src = '';
+            requestAnimationFrame(() => { img.src = src; });
+          }, { once: true });
+        }
+        observer.unobserve(img);
+      }
+    });
+  }, { rootMargin: '100px', threshold: 0.01 });
+
+  document.querySelectorAll('.art-gif-card img').forEach(img => observer.observe(img));
+}
+
 // ── INIT ─────────────────────────────────────────────────────
 window.addEventListener('load', async () => {
   setTimeout(() => {
@@ -833,6 +879,7 @@ window.addEventListener('load', async () => {
   }, 700);
   const data = await loadContent();
   populate(data);
+  initGifObserver();
 });
 </script>
 </body>
