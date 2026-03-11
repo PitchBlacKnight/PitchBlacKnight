@@ -335,6 +335,16 @@
   <button class="cat-btn" onclick="filterPortfolio('voiceover')">Voiceover</button>
 </div>
 
+<!-- SERIES SUB-FILTER (shown only when Made Art is active) -->
+<div class="series-strip" id="series-strip" style="display:none">
+  <button class="series-btn active" onclick="filterSeries('all')">All Series</button>
+  <button class="series-btn" onclick="filterSeries('blk')">Black</button>
+  <button class="series-btn" onclick="filterSeries('clf')">Colorful</button>
+  <button class="series-btn" onclick="filterSeries('drk')">Dark</button>
+  <button class="series-btn" onclick="filterSeries('fav')">Favorites</button>
+  <button class="series-btn" onclick="filterSeries('lgt')">Light</button>
+</div>
+
 <!-- PORTFOLIO -->
 <section class="section" id="portfolio">
   <div class="section-label">Portfolio</div>
@@ -869,13 +879,16 @@ function filterPortfolio(cat) {
   document.querySelectorAll('.port-card[data-cat], .port-card-empty[data-cat]').forEach(c => {
     c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'flex' : 'none';
   });
-  // Show series sub-filter when Art is selected
+  // Show series sub-filter only when Made Art is active
   const seriesStrip = document.getElementById('series-strip');
-  if (seriesStrip) seriesStrip.style.display = (cat === 'art' || cat === 'all') ? 'flex' : 'none';
+  if (seriesStrip) seriesStrip.style.display = (cat === 'art') ? 'flex' : 'none';
   if (cat !== 'art') {
+    // Reset series filter when leaving art view
     document.querySelectorAll('.series-btn').forEach(b => b.classList.remove('active'));
     const first = document.querySelector('.series-btn');
     if (first) first.classList.add('active');
+    // Also reset all art cards to visible for next time
+    document.querySelectorAll('.art-gif-card').forEach(c => { c.style.display = ''; });
   }
   // kick GIF animation for all visible art cards
   if (cat === 'art' || cat === 'all') {
