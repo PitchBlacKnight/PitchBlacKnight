@@ -230,6 +230,49 @@
     .footer-links a:hover { color:var(--gold); }
     .footer-copy { font-family:var(--font-mono); font-size:0.58rem; color:var(--border); letter-spacing:0.1em; }
 
+    /* MUSIC SECTION */
+    .music-section-wrap { background: linear-gradient(180deg, var(--near-black) 0%, var(--surface) 100%); }
+    .music-search-wrap { display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border); }
+    .music-search { flex:1; background:var(--surface); border:1px solid var(--border); color:var(--cream); padding:0.65rem 1rem; font-family:var(--font-mono); font-size:0.78rem; border-radius:2px; outline:none; transition:border-color .2s; }
+    .music-search:focus { border-color:var(--gold-dim); }
+    .music-search::placeholder { color:var(--muted); opacity:.55; }
+    .music-count { font-family:var(--font-mono); font-size:0.6rem; color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
+    .track-list { display:flex; flex-direction:column; }
+    .track-year-header { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--gold-dim); padding:1.2rem 0 0.5rem; margin-top:0.5rem; border-top:1px solid var(--border); }
+    .track-year-first { border-top:none !important; margin-top:0 !important; padding-top:0 !important; }
+    .track-row { display:flex; align-items:center; gap:0.85rem; padding:0.65rem 0.75rem; cursor:pointer; transition:background .15s; border-bottom:1px solid rgba(34,34,34,0.4); border-left:2px solid transparent; }
+    .track-row:hover { background:var(--surface); }
+    .track-row.playing { background:rgba(201,168,76,0.06); border-left-color:var(--gold); }
+    .track-num { font-family:var(--font-mono); font-size:0.56rem; color:var(--border-2); min-width:1.8em; text-align:right; flex-shrink:0; }
+    .track-icon { width:22px; height:22px; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.5rem; color:var(--muted); flex-shrink:0; transition:all .15s; }
+    .track-row:hover .track-icon { border-color:var(--gold-dim); color:var(--gold); }
+    .track-row.playing .track-icon { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,0.12); }
+    .track-title { flex:1; font-size:0.88rem; color:var(--cream); }
+    .track-row.playing .track-title { color:var(--gold-light); }
+    .track-meta { display:flex; align-items:center; gap:0.6rem; flex-shrink:0; }
+    .track-date-label { font-family:var(--font-mono); font-size:0.56rem; color:var(--muted); }
+    .track-new { font-family:var(--font-mono); font-size:0.48rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--black); background:var(--gold); padding:0.1rem 0.35rem; border-radius:1px; font-weight:600; }
+    .track-dur { font-family:var(--font-mono); font-size:0.56rem; color:var(--border-2); min-width:3em; text-align:right; }
+    /* STICKY AUDIO PLAYER */
+    .audio-player-bar { position:fixed; bottom:0; left:0; right:0; z-index:300; background:rgba(8,8,8,0.97); backdrop-filter:blur(24px); border-top:1px solid var(--border); padding:0.65rem 2rem; display:none; align-items:center; gap:1.5rem; }
+    .audio-player-bar.visible { display:flex; }
+    .pbtn-group { display:flex; align-items:center; gap:0.6rem; flex-shrink:0; }
+    .pbtn { background:none; border:1px solid var(--border); color:var(--muted); width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:0.5rem; transition:all .18s; flex-shrink:0; }
+    .pbtn:hover { border-color:var(--gold-dim); color:var(--gold); }
+    .pbtn-main { width:34px; height:34px; border-color:var(--gold-dim); color:var(--gold); font-size:0.68rem; }
+    .pbtn-main:hover { background:var(--gold); color:var(--black); border-color:var(--gold); }
+    .pinfo { flex:0 0 200px; min-width:0; }
+    .pinfo-label { font-family:var(--font-mono); font-size:0.5rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:0.15rem; }
+    .pinfo-name { font-size:0.82rem; color:var(--cream); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .ptime { font-family:var(--font-mono); font-size:0.56rem; color:var(--muted); white-space:nowrap; flex-shrink:0; }
+    .pseek { flex:1; height:3px; background:var(--surface-2); border-radius:2px; cursor:pointer; position:relative; min-width:60px; }
+    .pseek-fill { height:100%; background:var(--gold-dim); border-radius:2px; width:0%; pointer-events:none; transition:width .1s linear; }
+    .pseek:hover .pseek-fill { background:var(--gold); }
+    .pbtn-shuffle { background:none; border:none; color:var(--muted); cursor:pointer; font-size:0.7rem; padding:0.25rem; transition:color .2s; flex-shrink:0; }
+    .pbtn-shuffle.on { color:var(--gold); }
+    @media(max-width:640px){ .audio-player-bar{padding:.5rem 1rem;gap:.6rem} .pinfo{display:none} .track-date-label{display:none} }
+    body.has-player { padding-bottom:64px; }
+
     /* LOADING */
     #loading { position:fixed; inset:0; background:var(--black); display:flex; align-items:center; justify-content:center; z-index:9999; transition:opacity .6s; }
     .loader-text { font-family:var(--font-serif); font-size:1rem; letter-spacing:0.3em; color:var(--gold-dim); animation:flicker 2s infinite; }
@@ -257,6 +300,7 @@
     <li><a href="#portfolio">Work</a></li>
     <li><a href="#voice">Voice</a></li>
     <li><a href="#art">Art</a></li>
+    <li><a href="#music">Music</a></li>
     <li><a href="#thoughts">Thoughts</a></li>
     <li><a href="#wisdom">Wisdom</a></li>
     <li><a href="#about">Artist</a></li>
@@ -504,6 +548,22 @@
 
 <hr class="div" />
 
+<!-- MUSIC -->
+<div class="section-full music-section-wrap" id="music">
+  <div class="section-inner">
+    <div class="section-label">iatric_MX · Made Music</div>
+    <h2 class="section-title">85 Tracks — 2016 to Now</h2>
+    <p class="section-desc">Music made in the middle of everything else. Recorded because it was too good to lose. All of it. Always here.</p>
+    <div class="music-search-wrap">
+      <input type="text" class="music-search" id="music-search" placeholder="Search tracks..." oninput="filterTracks(this.value)" autocomplete="off" spellcheck="false" />
+      <span class="music-count" id="music-count">85 tracks</span>
+    </div>
+    <div class="track-list" id="track-list"></div>
+  </div>
+</div>
+
+<hr class="div" />
+
 <!-- DAILY PRACTICE -->
 <section class="section" id="daily">
   <div class="section-label">The Daily Practice</div>
@@ -680,6 +740,7 @@
       <li><a href="#thoughts">Thoughts</a></li>
       <li><a href="#wisdom">Wisdom</a></li>
       <li><a href="#art">Art</a></li>
+      <li><a href="#music">Music</a></li>
       <li><a href="#shop">Shop</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -687,6 +748,26 @@
     <p class="footer-copy" id="footer-copy">© 2026 Mikel Rosenthal · pitchblacknight.com</p>
   </div>
 </footer>
+
+<!-- STICKY AUDIO PLAYER -->
+<div class="audio-player-bar" id="audio-player-bar">
+  <div class="pbtn-group">
+    <button class="pbtn" onclick="playerPrev()" title="Previous">◀</button>
+    <button class="pbtn pbtn-main" id="pbtn-play" onclick="playerToggle()" title="Play/Pause">▶</button>
+    <button class="pbtn" onclick="playerNext()" title="Next">▶▶</button>
+  </div>
+  <div class="pinfo">
+    <div class="pinfo-label">iatric_MX</div>
+    <div class="pinfo-name" id="pinfo-name">Select a track</div>
+  </div>
+  <span class="ptime" id="ptime-cur">0:00</span>
+  <div class="pseek" id="pseek" onclick="playerSeek(event)">
+    <div class="pseek-fill" id="pseek-fill"></div>
+  </div>
+  <span class="ptime" id="ptime-tot">—</span>
+  <button class="pbtn-shuffle" id="pbtn-shuffle" onclick="playerToggleShuffle()" title="Shuffle">⇌</button>
+  <audio id="main-audio" preload="none"></audio>
+</div>
 
 <script>
 // ── CONTENT LOADER ───────────────────────────────────────────
@@ -870,6 +951,236 @@ function initGifObserver() {
   document.querySelectorAll('.art-gif-card img').forEach(img => observer.observe(img));
 }
 
+// ── MUSIC & PLAYER ───────────────────────────────────────────
+const TRACKS = [
+  {t:'Still Your Friend',           s:'still-your-friend',           d:'2026-02-22', isNew:true},
+  {t:'Here We Are Now',             s:'here-we-are-now',             d:'2026-02-22', isNew:true},
+  {t:'Deeply Entertained',          s:'deeply-entertained',          d:'2026-02-22', isNew:true},
+  {t:'Colorblind Breakup',          s:'colorblind-breakup',          d:'2026-02-22', isNew:true},
+  {t:'Trickly Thumps',              s:'trickly-thumps',              d:'2026-02-15', isNew:true},
+  {t:'Halloween Store',             s:'halloween-store',             d:'2026-02-15', isNew:true},
+  {t:'Drop Tick',                   s:'drop-tick',                   d:'2026-02-15', isNew:true},
+  {t:'Country Italian',             s:'country-italian',             d:'2026-02-15', isNew:true},
+  {t:'Latin Run',                   s:'latin-run',                   d:'2026-02-08', isNew:true},
+  {t:'First Run',                   s:'first-run',                   d:'2026-02-08', isNew:true},
+  {t:'Tow the Line',                s:'tow-the-line',                d:'2025-11-30', isNew:false},
+  {t:'I Just Wanna Dance Right Now',s:'i-just-wanna-dance-right-now',d:'2025-11-30', isNew:false},
+  {t:'Dracula Grind and Bump',      s:'dracula-grind-and-bump',      d:'2025-11-27', isNew:false},
+  {t:'Dark Slug',                   s:'dark-slug',                   d:'2025-11-27', isNew:false},
+  {t:'Fresh Like Lettuis 2',        s:'fresh-like-lettuis-2',        d:'2025-11-19', isNew:false},
+  {t:'Everybody Flows',             s:'everybody-flows',             d:'2025-11-19', isNew:false},
+  {t:'Delicious Grit',              s:'delicious-grit',              d:'2025-11-19', isNew:false},
+  {t:'Dark Mutters',                s:'dark-mutters',                d:'2025-11-14', isNew:false},
+  {t:'Clicky Clock Low Stock',      s:'clicky-clock-low-stock',      d:'2025-10-17', isNew:false},
+  {t:'Roughasf',                    s:'roughasf',                    d:'2024-07-13', isNew:false},
+  {t:'You Look So Pretty',          s:'you-look-so-pretty',          d:'2024-04-17', isNew:false},
+  {t:'April 4 2022',                s:'april-4-2022',                d:'2023-04-13', isNew:false},
+  {t:'Gay',                         s:'gay',                         d:'2022-08-05', isNew:false},
+  {t:'Old Fast',                    s:'old-fast',                    d:'2022-06-15', isNew:false},
+  {t:'Eh',                          s:'eh',                          d:'2022-04-08', isNew:false},
+  {t:"She's Going Out Tonight",     s:'shes-going-out-tonight',      d:'2018-02-19', isNew:false},
+  {t:'Drink From the Same Cup',     s:'drink-from-the-same-cup',     d:'2018-02-18', isNew:false},
+  {t:'Black Kat',                   s:'black-kat',                   d:'2018-02-10', isNew:false},
+  {t:'When You Leave',              s:'when-you-leave',              d:'2018-02-03', isNew:false},
+  {t:'Tell Me When It Kicks In',    s:'tell-me-when-it-kicks-in',    d:'2018-01-06', isNew:false},
+  {t:'Slowfastslow',                s:'slowfastslow',                d:'2018-01-02', isNew:false},
+  {t:'Nice Groove',                 s:'nice-groove',                 d:'2017-12-14', isNew:false},
+  {t:"I Can't Go For That",         s:'i-cant-go-for-that',          d:'2017-12-14', isNew:false},
+  {t:'Here Comes the Sun Guitar',   s:'here-comes-the-sun-guitar',   d:'2017-11-12', isNew:false},
+  {t:'Deepdrums Alice Tinker',      s:'deepdrums-alice-tinker',      d:'2017-11-12', isNew:false},
+  {t:'Dan the Man',                 s:'dan-the-man',                 d:'2017-11-10', isNew:false},
+  {t:'Audio Glitch Example',        s:'audio-glitch-example',        d:'2017-11-03', isNew:false},
+  {t:'Audio Glitch Example 2',      s:'audio-glitch-example-2',      d:'2017-11-03', isNew:false},
+  {t:'Dreams of Dying',             s:'dreams-of-dying',             d:'2017-10-31', isNew:false},
+  {t:'Pleasure Pain by Your Side',  s:'pleasure-pain-by-your-side',  d:'2017-10-20', isNew:false},
+  {t:'New York I Thought She Was',  s:'new-york-i-thought-she-was',  d:'2017-10-20', isNew:false},
+  {t:'Building Short Wave',         s:'building-short-wave',         d:'2017-10-20', isNew:false},
+  {t:'Hollow Heart',                s:'hollow-heart',                d:'2017-10-15', isNew:false},
+  {t:'Death Tinker',                s:'death-tinker',                d:'2017-10-15', isNew:false},
+  {t:'Complexica 090815',           s:'complexica-090815',           d:'2017-10-15', isNew:false},
+  {t:'I Want You With Me',          s:'i-want-you-with-me',          d:'2017-10-07', isNew:false},
+  {t:'Dragon Tov Love',             s:'dragon-tov-love',             d:'2017-10-06', isNew:false},
+  {t:'Wobble Dobble',               s:'wobble-dobble',               d:'2017-10-03', isNew:false},
+  {t:'Pogo',                        s:'pogo',                        d:'2017-10-03', isNew:false},
+  {t:'Misfit',                      s:'misfit',                      d:'2017-10-03', isNew:false},
+  {t:"I Won't Give Up Now",         s:'i-wont-give-up-now',          d:'2017-10-03', isNew:false},
+  {t:'Downers',                     s:'downers',                     d:'2017-10-03', isNew:false},
+  {t:'Chear Up Charlie',            s:'chear-up-charlie',            d:'2017-10-03', isNew:false},
+  {t:'Hidding Carl',                s:'hidding-carl',                d:'2017-09-29', isNew:false},
+  {t:'For Jon',                     s:'for-jon',                     d:'2017-09-29', isNew:false},
+  {t:'Echo Groove',                 s:'echo-groove',                 d:'2017-09-27', isNew:false},
+  {t:'Better Alan Nothingness',     s:'better-alan-nothingness',     d:'2017-09-15', isNew:false},
+  {t:'The Effect You Have on Others',s:'the-effect-you-have-on-others',d:'2017-09-04',isNew:false},
+  {t:'Not Bad',                     s:'not-bad',                     d:'2017-09-04', isNew:false},
+  {t:'Do It Again',                 s:'do-it-again',                 d:'2017-09-04', isNew:false},
+  {t:'All Cried Out',               s:'all-cried-out',               d:'2017-09-04', isNew:false},
+  {t:"Ain't Always Magik",          s:'aint-always-magik',           d:'2017-09-04', isNew:false},
+  {t:'Human Leather Shoes',         s:'human-leather-shoes',         d:'2017-08-24', isNew:false},
+  {t:'American Boy',                s:'american-boy',                d:'2017-08-15', isNew:false},
+  {t:'Nice Matchup',                s:'nice-matchup',                d:'2017-08-08', isNew:false},
+  {t:'Fresh Like Lettuce',          s:'fresh-like-lettuce',          d:'2017-08-01', isNew:false},
+  {t:'Dripping Magma',              s:'dripping-magma',              d:'2017-07-28', isNew:false},
+  {t:'Bright Swift Visions',        s:'bright-swift-visions',        d:'2017-07-28', isNew:false},
+  {t:'Simian',                      s:'simian',                      d:'2017-07-27', isNew:false},
+  {t:'Going Crazy',                 s:'going-crazy',                 d:'2017-07-10', isNew:false},
+  {t:'Never Thought I Could',       s:'never-thought-i-could',       d:'2017-07-08', isNew:false},
+  {t:'You Have a Wanting Alan',     s:'you-have-a-wanting-alan',     d:'2017-07-07', isNew:false},
+  {t:'Entertain Us',                s:'entertain-us',                d:'2017-07-07', isNew:false},
+  {t:'I Like You',                  s:'i-like-you',                  d:'2017-06-02', isNew:false},
+  {t:'Decent Landscape',            s:'decent-landscape',            d:'2017-06-02', isNew:false},
+  {t:'Slow Trip Piano',             s:'slow-trip-piano',             d:'2017-04-29', isNew:false},
+  {t:'Slow Loris',                  s:'slow-loris',                  d:'2017-04-29', isNew:false},
+  {t:'Slow Drip Piano Twist',       s:'slow-drip-piano-twist',       d:'2017-04-29', isNew:false},
+  {t:'Piano Doodle',                s:'piano-doodle',                d:'2017-04-29', isNew:false},
+  {t:'Continued',                   s:'continued',                   d:'2017-04-29', isNew:false},
+  {t:'Bongo Test',                  s:'bongo-test',                  d:'2017-04-29', isNew:false},
+  {t:'Bass Groove',                 s:'bass-groove',                 d:'2017-04-29', isNew:false},
+  {t:'Speed Trip',                  s:'speed-trip',                  d:'2017-04-20', isNew:false},
+  {t:'Sounded Like the Truth',      s:'sounded-like-the-truth',      d:'2017-01-06', isNew:false},
+  {t:'Long Mashup',                 s:'long-mashup',                 d:'2016-02-13', isNew:false},
+];
+
+let currentTrackIdx = -1;
+let shuffleMode = false;
+let shuffleOrder = [];
+
+function fmtTime(s) {
+  if (!s || isNaN(s)) return '—';
+  const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2, '0')}`;
+}
+function fmtDateShort(d) {
+  const [y, m, day] = d.split('-');
+  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${mo[+m-1]} ${+day}, ${y}`;
+}
+
+function initMusicSection() {
+  renderTrackList(TRACKS);
+  setupAudioPlayer();
+}
+
+function renderTrackList(tracks) {
+  const list  = document.getElementById('track-list');
+  const count = document.getElementById('music-count');
+  if (!list) return;
+  list.innerHTML = '';
+  count.textContent = `${tracks.length} track${tracks.length !== 1 ? 's' : ''}`;
+  let lastYear = null;
+  tracks.forEach((track, i) => {
+    const year = track.d.slice(0, 4);
+    if (year !== lastYear) {
+      const hdr = document.createElement('div');
+      hdr.className = 'track-year-header' + (lastYear === null ? ' track-year-first' : '');
+      hdr.textContent = year;
+      list.appendChild(hdr);
+      lastYear = year;
+    }
+    const origIdx = TRACKS.indexOf(track);
+    const isPlaying = origIdx === currentTrackIdx;
+    const row = document.createElement('div');
+    row.className = 'track-row' + (isPlaying ? ' playing' : '');
+    row.dataset.idx = origIdx;
+    row.innerHTML = `
+      <span class="track-num">${String(i + 1).padStart(2, '0')}</span>
+      <span class="track-icon">${isPlaying ? '♪' : '▶'}</span>
+      <span class="track-title">${track.t}</span>
+      <span class="track-meta">
+        ${track.isNew ? '<span class="track-new">New</span>' : ''}
+        <span class="track-date-label">${fmtDateShort(track.d)}</span>
+        <span class="track-dur" data-dur="${origIdx}">—</span>
+      </span>`;
+    row.addEventListener('click', () => playTrack(origIdx));
+    list.appendChild(row);
+  });
+}
+
+function filterTracks(query) {
+  const q = query.trim().toLowerCase();
+  const filtered = q
+    ? TRACKS.filter(t => t.t.toLowerCase().includes(q) || t.d.includes(q) || t.s.includes(q))
+    : TRACKS;
+  renderTrackList(filtered);
+}
+
+function setupAudioPlayer() {
+  const audio = document.getElementById('main-audio');
+  if (!audio) return;
+  audio.addEventListener('timeupdate', () => {
+    if (audio.duration) {
+      document.getElementById('pseek-fill').style.width = (audio.currentTime / audio.duration * 100) + '%';
+      document.getElementById('ptime-cur').textContent = fmtTime(audio.currentTime);
+    }
+  });
+  audio.addEventListener('loadedmetadata', () => {
+    document.getElementById('ptime-tot').textContent = fmtTime(audio.duration);
+    const durEl = document.querySelector(`.track-dur[data-dur="${currentTrackIdx}"]`);
+    if (durEl) durEl.textContent = fmtTime(audio.duration);
+  });
+  audio.addEventListener('ended', () => playerNext());
+  audio.addEventListener('play',  () => { document.getElementById('pbtn-play').textContent = '⏸'; });
+  audio.addEventListener('pause', () => { document.getElementById('pbtn-play').textContent = '▶'; });
+}
+
+function playTrack(idx) {
+  currentTrackIdx = idx;
+  const track = TRACKS[idx];
+  const audio  = document.getElementById('main-audio');
+  const bar    = document.getElementById('audio-player-bar');
+  audio.src = `audio/${track.s}.mp3`;
+  audio.play().catch(() => {});
+  document.getElementById('pinfo-name').textContent  = track.t;
+  document.getElementById('ptime-cur').textContent   = '0:00';
+  document.getElementById('ptime-tot').textContent   = '—';
+  document.getElementById('pseek-fill').style.width  = '0%';
+  bar.classList.add('visible');
+  document.body.classList.add('has-player');
+  document.querySelectorAll('.track-row').forEach(r => {
+    const ri = +r.dataset.idx;
+    r.classList.toggle('playing', ri === idx);
+    r.querySelector('.track-icon').textContent = ri === idx ? '♪' : '▶';
+  });
+}
+
+function playerToggle() {
+  const audio = document.getElementById('main-audio');
+  if (!audio.src || audio.src === window.location.href) return;
+  audio.paused ? audio.play() : audio.pause();
+}
+
+function playerNext() {
+  let next;
+  if (shuffleMode) {
+    if (!shuffleOrder.length) shuffleOrder = [...Array(TRACKS.length).keys()].sort(() => Math.random() - .5);
+    const i = shuffleOrder.findIndex(x => x === currentTrackIdx);
+    next = shuffleOrder[(i + 1) % shuffleOrder.length];
+  } else {
+    next = (currentTrackIdx + 1) % TRACKS.length;
+  }
+  playTrack(next);
+}
+
+function playerPrev() {
+  const audio = document.getElementById('main-audio');
+  if (audio.currentTime > 3) { audio.currentTime = 0; return; }
+  playTrack((currentTrackIdx - 1 + TRACKS.length) % TRACKS.length);
+}
+
+function playerSeek(e) {
+  const audio = document.getElementById('main-audio');
+  if (!audio.duration) return;
+  const rect = document.getElementById('pseek').getBoundingClientRect();
+  audio.currentTime = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)) * audio.duration;
+}
+
+function playerToggleShuffle() {
+  shuffleMode = !shuffleMode;
+  shuffleOrder = [];
+  const btn = document.getElementById('pbtn-shuffle');
+  btn.classList.toggle('on', shuffleMode);
+  btn.title = shuffleMode ? 'Shuffle: On' : 'Shuffle: Off';
+}
+
 // ── INIT ─────────────────────────────────────────────────────
 window.addEventListener('load', async () => {
   setTimeout(() => {
@@ -880,6 +1191,7 @@ window.addEventListener('load', async () => {
   const data = await loadContent();
   populate(data);
   initGifObserver();
+  initMusicSection();
 });
 </script>
 </body>
