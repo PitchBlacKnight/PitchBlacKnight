@@ -3,1204 +3,1466 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PitchBlacKnight — Mikel Rosenthal</title>
-  <meta name="description" content="PitchBlacKnight — Polymath. Fluxus Artist. iatric_MX. Branding, Design Systems, Voiceover, Music, Art, Spaces, and Daily Wisdom." />
+  <title>PitchBlacKnight — Fluxus Artist · Polymath</title>
+  <meta name="description" content="Mikel Rosenthal is a polymath and Fluxus artist working across music, performance, visual art, design, and voice." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
   <style>
+    /* ============================================================
+       CSS RESET & ROOT VARIABLES
+    ============================================================ */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+
     :root {
-      --black:      #060606;
+      --black: #060606;
       --near-black: #0a0a0a;
-      --surface:    #101010;
-      --surface-2:  #161616;
-      --border:     rgba(255,255,255,0.07);
-      --border-2:   rgba(255,255,255,0.13);
-      --gold:       #e8e8e8;
-      --gold-dim:   rgba(255,255,255,0.38);
-      --gold-light: #f5f5f5;
-      --cream:      #d8d8d8;
-      --muted:      #767676;
-      --white:      #f2f2f2;
+      --surface: #101010;
+      --surface-2: #161616;
+      --border: rgba(255,255,255,0.07);
+      --border-2: rgba(255,255,255,0.13);
+      --white: #f2f2f2;
+      --cream: #d8d8d8;
+      --muted: #767676;
+      --accent: #d4a853;
+      --accent-dim: rgba(212,168,83,0.15);
+      --font-sans: 'Schibsted Grotesk', system-ui, sans-serif;
       --font-serif: 'Alexandria', sans-serif;
-      --font-sans:  'Schibsted Grotesk', system-ui, sans-serif;
-      --font-mono:  'Space Mono', monospace;
+      --font-mono: 'Space Mono', monospace;
     }
-    html { scroll-behavior: smooth; }
-    body { background: var(--black); color: var(--cream); font-family: var(--font-sans); font-size: 16px; line-height: 1.7; overflow-x: hidden; }
-    ::selection { background: var(--gold); color: var(--black); }
-    a { color: var(--gold); text-decoration: none; transition: color .2s; }
-    a:hover { color: var(--gold-light); }
-    ::-webkit-scrollbar { width: 3px; }
-    ::-webkit-scrollbar-track { background: var(--black); }
-    ::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 2px; }
 
-    /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1.1rem 2.5rem;
-      background: rgba(8,8,8,0.95); backdrop-filter: blur(16px);
+    /* ============================================================
+       LOADING SCREEN
+    ============================================================ */
+    #loader {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .loader-bar {
+      width: 120px;
+      height: 1px;
+      background: var(--border-2);
+      position: relative;
+      overflow: hidden;
+    }
+    .loader-bar::after {
+      content: '';
+      position: absolute;
+      left: -100%;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--accent);
+      animation: loaderSweep 1.2s ease forwards;
+    }
+    @keyframes loaderSweep {
+      to { left: 100%; }
+    }
+
+    /* ============================================================
+       NAV
+    ============================================================ */
+    #nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: rgba(6,6,6,0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid var(--border);
+      height: 56px;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
     }
-    .nav-logo { font-family: var(--font-sans); font-size: 0.8rem; font-weight: 700; letter-spacing: 0.25em; color: var(--white); text-transform: uppercase; }
-    .nav-logo span { color: var(--white); }
-    .nav-links { display: flex; gap: 1.5rem; list-style: none; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; }
-    .nav-links a { color: var(--muted); transition: color .2s; }
-    .nav-links a:hover { color: var(--gold); }
-    .nav-badge { display: flex; align-items: center; gap: 0.4rem; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-dim); font-family: var(--font-mono); }
-    .pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+    .nav-inner {
+      width: 100%;
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-family: var(--font-serif);
+      font-size: 0.82rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+    .nav-brand strong { font-weight: 700; }
+    .nav-day-badge {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--accent);
+      letter-spacing: 0.1em;
+      margin-left: 0.4rem;
+      opacity: 0.85;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.65;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; color: var(--accent); }
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--cream);
+      transition: transform 0.3s;
+    }
 
-    /* HERO */
-    .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 7rem 2rem 5rem; position: relative; overflow: hidden; background: var(--black); }
-    .hero-video { display: none; }
-    .hero-obj { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: clamp(280px, 45vw, 600px); height: auto; opacity: 0.22; z-index: 0; pointer-events: none; filter: blur(0.5px); mix-blend-mode: screen; }
-    .hero::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255,255,255,0.03) 0%, transparent 70%); pointer-events:none; z-index:1; }
-    .hero > *:not(.hero-obj):not(.hero-video) { position:relative; z-index:2; }
-    .hero-eyebrow { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.32em; text-transform: uppercase; color: rgba(255,255,255,0.3); margin-bottom: 2rem; }
-    .hero-title { font-family: var(--font-sans); font-size: clamp(2.8rem,8vw,8rem); font-weight: 700; letter-spacing: 0.08em; line-height: 1; color: var(--white); margin-bottom: 0.5em; text-transform: uppercase; }
-    .hero-title .k { color: var(--white); }
-    .hero-sub { font-family: var(--font-mono); font-size: clamp(0.62rem,1.5vw,0.78rem); font-weight: 400; color: rgba(255,255,255,0.4); margin-bottom: 2.5rem; letter-spacing: 0.3em; text-transform: uppercase; }
-    .hero-tags { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem; margin-bottom: 3rem; max-width: 700px; }
-    .tag { font-size: 0.62rem; letter-spacing: 0.13em; text-transform: uppercase; padding: 0.28rem 0.7rem; border: 1px solid var(--border); color: var(--muted); border-radius: 100px; font-family: var(--font-mono); transition: all .2s; cursor: default; }
-    .tag:hover { border-color: var(--gold-dim); color: var(--gold); }
-    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
-    .btn { padding: 0.7rem 1.8rem; font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; border-radius: 2px; transition: all .25s; cursor: pointer; border: none; display: inline-block; }
-    .btn-gold { background: var(--gold); color: var(--black); }
-    .btn-gold:hover { background: var(--gold-light); color: var(--black); }
-    .btn-ghost { background: transparent; color: var(--cream); border: 1px solid var(--border); }
-    .btn-ghost:hover { border-color: var(--gold-dim); color: var(--gold); }
-    .scroll-hint { position:absolute; bottom:2rem; left:50%; transform:translateX(-50%); display:flex; flex-direction:column; align-items:center; gap:.4rem; font-family:var(--font-mono); font-size:.58rem; letter-spacing:.2em; color:var(--border); text-transform:uppercase; }
-    .scroll-line { width:1px; height:36px; background:linear-gradient(to bottom,var(--gold-dim),transparent); animation:scrollLine 2s ease-in-out infinite; }
-    @keyframes scrollLine { 0%{transform:scaleY(0);transform-origin:top} 50%{transform:scaleY(1);transform-origin:top} 51%{transform:scaleY(1);transform-origin:bottom} 100%{transform:scaleY(0);transform-origin:bottom} }
+    /* ============================================================
+       HERO
+    ============================================================ */
+    #hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('images/bg/dark-abstract.gif') center center / cover no-repeat;
+      z-index: 0;
+    }
+    .hero-bg-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 1;
+    }
+    .hero-card {
+      position: relative;
+      z-index: 2;
+      width: clamp(340px, 44vw, 520px);
+      background: var(--black);
+      border: 1px solid var(--border-2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2.5rem 2rem 2rem;
+      gap: 0.6rem;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .hero-subtitle {
+      font-family: var(--font-serif);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-top: 0.15rem;
+    }
+    .hero-object {
+      width: 100%;
+      max-width: 360px;
+      margin-top: 1.2rem;
+      opacity: 0.92;
+    }
+    .scroll-hint {
+      position: absolute;
+      right: 2.5rem;
+      top: 50%;
+      transform: translateY(-50%) rotate(90deg);
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    .scroll-text {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.25);
+    }
+    .scroll-line {
+      width: 36px;
+      height: 1px;
+      background: rgba(255,255,255,0.18);
+    }
 
-    /* SECTION WRAPPER */
-    .section { padding: 5.5rem 2rem; max-width: 1200px; margin: 0 auto; }
-    .section-full { max-width: 100%; border-top: 1px solid var(--border); }
-    .section-inner { max-width: 1200px; margin: 0 auto; padding: 5.5rem 2rem; }
-    .section-label { font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.85rem; display: flex; align-items: center; gap: 0.85rem; }
-    .section-label::after { content:''; flex:1; height:1px; background:var(--border); max-width:60px; }
-    .section-title { font-family: var(--font-sans); font-size: clamp(1.6rem,4vw,2.8rem); font-weight: 700; line-height: 1.1; margin-bottom: 1rem; color: var(--white); letter-spacing: 0.02em; text-transform: uppercase; }
-    .section-desc { color: var(--muted); font-size: 0.95rem; line-height: 1.8; max-width: 580px; margin-bottom: 2.5rem; }
-    hr.div { border: none; border-top: 1px solid var(--border); margin: 0; }
+    /* ============================================================
+       SECTION SHARED
+    ============================================================ */
+    section { padding: 6rem 2rem; }
+    .section-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: var(--white);
+      margin-bottom: 2.5rem;
+    }
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      margin: 0;
+    }
 
-    /* NAV DOTS — CATEGORY STRIP */
-    .cat-strip { display: flex; gap: 0; overflow-x: auto; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--near-black); scrollbar-width: none; }
-    .cat-strip::-webkit-scrollbar { display: none; }
-    .cat-btn { padding: 1rem 1.5rem; font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; cursor: pointer; border-right: 1px solid var(--border); transition: all .2s; background: none; border-top: none; border-left: none; border-bottom: none; }
-    .cat-btn:hover, .cat-btn.active { color: var(--gold); background: rgba(201,168,76,0.04); }
+    /* ============================================================
+       PORTFOLIO / WORK
+    ============================================================ */
+    #work { background: var(--near-black); }
+    .filter-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .filter-btn {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      padding: 0.45rem 0.9rem;
+      border: 1px solid var(--border-2);
+      color: var(--muted);
+      background: transparent;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { color: var(--white); border-color: rgba(255,255,255,0.3); }
+    .filter-btn.active {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .series-strip {
+      display: none;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 2rem;
+    }
+    .series-strip.visible { display: flex; }
+    .series-btn {
+      font-family: var(--font-mono);
+      font-size: 0.54rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: transparent;
+      transition: all 0.2s;
+    }
+    .series-btn:hover { color: var(--white); border-color: var(--border-2); }
+    .series-btn.active {
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .art-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 0.75rem;
+    }
+    .art-card {
+      position: relative;
+      aspect-ratio: 4 / 3;
+      overflow: hidden;
+      background: var(--surface);
+      cursor: pointer;
+    }
+    .art-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .art-card:hover img { transform: scale(1.04); }
+    .art-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0.75rem;
+    }
+    .art-card:hover .art-card-overlay { opacity: 1; }
+    .art-card-series {
+      font-family: var(--font-mono);
+      font-size: 0.48rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.2rem;
+    }
+    .art-card-name {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      color: var(--cream);
+    }
+    .coming-soon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .coming-soon-card {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      padding: 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      text-align: center;
+    }
+    .coming-soon-card .cs-label {
+      font-family: var(--font-mono);
+      font-size: 0.54rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .coming-soon-card .cs-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      font-weight: 300;
+      color: var(--white);
+    }
+    .coming-soon-card .cs-sub {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
 
-    /* PORTFOLIO GRID */
-    .port-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .port-card { background: var(--near-black); position: relative; overflow: hidden; aspect-ratio: 4/3; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.5rem; cursor: pointer; transition: background .25s; }
-    .port-card:hover { background: var(--surface); }
-    .port-card::before { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(8,8,8,0.9) 0%, transparent 60%); z-index:1; }
-    .port-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; opacity:0.5; transition:opacity .3s; }
-    .port-card:hover img { opacity:0.7; }
-    .port-card-content { position:relative; z-index:2; }
-    .port-card-cat { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:0.4rem; }
-    .port-card-title { font-family:var(--font-sans); font-size:0.9rem; font-weight:500; color:var(--white); line-height:1.3; letter-spacing:0.04em; text-transform:uppercase; }
-    .port-card-empty { background:var(--near-black); border:1px dashed var(--border-2); display:flex; flex-direction:column; align-items:center; justify-content:center; aspect-ratio:4/3; gap:0.5rem; }
-    .port-card-empty p { font-family:var(--font-sans); color:var(--muted); font-size:0.78rem; font-weight:300; }
-    .port-card-empty span { font-family:var(--font-mono); font-size:0.58rem; color:var(--border-2); letter-spacing:0.12em; text-transform:uppercase; }
+    /* ============================================================
+       MUSIC
+    ============================================================ */
+    #music { background: var(--black); }
+    .track-list { display: flex; flex-direction: column; }
+    .track-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.85rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: background 0.2s;
+      cursor: pointer;
+    }
+    .track-item:hover { background: rgba(255,255,255,0.02); }
+    .track-item.playing { background: var(--accent-dim); }
+    .track-num {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      color: var(--muted);
+      width: 2rem;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .track-item.playing .track-num { display: none; }
+    .play-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--border-2);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .play-btn:hover, .track-item.playing .play-btn {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .play-icon {
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 5px 0 5px 9px;
+      border-color: transparent transparent transparent var(--white);
+      margin-left: 2px;
+      transition: border-color 0.2s;
+    }
+    .track-item.playing .play-icon { border-color: transparent transparent transparent var(--accent); }
+    .pause-icon {
+      display: none;
+      gap: 3px;
+    }
+    .pause-icon span {
+      display: block;
+      width: 3px;
+      height: 10px;
+      background: var(--accent);
+    }
+    .track-item.playing .play-icon { display: none; }
+    .track-item.playing .pause-icon { display: flex; }
+    .playing-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: none;
+      flex-shrink: 0;
+      animation: pulse 1.2s ease infinite;
+    }
+    .track-item.playing .playing-dot { display: block; }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+    .track-info { flex: 1; min-width: 0; }
+    .track-title {
+      font-family: var(--font-sans);
+      font-size: 0.88rem;
+      font-weight: 400;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .track-item.playing .track-title { color: var(--accent); }
+    .track-bar {
+      width: 120px;
+      height: 3px;
+      background: var(--border-2);
+      border-radius: 2px;
+      flex-shrink: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .track-bar-fill {
+      position: absolute;
+      left: 0; top: 0;
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.25s linear;
+    }
+    .load-more-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2rem;
+      padding: 0.75rem 2rem;
+      border: 1px solid var(--border-2);
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: transparent;
+      transition: all 0.2s;
+      width: fit-content;
+    }
+    .load-more-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+    .load-more-btn.hidden { display: none; }
 
-    /* DAILY PRACTICE */
-    .daily-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 2.5rem; }
-    .daily-card { background: var(--near-black); padding: 2rem; transition: background .2s; }
-    .daily-card:hover { background: var(--surface); }
-    .daily-card-label { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dim); margin-bottom: 0.85rem; }
-    .daily-card-content { font-family: var(--font-sans); font-size: 1rem; line-height: 1.75; color: var(--cream); }
-    .daily-card-content.mono { font-family: var(--font-mono); font-style: normal; font-size: 0.82rem; white-space: pre-line; line-height: 1.9; }
-    .music-placeholder { width:100%; height:100px; background:var(--surface); border:1px dashed var(--border); display:flex; align-items:center; justify-content:center; gap:.75rem; margin-top:1rem; border-radius:2px; }
-    .play-btn { width:32px;height:32px; border:1px solid var(--gold-dim); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--gold-dim); font-size:0.75rem; }
+    /* ============================================================
+       MINI PLAYER (sticky bottom)
+    ============================================================ */
+    #mini-player {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 90;
+      background: rgba(6,6,6,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-top: 1px solid var(--border-2);
+      padding: 0.75rem 2rem;
+      display: none;
+      align-items: center;
+      gap: 1.25rem;
+    }
+    #mini-player.visible { display: flex; }
+    .mini-play-btn {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .mini-track-info { flex: 1; min-width: 0; }
+    .mini-track-title {
+      font-size: 0.78rem;
+      color: var(--white);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .mini-progress {
+      width: 200px;
+      height: 2px;
+      background: var(--border-2);
+      border-radius: 1px;
+      position: relative;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+    .mini-progress-fill {
+      position: absolute;
+      left: 0; top: 0;
+      height: 100%;
+      background: var(--accent);
+      width: 0%;
+      transition: width 0.25s linear;
+      border-radius: 1px;
+    }
+    .mini-close {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--muted);
+      padding: 0.25rem;
+      transition: color 0.2s;
+    }
+    .mini-close:hover { color: var(--white); }
 
-    /* VOICE SECTION */
-    .voice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.25rem; margin-top: 2.5rem; }
-    .voice-card { border: 1px solid var(--border); padding: 1.75rem; position: relative; overflow: hidden; transition: border-color .25s; }
-    .voice-card::before { content:''; position:absolute; top:0;left:0; width:100%; height:2px; background:linear-gradient(90deg,var(--gold),transparent); transform:scaleX(0); transform-origin:left; transition:transform .3s; }
-    .voice-card:hover { border-color: var(--gold-dim); }
-    .voice-card:hover::before { transform: scaleX(1); }
-    .voice-icon { font-size:1.75rem; margin-bottom:0.85rem; filter:grayscale(1) brightness(.7); transition:filter .25s; }
-    .voice-card:hover .voice-icon { filter: none; }
-    .voice-card h3 { font-family:var(--font-sans); font-size:0.88rem; font-weight:600; margin-bottom:0.4rem; color:var(--white); letter-spacing:0.04em; text-transform:uppercase; }
-    .voice-card p { font-size:0.85rem; color:var(--muted); line-height:1.7; }
-    .audio-player { margin-top:1rem; width:100%; }
-    audio { width:100%; height:32px; filter:invert(1) brightness(.7); }
+    /* ============================================================
+       ABOUT
+    ============================================================ */
+    #about { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-bio {
+      font-family: var(--font-sans);
+      font-size: 1.05rem;
+      font-weight: 400;
+      line-height: 1.85;
+      color: var(--cream);
+    }
+    .about-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+    }
+    .about-tag {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.65rem;
+      border: 1px solid var(--border-2);
+      color: var(--muted);
+    }
+    .about-side {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .about-stat {
+      padding: 1.25rem;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+    }
+    .about-stat-num {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 200;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .about-stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 0.35rem;
+    }
 
-    /* THOUGHTS & WISDOM */
-    .thoughts-stack { display: flex; flex-direction: column; gap: 0; margin-top: 2.5rem; }
-    .thought-item { padding: 2rem 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 120px 1fr; gap: 2rem; align-items: start; transition: background .2s; }
-    .thought-item:hover { background: rgba(201,168,76,0.02); }
-    .thought-date { font-family: var(--font-mono); font-size: 0.62rem; color: var(--gold-dim); letter-spacing: 0.1em; padding-top: 0.2rem; }
-    .thought-body h3 { font-family: var(--font-sans); font-size: 1rem; color: var(--white); margin-bottom: 0.5rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
-    .thought-body p { font-size: 0.9rem; color: var(--muted); line-height: 1.75; }
+    /* ============================================================
+       DAILY WISDOM
+    ============================================================ */
+    #daily-wisdom { background: var(--black); }
+    .wisdom-inner {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+    .wisdom-quote {
+      font-family: var(--font-serif);
+      font-size: clamp(1.15rem, 2.2vw, 1.55rem);
+      font-weight: 300;
+      line-height: 1.65;
+      color: var(--white);
+      border-left: 2px solid var(--accent);
+      padding-left: 1.5rem;
+      margin-bottom: 3rem;
+      font-style: italic;
+    }
+    .wisdom-poem {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 2;
+      color: var(--cream);
+      white-space: pre-line;
+      opacity: 0.85;
+    }
+    .wisdom-poem-stanza { margin-bottom: 1.5rem; }
 
-    /* WISDOM */
-    .wisdom-card { border: 1px solid var(--gold-dim); padding: 2.5rem; margin-top: 2rem; background: rgba(201,168,76,0.03); }
-    .wisdom-quote { font-family: var(--font-sans); font-size: clamp(1rem,2.5vw,1.4rem); line-height: 1.65; color: var(--white); margin-bottom: 1.5rem; font-weight: 300; }
-    .wisdom-meta { font-family: var(--font-mono); font-size: 0.62rem; color: var(--gold-dim); letter-spacing: 0.15em; text-transform: uppercase; }
-    .poem-block { background: var(--surface); padding: 2rem; border-left: 2px solid var(--gold-dim); margin-top: 2rem; }
-    .poem-block pre { font-family: var(--font-mono); font-size: 0.85rem; color: var(--cream); line-height: 1.9; white-space: pre-line; }
-    .life-tip { border: 1px solid var(--border); padding: 1.5rem; margin-top: 1.5rem; display: flex; gap: 1rem; align-items: flex-start; }
-    .life-tip-icon { color: var(--gold-dim); font-size: 1.1rem; flex-shrink: 0; }
-    .life-tip p { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    #contact { background: var(--near-black); }
+    .contact-inner {
+      max-width: 600px;
+    }
+    .contact-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      margin-bottom: 2.5rem;
+    }
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding: 0.7rem 1.4rem;
+      border: 1px solid var(--accent);
+      transition: background 0.2s;
+    }
+    .contact-link:hover { background: var(--accent-dim); }
 
-    /* ABOUT */
-    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-    @media(max-width:768px){.about-grid{grid-template-columns:1fr;gap:3rem;}}
-    .about-text p { color:var(--cream); font-size:1rem; line-height:1.85; margin-bottom:1.25rem; }
-    .about-text p:first-of-type { font-family:var(--font-sans); font-size:1.15rem; color:var(--white); font-weight:300; }
-    .traits-list { display: flex; flex-direction: column; }
-    .trait { display:flex; align-items:center; gap:0.85rem; padding:0.75rem 0; border-bottom:1px solid var(--border); font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); font-family:var(--font-mono); transition:color .2s; }
-    .trait:hover { color:var(--gold); }
-    .trait::before { content:'◆'; color:var(--gold-dim); font-size:0.38rem; }
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      background: var(--black);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-brand {
+      font-family: var(--font-serif);
+      font-size: 0.72rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .footer-copy {
+      font-family: var(--font-mono);
+      font-size: 0.54rem;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      opacity: 0.5;
+    }
 
-    /* CONTACT FORM */
-    .offerings-wrap { background:radial-gradient(ellipse at center top, rgba(201,168,76,0.06) 0%, transparent 55%); } /* overridden below */
-    .today-offer { border:1px solid var(--gold-dim); padding:1.75rem; margin-bottom:2.5rem; background:rgba(201,168,76,0.03); }
-    .today-offer-label { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:0.6rem; }
-    .today-offer-text { font-family:var(--font-sans); font-size:1.0rem; font-weight:300; color:var(--gold-light); line-height:1.65; }
-    .form { display: grid; gap: 0.9rem; }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
-    @media(max-width:580px){.form-row{grid-template-columns:1fr;}}
-    .form-group { display: flex; flex-direction: column; gap: 0.35rem; }
-    .form-group label { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--muted); }
-    .form-group input, .form-group select, .form-group textarea { background:var(--surface); border:1px solid var(--border); color:var(--cream); padding:0.7rem 0.9rem; font-family:var(--font-sans); font-size:0.88rem; border-radius:2px; transition:border-color .2s; outline:none; }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:var(--gold-dim); }
-    .form-group textarea { min-height:110px; resize:vertical; }
-    .form-group select option { background:var(--surface); }
-    .form-success { display:none; padding:2rem; border:1px solid var(--gold-dim); background:rgba(201,168,76,0.04); margin-top:1rem; }
-    .form-success p { font-family:var(--font-sans); font-weight:300; color:var(--gold-light); font-size:1.0rem; }
+    /* ============================================================
+       MOBILE NAV MENU
+    ============================================================ */
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      top: 56px;
+      z-index: 99;
+      background: rgba(6,6,6,0.97);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+    #mobile-menu.open { display: flex; }
+    #mobile-menu a {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--cream);
+      opacity: 0.7;
+      transition: opacity 0.2s, color 0.2s;
+    }
+    #mobile-menu a:hover { opacity: 1; color: var(--accent); }
 
-    /* ART GRID */
-    .art-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; margin-top: 2.5rem; }
-    .art-card { aspect-ratio:3/4; background:var(--near-black); border:1px solid var(--border); position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; padding:1.25rem; cursor:pointer; transition:transform .3s, border-color .3s; }
-    .art-card:hover { transform:translateY(-4px); border-color:var(--gold-dim); }
-    .art-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-    .art-card::before { content:''; position:absolute; inset:0; background:linear-gradient(to top, rgba(8,8,8,.85) 0%, transparent 50%); z-index:1; }
-    .art-label { position:relative; z-index:2; }
-    .art-label-name { font-family:var(--font-sans); font-size:0.82rem; font-weight:500; color:var(--cream); letter-spacing:0.04em; }
-    .art-label-meta { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--muted); margin-top:0.2rem; }
-
-    /* ART GIF CARDS */
-    .art-gif-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
-    .art-gif-card { aspect-ratio: 1/1; }
-    .art-gif-card img { opacity: 0.9; transition: opacity .3s; }
-    .art-gif-card:hover img { opacity: 1; }
-    .series-strip { display: flex; gap: 0; overflow-x: auto; border-bottom: 1px solid var(--border); background: var(--surface); scrollbar-width: none; }
-    .series-strip::-webkit-scrollbar { display: none; }
-    .series-btn { padding: 0.65rem 1.2rem; font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); white-space: nowrap; cursor: pointer; border-right: 1px solid var(--border); transition: all .2s; background: none; border-top: none; border-left: none; border-bottom: 2px solid transparent; }
-    .series-btn:hover, .series-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
-
-    /* SHOP BANNER */
-    .shop-banner { border:1px solid var(--border); padding:2.5rem; display:flex; justify-content:space-between; align-items:center; gap:2rem; flex-wrap:wrap; margin-top:2.5rem; background:var(--near-black); }
-    .shop-banner h3 { font-family:var(--font-sans); font-size:1.2rem; font-weight:700; color:var(--white); letter-spacing:0.04em; text-transform:uppercase; }
-    .shop-banner p { color:var(--muted); font-size:0.88rem; margin-top:0.4rem; }
-
-    /* PROFESSIONAL SECTION */
-    .pro-section { border-top: 3px solid var(--gold-dim); background: var(--surface-2); }
-
-    /* ANIMATED SECTION BACKGROUNDS */
-    .voice-section-wrap { position:relative; overflow:hidden; }
-    .voice-section-wrap::before { content:''; position:absolute; inset:0; background-image:url('images/bg/dark-abstract.gif'); background-size:cover; background-position:center; opacity:0.07; z-index:0; }
-    .voice-section-wrap > * { position:relative; z-index:1; }
-
-    /* CONTACT SECTION GLOW */
-    .offerings-wrap { background:radial-gradient(ellipse at center top, rgba(201,168,76,0.09) 0%, rgba(8,8,8,0) 60%), radial-gradient(ellipse at bottom right, rgba(201,168,76,0.05) 0%, transparent 50%); }
-
-    /* WISDOM SECTION BG */
-    .wisdom-section-bg { background: linear-gradient(135deg, var(--near-black) 0%, var(--surface) 50%, var(--near-black) 100%); border-top: 1px solid var(--border); }
-    .pro-badge { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--black); background:var(--gold-dim); padding:0.22rem 0.65rem; border-radius:2px; }
-    .pro-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); margin-top:2rem; }
-    .pro-card { background:var(--surface-2); padding:2rem; transition:background .2s; }
-    .pro-card:hover { background:var(--surface); }
-    .pro-card-client { font-family:var(--font-mono); font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:0.4rem; }
-    .pro-card h3 { font-family:var(--font-sans); font-size:0.9rem; font-weight:600; color:var(--white); margin-bottom:0.4rem; letter-spacing:0.03em; text-transform:uppercase; }
-    .pro-card p { font-size:0.84rem; color:var(--muted); line-height:1.65; margin-bottom:0.85rem; }
-    .pro-tags { display:flex; flex-wrap:wrap; gap:0.3rem; }
-    .pro-tag { font-size:0.58rem; letter-spacing:0.1em; text-transform:uppercase; padding:0.18rem 0.45rem; border:1px solid var(--border); color:var(--muted); font-family:var(--font-mono); border-radius:2px; }
-
-    /* FOOTER */
-    footer { background:var(--near-black); border-top:1px solid var(--border); padding:3rem 2rem; }
-    .footer-inner { max-width:1200px; margin:0 auto; display:flex; flex-direction:column; align-items:center; gap:1.25rem; text-align:center; }
-    .footer-logo { font-family:var(--font-sans); font-size:0.72rem; font-weight:700; letter-spacing:0.28em; color:var(--white); text-transform:uppercase; }
-    .footer-links { display:flex; gap:1.5rem; list-style:none; font-size:0.65rem; letter-spacing:0.14em; text-transform:uppercase; flex-wrap:wrap; justify-content:center; }
-    .footer-links a { color:var(--muted); }
-    .footer-links a:hover { color:var(--gold); }
-    .footer-copy { font-family:var(--font-mono); font-size:0.58rem; color:var(--border); letter-spacing:0.1em; }
-
-    /* MUSIC SECTION */
-    .music-section-wrap { background: linear-gradient(180deg, var(--near-black) 0%, var(--surface) 100%); }
-    .music-search-wrap { display:flex; align-items:center; gap:1rem; margin-bottom:1.5rem; padding-bottom:1.25rem; border-bottom:1px solid var(--border); }
-    .music-search { flex:1; background:var(--surface); border:1px solid var(--border); color:var(--cream); padding:0.65rem 1rem; font-family:var(--font-mono); font-size:0.78rem; border-radius:2px; outline:none; transition:border-color .2s; }
-    .music-search:focus { border-color:var(--gold-dim); }
-    .music-search::placeholder { color:var(--muted); opacity:.55; }
-    .music-count { font-family:var(--font-mono); font-size:0.6rem; color:var(--muted); letter-spacing:0.12em; text-transform:uppercase; white-space:nowrap; }
-    .track-list { display:flex; flex-direction:column; }
-    .track-year-header { font-family:var(--font-mono); font-size:0.56rem; letter-spacing:0.26em; text-transform:uppercase; color:var(--gold-dim); padding:1.2rem 0 0.5rem; margin-top:0.5rem; border-top:1px solid var(--border); }
-    .track-year-first { border-top:none !important; margin-top:0 !important; padding-top:0 !important; }
-    .track-row { display:flex; align-items:center; gap:0.85rem; padding:0.65rem 0.75rem; cursor:pointer; transition:background .15s; border-bottom:1px solid rgba(34,34,34,0.4); border-left:2px solid transparent; }
-    .track-row:hover { background:var(--surface); }
-    .track-row.playing { background:rgba(201,168,76,0.06); border-left-color:var(--gold); }
-    .track-num { font-family:var(--font-mono); font-size:0.56rem; color:var(--border-2); min-width:1.8em; text-align:right; flex-shrink:0; }
-    .track-icon { width:22px; height:22px; border:1px solid var(--border); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:0.5rem; color:var(--muted); flex-shrink:0; transition:all .15s; }
-    .track-row:hover .track-icon { border-color:var(--gold-dim); color:var(--gold); }
-    .track-row.playing .track-icon { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,0.12); }
-    .track-title { flex:1; font-size:0.88rem; color:var(--cream); }
-    .track-row.playing .track-title { color:var(--gold-light); }
-    .track-meta { display:flex; align-items:center; gap:0.6rem; flex-shrink:0; }
-    .track-date-label { font-family:var(--font-mono); font-size:0.56rem; color:var(--muted); }
-    .track-new { font-family:var(--font-mono); font-size:0.48rem; letter-spacing:0.14em; text-transform:uppercase; color:var(--black); background:var(--gold); padding:0.1rem 0.35rem; border-radius:1px; font-weight:600; }
-    .track-dur { font-family:var(--font-mono); font-size:0.56rem; color:var(--border-2); min-width:3em; text-align:right; }
-    /* STICKY AUDIO PLAYER */
-    .audio-player-bar { position:fixed; bottom:0; left:0; right:0; z-index:300; background:rgba(8,8,8,0.97); backdrop-filter:blur(24px); border-top:1px solid var(--border); padding:0.65rem 2rem; display:none; align-items:center; gap:1.5rem; }
-    .audio-player-bar.visible { display:flex; }
-    .pbtn-group { display:flex; align-items:center; gap:0.6rem; flex-shrink:0; }
-    .pbtn { background:none; border:1px solid var(--border); color:var(--muted); width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:0.5rem; transition:all .18s; flex-shrink:0; }
-    .pbtn:hover { border-color:var(--gold-dim); color:var(--gold); }
-    .pbtn-main { width:34px; height:34px; border-color:var(--gold-dim); color:var(--gold); font-size:0.68rem; }
-    .pbtn-main:hover { background:var(--gold); color:var(--black); border-color:var(--gold); }
-    .pinfo { flex:0 0 200px; min-width:0; }
-    .pinfo-label { font-family:var(--font-mono); font-size:0.5rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--gold-dim); margin-bottom:0.15rem; }
-    .pinfo-name { font-size:0.82rem; color:var(--cream); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .ptime { font-family:var(--font-mono); font-size:0.56rem; color:var(--muted); white-space:nowrap; flex-shrink:0; }
-    .pseek { flex:1; height:3px; background:var(--surface-2); border-radius:2px; cursor:pointer; position:relative; min-width:60px; }
-    .pseek-fill { height:100%; background:var(--gold-dim); border-radius:2px; width:0%; pointer-events:none; transition:width .1s linear; }
-    .pseek:hover .pseek-fill { background:var(--gold); }
-    .pbtn-shuffle { background:none; border:none; color:var(--muted); cursor:pointer; font-size:0.7rem; padding:0.25rem; transition:color .2s; flex-shrink:0; }
-    .pbtn-shuffle.on { color:var(--gold); }
-    @media(max-width:640px){ .audio-player-bar{padding:.5rem 1rem;gap:.6rem} .pinfo{display:none} .track-date-label{display:none} }
-    body.has-player { padding-bottom:64px; }
-
-    /* LOADING */
-    #loading { position:fixed; inset:0; background:var(--black); display:flex; align-items:center; justify-content:center; z-index:9999; transition:opacity .6s; }
-    .loader-text { font-family:var(--font-sans); font-size:0.72rem; font-weight:700; letter-spacing:0.38em; color:var(--white); text-transform:uppercase; animation:flicker 2s infinite; }
-    @keyframes flicker { 0%,100%{opacity:1} 50%{opacity:.3} }
-
-    @media(max-width:768px){
-      nav { padding:1rem 1.25rem; }
-      .nav-links { display:none; }
-      .section { padding:4rem 1.25rem; }
-      .section-inner { padding:4rem 1.25rem; }
-      .daily-grid { grid-template-columns:1fr; }
-      .thought-item { grid-template-columns:1fr; gap:0.5rem; }
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 768px) {
+      section { padding: 4rem 1.25rem; }
+      #nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .scroll-hint { display: none; }
+      .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-inner { flex-direction: column; gap: 0.75rem; text-align: center; }
+      .art-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 0.5rem; }
+      .track-bar { display: none; }
+      .mini-progress { width: 100px; }
+    }
+    @media (max-width: 480px) {
+      .hero-card { padding: 1.75rem 1.25rem 1.5rem; }
+      .art-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
 </head>
 <body>
 
-<div id="loading"><p class="loader-text">PitchBlacKnight</p></div>
-
-<!-- NAV -->
-<nav>
-  <div class="nav-logo">PITCHBLACKNIGHT</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#portfolio">Work</a></li>
-    <li><a href="#music">Music</a></li>
-    <li><a href="#wisdom">Daily Wisdom</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="nav-badge"><span class="pulse"></span><span id="nav-date">Daily Practice</span></div>
-</nav>
-
-<!-- HERO -->
-<header class="hero">
-  <img class="hero-obj" src="images/hero/hero-object.png" alt="" aria-hidden="true" />
-  <p class="hero-eyebrow">pitchblacknight.com · Updated Daily</p>
-  <h1 class="hero-title">PITCHBLACKNIGHT</h1>
-  <p class="hero-sub">FLUXUS ARTIST &nbsp;·&nbsp; POLYMATH &nbsp;·&nbsp; POLYGLOT</p>
-  <div class="hero-tags" id="hero-tags"></div>
-  <div class="hero-cta">
-    <a href="#wisdom" class="btn btn-gold">Today's Wisdom</a>
-    <a href="#contact" class="btn btn-ghost">Request Something Free</a>
-  </div>
-  <div class="scroll-hint"><div class="scroll-line"></div><span>Scroll</span></div>
-</header>
-
-<hr class="div" />
-
-<!-- CATEGORY NAV STRIP -->
-<div class="cat-strip">
-  <button class="cat-btn active" onclick="filterPortfolio('all')">All Work</button>
-  <button class="cat-btn" onclick="filterPortfolio('branding')">Branding</button>
-  <button class="cat-btn" onclick="filterPortfolio('design-systems')">Design Systems</button>
-  <button class="cat-btn" onclick="filterPortfolio('website-design')">Website Design</button>
-  <button class="cat-btn" onclick="filterPortfolio('pro-optimization')">Professional Optimizations</button>
-  <button class="cat-btn" onclick="filterPortfolio('music')">Made Music</button>
-  <button class="cat-btn" onclick="filterPortfolio('art')">Made Art</button>
-  <button class="cat-btn" onclick="filterPortfolio('spaces')">Made Spaces</button>
-  <button class="cat-btn" onclick="filterPortfolio('voiceover')">Voiceover</button>
-</div>
-
-<!-- SERIES SUB-FILTER (shown only when Made Art is active) -->
-<div class="series-strip" id="series-strip" style="display:none">
-  <button class="series-btn active" onclick="filterSeries('all')">All Series</button>
-  <button class="series-btn" onclick="filterSeries('blk')">Black</button>
-  <button class="series-btn" onclick="filterSeries('clf')">Colorful</button>
-  <button class="series-btn" onclick="filterSeries('drk')">Dark</button>
-  <button class="series-btn" onclick="filterSeries('fav')">Favorites</button>
-  <button class="series-btn" onclick="filterSeries('lgt')">Light</button>
-</div>
-
-<!-- PORTFOLIO -->
-<section class="section" id="portfolio">
-  <div class="section-label">Portfolio</div>
-  <h2 class="section-title">The Work</h2>
-  <p class="section-desc">Branding, design systems, websites, voice performance, music, art, and spaces — all made by one person, for different reasons, with equal care.</p>
-  <div class="port-grid art-gif-grid" id="port-grid">
-    <!-- Placeholder cards for other categories -->
-    <div class="port-card-empty" data-cat="branding"><p>Branding work coming soon</p><span>Drop images into 00 Website Content / 01 Branding</span></div>
-    <div class="port-card-empty" data-cat="design-systems"><p>Design Systems coming soon</p><span>Drop images into 00 Website Content / 02 Design Systems</span></div>
-    <div class="port-card-empty" data-cat="website-design"><p>Website Design coming soon</p><span>Drop images into 00 Website Content / 04 Website Design</span></div>
-    <div class="port-card-empty" data-cat="spaces"><p>Made Spaces coming soon</p><span>Drop images into 00 Website Content / 08 Made Spaces</span></div>
-    <!-- Made Art — 172 Animated GIFs -->
-    <div class="port-card art-gif-card" data-cat="art" data-series="blk"><img src="images/art/BLK0033.gif" alt="BLK0033" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Black Series</div><div class="port-card-title">BLK0033</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0017.gif" alt="CLF0017" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0017</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0044.gif" alt="CLF0044" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0044</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0055.gif" alt="CLF0055" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0055</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0058.gif" alt="CLF0058" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0058</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0110.gif" alt="CLF0110" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0110</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0127.gif" alt="CLF0127" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0127</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0174.gif" alt="CLF0174" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0174</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0188.gif" alt="CLF0188" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0188</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0193.gif" alt="CLF0193" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0193</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0199.gif" alt="CLF0199" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0199</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0256.gif" alt="CLF0256" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0256</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0305.gif" alt="CLF0305" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0305</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0327.gif" alt="CLF0327" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0327</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0345.gif" alt="CLF0345" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0345</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0382.gif" alt="CLF0382" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0382</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0386.gif" alt="CLF0386" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0386</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0388.gif" alt="CLF0388" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0388</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0394.gif" alt="CLF0394" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0394</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="clf"><img src="images/art/CLF0414.gif" alt="CLF0414" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Colorful Series</div><div class="port-card-title">CLF0414</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0011.gif" alt="DRK0011" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0011</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0016.gif" alt="DRK0016" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0016</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0019.gif" alt="DRK0019" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0019</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0036.gif" alt="DRK0036" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0036</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0037.gif" alt="DRK0037" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0037</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0039.gif" alt="DRK0039" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0039</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0044.gif" alt="DRK0044" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0044</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0053.gif" alt="DRK0053" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0053</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0064.gif" alt="DRK0064" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0064</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0065.gif" alt="DRK0065" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0065</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0082.gif" alt="DRK0082" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0082</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0084.gif" alt="DRK0084" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0084</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0086.gif" alt="DRK0086" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0086</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0091.gif" alt="DRK0091" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0091</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0092.gif" alt="DRK0092" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0092</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0094.gif" alt="DRK0094" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0094</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0099.gif" alt="DRK0099" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0099</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0102.gif" alt="DRK0102" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0102</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0103.gif" alt="DRK0103" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0103</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0113.gif" alt="DRK0113" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0113</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0115.gif" alt="DRK0115" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0115</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0122.gif" alt="DRK0122" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0122</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0129.gif" alt="DRK0129" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0129</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0131.gif" alt="DRK0131" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0131</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0135.gif" alt="DRK0135" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0135</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0145.gif" alt="DRK0145" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0145</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0148.gif" alt="DRK0148" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0148</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0153.gif" alt="DRK0153" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0153</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0158.gif" alt="DRK0158" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0158</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0159.gif" alt="DRK0159" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0159</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0175.gif" alt="DRK0175" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0175</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0189.gif" alt="DRK0189" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0189</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0192.gif" alt="DRK0192" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0192</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0194.gif" alt="DRK0194" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0194</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0197.gif" alt="DRK0197" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0197</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0199.gif" alt="DRK0199" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0199</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0202.gif" alt="DRK0202" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0202</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0207.gif" alt="DRK0207" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0207</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0213.gif" alt="DRK0213" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0213</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0219.gif" alt="DRK0219" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0219</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0223.gif" alt="DRK0223" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0223</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0230.gif" alt="DRK0230" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0230</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0237.gif" alt="DRK0237" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0237</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0250.gif" alt="DRK0250" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0250</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0251.gif" alt="DRK0251" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0251</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0255.gif" alt="DRK0255" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0255</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0256.gif" alt="DRK0256" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0256</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0260.gif" alt="DRK0260" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0260</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0261.gif" alt="DRK0261" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0261</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0263.gif" alt="DRK0263" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0263</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0267.gif" alt="DRK0267" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0267</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0269.gif" alt="DRK0269" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0269</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0281.gif" alt="DRK0281" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0281</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0283.gif" alt="DRK0283" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0283</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0284.gif" alt="DRK0284" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0284</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0291.gif" alt="DRK0291" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0291</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0296.gif" alt="DRK0296" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0296</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0302.gif" alt="DRK0302" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0302</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0308.gif" alt="DRK0308" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0308</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0310.gif" alt="DRK0310" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0310</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0311.gif" alt="DRK0311" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0311</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0312.gif" alt="DRK0312" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0312</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0320.gif" alt="DRK0320" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0320</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0321.gif" alt="DRK0321" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0321</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0330.gif" alt="DRK0330" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0330</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0338.gif" alt="DRK0338" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0338</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0342.gif" alt="DRK0342" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0342</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0349.gif" alt="DRK0349" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0349</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0352.gif" alt="DRK0352" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0352</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0366.gif" alt="DRK0366" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0366</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0368.gif" alt="DRK0368" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0368</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0370.gif" alt="DRK0370" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0370</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0375.gif" alt="DRK0375" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0375</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0376.gif" alt="DRK0376" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0376</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0389.gif" alt="DRK0389" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0389</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0391.gif" alt="DRK0391" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0391</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0394.gif" alt="DRK0394" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0394</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0396.gif" alt="DRK0396" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0396</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0399.gif" alt="DRK0399" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0399</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0403.gif" alt="DRK0403" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0403</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0405.gif" alt="DRK0405" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0405</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0410.gif" alt="DRK0410" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0410</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0412.gif" alt="DRK0412" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0412</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="drk"><img src="images/art/DRK0414.gif" alt="DRK0414" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Dark Series</div><div class="port-card-title">DRK0414</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0002.gif" alt="FAV0002" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0002</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0007.gif" alt="FAV0007" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0007</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0009.gif" alt="FAV0009" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0009</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0016.gif" alt="FAV0016" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0016</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0017.gif" alt="FAV0017" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0017</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0020.gif" alt="FAV0020" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0020</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0021.gif" alt="FAV0021" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0021</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0022.gif" alt="FAV0022" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0022</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0023.gif" alt="FAV0023" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0023</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0024.gif" alt="FAV0024" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0024</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0026.gif" alt="FAV0026" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0026</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0027.gif" alt="FAV0027" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0027</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0029.gif" alt="FAV0029" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0029</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0031.gif" alt="FAV0031" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0031</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0034.gif" alt="FAV0034" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0034</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0036.gif" alt="FAV0036" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0036</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0040.gif" alt="FAV0040" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0040</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0044.gif" alt="FAV0044" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0044</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0046.gif" alt="FAV0046" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0046</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0049.gif" alt="FAV0049" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0049</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0051.gif" alt="FAV0051" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0051</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0055.gif" alt="FAV0055" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0055</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0056.gif" alt="FAV0056" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0056</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0057.gif" alt="FAV0057" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0057</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0063.gif" alt="FAV0063" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0063</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0068.gif" alt="FAV0068" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0068</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0069.gif" alt="FAV0069" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0069</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0070.gif" alt="FAV0070" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0070</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0072.gif" alt="FAV0072" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0072</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0073.gif" alt="FAV0073" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0073</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0076.gif" alt="FAV0076" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0076</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0077.gif" alt="FAV0077" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0077</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0079.gif" alt="FAV0079" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0079</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0080.gif" alt="FAV0080" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0080</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0081.gif" alt="FAV0081" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0081</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0084.gif" alt="FAV0084" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0084</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0086.gif" alt="FAV0086" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0086</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0087.gif" alt="FAV0087" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0087</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0089.gif" alt="FAV0089" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0089</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0090.gif" alt="FAV0090" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0090</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="fav"><img src="images/art/FAV0091.gif" alt="FAV0091" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Favorites</div><div class="port-card-title">FAV0091</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0011.gif" alt="LGT0011" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0011</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0014.gif" alt="LGT0014" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0014</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0018.gif" alt="LGT0018" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0018</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0022.gif" alt="LGT0022" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0022</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0032.gif" alt="LGT0032" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0032</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0033.gif" alt="LGT0033" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0033</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0034.gif" alt="LGT0034" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0034</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0115.gif" alt="LGT0115" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0115</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0120.gif" alt="LGT0120" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0120</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0133.gif" alt="LGT0133" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0133</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0134.gif" alt="LGT0134" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0134</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0140.gif" alt="LGT0140" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0140</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0143.gif" alt="LGT0143" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0143</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0146.gif" alt="LGT0146" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0146</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0148.gif" alt="LGT0148" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0148</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0155.gif" alt="LGT0155" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0155</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0160.gif" alt="LGT0160" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0160</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0161.gif" alt="LGT0161" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0161</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0162.gif" alt="LGT0162" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0162</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0166.gif" alt="LGT0166" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0166</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0172.gif" alt="LGT0172" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0172</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0173.gif" alt="LGT0173" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0173</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0179.gif" alt="LGT0179" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0179</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0182.gif" alt="LGT0182" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0182</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="lgt"><img src="images/art/LGT0187.gif" alt="LGT0187" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Light Series</div><div class="port-card-title">LGT0187</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="pbk"><img src="images/art/Me Lines.gif" alt="Me Lines" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Personal Work</div><div class="port-card-title">Me Lines</div></div></div>
-    <div class="port-card art-gif-card" data-cat="art" data-series="pbk"><img src="images/art/giphyeye.gif" alt="giphyeye" loading="lazy" /><div class="port-card-content"><div class="port-card-cat">Made Art · Personal Work</div><div class="port-card-title">giphyeye</div></div></div>
-  </div>
-</section>
-
-<hr class="div" />
-
-<!-- VOICEOVER -->
-<div class="section-full voice-section-wrap" id="voice">
-  <div class="section-inner">
-    <div class="section-label">Sound & Voice</div>
-    <h2 class="section-title">The Voice is the Instrument</h2>
-    <p class="section-desc">One exposure is enough. Give me headphones, let me close my eyes — I'll give you the sound back. Accents, dialects, animals, machines, characters. Usually on the first try.</p>
-    <div class="voice-grid">
-      <div class="voice-card"><div class="voice-icon">🎙️</div><h3>Voiceover & Narration</h3><p>Warm, precise, adaptable. Documentaries, corporate, broadcast, explainer.</p></div>
-      <div class="voice-card"><div class="voice-icon">📖</div><h3>Audiobook Performance</h3><p>Full-cast dramatic readings. Each character a presence, not an affect.</p></div>
-      <div class="voice-card"><div class="voice-icon">🎭</div><h3>Character & Dialect</h3><p>Multiple voices, full dramatic range. Animation, games, interactive fiction.</p></div>
-      <div class="voice-card"><div class="voice-icon">🌍</div><h3>Phonetic Mimicry</h3><p>Accents absorbed from a single exposure. Languages acquired at speed — authentic on arrival.</p></div>
-      <div class="voice-card"><div class="voice-icon">🐦</div><h3>Sound Mimicry</h3><p>Bird calls, animals, mechanical textures — recreated live or in studio. One listen. One take.</p></div>
-      <div class="voice-card"><div class="voice-icon">🎵</div><h3>iatric_MX</h3><p>Daily music made while working, recorded because it was too good to lose. One mix a day.</p></div>
+  <!-- ============================================================
+       LOADING SCREEN
+  ============================================================ -->
+  <div id="loader" role="status" aria-label="Loading">
+    <div class="loader-logo">
+      <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+        <circle cx="13" cy="13" r="12" stroke="white" stroke-width="0.75" opacity="0.6"/>
+        <path d="M13 3C13 3 20 8.5 20 13C20 17.5 13 23 13 23C13 23 7 18 5.5 13C4 8 13 3 13 3Z" fill="white" opacity="0.85"/>
+      </svg>
+      PITCH<strong>BLACK</strong>NIGHT
     </div>
+    <div class="loader-bar"></div>
   </div>
-</div>
 
-<hr class="div" />
-
-<!-- MUSIC -->
-<div class="section-full music-section-wrap" id="music">
-  <div class="section-inner">
-    <div class="section-label">iatric_MX · Made Music</div>
-    <h2 class="section-title">85 Tracks — 2016 to Now</h2>
-    <p class="section-desc">Music made in the middle of everything else. Recorded because it was too good to lose. All of it. Always here.</p>
-    <div class="music-search-wrap">
-      <input type="text" class="music-search" id="music-search" placeholder="Search tracks..." oninput="filterTracks(this.value)" autocomplete="off" spellcheck="false" />
-      <span class="music-count" id="music-count">85 tracks</span>
+  <!-- ============================================================
+       NAV
+  ============================================================ -->
+  <nav id="nav" role="navigation" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#hero" class="nav-brand" aria-label="PitchBlacKnight home">
+        <svg width="26" height="26" viewBox="0 0 26 26" fill="none" aria-hidden="true">
+          <circle cx="13" cy="13" r="12" stroke="white" stroke-width="0.75" opacity="0.6"/>
+          <path d="M13 3C13 3 20 8.5 20 13C20 17.5 13 23 13 23C13 23 7 18 5.5 13C4 8 13 3 13 3Z" fill="white" opacity="0.85"/>
+        </svg>
+        PITCH<strong>BLACK</strong>NIGHT
+        <span class="nav-day-badge" id="day-badge" aria-live="polite"></span>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="#about">About</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#music">Music</a></li>
+        <li><a href="#daily-wisdom">Daily Wisdom</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
     </div>
-    <div class="track-list" id="track-list"></div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" role="dialog" aria-label="Navigation menu" aria-modal="true">
+    <a href="#about" class="mobile-nav-link">About</a>
+    <a href="#work" class="mobile-nav-link">Work</a>
+    <a href="#music" class="mobile-nav-link">Music</a>
+    <a href="#daily-wisdom" class="mobile-nav-link">Daily Wisdom</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
   </div>
-</div>
 
-<hr class="div" />
+  <!-- ============================================================
+       HERO
+  ============================================================ -->
+  <section id="hero" aria-label="Hero">
+    <div class="hero-bg" role="presentation" aria-hidden="true"></div>
+    <div class="hero-bg-overlay" aria-hidden="true"></div>
+    <div class="hero-card">
+      <p class="hero-eyebrow">PITCHBLACKNIGHT</p>
+      <p class="hero-subtitle">FLUXUS ARTIST · POLYMATH</p>
+      <img
+        src="images/hero/hero-object.png"
+        alt="3D sculptural yin-yang form — signature artwork of PitchBlacKnight"
+        class="hero-object"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </div>
+    <div class="scroll-hint" aria-hidden="true">
+      <span class="scroll-text">SCROLL TO EXPLORE</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
 
-<!-- DAILY PRACTICE -->
-<section class="section" id="daily">
-  <div class="section-label">The Daily Practice</div>
-  <h2 class="section-title" id="daily-title">Today</h2>
-  <div class="daily-grid" id="daily-grid"></div>
-</section>
+  <!-- ============================================================
+       WORK / PORTFOLIO
+  ============================================================ -->
+  <section id="work" aria-labelledby="work-title">
+    <div class="section-inner">
+      <p class="section-label">Portfolio</p>
+      <h2 class="section-title" id="work-title">Selected Work</h2>
 
-<hr class="div" />
+      <!-- Primary category filter -->
+      <div class="filter-strip" role="group" aria-label="Portfolio categories">
+        <button class="filter-btn active" data-cat="all">All Work</button>
+        <button class="filter-btn" data-cat="branding">Branding</button>
+        <button class="filter-btn" data-cat="design-systems">Design Systems</button>
+        <button class="filter-btn" data-cat="website-design">Website Design</button>
+        <button class="filter-btn" data-cat="pro-optimizations">Professional Optimizations</button>
+        <button class="filter-btn" data-cat="made-music">Made Music</button>
+        <button class="filter-btn" data-cat="made-art">Made Art</button>
+        <button class="filter-btn" data-cat="made-spaces">Made Spaces</button>
+        <button class="filter-btn" data-cat="voiceover">Voiceover</button>
+      </div>
 
-<!-- MY THOUGHTS -->
-<section class="section" id="thoughts">
-  <div class="section-label">My Thoughts</div>
-  <h2 class="section-title">Perspectives</h2>
-  <p class="section-desc">One entry a day. What I noticed, what I learned, what changed.</p>
-  <div class="thoughts-stack" id="thoughts-stack">
-    <div class="thought-item">
-      <div class="thought-date">Feb 23 · 2026</div>
-      <div class="thought-body">
-        <h3>The Thaw</h3>
-        <p>I've had this growing realization that a lot of my life was spent dimming myself down. What's been happening recently feels like a thaw — a warming up of something frozen in place for a long time. I'm not trying to build a new identity. I'm remembering one I set down for safekeeping.</p>
+      <!-- Series sub-filter (only shown when Made Art active) -->
+      <div class="series-strip" id="series-strip" role="group" aria-label="Art series filter">
+        <button class="series-btn active" data-series="all">All Series</button>
+        <button class="series-btn" data-series="blk">Black</button>
+        <button class="series-btn" data-series="clf">Colorful</button>
+        <button class="series-btn" data-series="drk">Dark</button>
+        <button class="series-btn" data-series="fav">Favorites</button>
+        <button class="series-btn" data-series="lgt">Light</button>
+      </div>
+
+      <!-- Art GIF grid (shown when "Made Art" or "All Work" active) -->
+      <div class="art-grid" id="art-grid" aria-label="Art GIF gallery"></div>
+
+      <!-- Coming Soon panels (shown for non-art categories) -->
+      <div class="coming-soon-grid" id="coming-soon-grid" style="display:none;" aria-label="Coming soon categories"></div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       MUSIC
+  ============================================================ -->
+  <section id="music" aria-labelledby="music-title">
+    <div class="section-inner">
+      <p class="section-label">Discography</p>
+      <h2 class="section-title" id="music-title">Made Music</h2>
+      <div class="track-list" id="track-list" role="list" aria-label="Track list"></div>
+      <div style="display:flex; justify-content:flex-start;">
+        <button class="load-more-btn" id="load-more-tracks" aria-label="Load 12 more tracks">LOAD 12 MORE</button>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<hr class="div" />
+  <!-- Global audio element -->
+  <audio id="global-audio" preload="none" aria-hidden="true"></audio>
 
-<!-- DAILY WISDOM -->
-<div class="section-full wisdom-section-bg" id="wisdom">
-  <div class="section-inner">
-    <div class="section-label">Daily Wisdom</div>
-    <h2 class="section-title">What I Know Today</h2>
-    <div class="wisdom-card">
-      <div class="wisdom-quote" id="wisdom-quote">Loading today's wisdom...</div>
-      <div class="wisdom-meta" id="wisdom-meta"></div>
-    </div>
-    <div class="poem-block" id="poem-block">
-      <pre id="poem-text">Loading today's poem...</pre>
-    </div>
-    <div class="life-tip">
-      <div class="life-tip-icon">◆</div>
-      <p id="life-tip-text">Loading today's life improvement...</p>
-    </div>
-  </div>
-</div>
-
-<hr class="div" />
-
-<!-- MADE ART -->
-<section class="section" id="art">
-  <div class="section-label">Made Art · Estate Series</div>
-  <h2 class="section-title">Everything Deserves a Second Life</h2>
-  <p class="section-desc">Personal documents from estate sales of the recently deceased — letters, receipts, handwriting no one kept. I keep them. I turn them into multi-panel art series, titled with the names of the people they belonged to.</p>
-  <div class="art-grid" id="art-grid">
-    <div class="port-card-empty" style="aspect-ratio:3/4;">
-      <p>First series in progress</p>
-      <span>Works appear here as completed</span>
-    </div>
-  </div>
-  <div style="margin-top:2rem; padding:1.5rem; border:1px solid var(--border); background:var(--near-black);">
-    <div class="section-label" style="margin-bottom:.5rem;">Studio Space · Coming Soon</div>
-    <p style="font-family:var(--font-serif); font-style:italic; color:var(--cream); font-size:1rem; line-height:1.7;">Joining a local artist loft community — 19 studios, a 10×10 table, work made in public. Visit, buy originals, watch the series grow.</p>
-  </div>
-</section>
-
-<hr class="div" />
-
-<!-- SHOP -->
-<section class="section" id="shop">
-  <div class="section-label">Shop · Digital & Print</div>
-  <h2 class="section-title">Own a Piece</h2>
-  <p class="section-desc">Digital art prints, T-shirts, estate series reproductions. Designed with intent. Available at a fair price.</p>
-  <div class="shop-banner">
-    <div><h3>The Shop is Being Stocked</h3><p>Digital prints, T-shirts, and limited estate series reproductions — arriving soon.</p></div>
-    <a href="#contact" class="btn btn-ghost">Request a Custom Piece</a>
-  </div>
-</section>
-
-<hr class="div" />
-
-<!-- ABOUT -->
-<div class="section-full" id="about" style="background: var(--surface);">
-  <div class="section-inner">
-    <div class="section-label">The Artist</div>
-    <div class="about-grid">
-      <div class="about-text" id="about-text"></div>
-      <div>
-        <div class="section-label" style="margin-bottom:1.25rem;">Disciplines & Abilities</div>
-        <div class="traits-list" id="traits-list"></div>
+  <!-- Sticky mini player -->
+  <div id="mini-player" role="complementary" aria-label="Now playing">
+    <button class="mini-play-btn" id="mini-play-btn" aria-label="Play or pause">
+      <div class="play-icon" id="mini-play-icon"></div>
+      <div class="pause-icon" id="mini-pause-icon" style="display:none;">
+        <span></span><span></span>
       </div>
+    </button>
+    <div class="mini-track-info">
+      <div class="mini-track-title" id="mini-track-title">—</div>
     </div>
+    <div class="mini-progress" id="mini-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+      <div class="mini-progress-fill" id="mini-progress-fill"></div>
+    </div>
+    <button class="mini-close" id="mini-close" aria-label="Close player">✕</button>
   </div>
-</div>
 
-<hr class="div" />
-
-<!-- PROFESSIONAL -->
-<div class="pro-section section-full" id="professional">
-  <div class="section-inner">
-    <div style="display:flex; align-items:center; gap:1rem; margin-bottom:2rem;">
-      <div class="section-label" style="margin-bottom:0;">Professional Work</div>
-      <span class="pro-badge">Senior Designer</span>
-    </div>
-    <h2 class="section-title">UI/UX · Product · Brand · Design Systems</h2>
-    <p class="section-desc">Senior Product and Design Systems Designer. Portfolio organized by client — PDF, imagery, and case studies available on request.</p>
-    <div class="pro-grid" id="pro-grid">
-      <div class="pro-card">
-        <div class="pro-card-client">Client Work</div>
-        <h3>Portfolio Available on Request</h3>
-        <p>Client work is being organized and formatted. Contact below to request the full PDF portfolio or specific case studies.</p>
-        <div class="pro-tags">
-          <span class="pro-tag">UI/UX</span><span class="pro-tag">Design Systems</span>
-          <span class="pro-tag">Branding</span><span class="pro-tag">Visual Design</span>
-          <span class="pro-tag">Product</span>
+  <!-- ============================================================
+       ABOUT
+  ============================================================ -->
+  <section id="about" aria-labelledby="about-title">
+    <div class="section-inner">
+      <p class="section-label">About</p>
+      <h2 class="section-title" id="about-title">Mikel Rosenthal</h2>
+      <div class="about-grid">
+        <div class="about-left">
+          <p class="about-bio">
+            Mikel Rosenthal is a polymath and Fluxus artist working across music, performance, visual art, design, and voice. He makes music while he works, records it by accident, and calls that a method. He is ambidextrous, hyperfantasiac, and can replicate any sound he hears — human, animal, mechanical — usually on the first try.
+          </p>
+          <div class="about-tags" aria-label="Disciplines">
+            <span class="about-tag">Music</span>
+            <span class="about-tag">Performance</span>
+            <span class="about-tag">Visual Art</span>
+            <span class="about-tag">Design</span>
+            <span class="about-tag">Voiceover</span>
+            <span class="about-tag">Fluxus</span>
+            <span class="about-tag">Polymath</span>
+          </div>
+        </div>
+        <div class="about-side">
+          <div class="about-stat">
+            <div class="about-stat-num">85</div>
+            <div class="about-stat-label">Recorded Tracks</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">172</div>
+            <div class="about-stat-label">Animated Artworks</div>
+          </div>
+          <div class="about-stat">
+            <div class="about-stat-num">∞</div>
+            <div class="about-stat-label">Methods in Progress</div>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
+  </section>
 
-<hr class="div" />
-
-<!-- CONTACT / FREE OFFERINGS -->
-<div class="offerings-wrap section-full" id="contact">
-  <div class="section-inner">
-    <div class="section-label">Contact for Request</div>
-    <h2 class="section-title">Ask Me for Something</h2>
-    <p class="section-desc">I can do things for people that might genuinely change something for them. And it costs me almost nothing. So I offer them freely.</p>
-    <div class="today-offer">
-      <div class="today-offer-label">Today's Free Offering</div>
-      <p class="today-offer-text" id="offer-text">Loading...</p>
+  <!-- ============================================================
+       DAILY WISDOM
+  ============================================================ -->
+  <section id="daily-wisdom" aria-labelledby="wisdom-title">
+    <div class="section-inner">
+      <p class="section-label">Daily Wisdom</p>
+      <h2 class="section-title" id="wisdom-title">Today's Transmission</h2>
+      <div class="wisdom-inner">
+        <blockquote class="wisdom-quote">
+          "The most radical act is to be entirely, unapologetically yourself in a world that profits from your self-doubt."
+        </blockquote>
+        <div class="wisdom-poem" aria-label="Poem">
+          <div class="wisdom-poem-stanza">I learned to edit before I spoke<br>to think twice before I felt<br>to fold myself into rooms<br>that were not built for my wingspan.</div>
+          <div class="wisdom-poem-stanza">But compression is not peace.<br>And now the thaw —<br>not explosive, not dramatic,<br>just: a door left open<br>that I forgot I had the key to.</div>
+        </div>
+      </div>
     </div>
-    <form class="form" id="contact-form" onsubmit="handleSubmit(event)">
-      <div class="form-row">
-        <div class="form-group"><label>Your Name</label><input type="text" placeholder="First and last" required /></div>
-        <div class="form-group"><label>Your Email</label><input type="email" id="email" placeholder="so I can reach you" required /></div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+  ============================================================ -->
+  <section id="contact" aria-labelledby="contact-title">
+    <div class="section-inner">
+      <p class="section-label">Contact</p>
+      <h2 class="section-title" id="contact-title">Get In Touch</h2>
+      <div class="contact-inner">
+        <p class="contact-desc">
+          For collaborations, commissions, voiceover work, or to simply say something true — reach out.
+        </p>
+        <a href="mailto:hello@pitchblacknight.com" class="contact-link" aria-label="Send an email">
+          ✉ &nbsp;hello@pitchblacknight.com
+        </a>
       </div>
-      <div class="form-group">
-        <label>What do you need?</label>
-        <select id="req-type" required>
-          <option value="" disabled selected>Choose a category</option>
-          <option value="branding">Branding Review</option>
-          <option value="design-systems">Design Systems Advice</option>
-          <option value="voiceover">Voiceover / Recording</option>
-          <option value="website">Website Design Feedback</option>
-          <option value="optimization">Professional Optimization</option>
-          <option value="music">Music / Audio</option>
-          <option value="art">Artwork / Print</option>
-          <option value="poem">A Poem Written for You</option>
-          <option value="wisdom">Life Guidance / Perspective</option>
-          <option value="other">Something Else Entirely</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label>Tell me about it</label>
-        <textarea id="message" placeholder="Be as specific as you can. The more detail, the better I can help." required></textarea>
-      </div>
-      <div><button type="submit" class="btn btn-gold">Send the Request</button></div>
-    </form>
-    <div class="form-success" id="form-success">
-      <p>Received. I'll be in touch soon.</p>
     </div>
-  </div>
-</div>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div class="footer-logo">PitchBlacKnight</div>
-    <ul class="footer-links">
-      <li><a href="#portfolio">Work</a></li>
-      <li><a href="#voice">Voice</a></li>
-      <li><a href="#daily">Daily</a></li>
-      <li><a href="#thoughts">Thoughts</a></li>
-      <li><a href="#wisdom">Wisdom</a></li>
-      <li><a href="#art">Art</a></li>
-      <li><a href="#music">Music</a></li>
-      <li><a href="#shop">Shop</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-    <p class="footer-copy" id="footer-copy">© 2026 Mikel Rosenthal · pitchblacknight.com</p>
-  </div>
-</footer>
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">PITCH<strong>BLACK</strong>NIGHT</div>
+      <div class="footer-copy">© <span id="footer-year"></span> Mikel Rosenthal. All rights reserved.</div>
+    </div>
+  </footer>
 
-<!-- STICKY AUDIO PLAYER -->
-<div class="audio-player-bar" id="audio-player-bar">
-  <div class="pbtn-group">
-    <button class="pbtn" onclick="playerPrev()" title="Previous">◀</button>
-    <button class="pbtn pbtn-main" id="pbtn-play" onclick="playerToggle()" title="Play/Pause">▶</button>
-    <button class="pbtn" onclick="playerNext()" title="Next">▶▶</button>
-  </div>
-  <div class="pinfo">
-    <div class="pinfo-label">iatric_MX</div>
-    <div class="pinfo-name" id="pinfo-name">Select a track</div>
-  </div>
-  <span class="ptime" id="ptime-cur">0:00</span>
-  <div class="pseek" id="pseek" onclick="playerSeek(event)">
-    <div class="pseek-fill" id="pseek-fill"></div>
-  </div>
-  <span class="ptime" id="ptime-tot">—</span>
-  <button class="pbtn-shuffle" id="pbtn-shuffle" onclick="playerToggleShuffle()" title="Shuffle">⇌</button>
-  <audio id="main-audio" preload="none"></audio>
-</div>
 
-<script>
-// ── CONTENT LOADER ───────────────────────────────────────────
-async function loadContent() {
-  try {
-    const r = await fetch('./content.json');
-    return await r.json();
-  } catch {
-    return {
-      site: { name: "PitchBlacKnight" },
-      daily: {
-        date: "2026-02-23",
-        wisdom: "The most radical act is to be entirely, unapologetically yourself in a world that profits from your self-doubt.",
-        perspective: "Growth is not construction. It is excavation. You are not building something new — you are uncovering what was always there.",
-        journal: "I've had this growing realization that a lot of my life was spent dimming myself down. What's been happening recently feels like a thaw.",
-        poetry: "I learned to edit before I spoke\nto think twice before I felt\nto fold myself into rooms\nthat were not built for my wingspan.\n\nBut compression is not peace.\nAnd now the thaw —\nnot explosive, not dramatic,\njust: a door left open\nthat I forgot I had the key to.",
-        music: { title: "iatric_MX — Session 001", description: "First daily mix.", embed_url: "", platform: "soundcloud" },
-        free_offering: "Today I'm offering: one free voiceover recording for anyone who needs a voice for their project. Just ask.",
-        life_improvement: "Close one tab you've had open for more than a week. The relief is the point."
-      },
-      artist: {
-        bio_short: "Michael Rosenthal is a polymath and Fluxus artist working across music, performance, visual art, design, and voice.",
-        bio_long: "PitchBlacKnight is the singular creative identity of Michael Rosenthal — Senior UI/UX Designer, music producer (iatric_MX), voice performer, Fluxus artist, and estate sale archivist. His practice collapses the boundaries between disciplines the way Fluxus always intended: not as a manifesto, but as a way of breathing. He has been compared to Yoko Ono — not because he seeks comparison, but because he cannot help making everything into art.",
-        traits: ["Polymath","Fluxus Artist","Hyperfantasiac","Ambidextrous","Phonetic Mimic","Sound Mimic — Animal · Human · Mechanical","Language Accelerator","Estate Sale Archivist","Fine Artist","Music Producer — iatric_MX","Voice Performer","Senior UI/UX Designer"]
-      }
-    };
-  }
-}
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* ----------------------------------------------------------
+       1. DAILY THEME
+    ---------------------------------------------------------- */
+    const THEMES = [
+      { day: 'Sunday',    accent: '#d4a853', dim: 'rgba(212,168,83,0.15)' },
+      { day: 'Monday',    accent: '#c5a0f0', dim: 'rgba(197,160,240,0.15)' },
+      { day: 'Tuesday',   accent: '#6db8f5', dim: 'rgba(109,184,245,0.15)' },
+      { day: 'Wednesday', accent: '#f07878', dim: 'rgba(240,120,120,0.15)' },
+      { day: 'Thursday',  accent: '#6de8b4', dim: 'rgba(109,232,180,0.15)' },
+      { day: 'Friday',    accent: '#f0b06d', dim: 'rgba(240,176,109,0.15)' },
+      { day: 'Saturday',  accent: '#b0a0e8', dim: 'rgba(176,160,232,0.15)' },
+    ];
 
-function fmtDate(d) {
-  return new Date(d + 'T12:00:00').toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
-}
+    (function applyTheme() {
+      const today = new Date().getDay();
+      const theme = THEMES[today];
+      const root = document.documentElement;
+      root.style.setProperty('--accent', theme.accent);
+      root.style.setProperty('--accent-dim', theme.dim);
+      const badge = document.getElementById('day-badge');
+      if (badge) badge.textContent = '· ' + theme.day;
+    })();
 
-function populate(data) {
-  const { daily, artist } = data;
+    /* ----------------------------------------------------------
+       2. FOOTER YEAR
+    ---------------------------------------------------------- */
+    const fyEl = document.getElementById('footer-year');
+    if (fyEl) fyEl.textContent = new Date().getFullYear();
 
-  // Nav date
-  document.getElementById('nav-date').textContent = fmtDate(daily.date);
+    /* ----------------------------------------------------------
+       3. LOADER
+    ---------------------------------------------------------- */
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        const loader = document.getElementById('loader');
+        if (loader) loader.classList.add('hidden');
+      }, 900);
+    });
 
-  // Hero tags
-  const tagWrap = document.getElementById('hero-tags');
-  artist.traits.forEach(t => {
-    const s = document.createElement('span');
-    s.className = 'tag'; s.textContent = t;
-    tagWrap.appendChild(s);
-  });
+    /* ----------------------------------------------------------
+       4. NAV — hamburger toggle
+    ---------------------------------------------------------- */
+    (function initNav() {
+      const burger = document.getElementById('hamburger');
+      const menu = document.getElementById('mobile-menu');
+      if (!burger || !menu) return;
 
-  // Daily title
-  document.getElementById('daily-title').textContent = fmtDate(daily.date);
-
-  // Daily grid
-  const dg = document.getElementById('daily-grid');
-  [
-    { label: '🌟 Wisdom of the Day', content: daily.wisdom, mono: false },
-    { label: '🧭 Perspective', content: daily.perspective, mono: false },
-    { label: '📖 Journal Entry', content: daily.journal, mono: false },
-    { label: '🖋 Poetry', content: daily.poetry, mono: true },
-    { label: '💡 Life Improvement', content: daily.life_improvement, mono: false },
-  ].forEach(c => {
-    const div = document.createElement('div');
-    div.className = 'daily-card';
-    div.innerHTML = `<div class="daily-card-label">${c.label}</div><div class="daily-card-content${c.mono?' mono':''}">${c.content}</div>`;
-    dg.appendChild(div);
-  });
-
-  // Music card
-  const mc = document.createElement('div');
-  mc.className = 'daily-card';
-  mc.innerHTML = `<div class="daily-card-label">🎧 iatric_MX — Daily Mix</div>
-    <div class="daily-card-content">${daily.music.title}</div>
-    <p style="font-size:.8rem;color:var(--muted);margin-top:.4rem;">${daily.music.description}</p>
-    ${daily.music.embed_url
-      ? `<iframe style="margin-top:1rem;border:0;width:100%;height:120px;" scrolling="no" frameborder="no" src="${daily.music.embed_url}"></iframe>`
-      : `<div class="music-placeholder"><div class="play-btn">▶</div><p style="font-family:var(--font-mono);font-size:.7rem;color:var(--muted);">Track uploading soon</p></div>`
-    }`;
-  dg.appendChild(mc);
-
-  // Wisdom
-  document.getElementById('wisdom-quote').textContent = daily.wisdom;
-  document.getElementById('wisdom-meta').textContent = fmtDate(daily.date);
-  document.getElementById('poem-text').textContent = daily.poetry;
-  document.getElementById('life-tip-text').textContent = daily.life_improvement;
-
-  // Today's offering
-  document.getElementById('offer-text').textContent = daily.free_offering;
-
-  // About
-  document.getElementById('about-text').innerHTML = `<p>${artist.bio_short}</p><p>${artist.bio_long}</p>`;
-  const tl = document.getElementById('traits-list');
-  artist.traits.forEach(t => {
-    const d = document.createElement('div');
-    d.className = 'trait'; d.textContent = t;
-    tl.appendChild(d);
-  });
-
-  // Footer
-  document.getElementById('footer-copy').textContent = `© ${new Date(daily.date).getFullYear()} Mikel Rosenthal · pitchblacknight.com`;
-}
-
-// ── PORTFOLIO FILTER ─────────────────────────────────────────
-function filterPortfolio(cat) {
-  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  document.querySelectorAll('.port-card[data-cat], .port-card-empty[data-cat]').forEach(c => {
-    c.style.display = (cat === 'all' || c.dataset.cat === cat) ? 'flex' : 'none';
-  });
-  // Show series sub-filter only when Made Art is active
-  const seriesStrip = document.getElementById('series-strip');
-  if (seriesStrip) seriesStrip.style.display = (cat === 'art') ? 'flex' : 'none';
-  if (cat !== 'art') {
-    // Reset series filter when leaving art view
-    document.querySelectorAll('.series-btn').forEach(b => b.classList.remove('active'));
-    const first = document.querySelector('.series-btn');
-    if (first) first.classList.add('active');
-    // Also reset all art cards to visible for next time
-    document.querySelectorAll('.art-gif-card').forEach(c => { c.style.display = ''; });
-  }
-  // kick GIF animation for all visible art cards
-  if (cat === 'art' || cat === 'all') {
-    requestAnimationFrame(() => {
-      document.querySelectorAll('.art-gif-card[style*="flex"] img, .art-gif-card:not([style]) img').forEach(img => {
-        if (img.src) { const s = img.src; img.src = ''; requestAnimationFrame(() => { img.src = s; }); }
+      burger.addEventListener('click', function() {
+        const isOpen = menu.classList.toggle('open');
+        burger.setAttribute('aria-expanded', isOpen);
       });
-    });
-  }
-}
 
-function filterSeries(series) {
-  document.querySelectorAll('.series-btn').forEach(b => b.classList.remove('active'));
-  event.target.classList.add('active');
-  document.querySelectorAll('.art-gif-card').forEach(c => {
-    const show = series === 'all' || c.dataset.series === series;
-    c.style.display = show ? 'flex' : 'none';
-    // re-kick GIF animation for newly revealed cards
-    if (show) {
-      const img = c.querySelector('img');
-      if (img && img.src) {
-        const src = img.src;
-        img.src = '';
-        requestAnimationFrame(() => { img.src = src; });
-      }
+      // Close when a link is clicked
+      menu.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
+          menu.classList.remove('open');
+          burger.setAttribute('aria-expanded', 'false');
+        });
+      });
+    })();
+
+    /* ----------------------------------------------------------
+       5. ART GIFs DATA
+    ---------------------------------------------------------- */
+    const ART_GIFS = [
+      'BLK0033.gif',
+      'CLF0017.gif','CLF0044.gif','CLF0055.gif','CLF0058.gif','CLF0110.gif',
+      'CLF0127.gif','CLF0174.gif','CLF0188.gif','CLF0193.gif','CLF0199.gif',
+      'CLF0256.gif','CLF0305.gif','CLF0327.gif','CLF0345.gif','CLF0382.gif',
+      'CLF0386.gif','CLF0388.gif','CLF0394.gif','CLF0414.gif',
+      'DRK0011.gif','DRK0016.gif','DRK0019.gif','DRK0036.gif','DRK0037.gif',
+      'DRK0039.gif','DRK0044.gif','DRK0053.gif','DRK0064.gif','DRK0065.gif',
+      'DRK0082.gif','DRK0084.gif','DRK0086.gif','DRK0091.gif','DRK0092.gif',
+      'DRK0094.gif','DRK0099.gif','DRK0102.gif','DRK0103.gif','DRK0113.gif',
+      'DRK0115.gif','DRK0122.gif','DRK0129.gif','DRK0131.gif','DRK0135.gif',
+      'DRK0145.gif','DRK0148.gif','DRK0153.gif','DRK0158.gif','DRK0159.gif',
+      'DRK0175.gif','DRK0189.gif','DRK0192.gif','DRK0194.gif','DRK0197.gif',
+      'DRK0199.gif','DRK0202.gif','DRK0207.gif','DRK0213.gif','DRK0219.gif',
+      'DRK0223.gif','DRK0230.gif','DRK0237.gif','DRK0250.gif','DRK0251.gif',
+      'DRK0255.gif','DRK0256.gif','DRK0260.gif','DRK0261.gif','DRK0263.gif',
+      'DRK0267.gif','DRK0269.gif','DRK0281.gif','DRK0283.gif','DRK0284.gif',
+      'DRK0291.gif','DRK0296.gif','DRK0302.gif','DRK0308.gif','DRK0310.gif',
+      'DRK0311.gif','DRK0312.gif','DRK0320.gif','DRK0321.gif','DRK0330.gif',
+      'DRK0338.gif','DRK0342.gif','DRK0349.gif','DRK0352.gif','DRK0366.gif',
+      'DRK0368.gif','DRK0370.gif','DRK0375.gif','DRK0376.gif','DRK0389.gif',
+      'DRK0391.gif','DRK0394.gif','DRK0396.gif','DRK0399.gif','DRK0403.gif',
+      'DRK0405.gif','DRK0410.gif','DRK0412.gif','DRK0414.gif',
+      'FAV0002.gif','FAV0007.gif','FAV0009.gif','FAV0016.gif','FAV0017.gif',
+      'FAV0020.gif','FAV0021.gif','FAV0022.gif','FAV0023.gif','FAV0024.gif',
+      'FAV0026.gif','FAV0027.gif','FAV0029.gif','FAV0031.gif','FAV0034.gif',
+      'FAV0036.gif','FAV0040.gif','FAV0044.gif','FAV0046.gif','FAV0049.gif',
+      'FAV0051.gif','FAV0055.gif','FAV0056.gif','FAV0057.gif','FAV0063.gif',
+      'FAV0068.gif','FAV0069.gif','FAV0070.gif','FAV0072.gif','FAV0073.gif',
+      'FAV0076.gif','FAV0077.gif','FAV0079.gif','FAV0080.gif','FAV0081.gif',
+      'FAV0084.gif','FAV0086.gif','FAV0087.gif','FAV0089.gif','FAV0090.gif',
+      'FAV0091.gif',
+      'LGT0011.gif','LGT0014.gif','LGT0018.gif','LGT0022.gif','LGT0032.gif',
+      'LGT0033.gif','LGT0034.gif','LGT0115.gif','LGT0120.gif','LGT0133.gif',
+      'LGT0134.gif','LGT0140.gif','LGT0143.gif','LGT0146.gif','LGT0148.gif',
+      'LGT0155.gif','LGT0160.gif','LGT0161.gif','LGT0162.gif','LGT0166.gif',
+      'LGT0172.gif','LGT0173.gif','LGT0179.gif','LGT0182.gif','LGT0187.gif',
+      'Me Lines.gif','giphyeye.gif'
+    ];
+
+    // Derive series from filename prefix
+    function getSeriesKey(filename) {
+      const p = filename.slice(0, 3).toUpperCase();
+      if (p === 'BLK') return 'blk';
+      if (p === 'CLF') return 'clf';
+      if (p === 'DRK') return 'drk';
+      if (p === 'FAV') return 'fav';
+      if (p === 'LGT') return 'lgt';
+      return 'other';
     }
-  });
-}
 
-// ── FORM HANDLER ─────────────────────────────────────────────
-function handleSubmit(e) {
-  e.preventDefault();
-  const email = document.getElementById('email').value;
-  const type  = document.getElementById('req-type').value;
-  const msg   = document.getElementById('message').value;
-  const subj  = encodeURIComponent(`PitchBlacKnight Request: ${type}`);
-  const body  = encodeURIComponent(`Type: ${type}\n\n${msg}`);
-  window.location.href = `mailto:mikelrosenthal@gmail.com?subject=${subj}&body=${body}`;
-  document.getElementById('contact-form').style.display = 'none';
-  document.getElementById('form-success').style.display = 'block';
-}
+    const SERIES_LABELS = {
+      blk: 'Black Series',
+      clf: 'Colorful Series',
+      drk: 'Dark Series',
+      fav: 'Favorites',
+      lgt: 'Light Series',
+      other: 'Other'
+    };
 
-// ── GIF ANIMATION FIX ────────────────────────────────────────
-// lazy-loaded GIFs freeze on first frame; this forces them to play
-// when they scroll into view
-function initGifObserver() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        if (img.complete && img.src) {
-          // force GIF to restart animation
-          const src = img.src;
-          img.src = '';
-          requestAnimationFrame(() => { img.src = src; });
-        } else {
-          img.addEventListener('load', () => {
-            const src = img.src;
-            img.src = '';
-            requestAnimationFrame(() => { img.src = src; });
-          }, { once: true });
+    /* ----------------------------------------------------------
+       6. ART GRID RENDER
+    ---------------------------------------------------------- */
+    let currentSeries = 'all';
+
+    function renderArtGrid(seriesFilter) {
+      const grid = document.getElementById('art-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const filtered = seriesFilter === 'all'
+        ? ART_GIFS
+        : ART_GIFS.filter(function(f) { return getSeriesKey(f) === seriesFilter; });
+
+      filtered.forEach(function(filename) {
+        const series = getSeriesKey(filename);
+        const card = document.createElement('div');
+        card.className = 'art-card';
+        card.setAttribute('role', 'img');
+        card.setAttribute('aria-label', filename.replace('.gif', '') + ' — ' + SERIES_LABELS[series]);
+
+        const img = document.createElement('img');
+        img.src = 'images/art/' + filename;
+        img.alt = filename.replace('.gif', '');
+        img.loading = 'lazy';
+        img.decoding = 'async';
+
+        const overlay = document.createElement('div');
+        overlay.className = 'art-card-overlay';
+        overlay.setAttribute('aria-hidden', 'true');
+        overlay.innerHTML =
+          '<div class="art-card-series">' + SERIES_LABELS[series] + '</div>' +
+          '<div class="art-card-name">' + filename.replace('.gif', '') + '</div>';
+
+        card.appendChild(img);
+        card.appendChild(overlay);
+        grid.appendChild(card);
+      });
+    }
+
+    /* ----------------------------------------------------------
+       7. COMING SOON PANELS
+    ---------------------------------------------------------- */
+    const COMING_SOON_CATS = {
+      'branding':            'Branding',
+      'design-systems':      'Design Systems',
+      'website-design':      'Website Design',
+      'pro-optimizations':   'Professional Optimizations',
+      'made-music':          'Made Music',
+      'made-spaces':         'Made Spaces',
+      'voiceover':           'Voiceover'
+    };
+
+    function renderComingSoon(catKey) {
+      const grid = document.getElementById('coming-soon-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      const title = COMING_SOON_CATS[catKey] || catKey;
+      const card = document.createElement('div');
+      card.className = 'coming-soon-card';
+      card.innerHTML =
+        '<div class="cs-label">Coming Soon</div>' +
+        '<div class="cs-title">' + title + '</div>' +
+        '<div class="cs-sub">This section is being assembled. Check back soon.</div>';
+      grid.appendChild(card);
+    }
+
+    /* ----------------------------------------------------------
+       8. PORTFOLIO FILTER LOGIC
+    ---------------------------------------------------------- */
+    (function initPortfolio() {
+      const artGrid = document.getElementById('art-grid');
+      const csGrid = document.getElementById('coming-soon-grid');
+      const seriesStrip = document.getElementById('series-strip');
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const seriesBtns = document.querySelectorAll('.series-btn');
+
+      // Default: show all art
+      renderArtGrid('all');
+      if (artGrid) artGrid.style.display = 'grid';
+      if (csGrid) csGrid.style.display = 'none';
+
+      filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          filterBtns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          const cat = btn.dataset.cat;
+
+          if (cat === 'all' || cat === 'made-art') {
+            // Show art grid, hide coming soon
+            if (artGrid) artGrid.style.display = 'grid';
+            if (csGrid) csGrid.style.display = 'none';
+            if (seriesStrip) seriesStrip.classList[cat === 'made-art' ? 'add' : 'remove']('visible');
+            renderArtGrid(cat === 'made-art' ? currentSeries : 'all');
+          } else {
+            // Show coming soon, hide art grid
+            if (artGrid) artGrid.style.display = 'none';
+            if (csGrid) csGrid.style.display = 'grid';
+            if (seriesStrip) seriesStrip.classList.remove('visible');
+            renderComingSoon(cat);
+          }
+        });
+      });
+
+      seriesBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          seriesBtns.forEach(function(b) { b.classList.remove('active'); });
+          btn.classList.add('active');
+          currentSeries = btn.dataset.series;
+          renderArtGrid(currentSeries);
+        });
+      });
+    })();
+
+    /* ----------------------------------------------------------
+       9. TRACKS DATA
+    ---------------------------------------------------------- */
+    const TRACKS = [
+      'aint-always-magik','all-cried-out','american-boy','april-4-2022',
+      'audio-glitch-example-2','audio-glitch-example','bass-groove',
+      'better-alan-nothingness','black-kat','bongo-test','bright-swift-visions',
+      'building-short-wave','chear-up-charlie','clicky-clock-low-stock',
+      'colorblind-breakup','complexica-090815','continued','country-italian',
+      'dan-the-man','dark-mutters','dark-slug','death-tinker','decent-landscape',
+      'deepdrums-alice-tinker','deeply-entertained','delicious-grit','do-it-again',
+      'downers','dracula-grind-and-bump','dragon-tov-love','dreams-of-dying',
+      'drink-from-the-same-cup','dripping-magma','drop-tick','echo-groove','eh',
+      'entertain-us','everybody-flows','first-run','for-jon','fresh-like-lettuce',
+      'fresh-like-lettuis-2','gay','going-crazy','halloween-store',
+      'here-comes-the-sun-guitar','here-we-are-now','hidding-carl','hollow-heart',
+      'human-leather-shoes','i-cant-go-for-that','i-just-wanna-dance-right-now',
+      'i-like-you','i-want-you-with-me','i-wont-give-up-now','latin-run',
+      'long-mashup','misfit','never-thought-i-could','new-york-i-thought-she-was',
+      'nice-groove','nice-matchup','not-bad','old-fast','piano-doodle',
+      'pleasure-pain-by-your-side','pogo','roughasf','shes-going-out-tonight',
+      'simian','slow-drip-piano-twist','slow-loris','slow-trip-piano',
+      'slowfastslow','sounded-like-the-truth','speed-trip','still-your-friend',
+      'tell-me-when-it-kicks-in','the-effect-you-have-on-others','tow-the-line',
+      'trickly-thumps','when-you-leave','wobble-dobble',
+      'you-have-a-wanting-alan','you-look-so-pretty'
+    ];
+
+    function trackTitle(slug) {
+      return slug.replace(/-/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+    }
+
+    /* ----------------------------------------------------------
+       10. MUSIC PLAYER
+    ---------------------------------------------------------- */
+    (function initMusic() {
+      const audio = document.getElementById('global-audio');
+      const trackList = document.getElementById('track-list');
+      const loadMoreBtn = document.getElementById('load-more-tracks');
+      const miniPlayer = document.getElementById('mini-player');
+      const miniPlayBtn = document.getElementById('mini-play-btn');
+      const miniPlayIcon = document.getElementById('mini-play-icon');
+      const miniPauseIcon = document.getElementById('mini-pause-icon');
+      const miniTitle = document.getElementById('mini-track-title');
+      const miniProgressFill = document.getElementById('mini-progress-fill');
+      const miniProgress = document.getElementById('mini-progress');
+      const miniClose = document.getElementById('mini-close');
+
+      let visibleCount = 12;
+      let currentSlug = null;
+      let isPlaying = false;
+
+      function buildTrackRow(slug, index) {
+        const item = document.createElement('div');
+        item.className = 'track-item';
+        item.dataset.slug = slug;
+        item.setAttribute('role', 'listitem');
+        item.setAttribute('aria-label', 'Track: ' + trackTitle(slug));
+
+        item.innerHTML =
+          '<div class="track-num">' + (index + 1) + '</div>' +
+          '<button class="play-btn" aria-label="Play ' + trackTitle(slug) + '">' +
+            '<div class="play-icon"></div>' +
+            '<div class="pause-icon"><span></span><span></span></div>' +
+          '</button>' +
+          '<div class="playing-dot" aria-hidden="true"></div>' +
+          '<div class="track-info">' +
+            '<div class="track-title">' + trackTitle(slug) + '</div>' +
+          '</div>' +
+          '<div class="track-bar" aria-hidden="true"><div class="track-bar-fill"></div></div>';
+
+        item.querySelector('.play-btn').addEventListener('click', function(e) {
+          e.stopPropagation();
+          handlePlay(slug, item);
+        });
+        item.addEventListener('click', function() {
+          handlePlay(slug, item);
+        });
+        return item;
+      }
+
+      function renderTracks() {
+        if (!trackList) return;
+        trackList.innerHTML = '';
+        for (var i = 0; i < visibleCount && i < TRACKS.length; i++) {
+          trackList.appendChild(buildTrackRow(TRACKS[i], i));
         }
-        observer.unobserve(img);
+        if (loadMoreBtn) {
+          loadMoreBtn.classList[visibleCount >= TRACKS.length ? 'add' : 'remove']('hidden');
+        }
+        // Re-apply playing state if a track is active
+        if (currentSlug) {
+          var activeItem = trackList.querySelector('[data-slug="' + currentSlug + '"]');
+          if (activeItem && isPlaying) activeItem.classList.add('playing');
+        }
       }
-    });
-  }, { rootMargin: '100px', threshold: 0.01 });
 
-  document.querySelectorAll('.art-gif-card img').forEach(img => observer.observe(img));
-}
+      function handlePlay(slug, item) {
+        if (currentSlug === slug) {
+          // Toggle play/pause
+          if (audio.paused) {
+            audio.play();
+          } else {
+            audio.pause();
+          }
+          return;
+        }
+        // New track
+        document.querySelectorAll('.track-item.playing').forEach(function(el) {
+          el.classList.remove('playing');
+        });
+        currentSlug = slug;
+        audio.src = 'audio/' + slug + '.mp3';
+        audio.load();
+        audio.play().catch(function() {});
+        if (item) item.classList.add('playing');
+        if (miniTitle) miniTitle.textContent = trackTitle(slug);
+        if (miniPlayer) miniPlayer.classList.add('visible');
+      }
 
-// ── MUSIC & PLAYER ───────────────────────────────────────────
-const TRACKS = [
-  {t:'Still Your Friend',           s:'still-your-friend',           d:'2026-02-22', isNew:true},
-  {t:'Here We Are Now',             s:'here-we-are-now',             d:'2026-02-22', isNew:true},
-  {t:'Deeply Entertained',          s:'deeply-entertained',          d:'2026-02-22', isNew:true},
-  {t:'Colorblind Breakup',          s:'colorblind-breakup',          d:'2026-02-22', isNew:true},
-  {t:'Trickly Thumps',              s:'trickly-thumps',              d:'2026-02-15', isNew:true},
-  {t:'Halloween Store',             s:'halloween-store',             d:'2026-02-15', isNew:true},
-  {t:'Drop Tick',                   s:'drop-tick',                   d:'2026-02-15', isNew:true},
-  {t:'Country Italian',             s:'country-italian',             d:'2026-02-15', isNew:true},
-  {t:'Latin Run',                   s:'latin-run',                   d:'2026-02-08', isNew:true},
-  {t:'First Run',                   s:'first-run',                   d:'2026-02-08', isNew:true},
-  {t:'Tow the Line',                s:'tow-the-line',                d:'2025-11-30', isNew:false},
-  {t:'I Just Wanna Dance Right Now',s:'i-just-wanna-dance-right-now',d:'2025-11-30', isNew:false},
-  {t:'Dracula Grind and Bump',      s:'dracula-grind-and-bump',      d:'2025-11-27', isNew:false},
-  {t:'Dark Slug',                   s:'dark-slug',                   d:'2025-11-27', isNew:false},
-  {t:'Fresh Like Lettuis 2',        s:'fresh-like-lettuis-2',        d:'2025-11-19', isNew:false},
-  {t:'Everybody Flows',             s:'everybody-flows',             d:'2025-11-19', isNew:false},
-  {t:'Delicious Grit',              s:'delicious-grit',              d:'2025-11-19', isNew:false},
-  {t:'Dark Mutters',                s:'dark-mutters',                d:'2025-11-14', isNew:false},
-  {t:'Clicky Clock Low Stock',      s:'clicky-clock-low-stock',      d:'2025-10-17', isNew:false},
-  {t:'Roughasf',                    s:'roughasf',                    d:'2024-07-13', isNew:false},
-  {t:'You Look So Pretty',          s:'you-look-so-pretty',          d:'2024-04-17', isNew:false},
-  {t:'April 4 2022',                s:'april-4-2022',                d:'2023-04-13', isNew:false},
-  {t:'Gay',                         s:'gay',                         d:'2022-08-05', isNew:false},
-  {t:'Old Fast',                    s:'old-fast',                    d:'2022-06-15', isNew:false},
-  {t:'Eh',                          s:'eh',                          d:'2022-04-08', isNew:false},
-  {t:"She's Going Out Tonight",     s:'shes-going-out-tonight',      d:'2018-02-19', isNew:false},
-  {t:'Drink From the Same Cup',     s:'drink-from-the-same-cup',     d:'2018-02-18', isNew:false},
-  {t:'Black Kat',                   s:'black-kat',                   d:'2018-02-10', isNew:false},
-  {t:'When You Leave',              s:'when-you-leave',              d:'2018-02-03', isNew:false},
-  {t:'Tell Me When It Kicks In',    s:'tell-me-when-it-kicks-in',    d:'2018-01-06', isNew:false},
-  {t:'Slowfastslow',                s:'slowfastslow',                d:'2018-01-02', isNew:false},
-  {t:'Nice Groove',                 s:'nice-groove',                 d:'2017-12-14', isNew:false},
-  {t:"I Can't Go For That",         s:'i-cant-go-for-that',          d:'2017-12-14', isNew:false},
-  {t:'Here Comes the Sun Guitar',   s:'here-comes-the-sun-guitar',   d:'2017-11-12', isNew:false},
-  {t:'Deepdrums Alice Tinker',      s:'deepdrums-alice-tinker',      d:'2017-11-12', isNew:false},
-  {t:'Dan the Man',                 s:'dan-the-man',                 d:'2017-11-10', isNew:false},
-  {t:'Audio Glitch Example',        s:'audio-glitch-example',        d:'2017-11-03', isNew:false},
-  {t:'Audio Glitch Example 2',      s:'audio-glitch-example-2',      d:'2017-11-03', isNew:false},
-  {t:'Dreams of Dying',             s:'dreams-of-dying',             d:'2017-10-31', isNew:false},
-  {t:'Pleasure Pain by Your Side',  s:'pleasure-pain-by-your-side',  d:'2017-10-20', isNew:false},
-  {t:'New York I Thought She Was',  s:'new-york-i-thought-she-was',  d:'2017-10-20', isNew:false},
-  {t:'Building Short Wave',         s:'building-short-wave',         d:'2017-10-20', isNew:false},
-  {t:'Hollow Heart',                s:'hollow-heart',                d:'2017-10-15', isNew:false},
-  {t:'Death Tinker',                s:'death-tinker',                d:'2017-10-15', isNew:false},
-  {t:'Complexica 090815',           s:'complexica-090815',           d:'2017-10-15', isNew:false},
-  {t:'I Want You With Me',          s:'i-want-you-with-me',          d:'2017-10-07', isNew:false},
-  {t:'Dragon Tov Love',             s:'dragon-tov-love',             d:'2017-10-06', isNew:false},
-  {t:'Wobble Dobble',               s:'wobble-dobble',               d:'2017-10-03', isNew:false},
-  {t:'Pogo',                        s:'pogo',                        d:'2017-10-03', isNew:false},
-  {t:'Misfit',                      s:'misfit',                      d:'2017-10-03', isNew:false},
-  {t:"I Won't Give Up Now",         s:'i-wont-give-up-now',          d:'2017-10-03', isNew:false},
-  {t:'Downers',                     s:'downers',                     d:'2017-10-03', isNew:false},
-  {t:'Chear Up Charlie',            s:'chear-up-charlie',            d:'2017-10-03', isNew:false},
-  {t:'Hidding Carl',                s:'hidding-carl',                d:'2017-09-29', isNew:false},
-  {t:'For Jon',                     s:'for-jon',                     d:'2017-09-29', isNew:false},
-  {t:'Echo Groove',                 s:'echo-groove',                 d:'2017-09-27', isNew:false},
-  {t:'Better Alan Nothingness',     s:'better-alan-nothingness',     d:'2017-09-15', isNew:false},
-  {t:'The Effect You Have on Others',s:'the-effect-you-have-on-others',d:'2017-09-04',isNew:false},
-  {t:'Not Bad',                     s:'not-bad',                     d:'2017-09-04', isNew:false},
-  {t:'Do It Again',                 s:'do-it-again',                 d:'2017-09-04', isNew:false},
-  {t:'All Cried Out',               s:'all-cried-out',               d:'2017-09-04', isNew:false},
-  {t:"Ain't Always Magik",          s:'aint-always-magik',           d:'2017-09-04', isNew:false},
-  {t:'Human Leather Shoes',         s:'human-leather-shoes',         d:'2017-08-24', isNew:false},
-  {t:'American Boy',                s:'american-boy',                d:'2017-08-15', isNew:false},
-  {t:'Nice Matchup',                s:'nice-matchup',                d:'2017-08-08', isNew:false},
-  {t:'Fresh Like Lettuce',          s:'fresh-like-lettuce',          d:'2017-08-01', isNew:false},
-  {t:'Dripping Magma',              s:'dripping-magma',              d:'2017-07-28', isNew:false},
-  {t:'Bright Swift Visions',        s:'bright-swift-visions',        d:'2017-07-28', isNew:false},
-  {t:'Simian',                      s:'simian',                      d:'2017-07-27', isNew:false},
-  {t:'Going Crazy',                 s:'going-crazy',                 d:'2017-07-10', isNew:false},
-  {t:'Never Thought I Could',       s:'never-thought-i-could',       d:'2017-07-08', isNew:false},
-  {t:'You Have a Wanting Alan',     s:'you-have-a-wanting-alan',     d:'2017-07-07', isNew:false},
-  {t:'Entertain Us',                s:'entertain-us',                d:'2017-07-07', isNew:false},
-  {t:'I Like You',                  s:'i-like-you',                  d:'2017-06-02', isNew:false},
-  {t:'Decent Landscape',            s:'decent-landscape',            d:'2017-06-02', isNew:false},
-  {t:'Slow Trip Piano',             s:'slow-trip-piano',             d:'2017-04-29', isNew:false},
-  {t:'Slow Loris',                  s:'slow-loris',                  d:'2017-04-29', isNew:false},
-  {t:'Slow Drip Piano Twist',       s:'slow-drip-piano-twist',       d:'2017-04-29', isNew:false},
-  {t:'Piano Doodle',                s:'piano-doodle',                d:'2017-04-29', isNew:false},
-  {t:'Continued',                   s:'continued',                   d:'2017-04-29', isNew:false},
-  {t:'Bongo Test',                  s:'bongo-test',                  d:'2017-04-29', isNew:false},
-  {t:'Bass Groove',                 s:'bass-groove',                 d:'2017-04-29', isNew:false},
-  {t:'Speed Trip',                  s:'speed-trip',                  d:'2017-04-20', isNew:false},
-  {t:'Sounded Like the Truth',      s:'sounded-like-the-truth',      d:'2017-01-06', isNew:false},
-  {t:'Long Mashup',                 s:'long-mashup',                 d:'2016-02-13', isNew:false},
-];
+      // Audio events
+      if (audio) {
+        audio.addEventListener('play', function() {
+          isPlaying = true;
+          updateMiniPlayState(true);
+          var activeItem = trackList ? trackList.querySelector('[data-slug="' + currentSlug + '"]') : null;
+          if (activeItem) activeItem.classList.add('playing');
+        });
 
-let currentTrackIdx = -1;
-let shuffleMode = false;
-let shuffleOrder = [];
+        audio.addEventListener('pause', function() {
+          isPlaying = false;
+          updateMiniPlayState(false);
+          var activeItem = trackList ? trackList.querySelector('[data-slug="' + currentSlug + '"]') : null;
+          if (activeItem) activeItem.classList.remove('playing');
+        });
 
-function fmtTime(s) {
-  if (!s || isNaN(s)) return '—';
-  const m = Math.floor(s / 60), sec = Math.floor(s % 60);
-  return `${m}:${sec.toString().padStart(2, '0')}`;
-}
-function fmtDateShort(d) {
-  const [y, m, day] = d.split('-');
-  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `${mo[+m-1]} ${+day}, ${y}`;
-}
+        audio.addEventListener('ended', function() {
+          isPlaying = false;
+          updateMiniPlayState(false);
+          document.querySelectorAll('.track-item.playing').forEach(function(el) {
+            el.classList.remove('playing');
+          });
+        });
 
-function initMusicSection() {
-  renderTrackList(TRACKS);
-  setupAudioPlayer();
-}
+        audio.addEventListener('timeupdate', function() {
+          if (!audio.duration) return;
+          var pct = (audio.currentTime / audio.duration) * 100;
+          if (miniProgressFill) miniProgressFill.style.width = pct + '%';
+          // Update inline bar for current track
+          var activeItem = trackList ? trackList.querySelector('[data-slug="' + currentSlug + '"]') : null;
+          if (activeItem) {
+            var bar = activeItem.querySelector('.track-bar-fill');
+            if (bar) bar.style.width = pct + '%';
+          }
+        });
+      }
 
-function renderTrackList(tracks) {
-  const list  = document.getElementById('track-list');
-  const count = document.getElementById('music-count');
-  if (!list) return;
-  list.innerHTML = '';
-  count.textContent = `${tracks.length} track${tracks.length !== 1 ? 's' : ''}`;
-  let lastYear = null;
-  tracks.forEach((track, i) => {
-    const year = track.d.slice(0, 4);
-    if (year !== lastYear) {
-      const hdr = document.createElement('div');
-      hdr.className = 'track-year-header' + (lastYear === null ? ' track-year-first' : '');
-      hdr.textContent = year;
-      list.appendChild(hdr);
-      lastYear = year;
-    }
-    const origIdx = TRACKS.indexOf(track);
-    const isPlaying = origIdx === currentTrackIdx;
-    const row = document.createElement('div');
-    row.className = 'track-row' + (isPlaying ? ' playing' : '');
-    row.dataset.idx = origIdx;
-    row.innerHTML = `
-      <span class="track-num">${String(i + 1).padStart(2, '0')}</span>
-      <span class="track-icon">${isPlaying ? '♪' : '▶'}</span>
-      <span class="track-title">${track.t}</span>
-      <span class="track-meta">
-        ${track.isNew ? '<span class="track-new">New</span>' : ''}
-        <span class="track-date-label">${fmtDateShort(track.d)}</span>
-        <span class="track-dur" data-dur="${origIdx}">—</span>
-      </span>`;
-    row.addEventListener('click', () => playTrack(origIdx));
-    list.appendChild(row);
-  });
-}
+      function updateMiniPlayState(playing) {
+        if (miniPlayIcon) miniPlayIcon.style.display = playing ? 'none' : 'block';
+        if (miniPauseIcon) miniPauseIcon.style.display = playing ? 'flex' : 'none';
+      }
 
-function filterTracks(query) {
-  const q = query.trim().toLowerCase();
-  const filtered = q
-    ? TRACKS.filter(t => t.t.toLowerCase().includes(q) || t.d.includes(q) || t.s.includes(q))
-    : TRACKS;
-  renderTrackList(filtered);
-}
+      if (miniPlayBtn) {
+        miniPlayBtn.addEventListener('click', function() {
+          if (audio.paused) { audio.play(); } else { audio.pause(); }
+        });
+      }
 
-function setupAudioPlayer() {
-  const audio = document.getElementById('main-audio');
-  if (!audio) return;
-  audio.addEventListener('timeupdate', () => {
-    if (audio.duration) {
-      document.getElementById('pseek-fill').style.width = (audio.currentTime / audio.duration * 100) + '%';
-      document.getElementById('ptime-cur').textContent = fmtTime(audio.currentTime);
-    }
-  });
-  audio.addEventListener('loadedmetadata', () => {
-    document.getElementById('ptime-tot').textContent = fmtTime(audio.duration);
-    const durEl = document.querySelector(`.track-dur[data-dur="${currentTrackIdx}"]`);
-    if (durEl) durEl.textContent = fmtTime(audio.duration);
-  });
-  audio.addEventListener('ended', () => playerNext());
-  audio.addEventListener('play',  () => { document.getElementById('pbtn-play').textContent = '⏸'; });
-  audio.addEventListener('pause', () => { document.getElementById('pbtn-play').textContent = '▶'; });
-}
+      if (miniProgress) {
+        miniProgress.addEventListener('click', function(e) {
+          if (!audio.duration) return;
+          var rect = miniProgress.getBoundingClientRect();
+          var ratio = (e.clientX - rect.left) / rect.width;
+          audio.currentTime = ratio * audio.duration;
+        });
+      }
 
-function playTrack(idx) {
-  currentTrackIdx = idx;
-  const track = TRACKS[idx];
-  const audio  = document.getElementById('main-audio');
-  const bar    = document.getElementById('audio-player-bar');
-  audio.src = `audio/${track.s}.mp3`;
-  audio.play().catch(() => {});
-  document.getElementById('pinfo-name').textContent  = track.t;
-  document.getElementById('ptime-cur').textContent   = '0:00';
-  document.getElementById('ptime-tot').textContent   = '—';
-  document.getElementById('pseek-fill').style.width  = '0%';
-  bar.classList.add('visible');
-  document.body.classList.add('has-player');
-  document.querySelectorAll('.track-row').forEach(r => {
-    const ri = +r.dataset.idx;
-    r.classList.toggle('playing', ri === idx);
-    r.querySelector('.track-icon').textContent = ri === idx ? '♪' : '▶';
-  });
-}
+      if (miniClose) {
+        miniClose.addEventListener('click', function() {
+          audio.pause();
+          audio.src = '';
+          currentSlug = null;
+          isPlaying = false;
+          if (miniPlayer) miniPlayer.classList.remove('visible');
+          document.querySelectorAll('.track-item.playing').forEach(function(el) {
+            el.classList.remove('playing');
+          });
+        });
+      }
 
-function playerToggle() {
-  const audio = document.getElementById('main-audio');
-  if (!audio.src || audio.src === window.location.href) return;
-  audio.paused ? audio.play() : audio.pause();
-}
+      if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+          visibleCount = Math.min(visibleCount + 12, TRACKS.length);
+          renderTracks();
+        });
+      }
 
-function playerNext() {
-  let next;
-  if (shuffleMode) {
-    if (!shuffleOrder.length) shuffleOrder = [...Array(TRACKS.length).keys()].sort(() => Math.random() - .5);
-    const i = shuffleOrder.findIndex(x => x === currentTrackIdx);
-    next = shuffleOrder[(i + 1) % shuffleOrder.length];
-  } else {
-    next = (currentTrackIdx + 1) % TRACKS.length;
-  }
-  playTrack(next);
-}
-
-function playerPrev() {
-  const audio = document.getElementById('main-audio');
-  if (audio.currentTime > 3) { audio.currentTime = 0; return; }
-  playTrack((currentTrackIdx - 1 + TRACKS.length) % TRACKS.length);
-}
-
-function playerSeek(e) {
-  const audio = document.getElementById('main-audio');
-  if (!audio.duration) return;
-  const rect = document.getElementById('pseek').getBoundingClientRect();
-  audio.currentTime = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width)) * audio.duration;
-}
-
-function playerToggleShuffle() {
-  shuffleMode = !shuffleMode;
-  shuffleOrder = [];
-  const btn = document.getElementById('pbtn-shuffle');
-  btn.classList.toggle('on', shuffleMode);
-  btn.title = shuffleMode ? 'Shuffle: On' : 'Shuffle: Off';
-}
-
-// ── INIT ─────────────────────────────────────────────────────
-window.addEventListener('load', async () => {
-  setTimeout(() => {
-    const l = document.getElementById('loading');
-    l.style.opacity = '0';
-    setTimeout(() => l.remove(), 600);
-  }, 700);
-  const data = await loadContent();
-  populate(data);
-  initGifObserver();
-  initMusicSection();
-});
-</script>
+      renderTracks();
+    })();
+  </script>
 </body>
 </html>
