@@ -169,68 +169,88 @@
     .view-portfolio-btn:hover { text-decoration: underline; }
 
     /* MUSIC */
-    #music { background: var(--black); }
+    #music { background: var(--black); position: relative; overflow: hidden; }
+    #music::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 80%, rgba(232,81,42,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .music-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: end; margin-bottom: 5rem;
+    }
     .music-headline {
-      font-family: var(--font-serif); font-size: clamp(3rem, 7vw, 6rem);
-      font-weight: 700; line-height: 1; text-transform: uppercase; margin-bottom: 2.5rem;
+      font-family: var(--font-serif); font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 700; line-height: 1; text-transform: uppercase;
     }
-    .music-layout { display: grid; grid-template-columns: 40% 60%; gap: 1px; background: var(--border); }
-    .music-player {
-      background: var(--surface); border: 1px solid var(--border);
-      display: flex; flex-direction: column; justify-content: flex-end;
-      min-height: 420px; padding: 0; overflow: hidden; position: relative;
+    .music-bio {
+      font-family: var(--font-sans); font-size: 0.88rem; color: var(--muted);
+      line-height: 1.8; max-width: 420px; padding-bottom: 0.5rem;
     }
-    .music-player-art {
-      flex: 1; background: linear-gradient(180deg, #0a0a0a 0%, #111 100%);
-      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    .music-tracks { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+    .music-track-entry {
+      display: grid; grid-template-columns: 3rem 1fr auto;
+      align-items: center; gap: 1.5rem; padding: 1.4rem 1.8rem;
+      background: var(--black); transition: background 0.2s;
     }
-    .music-player-art-inner {
-      width: 100px; height: 100px; border-radius: 50%;
-      background: radial-gradient(circle, rgba(232,81,42,0.3) 0%, rgba(0,0,0,0.8) 70%);
-      border: 1px solid rgba(232,81,42,0.25); display: flex; align-items: center; justify-content: center;
+    .music-track-entry:hover { background: rgba(255,255,255,0.02); }
+    .music-track-entry.active { background: rgba(232,81,42,0.05); }
+    .mte-num {
+      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em;
+      color: var(--muted); text-align: right; line-height: 1;
     }
-    .waveform { display: flex; align-items: flex-end; gap: 2px; height: 60px; padding: 0 1.5rem; }
-    .waveform-bar {
-      width: 3px; background: var(--orange); opacity: 0.7; border-radius: 1px;
-      animation: wave 1s ease-in-out infinite;
+    .mte-num .mte-bar-wrap { display: none; height: 18px; align-items: flex-end; gap: 1.5px; justify-content: flex-end; }
+    .music-track-entry.active .mte-num .mte-bar-wrap { display: flex; }
+    .music-track-entry.active .mte-num .num-label { display: none; }
+    .mte-bar {
+      width: 2px; background: var(--orange); border-radius: 1px; opacity: 0.8;
+      animation: mte-wave 0.9s ease-in-out infinite;
     }
-    .waveform-bar:nth-child(2n) { animation-delay: 0.1s; }
-    .waveform-bar:nth-child(3n) { animation-delay: 0.2s; }
-    .waveform-bar:nth-child(4n) { animation-delay: 0.3s; }
-    .waveform-bar:nth-child(5n) { animation-delay: 0.05s; }
-    .waveform-bar:nth-child(7n) { animation-delay: 0.15s; }
-    @keyframes wave { 0%,100%{height:4px} 50%{height:var(--h,20px)} }
-    .waveform.paused .waveform-bar { animation-play-state: paused; }
-
-    .music-player-info { padding: 1rem 1.5rem 1.2rem; border-top: 1px solid var(--border); background: var(--surface); }
-    .music-preview-label { font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 0.3rem; }
-    .music-track-title { font-family: var(--font-serif); font-size: 0.95rem; font-weight: 700; color: var(--white); margin-bottom: 0.1rem; }
-    .music-track-sub { font-family: var(--font-sans); font-size: 0.7rem; color: var(--muted); }
-    .music-tracklist { background: var(--near-black); overflow-y: auto; }
-    .track-row {
-      display: grid; grid-template-columns: 36px 1fr auto 20px;
-      align-items: center; gap: 0.5rem; padding: 0.75rem 1.2rem;
-      border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.15s;
+    .mte-bar:nth-child(1) { --mh: 8px; animation-delay: 0s; }
+    .mte-bar:nth-child(2) { --mh: 14px; animation-delay: 0.15s; }
+    .mte-bar:nth-child(3) { --mh: 10px; animation-delay: 0.07s; }
+    .mte-bar:nth-child(4) { --mh: 16px; animation-delay: 0.22s; }
+    .mte-bar:nth-child(5) { --mh: 6px; animation-delay: 0.1s; }
+    @keyframes mte-wave { 0%,100%{height:2px} 50%{height:var(--mh,10px)} }
+    .active.paused .mte-bar { animation-play-state: paused; }
+    .mte-info { display: flex; flex-direction: column; gap: 0.25rem; }
+    .mte-title {
+      font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700;
+      color: var(--white); line-height: 1;
     }
-    .track-row:hover { background: rgba(255,255,255,0.03); }
-    .track-row.playing { background: rgba(232,81,42,0.06); }
-    .track-num { font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); text-align: right; }
-    .track-info-col { overflow: hidden; }
-    .track-title-text { font-family: var(--font-serif); font-size: 0.82rem; color: var(--white); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .track-row.playing .track-title-text { color: var(--orange); }
-    .track-artist { font-family: var(--font-sans); font-size: 0.6rem; color: var(--muted); }
-    .track-dur { font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted); }
-    .track-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--orange); opacity: 0; }
-    .track-row.playing .track-dot { opacity: 1; }
-    .load-more-btn {
-      display: block; width: 100%; padding: 1rem; text-align: center;
-      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em;
-      text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--border);
-      background: var(--near-black); transition: color 0.2s, background 0.2s; cursor: pointer;
-      border: none; border-top: 1px solid var(--border);
+    .music-track-entry.active .mte-title { color: var(--orange); }
+    .mte-tag {
+      font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
     }
-    .load-more-btn:hover { color: var(--white); background: rgba(255,255,255,0.03); }
-    .audio-controls { display: none; }
+    .mte-progress-wrap {
+      width: 100%; height: 1px; background: var(--border); margin-top: 0.5rem;
+      position: relative; display: none;
+    }
+    .music-track-entry.active .mte-progress-wrap { display: block; }
+    .mte-progress-fill {
+      height: 100%; background: var(--orange); width: 0%; transition: width 0.25s linear;
+    }
+    .mte-right { display: flex; align-items: center; gap: 1.2rem; }
+    .mte-duration {
+      font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted);
+      min-width: 2.8rem; text-align: right;
+    }
+    .mte-play-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15); background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s; flex-shrink: 0;
+    }
+    .mte-play-btn:hover { border-color: var(--orange); background: rgba(232,81,42,0.1); }
+    .music-track-entry.active .mte-play-btn { border-color: var(--orange); background: rgba(232,81,42,0.15); }
+    .mte-play-btn svg { fill: var(--white); }
+    .music-track-entry.active .mte-play-btn svg { fill: var(--orange); }
+    .hidden-audio { display: none; }
+    @media (max-width: 768px) {
+      .music-intro { grid-template-columns: 1fr; gap: 1.5rem; }
+      .music-track-entry { grid-template-columns: 2rem 1fr auto; gap: 1rem; padding: 1.2rem 1rem; }
+    }
 
     /* DAILY WISDOM */
     #wisdom { background: var(--black); }
@@ -424,32 +444,78 @@
   <!-- MUSIC -->
   <section id="music">
     <p class="section-label">03 — Music</p>
-    <h2 class="music-headline">SOUND<br><span class="c-orange">FROM</span> <span class="c-blue">SILENCE.</span></h2>
-    <div class="music-layout">
-      <!-- LEFT: Player Panel -->
-      <div class="music-player">
-        <div class="music-player-art">
-          <div class="music-player-art-inner">
-            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="white" opacity="0.4"/>
-              <path d="M12 4C8.5 4 6 7 6 12s2.5 8 6 8c1.5 0 2.8-1.2 2.8-2.7 0-.7-.3-1.4-.7-1.9-.4-.5-.6-1.1-.6-1.6 0-1.5 1.2-2.7 2.7-2.7.5 0 1 .1 1.4.4C17.6 9.8 16.5 4 12 4z" fill="white" opacity="0.9"/>
-            </svg>
+    <div class="music-intro">
+      <h2 class="music-headline">MADE<br><span class="c-orange">WITH</span><br>INTENTION.</h2>
+      <p class="music-bio">Composer, producer, and sound explorer. From electronic experiments to orchestrated chaos — music as a form of radical self-expression. Every track is a document of a specific moment, emotion, or obsession.</p>
+    </div>
+    <!-- ── FEATURED TRACKS — edit slug/title/tag below ── -->
+    <div class="music-tracks" id="music-tracks">
+
+      <div class="music-track-entry" data-slug="hollow-heart">
+        <div class="mte-num">
+          <span class="num-label">01</span>
+          <div class="mte-bar-wrap">
+            <div class="mte-bar"></div><div class="mte-bar"></div>
+            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
           </div>
         </div>
-        <div class="waveform paused" id="waveform"></div>
-        <div class="music-player-info">
-          <p class="music-preview-label">Preview Mode</p>
-          <p class="music-track-title" id="player-title">Select a track</p>
-          <p class="music-track-sub">PitchBlackKnight — Original</p>
+        <div class="mte-info">
+          <p class="mte-title">Hollow Heart</p>
+          <p class="mte-tag">Original · PitchBlacKnight</p>
+          <div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div>
         </div>
-        <audio id="audio-player" class="audio-controls"></audio>
+        <div class="mte-right">
+          <span class="mte-duration">—:——</span>
+          <button class="mte-play-btn" aria-label="Play Hollow Heart">
+            <svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+        </div>
       </div>
-      <!-- RIGHT: Track List -->
-      <div class="music-tracklist" id="tracklist-container">
-        <div id="track-rows"></div>
-        <button class="load-more-btn" id="load-more-btn">Load 12 More ↓</button>
+
+      <div class="music-track-entry" data-slug="black-kat">
+        <div class="mte-num">
+          <span class="num-label">02</span>
+          <div class="mte-bar-wrap">
+            <div class="mte-bar"></div><div class="mte-bar"></div>
+            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
+          </div>
+        </div>
+        <div class="mte-info">
+          <p class="mte-title">Black Kat</p>
+          <p class="mte-tag">Original · PitchBlacKnight</p>
+          <div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div>
+        </div>
+        <div class="mte-right">
+          <span class="mte-duration">—:——</span>
+          <button class="mte-play-btn" aria-label="Play Black Kat">
+            <svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+        </div>
       </div>
+
+      <div class="music-track-entry" data-slug="sounded-like-the-truth">
+        <div class="mte-num">
+          <span class="num-label">03</span>
+          <div class="mte-bar-wrap">
+            <div class="mte-bar"></div><div class="mte-bar"></div>
+            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
+          </div>
+        </div>
+        <div class="mte-info">
+          <p class="mte-title">Sounded Like the Truth</p>
+          <p class="mte-tag">Original · PitchBlacKnight</p>
+          <div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div>
+        </div>
+        <div class="mte-right">
+          <span class="mte-duration">—:——</span>
+          <button class="mte-play-btn" aria-label="Play Sounded Like the Truth">
+            <svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+        </div>
+      </div>
+
     </div>
+    <audio id="audio-player" class="hidden-audio"></audio>
   </section>
 
   <!-- DAILY WISDOM -->
@@ -581,109 +647,87 @@
     if (el) observer.observe(el);
   });
 
-  // ── WAVEFORM BUILD ───────────────────────────────────────
-  (function buildWaveform() {
-    const heights = [8,14,22,32,18,40,28,16,36,24,12,44,20,34,10,26,38,16,30,42,14,22,36,18,28,8,40,24,16,34,20,12,44,30,22,10,38,26,14,32,18,42,8,36,20,28,16,40,24,12];
-    const wf = document.getElementById('waveform');
-    heights.forEach((h, i) => {
-      const bar = document.createElement('div');
-      bar.className = 'waveform-bar';
-      bar.style.setProperty('--h', h + 'px');
-      bar.style.height = '4px';
-      wf.appendChild(bar);
+  // ── MUSIC PLAYER ─────────────────────────────────────────
+  (function initMusicPlayer() {
+    const audio = document.getElementById('audio-player');
+    const entries = document.querySelectorAll('.music-track-entry');
+    let activeEntry = null;
+    const PAUSE_SVG = '<svg width="10" height="14" viewBox="0 0 10 14"><rect x="0" y="0" width="3" height="14"/><rect x="7" y="0" width="3" height="14"/></svg>';
+    const PLAY_SVG  = '<svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>';
+
+    function fmtTime(s) {
+      if (!isFinite(s)) return '—:——';
+      const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+      return `${m}:${String(sec).padStart(2,'0')}`;
+    }
+
+    function deactivate(entry) {
+      if (!entry) return;
+      entry.classList.remove('active');
+      entry.querySelector('.mte-play-btn').innerHTML = PLAY_SVG;
+      entry.querySelector('.mte-progress-fill').style.width = '0%';
+    }
+
+    function activate(entry) {
+      entry.classList.add('active');
+      entry.querySelector('.mte-play-btn').innerHTML = PAUSE_SVG;
+    }
+
+    entries.forEach(entry => {
+      const slug = entry.dataset.slug;
+      const btn  = entry.querySelector('.mte-play-btn');
+      const dur  = entry.querySelector('.mte-duration');
+
+      // Pre-load duration without playing
+      const probe = new Audio(`https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/${slug}.mp3`);
+      probe.addEventListener('loadedmetadata', () => {
+        dur.textContent = fmtTime(probe.duration);
+      });
+
+      btn.addEventListener('click', () => {
+        const isThisActive = activeEntry === entry;
+        const isPlaying = !audio.paused;
+
+        if (isThisActive) {
+          // Toggle play/pause on the active track
+          if (isPlaying) {
+            audio.pause();
+            entry.classList.add('paused');
+            btn.innerHTML = PLAY_SVG;
+          } else {
+            audio.play();
+            entry.classList.remove('paused');
+            btn.innerHTML = PAUSE_SVG;
+          }
+        } else {
+          // Switch to a new track
+          deactivate(activeEntry);
+          activeEntry = entry;
+          audio.src = `https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/${slug}.mp3`;
+          audio.play().then(() => {
+            activate(entry);
+            entry.classList.remove('paused');
+          }).catch(() => {});
+        }
+      });
+    });
+
+    // Update progress bar
+    audio.addEventListener('timeupdate', () => {
+      if (!activeEntry || !audio.duration) return;
+      const pct = (audio.currentTime / audio.duration) * 100;
+      activeEntry.querySelector('.mte-progress-fill').style.width = pct + '%';
+      activeEntry.querySelector('.mte-duration').textContent =
+        fmtTime(audio.currentTime) + ' / ' + fmtTime(audio.duration);
+    });
+
+    audio.addEventListener('ended', () => {
+      if (activeEntry) {
+        deactivate(activeEntry);
+        activeEntry = null;
+      }
     });
   })();
-
-  // ── TRACK DATA ───────────────────────────────────────────
-  const TRACKS = [
-    'aint-always-magik','all-cried-out','american-boy','april-4-2022',
-    'audio-glitch-example-2','audio-glitch-example','bass-groove',
-    'better-alan-nothingness','black-kat','bongo-test','bright-swift-visions',
-    'building-short-wave','chear-up-charlie','clicky-clock-low-stock',
-    'colorblind-breakup','complexica-090815','continued','country-italian',
-    'dan-the-man','dark-mutters','dark-slug','death-tinker','decent-landscape',
-    'deepdrums-alice-tinker','deeply-entertained','delicious-grit','do-it-again',
-    'downers','dracula-grind-and-bump','dragon-tov-love','dreams-of-dying',
-    'drink-from-the-same-cup','dripping-magma','drop-tick','echo-groove','eh',
-    'entertain-us','everybody-flows','first-run','for-jon','fresh-like-lettuce',
-    'fresh-like-lettuis-2','gay','going-crazy','halloween-store',
-    'here-comes-the-sun-guitar','here-we-are-now','hidding-carl','hollow-heart',
-    'human-leather-shoes','i-cant-go-for-that','i-just-wanna-dance-right-now',
-    'i-like-you','i-want-you-with-me','i-wont-give-up-now','latin-run',
-    'long-mashup','misfit','never-thought-i-could','new-york-i-thought-she-was',
-    'nice-groove','nice-matchup','not-bad','old-fast','piano-doodle',
-    'pleasure-pain-by-your-side','pogo','roughasf','shes-going-out-tonight',
-    'simian','slow-drip-piano-twist','slow-loris','slow-trip-piano',
-    'slowfastslow','sounded-like-the-truth','speed-trip','still-your-friend',
-    'tell-me-when-it-kicks-in','the-effect-you-have-on-others','tow-the-line',
-    'trickly-thumps','when-you-leave','wobble-dobble',
-    'you-have-a-wanting-alan','you-look-so-pretty'
-  ];
-
-  function slugToTitle(slug) {
-    return slug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
-  }
-
-  // ── TRACK LIST RENDER ────────────────────────────────────
-  let shownCount = 12;
-  const trackRows = document.getElementById('track-rows');
-  const loadMoreBtn = document.getElementById('load-more-btn');
-  const audioPlayer = document.getElementById('audio-player');
-  const waveform = document.getElementById('waveform');
-  const playerTitle = document.getElementById('player-title');
-  let currentIndex = -1;
-
-  function renderTracks(from, to) {
-    for (let i = from; i < to && i < TRACKS.length; i++) {
-      const slug = TRACKS[i];
-      const title = slugToTitle(slug);
-      const row = document.createElement('div');
-      row.className = 'track-row';
-      row.dataset.index = i;
-      row.innerHTML = `
-        <span class="track-num">${String(i + 1).padStart(2, '0')}</span>
-        <div class="track-info-col">
-          <p class="track-title-text">${title}</p>
-          <p class="track-artist">PitchBlackKnight · Original</p>
-        </div>
-        <span class="track-dur">—:——</span>
-        <div class="track-dot"></div>`;
-      row.addEventListener('click', () => playTrack(i));
-      trackRows.appendChild(row);
-    }
-  }
-
-  function playTrack(index) {
-    const slug = TRACKS[index];
-    const title = slugToTitle(slug);
-    // deactivate old
-    document.querySelectorAll('.track-row').forEach(r => r.classList.remove('playing'));
-    // activate new
-    const activeRow = document.querySelector(`.track-row[data-index="${index}"]`);
-    if (activeRow) activeRow.classList.add('playing');
-    currentIndex = index;
-    playerTitle.textContent = title;
-    // update audio
-    audioPlayer.src = `audio/${slug}.mp3`;
-    audioPlayer.play().catch(() => {});
-    waveform.classList.remove('paused');
-  }
-
-  audioPlayer.addEventListener('pause', () => waveform.classList.add('paused'));
-  audioPlayer.addEventListener('play', () => waveform.classList.remove('paused'));
-  audioPlayer.addEventListener('ended', () => {
-    waveform.classList.add('paused');
-    document.querySelectorAll('.track-row').forEach(r => r.classList.remove('playing'));
-  });
-
-  renderTracks(0, shownCount);
-
-  loadMoreBtn.addEventListener('click', () => {
-    const next = shownCount + 12;
-    renderTracks(shownCount, next);
-    shownCount = next;
-    if (shownCount >= TRACKS.length) loadMoreBtn.style.display = 'none';
-  });
 
   // ── CONTACT REACH OUT ────────────────────────────────────
   document.getElementById('reach-out-btn').addEventListener('click', () => {
