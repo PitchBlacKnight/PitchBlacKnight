@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>240 Country Club Road — A Keck & Keck House, 1952 · PitchBlacKnight</title>
+<meta name="description" content="The home at 240 Country Club Road, Chicago Heights, IL — designed by Keck & Keck Architects, Job No. 450, 1952. A passive solar masterwork."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&display=swap" rel="stylesheet"/>
+<style>
+/* ── PBK TOKENS ── */
+:root{
+  --black:#060606;
+  --near-black:#0d0d0d;
+  --surface:#111;
+  --white:#f0f0f0;
+  --muted:#555566;
+  --muted-blue:#7b8db8;
+  --orange:#e8512a;
+  --border:rgba(255,255,255,0.07);
+  --font-sans:'Schibsted Grotesk',system-ui,sans-serif;
+  --font-serif:'Alexandria',sans-serif;
+  --font-mono:'Space Mono',monospace;
+  /* House tokens */
+  --gold:#c4962a;
+  --gold-light:#e8c46a;
+  --bp-bg:#0e1f35;
+  --bp-line:#4a8ab5;
+  --cedar:#9a6232;
+  --slate:#2f4555;
+  --cop-red:#c0392b;--cop-orange:#e67e22;--cop-gold:#f1c40f;
+  --cop-green:#27ae60;--cop-blue:#2980b9;--cop-violet:#8e44ad;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--font-sans);line-height:1.6;overflow-x:hidden;cursor:none}
+a{color:inherit;text-decoration:none}
+
+/* ── CURSOR ── */
+.cursor{
+  position:fixed;width:28px;height:28px;border:1px solid var(--bp-line);
+  border-radius:50%;pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);mix-blend-mode:screen;
+  transition:width .2s,height .2s,border-color .2s;
+}
+.cursor::before,.cursor::after{content:'';position:absolute;background:var(--bp-line)}
+.cursor::before{width:1px;height:8px;top:50%;left:50%;transform:translate(-50%,-50%)}
+.cursor::after{width:8px;height:1px;top:50%;left:50%;transform:translate(-50%,-50%)}
+.cursor.big{width:44px;height:44px;border-color:var(--orange)}
+
+/* ── CENTURY STRIPE ── */
+.cop-stripe{
+  position:fixed;top:0;left:0;right:0;height:2px;z-index:600;
+  background:linear-gradient(90deg,
+    var(--cop-red) 0%,var(--cop-orange) 20%,var(--cop-gold) 38%,
+    var(--cop-green) 55%,var(--cop-blue) 75%,var(--cop-violet) 100%);
+}
+
+/* ── PBK NAV ── */
+nav{
+  position:fixed;top:2px;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 2.5rem;
+  background:rgba(6,6,6,0.94);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+}
+.nav-logo{
+  font-family:var(--font-serif);font-size:.75rem;
+  letter-spacing:.1em;text-transform:uppercase;color:var(--white);
+  display:flex;align-items:center;gap:.5rem;
+}
+.nav-logo strong{font-weight:700}
+.nav-logo span{font-weight:300;color:var(--muted)}
+.nav-links{
+  display:flex;align-items:center;gap:1.8rem;list-style:none;
+  font-family:var(--font-mono);font-size:.6rem;
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.nav-links a{color:var(--muted);transition:color .2s;padding:.3rem .5rem}
+.nav-links a:hover{color:var(--white)}
+.nav-links a.active{color:var(--white);border:1px solid rgba(255,255,255,.3)}
+.nav-back{color:var(--orange)!important;display:flex;align-items:center;gap:.4rem}
+.nav-back::before{content:'←';font-size:.8rem}
+
+/* ── HERO ── */
+.hero{
+  position:relative;min-height:100vh;background:var(--bp-bg);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:0 4rem 6rem;overflow:hidden;
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(74,138,181,.14) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(74,138,181,.14) 1px,transparent 1px);
+  background-size:55px 55px;
+  animation:gd 50s linear infinite;
+}
+@keyframes gd{to{background-position:55px 55px}}
+.hero-ghost{
+  position:absolute;inset:0;
+  background:url('./blueprints/blueprint-1.jpg') center/cover no-repeat;
+  opacity:.06;filter:blur(2px);mix-blend-mode:screen;
+}
+.hero-stamp{
+  position:absolute;top:7rem;right:4rem;
+  font-family:var(--font-mono);font-size:.55rem;
+  color:rgba(74,138,181,.45);letter-spacing:.1em;line-height:2.2;
+  text-align:right;border-right:1px solid rgba(74,138,181,.18);padding-right:1rem;
+}
+.hero-job{
+  font-family:var(--font-mono);font-size:.6rem;
+  color:var(--bp-line);letter-spacing:.22em;text-transform:uppercase;
+  margin-bottom:1.5rem;opacity:0;animation:fadeup .8s .2s ease forwards;
+}
+.hero-h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,7vw,6.5rem);font-weight:900;
+  color:var(--white);line-height:1;margin-bottom:2.5rem;
+}
+.hero-h1 .ln{display:block;overflow:hidden}
+.hero-h1 .ln span{
+  display:block;transform:translateY(110%);
+  animation:slideup .9s cubic-bezier(.16,1,.3,1) forwards;
+}
+.hero-h1 .ln:nth-child(1) span{animation-delay:.3s}
+.hero-h1 .ln:nth-child(2) span{animation-delay:.45s;color:var(--orange)}
+.hero-h1 .ln:nth-child(3) span{animation-delay:.6s;font-style:italic;font-size:.52em;color:rgba(240,240,240,.65)}
+@keyframes slideup{to{transform:translateY(0)}}
+@keyframes fadeup{to{opacity:1}}
+.hero-meta{
+  display:flex;align-items:center;gap:2rem;flex-wrap:wrap;
+  opacity:0;animation:fadeup .8s .9s ease forwards;
+  font-family:var(--font-mono);font-size:.6rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+}
+.hero-meta b{color:rgba(240,240,240,.85);font-weight:400}
+.hero-sep{width:1px;height:1.2rem;background:rgba(255,255,255,.12)}
+.scroll-hint{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  font-family:var(--font-mono);font-size:.55rem;letter-spacing:.2em;
+  color:rgba(74,138,181,.4);text-align:center;
+  animation:pulse 3s ease infinite;
+}
+.scroll-hint::after{content:'\A↓';white-space:pre;display:block;font-size:1rem;margin-top:.3rem}
+@keyframes pulse{0%,100%{opacity:.3}50%{opacity:.8}}
+
+/* ── SECTION BASE ── */
+.s{padding:7rem 4rem;position:relative}
+.si{max-width:1100px;margin:0 auto}
+.sl{
+  font-family:var(--font-mono);font-size:.58rem;
+  letter-spacing:.25em;text-transform:uppercase;color:var(--orange);margin-bottom:1rem;
+}
+.s h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,4vw,3.2rem);font-weight:700;line-height:1.1;
+  color:var(--white);margin-bottom:1.8rem;
+}
+.s p{font-size:.9rem;line-height:1.8;color:rgba(240,240,240,.6);max-width:660px;margin-bottom:1rem}
+
+/* ── CENTURY / 1933 ── */
+.cop-s{background:var(--near-black);overflow:hidden}
+.cop-rainbow{
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,
+    rgba(192,57,43,.1) 0%,rgba(230,126,34,.08) 20%,
+    rgba(241,196,15,.06) 37%,rgba(39,174,96,.07) 52%,
+    rgba(41,128,185,.09) 70%,rgba(142,68,173,.1) 100%);
+}
+.cop-bg-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:36px 36px;
+}
+.cop-layout{
+  display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start;
+  position:relative;z-index:1;
+}
+.cop-ghost-yr{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(5rem,12vw,11rem);font-weight:900;line-height:.85;
+  color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.06);
+  position:absolute;top:-1rem;left:-1.5rem;pointer-events:none;user-select:none;
+}
+.cop-tl{border-left:1px solid rgba(255,255,255,.08);padding-left:2rem}
+.cop-ev{padding:1.3rem 0;border-bottom:1px solid rgba(255,255,255,.05);position:relative}
+.cop-ev::before{
+  content:'';position:absolute;left:-2.35rem;top:1.6rem;
+  width:7px;height:7px;border-radius:50%;background:var(--orange);
+  box-shadow:0 0 10px var(--orange);
+}
+.cop-yr{font-family:var(--font-mono);font-size:.58rem;color:var(--orange);letter-spacing:.14em;margin-bottom:.35rem}
+.cop-title{font-size:.88rem;font-weight:500;color:var(--white);margin-bottom:.25rem}
+.cop-desc{font-size:.78rem;color:rgba(240,240,240,.4);line-height:1.6}
+.cop-ev.this{background:rgba(232,81,42,.05);margin-left:-1rem;padding-left:1rem;border-left:2px solid var(--orange)}
+.cop-ev.this::before{background:var(--orange);transform:scale(1.4)}
+
+/* ── ARCHITECTS ── */
+.arch-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;margin-top:3rem}
+.arch-card{border-top:2px solid var(--orange);padding-top:2rem}
+.arch-card h3{font-family:'Playfair Display',serif;font-size:1.7rem;color:var(--white);margin-bottom:.3rem}
+.arch-dates{font-family:var(--font-mono);font-size:.6rem;color:var(--orange);letter-spacing:.14em;margin-bottom:1.2rem}
+.arch-card p{font-size:.88rem;color:rgba(240,240,240,.55);line-height:1.8;margin-bottom:.8rem}
+.keck-q{
+  grid-column:1/-1;margin-top:2.5rem;padding:3rem;
+  background:rgba(232,81,42,.04);border:1px solid rgba(232,81,42,.15);
+  position:relative;overflow:hidden;
+}
+.keck-q::before{
+  content:'"';position:absolute;top:-2rem;left:1rem;
+  font-family:'Playfair Display',serif;font-size:14rem;line-height:1;
+  color:rgba(232,81,42,.05);pointer-events:none;
+}
+.keck-q blockquote{
+  font-family:'Playfair Display',serif;font-style:italic;
+  font-size:1.3rem;color:rgba(240,240,240,.88);line-height:1.6;max-width:760px;position:relative;
+}
+.keck-q cite{display:block;margin-top:1rem;font-family:var(--font-mono);font-size:.58rem;color:var(--orange);letter-spacing:.14em;font-style:normal}
+
+/* ── HISTORY ── */
+.hist-s{background:#0a0806}
+.hist-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:5rem;align-items:start}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:2.5rem}
+.fact{border-top:1px solid rgba(255,255,255,.08);padding-top:.8rem}
+.fct-l{font-family:var(--font-mono);font-size:.56rem;color:var(--muted);letter-spacing:.16em;text-transform:uppercase;margin-bottom:.3rem}
+.fct-v{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--white)}
+.tl{border-left:1px solid rgba(255,255,255,.08);padding-left:2rem}
+.tl-i{padding:1.2rem 0;border-bottom:1px solid rgba(255,255,255,.05);position:relative}
+.tl-i::before{content:'';position:absolute;left:-2.35rem;top:1.5rem;width:6px;height:6px;border-radius:50%;background:var(--orange)}
+.tl-yr{font-family:var(--font-mono);font-size:.58rem;color:var(--orange);letter-spacing:.12em;margin-bottom:.3rem}
+.tl-d{font-size:.85rem;color:rgba(240,240,240,.5);line-height:1.6}
+.tl-d strong{color:rgba(240,240,240,.85);font-weight:500}
+
+/* ── SOLAR ── */
+.solar-s{background:var(--slate)}
+.solar-g{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.sc{
+  padding:1.8rem;background:rgba(255,255,255,.04);
+  border-top:3px solid var(--orange);
+  transition:background .2s;
+}
+.sc:hover{background:rgba(232,81,42,.06)}
+.sc-ico{font-size:1.5rem;margin-bottom:.8rem;display:block}
+.sc h3{font-family:'Playfair Display',serif;font-size:1rem;color:var(--white);margin-bottom:.5rem}
+.sc p{font-size:.8rem;color:rgba(200,215,230,.55);line-height:1.7;max-width:100%}
+
+/* ── WOOD / MATERIALS ── */
+.wood-s{position:relative}
+.wood-cedar-bg{
+  background:
+    repeating-linear-gradient(91deg,transparent 0,transparent 3px,rgba(0,0,0,.028) 3px,rgba(0,0,0,.028) 6px),
+    repeating-linear-gradient(89deg,transparent 0,transparent 9px,rgba(255,255,255,.014) 9px,rgba(255,255,255,.014) 18px),
+    linear-gradient(180deg,#9a6232 0%,#7a4a20 20%,#aa7040 40%,#6a3c18 60%,#9a6232 80%,#b07838 100%);
+  padding:7rem 4rem;position:relative;
+}
+.wood-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55)}
+.wood-content{position:relative;z-index:1}
+.spec-g{display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;margin-top:3rem}
+.spec-b h3{
+  font-family:var(--font-mono);font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--gold-light);border-bottom:1px solid rgba(196,150,42,.3);
+  padding-bottom:.5rem;margin-bottom:1rem;
+}
+.spec-b li{
+  font-size:.83rem;color:rgba(240,240,240,.65);
+  padding:.42rem 0;border-bottom:1px solid rgba(255,255,255,.07);
+  list-style:none;display:flex;gap:.7rem;align-items:baseline;
+}
+.spec-b li::before{content:'—';color:var(--orange);flex-shrink:0}
+
+/* ── BLUEPRINTS ── */
+.bp-s{background:var(--bp-bg);padding:7rem 0 0;position:relative}
+.bp-grid-bg{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(74,138,181,.13) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(74,138,181,.13) 1px,transparent 1px),
+    linear-gradient(rgba(74,138,181,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(74,138,181,.04) 1px,transparent 1px);
+  background-size:80px 80px,80px 80px,20px 20px,20px 20px;
+  pointer-events:none;
+}
+.bp-intro{max-width:1100px;margin:0 auto;padding:0 4rem;position:relative;z-index:1;margin-bottom:4rem}
+.bp-showcase{position:relative;z-index:1}
+.bp-strip{
+  display:grid;grid-template-columns:1fr 1fr;min-height:54vh;
+  border-top:1px solid rgba(74,138,181,.13);overflow:hidden;
+}
+.bp-strip:nth-child(even){direction:rtl}
+.bp-strip:nth-child(even) *{direction:ltr}
+.bp-img{position:relative;overflow:hidden;cursor:pointer}
+.bp-img img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:blur(10px) brightness(.35) saturate(.2);
+  transform:scale(1.1);
+  transition:filter 1.3s cubic-bezier(.4,0,.2,1),transform 1.3s cubic-bezier(.4,0,.2,1);
+}
+.bp-img.on img{filter:blur(0) brightness(.92) saturate(1);transform:scale(1)}
+.bp-img:hover img{transform:scale(1.02) !important}
+/* Scanlines */
+.bp-img::before{
+  content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent 0,transparent 3px,rgba(8,20,40,.2) 3px,rgba(8,20,40,.2) 4px);
+  opacity:.6;
+}
+.bp-img.on::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;box-shadow:inset 0 0 60px rgba(74,138,181,.12)}
+.bp-meas{
+  position:absolute;bottom:1.2rem;left:1.2rem;z-index:3;
+  font-family:var(--font-mono);font-size:.5rem;color:rgba(74,138,181,.65);
+  letter-spacing:.1em;display:flex;align-items:center;gap:.4rem;
+  opacity:0;transition:opacity .5s 1.1s;
+}
+.bp-meas::before{content:'';display:block;width:30px;height:1px;background:var(--bp-line);opacity:.5}
+.bp-img.on .bp-meas{opacity:1}
+.bp-zoom{
+  position:absolute;top:1.2rem;right:1.2rem;z-index:3;
+  width:34px;height:34px;border:1px solid rgba(74,138,181,.35);
+  background:rgba(14,31,53,.85);display:flex;align-items:center;
+  justify-content:center;font-size:.8rem;color:var(--bp-line);
+  cursor:pointer;opacity:0;transition:opacity .4s .9s;
+}
+.bp-img.on .bp-zoom{opacity:1}
+.bp-zoom:hover{background:var(--bp-line);color:#fff}
+.bp-info{
+  padding:4rem 3.5rem;display:flex;flex-direction:column;justify-content:center;
+  background:rgba(6,12,22,.65);backdrop-filter:blur(6px);
+  opacity:0;transform:translateX(-25px);
+  transition:opacity .9s .35s ease,transform .9s .35s cubic-bezier(.16,1,.3,1);
+}
+.bp-strip.on .bp-info{opacity:1;transform:none}
+.bp-strip:nth-child(even) .bp-info{transform:translateX(25px)}
+.bp-strip:nth-child(even).on .bp-info{transform:none}
+.bp-num{font-family:var(--font-mono);font-size:.55rem;color:var(--bp-line);letter-spacing:.2em;margin-bottom:1.2rem}
+.bp-info h3{font-family:'Playfair Display',serif;font-size:1.45rem;color:var(--white);margin-bottom:1rem;line-height:1.25}
+.bp-info p{font-size:.8rem;color:rgba(200,215,230,.55);line-height:1.75;max-width:380px}
+
+/* ── LIGHTBOX ── */
+.lb{
+  display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(0,0,0,.97);justify-content:center;align-items:center;padding:2rem;
+}
+.lb.open{display:flex}
+.lb-img{max-width:95vw;max-height:90vh;object-fit:contain;box-shadow:0 0 80px rgba(74,138,181,.18)}
+.lb-x{
+  position:absolute;top:1.5rem;right:2rem;
+  font-size:2rem;color:rgba(255,255,255,.4);background:none;border:none;cursor:pointer;
+  font-family:var(--font-mono);transition:color .2s;
+}
+.lb-x:hover{color:var(--white)}
+.lb-cap{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);font-family:var(--font-mono);font-size:.58rem;color:var(--bp-line);letter-spacing:.14em;text-align:center}
+
+/* ── CABINET ── */
+.cab-s{position:relative}
+.wood-red-bg{
+  background:
+    repeating-linear-gradient(91deg,transparent 0,transparent 4px,rgba(0,0,0,.03) 4px,rgba(0,0,0,.03) 7px),
+    linear-gradient(180deg,#6e3020 0%,#8a3c28 25%,#5e2818 50%,#7a3424 75%,#6e3020 100%);
+  padding:7rem 4rem;position:relative;
+}
+.red-overlay{position:absolute;inset:0;background:rgba(0,0,0,.58)}
+.cab-layout{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;position:relative;z-index:1;margin-top:2rem}
+.cab-spec{background:rgba(0,0,0,.4);padding:2rem;margin-top:1.5rem}
+.cab-spec-t{font-family:var(--font-mono);font-size:.56rem;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);margin-bottom:1.2rem}
+.cab-row{display:flex;justify-content:space-between;padding:.52rem 0;border-bottom:1px solid rgba(255,255,255,.09);font-size:.8rem}
+.cab-row:last-child{border-bottom:none}
+.cab-l{color:rgba(240,240,240,.38)}
+.cab-v{color:var(--white);font-weight:500;text-align:right;max-width:60%}
+.arch-note{margin-top:2rem;padding:1.5rem 2rem;border-left:3px solid var(--orange);background:rgba(0,0,0,.25)}
+.arch-note p{font-size:.82rem;color:rgba(240,240,240,.6);line-height:1.7;margin:0}
+.arch-note strong{color:var(--white)}
+
+/* ── ARCHIVES ── */
+.arc-s{background:#0a0806}
+.arc-g{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:3rem}
+.arc-card{background:var(--surface);padding:2.2rem;border-top:2px solid var(--muted-blue)}
+.arc-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--white);margin-bottom:.35rem}
+.arc-loc{font-family:var(--font-mono);font-size:.56rem;color:var(--muted-blue);letter-spacing:.14em;margin-bottom:.9rem}
+.arc-card p{font-size:.82rem;color:rgba(240,240,240,.5);line-height:1.7;max-width:100%;margin:0}
+.arc-lnk{display:inline-block;margin-top:.9rem;font-family:var(--font-mono);font-size:.58rem;color:var(--orange);letter-spacing:.1em;border-bottom:1px solid rgba(232,81,42,.4);padding-bottom:1px;transition:border-color .2s}
+.arc-lnk:hover{border-color:var(--orange)}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--black);padding:4rem;text-align:center;
+  font-family:var(--font-mono);font-size:.58rem;letter-spacing:.12em;
+  color:rgba(240,240,240,.2);line-height:2.5;
+  border-top:2px solid transparent;
+  border-image:linear-gradient(90deg,var(--cop-red),var(--cop-orange),var(--cop-gold),var(--cop-green),var(--cop-blue),var(--cop-violet)) 1;
+}
+footer strong{color:var(--orange)}
+.ft-pbk{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)}
+.ft-pbk a{color:var(--orange);font-family:var(--font-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase}
+
+/* ── REVEALS ── */
+.rv{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
+.rv.vis{opacity:1;transform:none}
+.rv-l{opacity:0;transform:translateX(-24px);transition:opacity .75s ease,transform .75s ease}
+.rv-l.vis{opacity:1;transform:none}
+.rv-r{opacity:0;transform:translateX(24px);transition:opacity .75s ease,transform .75s ease}
+.rv-r.vis{opacity:1;transform:none}
+.stg>*{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.stg.vis>*:nth-child(1){opacity:1;transform:none;transition-delay:.05s}
+.stg.vis>*:nth-child(2){opacity:1;transform:none;transition-delay:.14s}
+.stg.vis>*:nth-child(3){opacity:1;transform:none;transition-delay:.23s}
+.stg.vis>*:nth-child(4){opacity:1;transform:none;transition-delay:.32s}
+.stg.vis>*:nth-child(5){opacity:1;transform:none;transition-delay:.41s}
+.stg.vis>*:nth-child(6){opacity:1;transform:none;transition-delay:.5s}
+
+@media(max-width:900px){
+  nav{padding:.9rem 1.2rem}
+  .hero{padding:0 1.5rem 5rem}
+  .s{padding:5rem 1.5rem}
+  .hero-stamp{display:none}
+  .arch-layout,.hist-layout,.cop-layout,.cab-layout,.arc-g{grid-template-columns:1fr;gap:2.5rem}
+  .keck-q{grid-column:1}
+  .solar-g{grid-template-columns:1fr 1fr}
+  .spec-g,.facts{grid-template-columns:1fr 1fr}
+  .bp-strip{grid-template-columns:1fr}
+  .bp-strip:nth-child(even){direction:ltr}
+  .bp-info{padding:2.5rem 2rem}
+  .wood-cedar-bg,.wood-red-bg{padding:5rem 1.5rem}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cur"></div>
+<div class="cop-stripe"></div>
+
+<!-- PBK NAV -->
+<nav>
+  <a class="nav-logo" href="/"><strong>PitchBlac</strong><span>Knight</span></a>
+  <ul class="nav-links">
+    <li><a href="/#work">Work</a></li>
+    <li><a href="/#music">Music</a></li>
+    <li><a href="/#about">About</a></li>
+    <li><a href="/home" class="active">240 Home</a></li>
+    <li><a href="/#contact" class="nav-back">← Main Site</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-ghost"></div>
+  <div class="hero-stamp">
+    JOB NO. 450<br>
+    DRAWN: RPD<br>
+    10 APRIL 1951<br>
+    CHECKED: 4 MAY 1951<br>
+    ──────────<br>
+    618 N. MICHIGAN AVE<br>
+    CHICAGO, ILLINOIS<br>
+    ──────────<br>
+    SHEET 1 OF 7+
+  </div>
+  <div class="hero-job">Job No. 450 &nbsp;·&nbsp; Keck & Keck Architects &nbsp;·&nbsp; Chicago, IL</div>
+  <h1 class="hero-h1">
+    <span class="ln"><span>240 Country</span></span>
+    <span class="ln"><span>Club Road</span></span>
+    <span class="ln"><span>A House for Mr. & Mrs. Arthur Gordon, 1952</span></span>
+  </h1>
+  <div class="hero-meta">
+    <span>Chicago Heights <b>Illinois 60411</b></span>
+    <div class="hero-sep"></div>
+    <span>Completed <b>1952</b></span>
+    <div class="hero-sep"></div>
+    <span>Architects <b>Keck & Keck</b></span>
+    <div class="hero-sep"></div>
+    <span>Job <b>#450</b></span>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</section>
+
+<!-- CENTURY OF PROGRESS -->
+<section class="s cop-s" id="cop">
+  <div class="cop-rainbow"></div>
+  <div class="cop-bg-grid"></div>
+  <div class="si cop-layout">
+    <div class="cop-ghost-yr rv">1933</div>
+    <div class="rv-l">
+      <div class="sl">A Century of Progress</div>
+      <h2>The House of Tomorrow<br>& the Architects<br>Who Built Yours</h2>
+      <p>In the winter of 1933, on the frozen Chicago lakefront, George Fred Keck finished the all-glass <em>House of Tomorrow</em> for the Century of Progress World's Fair — America's first glass house. Workers stripping their coats inside the unheated structure in December showed him something that changed everything: the sun could heat a building. Nineteen years later, he and his brother William brought every lesson learned directly to your corner lot on Country Club Road.</p>
+    </div>
+    <div class="cop-tl rv-r">
+      <div class="cop-ev"><div class="cop-yr">1926</div><div class="cop-title">George Fred Keck opens practice</div><div class="cop-desc">618 N. Michigan Avenue, Chicago. The office that would design hundreds of solar homes.</div></div>
+      <div class="cop-ev"><div class="cop-yr">1931</div><div class="cop-title">William Keck joins the firm</div><div class="cop-desc">Keck & Keck is formed.</div></div>
+      <div class="cop-ev"><div class="cop-yr">1933</div><div class="cop-title">House of Tomorrow — Century of Progress</div><div class="cop-desc">America's first glass house. The passive solar discovery that defines everything that follows.</div></div>
+      <div class="cop-ev this"><div class="cop-yr">1951 – 1952</div><div class="cop-title">Job No. 450 — This House</div><div class="cop-desc">240 Country Club Road, Chicago Heights. Three schemes drawn. One built. Barely changed since.</div></div>
+      <div class="cop-ev"><div class="cop-yr">1977</div><div class="cop-title">Keck & Keck return</div><div class="cop-desc">The original architects remodel their own masterwork. A quarter century on.</div></div>
+      <div class="cop-ev"><div class="cop-yr">1980</div><div class="cop-title">Illinois Medal in Architecture</div><div class="cop-desc">University of Illinois awards both brothers its first-ever lifetime achievement medal.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTS -->
+<section class="s" id="architects" style="background:var(--near-black)">
+  <div class="si">
+    <div class="sl rv">The Architects</div>
+    <h2 class="rv">George Fred Keck<br>& William Keck</h2>
+    <div class="arch-layout stg">
+      <div class="arch-card">
+        <h3>George Fred Keck</h3>
+        <div class="arch-dates">1895 – 1980 · Watertown, Wisconsin</div>
+        <p>Studied at the University of Illinois. Worked for D.H. Burnham & Company before opening his own practice in 1926. His all-glass House of Tomorrow was the moment he realized the sun itself could heat a building. He spent the rest of his career proving it, working with Adler Planetarium scientists to calculate sun-angle overhangs for each house — decades before sustainability was a concept.</p>
+        <p>Keck & Keck went on to design hundreds of quietly groundbreaking passive solar houses: low, warm, horizontal homes built of cedar, brick, and redwood that breathed with the seasons and opened to nature through walls of glass.</p>
+      </div>
+      <div class="arch-card">
+        <h3>William Keck</h3>
+        <div class="arch-dates">1908 – 1995 · Watertown, Wisconsin</div>
+        <p>Joined his brother's practice in 1931. Together they built the most innovative and livable practice in the midwest — simultaneously radical and deeply comfortable. The University of Wisconsin–Madison holds the Keck & Keck firm archive; the Art Institute of Chicago's Ryerson & Burnham Archives holds project files. Both hold documentation of Job No. 450.</p>
+        <p>In 1977, William returned to 240 Country Club Road to remodel the house he and his brother had designed 25 years earlier. An extraordinary act of architectural stewardship.</p>
+      </div>
+      <div class="keck-q">
+        <blockquote>"Openness inside and openness to nature — a feeling of being surrounded by earth-born surfaces such as brick and wood, and a relaxed attitude designed for casual family living."</blockquote>
+        <cite>— Keck & Keck residential design philosophy</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HISTORY -->
+<section class="s hist-s" id="history">
+  <div class="si hist-layout">
+    <div>
+      <div class="sl rv">The House & Its History</div>
+      <h2 class="rv">A Commission Born<br>of Three Designs</h2>
+      <p class="rv">When Arthur and Mrs. Gordon approached Keck & Keck, the architects drew up <strong style="color:rgba(240,240,240,.85)">three entirely different design schemes</strong> for the corner lot at Country Club Road and Franklin Avenue, Chicago Heights. The house built — Job No. 450 — was completed in 1952 and has barely been altered in over seven decades.</p>
+      <p class="rv">A split-level passive solar masterwork: cedar-clad, brick-anchored, with walls of fixed Thermopane glass and louvered ventilation panels. The blueprint set includes a separately drawn Clerestory Plan. In 1954, the Chicago Heights Star documented a meeting held in "the home of Mrs. Arthur Gordon, 240 Country Club Road."</p>
+      <div class="facts stg">
+        <div class="fact"><div class="fct-l">Year Designed</div><div class="fct-v">1951</div></div>
+        <div class="fact"><div class="fct-l">Year Completed</div><div class="fct-v">1952</div></div>
+        <div class="fact"><div class="fct-l">Job Number</div><div class="fct-v">No. 450</div></div>
+        <div class="fact"><div class="fct-l">Blueprint Sheets</div><div class="fct-v">7 + Revisions</div></div>
+        <div class="fact"><div class="fct-l">Bedrooms</div><div class="fct-v">3 + Rec Room</div></div>
+        <div class="fact"><div class="fct-l">Bathrooms</div><div class="fct-v">3 Full</div></div>
+        <div class="fact"><div class="fct-l">Keck Remodel</div><div class="fct-v">1977</div></div>
+        <div class="fact"><div class="fct-l">Draftsperson</div><div class="fct-v">RPD</div></div>
+      </div>
+    </div>
+    <div>
+      <div class="sl rv" style="color:var(--orange)">Five Owners · Seven Decades</div>
+      <div class="tl rv">
+        <div class="tl-i"><div class="tl-yr">1952</div><div class="tl-d"><strong>Mr. & Mrs. Arthur Gordon</strong> — Original clients. Mrs. Gordon hosted documented social gatherings here. Three schemes were drawn; this was chosen.</div></div>
+        <div class="tl-i"><div class="tl-yr">c. 1960s</div><div class="tl-d"><strong>Robert P. Snell</strong> — Second owner. The home retained all original character.</div></div>
+        <div class="tl-i"><div class="tl-yr">1977</div><div class="tl-d"><strong>Keck & Keck return</strong> — The original architects remodel their own house.</div></div>
+        <div class="tl-i"><div class="tl-yr">c. 1980s</div><div class="tl-d"><strong>Jim Calabrese</strong> — Third documented owner.</div></div>
+        <div class="tl-i"><div class="tl-yr">2007</div><div class="tl-d"><strong>Joyce Myles</strong> — Purchased for $217,000. Stewarded the home for 12 years.</div></div>
+        <div class="tl-i"><div class="tl-yr">2019</div><div class="tl-d"><strong>Current Owner</strong> — Acquired with full recognition of architectural significance. Research and restoration underway.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SOLAR -->
+<section class="s solar-s" id="solar">
+  <div class="si">
+    <div class="sl rv">Passive Solar Architecture</div>
+    <h2 class="rv">Designed to Breathe<br>With the Sun</h2>
+    <div class="solar-g stg">
+      <div class="sc"><span class="sc-ico">☀️</span><h3>Solar Orientation</h3><p>Sited and oriented to maximize winter sun through south-facing glass. Roof overhangs calculated with Adler Planetarium sun-angle data to block the high summer sun exactly.</p></div>
+      <div class="sc"><span class="sc-ico">🪟</span><h3>Thermopane Glass Walls</h3><p>Fixed double-paned Thermopane windows in every major room. Separate louvered ventilation panels allow controlled cross-ventilation without breaking the glass wall.</p></div>
+      <div class="sc"><span class="sc-ico">🧱</span><h3>Thermal Mass</h3><p>Brick and concrete slab floors absorb daytime solar heat and release it slowly through the night — zero mechanical assistance required.</p></div>
+      <div class="sc"><span class="sc-ico">📐</span><h3>Clerestory Plan</h3><p>A dedicated clerestory plan — drawn separately on Sheet 2 — brings diffuse northern light deep into the interior while the main roof manages direct solar gain.</p></div>
+      <div class="sc"><span class="sc-ico">🌲</span><h3>Exposed Redwood Ceilings</h3><p>Kitchen: exposed redwood (original spec). Living room: 4×10 exposed redwood beams with ¼″ T&G redwood planking per the 1951 revision sheet.</p></div>
+      <div class="sc"><span class="sc-ico">🏠</span><h3>Split-Level Section</h3><p>The home steps from bedroom to living to garage — each level responding to the natural grade. Sheet 7 cross-sections reveal a sculptural interior volume invisible from the street.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MATERIALS -->
+<section class="wood-s" id="materials">
+  <div class="wood-cedar-bg">
+    <div class="wood-overlay"></div>
+    <div class="wood-content si">
+      <div class="sl rv" style="color:var(--gold-light)">Original Specifications</div>
+      <h2 class="rv">Materials & Finishes<br>As Drawn by Keck & Keck</h2>
+      <p class="rv" style="color:rgba(240,240,240,.6)">Every material, finish, and hardware specification is documented across seven drawing sheets in the Keck office hand. What follows is drawn directly from Job No. 450.</p>
+      <div class="spec-g stg">
+        <div class="spec-b"><h3>Exterior</h3><ul>
+          <li>Cedar and brick — low horizontal profile</li>
+          <li>1×6 V-joint cedar siding (vertical and horizontal)</li>
+          <li>Brick chimney, vitreous flue liner, 4″ concrete cap</li>
+          <li>Sheet metal flashing & counterflashing throughout</li>
+          <li>3-ply built-up roof with S.M. flashing</li>
+          <li>Gravel drive, 4″ concrete apron at garage</li>
+          <li>Concrete retaining wall, east elevation</li>
+          <li>7′-0 × 16′-0 × 1⅜″ overhead garage door</li>
+        </ul></div>
+        <div class="spec-b"><h3>Interior — Ceilings</h3><ul>
+          <li>Living/Dining: Acoustical tile (original)</li>
+          <li>Kitchen: Exposed redwood (original)</li>
+          <li>All other: Plaster, Keenes cement finish</li>
+          <li>Revision Sheet: 4×10 exposed redwood beams in living room</li>
+          <li>¼″ T&G redwood planking above beams</li>
+          <li>Beamed ceiling extended to kitchen, stair, Bath #1</li>
+        </ul></div>
+        <div class="spec-b"><h3>Interior — Walls & Floors</h3><ul>
+          <li>Main Entry: Mahogany paneling</li>
+          <li>Bedroom areas: Horizontal siding</li>
+          <li>Living/Dining floors: Slate or natural gray concrete</li>
+          <li>Bedroom level: 7/16″ vertical-grain oak flooring</li>
+          <li>Bathrooms: Inlaid linoleum, owner's color</li>
+          <li>Garage: Smooth troweled concrete over fill</li>
+        </ul></div>
+        <div class="spec-b"><h3>Kitchen & Hardware</h3><ul>
+          <li>Built-in Thermador range + two Thermador ovens</li>
+          <li>Kennatrack Series 400 sliding door hardware</li>
+          <li>Harvey Adjustable Hanger Unit — bedrooms & kitchen</li>
+          <li>Type A Doors: 2′8″×6′8″×1⅜″ Rezzo Hollow Core, Birch</li>
+          <li>ILS Motorair kitchen exhaust fan</li>
+          <li>Cork flooring in bedrooms (original spec)</li>
+        </ul></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLUEPRINTS -->
+<section class="bp-s" id="blueprints">
+  <div class="bp-grid-bg"></div>
+  <div class="bp-intro">
+    <div class="sl rv" style="color:var(--bp-line)">Original Drawing Set — Job No. 450</div>
+    <h2 class="rv">The Blueprint Archive</h2>
+    <p class="rv">Five original Keck & Keck drawing sheets survive — drawn April–May 1951, checked by the Keck office. Scroll to develop each sheet. Click to enlarge.</p>
+  </div>
+  <div class="bp-showcase">
+    <div class="bp-strip" id="s1">
+      <div class="bp-img" onclick="openLB('./blueprints/blueprint-2.jpg','Sheet 1 — Basement & Foundation Plan · Fireplace Details · Job 450')">
+        <img src="./blueprints/blueprint-2.jpg" alt="Sheet 1" loading="lazy"/>
+        <div class="bp-meas">SCALE ½″ = 1′-0″ · FOUNDATION SECTIONS A-A THRU K-K</div>
+        <div class="bp-zoom">⤢</div>
+      </div>
+      <div class="bp-info">
+        <div class="bp-num">SHEET 1 OF 7 · JOB 450 · DRAWN 10 APRIL 1951</div>
+        <h3>Basement & Foundation Plan<br>Fireplace Details</h3>
+        <p>Foundation sections A-A through K-K, reinforced concrete stair to lower level, Recreation & Guest Room, Utility Room, and the fireplace rendered in full elevation, plan, and section — tile flue, ash dump, fire door, damper, and 4″ concrete cap all specified.</p>
+      </div>
+    </div>
+    <div class="bp-strip" id="s2">
+      <div class="bp-img" onclick="openLB('./blueprints/blueprint-1.jpg','Sheet 3 — Elevations & Plot Plan · Job 450')">
+        <img src="./blueprints/blueprint-1.jpg" alt="Sheet 3" loading="lazy"/>
+        <div class="bp-meas">SCALE ¼″ = 1′-0″ · ALL FOUR ELEVATIONS</div>
+        <div class="bp-zoom">⤢</div>
+      </div>
+      <div class="bp-info">
+        <div class="bp-num">SHEET 3 OF 7 · JOB 450 · CHECKED 4 MAY 1951</div>
+        <h3>Elevations & Plot Plan</h3>
+        <p>All four elevations (N/S/E/W) plus the site plan at 1″=10′-0″. Shows the corner lot at Country Club Road and Franklin Avenue — gravel drive entry, property lines, power pole, and the precise positioning of the building on grade. Every material zone, flashing, and siding profile annotated.</p>
+      </div>
+    </div>
+    <div class="bp-strip" id="s3">
+      <div class="bp-img" onclick="openLB('./blueprints/blueprint-4.jpg','Sheet 7 — Sections & Interior Elevations · Job 450')">
+        <img src="./blueprints/blueprint-4.jpg" alt="Sheet 7" loading="lazy"/>
+        <div class="bp-meas">SCALE ¼″ = 1′-0″ · SECTIONS A-A, B-B, C-C</div>
+        <div class="bp-zoom">⤢</div>
+      </div>
+      <div class="bp-info">
+        <div class="bp-num">SHEET 7 OF 7 · JOB 450 · DRAWN 10 APRIL 1951</div>
+        <h3>Sections & Interior Elevations</h3>
+        <p>Three building cross-sections plus interior elevations of every room: Master Bedroom north and east walls, Bedrooms #1 and #2, all three Bathrooms, Main Entry, the <strong style="color:rgba(240,240,240,.85)">Living Room north wall built-in cabinet</strong>, Kitchen & Dining north and south walls, Basement Hall, and Recreation Room.</p>
+      </div>
+    </div>
+    <div class="bp-strip" id="s4">
+      <div class="bp-img" onclick="openLB('./blueprints/blueprint-5.jpg','Sheet 7A — Suggested Revisions · Beamed Ceiling · Alternate Kitchens · Job 450')">
+        <img src="./blueprints/blueprint-5.jpg" alt="Sheet 7A" loading="lazy"/>
+        <div class="bp-meas">SCALE ¼″ = 1′-0″ · SUGGESTED REVISIONS</div>
+        <div class="bp-zoom">⤢</div>
+      </div>
+      <div class="bp-info">
+        <div class="bp-num">SHEET 7A — SUGGESTED REVISIONS · JOB 450 · DATED 5 JUNE 1951</div>
+        <h3>Suggested Revisions:<br>Beamed Ceiling · Alternate Kitchens</h3>
+        <p>Three alternate kitchen configurations, two bathroom alternates, revised beamed ceiling plan, and Section D-D (scale ¾″=1′-0″) detailing the exact roof construction: 3-ply built-up roof, 4×10 exposed redwood beams, ¼″ T&G redwood planking, 2×6 fascia, and beam lookout profile.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLB(event)">
+  <button class="lb-x" onclick="closeLB({target:document.getElementById('lb')})">×</button>
+  <img class="lb-img" id="lb-img" src="" alt=""/>
+  <div class="lb-cap" id="lb-cap"></div>
+</div>
+
+<!-- CABINET -->
+<section class="cab-s" id="cabinet">
+  <div class="wood-red-bg">
+    <div class="red-overlay"></div>
+    <div class="si" style="position:relative;z-index:1">
+      <div class="sl rv" style="color:rgba(255,255,255,.45)">The Restoration</div>
+      <h2 class="rv">The Living Room<br>North Wall Cabinet</h2>
+      <div class="cab-layout">
+        <div class="rv-l">
+          <p style="color:rgba(240,240,240,.72)">Sheet 7 documents the full interior elevation of the <strong style="color:rgba(240,240,240,.95)">Main Entry & Living Room North Wall</strong>. Here, drawn in Keck's office hand, is a built-in cabinet and credenza unit: a floor-to-ceiling millwork piece combining records storage, a dedicated speaker enclosure, a radio and phonograph compartment, drawers, and a Formica work surface.</p>
+          <p style="color:rgba(240,240,240,.72)">This unit was removed at some point in the home's seventy-year history. It was not furniture — it was architecture, designed specifically for this wall, beneath these 4×10 redwood beams. The blueprint gives us everything needed to rebuild it exactly as Keck drew it.</p>
+          <div class="arch-note">
+            <p><strong>Research path for reconstruction:</strong> The University of Wisconsin–Madison Digital Collections holds the Keck & Keck firm archive. Similar built-in units appear in other Keck houses of the same period and may provide supplementary millwork photography. Contact UW-Madison Special Collections requesting Job No. 450 documentation.</p>
+          </div>
+        </div>
+        <div class="rv-r">
+          <div class="cab-spec">
+            <div class="cab-spec-t">North Wall Unit — As Drawn · Sheet 7</div>
+            <div class="cab-row"><span class="cab-l">Location</span><span class="cab-v">Living Room, North Wall</span></div>
+            <div class="cab-row"><span class="cab-l">Sheet Reference</span><span class="cab-v">Sheet 7 — Interior Elevations</span></div>
+            <div class="cab-row"><span class="cab-l">Countertop</span><span class="cab-v">Formica laminate surface</span></div>
+            <div class="cab-row"><span class="cab-l">Compartments L→R</span><span class="cab-v">Drawers · Records · Records · Speaker · Radio/Phono</span></div>
+            <div class="cab-row"><span class="cab-l">Wall Behind</span><span class="cab-v">Horizontal "Horse" Siding</span></div>
+            <div class="cab-row"><span class="cab-l">Ceiling</span><span class="cab-v">4×10 Exposed Redwood Beams</span></div>
+            <div class="cab-row"><span class="cab-l">Status</span><span class="cab-v" style="color:var(--orange)">Removed — to be rebuilt</span></div>
+          </div>
+          <div class="cab-spec">
+            <div class="cab-spec-t">Bedroom Built-Ins — Sheet 7</div>
+            <div class="cab-row"><span class="cab-l">Master Bedroom North</span><span class="cab-v">Back panel, duct closet, adjustable shelves</span></div>
+            <div class="cab-row"><span class="cab-l">Master Bedroom East</span><span class="cab-v">Birch top · pencil/stationery drawers · shoe racks · future desk</span></div>
+            <div class="cab-row"><span class="cab-l">Bedroom #1 North</span><span class="cab-v">5/8″ birch · open adjustable shelves</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHIVES -->
+<section class="s arc-s" id="archives">
+  <div class="si">
+    <div class="sl rv">Archives & Research</div>
+    <h2 class="rv">Finding the Missing Sheets</h2>
+    <p class="rv">Five of the original seven-plus drawing sheets survive in this house. Additional drawings exist in the firm archive and historical record.</p>
+    <div class="arc-g stg">
+      <div class="arc-card">
+        <h3>University of Wisconsin–Madison</h3>
+        <div class="arc-loc">Madison, WI · Digital & Physical Collections</div>
+        <p>The UW-Madison Digital Collections hold the Keck & Keck firm archive — photographs and drawings from across their Illinois and Wisconsin projects. Primary source for Job No. 450 photography and any remaining drawing sheets.</p>
+        <a class="arc-lnk" href="https://search.library.wisc.edu/digital/AAAPS3OHN25P6U8W" target="_blank">UW Digital Collections → Keck & Keck ↗</a>
+      </div>
+      <div class="arc-card">
+        <h3>Art Institute of Chicago</h3>
+        <div class="arc-loc">Chicago, IL · Ryerson & Burnham Archives</div>
+        <p>The Ryerson & Burnham Archives hold architectural records for Keck & Keck including drawings, photographs, and project files. First contact for any surviving Job No. 450 drawings beyond the five sheets in the home.</p>
+        <a class="arc-lnk" href="https://www.artic.edu/artists/31689/keck-keck-architects" target="_blank">Art Institute → Keck & Keck ↗</a>
+      </div>
+      <div class="arc-card">
+        <h3>Chicago History Museum</h3>
+        <div class="arc-loc">Chicago, IL · Hedrich Blessing Collection</div>
+        <p>The Hedrich Blessing Collection documents mid-century Chicago and suburban modernist homes. Keck & Keck houses were frequently photographed by Hedrich Blessing. Professional photographs of 240 Country Club Road may exist here.</p>
+        <a class="arc-lnk" href="https://www.chicagohistory.org" target="_blank">Chicago History Museum ↗</a>
+      </div>
+      <div class="arc-card">
+        <h3>Chicago Heights Historic Preservation</h3>
+        <div class="arc-loc">Chicago Heights, IL · Local Records</div>
+        <p>Municipal records, permit records, and newspaper archives — including the 1954 Chicago Heights Star article documenting a gathering at the Gordon home. Cook County property records document the full ownership chain from 1952.</p>
+        <a class="arc-lnk" href="https://chhpac.wordpress.com" target="_blank">Chicago Heights Preservation ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <strong>240 Country Club Road</strong><br>
+  Chicago Heights, Illinois 60411<br><br>
+  A House for Mr. & Mrs. Arthur Gordon · Job No. 450<br>
+  <strong>George Fred Keck · William Keck, Architects</strong><br>
+  618 N. Michigan Avenue, Chicago, Illinois<br><br>
+  Designed 1951 · Completed 1952 · Keck & Keck Remodel 1977<br>
+  Original blueprints on file with current owner<br>
+  <span style="opacity:.35;font-size:.52rem">A Century of Progress · Chicago 1933 → Country Club Road 1952</span>
+  <div class="ft-pbk">
+    Part of the <a href="https://pitchblacknight.com">PitchBlacKnight</a> design network
+  </div>
+</footer>
+
+<script>
+/* CURSOR */
+const cur=document.getElementById('cur');
+document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
+document.querySelectorAll('a,button,.bp-img,.bp-zoom').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cur.classList.add('big'));
+  el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
+});
+
+/* REVEAL OBSERVER */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.rv,.rv-l,.rv-r,.stg').forEach(el=>ro.observe(el));
+
+/* BLUEPRINT DEVELOP */
+const bpo=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const strip=e.target;
+      strip.classList.add('on');
+      strip.querySelector('.bp-img').classList.add('on');
+      bpo.unobserve(strip);
+    }
+  });
+},{threshold:.2});
+document.querySelectorAll('.bp-strip').forEach(el=>bpo.observe(el));
+
+/* LIGHTBOX */
+function openLB(src,cap){
+  document.getElementById('lb-img').src=src;
+  document.getElementById('lb-cap').textContent=cap;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLB(e){
+  if(!e||e.target===document.getElementById('lb')||e.currentTarget===document.querySelector('.lb-x')){
+    document.getElementById('lb').classList.remove('open');
+    document.getElementById('lb-img').src='';
+    document.body.style.overflow='';
+  }
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLB({target:document.getElementById('lb')})});
+</script>
+</body>
+</html>
