@@ -395,6 +395,15 @@ footer strong{color:var(--orange)}
 .ft-pbk{margin-top:2rem;padding-top:2rem;border-top:1px solid var(--border)}
 .ft-pbk a{color:var(--orange);font-family:var(--font-mono);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase}
 
+/* ── PHOTOGRAPHS ── */
+.photo-s{background:#0a0806}
+.photo-g{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:2.5rem}
+.pc{overflow:hidden;cursor:pointer}
+.pc img{width:100%;height:240px;object-fit:cover;display:block;transition:transform .4s ease}
+.pc:hover img{transform:scale(1.03)}
+@media(max-width:900px){.photo-g{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.photo-g{grid-template-columns:1fr}}
+
 /* ── REVEALS ── */
 .rv{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
 .rv.vis{opacity:1;transform:none}
@@ -678,6 +687,18 @@ footer strong{color:var(--orange)}
         <p>Three alternate kitchen configurations, two bathroom alternates, revised beamed ceiling plan, and Section D-D (scale ¾″=1′-0″) detailing the exact roof construction: 3-ply built-up roof, 4×10 exposed redwood beams, ¼″ T&G redwood planking, 2×6 fascia, and beam lookout profile.</p>
       </div>
     </div>
+    <div class="bp-strip" id="s5">
+      <div class="bp-img" onclick="openLB('./blueprints/blueprint-3.jpg','Sheet 2 — Floor Plan &amp; Clerestory Plan · Job 450')">
+        <img src="./blueprints/blueprint-3.jpg" alt="Sheet 2 — Floor Plan" loading="lazy"/>
+        <div class="bp-meas">SCALE ¼″ = 1′-0″ · FIRST FLOOR &amp; CLERESTORY PLAN</div>
+        <div class="bp-zoom">⊕</div>
+      </div>
+      <div class="bp-info">
+        <div class="bp-num">SHEET 2 OF 7 · JOB 450 · DRAWN 10 APRIL 1951</div>
+        <h3>Floor Plan &amp;<br>Clerestory Plan</h3>
+        <p>The complete main floor layout — Living Room, Dining, Kitchen, three Bedrooms, all Bathrooms, and the separately drawn Clerestory Plan that pulls diffuse northern light deep into the interior. Every room dimension, wall thickness, door swing, and window position as Keck drew them in 1951.</p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -761,6 +782,24 @@ footer strong{color:var(--orange)}
   </div>
 </section>
 
+<!-- PHOTOGRAPHS -->
+<section class="s photo-s" id="photographs">
+  <div class="si">
+    <div class="sl rv">Historic Record</div>
+    <h2 class="rv">The House in Photographs</h2>
+    <p class="rv">Seven decades of occupancy. The cedar, the glass walls, the light this house was designed to hold.</p>
+    <div class="photo-g">
+      <div class="pc" onclick="openLB('./photos/historic-1.jpg','240 Country Club Road')"><img src="./photos/historic-1.jpg" alt="240 Country Club Road"/></div>
+      <div class="pc" onclick="openLB('./photos/historic-2.jpg','240 Country Club Road')"><img src="./photos/historic-2.jpg" alt="Exterior"/></div>
+      <div class="pc" onclick="openLB('./photos/historic-3.jpg','240 Country Club Road')"><img src="./photos/historic-3.jpg" alt="Glass Wall"/></div>
+      <div class="pc" onclick="openLB('./photos/historic-4.jpg','240 Country Club Road')"><img src="./photos/historic-4.jpg" alt="Cedar &amp; Brick"/></div>
+      <div class="pc" onclick="openLB('./photos/historic-5.jpg','240 Country Club Road')"><img src="./photos/historic-5.jpg" alt="Interior"/></div>
+      <div class="pc" onclick="openLB('./photos/historic-6.jpg','240 Country Club Road')"><img src="./photos/historic-6.jpg" alt="Living Room"/></div>
+      <div class="pc" onclick="openLB('./photos/historic-7.jpg','240 Country Club Road')"><img src="./photos/historic-7.jpg" alt="Site"/></div>
+    </div>
+  </div>
+</section>
+
 <!-- FOOTER -->
 <footer>
   <strong>240 Country Club Road</strong><br>
@@ -780,7 +819,7 @@ footer strong{color:var(--orange)}
 /* CURSOR */
 const cur=document.getElementById('cur');
 document.addEventListener('mousemove',e=>{cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px'});
-document.querySelectorAll('a,button,.bp-img,.bp-zoom').forEach(el=>{
+document.querySelectorAll('a,button,.bp-img,.bp-zoom,.pc').forEach(el=>{
   el.addEventListener('mouseenter',()=>cur.classList.add('big'));
   el.addEventListener('mouseleave',()=>cur.classList.remove('big'));
 });
