@@ -168,14 +168,34 @@
     }
     .view-portfolio-btn:hover { text-decoration: underline; }
 
-    /* PRODUCT & WEB */
-    .web-section-label {
-      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: var(--muted); margin: 4rem 0 1.2rem;
-      display: flex; align-items: center; gap: 1rem;
+    /* WEB DESIGN CATALOG */
+    .catalog-header {
+      margin: 5rem 0 0;
+      padding: 2.5rem 0 2rem;
+      border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem;
     }
-    .web-section-label::after {
-      content: ''; flex: 1; height: 1px; background: var(--border);
+    .catalog-eyebrow {
+      font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem;
+    }
+    .catalog-title {
+      font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1; text-transform: uppercase; color: var(--white);
+    }
+    .catalog-desc {
+      font-family: var(--font-sans); font-size: 0.82rem; color: var(--muted);
+      line-height: 1.7; max-width: 380px; margin-top: 1rem;
+    }
+    .catalog-count {
+      font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); text-align: right;
+      white-space: nowrap;
+    }
+    .catalog-count span {
+      display: block; font-family: var(--font-serif); font-size: 2.5rem;
+      font-weight: 700; color: var(--white); letter-spacing: -0.02em; line-height: 1;
+      margin-bottom: 0.3rem;
     }
     .web-grid {
       display: grid; grid-template-columns: repeat(2, 1fr);
@@ -494,7 +514,17 @@
       <div class="work-cell"><img src="images/work/1756fda6a895cf1fa5bfc010a641bbe55883d10d.png" alt="Work" loading="lazy" /></div>
       <div class="work-cell"><img src="images/work/19ba9f6f064cc0718f7599da3a0eaa0c49eceaae.png" alt="Work" loading="lazy" /></div>
     </div>
-    <p class="web-section-label">Product &amp; Web</p>
+    <div class="catalog-header">
+      <div>
+        <p class="catalog-eyebrow">Web Design</p>
+        <h3 class="catalog-title">The Catalog</h3>
+        <p class="catalog-desc">Client sites, personal projects, and experiments in digital craft. Each one built with intention — brand-first, performance-second, ego never.</p>
+      </div>
+      <div class="catalog-count">
+        <span>04</span>
+        Projects
+      </div>
+    </div>
     <div class="web-grid">
 
       <!-- Bert Gillette — Real Estate -->
