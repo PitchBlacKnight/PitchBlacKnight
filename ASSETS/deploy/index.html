@@ -7,7 +7,7 @@
   <meta name="description" content="Mikel Rosenthal is a polymath and Fluxus artist working across music, performance, visual art, design, and voice." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@0,400;0,700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=Bebas+Neue&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@0,400;0,700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; font-size: 16px; }
@@ -96,12 +96,14 @@
       align-items: center; gap: 0.4rem; text-align: center;
     }
     .hero-eyebrow {
-      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.32em;
-      text-transform: uppercase; color: rgba(255,255,255,0.38);
+      font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 9.5vw, 9rem);
+      font-weight: 400; letter-spacing: 0.06em;
+      text-transform: uppercase; line-height: 1;
+      white-space: nowrap;
     }
     .hero-sub {
-      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em;
-      text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 0.5rem;
+      font-family: var(--font-mono); font-size: clamp(0.7rem, 1.8vw, 1.1rem); letter-spacing: 0.3em;
+      text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 0.5rem;
     }
     .hero-form { width: clamp(300px, 38vw, 480px); opacity: 0.93; display: block; }
     .hero-scroll {
@@ -133,6 +135,10 @@
     #about {
       background: var(--black); min-height: 100vh; display: flex; flex-direction: column;
       justify-content: center; position: relative; overflow: hidden;
+    }
+    .about-bg-gif {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0.22; z-index: 0; pointer-events: none;
     }
     .about-glow {
       position: absolute; inset: 0;
@@ -426,6 +432,7 @@
 
   <!-- ABOUT -->
   <section id="about">
+    <img class="about-bg-gif" src="images/art/Old memories.gif" alt="" />
     <div class="about-glow"></div>
     <div class="about-inner">
       <p class="section-label">01 — ABOUT</p>
