@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Archive — PitchBlacknight</title>
+  <meta name="description" content="The complete motion art archive of Mikel Rosenthal / PitchBlacknight." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@0,400;0,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: #060606; color: #f0f0f0; font-family: 'Schibsted Grotesk', system-ui, sans-serif; line-height: 1.6; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+
+    :root {
+      --black: #060606;
+      --near-black: #0d0d0d;
+      --surface: #111111;
+      --white: #f0f0f0;
+      --muted: #555566;
+      --muted-blue: #7b8db8;
+      --orange: #e8512a;
+      --border: rgba(255,255,255,0.07);
+      --font-sans: 'Schibsted Grotesk', system-ui, sans-serif;
+      --font-serif: 'Alexandria', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 2.5rem;
+      background: rgba(6,6,6,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-serif); font-size: 0.8rem; letter-spacing: 0.12em;
+      text-transform: uppercase; font-weight: 700;
+    }
+    .nav-logo img { width: 32px; height: 32px; object-fit: cover; border-radius: 50%; flex-shrink: 0; }
+    .nav-logo span:nth-child(2) { color: var(--white); }
+    .nav-logo span:nth-child(3) { color: var(--orange); }
+    .nav-logo span:nth-child(4) { color: var(--muted-blue); }
+    .nav-links { display: flex; gap: 2.5rem; align-items: center; }
+    .nav-links a {
+      font-family: var(--font-mono); font-size: 0.62rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: rgba(255,255,255,0.55); transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-resume {
+      border: 1px solid var(--orange); color: var(--orange) !important;
+      padding: 0.35rem 0.8rem; border-radius: 2px;
+    }
+    .nav-resume:hover { background: var(--orange); color: var(--black) !important; }
+
+    /* HEADER */
+    .archive-header {
+      padding: 9rem 2.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .archive-eyebrow {
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 1rem;
+    }
+    .archive-title {
+      font-family: var(--font-serif); font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 700; line-height: 1; letter-spacing: -0.02em;
+      text-transform: uppercase; margin-bottom: 1.5rem;
+    }
+    .archive-title em { color: var(--orange); font-style: normal; }
+    .archive-title span { color: var(--muted-blue); }
+    .archive-sub {
+      font-size: 0.95rem; color: rgba(255,255,255,0.45); max-width: 520px;
+      margin-bottom: 2rem;
+    }
+    .archive-count {
+      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em;
+      color: var(--muted); text-transform: uppercase;
+    }
+    .archive-count strong { color: var(--orange); }
+
+    /* FILTER BAR */
+    .filter-bar {
+      padding: 1.2rem 2.5rem;
+      display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 58px; z-index: 90;
+      background: rgba(6,6,6,0.92); backdrop-filter: blur(12px);
+    }
+    .filter-label {
+      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); margin-right: 0.5rem;
+    }
+    .filter-btn {
+      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0.3rem 0.7rem;
+      border: 1px solid rgba(255,255,255,0.12); border-radius: 2px;
+      cursor: pointer; background: none; color: rgba(255,255,255,0.45);
+      transition: all 0.2s;
+    }
+    .filter-btn:hover { border-color: var(--white); color: var(--white); }
+    .filter-btn.active { border-color: var(--orange); color: var(--orange); background: rgba(232,81,42,0.08); }
+
+    /* SEARCH */
+    .search-wrap {
+      margin-left: auto;
+    }
+    .search-input {
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      color: var(--white); font-family: var(--font-mono); font-size: 0.6rem;
+      letter-spacing: 0.1em; padding: 0.35rem 0.8rem; border-radius: 2px;
+      width: 180px; outline: none; transition: border-color 0.2s;
+    }
+    .search-input::placeholder { color: var(--muted); }
+    .search-input:focus { border-color: var(--orange); }
+
+    /* GRID */
+    .archive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 2px;
+      padding: 2px;
+    }
+    .grid-item {
+      position: relative; overflow: hidden; aspect-ratio: 1;
+      background: var(--surface); cursor: pointer;
+    }
+    .grid-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .grid-item:hover img { transform: scale(1.04); }
+    .grid-label {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 2rem 0.8rem 0.7rem;
+      background: linear-gradient(transparent, rgba(0,0,0,0.85));
+      font-family: var(--font-mono); font-size: 0.52rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.75);
+      opacity: 0; transform: translateY(4px);
+      transition: opacity 0.25s, transform 0.25s;
+    }
+    .grid-item:hover .grid-label { opacity: 1; transform: translateY(0); }
+    .grid-item.hidden { display: none; }
+
+    /* LIGHTBOX */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,0.92); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .lightbox.open { opacity: 1; pointer-events: all; }
+    .lightbox-inner {
+      position: relative; max-width: min(90vw, 700px); max-height: 90vh;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    }
+    .lightbox-img {
+      max-width: 100%; max-height: 80vh; object-fit: contain;
+      border: 1px solid var(--border);
+    }
+    .lightbox-title {
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.6);
+    }
+    .lightbox-close {
+      position: absolute; top: -2.5rem; right: 0;
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.5); cursor: pointer; transition: color 0.2s;
+    }
+    .lightbox-close:hover { color: var(--white); }
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      font-family: var(--font-mono); font-size: 1.2rem;
+      color: rgba(255,255,255,0.4); cursor: pointer; transition: color 0.2s;
+      user-select: none; padding: 1rem;
+    }
+    .lightbox-nav:hover { color: var(--white); }
+    .lightbox-prev { left: -3.5rem; }
+    .lightbox-next { right: -3.5rem; }
+
+    /* FOOTER */
+    .archive-footer {
+      padding: 3rem 2.5rem; border-top: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1rem;
+    }
+    .archive-footer-copy {
+      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em;
+      color: rgba(255,255,255,0.25);
+    }
+    .back-link {
+      font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--orange);
+      transition: opacity 0.2s;
+    }
+    .back-link:hover { opacity: 0.7; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.2rem; }
+      .archive-header { padding: 7rem 1.2rem 2rem; }
+      .filter-bar { padding: 1rem 1.2rem; top: 54px; }
+      .archive-grid { grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); }
+      .lightbox-prev { left: -2rem; }
+      .lightbox-next { right: -2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <img src="images/art/Orbit Wave.gif" alt="PitchBlacKnight" />
+      <span>PITCH</span><span>BLAC</span><span>KNIGHT</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#about">About</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#music">Music</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="resume.pdf" class="nav-resume" target="_blank">RÉSUMÉ</a>
+    </div>
+  </nav>
+
+  <header class="archive-header">
+    <p class="archive-eyebrow">01 / THE ARCHIVE</p>
+    <h1 class="archive-title">MOTION<br><em>ART</em> <span>ARCHIVE</span></h1>
+    <p class="archive-sub">Thirty years of making things move. Every piece is a first take — live, improvised, never over-produced.</p>
+    <p class="archive-count"><strong id="visible-count">156</strong> pieces</p>
+  </header>
+
+  <div class="filter-bar">
+    <span class="filter-label">Filter:</span>
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="named">Named</button>
+    <button class="filter-btn" data-filter="dark">DRK Series</button>
+    <button class="filter-btn" data-filter="fav">FAV Series</button>
+    <button class="filter-btn" data-filter="light">LGT Series</button>
+    <button class="filter-btn" data-filter="clf">CLF Series</button>
+    <div class="search-wrap">
+      <input class="search-input" type="text" placeholder="SEARCH..." id="search-input" />
+    </div>
+  </div>
+
+  <main class="archive-grid" id="grid">
+      <div class="grid-item"><img src="images/art/10 Orbits.gif" alt="10 Orbits" loading="lazy" /><span class="grid-label">10 Orbits</span></div>
+      <div class="grid-item"><img src="images/art/3x Geo Twist.gif" alt="3x Geo Twist" loading="lazy" /><span class="grid-label">3x Geo Twist</span></div>
+      <div class="grid-item"><img src="images/art/All night long.gif" alt="All night long" loading="lazy" /><span class="grid-label">All night long</span></div>
+      <div class="grid-item"><img src="images/art/Amalgamation.gif" alt="Amalgamation" loading="lazy" /><span class="grid-label">Amalgamation</span></div>
+      <div class="grid-item"><img src="images/art/And what did you expect.gif" alt="And what did you expect" loading="lazy" /><span class="grid-label">And what did you expect</span></div>
+      <div class="grid-item"><img src="images/art/Arc flip.gif" alt="Arc flip" loading="lazy" /><span class="grid-label">Arc flip</span></div>
+      <div class="grid-item"><img src="images/art/As We Drift.gif" alt="As We Drift" loading="lazy" /><span class="grid-label">As We Drift</span></div>
+      <div class="grid-item"><img src="images/art/Asention.gif" alt="Asention" loading="lazy" /><span class="grid-label">Asention</span></div>
+      <div class="grid-item"><img src="images/art/BC BG.gif" alt="BC BG" loading="lazy" /><span class="grid-label">BC BG</span></div>
+      <div class="grid-item"><img src="images/art/Back to the beginning.gif" alt="Back to the beginning" loading="lazy" /><span class="grid-label">Back to the beginning</span></div>
+      <div class="grid-item"><img src="images/art/Black Sea.gif" alt="Black Sea" loading="lazy" /><span class="grid-label">Black Sea</span></div>
+      <div class="grid-item"><img src="images/art/Blurred Phase.gif" alt="Blurred Phase" loading="lazy" /><span class="grid-label">Blurred Phase</span></div>
+      <div class="grid-item"><img src="images/art/Box breaker.gif" alt="Box breaker" loading="lazy" /><span class="grid-label">Box breaker</span></div>
+      <div class="grid-item"><img src="images/art/Butterfly effect.gif" alt="Butterfly effect" loading="lazy" /><span class="grid-label">Butterfly effect</span></div>
+      <div class="grid-item"><img src="images/art/Bye for now.gif" alt="Bye for now" loading="lazy" /><span class="grid-label">Bye for now</span></div>
+      <div class="grid-item"><img src="images/art/CCCC.gif" alt="CCCC" loading="lazy" /><span class="grid-label">CCCC</span></div>
+      <div class="grid-item"><img src="images/art/Can you see me.gif" alt="Can you see me" loading="lazy" /><span class="grid-label">Can you see me</span></div>
+      <div class="grid-item"><img src="images/art/Chess anyone.gif" alt="Chess anyone" loading="lazy" /><span class="grid-label">Chess anyone</span></div>
+      <div class="grid-item"><img src="images/art/Circle drop.gif" alt="Circle drop" loading="lazy" /><span class="grid-label">Circle drop</span></div>
+      <div class="grid-item"><img src="images/art/Circle spheres.gif" alt="Circle spheres" loading="lazy" /><span class="grid-label">Circle spheres</span></div>
+      <div class="grid-item"><img src="images/art/Cloud twists.gif" alt="Cloud twists" loading="lazy" /><span class="grid-label">Cloud twists</span></div>
+      <div class="grid-item"><img src="images/art/Collapsing red and tan.gif" alt="Collapsing red and tan" loading="lazy" /><span class="grid-label">Collapsing red and tan</span></div>
+      <div class="grid-item"><img src="images/art/Coral Benz.gif" alt="Coral Benz" loading="lazy" /><span class="grid-label">Coral Benz</span></div>
+      <div class="grid-item"><img src="images/art/Cosmos.gif" alt="Cosmos" loading="lazy" /><span class="grid-label">Cosmos</span></div>
+      <div class="grid-item"><img src="images/art/Crank still.gif" alt="Crank still" loading="lazy" /><span class="grid-label">Crank still</span></div>
+      <div class="grid-item"><img src="images/art/Daisy Bloom.gif" alt="Daisy Bloom" loading="lazy" /><span class="grid-label">Daisy Bloom</span></div>
+      <div class="grid-item"><img src="images/art/Dance with me.gif" alt="Dance with me" loading="lazy" /><span class="grid-label">Dance with me</span></div>
+      <div class="grid-item"><img src="images/art/Dark skies.gif" alt="Dark skies" loading="lazy" /><span class="grid-label">Dark skies</span></div>
+      <div class="grid-item"><img src="images/art/Dark waves.gif" alt="Dark waves" loading="lazy" /><span class="grid-label">Dark waves</span></div>
+      <div class="grid-item"><img src="images/art/Data cycles.gif" alt="Data cycles" loading="lazy" /><span class="grid-label">Data cycles</span></div>
+      <div class="grid-item"><img src="images/art/Didn't mean to scare you.gif" alt="Didn't mean to scare you" loading="lazy" /><span class="grid-label">Didn't mean to scare you</span></div>
+      <div class="grid-item"><img src="images/art/Distant spin.gif" alt="Distant spin" loading="lazy" /><span class="grid-label">Distant spin</span></div>
+      <div class="grid-item"><img src="images/art/Divide and conquer.gif" alt="Divide and conquer" loading="lazy" /><span class="grid-label">Divide and conquer</span></div>
+      <div class="grid-item"><img src="images/art/Do you see the numbers.gif" alt="Do you see the numbers" loading="lazy" /><span class="grid-label">Do you see the numbers</span></div>
+      <div class="grid-item"><img src="images/art/Don't drowned.gif" alt="Don't drowned" loading="lazy" /><span class="grid-label">Don't drowned</span></div>
+      <div class="grid-item"><img src="images/art/Don't look away.gif" alt="Don't look away" loading="lazy" /><span class="grid-label">Don't look away</span></div>
+      <div class="grid-item"><img src="images/art/Double Vision v2.gif" alt="Double Vision v2" loading="lazy" /><span class="grid-label">Double Vision v2</span></div>
+      <div class="grid-item"><img src="images/art/Down we go.gif" alt="Down we go" loading="lazy" /><span class="grid-label">Down we go</span></div>
+      <div class="grid-item"><img src="images/art/Drip Row.gif" alt="Drip Row" loading="lazy" /><span class="grid-label">Drip Row</span></div>
+      <div class="grid-item"><img src="images/art/Drop in bucket.gif" alt="Drop in bucket" loading="lazy" /><span class="grid-label">Drop in bucket</span></div>
+      <div class="grid-item"><img src="images/art/Drugs.gif" alt="Drugs" loading="lazy" /><span class="grid-label">Drugs</span></div>
+      <div class="grid-item"><img src="images/art/Eggshell.gif" alt="Eggshell" loading="lazy" /><span class="grid-label">Eggshell</span></div>
+      <div class="grid-item"><img src="images/art/FAV0022.gif" alt="FAV0022" loading="lazy" /><span class="grid-label">FAV0022</span></div>
+      <div class="grid-item"><img src="images/art/Falling asleep.gif" alt="Falling asleep" loading="lazy" /><span class="grid-label">Falling asleep</span></div>
+      <div class="grid-item"><img src="images/art/Fast as you can.gif" alt="Fast as you can" loading="lazy" /><span class="grid-label">Fast as you can</span></div>
+      <div class="grid-item"><img src="images/art/Fibonacci twist.gif" alt="Fibonacci twist" loading="lazy" /><span class="grid-label">Fibonacci twist</span></div>
+      <div class="grid-item"><img src="images/art/Fire by the Sea.gif" alt="Fire by the Sea" loading="lazy" /><span class="grid-label">Fire by the Sea</span></div>
+      <div class="grid-item"><img src="images/art/Folding Time.gif" alt="Folding Time" loading="lazy" /><span class="grid-label">Folding Time</span></div>
+      <div class="grid-item"><img src="images/art/Follow Me.gif" alt="Follow Me" loading="lazy" /><span class="grid-label">Follow Me</span></div>
+      <div class="grid-item"><img src="images/art/Follow me into the dark.gif" alt="Follow me into the dark" loading="lazy" /><span class="grid-label">Follow me into the dark</span></div>
+      <div class="grid-item"><img src="images/art/Follow the leader.gif" alt="Follow the leader" loading="lazy" /><span class="grid-label">Follow the leader</span></div>
+      <div class="grid-item"><img src="images/art/For friends.gif" alt="For friends" loading="lazy" /><span class="grid-label">For friends</span></div>
+      <div class="grid-item"><img src="images/art/Forever and ever.gif" alt="Forever and ever" loading="lazy" /><span class="grid-label">Forever and ever</span></div>
+      <div class="grid-item"><img src="images/art/Forever balance.gif" alt="Forever balance" loading="lazy" /><span class="grid-label">Forever balance</span></div>
+      <div class="grid-item"><img src="images/art/Forever builder.gif" alt="Forever builder" loading="lazy" /><span class="grid-label">Forever builder</span></div>
+      <div class="grid-item"><img src="images/art/Forever configuration.gif" alt="Forever configuration" loading="lazy" /><span class="grid-label">Forever configuration</span></div>
+      <div class="grid-item"><img src="images/art/Forever drop.gif" alt="Forever drop" loading="lazy" /><span class="grid-label">Forever drop</span></div>
+      <div class="grid-item"><img src="images/art/Forever for you.gif" alt="Forever for you" loading="lazy" /><span class="grid-label">Forever for you</span></div>
+      <div class="grid-item"><img src="images/art/Forever wonder.gif" alt="Forever wonder" loading="lazy" /><span class="grid-label">Forever wonder</span></div>
+      <div class="grid-item"><img src="images/art/Grand Design.gif" alt="Grand Design" loading="lazy" /><span class="grid-label">Grand Design</span></div>
+      <div class="grid-item"><img src="images/art/Graph builds.gif" alt="Graph builds" loading="lazy" /><span class="grid-label">Graph builds</span></div>
+      <div class="grid-item"><img src="images/art/Grid collapse.gif" alt="Grid collapse" loading="lazy" /><span class="grid-label">Grid collapse</span></div>
+      <div class="grid-item"><img src="images/art/Halloween masks.gif" alt="Halloween masks" loading="lazy" /><span class="grid-label">Halloween masks</span></div>
+      <div class="grid-item"><img src="images/art/Hand drawing 2004.gif" alt="Hand drawing 2004" loading="lazy" /><span class="grid-label">Hand drawing 2004</span></div>
+      <div class="grid-item"><img src="images/art/Hand flicker.gif" alt="Hand flicker" loading="lazy" /><span class="grid-label">Hand flicker</span></div>
+      <div class="grid-item"><img src="images/art/Help me.gif" alt="Help me" loading="lazy" /><span class="grid-label">Help me</span></div>
+      <div class="grid-item"><img src="images/art/Here we go.gif" alt="Here we go" loading="lazy" /><span class="grid-label">Here we go</span></div>
+      <div class="grid-item"><img src="images/art/Hill and clouds in sky.gif" alt="Hill and clouds in sky" loading="lazy" /><span class="grid-label">Hill and clouds in sky</span></div>
+      <div class="grid-item"><img src="images/art/I Promise.gif" alt="I Promise" loading="lazy" /><span class="grid-label">I Promise</span></div>
+      <div class="grid-item"><img src="images/art/I can't see.gif" alt="I can't see" loading="lazy" /><span class="grid-label">I can't see</span></div>
+      <div class="grid-item"><img src="images/art/I commend you sir.gif" alt="I commend you sir" loading="lazy" /><span class="grid-label">I commend you sir</span></div>
+      <div class="grid-item"><img src="images/art/I like this one.gif" alt="I like this one" loading="lazy" /><span class="grid-label">I like this one</span></div>
+      <div class="grid-item"><img src="images/art/I like your idea.gif" alt="I like your idea" loading="lazy" /><span class="grid-label">I like your idea</span></div>
+      <div class="grid-item"><img src="images/art/I think I'm lost.gif" alt="I think I'm lost" loading="lazy" /><span class="grid-label">I think I'm lost</span></div>
+      <div class="grid-item"><img src="images/art/Infinite dance.gif" alt="Infinite dance" loading="lazy" /><span class="grid-label">Infinite dance</span></div>
+      <div class="grid-item"><img src="images/art/Into the sea.gif" alt="Into the sea" loading="lazy" /><span class="grid-label">Into the sea</span></div>
+      <div class="grid-item"><img src="images/art/It's all numbers.gif" alt="It's all numbers" loading="lazy" /><span class="grid-label">It's all numbers</span></div>
+      <div class="grid-item"><img src="images/art/Joy waves.gif" alt="Joy waves" loading="lazy" /><span class="grid-label">Joy waves</span></div>
+      <div class="grid-item"><img src="images/art/Just one more thread.gif" alt="Just one more thread" loading="lazy" /><span class="grid-label">Just one more thread</span></div>
+      <div class="grid-item"><img src="images/art/Keep adding.gif" alt="Keep adding" loading="lazy" /><span class="grid-label">Keep adding</span></div>
+      <div class="grid-item"><img src="images/art/Keep building.gif" alt="Keep building" loading="lazy" /><span class="grid-label">Keep building</span></div>
+      <div class="grid-item"><img src="images/art/Lens effect.gif" alt="Lens effect" loading="lazy" /><span class="grid-label">Lens effect</span></div>
+      <div class="grid-item"><img src="images/art/Light dance.gif" alt="Light dance" loading="lazy" /><span class="grid-label">Light dance</span></div>
+      <div class="grid-item"><img src="images/art/Logo concept.gif" alt="Logo concept" loading="lazy" /><span class="grid-label">Logo concept</span></div>
+      <div class="grid-item"><img src="images/art/Logo orb.gif" alt="Logo orb" loading="lazy" /><span class="grid-label">Logo orb</span></div>
+      <div class="grid-item"><img src="images/art/Look at me.gif" alt="Look at me" loading="lazy" /><span class="grid-label">Look at me</span></div>
+      <div class="grid-item"><img src="images/art/Magic rain.gif" alt="Magic rain" loading="lazy" /><span class="grid-label">Magic rain</span></div>
+      <div class="grid-item"><img src="images/art/Masks.gif" alt="Masks" loading="lazy" /><span class="grid-label">Masks</span></div>
+      <div class="grid-item"><img src="images/art/Math class.gif" alt="Math class" loading="lazy" /><span class="grid-label">Math class</span></div>
+      <div class="grid-item"><img src="images/art/Maze falling.gif" alt="Maze falling" loading="lazy" /><span class="grid-label">Maze falling</span></div>
+      <div class="grid-item"><img src="images/art/Mind bender.gif" alt="Mind bender" loading="lazy" /><span class="grid-label">Mind bender</span></div>
+      <div class="grid-item"><img src="images/art/Modulus frame.gif" alt="Modulus frame" loading="lazy" /><span class="grid-label">Modulus frame</span></div>
+      <div class="grid-item"><img src="images/art/Moving sitting still.gif" alt="Moving sitting still" loading="lazy" /><span class="grid-label">Moving sitting still</span></div>
+      <div class="grid-item"><img src="images/art/Moving spectral.gif" alt="Moving spectral" loading="lazy" /><span class="grid-label">Moving spectral</span></div>
+      <div class="grid-item"><img src="images/art/Never still.gif" alt="Never still" loading="lazy" /><span class="grid-label">Never still</span></div>
+      <div class="grid-item"><img src="images/art/Night Moon.gif" alt="Night Moon" loading="lazy" /><span class="grid-label">Night Moon</span></div>
+      <div class="grid-item"><img src="images/art/Nightsun.gif" alt="Nightsun" loading="lazy" /><span class="grid-label">Nightsun</span></div>
+      <div class="grid-item"><img src="images/art/Noble owl.gif" alt="Noble owl" loading="lazy" /><span class="grid-label">Noble owl</span></div>
+      <div class="grid-item"><img src="images/art/Old memories.gif" alt="Old memories" loading="lazy" /><span class="grid-label">Old memories</span></div>
+      <div class="grid-item"><img src="images/art/Orbit Wave.gif" alt="Orbit Wave" loading="lazy" /><span class="grid-label">Orbit Wave</span></div>
+      <div class="grid-item"><img src="images/art/Orbit v4.gif" alt="Orbit v4" loading="lazy" /><span class="grid-label">Orbit v4</span></div>
+      <div class="grid-item"><img src="images/art/Orbitals.gif" alt="Orbitals" loading="lazy" /><span class="grid-label">Orbitals</span></div>
+      <div class="grid-item"><img src="images/art/Orbits and orbits.gif" alt="Orbits and orbits" loading="lazy" /><span class="grid-label">Orbits and orbits</span></div>
+      <div class="grid-item"><img src="images/art/Out We Go.gif" alt="Out We Go" loading="lazy" /><span class="grid-label">Out We Go</span></div>
+      <div class="grid-item"><img src="images/art/PBK Dark Flam.gif" alt="PBK Dark Flam" loading="lazy" /><span class="grid-label">PBK Dark Flam</span></div>
+      <div class="grid-item"><img src="images/art/PBK Logo.gif" alt="PBK Logo" loading="lazy" /><span class="grid-label">PBK Logo</span></div>
+      <div class="grid-item"><img src="images/art/Perfect sink.gif" alt="Perfect sink" loading="lazy" /><span class="grid-label">Perfect sink</span></div>
+      <div class="grid-item"><img src="images/art/Play me.gif" alt="Play me" loading="lazy" /><span class="grid-label">Play me</span></div>
+      <div class="grid-item"><img src="images/art/Prism drift.gif" alt="Prism drift" loading="lazy" /><span class="grid-label">Prism drift</span></div>
+      <div class="grid-item"><img src="images/art/Promise me forever.gif" alt="Promise me forever" loading="lazy" /><span class="grid-label">Promise me forever</span></div>
+      <div class="grid-item"><img src="images/art/Signal.gif" alt="Signal" loading="lazy" /><span class="grid-label">Signal</span></div>
+      <div class="grid-item"><img src="images/art/Simplicity.gif" alt="Simplicity" loading="lazy" /><span class="grid-label">Simplicity</span></div>
+      <div class="grid-item"><img src="images/art/Slices of me.gif" alt="Slices of me" loading="lazy" /><span class="grid-label">Slices of me</span></div>
+      <div class="grid-item"><img src="images/art/Slinky Forgo.gif" alt="Slinky Forgo" loading="lazy" /><span class="grid-label">Slinky Forgo</span></div>
+      <div class="grid-item"><img src="images/art/Slowly going inward.gif" alt="Slowly going inward" loading="lazy" /><span class="grid-label">Slowly going inward</span></div>
+      <div class="grid-item"><img src="images/art/Solar B:W.gif" alt="Solar B:W" loading="lazy" /><span class="grid-label">Solar B:W</span></div>
+      <div class="grid-item"><img src="images/art/Solve me.gif" alt="Solve me" loading="lazy" /><span class="grid-label">Solve me</span></div>
+      <div class="grid-item"><img src="images/art/Space Trip.gif" alt="Space Trip" loading="lazy" /><span class="grid-label">Space Trip</span></div>
+      <div class="grid-item"><img src="images/art/Spectral arc.gif" alt="Spectral arc" loading="lazy" /><span class="grid-label">Spectral arc</span></div>
+      <div class="grid-item"><img src="images/art/Speed shape.gif" alt="Speed shape" loading="lazy" /><span class="grid-label">Speed shape</span></div>
+      <div class="grid-item"><img src="images/art/Star twist.gif" alt="Star twist" loading="lazy" /><span class="grid-label">Star twist</span></div>
+      <div class="grid-item"><img src="images/art/Stay in line.gif" alt="Stay in line" loading="lazy" /><span class="grid-label">Stay in line</span></div>
+      <div class="grid-item"><img src="images/art/Still waiting.gif" alt="Still waiting" loading="lazy" /><span class="grid-label">Still waiting</span></div>
+      <div class="grid-item"><img src="images/art/Stone Ascension.gif" alt="Stone Ascension" loading="lazy" /><span class="grid-label">Stone Ascension</span></div>
+      <div class="grid-item"><img src="images/art/Strings of chance.gif" alt="Strings of chance" loading="lazy" /><span class="grid-label">Strings of chance</span></div>
+      <div class="grid-item"><img src="images/art/Swin me around.gif" alt="Swin me around" loading="lazy" /><span class="grid-label">Swin me around</span></div>
+      <div class="grid-item"><img src="images/art/Synchronization.gif" alt="Synchronization" loading="lazy" /><span class="grid-label">Synchronization</span></div>
+      <div class="grid-item"><img src="images/art/Tailspin.gif" alt="Tailspin" loading="lazy" /><span class="grid-label">Tailspin</span></div>
+      <div class="grid-item"><img src="images/art/Tall Noble owl.gif" alt="Tall Noble owl" loading="lazy" /><span class="grid-label">Tall Noble owl</span></div>
+      <div class="grid-item"><img src="images/art/The biggest box.gif" alt="The biggest box" loading="lazy" /><span class="grid-label">The biggest box</span></div>
+      <div class="grid-item"><img src="images/art/The collector.gif" alt="The collector" loading="lazy" /><span class="grid-label">The collector</span></div>
+      <div class="grid-item"><img src="images/art/The world is yours.gif" alt="The world is yours" loading="lazy" /><span class="grid-label">The world is yours</span></div>
+      <div class="grid-item"><img src="images/art/Threads of time.gif" alt="Threads of time" loading="lazy" /><span class="grid-label">Threads of time</span></div>
+      <div class="grid-item"><img src="images/art/Time scale.gif" alt="Time scale" loading="lazy" /><span class="grid-label">Time scale</span></div>
+      <div class="grid-item"><img src="images/art/Timebloom.gif" alt="Timebloom" loading="lazy" /><span class="grid-label">Timebloom</span></div>
+      <div class="grid-item"><img src="images/art/Tiny movements.gif" alt="Tiny movements" loading="lazy" /><span class="grid-label">Tiny movements</span></div>
+      <div class="grid-item"><img src="images/art/Tunnel Vision.gif" alt="Tunnel Vision" loading="lazy" /><span class="grid-label">Tunnel Vision</span></div>
+      <div class="grid-item"><img src="images/art/Twist Lattice.gif" alt="Twist Lattice" loading="lazy" /><span class="grid-label">Twist Lattice</span></div>
+      <div class="grid-item"><img src="images/art/Twist light.gif" alt="Twist light" loading="lazy" /><span class="grid-label">Twist light</span></div>
+      <div class="grid-item"><img src="images/art/Twisted sphere.gif" alt="Twisted sphere" loading="lazy" /><span class="grid-label">Twisted sphere</span></div>
+      <div class="grid-item"><img src="images/art/Twisting triangles.gif" alt="Twisting triangles" loading="lazy" /><span class="grid-label">Twisting triangles</span></div>
+      <div class="grid-item"><img src="images/art/Twisting vector.gif" alt="Twisting vector" loading="lazy" /><span class="grid-label">Twisting vector</span></div>
+      <div class="grid-item"><img src="images/art/Ultimate synchronization.gif" alt="Ultimate synchronization" loading="lazy" /><span class="grid-label">Ultimate synchronization</span></div>
+      <div class="grid-item"><img src="images/art/Under the cells.gif" alt="Under the cells" loading="lazy" /><span class="grid-label">Under the cells</span></div>
+      <div class="grid-item"><img src="images/art/Under the sea.gif" alt="Under the sea" loading="lazy" /><span class="grid-label">Under the sea</span></div>
+      <div class="grid-item"><img src="images/art/V.gif" alt="V" loading="lazy" /><span class="grid-label">V</span></div>
+      <div class="grid-item"><img src="images/art/Vector Spin.gif" alt="Vector Spin" loading="lazy" /><span class="grid-label">Vector Spin</span></div>
+      <div class="grid-item"><img src="images/art/Vector echo.gif" alt="Vector echo" loading="lazy" /><span class="grid-label">Vector echo</span></div>
+      <div class="grid-item"><img src="images/art/Vector life.gif" alt="Vector life" loading="lazy" /><span class="grid-label">Vector life</span></div>
+      <div class="grid-item"><img src="images/art/Walk the walk.gif" alt="Walk the walk" loading="lazy" /><span class="grid-label">Walk the walk</span></div>
+      <div class="grid-item"><img src="images/art/Water droplet.gif" alt="Water droplet" loading="lazy" /><span class="grid-label">Water droplet</span></div>
+      <div class="grid-item"><img src="images/art/Where am I.gif" alt="Where am I" loading="lazy" /><span class="grid-label">Where am I</span></div>
+      <div class="grid-item"><img src="images/art/Where is mom.gif" alt="Where is mom" loading="lazy" /><span class="grid-label">Where is mom</span></div>
+      <div class="grid-item"><img src="images/art/Wizard Stone.gif" alt="Wizard Stone" loading="lazy" /><span class="grid-label">Wizard Stone</span></div>
+      <div class="grid-item"><img src="images/art/Zen Circle.gif" alt="Zen Circle" loading="lazy" /><span class="grid-label">Zen Circle</span></div>
+      <div class="grid-item"><img src="images/art/Zip line logo.gif" alt="Zip line logo" loading="lazy" /><span class="grid-label">Zip line logo</span></div>
+  </main>
+
+  <footer class="archive-footer">
+    <span class="archive-footer-copy">© 2026 PitchBlacknight. All rights reserved.</span>
+    <a href="index.html" class="back-link">← BACK TO SITE</a>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-inner">
+      <span class="lightbox-close" id="lb-close">CLOSE ✕</span>
+      <span class="lightbox-nav lightbox-prev" id="lb-prev">‹</span>
+      <img class="lightbox-img" id="lb-img" src="" alt="" />
+      <span class="lightbox-nav lightbox-next" id="lb-next">›</span>
+      <p class="lightbox-title" id="lb-title"></p>
+    </div>
+  </div>
+
+  <script>
+    const grid = document.getElementById('grid');
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lb-img');
+    const lbTitle = document.getElementById('lb-title');
+    const lbClose = document.getElementById('lb-close');
+    const lbPrev = document.getElementById('lb-prev');
+    const lbNext = document.getElementById('lb-next');
+    const searchInput = document.getElementById('search-input');
+    const countEl = document.getElementById('visible-count');
+
+    let allItems = Array.from(document.querySelectorAll('.grid-item'));
+    let visibleItems = allItems;
+    let currentIndex = 0;
+
+    // Filter logic
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        applyFilters();
+      });
+    });
+
+    searchInput.addEventListener('input', applyFilters);
+
+    function applyFilters() {
+      const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+      const query = searchInput.value.toLowerCase().trim();
+
+      allItems.forEach(item => {
+        const name = item.querySelector('img').alt.toLowerCase();
+        let show = true;
+
+        if (activeFilter === 'named') show = !/^(drk|fav|lgt|clf|blk)\d/i.test(name);
+        else if (activeFilter === 'dark') show = /^drk\d/i.test(name);
+        else if (activeFilter === 'fav') show = /^fav\d/i.test(name);
+        else if (activeFilter === 'light') show = /^lgt\d/i.test(name);
+        else if (activeFilter === 'clf') show = /^clf\d/i.test(name);
+
+        if (show && query) show = name.includes(query);
+
+        item.classList.toggle('hidden', !show);
+      });
+
+      visibleItems = allItems.filter(i => !i.classList.contains('hidden'));
+      countEl.textContent = visibleItems.length;
+    }
+
+    // Lightbox
+    allItems.forEach((item, i) => {
+      item.addEventListener('click', () => openLightbox(item));
+    });
+
+    function openLightbox(item) {
+      visibleItems = allItems.filter(i => !i.classList.contains('hidden'));
+      currentIndex = visibleItems.indexOf(item);
+      showLightboxItem(currentIndex);
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function showLightboxItem(idx) {
+      const item = visibleItems[idx];
+      const img = item.querySelector('img');
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lbTitle.textContent = img.alt;
+    }
+
+    lbClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    lbPrev.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + visibleItems.length) % visibleItems.length;
+      showLightboxItem(currentIndex);
+    });
+
+    lbNext.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % visibleItems.length;
+      showLightboxItem(currentIndex);
+    });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') lbPrev.click();
+      if (e.key === 'ArrowRight') lbNext.click();
+    });
+  </script>
+</body>
+</html>
