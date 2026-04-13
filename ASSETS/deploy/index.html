@@ -207,18 +207,34 @@
     .player-progress { width: 100%; height: 1px; background: var(--border); margin-bottom: 0.8rem; position: relative; }
     .player-progress-fill { height: 100%; background: var(--orange); width: 0%; transition: width 0.25s linear; }
     .player-time { font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted); }
-    /* CSS waveform bars */
-    .waveform-bars {
-      position: absolute; bottom: 0; left: 0; right: 0; height: 80px;
-      display: flex; align-items: flex-end; gap: 2px; padding: 0 2rem; opacity: 0.18;
+    /* Canvas visualizer */
+    #viz-canvas {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      z-index: 0; pointer-events: none;
     }
-    .wb { flex: 1; background: var(--orange); border-radius: 1px 1px 0 0; }
-    .wb:nth-child(odd) { height: 40%; }
-    .wb:nth-child(3n) { height: 65%; }
-    .wb:nth-child(5n) { height: 85%; }
-    .wb:nth-child(7n) { height: 55%; }
-    .wb:nth-child(11n) { height: 30%; }
-    .wb:nth-child(13n) { height: 75%; }
+    .music-player-panel > *:not(canvas) { position: relative; z-index: 1; }
+
+    /* Player controls */
+    .player-controls {
+      display: flex; align-items: center; gap: 1.2rem; margin-top: 1.2rem;
+    }
+    .ctrl-btn {
+      background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.35);
+      transition: color 0.2s; padding: 0.4rem; display: flex; align-items: center;
+    }
+    .ctrl-btn:hover { color: var(--white); }
+    .ctrl-play {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15) !important;
+      justify-content: center; color: rgba(255,255,255,0.6);
+    }
+    .ctrl-play.playing { border-color: var(--orange) !important; color: var(--orange); }
+    .player-progress { cursor: pointer; }
+    .player-time-row {
+      display: flex; justify-content: space-between;
+      font-family: var(--font-mono); font-size: 0.5rem; color: var(--muted);
+      margin-bottom: 0;
+    }
 
     /* Track list */
     .music-track-list { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
@@ -452,25 +468,30 @@
 
       <!-- Left: Player panel -->
       <div class="music-player-panel">
-        <div class="waveform-bars" id="waveform-bars">
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
-          <div class="wb"></div><div class="wb"></div><div class="wb"></div><div class="wb"></div>
-        </div>
+        <canvas id="viz-canvas"></canvas>
         <div class="player-track-info">
           <p class="player-now-playing">NOW PLAYING</p>
           <p class="player-title" id="player-title">Select a track</p>
           <p class="player-sub" id="player-sub">PitchBlackKnight · Original</p>
         </div>
-        <div class="player-progress">
+        <div class="player-progress" id="player-progress">
           <div class="player-progress-fill" id="player-progress-fill"></div>
         </div>
-        <p class="player-time" id="player-time">0:00 / 0:00</p>
+        <div class="player-time-row">
+          <span id="player-time">0:00</span>
+          <span id="player-time-total">0:00</span>
+        </div>
+        <div class="player-controls">
+          <button class="ctrl-btn" id="ctrl-prev" title="Previous">
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor"><rect x="0" y="0" width="2" height="14"/><path d="M14 0L3 7l11 7z"/></svg>
+          </button>
+          <button class="ctrl-btn ctrl-play" id="ctrl-play" title="Play/Pause">
+            <svg id="ctrl-play-icon" width="12" height="14" viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+          <button class="ctrl-btn" id="ctrl-next" title="Next">
+            <svg width="16" height="14" viewBox="0 0 16 14" fill="currentColor"><rect x="14" y="0" width="2" height="14"/><path d="M2 0l11 7-11 7z"/></svg>
+          </button>
+        </div>
       </div>
 
       <!-- Right: Track list -->
@@ -613,7 +634,7 @@
   (function initMusicPlayer() {
     const ALL_TRACKS = [
       'aint-always-magik','all-cried-out','american-boy','april-4-2022',
-      'audio-glitch-example-2','audio-glitch-example','bass-groove',
+      'bass-groove',
       'better-alan-nothingness','black-kat','bongo-test','bright-swift-visions',
       'building-short-wave','chear-up-charlie','clicky-clock-low-stock',
       'colorblind-breakup','complexica-090815','continued','country-italian',
@@ -643,56 +664,106 @@
     const CHUNK = 12;
     let loaded = 0;
     let activeEntry = null;
-    const audio = document.getElementById('ap');
-    const container = document.getElementById('music-tracks');
-    const loadMoreBtn = document.getElementById('load-more-btn');
-    const playerTitle = document.getElementById('player-title');
-    const playerSub = document.getElementById('player-sub');
-    const playerProgressFill = document.getElementById('player-progress-fill');
-    const playerTime = document.getElementById('player-time');
+    let currentTrackIndex = -1;
 
-    const PAUSE_SVG = '<svg width="10" height="14" viewBox="0 0 10 14"><rect x="0" y="0" width="3" height="14"/><rect x="7" y="0" width="3" height="14"/></svg>';
-    const PLAY_SVG  = '<svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>';
+    const audio        = document.getElementById('ap');
+    const container    = document.getElementById('music-tracks');
+    const loadMoreBtn  = document.getElementById('load-more-btn');
+    const playerTitle  = document.getElementById('player-title');
+    const playerSub    = document.getElementById('player-sub');
+    const playerProgressFill = document.getElementById('player-progress-fill');
+    const playerTime   = document.getElementById('player-time');
+    const playerTimeTotal = document.getElementById('player-time-total');
+    const playerProgress  = document.getElementById('player-progress');
+    const ctrlPlay     = document.getElementById('ctrl-play');
+    const ctrlPlayIcon = document.getElementById('ctrl-play-icon');
+    const ctrlPrev     = document.getElementById('ctrl-prev');
+    const ctrlNext     = document.getElementById('ctrl-next');
+
+    const PLAY_PATH  = 'M0 0l12 7-12 7z';
+    const PAUSE_PATH = 'M0 0h4v14H0zM8 0h4v14H8z';
 
     function fmtTime(s) {
-      if (!isFinite(s)) return '—:——';
+      if (!isFinite(s)) return '0:00';
       const m = Math.floor(s / 60), sec = Math.floor(s % 60);
       return m + ':' + String(sec).padStart(2,'0');
     }
 
-    function buildTrackRow(slug, idx) {
-      const num = String(idx + 1).padStart(2, '0');
-      const title = slugToTitle(slug);
-      const div = document.createElement('div');
-      div.className = 'music-track-entry';
-      div.dataset.slug = slug;
-      div.innerHTML = `
-        <div class="mte-num">
-          <span class="num-label">${num}</span>
-          <div class="mte-bar-wrap">
-            <div class="mte-bar"></div><div class="mte-bar"></div>
-            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
-          </div>
-        </div>
-        <div class="mte-info">
-          <p class="mte-title">${title}</p>
-          <p class="mte-tag">PitchBlackKnight · Original</p>
-        </div>
-        <div class="mte-dots">· · ·</div>
-      `;
-      div.addEventListener('click', () => handleTrackClick(div, slug, title));
-      return div;
+    // ── AUDIO CONTEXT + VISUALIZER ──────────────────────────
+    const canvas = document.getElementById('viz-canvas');
+    const vCtx   = canvas.getContext('2d');
+    let analyser  = null;
+    let freqData  = null;
+    let idleAngle = 0;
+
+    function resizeCanvas() {
+      canvas.width  = canvas.offsetWidth;
+      canvas.height = canvas.offsetHeight;
+    }
+    resizeCanvas();
+    new ResizeObserver(resizeCanvas).observe(canvas.parentElement);
+
+    function initAudioCtx() {
+      if (analyser) return;
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      analyser  = ctx.createAnalyser();
+      analyser.fftSize = 256;
+      analyser.smoothingTimeConstant = 0.82;
+      freqData  = new Uint8Array(analyser.frequencyBinCount);
+      ctx.createMediaElementSource(audio).connect(analyser);
+      analyser.connect(ctx.destination);
     }
 
-    function loadChunk() {
-      const end = Math.min(loaded + CHUNK, ALL_TRACKS.length);
-      for (let i = loaded; i < end; i++) {
-        container.appendChild(buildTrackRow(ALL_TRACKS[i], i));
+    (function drawLoop() {
+      requestAnimationFrame(drawLoop);
+      const W = canvas.width, H = canvas.height;
+      const cx = W / 2, cy = H / 2;
+      vCtx.clearRect(0, 0, W, H);
+
+      if (analyser) analyser.getByteFrequencyData(freqData);
+      const bins = freqData ? freqData.length : 64;
+      const R    = Math.min(W, H) * 0.20;
+      const maxL = Math.min(W, H) * 0.26;
+      const total = bins * 2;
+      const playing = analyser && !audio.paused;
+
+      for (let i = 0; i < total; i++) {
+        const binIdx = i < bins ? i : total - 1 - i;
+        const raw    = freqData ? freqData[binIdx] / 255 : 0;
+        const idle   = audio.paused ? 0.04 + 0.04 * Math.sin(idleAngle + i * 0.15) : 0;
+        const mag    = Math.max(raw, idle);
+        const barLen = mag * maxL + 1;
+        const angle  = (i / total) * Math.PI * 2 - Math.PI / 2;
+        const x1 = cx + Math.cos(angle) * R;
+        const y1 = cy + Math.sin(angle) * R;
+        const x2 = cx + Math.cos(angle) * (R + barLen);
+        const y2 = cy + Math.sin(angle) * (R + barLen);
+        // orange (#e8512a) → muted-blue (#7b8db8)
+        const t  = binIdx / bins;
+        const r  = Math.round(232 - 109 * t);
+        const g  = Math.round(81  +  60 * t);
+        const b  = Math.round(42  + 142 * t);
+        vCtx.strokeStyle = `rgba(${r},${g},${b},${0.25 + mag * 0.75})`;
+        vCtx.lineWidth   = Math.max(1, 1.5 * mag + 0.5);
+        vCtx.beginPath(); vCtx.moveTo(x1, y1); vCtx.lineTo(x2, y2); vCtx.stroke();
       }
-      loaded = end;
-      if (loaded >= ALL_TRACKS.length) {
-        loadMoreBtn.classList.add('hidden');
-      }
+
+      // Bass glow at center
+      const bass = freqData ? (freqData[0] + freqData[1] + freqData[2]) / (3 * 255) : 0.06;
+      const gr = vCtx.createRadialGradient(cx, cy, 0, cx, cy, R * (0.6 + bass));
+      gr.addColorStop(0, `rgba(232,81,42,${0.12 + bass * 0.28})`);
+      gr.addColorStop(1, 'rgba(232,81,42,0)');
+      vCtx.fillStyle = gr;
+      vCtx.beginPath(); vCtx.arc(cx, cy, R * (0.6 + bass), 0, Math.PI * 2); vCtx.fill();
+
+      if (!playing) idleAngle += 0.007;
+    })();
+
+    // ── CONTROLS ─────────────────────────────────────────────
+    function setPlayIcon(playing) {
+      ctrlPlayIcon.setAttribute('d', playing ? PAUSE_PATH : PLAY_PATH);
+      ctrlPlayIcon.setAttribute('viewBox', playing ? '0 0 12 14' : '0 0 12 14');
+      ctrlPlay.classList.toggle('playing', playing);
     }
 
     function deactivate(entry) {
@@ -700,51 +771,107 @@
       entry.classList.remove('active', 'paused');
     }
 
+    function playTrackByIndex(idx) {
+      if (idx < 0 || idx >= ALL_TRACKS.length) return;
+      currentTrackIndex = idx;
+      const slug  = ALL_TRACKS[idx];
+      const title = slugToTitle(slug);
+      const entry = container.querySelector(`[data-slug="${slug}"]`);
+      deactivate(activeEntry);
+      activeEntry = entry || null;
+      if (entry) entry.classList.add('active');
+      initAudioCtx();
+      audio.src = 'https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/' + slug + '.mp3';
+      audio.load();
+      audio.play().catch(e => console.warn('Playback blocked:', e.message));
+      playerTitle.textContent = title;
+      playerSub.textContent   = 'PitchBlackKnight · Original';
+    }
+
     function handleTrackClick(entry, slug, title) {
       const isThisActive = activeEntry === entry;
-      const isPlaying = !audio.paused;
-
       if (isThisActive) {
-        if (isPlaying) {
-          audio.pause();
-          entry.classList.add('paused');
-        } else {
-          audio.play();
-          entry.classList.remove('paused');
-        }
+        if (!audio.paused) { audio.pause(); entry.classList.add('paused'); }
+        else               { audio.play();  entry.classList.remove('paused'); }
       } else {
+        currentTrackIndex = ALL_TRACKS.indexOf(slug);
         deactivate(activeEntry);
         activeEntry = entry;
         entry.classList.add('active');
-        audio.src = 'audio/' + slug + '.mp3';
+        initAudioCtx();
+        audio.src = 'https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/' + slug + '.mp3';
         audio.load();
         audio.play().catch(e => {
           console.warn('Playback blocked:', e.message);
-          entry.classList.remove('active');
-          activeEntry = null;
+          entry.classList.remove('active'); activeEntry = null; currentTrackIndex = -1;
         });
         playerTitle.textContent = title;
-        playerSub.textContent = 'PitchBlackKnight · Original';
+        playerSub.textContent   = 'PitchBlackKnight · Original';
       }
     }
 
+    ctrlPlay.addEventListener('click', () => {
+      if (currentTrackIndex === -1) { playTrackByIndex(0); return; }
+      if (audio.paused) { audio.play().catch(()=>{}); if (activeEntry) activeEntry.classList.remove('paused'); }
+      else              { audio.pause(); if (activeEntry) activeEntry.classList.add('paused'); }
+    });
+    ctrlPrev.addEventListener('click', () => playTrackByIndex(Math.max(0, currentTrackIndex - 1)));
+    ctrlNext.addEventListener('click', () => playTrackByIndex(Math.min(ALL_TRACKS.length - 1, currentTrackIndex + 1)));
+
+    // Scrub on progress bar click
+    playerProgress.addEventListener('click', e => {
+      if (!audio.duration) return;
+      const rect = playerProgress.getBoundingClientRect();
+      audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration;
+    });
+
+    audio.addEventListener('play',  () => setPlayIcon(true));
+    audio.addEventListener('pause', () => setPlayIcon(false));
+
     audio.addEventListener('timeupdate', () => {
       if (!audio.duration) return;
-      const pct = (audio.currentTime / audio.duration) * 100;
-      playerProgressFill.style.width = pct + '%';
-      playerTime.textContent = fmtTime(audio.currentTime) + ' / ' + fmtTime(audio.duration);
+      playerProgressFill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+      playerTime.textContent      = fmtTime(audio.currentTime);
+      playerTimeTotal.textContent = fmtTime(audio.duration);
     });
 
     audio.addEventListener('ended', () => {
-      if (activeEntry) {
-        deactivate(activeEntry);
-        activeEntry = null;
-      }
+      deactivate(activeEntry); activeEntry = null;
+      // Auto-advance to next track
+      if (currentTrackIndex < ALL_TRACKS.length - 1) playTrackByIndex(currentTrackIndex + 1);
+      else { currentTrackIndex = -1; setPlayIcon(false); }
     });
 
-    loadMoreBtn.addEventListener('click', loadChunk);
+    // ── TRACK LIST ───────────────────────────────────────────
+    function buildTrackRow(slug, idx) {
+      const div = document.createElement('div');
+      div.className = 'music-track-entry';
+      div.dataset.slug = slug;
+      div.innerHTML = `
+        <div class="mte-num">
+          <span class="num-label">${String(idx+1).padStart(2,'0')}</span>
+          <div class="mte-bar-wrap">
+            <div class="mte-bar"></div><div class="mte-bar"></div>
+            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
+          </div>
+        </div>
+        <div class="mte-info">
+          <p class="mte-title">${slugToTitle(slug)}</p>
+          <p class="mte-tag">PitchBlackKnight · Original</p>
+        </div>
+        <div class="mte-dots">· · ·</div>`;
+      div.addEventListener('click', () => handleTrackClick(div, slug, slugToTitle(slug)));
+      return div;
+    }
 
-    // Initial load
+    function loadChunk() {
+      const end = Math.min(loaded + CHUNK, ALL_TRACKS.length);
+      for (let i = loaded; i < end; i++) container.appendChild(buildTrackRow(ALL_TRACKS[i], i));
+      loaded = end;
+      if (loaded >= ALL_TRACKS.length) loadMoreBtn.classList.add('hidden');
+    }
+
+    loadMoreBtn.addEventListener('click', loadChunk);
     loadChunk();
   })();
 
