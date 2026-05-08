@@ -1,0 +1,2100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="index, follow">
+  <title>PitchBlacKnight</title>
+
+  <!-- Open Graph / social link preview -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://pitchblacknight.com">
+  <meta property="og:title"       content="PitchBlacKnight">
+  <meta property="og:description" content="Fluxus · Artist · Polymath. Music, design, motion art, and the spaces where it all lives.">
+  <meta property="og:image"       content="https://pitchblacknight.com/david/assets/pbk-profile.png">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:image"      content="https://pitchblacknight.com/david/assets/pbk-profile.png">
+  <meta name="twitter:title"      content="PitchBlacKnight">
+  <meta name="twitter:description" content="Fluxus · Artist · Polymath. Music, design, motion art, and the spaces where it all lives.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:    #0a0a0a;
+      --white: #ffffff;
+      --coral: #E86E59;
+      --steel: #7b8fa6;
+      --dim:   #555;
+      --dimmer:#333;
+      --font-display: 'Anton', sans-serif;
+      --font-body:    'IBM Plex Mono', monospace;
+      --font-alt:     'Space Grotesk', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--coral); }
+
+    /* ── AMBIENT BUTTON ── */
+    #amb-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,110,89,0.4);
+      background: rgba(10,10,10,0.8);
+      backdrop-filter: blur(8px);
+      color: var(--coral);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .3s, box-shadow .3s;
+      opacity: 0;
+      animation: fadeIn 1s ease 3s forwards;
+    }
+    #amb-btn:hover {
+      border-color: var(--coral);
+      box-shadow: 0 0 16px rgba(232,110,89,0.3);
+    }
+    #amb-btn .wave-bars { display:flex; align-items:center; gap:2px; height:16px; }
+    #amb-btn .wave-bars span {
+      display: block;
+      width: 3px;
+      background: var(--coral);
+      border-radius: 2px;
+      animation: wave-bar 1s ease-in-out infinite;
+    }
+    #amb-btn .wave-bars span:nth-child(1) { height:6px;  animation-delay:0s; }
+    #amb-btn .wave-bars span:nth-child(2) { height:12px; animation-delay:.2s; }
+    #amb-btn .wave-bars span:nth-child(3) { height:8px;  animation-delay:.4s; }
+    #amb-btn .wave-bars span:nth-child(4) { height:14px; animation-delay:.1s; }
+    #amb-btn.muted .wave-bars span { animation-play-state:paused; opacity:0.3; }
+    @keyframes wave-bar {
+      0%,100% { transform: scaleY(1); }
+      50%     { transform: scaleY(0.35); }
+    }
+
+    #amb-track-name {
+      position: fixed;
+      bottom: 80px;
+      right: 28px;
+      z-index: 999;
+      font-size: 9px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--coral);
+      background: rgba(10,10,10,0.9);
+      border: 1px solid rgba(232,110,89,0.2);
+      padding: 6px 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity .4s ease;
+      pointer-events: none;
+    }
+    #amb-track-name.show { opacity: 1; }
+
+    /* ══ GIF LAYER ══ */
+    .scene-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .scene-bg img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: screen;
+      filter: grayscale(30%);
+      transition: opacity 2.5s ease;
+    }
+    .scene-bg img.bg-a { opacity: 0.15; z-index: 1; }
+    .scene-bg img.bg-b { opacity: 0;    z-index: 2; }
+    .scene-bg img.bg-b.show { opacity: 0.15; }
+    .scene-bg.hi img.bg-a,
+    .scene-bg.hi img.bg-b.show { opacity: 0.25; }
+    .scene-bg.lo img.bg-a,
+    .scene-bg.lo img.bg-b.show { opacity: 0.08; }
+
+    /* ══ KEYFRAMES ══ */
+    @keyframes fadeUp  { from {opacity:0;transform:translateY(60px);} to {opacity:1;transform:translateY(0);} }
+    @keyframes fadeIn  { from {opacity:0;} to {opacity:1;} }
+    @keyframes blink   { 50% {opacity:0;} }
+    @keyframes marquee { from {transform:translateX(100vw);} to {transform:translateX(-100%);} }
+    @keyframes breathe { 0%,100%{transform:scale(1);} 50%{transform:scale(1.015);} }
+    @keyframes spin    { to {transform:rotate(360deg);} }
+
+    /* ══ REVEAL ══ */
+    .reveal { opacity:0; transform:translateY(50px); transition:opacity 1s ease,transform 1s ease; }
+    .reveal.in { opacity:1; transform:translateY(0); }
+    .reveal.in.delay-1 { transition-delay:.15s; }
+    .reveal.in.delay-2 { transition-delay:.3s; }
+    .reveal.in.delay-3 { transition-delay:.5s; }
+
+    /* ══ SECTION BASE ══ */
+    .scene { position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:center; }
+    .scene-inner { position:relative; z-index:2; width:100%; max-width:900px; margin:0 auto; padding:120px 48px; }
+
+    /* ══ UTILS ══ */
+    .label { font-size:10px; letter-spacing:.55em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:20px; }
+    .divider { width:40px; height:1px; background:var(--coral); margin:40px 0; }
+    .divider.full { width:100%; opacity:.12; }
+    .pbk-pitch { color:var(--white); font-weight:700; }
+    .pbk-blac  { color:var(--coral); font-weight:700; }
+    .pbk-night { color:var(--steel); font-weight:700; }
+
+    /* ══ NAVBAR ══ */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      transition: background .4s ease, backdrop-filter .4s ease, border-color .4s ease;
+      border-bottom: 1px solid transparent;
+    }
+    #navbar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--coral);
+    }
+    #navbar.scrolled {
+      background: rgba(10,10,10,0.88);
+      backdrop-filter: blur(12px);
+      border-color: rgba(232,110,89,0.12);
+    }
+    .nav-brand { font-family:var(--font-display); font-size:18px; letter-spacing:.04em; text-decoration:none; }
+    .nav-links { display:flex; align-items:center; gap:36px; list-style:none; }
+    .nav-links a {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: .45em;
+      text-transform: uppercase;
+      color: var(--dim);
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ══ HERO ══ */
+    #hero {
+      background: var(--bg);
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 0 48px;
+      text-align: center;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 15vw, 200px);
+      line-height: .88;
+      text-transform: uppercase;
+      letter-spacing: -.01em;
+      animation: fadeUp 1.2s ease .2s both;
+      margin-bottom: 36px;
+    }
+    .hero-tagline {
+      font-family: var(--font-alt);
+      font-size: clamp(12px, 1.6vw, 17px);
+      letter-spacing: .55em;
+      text-transform: uppercase;
+      color: var(--dim);
+      font-weight: 300;
+      animation: fadeIn 2s ease 1s both;
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      animation: fadeIn 2s ease 2s both;
+    }
+    .hero-scroll span { font-size:9px; letter-spacing:.4em; text-transform:uppercase; color:var(--dim); }
+    .hero-scroll-line { width:1px; height:60px; background:linear-gradient(to bottom,var(--coral),transparent); animation:blink 2.5s ease infinite; }
+
+    /* ══ MARQUEE ══ */
+    .marquee-wrap { overflow:hidden; white-space:nowrap; padding:12px 0; border-top:1px solid #111; border-bottom:1px solid #111; background:#060606; }
+    .marquee-track { display:inline-flex; animation:marquee 32s linear infinite; }
+    .marquee-track span { font-family:var(--font-display); font-size:11px; letter-spacing:.35em; text-transform:uppercase; padding:0 48px; color:#222; }
+    .marquee-track span.hi { color:var(--coral); }
+    .marquee-track span.lo { color:var(--steel); opacity:.5; }
+
+    /* ══ MANIFESTO ══ */
+    #manifesto { background:#040404; }
+    .section-heading { font-family:var(--font-display); font-size:clamp(56px,10vw,130px); line-height:.88; text-transform:uppercase; margin-bottom:64px; }
+    .section-heading .c  { color:var(--coral); }
+    .section-heading .cs { color:var(--steel); }
+
+    /* ── WORK POEM ── */
+    #manifesto .section-heading { margin-bottom:32px; }
+    .work-poem { display:flex; flex-direction:column; gap:clamp(44px,7.5vw,84px); padding:clamp(24px,4vw,48px) 0; }
+    .wp-moment { display:flex; flex-direction:column; gap:0; }
+    .wp-moment.right { align-items:flex-end; text-align:right; }
+    .wp-eyebrow { font-family:var(--font-body); font-size:10px; letter-spacing:.42em; text-transform:uppercase; color:var(--coral); opacity:.38; margin-bottom:8px; }
+    .wp-giant { font-family:var(--font-display); font-size:clamp(64px,13.5vw,172px); line-height:.86; color:#fff; }
+    .wp-giant.coral { color:var(--coral); }
+    .wp-giant.steel { color:var(--steel); }
+    .wp-med { font-family:var(--font-display); font-size:clamp(36px,6.5vw,90px); line-height:.9; color:#fff; }
+    .wp-med.steel { color:var(--steel); }
+    .wp-full { font-family:var(--font-display); font-size:clamp(48px,11.5vw,148px); line-height:.88; color:var(--coral); }
+    .wp-triptych { display:flex; align-items:baseline; gap:clamp(14px,3vw,48px); flex-wrap:wrap; }
+    .wp-triptych span { font-family:var(--font-display); font-size:clamp(38px,7.5vw,100px); line-height:.9; color:#fff; }
+    .wp-triptych .coral { color:var(--coral); }
+    .wp-triptych .steel { color:var(--steel); }
+    .wp-ticker { font-family:var(--font-body); font-size:clamp(9px,1.3vw,12px); letter-spacing:.32em; color:rgba(255,255,255,.28); text-transform:uppercase; margin-bottom:12px; }
+    .wp-whisper { font-family:var(--font-body); font-size:clamp(10px,1.3vw,13px); letter-spacing:.32em; color:rgba(255,255,255,.24); margin-top:14px; }
+    .wp-intro { font-family:var(--font-body); font-size:clamp(10px,1.6vw,15px); color:rgba(255,255,255,.32); letter-spacing:.22em; margin-bottom:4px; }
+    .wp-tag { font-family:var(--font-body); font-size:clamp(9px,1.4vw,13px); letter-spacing:.28em; color:rgba(255,255,255,.3); align-self:flex-end; margin-top:8px; font-style:italic; }
+    .wp-cascade { display:flex; flex-direction:column; gap:3px; margin-top:12px; }
+    .wp-cascade span { font-family:var(--font-body); font-size:clamp(10px,1.6vw,16px); color:rgba(255,255,255,.38); letter-spacing:.12em; transition:color .3s; }
+    .wp-cascade span:nth-child(2) { padding-left:2em; }
+    .wp-cascade span:nth-child(3) { padding-left:4em; }
+    .wp-cascade span:nth-child(4) { padding-left:6em; color:var(--steel); opacity:.75; }
+    .wp-cascade em { font-style:italic; }
+
+    /* ══ MIXES — MIXTAPE ARCHIVE ══ */
+    #mixes { background:#040404; }
+    .mixes-badge { display:inline-block; font-family:var(--font-body); font-size:9px; letter-spacing:.3em; text-transform:uppercase; color:var(--coral); border:1px solid rgba(232,110,89,0.35); padding:4px 12px; margin-bottom:20px; border-radius:2px; }
+    .mixes-subtitle { font-family:var(--font-body); font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); margin-top:20px; }
+    .mix-episode-list { margin-bottom:48px; }
+    .mix-ep { display:flex; align-items:center; gap:20px; padding:16px 0; border-bottom:1px solid #111; cursor:pointer; transition:background .2s ease; }
+    .mix-ep:first-child { border-top:1px solid #111; }
+    .mix-ep:hover { background:rgba(232,110,89,0.04); padding-left:8px; }
+    .mix-ep.active { background:rgba(232,110,89,0.07); padding-left:8px; }
+    .mix-ep-num { font-family:var(--font-display); font-size:clamp(22px,4vw,52px); line-height:1; color:#222; min-width:clamp(44px,7vw,80px); flex-shrink:0; transition:color .25s; }
+    .mix-ep:hover .mix-ep-num,
+    .mix-ep.active .mix-ep-num { color:var(--coral); }
+    .mix-ep-info { flex:1; min-width:0; }
+    .mix-ep-name { font-family:var(--font-display); font-size:clamp(16px,2.8vw,38px); line-height:1; color:#555; text-transform:uppercase; transition:color .25s; }
+    .mix-ep:hover .mix-ep-name { color:#ccc; }
+    .mix-ep.active .mix-ep-name { color:#fff; }
+    .mix-ep-sub { font-family:var(--font-body); font-size:10px; letter-spacing:.18em; color:var(--dim); margin-top:5px; text-transform:uppercase; }
+    .mix-ep-icon { width:34px; height:34px; border-radius:50%; border:1px solid #1e1e1e; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all .25s; color:#333; }
+    .mix-ep:hover .mix-ep-icon,
+    .mix-ep.active .mix-ep-icon { border-color:var(--coral); color:var(--coral); }
+    .mix-ep-icon svg { width:10px; height:10px; fill:currentColor; }
+    .mix-player-card { background:#060606; border:1px solid #181818; position:relative; }
+    .mix-player-card::before { content:''; position:absolute; top:0;left:0;right:0;height:1px; background:linear-gradient(to right,transparent,var(--steel),var(--coral),transparent); }
+    .mix-player-top { padding:20px 24px 18px; }
+    .mix-now-label { font-family:var(--font-body); font-size:9px; letter-spacing:.28em; text-transform:uppercase; color:var(--dim); }
+    .mix-now-title { font-family:var(--font-display); font-size:clamp(16px,2.8vw,32px); color:#fff; margin-top:6px; line-height:1; }
+    .mix-progress-wrap { height:3px; background:#151515; cursor:pointer; margin:0 24px; }
+    .mix-progress-bar { height:100%; background:var(--coral); width:0%; transition:width .25s linear; }
+    .mix-times { display:flex; justify-content:space-between; font-size:10px; color:var(--dim); letter-spacing:.08em; margin:8px 24px 16px; font-variant-numeric:tabular-nums; }
+    .mix-controls { display:flex; align-items:center; gap:14px; padding:0 24px 24px; }
+    .mix-btn-play { width:50px; height:50px; border-radius:50%; border:1.5px solid var(--steel); background:transparent; color:var(--steel); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .25s ease; flex-shrink:0; }
+    .mix-btn-play:hover,
+    .mix-btn-play.playing { border-color:var(--coral); color:var(--coral); box-shadow:0 0 28px rgba(232,110,89,0.25); }
+    .mix-btn-play svg { width:17px; height:17px; fill:currentColor; }
+    .mix-status-text { font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .mix-status-text.live { color:var(--coral); }
+
+    /* ══ MUSIC PLAYER ══ */
+    #music { background:#030303; }
+
+    .waveform { display:flex; align-items:flex-end; gap:3px; height:36px; margin-bottom:28px; }
+    .waveform span { display:block; width:3px; border-radius:2px; background:var(--coral); opacity:.2; transform-origin:bottom; transform:scaleY(.2); transition:opacity .4s,transform .4s; }
+    .waveform.playing span { opacity:.8; animation:bar-bounce var(--dur,.8s) ease-in-out infinite alternate; }
+    @keyframes bar-bounce { from {transform:scaleY(var(--lo,.15));} to {transform:scaleY(var(--hi,1));} }
+
+    .player-card { background:#080808; border:1px solid #181818; position:relative; }
+    .player-card::before { content:''; position:absolute; top:0;left:0;right:0;height:1px; background:linear-gradient(to right,transparent,var(--coral),var(--steel),transparent); }
+    .player-header { padding:28px 28px 20px; }
+    .player-title-text { font-family:var(--font-display); font-size:clamp(24px,4.5vw,40px); letter-spacing:.04em; color:var(--white); margin-bottom:4px; }
+    .player-sub-text { font-size:9px; letter-spacing:.4em; text-transform:uppercase; color:var(--steel); margin-bottom:0; }
+
+    .track-list { border-top:1px solid #111; }
+    .track-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 28px;
+      border-bottom: 1px solid #0e0e0e;
+      cursor: pointer;
+      transition: background .2s ease;
+    }
+    .track-item:hover { background:rgba(232,110,89,0.04); }
+    .track-item.active { background:rgba(232,110,89,0.07); }
+    .track-item.active .track-num,
+    .track-item.active .track-name { color:var(--coral); }
+    .track-item.coming-soon { opacity:.3; cursor:default; pointer-events:none; }
+    .track-num { font-family:var(--font-body); font-size:10px; letter-spacing:.2em; color:var(--dim); min-width:26px; flex-shrink:0; }
+    .track-name { font-family:var(--font-alt); font-size:12px; font-weight:500; color:var(--white); letter-spacing:.06em; flex:1; }
+    .track-badge { font-family:var(--font-body); font-size:8px; letter-spacing:.3em; text-transform:uppercase; color:var(--dimmer); border:1px solid #1e1e1e; padding:3px 8px; }
+    .track-play-icon { width:22px; height:22px; border-radius:50%; border:1px solid rgba(232,110,89,0.3); display:flex; align-items:center; justify-content:center; flex-shrink:0; opacity:0; transition:opacity .2s; }
+    .track-item:hover .track-play-icon,
+    .track-item.active .track-play-icon { opacity:1; }
+    .track-play-icon svg { width:7px; height:7px; fill:var(--coral); }
+
+    .player-controls-wrap { padding:20px 28px 24px; border-top:1px solid #111; }
+    .progress-wrap { height:3px; background:#1c1c1c; cursor:pointer; margin-bottom:8px; border-radius:2px; position:relative; }
+    .progress-bar { height:100%; width:0%; background:linear-gradient(to right,var(--coral),var(--steel)); transition:width .1s linear; border-radius:2px; position:relative; }
+    .progress-bar::after { content:''; position:absolute; right:-5px; top:-3.5px; width:10px; height:10px; border-radius:50%; background:var(--coral); box-shadow:0 0 10px rgba(232,110,89,0.55); }
+    .player-times { display:flex; justify-content:space-between; font-size:10px; color:var(--dim); letter-spacing:.08em; margin-bottom:18px; font-variant-numeric:tabular-nums; }
+    .player-controls { display:flex; align-items:center; gap:14px; }
+    .btn-play { width:50px; height:50px; border-radius:50%; border:1.5px solid var(--coral); background:transparent; color:var(--coral); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .25s ease; flex-shrink:0; }
+    .btn-play:hover { background:var(--coral); color:var(--bg); box-shadow:0 0 32px rgba(232,110,89,0.4); }
+    .btn-play svg { width:17px; height:17px; fill:currentColor; }
+    .player-now-playing { font-size:10px; letter-spacing:.22em; text-transform:uppercase; color:var(--dim); flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .player-now-playing.live { color:var(--coral); }
+    .btn-icon-sm { width:34px; height:34px; border-radius:50%; border:1px solid rgba(232,110,89,0.2); background:transparent; color:var(--dim); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .2s ease; }
+    .btn-icon-sm:hover { border-color:var(--coral); color:var(--coral); }
+    .btn-icon-sm svg { width:13px; height:13px; fill:currentColor; }
+
+    .player-note { margin:0 28px 28px; padding:14px 18px; border-left:2px solid rgba(232,110,89,0.18); background:rgba(232,110,89,0.02); }
+    .player-note-label { font-size:9px; letter-spacing:.4em; text-transform:uppercase; color:var(--coral); opacity:.55; display:block; margin-bottom:10px; }
+    .player-note p { font-family:var(--font-body); font-size:11px; line-height:1.9; color:#3e3e3e; font-style:italic; }
+
+    /* ══ WORK TEASER ══ */
+    #work { background:#040404; }
+
+    .work-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:52px; }
+    .work-card { position:relative; aspect-ratio:1; overflow:hidden; background:#080808; cursor:crosshair; }
+    .work-card-bg { position:absolute; inset:0; }
+    .work-card-bg img { width:100%; height:100%; object-fit:cover; mix-blend-mode:screen; opacity:.12; filter:grayscale(40%); transition:opacity .5s ease,transform .6s ease; }
+    .work-card:hover .work-card-bg img { opacity:.22; transform:scale(1.04); }
+    .work-card-overlay { position:absolute; inset:0; background:linear-gradient(to bottom,transparent 30%,rgba(10,10,10,0.88) 100%); }
+    .work-card-content { position:absolute; bottom:0; left:0; right:0; padding:18px 18px 22px; z-index:2; }
+    .work-card-cat { font-family:var(--font-body); font-size:9px; letter-spacing:.4em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:5px; }
+    .work-card-name { font-family:var(--font-alt); font-size:13px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--white); }
+    .work-cta { text-align:center; }
+    .work-cta a { display:inline-block; font-family:var(--font-body); font-size:10px; letter-spacing:.5em; text-transform:uppercase; color:var(--white); border:1px solid rgba(255,255,255,0.12); padding:14px 36px; text-decoration:none; transition:all .25s ease; }
+    .work-cta a:hover { border-color:var(--coral); color:var(--coral); box-shadow:0 0 24px rgba(232,110,89,0.12); }
+
+    /* ── WEB DESIGN PORTFOLIO ── */
+    .web-portfolio { margin-top:72px; padding-top:48px; border-top:1px solid #1a1a1a; }
+    .web-portfolio-header { display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:28px; }
+    .web-portfolio-label { font-family:var(--font-body); font-size:9px; letter-spacing:.4em; text-transform:uppercase; color:var(--coral); display:block; margin-bottom:10px; }
+    .web-portfolio-title { font-family:'Anton',sans-serif; font-size:clamp(2rem,5vw,3.5rem); color:var(--white); line-height:1; text-transform:uppercase; }
+    .web-portfolio-count { font-family:var(--font-body); font-size:9px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); text-align:right; }
+    .web-portfolio-count strong { display:block; font-family:'Anton',sans-serif; font-size:2.8rem; color:var(--white); line-height:1; }
+    .web-portfolio-desc { font-family:var(--font-body); font-size:11px; color:var(--dim); line-height:1.8; max-width:420px; margin-bottom:36px; }
+    .site-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:2px; background:#111; }
+    .site-card { background:#040404; text-decoration:none; display:flex; flex-direction:column; transition:opacity .2s; }
+    .site-card:hover { opacity:.88; }
+    .site-card-thumb { aspect-ratio:16/9; overflow:hidden; position:relative; }
+    .site-card-thumb img { width:100%; height:100%; object-fit:cover; object-position:top; transition:transform .5s ease; filter:grayscale(15%); }
+    .site-card:hover .site-card-thumb img { transform:scale(1.03); filter:grayscale(0%); }
+    .site-card-thumb::after { content:''; position:absolute; inset:0; background:linear-gradient(to top,rgba(4,4,4,.75) 0%,transparent 50%); pointer-events:none; }
+    .site-card-eyebrow { position:absolute; bottom:40px; left:16px; z-index:2; font-family:var(--font-body); font-size:8px; letter-spacing:.3em; text-transform:uppercase; color:var(--coral); opacity:.8; }
+    .site-card-hero { position:absolute; bottom:14px; left:16px; right:16px; z-index:2; font-family:'Anton',sans-serif; font-size:1.1rem; color:var(--white); line-height:1.1; text-transform:uppercase; }
+    .site-card-meta { padding:14px 16px; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #111; }
+    .site-card-name { font-family:var(--font-alt); font-size:11px; font-weight:500; color:var(--white); }
+    .site-card-tag { font-family:var(--font-body); font-size:8px; letter-spacing:.2em; text-transform:uppercase; color:var(--dim); margin-top:2px; }
+    .site-card-arrow { font-size:12px; color:var(--coral); opacity:.6; transition:opacity .2s; }
+    .site-card:hover .site-card-arrow { opacity:1; }
+    @media(max-width:600px) { .site-grid { grid-template-columns:1fr; } .web-portfolio-header { flex-direction:column; align-items:flex-start; gap:12px; } }
+
+    /* ══ SERVICES / HIRE ══ */
+    #services { background:#050505; }
+    .hire-poem { display:flex; flex-direction:column; gap:0; margin-bottom:clamp(44px,7vw,80px); }
+    .hire-line-giant { font-family:var(--font-display); font-size:clamp(72px,14vw,176px); line-height:.86; text-transform:uppercase; color:var(--white); }
+    .hire-line-giant.coral { color:var(--coral); }
+    .hire-line-giant.steel { color:var(--steel); }
+    .hire-split { display:flex; align-items:baseline; justify-content:space-between; gap:20px; flex-wrap:wrap; margin-top:clamp(20px,3vw,36px); }
+    .hire-split-word { font-family:var(--font-display); font-size:clamp(28px,5.5vw,68px); line-height:.9; text-transform:uppercase; }
+    .hire-split-word.c { color:var(--coral); }
+    .hire-split-word.s { color:var(--steel); }
+    .hire-split-word.d { color:#222; }
+    .hire-caption { font-family:var(--font-body); font-size:10px; letter-spacing:.38em; text-transform:uppercase; color:#2a2a2a; margin-top:clamp(16px,2.5vw,28px); }
+    .services-list { display:flex; flex-direction:column; gap:0; }
+    .service-row { display:flex; flex-direction:column; gap:0; padding:clamp(22px,3vw,36px) 0; border-top:1px solid #0d0d0d; }
+    .service-row:last-child { border-bottom:1px solid #0d0d0d; }
+    .svc-header { display:flex; align-items:center; justify-content:space-between; gap:20px; }
+    .svc-name-group { display:flex; flex-direction:column; gap:3px; }
+    .svc-num { font-family:var(--font-body); font-size:9px; letter-spacing:.48em; color:var(--coral); opacity:.35; }
+    .svc-name { font-family:var(--font-display); font-size:clamp(52px,9.5vw,124px); line-height:.86; text-transform:uppercase; color:var(--white); transition:color .3s ease; }
+    .service-row:hover .svc-name { color:var(--coral); }
+    .svc-btn { font-family:var(--font-body); font-size:10px; letter-spacing:.4em; text-transform:uppercase; padding:13px 26px; border:1px solid rgba(232,110,89,0.22); color:var(--coral); background:none; cursor:pointer; text-decoration:none; display:inline-block; transition:all .3s ease; white-space:nowrap; flex-shrink:0; opacity:0; transform:translateX(10px); }
+    .service-row:hover .svc-btn { opacity:1; transform:translateX(0); }
+    .svc-btn:hover { background:var(--coral); color:var(--bg); border-color:var(--coral); box-shadow:0 0 28px rgba(232,110,89,.18); }
+    .svc-details { display:flex; flex-direction:column; gap:18px; overflow:hidden; max-height:0; opacity:0; padding-top:0; margin-top:0; transition:max-height .5s ease, opacity .4s ease .08s, padding-top .45s ease, margin-top .45s ease; }
+    .service-row:hover .svc-details { max-height:400px; opacity:1; padding-top:22px; margin-top:16px; border-top:1px solid #151515; }
+    .svc-desc { font-family:var(--font-alt); font-size:clamp(14px,1.7vw,17px); line-height:1.9; color:#aaa; max-width:820px; font-weight:400; }
+    .svc-desc em { font-style:italic; color:var(--steel); font-weight:500; }
+    .svc-desc strong { color:#ddd; font-weight:600; }
+    .svc-tags { display:flex; flex-wrap:wrap; gap:6px; }
+    .svc-tag { font-family:var(--font-body); font-size:9px; letter-spacing:.28em; text-transform:uppercase; padding:5px 12px; border:1px solid #1e1e1e; color:#3a3a3a; transition:border-color .2s, color .2s; }
+    .service-row:hover .svc-tag { border-color:#252525; color:#505050; }
+
+    /* ══ ABOUT ══ */
+    #about { background:#060606; }
+    .about-layout { display:grid; grid-template-columns:200px 1fr; gap:64px; align-items:start; }
+    .about-photo { width:200px; height:200px; border-radius:50%; overflow:hidden; border:2px solid rgba(232,110,89,0.28); flex-shrink:0; position:sticky; top:100px; }
+    .about-photo img { width:100%; height:100%; object-fit:cover; object-position:center 20%; }
+    .about-prose { font-family:var(--font-body); font-size:15px; line-height:2; color:#888; }
+    .about-prose p { margin-bottom:28px; }
+    .about-prose p:last-child { margin-bottom:0; }
+    .about-prose .pull { font-size:18px; line-height:1.65; color:var(--white); font-style:italic; border-left:2px solid var(--coral); padding-left:24px; margin:36px 0; }
+
+    /* ══ RÉSUMÉ ══ */
+    #resume { background:#030303; }
+    .resume-profile { margin-bottom:clamp(44px,6vw,72px); }
+    .resume-name { font-family:var(--font-display); font-size:clamp(56px,10vw,130px); line-height:.88; text-transform:uppercase; color:var(--white); margin-bottom:14px; }
+    .resume-title { font-family:var(--font-body); font-size:clamp(10px,1.6vw,14px); letter-spacing:.32em; text-transform:uppercase; color:var(--steel); margin-bottom:6px; }
+    .resume-avail { font-family:var(--font-body); font-size:10px; letter-spacing:.36em; text-transform:uppercase; color:var(--coral); opacity:.65; margin-bottom:36px; display:block; }
+    .resume-summary { font-family:var(--font-body); font-size:clamp(13px,1.8vw,16px); line-height:2.1; color:#777; max-width:780px; border-left:2px solid var(--coral); padding-left:24px; }
+    .resume-divider { height:1px; background:#111; margin:clamp(36px,5vw,56px) 0; }
+    .resume-block-label { font-family:var(--font-body); font-size:9px; letter-spacing:.5em; text-transform:uppercase; color:var(--coral); opacity:.45; margin-bottom:20px; display:block; }
+    .strength-chips { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:0; }
+    .strength-chip { font-family:var(--font-body); font-size:10px; letter-spacing:.22em; text-transform:uppercase; padding:7px 14px; border:1px solid #1c1c1c; color:#555; transition:all .2s; cursor:default; }
+    .strength-chip:hover { border-color:var(--coral); color:var(--coral); }
+    .strength-chip.hi { border-color:rgba(232,110,89,.3); color:var(--coral); }
+    .impact-list { list-style:none; display:flex; flex-direction:column; gap:10px; }
+    .impact-list li { font-family:var(--font-body); font-size:12px; line-height:1.85; color:#5a5a5a; padding-left:16px; position:relative; }
+    .impact-list li::before { content:'✦'; position:absolute; left:0; color:var(--coral); opacity:.45; font-size:7px; top:5px; }
+    .resume-two-col { display:grid; grid-template-columns:1fr 1fr; gap:clamp(32px,5vw,64px); align-items:start; }
+    .resume-timeline { display:flex; flex-direction:column; gap:0; border-left:1px solid #1a1a1a; padding-left:clamp(24px,4vw,48px); margin-left:4px; }
+    .re-entry { position:relative; padding-bottom:clamp(32px,5vw,52px); }
+    .re-entry::before { content:''; position:absolute; left:calc(-1 * clamp(24px,4vw,48px) - 1px); top:10px; width:7px; height:7px; border-radius:50%; background:var(--bg); border:1.5px solid var(--coral); transform:translateX(-3px); }
+    .re-company { font-family:var(--font-display); font-size:clamp(22px,4vw,48px); line-height:.88; text-transform:uppercase; color:var(--white); margin-bottom:6px; }
+    .re-company.dim { color:var(--dim); font-size:clamp(16px,2.5vw,28px); }
+    .re-role { font-family:var(--font-body); font-size:11px; letter-spacing:.18em; color:var(--steel); text-transform:uppercase; margin-bottom:3px; }
+    .re-dates { font-family:var(--font-body); font-size:10px; letter-spacing:.32em; color:var(--coral); opacity:.6; margin-bottom:12px; }
+    .re-context { font-family:var(--font-body); font-size:9px; letter-spacing:.28em; text-transform:uppercase; color:#2e2e2e; margin-bottom:12px; }
+    .re-bullets { list-style:none; display:flex; flex-direction:column; gap:5px; max-width:640px; }
+    .re-bullets li { font-family:var(--font-body); font-size:12px; line-height:1.85; color:#4a4a4a; padding-left:14px; position:relative; }
+    .re-bullets li::before { content:'—'; position:absolute; left:0; color:var(--coral); opacity:.3; }
+    .resume-edu .edu-school { font-family:var(--font-display); font-size:clamp(20px,3.5vw,42px); line-height:.9; text-transform:uppercase; color:var(--white); }
+    .resume-edu .edu-degree { font-family:var(--font-body); font-size:12px; letter-spacing:.2em; color:var(--steel); margin-top:10px; }
+    .tools-grid { display:flex; flex-direction:column; gap:14px; }
+    .tool-row { display:flex; gap:clamp(16px,3vw,32px); align-items:baseline; flex-wrap:wrap; border-bottom:1px solid #0f0f0f; padding-bottom:14px; }
+    .tool-row:last-child { border-bottom:none; }
+    .tool-name { font-family:var(--font-display); font-size:clamp(16px,2.2vw,28px); line-height:1; text-transform:uppercase; color:var(--white); min-width:clamp(80px,10vw,120px); flex-shrink:0; }
+    .tool-desc { font-family:var(--font-body); font-size:11px; line-height:1.8; color:#4e4e4e; flex:1; }
+    .resume-contact-links { display:flex; flex-direction:column; gap:10px; }
+    .resume-contact-links a { font-family:var(--font-body); font-size:12px; letter-spacing:.22em; text-decoration:none; transition:color .2s; }
+
+    /* ══ DAILY INSIGHT ══ */
+    #daily { background:#040404; }
+    .daily-quote-wrap { position:relative; margin-bottom:clamp(32px,5vw,56px); }
+    .daily-quote { font-family:var(--font-display); font-size:clamp(28px,5vw,66px); line-height:1.05; text-transform:uppercase; color:var(--white); max-width:900px; }
+    .daily-attribution { font-family:var(--font-body); font-size:10px; letter-spacing:.38em; text-transform:uppercase; color:var(--coral); opacity:.5; margin-top:20px; }
+    .daily-nav { display:flex; align-items:center; gap:20px; margin-top:40px; }
+    .daily-prev, .daily-next { font-family:var(--font-body); font-size:10px; letter-spacing:.3em; text-transform:uppercase; background:none; border:1px solid #1c1c1c; color:var(--dim); padding:10px 18px; cursor:pointer; transition:all .2s ease; }
+    .daily-prev:hover, .daily-next:hover { border-color:var(--coral); color:var(--coral); }
+    .daily-counter { font-family:var(--font-body); font-size:10px; letter-spacing:.3em; color:#2a2a2a; }
+
+    /* ══ FLUXUS PRINCIPLES (About) ══ */
+    .fluxus-statement { margin-bottom:clamp(32px,4vw,48px); }
+    .fluxus-line { font-family:var(--font-display); font-size:clamp(28px,5vw,64px); line-height:.92; text-transform:uppercase; color:var(--white); }
+    .fluxus-line.coral { color:var(--coral); }
+    .fluxus-subtitle { font-family:var(--font-body); font-size:10px; letter-spacing:.45em; text-transform:uppercase; color:var(--coral); opacity:.4; margin-bottom:8px; display:block; }
+    .principles-grid { display:flex; flex-direction:column; gap:0; margin:clamp(36px,5vw,56px) 0; }
+    .principle-row { display:grid; grid-template-columns:clamp(140px,20vw,220px) 1fr; gap:clamp(24px,4vw,48px); padding:clamp(20px,3vw,32px) 0; border-top:1px solid #111; align-items:start; }
+    .principle-row:last-child { border-bottom:1px solid #111; }
+    .principle-num { font-family:var(--font-display); font-size:clamp(36px,6vw,72px); line-height:.88; color:var(--coral); opacity:.2; }
+    .principle-title { font-family:var(--font-display); font-size:clamp(20px,3vw,36px); line-height:.9; text-transform:uppercase; color:var(--white); margin-bottom:12px; }
+    .principle-body { font-family:var(--font-body); font-size:13px; line-height:2; color:#666; }
+
+    /* ══ CONTACT / FOOTER ══ */
+    #contact {
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-inner { position:relative; z-index:2; padding:100px 48px; }
+    .contact-headline { font-family:var(--font-display); font-size:clamp(48px,9vw,120px); line-height:.9; text-transform:uppercase; color:var(--white); margin-bottom:56px; animation:breathe 6s ease infinite; }
+    .contact-email { display:block; font-family:var(--font-body); font-size:14px; letter-spacing:.3em; color:var(--coral); text-decoration:none; margin-bottom:14px; transition:color .2s; }
+    .contact-email:hover { color:var(--white); }
+    .contact-url { display:block; font-family:var(--font-body); font-size:11px; letter-spacing:.4em; color:var(--dim); text-decoration:none; margin-bottom:64px; transition:color .2s; }
+    .contact-url:hover { color:var(--white); }
+    .footer-sig { display:block; width:clamp(220px,36vw,440px); margin:0 auto 40px; opacity:1; border-radius:4px; filter:drop-shadow(0 0 32px rgba(232,110,89,0.12)); }
+    .footer-brand { font-family:var(--font-display); font-size:clamp(32px,6vw,72px); letter-spacing:.04em; margin-bottom:0; display:block; }
+    .footer-bottom { margin-top:48px; padding-top:28px; border-top:1px solid #111; font-size:9px; letter-spacing:.4em; text-transform:uppercase; color:var(--dimmer); }
+
+    /* ══ RESPONSIVE ══ */
+    @media (max-width: 768px) {
+      #navbar { padding:0 24px; }
+      .nav-links { gap:16px; }
+      .hero-inner { padding:0 28px; }
+      .scene-inner { padding:80px 28px; }
+      .about-layout { grid-template-columns:1fr; gap:40px; }
+      .about-photo { position:static; width:140px; height:140px; }
+      .work-grid { grid-template-columns:repeat(2,1fr); }
+      .resume-two-col { grid-template-columns:1fr; }
+      .principle-row { grid-template-columns:60px 1fr; gap:16px; }
+    }
+    @media (max-width: 480px) {
+      .work-grid { grid-template-columns:1fr; }
+      .nav-links { display:none; }
+      .hero-scroll { display:none; }
+      .resume-timeline { padding-left:20px; }
+      .hero-inner { padding: 0 12px; }
+      .hero-title { font-size: clamp(28px, 12.5vw, 64px); letter-spacing: -.02em; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── AMBIENT AUDIO ── -->
+<audio id="amb-audio" preload="none"></audio>
+<button id="amb-btn" class="muted" aria-label="Toggle ambient music" title="Ambient music">
+  <div class="wave-bars"><span></span><span></span><span></span><span></span></div>
+</button>
+<div id="amb-track-name"></div>
+
+<!-- ══════════════════════════════════════
+     NAVBAR
+══════════════════════════════════════ -->
+<nav id="navbar">
+  <a class="nav-brand" href="#">
+    <span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#mixes">Mixes</a></li>
+    <li><a href="#music">Music</a></li>
+    <li><a href="#services">Hire</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#daily">Daily</a></li>
+    <li><a href="#resume">CV</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════
+     ① HERO
+══════════════════════════════════════ -->
+<section id="hero">
+  <div class="scene-bg hi" id="bg-hero">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="hero-inner">
+    <h1 class="hero-title">
+      <span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span>
+    </h1>
+    <p class="hero-tagline">Fluxus &nbsp;·&nbsp; Artist &nbsp;·&nbsp; Polymath</p>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="hi">Fluxus</span>
+    <span>✦</span>
+    <span><span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span></span>
+    <span>✦</span>
+    <span class="lo">First Take</span>
+    <span>✦</span>
+    <span class="hi">Polymath</span>
+    <span>✦</span>
+    <span class="lo">Music</span>
+    <span>✦</span>
+    <span class="hi">Design</span>
+    <span>✦</span>
+    <span class="lo">Motion Art</span>
+    <span>✦</span>
+    <span class="hi">Chicago Heights</span>
+    <span>✦</span>
+    <span class="lo">Live Mastering</span>
+    <span>✦</span>
+    <span class="hi">One Take One Truth</span>
+    <span>✦</span>
+    <span class="lo">Code</span>
+    <span>✦</span>
+    <span class="hi">Remix the Remix</span>
+    <span>✦</span>
+    <span><span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span></span>
+    <span>✦</span>
+    <span class="lo">Ghost Signal</span>
+    <span>✦</span>
+    <span class="hi">Fluxus</span>
+    <span>✦</span>
+    <span class="lo">Polymath</span>
+    <span>✦</span>
+    <span class="hi">Design Systems</span>
+    <span>✦</span>
+    <span class="lo">First Take</span>
+    <span>✦</span>
+    <span class="hi">Chicago Heights</span>
+    <span>✦</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ② MANIFESTO
+══════════════════════════════════════ -->
+<section id="manifesto" class="scene">
+  <div class="scene-bg" id="bg-manifesto">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">The Practice</span>
+      <h2 class="section-heading">The <span class="c">Work.</span></h2>
+    </div>
+
+    <div class="work-poem">
+
+      <!-- ── 01 ── -->
+      <div class="wp-moment reveal delay-1">
+        <div class="wp-eyebrow">01 — The Music</div>
+        <div class="wp-giant">FIRST</div>
+        <div class="wp-giant coral">TAKE.</div>
+        <div class="wp-whisper">— every track is improv. one pass. live mastered. —</div>
+      </div>
+
+      <!-- ── 02 ── -->
+      <div class="wp-moment right reveal delay-2">
+        <div class="wp-eyebrow">02 — The Client Work</div>
+        <div class="wp-ticker">Vision &nbsp;✦&nbsp; Clarify &nbsp;✦&nbsp; Map &nbsp;✦&nbsp; Execute &nbsp;✦&nbsp; Deliver</div>
+        <div class="wp-med">I SEE IT</div>
+        <div class="wp-med steel">BEFORE IT EXISTS.</div>
+      </div>
+
+      <!-- ── 03 ── -->
+      <div class="wp-moment reveal delay-1">
+        <div class="wp-eyebrow">03 — The Method</div>
+        <div class="wp-intro">i go back and do a</div>
+        <div class="wp-giant">LIVE</div>
+        <div class="wp-giant">MASTERING</div>
+        <div class="wp-giant coral">PASS.</div>
+        <div class="wp-tag">one take &nbsp;·&nbsp; one truth.</div>
+      </div>
+
+      <!-- ── 04 ── -->
+      <div class="wp-moment reveal delay-2">
+        <div class="wp-eyebrow">04 — The Process</div>
+        <div class="wp-full">RE:RE:MIX</div>
+        <div class="wp-cascade">
+          <span>the remix.</span>
+          <span>layer on layer.</span>
+          <span>until the original DNA</span>
+          <span>is just a <em>ghost signal.</em></span>
+        </div>
+      </div>
+
+      <!-- ── 05 ── -->
+      <div class="wp-moment reveal delay-1">
+        <div class="wp-eyebrow">05 — The Signature</div>
+        <div class="wp-triptych">
+          <span class="coral">NOT AI.</span>
+          <span>HUMAN.</span>
+          <span class="steel">REAL.</span>
+        </div>
+        <div class="wp-whisper">The realism of functional, tangible instruments is the point.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-wrap">
+  <div class="marquee-track" style="animation-direction:reverse; animation-duration:26s;">
+    <span class="hi">RE:RE:MIX</span>
+    <span>✦</span>
+    <span class="lo">Deconstruct</span>
+    <span>✦</span>
+    <span class="hi">Reconstruct</span>
+    <span>✦</span>
+    <span class="lo">Ghost Signal</span>
+    <span>✦</span>
+    <span class="hi">One Take</span>
+    <span>✦</span>
+    <span class="lo">One Truth</span>
+    <span>✦</span>
+    <span class="hi">RE:RE:MIX</span>
+    <span>✦</span>
+    <span class="lo">Deconstruct</span>
+    <span>✦</span>
+    <span class="hi">Reconstruct</span>
+    <span>✦</span>
+    <span class="lo">Ghost Signal</span>
+    <span>✦</span>
+    <span class="hi">One Take</span>
+    <span>✦</span>
+    <span class="lo">One Truth</span>
+    <span>✦</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ③ MIXES — THE FIRST MIXTAPES
+══════════════════════════════════════ -->
+<section id="mixes" class="scene">
+  <div class="scene-bg lo" id="bg-mixes">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">The Archive · 2013</span>
+      <div class="mixes-badge">First Time Online</div>
+      <h2 class="section-heading"><span class="c">The First</span><br>Mixes.</h2>
+      <p class="mixes-subtitle">Ten episodes. Never posted. Until now.</p>
+    </div>
+
+    <div class="mix-episode-list reveal delay-1">
+
+      <div class="mix-ep active" data-src="/david/assets/mixes/episode-01-koolaide-kids.mp3" data-title="Koolaide Kids">
+        <div class="mix-ep-num">01</div>
+        <div class="mix-ep-info">
+          <div class="mix-ep-name">Koolaide Kids</div>
+          <div class="mix-ep-sub">Episode 01 · 2013</div>
+        </div>
+        <div class="mix-ep-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+
+      <div class="mix-ep" data-src="/david/assets/mixes/episode-02-gritty-kitty.mp3" data-title="Gritty Kitty">
+        <div class="mix-ep-num">02</div>
+        <div class="mix-ep-info">
+          <div class="mix-ep-name">Gritty Kitty</div>
+          <div class="mix-ep-sub">Episode 02 · 2013</div>
+        </div>
+        <div class="mix-ep-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+
+      <div class="mix-ep" data-src="/david/assets/mixes/episode-03-beat-brulee.mp3" data-title="Beat Brulee">
+        <div class="mix-ep-num">03</div>
+        <div class="mix-ep-info">
+          <div class="mix-ep-name">Beat Brulee</div>
+          <div class="mix-ep-sub">Episode 03 · 2013</div>
+        </div>
+        <div class="mix-ep-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+
+      <div class="mix-ep" data-src="/david/assets/mixes/episode-04-december-deleece.mp3" data-title="December Deleece">
+        <div class="mix-ep-num">04</div>
+        <div class="mix-ep-info">
+          <div class="mix-ep-name">December Deleece</div>
+          <div class="mix-ep-sub">Episode 04 · 2013</div>
+        </div>
+        <div class="mix-ep-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+
+      <div class="mix-ep" data-src="/david/assets/mixes/episode-05-march-tart.mp3" data-title="March Tart">
+        <div class="mix-ep-num">05</div>
+        <div class="mix-ep-info">
+          <div class="mix-ep-name">March Tart</div>
+          <div class="mix-ep-sub">Episode 05 · 2013</div>
+        </div>
+        <div class="mix-ep-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+
+      <div class="mix-ep" data-src="/david/assets/mixes/episode-06-thursday-night-li.mp3" data-title="Thursday Night Li">
+        <div class="mix-ep-num">06</div>
+        <div class="mix-ep-info">
+          <div class="mix-ep-name">Thursday Night Li</div>
+          <div class="mix-ep-sub">Episode 06 · 2013</div>
+        </div>
+        <div class="mix-ep-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+
+      <div class="mix-ep" data-src="/david/assets/mixes/episode-07-nevermind-november.mp3" data-title="Nevermind November">
+        <div class="mix-ep-num">07</div>
+        <div class="mix-ep-info">
+          <div class="mix-ep-name">Nevermind November</div>
+          <div class="mix-ep-sub">Episode 07 · 2013</div>
+        </div>
+        <div class="mix-ep-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+
+      <div class="mix-ep" data-src="/david/assets/mixes/episode-08-adrift.mp3" data-title="Adrift Mixtape">
+        <div class="mix-ep-num">08</div>
+        <div class="mix-ep-info">
+          <div class="mix-ep-name">Adrift Mixtape</div>
+          <div class="mix-ep-sub">Episode 08 · 2013</div>
+        </div>
+        <div class="mix-ep-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+
+      <div class="mix-ep" data-src="/david/assets/mixes/episode-09-just-in-time.mp3" data-title="Just In Time">
+        <div class="mix-ep-num">09</div>
+        <div class="mix-ep-info">
+          <div class="mix-ep-name">Just In Time</div>
+          <div class="mix-ep-sub">Episode 09 · 2013</div>
+        </div>
+        <div class="mix-ep-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+
+      <div class="mix-ep" data-src="/david/assets/mixes/episode-10-well-alright.mp3" data-title="Well Alright">
+        <div class="mix-ep-num">10</div>
+        <div class="mix-ep-info">
+          <div class="mix-ep-name">Well Alright</div>
+          <div class="mix-ep-sub">Episode 10 · 2013</div>
+        </div>
+        <div class="mix-ep-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+      </div>
+
+    </div><!-- /mix-episode-list -->
+
+    <!-- Shared Player -->
+    <div class="mix-player-card reveal delay-2">
+      <div class="mix-player-top">
+        <div class="mix-now-label">Now Playing</div>
+        <div class="mix-now-title" id="mix-title">Select an Episode</div>
+      </div>
+      <div class="mix-progress-wrap" id="mix-progress-wrap">
+        <div class="mix-progress-bar" id="mix-progress"></div>
+      </div>
+      <div class="mix-times">
+        <span id="mix-cur">0:00</span>
+        <span id="mix-dur">—</span>
+      </div>
+      <div class="mix-controls">
+        <button class="btn-icon-sm" id="mix-prev" aria-label="Previous episode">
+          <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+        </button>
+        <button class="mix-btn-play" id="mix-play" aria-label="Play / Pause">
+          <svg id="mix-icon-play"  viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+          <svg id="mix-icon-pause" viewBox="0 0 24 24" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+        </button>
+        <button class="btn-icon-sm" id="mix-next" aria-label="Next episode">
+          <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z"/></svg>
+        </button>
+        <span class="mix-status-text" id="mix-status">Select an episode to begin</span>
+      </div>
+      <audio id="mix-audio" preload="none"></audio>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ④ MUSIC PLAYER
+══════════════════════════════════════ -->
+<section id="music" class="scene">
+  <div class="scene-bg lo" id="bg-music">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">PitchBlacKnight</span>
+      <h2 class="section-heading"><span class="c">Sound.</span></h2>
+    </div>
+
+    <div class="reveal delay-1">
+      <div class="waveform" id="waveform"></div>
+
+      <div class="player-card">
+        <div class="player-header">
+          <p class="player-title-text">PITCHBLACKNIGHT</p>
+          <p class="player-sub-text"><span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span> — Original Tracks</p>
+        </div>
+
+        <div class="track-list">
+          <div class="track-item active" data-src="/david/assets/audio/dark-mutters.mp3" data-title="DARK MUTTERS">
+            <span class="track-num">01</span>
+            <span class="track-name">DARK MUTTERS</span>
+            <div class="track-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          </div>
+          <div class="track-item" data-src="/david/assets/audio/dreams-of-dying.mp3" data-title="DREAMS OF DYING">
+            <span class="track-num">02</span>
+            <span class="track-name">DREAMS OF DYING</span>
+            <div class="track-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          </div>
+          <div class="track-item" data-src="/david/assets/audio/dripping-magma.mp3" data-title="DRIPPING MAGMA">
+            <span class="track-num">03</span>
+            <span class="track-name">DRIPPING MAGMA</span>
+            <div class="track-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          </div>
+          <div class="track-item" data-src="/david/assets/audio/the-effect.mp3" data-title="THE EFFECT YOU HAVE ON OTHERS">
+            <span class="track-num">04</span>
+            <span class="track-name">THE EFFECT YOU HAVE ON OTHERS</span>
+            <div class="track-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          </div>
+          <div class="track-item" data-src="/david/assets/audio/tiptoe-trip.mp3" data-title="TIPTOE TRIP">
+            <span class="track-num">05</span>
+            <span class="track-name">TIPTOE TRIP</span>
+            <div class="track-play-icon"><svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg></div>
+          </div>
+          <div class="track-item coming-soon">
+            <span class="track-num">06</span>
+            <span class="track-name">COMING SOON</span>
+            <span class="track-badge">Coming Soon</span>
+          </div>
+          <div class="track-item coming-soon">
+            <span class="track-num">07</span>
+            <span class="track-name">MIDNIGHT FREQUENCY</span>
+            <span class="track-badge">Coming Soon</span>
+          </div>
+          <div class="track-item coming-soon">
+            <span class="track-num">08</span>
+            <span class="track-name">PHANTOM ARCHITECTURE</span>
+            <span class="track-badge">Coming Soon</span>
+          </div>
+        </div>
+
+        <div class="player-controls-wrap">
+          <div class="progress-wrap" id="progress-wrap">
+            <div class="progress-bar" id="audio-progress"></div>
+          </div>
+          <div class="player-times">
+            <span id="audio-cur">0:00</span>
+            <span id="audio-dur">—</span>
+          </div>
+          <div class="player-controls">
+            <button class="btn-icon-sm" id="btn-prev" aria-label="Previous track">
+              <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+            </button>
+            <button class="btn-play" id="btn-play" aria-label="Play / Pause">
+              <svg id="icon-play"  viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+              <svg id="icon-pause" viewBox="0 0 24 24" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            </button>
+            <button class="btn-icon-sm" id="btn-next" aria-label="Next track">
+              <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zm2-8.14L11.03 12 8 14.14V9.86zM16 6h2v12h-2z"/></svg>
+            </button>
+            <span class="player-now-playing" id="player-status">Select a track</span>
+          </div>
+        </div>
+
+        <audio id="audio-el" preload="none">
+          <source src="/david/assets/audio/dark-mutters.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="player-note">
+          <span class="player-note-label">RE:RE:MIX · Deconstruct · Reconstruct</span>
+          <p>Remix the remix. I take what's already been reimagined and push it further — layering remix on remix until the original DNA is just a ghost signal inside something entirely new.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ④ WORK TEASER
+══════════════════════════════════════ -->
+<section id="work" class="scene">
+  <div class="scene-bg lo" id="bg-work">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">Output</span>
+      <h2 class="section-heading">The <span class="cs">Catalog.</span></h2>
+    </div>
+
+    <div class="work-grid reveal delay-1">
+      <div class="work-card">
+        <div class="work-card-bg" data-card-bg><img src="" alt=""></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-content">
+          <span class="work-card-cat">VOX</span>
+          <span class="work-card-name">VoiceOver</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-bg" data-card-bg><img src="" alt=""></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-content">
+          <span class="work-card-cat">ANI</span>
+          <span class="work-card-name">Animation</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-bg" data-card-bg><img src="" alt=""></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-content">
+          <span class="work-card-cat">WEB</span>
+          <span class="work-card-name">Web Design</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-bg" data-card-bg><img src="" alt=""></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-content">
+          <span class="work-card-cat">ART</span>
+          <span class="work-card-name">Fine Art</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-bg" data-card-bg><img src="" alt=""></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-content">
+          <span class="work-card-cat">DGA</span>
+          <span class="work-card-name">Digital Art</span>
+        </div>
+      </div>
+      <div class="work-card">
+        <div class="work-card-bg" data-card-bg><img src="" alt=""></div>
+        <div class="work-card-overlay"></div>
+        <div class="work-card-content">
+          <span class="work-card-cat">DSG</span>
+          <span class="work-card-name">Design Systems</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WEB DESIGN PORTFOLIO -->
+    <div class="web-portfolio reveal delay-2">
+      <div class="web-portfolio-header">
+        <div>
+          <span class="web-portfolio-label">Web Design</span>
+          <h3 class="web-portfolio-title">The Catalog.</h3>
+        </div>
+        <div class="web-portfolio-count">
+          <strong>04</strong>
+          Projects
+        </div>
+      </div>
+      <p class="web-portfolio-desc">Websites built for people with something real to offer. The goal is always the same: make it clear, make it work, and get out of the way.</p>
+
+      <div class="site-grid">
+
+        <!-- Bert Gillette -->
+        <a href="https://pitchblacknight.com/bert" target="_blank" class="site-card">
+          <div class="site-card-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/portfolio/thumb-bert.jpg" alt="Bert Gillette — Milehimodern" />
+            <span class="site-card-eyebrow">Real Estate · Denver</span>
+            <p class="site-card-hero">The art of finding<br>where you belong.</p>
+          </div>
+          <div class="site-card-meta">
+            <div>
+              <p class="site-card-name">Bert Gillette — Milehimodern</p>
+              <p class="site-card-tag">Real Estate · Brand Site</p>
+            </div>
+            <span class="site-card-arrow">↗</span>
+          </div>
+        </a>
+
+        <!-- For David -->
+        <a href="https://pitchblacknight.com/david" target="_blank" class="site-card">
+          <div class="site-card-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/portfolio/thumb-david.jpg" alt="For David" />
+            <span class="site-card-eyebrow">Multimedia · Personal</span>
+            <p class="site-card-hero">For David.<br><span style="font-size:.75em;opacity:.7;">A remix. A letter.</span></p>
+          </div>
+          <div class="site-card-meta">
+            <div>
+              <p class="site-card-name">For David — PitchBlacKnight</p>
+              <p class="site-card-tag">Multimedia Art · Letter</p>
+            </div>
+            <span class="site-card-arrow">↗</span>
+          </div>
+        </a>
+
+        <!-- Serenity Lounge -->
+        <a href="https://pitchblacknight.com/serenity_lounge/" target="_blank" class="site-card">
+          <div class="site-card-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/portfolio/thumb-serenity.jpg" alt="Serenity Lounge Day Spa" />
+            <span class="site-card-eyebrow">Wellness · Highland, IN</span>
+            <p class="site-card-hero">A sanctuary<br>of stillness.</p>
+          </div>
+          <div class="site-card-meta">
+            <div>
+              <p class="site-card-name">Serenity Lounge Day Spa</p>
+              <p class="site-card-tag">Wellness · Booking Site</p>
+            </div>
+            <span class="site-card-arrow">↗</span>
+          </div>
+        </a>
+
+        <!-- Lindsey Bingaman -->
+        <a href="https://www.lindseybingaman.com/" target="_blank" class="site-card">
+          <div class="site-card-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/portfolio/thumb-lindsey.jpg" alt="Lindsey Bingaman" />
+            <span class="site-card-eyebrow">Executive Coaching</span>
+            <p class="site-card-hero">Results through<br>relationship.</p>
+          </div>
+          <div class="site-card-meta">
+            <div>
+              <p class="site-card-name">Lindsey Bingaman</p>
+              <p class="site-card-tag">Executive Coaching · B2B</p>
+            </div>
+            <span class="site-card-arrow">↗</span>
+          </div>
+        </a>
+
+      </div>
+    </div><!-- /web-portfolio -->
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ⑤ SERVICES / HIRE
+══════════════════════════════════════ -->
+<section id="services" class="scene">
+  <div class="scene-bg lo" id="bg-services">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">Available Now</span>
+      <h2 class="section-heading">For <span class="c">Hire.</span></h2>
+    </div>
+
+    <!-- Hire poem -->
+    <div class="hire-poem reveal delay-1">
+      <div class="hire-line-giant">I SEE</div>
+      <div class="hire-line-giant">THE END</div>
+      <div class="hire-line-giant coral">BEFORE</div>
+      <div class="hire-line-giant">YOU DO.</div>
+      <div class="hire-split">
+        <span class="hire-split-word c">VISION.</span>
+        <span class="hire-split-word s">CLARITY.</span>
+        <span class="hire-split-word">PATH.</span>
+        <span class="hire-split-word d">EXECUTE.</span>
+      </div>
+      <div class="hire-caption">Every client. Every project. Completely satisfied. — That is the method.</div>
+    </div>
+
+    <div class="services-list">
+
+      <!-- VoiceOver -->
+      <div class="service-row reveal delay-1">
+        <div class="svc-header">
+          <div class="svc-name-group">
+            <span class="svc-num">01</span>
+            <div class="svc-name">VOICEOVER</div>
+          </div>
+          <a class="svc-btn" href="mailto:mikelrosenthal@me.com?subject=VoiceOver%20Inquiry">Inquire →</a>
+        </div>
+        <div class="svc-details">
+          <p class="svc-desc">I am a phonetic mimic — I can absorb and reproduce <em>any sound I hear</em> after a single exposure. Human voices, animal sounds, mechanical textures, accents, dialects. What that means for you: a voice performer who doesn't need 40 takes to find the right read. I find it in one. <strong>Narration, character work, documentary, meditation guides, audiobooks, commercials, short films, and brand voice exploration.</strong> If you need it voiced, I can voice it — and I'll sound like exactly what the moment needs.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Commercial</span>
+            <span class="svc-tag">Narration</span>
+            <span class="svc-tag">Character</span>
+            <span class="svc-tag">Documentary</span>
+            <span class="svc-tag">Meditation</span>
+            <span class="svc-tag">Audiobook</span>
+            <span class="svc-tag">Short Film</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Animation -->
+      <div class="service-row reveal delay-1">
+        <div class="svc-header">
+          <div class="svc-name-group">
+            <span class="svc-num">02</span>
+            <div class="svc-name">ANIMATION</div>
+          </div>
+          <a class="svc-btn" href="mailto:mikelrosenthal@me.com?subject=Animation%20Inquiry">Inquire →</a>
+        </div>
+        <div class="svc-details">
+          <p class="svc-desc">Motion that breathes. The moment we align on what you need, I can see the finished piece — and from that vision I build backward into the method. <strong>Motion graphics, animated loops, GIF art, title sequences, abstract visual experiments, and projection mapping.</strong> I lean toward organic, textured work with genuine weight — the kind of motion that makes a viewer feel something without knowing why. No cookie-cutter presets. Everything built with intention, from a clear picture of where it ends up.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Motion Graphics</span>
+            <span class="svc-tag">Animated Loops</span>
+            <span class="svc-tag">GIF Art</span>
+            <span class="svc-tag">Title Sequences</span>
+            <span class="svc-tag">Projection Mapping</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Web Design -->
+      <div class="service-row reveal delay-1">
+        <div class="svc-header">
+          <div class="svc-name-group">
+            <span class="svc-num">03</span>
+            <div class="svc-name">WEB DESIGN</div>
+          </div>
+          <a class="svc-btn" href="mailto:mikelrosenthal@me.com?subject=Web%20Design%20Inquiry">Inquire →</a>
+        </div>
+        <div class="svc-details">
+          <p class="svc-desc">I don't just design websites — I build entire visual worlds and then code them into existence. <em>Concept, identity, design, and build</em> all come from one mind, which means nothing gets lost in translation between "what it should feel like" and "what actually ships." <strong>Artist sites, portfolio sites, brand microsites, landing pages, and fully custom experiences.</strong> No templates, no themes. Every site I build looks like it was made specifically for the person it represents — because it was. 19+ years of UI/UX and design systems means it's also built to last.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Artist Sites</span>
+            <span class="svc-tag">Portfolio</span>
+            <span class="svc-tag">Landing Pages</span>
+            <span class="svc-tag">Design Systems</span>
+            <span class="svc-tag">Brand Identity</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fine Art -->
+      <div class="service-row reveal delay-1">
+        <div class="svc-header">
+          <div class="svc-name-group">
+            <span class="svc-num">04</span>
+            <div class="svc-name">FINE ART</div>
+          </div>
+          <a class="svc-btn" href="mailto:mikelrosenthal@me.com?subject=Fine%20Art%20Inquiry">Inquire →</a>
+        </div>
+        <div class="svc-details">
+          <p class="svc-desc">I collect discarded personal documents from estate sales of the recently deceased — love letters, receipts, photographs, journals — and transform them into <em>multi-panel fine art series</em> that bear the names of the people they belonged to. The work is about memory, preservation, and the radical act of saying: <strong>this person mattered.</strong> Each series is unique, archival, and unrepeatable. Commissions are also available — bring me your material, your story, your artifacts. I'll make something that honors it.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Estate Series</span>
+            <span class="svc-tag">Archival Prints</span>
+            <span class="svc-tag">Found Document Art</span>
+            <span class="svc-tag">Commissions</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Digital Art -->
+      <div class="service-row reveal delay-1">
+        <div class="svc-header">
+          <div class="svc-name-group">
+            <span class="svc-num">05</span>
+            <div class="svc-name">DIGITAL ART</div>
+          </div>
+          <a class="svc-btn" href="mailto:mikelrosenthal@me.com?subject=Digital%20Art%20Inquiry">Inquire →</a>
+        </div>
+        <div class="svc-details">
+          <p class="svc-desc">I have hyperphantasia — an inner visual world so vivid and detailed it operates as a parallel reality. That's not a metaphor. <em>Before a single pixel is placed, I can already see the finished piece.</em> What that produces: digital work with conceptual depth and visual precision that most tools never reach. <strong>Generative art, abstract digital works, album art, brand art, digital prints, and visual identity.</strong> If you need something that doesn't look like anything else out there, this is where you start.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Generative Art</span>
+            <span class="svc-tag">Digital Prints</span>
+            <span class="svc-tag">Album Art</span>
+            <span class="svc-tag">Brand Art</span>
+            <span class="svc-tag">Abstract</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Design / UX Consulting -->
+      <div class="service-row reveal delay-1">
+        <div class="svc-header">
+          <div class="svc-name-group">
+            <span class="svc-num">06</span>
+            <div class="svc-name">DESIGN CONSULT</div>
+          </div>
+          <a class="svc-btn" href="mailto:mikelrosenthal@me.com?subject=Design%20Consulting%20Inquiry">Inquire →</a>
+        </div>
+        <div class="svc-details">
+          <p class="svc-desc">19+ years spanning brand, product, UI/UX, and enterprise design systems — trusted by <em>Google, GE Healthcare, Blue Cross Blue Shield, Herman Miller, Whirlpool, and Gartner.</em> I work from first principles: meaning, form, rhythm, narrative. Then I translate that into cohesive direction across design, motion, interaction, and presentation. <strong>Art direction, design systems, CX audits, team leadership (10–12), visual identity, and product experience.</strong> I'm especially effective at finding the friction, the story gaps, and the quiet reasons customers leave — then laying out a clear, buildable path to fix them. Available for contract and freelance engagements now.</p>
+          <div class="svc-tags">
+            <span class="svc-tag">Art Direction</span>
+            <span class="svc-tag">Design Systems</span>
+            <span class="svc-tag">CX Audit</span>
+            <span class="svc-tag">UX Strategy</span>
+            <span class="svc-tag">Contract</span>
+            <span class="svc-tag">Freelance</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ⑥ ABOUT
+══════════════════════════════════════ -->
+<section id="about" class="scene">
+  <div class="scene-bg lo" id="bg-about">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">The Person</span>
+      <h2 class="section-heading">The <span class="c">Human.</span></h2>
+    </div>
+
+    <!-- Fluxus statement -->
+    <div class="fluxus-statement reveal delay-1">
+      <div class="fluxus-line">I am a Fluxus artist.</div>
+      <div class="fluxus-line coral">Not a brand. Not a title.</div>
+      <div class="fluxus-line">A living practice.</div>
+    </div>
+
+    <!-- Photo + prose -->
+    <div class="about-layout reveal delay-2">
+      <div class="about-photo">
+        <img src="/david/assets/mikel-profile.jpg" alt="Mikel Rosenthal / PBK">
+      </div>
+      <div class="about-prose">
+        <p>Every medium is my medium. Digital, physical, interpretive, sonic — the boundaries between them are the first thing I dissolve.</p>
+
+        <p>My name is Mikel Rosenthal. I go by PBK — short for PitchBlacKnight. I live in Chicago Heights with my husband Brandon and our black cat Hexadecimal — HEX — a rescue who showed up three Halloweens ago and never left.</p>
+
+        <p class="pull">I am a polymath. My music is first-take improv — one pass, live mastered, the imperfection is the craft. My client work is the opposite: I envision the finished result almost immediately, we clarify it together, I map the path, and I execute until it's exactly right. Every client I have ever worked with has been completely satisfied. I am proud of that record.</p>
+
+        <p>I have hyper-fantasia: an inner world so vivid and texturally rich it operates as a parallel reality. I am a phonetic mimic who can absorb and reproduce accents, dialects, animal sounds, and mechanical textures after a single exposure. I pick up languages with unnerving speed — not just words but the music of how they're spoken.</p>
+
+        <p>I spent 30 years managing chronic pain. Theater of the Mind changed that. What I build now comes from the other side of that door.</p>
+      </div>
+    </div>
+
+    <!-- Principles -->
+    <div class="principles-grid reveal delay-2">
+      <div class="principle-row">
+        <div class="principle-num">I</div>
+        <div>
+          <div class="principle-title">Anti-Separation</div>
+          <p class="principle-body">Art is not separate from life. Work is not separate from art. Every output — a website, a song, a space, a word — is the same gesture, refracted differently.</p>
+        </div>
+      </div>
+      <div class="principle-row">
+        <div class="principle-num">II</div>
+        <div>
+          <div class="principle-title">Total Fluency</div>
+          <p class="principle-body">Polymath is not a resume word. It's a condition. Forty-five years spent refusing to specialize means every discipline informs every other. The edges blur. That's the point.</p>
+        </div>
+      </div>
+      <div class="principle-row">
+        <div class="principle-num">III</div>
+        <div>
+          <div class="principle-title">Conscious Output</div>
+          <p class="principle-body">Every piece of work enters the world with intention. If it doesn't serve something larger — environmentally, socially, spiritually — it doesn't leave the studio.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ⑥ DAILY INSIGHT
+══════════════════════════════════════ -->
+<section id="daily" class="scene">
+  <div class="scene-bg lo" id="bg-daily">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">Updated Daily</span>
+      <h2 class="section-heading">The <span class="c">Insight.</span></h2>
+    </div>
+
+    <div class="daily-quote-wrap reveal delay-1">
+      <div class="daily-quote" id="daily-quote-text"></div>
+      <div class="daily-attribution">— Mikel Rosenthal / PBK</div>
+    </div>
+
+    <div class="daily-nav reveal delay-2">
+      <button class="daily-prev" id="daily-prev" aria-label="Previous insight">← PREV</button>
+      <span class="daily-counter" id="daily-counter"></span>
+      <button class="daily-next" id="daily-next" aria-label="Next insight">NEXT →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ⑦ RÉSUMÉ / CV
+══════════════════════════════════════ -->
+<section id="resume" class="scene">
+  <div class="scene-bg lo" id="bg-resume">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">The Craft</span>
+      <h2 class="section-heading">The <span class="c">CV.</span></h2>
+    </div>
+
+    <!-- Profile -->
+    <div class="resume-profile reveal delay-1">
+      <div class="resume-name">MIKEL<br>ROSENTHAL</div>
+      <div class="resume-title">Art Director · Design Director · Contract &amp; Freelance</div>
+      <span class="resume-avail">Design Systems · Visual Identity · Product Experience · 25+ Years</span>
+      <p class="resume-summary">I lead teams to create unmistakable visual worlds — then systematize them so they scale fast, stay consistent, and ship beautifully. Trusted by Google, GE Healthcare, Blue Cross Blue Shield, Herman Miller, Whirlpool, and Gartner. My practice is rooted in a Fluxus mindset: interdisciplinary, concept-forward, and execution-complete. I work from first principles, then translate that into cohesive direction across design, motion, interaction, writing, and presentation.</p>
+    </div>
+
+    <div class="resume-divider"></div>
+
+    <!-- Strengths + Impact -->
+    <div class="resume-two-col reveal delay-1">
+      <div>
+        <span class="resume-block-label">Signature Strengths</span>
+        <div class="strength-chips">
+          <span class="strength-chip hi">Art Direction</span>
+          <span class="strength-chip hi">Design Systems</span>
+          <span class="strength-chip hi">Brand-to-Product</span>
+          <span class="strength-chip hi">Visual Leadership</span>
+          <span class="strength-chip">CX Audit + Strategy</span>
+          <span class="strength-chip">Cross-Functional Leadership</span>
+          <span class="strength-chip">Figma-First Workflows</span>
+          <span class="strength-chip">Accessibility + Craft</span>
+          <span class="strength-chip">Voice &amp; Narrative</span>
+          <span class="strength-chip">Contract · Freelance</span>
+        </div>
+      </div>
+      <div>
+        <span class="resume-block-label">Selected Impact</span>
+        <ul class="impact-list">
+          <li>Built &amp; scaled enterprise design systems adopted across 40+ product lines and hundreds of stakeholders</li>
+          <li>Led component libraries enabling faster delivery, visual coherence, and reduced rework</li>
+          <li>Directed cross-platform UI frameworks (web + mobile) with accessibility and governance baked in</li>
+          <li>Delivered product ecosystems spanning dashboards, responsive apps, and data visualization</li>
+          <li>Facilitated stakeholder alignment through workshops, critiques, and story-led presentations</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="resume-divider"></div>
+
+    <!-- Experience Timeline -->
+    <span class="resume-block-label reveal">Experience</span>
+    <div class="resume-timeline">
+
+      <div class="re-entry reveal delay-1">
+        <div class="re-company">AVANT</div>
+        <div class="re-role">Senior Product / Systems Designer · Full-Time</div>
+        <div class="re-dates">May 2021 – Aug 2024</div>
+        <div class="re-context">Product ecosystems · marketing/design system · enablement</div>
+        <ul class="re-bullets">
+          <li>Led design vision for Pathfinder platform and a marketing/design system used across teams</li>
+          <li>Built scalable component frameworks and visual patterns to unify product and brand execution</li>
+          <li>Drove adoption through enablement and stakeholder training (350+ internal managers)</li>
+          <li>Strengthened accessibility and consistency across surfaces while accelerating production</li>
+        </ul>
+      </div>
+
+      <div class="re-entry reveal delay-1">
+        <div class="re-company">CENTO VENTI CINQUE</div>
+        <div class="re-role">Design / Creative Consulting · Contract</div>
+        <div class="re-dates">Sept 2021 – Jan 2022</div>
+        <div class="re-context">Creative direction · digital product/brand support</div>
+        <ul class="re-bullets">
+          <li>Provided senior design leadership across brand, product, and system-level execution</li>
+          <li>Helped teams translate strategy into cohesive UI language, patterns, and deliverables</li>
+        </ul>
+      </div>
+
+      <div class="re-entry reveal delay-1">
+        <div class="re-company">GE HEALTHCARE</div>
+        <div class="re-role">Design Systems Lead / Senior Designer · Contract</div>
+        <div class="re-dates">Jan 2020 – May 2020 · Sept 2020 – Feb 2021</div>
+        <div class="re-context">Edison Design System · enterprise workflows · accessibility</div>
+        <ul class="re-bullets">
+          <li>Contributed to and evolved the Edison Design System: modular, accessible UI patterns at global scale</li>
+          <li>Produced interaction guidance and visual direction for cross-platform products</li>
+          <li>Focused on consistency, usability, and clarity in complex enterprise workflows</li>
+        </ul>
+      </div>
+
+      <div class="re-entry reveal delay-1">
+        <div class="re-company">SURE PEOPLE</div>
+        <div class="re-role">Product Design Lead · Contract</div>
+        <div class="re-dates">Jun 2020 – Sept 2020</div>
+        <div class="re-context">Dashboards · mobile UX · responsive systems</div>
+        <ul class="re-bullets">
+          <li>Designed end-to-end digital ecosystem: dashboards, mobile experiences, responsive UI, analytics</li>
+          <li>Emphasized system-level thinking, data visualization clarity, and cohesive product language</li>
+        </ul>
+      </div>
+
+      <div class="re-entry reveal delay-1">
+        <div class="re-company">BLUE CROSS BLUE SHIELD</div>
+        <div class="re-role">Design System Founder / Lead · Contract</div>
+        <div class="re-dates">Jun 2019 – Dec 2019</div>
+        <div class="re-context">FIBER Design System · web + mobile · governance</div>
+        <ul class="re-bullets">
+          <li>Created FIBER Design System spanning mobile and web, supporting large multi-product ecosystems</li>
+          <li>Established shared patterns, accessibility standards, and reusable UI foundations across teams</li>
+          <li>Enabled faster concept-to-completion and improved consistency across experiences</li>
+        </ul>
+      </div>
+
+      <div class="re-entry reveal delay-1">
+        <div class="re-company">TRANSUNION</div>
+        <div class="re-role">Product / UX Designer · Contract</div>
+        <div class="re-dates">May 2018 – May 2019</div>
+        <div class="re-context">Enterprise UX · scalable UI · stakeholder alignment</div>
+        <ul class="re-bullets">
+          <li>Delivered product UX and UI in complex enterprise environments with high stakeholder density</li>
+          <li>Improved consistency and clarity through pattern reuse and system-level thinking</li>
+        </ul>
+      </div>
+
+      <div class="re-entry reveal delay-1">
+        <div class="re-company">MAVEN WAVE PARTNERS</div>
+        <div class="re-role">Senior UX / UI / Product Designer · Full-Time</div>
+        <div class="re-dates">Jan 2013 – May 2018</div>
+        <div class="re-context">Enterprise client delivery · CX improvement · visual systems</div>
+        <ul class="re-bullets">
+          <li>Led end-to-end design for enterprise clients: discovery, UX strategy, UI systems, and delivery</li>
+          <li>Directed workshops that clarified user needs, reduced stakeholder misalignment, and accelerated decisions</li>
+          <li>Produced scalable visual frameworks and UI patterns that improved experience consistency</li>
+        </ul>
+      </div>
+
+      <div class="re-entry reveal delay-1">
+        <div class="re-company">BIERSMA CREATIVE</div>
+        <div class="re-role">Designer / Art Direction · Selected Work</div>
+        <div class="re-dates">2006 – 2012</div>
+        <div class="re-context">Brand + marketing design · creative execution</div>
+        <ul class="re-bullets">
+          <li>Developed brand and marketing assets with strong visual hierarchy, clarity, and craft</li>
+          <li>Translated creative concepts into polished deliverables across digital touchpoints</li>
+        </ul>
+      </div>
+
+      <div class="re-entry reveal delay-1">
+        <div class="re-company">FIREBELLY DESIGN</div>
+        <div class="re-role">Branding / Digital Design · Selected Work</div>
+        <div class="re-dates">2002 – 2004</div>
+        <div class="re-context">Brand identity · campaigns · digital experiences</div>
+        <ul class="re-bullets">
+          <li>Supported brand identity and digital experience work emphasizing cohesion and voice</li>
+          <li>Contributed to campaign and web design deliverables aligned to brand systems</li>
+        </ul>
+      </div>
+
+      <div class="re-entry reveal delay-1">
+        <div class="re-company dim">Earlier Client Work</div>
+        <div class="re-context" style="color:#2a2a2a;margin-top:8px;">Google · Herman Miller · Whirlpool · Mead · Aflac · Dremel · Gartner</div>
+      </div>
+
+    </div>
+
+    <div class="resume-divider"></div>
+
+    <!-- Education + Contact -->
+    <div class="resume-two-col reveal delay-1">
+      <div>
+        <span class="resume-block-label">Education</span>
+        <div class="resume-edu">
+          <div class="edu-school">MISSOURI STATE<br>UNIVERSITY</div>
+          <div class="edu-degree">BFA · Electronic Arts &amp; Design / Communications</div>
+        </div>
+      </div>
+      <div>
+        <span class="resume-block-label">Availability</span>
+        <div class="resume-contact-links">
+          <a href="mailto:mikelrosenthal@me.com" style="color:var(--coral);">mikelrosenthal@me.com</a>
+          <a href="tel:7734906923" style="color:var(--steel);">(773) 490-6923</a>
+          <a href="https://pitchblacknight.com" style="color:var(--dim);">pitchblacknight.com</a>
+          <span style="font-family:var(--font-body);font-size:10px;letter-spacing:.3em;color:#2e2e2e;text-transform:uppercase;margin-top:8px;">Contract &amp; Freelance · Available Now</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="resume-divider"></div>
+
+    <!-- Tools + Capabilities -->
+    <span class="resume-block-label reveal">Tools + Capabilities</span>
+    <div class="tools-grid reveal delay-1">
+      <div class="tool-row">
+        <div class="tool-name">FIGMA</div>
+        <div class="tool-desc">I build systems that scale and visuals that behave.</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">AI</div>
+        <div class="tool-desc">Fast iteration, smart automation, and future-proofing by design.</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">CX</div>
+        <div class="tool-desc">I find the friction, the confusion, and the quiet reasons customers leave — then fix them.</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">BRAND</div>
+        <div class="tool-desc">Turning identity into interface rhythm, interaction, and cohesion — concept to system, in one continuous arc.</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">PLATFORMS</div>
+        <div class="tool-desc">Slack · Jira · Confluence · GitHub · Notion · Miro · whatever your team uses.</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">FLUXUS</div>
+        <div class="tool-desc">Video · motion · animation · music/sound · spatial concepts · projection mapping · first take, always.</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">BODY</div>
+        <div class="tool-desc">Dancer. Operatic voice. Precision whistler. Ambidextrous. The instrument is the instrument.</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-name">SOUND</div>
+        <div class="tool-desc">Phonetic mimic — human, animal, mechanical. Absorbs and reproduces accents, dialects, and textures after a single exposure. Polyglot with language-music instinct.</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ⑧ CONTACT / FOOTER
+══════════════════════════════════════ -->
+<section id="contact">
+  <div class="scene-bg lo" id="bg-contact">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="contact-inner">
+    <h2 class="contact-headline reveal">Let's make<br>something.</h2>
+    <a class="contact-email reveal delay-1" href="mailto:mikel@pitchblacknight.com">mikel@pitchblacknight.com</a>
+    <a class="contact-url reveal delay-2" href="https://pitchblacknight.com" target="_blank">pitchblacknight.com</a>
+    <img class="footer-sig reveal delay-2" src="/david/assets/pbk-album-art.jpg" alt="Off The Edge Of The Earth And Into Forever, Forever.">
+    <span class="footer-brand reveal delay-3">
+      <span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span>
+    </span>
+    <p class="footer-bottom reveal delay-3">Fluxus · Artist · Polymath · Chicago Heights, IL</p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     JS
+══════════════════════════════════════ -->
+<script>
+  // ── NAVBAR GLASSMORPHISM ────────────────
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ── AMBIENT MUSIC ──────────────────────
+  const AMB_TRACKS = [
+    { src: '/david/assets/audio/dark-mutters.mp3',            title: 'Dark Mutters'                  },
+    { src: '/david/assets/audio/dreams-of-dying.mp3',         title: 'Dreams of Dying'               },
+    { src: '/david/assets/audio/dripping-magma.mp3',          title: 'Dripping Magma'                },
+    { src: '/david/assets/audio/the-effect.mp3',              title: 'The Effect You Have On Others' },
+    { src: '/david/assets/audio/tiptoe-trip.mp3',             title: 'TipToe Trip'                   },
+  ];
+  const AMB_TARGET   = 0.12;
+  const FADE_IN_MS   = 4000;
+  const FADE_OUT_MS  = 4000;
+  const FADE_OUT_SEC = FADE_OUT_MS / 1000;
+
+  const ambAudio   = document.getElementById('amb-audio');
+  const ambBtn     = document.getElementById('amb-btn');
+  const ambLabel   = document.getElementById('amb-track-name');
+  let   ambPlaying = false;
+  let   ambStarted = false;
+  let   labelTimer = null;
+  let   fadingOut  = false;
+  let   ambIdx     = Math.floor(Math.random() * AMB_TRACKS.length);
+
+  function loadAmbTrack(idx) {
+    ambAudio.src    = AMB_TRACKS[idx].src;
+    ambAudio.volume = 0;
+    fadingOut       = false;
+  }
+  loadAmbTrack(ambIdx);
+
+  function showLabel(text) {
+    ambLabel.textContent = text;
+    ambLabel.classList.add('show');
+    clearTimeout(labelTimer);
+    labelTimer = setTimeout(() => ambLabel.classList.remove('show'), 3500);
+  }
+  function ambFadeIn(ms) {
+    const step = AMB_TARGET / (ms / 50);
+    const t = setInterval(() => {
+      ambAudio.volume = Math.min(AMB_TARGET, +(ambAudio.volume + step).toFixed(4));
+      if (ambAudio.volume >= AMB_TARGET) clearInterval(t);
+    }, 50);
+  }
+  function ambFadeOut(ms, pause = true) {
+    const start = ambAudio.volume;
+    const step  = start / (ms / 50);
+    const t = setInterval(() => {
+      ambAudio.volume = Math.max(0, +(ambAudio.volume - step).toFixed(4));
+      if (ambAudio.volume <= 0) { clearInterval(t); if (pause) ambAudio.pause(); }
+    }, 50);
+  }
+
+  ambAudio.addEventListener('timeupdate', () => {
+    if (!ambPlaying || fadingOut || !ambAudio.duration) return;
+    const remaining = ambAudio.duration - ambAudio.currentTime;
+    if (remaining > 0 && remaining <= FADE_OUT_SEC) {
+      fadingOut = true;
+      ambFadeOut(remaining * 1000, false);
+    }
+  });
+  ambAudio.addEventListener('ended', () => {
+    if (!ambPlaying) return;
+    ambIdx = (ambIdx + 1) % AMB_TRACKS.length;
+    loadAmbTrack(ambIdx);
+    ambAudio.play().then(() => {
+      ambFadeIn(FADE_IN_MS);
+      showLabel(AMB_TRACKS[ambIdx].title);
+    }).catch(() => {});
+  });
+
+  function startAmb() {
+    if (ambStarted) return;
+    ambStarted = true;
+    ambAudio.play().then(() => {
+      ambPlaying = true;
+      ambBtn.classList.remove('muted');
+      ambFadeIn(FADE_IN_MS);
+      showLabel(AMB_TRACKS[ambIdx].title);
+    }).catch(() => {});
+  }
+  const ambScrollOnce = () => { startAmb(); window.removeEventListener('scroll', ambScrollOnce); };
+  window.addEventListener('scroll', ambScrollOnce, { passive: true });
+  const ambClickOnce = () => { startAmb(); window.removeEventListener('click', ambClickOnce); };
+  window.addEventListener('click', ambClickOnce, { once: true });
+
+  ambBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!ambStarted) { startAmb(); return; }
+    if (ambPlaying) {
+      ambFadeOut(1500, true);
+      ambPlaying = false;
+      ambBtn.classList.add('muted');
+      showLabel('Muted');
+    } else {
+      ambAudio.play().then(() => {
+        ambPlaying = true;
+        ambBtn.classList.remove('muted');
+        ambFadeIn(2000);
+        showLabel(AMB_TRACKS[ambIdx].title);
+      });
+    }
+  });
+
+  // ── BACKGROUND GIFs ────────────────────
+  const GIF_FILES = ["20cmotio.gif","3DVorono.gif","9squares.gif","BLK0001.gif","BLK0013.gif","BLK0025.gif","BLK0038.gif","BLK0050.gif","BLK0062.gif","BLK0074.gif","BLK0086.gif","BLK0098.gif","BLK0110.gif","BLK0122.gif","BLK0134.gif","BLK0146.gif","BLK0158.gif","BLK0170.gif","BLK0182.gif","BLK0194.gif","BLK0206.gif","BLK0218.gif","BLK0230.gif","BLK0242.gif","BLK0254.gif","BLK0266.gif","BLK0278.gif","BLK0290.gif","BLU0001.gif","BLU0005.gif","BLU0009.gif","BLU0013.gif","BLU0017.gif","BLU0021.gif","BLU0025.gif","BLU0029.gif","BLU0033.gif","BLU0037.gif","BLU0041.gif","BLU0045.gif","BLU0049.gif","CYN0001.gif","CYN0004.gif","CYN0007.gif","CYN0010.gif","CYN0013.gif","CYN0016.gif","CYN0019.gif","CYN0022.gif","CYN0025.gif","CYN0028.gif","CYN0031.gif","GRY0001.gif","GRY0009.gif","GRY0017.gif","GRY0025.gif","GRY0033.gif","GRY0041.gif","GRY0049.gif","GRY0057.gif","GRY0065.gif","GRY0073.gif","GRY0081.gif","GRY0089.gif","GRY0097.gif","GRY0105.gif","GRY0113.gif","GRY0121.gif","GRY0129.gif","GRY0137.gif","GRY0145.gif","GRY0153.gif","GRY0161.gif","GRY0169.gif","GRY0177.gif","GRY0185.gif","GRY0193.gif","GRY0201.gif","GRY0209.gif","GRY0217.gif","GRY0225.gif","GRY0233.gif","GRY0241.gif","GRY0249.gif","GRY0257.gif","GRY0266.gif","GRY0274.gif","GRY0282.gif","GRY0290.gif","GRY0298.gif","GRY0306.gif","GRY0314.gif","GRY0322.gif","GRY0330.gif","GRY0338.gif","GRY0346.gif","GRY0354.gif","GRY0362.gif","peUNcIQ.gif"];
+  const GIF_POOL = GIF_FILES.map(f => `/david/assets/gifs/bg/${f}`);
+
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  const BG_SECTIONS = ['bg-hero','bg-manifesto','bg-mixes','bg-music','bg-work','bg-services','bg-about','bg-daily','bg-resume','bg-contact'];
+  const sectionState = {};
+  BG_SECTIONS.forEach(id => {
+    sectionState[id] = { pool: shuffle([...GIF_POOL]), idx: 0, active: 'a' };
+  });
+
+  function initBg(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const state = sectionState[id];
+    el.querySelector('.bg-a').src = state.pool[0];
+    el.querySelector('.bg-b').src = state.pool[1] || state.pool[0];
+    state.idx    = 1;
+    state.active = 'a';
+  }
+  function pickNext(id) {
+    const s = sectionState[id];
+    s.idx = (s.idx + 1) % s.pool.length;
+    if (s.idx === 0) shuffle(s.pool);
+    return s.pool[s.idx];
+  }
+  function rotateBg(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const s    = sectionState[id];
+    const imgA = el.querySelector('.bg-a');
+    const imgB = el.querySelector('.bg-b');
+    const next = pickNext(id);
+    if (s.active === 'a') {
+      imgB.src = next;
+      imgB.classList.add('show');
+      imgA.style.opacity = '0';
+      s.active = 'b';
+      setTimeout(() => { imgA.style.opacity = ''; }, 2600);
+    } else {
+      imgA.src = next;
+      imgB.classList.remove('show');
+      s.active = 'a';
+    }
+  }
+
+  BG_SECTIONS.forEach(id => initBg(id));
+  BG_SECTIONS.forEach((id, i) => {
+    setTimeout(() => {
+      rotateBg(id);
+      setInterval(() => rotateBg(id), 9000);
+    }, i * 1500 + Math.random() * 2000);
+  });
+
+  // Work card GIFs — random from pool
+  document.querySelectorAll('[data-card-bg] img').forEach(img => {
+    const p = shuffle([...GIF_POOL]);
+    img.src = p[Math.floor(Math.random() * p.length)];
+  });
+
+  // ── REVEAL ──────────────────────────────
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ── MUSIC PLAYER ────────────────────────
+  const audio      = document.getElementById('audio-el');
+  const btnPlay    = document.getElementById('btn-play');
+  const iconPlay   = document.getElementById('icon-play');
+  const iconPause  = document.getElementById('icon-pause');
+  const progBar    = document.getElementById('audio-progress');
+  const curEl      = document.getElementById('audio-cur');
+  const durEl      = document.getElementById('audio-dur');
+  const statusEl   = document.getElementById('player-status');
+  const progWrap   = document.getElementById('progress-wrap');
+  const waveformEl = document.getElementById('waveform');
+  const btnPrev    = document.getElementById('btn-prev');
+  const btnNext    = document.getElementById('btn-next');
+  const trackItems = Array.from(document.querySelectorAll('.track-item:not(.coming-soon)'));
+
+  let currentTrackIdx = 0;
+
+  // Build waveform bars
+  Array.from({length: 32}).forEach(() => {
+    const lo  = (Math.random() * .15 + .05).toFixed(2);
+    const hi  = (Math.random() * .6  + .35).toFixed(2);
+    const dur = (Math.random() * .5  + .5 ).toFixed(2);
+    const del = (Math.random() * .4).toFixed(2);
+    const span = document.createElement('span');
+    span.style.cssText = `height:${Math.round(hi * 36)}px;--lo:${lo};--hi:${hi};--dur:${dur}s;animation-delay:${del}s`;
+    waveformEl.appendChild(span);
+  });
+
+  function fmt(s) {
+    if (!isFinite(s)) return '—';
+    return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+  }
+  function tick() {
+    const d = audio.duration || 0;
+    progBar.style.width = d > 0 ? (audio.currentTime / d * 100) + '%' : '0%';
+    if (curEl) curEl.textContent = fmt(audio.currentTime);
+    if (durEl && d) durEl.textContent = fmt(d);
+  }
+  function setPlaying(playing) {
+    iconPlay.style.display  = playing ? 'none'  : 'block';
+    iconPause.style.display = playing ? 'block' : 'none';
+    waveformEl.classList.toggle('playing', playing);
+    statusEl.classList.toggle('live', playing);
+    statusEl.textContent = playing
+      ? (trackItems[currentTrackIdx]?.dataset.title || 'Now Playing')
+      : 'Paused';
+  }
+  function loadTrackByIdx(idx, autoplay) {
+    currentTrackIdx = idx;
+    trackItems.forEach((t, i) => t.classList.toggle('active', i === idx));
+    const item = trackItems[idx];
+    if (!item) return;
+    audio.src = item.dataset.src;
+    audio.load();
+    if (autoplay) audio.play().catch(() => {});
+    statusEl.textContent = item.dataset.title;
+    statusEl.classList.remove('live');
+    if (durEl) durEl.textContent = '—';
+    if (curEl) curEl.textContent = '0:00';
+    progBar.style.width = '0%';
+  }
+
+  trackItems.forEach((item, idx) => {
+    item.addEventListener('click', () => {
+      if (idx === currentTrackIdx && !audio.paused) {
+        audio.pause();
+      } else {
+        loadTrackByIdx(idx, true);
+      }
+    });
+  });
+  btnPlay.addEventListener('click', () => {
+    if (audio.paused) {
+      if (!audio.currentSrc || audio.currentSrc === window.location.href) {
+        loadTrackByIdx(0, true);
+      } else {
+        audio.play();
+      }
+    } else {
+      audio.pause();
+    }
+  });
+  btnPrev.addEventListener('click', () => {
+    loadTrackByIdx((currentTrackIdx - 1 + trackItems.length) % trackItems.length, !audio.paused);
+  });
+  btnNext.addEventListener('click', () => {
+    loadTrackByIdx((currentTrackIdx + 1) % trackItems.length, !audio.paused);
+  });
+
+  audio.addEventListener('play',  () => setPlaying(true));
+  audio.addEventListener('pause', () => setPlaying(false));
+  audio.addEventListener('ended', () => {
+    loadTrackByIdx((currentTrackIdx + 1) % trackItems.length, true);
+  });
+  audio.addEventListener('timeupdate',     tick);
+  audio.addEventListener('loadedmetadata', () => { tick(); if (durEl) durEl.textContent = fmt(audio.duration); });
+  progWrap.addEventListener('click', e => {
+    const r = progWrap.getBoundingClientRect();
+    if (audio.duration) audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+  });
+
+  // ── MIXES PLAYER ────────────────────────
+  const mixAudio     = document.getElementById('mix-audio');
+  const mixPlayBtn   = document.getElementById('mix-play');
+  const mixIPlay     = document.getElementById('mix-icon-play');
+  const mixIPause    = document.getElementById('mix-icon-pause');
+  const mixProgBar   = document.getElementById('mix-progress');
+  const mixCurEl     = document.getElementById('mix-cur');
+  const mixDurEl     = document.getElementById('mix-dur');
+  const mixStatusEl  = document.getElementById('mix-status');
+  const mixTitleEl   = document.getElementById('mix-title');
+  const mixProgWrap  = document.getElementById('mix-progress-wrap');
+  const mixPrevBtn   = document.getElementById('mix-prev');
+  const mixNextBtn   = document.getElementById('mix-next');
+  const mixEps       = Array.from(document.querySelectorAll('.mix-ep'));
+  let   mixIdx       = 0;
+
+  function mixFmt(s) {
+    if (!isFinite(s)) return '—';
+    return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+  }
+  function mixSetPlaying(on) {
+    mixIPlay.style.display  = on ? 'none'  : 'block';
+    mixIPause.style.display = on ? 'block' : 'none';
+    mixPlayBtn.classList.toggle('playing', on);
+    mixStatusEl.classList.toggle('live', on);
+    mixStatusEl.textContent = on
+      ? (mixEps[mixIdx]?.dataset.title || 'Playing')
+      : 'Paused';
+  }
+  function mixLoad(idx, autoplay) {
+    mixIdx = idx;
+    mixEps.forEach((e, i) => e.classList.toggle('active', i === idx));
+    const ep = mixEps[idx];
+    if (!ep) return;
+    mixAudio.src = ep.dataset.src;
+    mixAudio.load();
+    const t = ep.dataset.title;
+    mixTitleEl.textContent  = t;
+    mixStatusEl.textContent = t;
+    mixStatusEl.classList.remove('live');
+    mixCurEl.textContent  = '0:00';
+    mixDurEl.textContent  = '—';
+    mixProgBar.style.width = '0%';
+    if (autoplay) mixAudio.play().catch(() => {});
+  }
+  mixEps.forEach((ep, i) => {
+    ep.addEventListener('click', () => {
+      if (i === mixIdx && !mixAudio.paused) { mixAudio.pause(); }
+      else { mixLoad(i, true); }
+    });
+  });
+  mixPlayBtn.addEventListener('click', () => {
+    if (mixAudio.paused) {
+      if (!mixAudio.src || mixAudio.src === window.location.href) { mixLoad(0, true); }
+      else { mixAudio.play().catch(() => {}); }
+    } else { mixAudio.pause(); }
+  });
+  mixPrevBtn.addEventListener('click', () => mixLoad((mixIdx - 1 + mixEps.length) % mixEps.length, !mixAudio.paused));
+  mixNextBtn.addEventListener('click', () => mixLoad((mixIdx + 1) % mixEps.length, !mixAudio.paused));
+  mixAudio.addEventListener('play',  () => mixSetPlaying(true));
+  mixAudio.addEventListener('pause', () => mixSetPlaying(false));
+  mixAudio.addEventListener('ended', () => mixLoad((mixIdx + 1) % mixEps.length, true));
+  mixAudio.addEventListener('timeupdate', () => {
+    const d = mixAudio.duration || 0;
+    mixProgBar.style.width = d > 0 ? (mixAudio.currentTime / d * 100) + '%' : '0%';
+    mixCurEl.textContent = mixFmt(mixAudio.currentTime);
+    if (d) mixDurEl.textContent = mixFmt(d);
+  });
+  mixAudio.addEventListener('loadedmetadata', () => {
+    if (mixAudio.duration) mixDurEl.textContent = mixFmt(mixAudio.duration);
+  });
+  mixProgWrap.addEventListener('click', e => {
+    if (!mixAudio.duration) return;
+    const r = mixProgWrap.getBoundingClientRect();
+    mixAudio.currentTime = ((e.clientX - r.left) / r.width) * mixAudio.duration;
+  });
+
+  // ── DAILY INSIGHTS ──────────────────────────────────────────────────────
+  // ✏️  ADD YOUR QUOTES HERE — one string per entry.
+  //     Each day, move the quote you want shown TODAY to index 0,
+  //     or the site will auto-pick one based on the calendar date.
+  const DAILY_INSIGHTS = [
+    "The most radical act is to be entirely, unapologetically yourself in a world that profits from your self-doubt.",
+    "Growth is not construction. It is excavation. You are not building something new — you are uncovering what was always there, set down for safekeeping.",
+    "Art is not separate from life. Work is not separate from art. Every output is the same gesture, refracted differently.",
+    "Polymath is not a resume word. It's a condition. The edges blur. That's the point.",
+    "Every piece of work enters the world with intention. If it doesn't serve something larger, it doesn't leave the studio.",
+    "First take. No blueprint. No rehearsal. The imperfection is the craft — the breath of the moment, not the sterility of infinite takes.",
+    "Remix the remix. Layer on layer until the original DNA is just a ghost signal. That signal is still you.",
+    "Compression is not peace. The thaw is not explosive, not dramatic — just a door left open that you forgot you had the key to.",
+    "Silence while working feels like a missed opportunity.",
+    "I make art from other people's leftovers because everything deserves a second life.",
+    "There are 98 options between every yes and no. The extremes are comfortable because they require no tolerance — only position. Living in the gray means accepting the complexity of being right and wrong at the same time. That's not weakness. That's where the actual world is.",
+    "Binary thinking is not clarity. It's avoidance. The real answer to almost every question is somewhere in the middle — inconvenient, textured, and true. We choose the edges because they're easy to defend. We live in the gray because we're brave enough to be uncertain.",
+    "Before you say 'it's either this or nothing' — remember that black and white together only account for 2% of what's possible. The answer you need is probably living somewhere in the other 98.",
+  ];
+
+  const dailyQuoteEl   = document.getElementById('daily-quote-text');
+  const dailyCounterEl = document.getElementById('daily-counter');
+  const dailyPrevBtn   = document.getElementById('daily-prev');
+  const dailyNextBtn   = document.getElementById('daily-next');
+
+  // Default index: derived from day-of-year so it naturally cycles
+  const dayOfYear = (() => {
+    const n = new Date(); const s = new Date(n.getFullYear(), 0, 0);
+    return Math.floor((n - s) / 86400000);
+  })();
+  let dailyIdx = dayOfYear % DAILY_INSIGHTS.length;
+
+  function showDailyQuote(idx) {
+    if (!dailyQuoteEl) return;
+    dailyQuoteEl.style.opacity = '0';
+    setTimeout(() => {
+      dailyQuoteEl.textContent = DAILY_INSIGHTS[idx];
+      dailyQuoteEl.style.transition = 'opacity .5s ease';
+      dailyQuoteEl.style.opacity = '1';
+    }, 250);
+    if (dailyCounterEl) dailyCounterEl.textContent = `${idx + 1} / ${DAILY_INSIGHTS.length}`;
+  }
+  showDailyQuote(dailyIdx);
+
+  if (dailyPrevBtn) dailyPrevBtn.addEventListener('click', () => {
+    dailyIdx = (dailyIdx - 1 + DAILY_INSIGHTS.length) % DAILY_INSIGHTS.length;
+    showDailyQuote(dailyIdx);
+  });
+  if (dailyNextBtn) dailyNextBtn.addEventListener('click', () => {
+    dailyIdx = (dailyIdx + 1) % DAILY_INSIGHTS.length;
+    showDailyQuote(dailyIdx);
+  });
+</script>
+</body>
+</html>
