@@ -325,7 +325,7 @@ section{border-bottom:1px solid var(--rule)}
 .svc-anim .svc-p{color:rgba(240,235,224,.65)}
 .svc-anim .svc-tag{color:rgba(240,235,224,.45);border-color:rgba(255,255,255,.1)}
 .svc-anim .svc-rate{color:var(--orange)}
-.gif-wall{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin-top:56px}
+.gif-wall{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-top:56px}
 .gif-cell{
   aspect-ratio:1;overflow:hidden;background:#111;cursor:pointer;position:relative;
 }
@@ -667,7 +667,7 @@ footer{
 
   /* 05 Anim */
   .svc-anim-header{padding:56px 24px 0}
-  .gif-wall{grid-template-columns:repeat(4,1fr)}
+  .gif-wall{grid-template-columns:repeat(6,1fr)}
   .gif-wall-caption{padding:12px 24px}
 
   /* 06 Music */
@@ -756,7 +756,7 @@ footer{
 
   /* 05 Anim */
   .svc-anim-header{padding:48px 20px 0}
-  .gif-wall{grid-template-columns:repeat(3,1fr);gap:2px}
+  .gif-wall{grid-template-columns:repeat(4,1fr);gap:2px}
   .gif-wall-caption{padding:10px 20px;flex-direction:column;gap:4px;align-items:flex-start}
 
   /* 06 Music */
@@ -1576,11 +1576,11 @@ function shuffle(arr) {
   return a;
 }
 
-const GRID_COUNT = 32;
+// Show all 106 GIFs — full archive
 const wall = document.getElementById('gifWall');
-const initial = shuffle(ALL_GIFS).slice(0, GRID_COUNT);
+const allShuffled = shuffle(ALL_GIFS);
 
-initial.forEach(gif => {
+allShuffled.forEach(gif => {
   const cell = document.createElement('div');
   cell.className = 'gif-cell';
   const img = document.createElement('img');
@@ -1589,21 +1589,6 @@ initial.forEach(gif => {
   cell.appendChild(img);
   wall.appendChild(cell);
 });
-
-const rotPool = shuffle(ALL_GIFS);
-let rimIdx = 0;
-setInterval(() => {
-  const cells = wall.querySelectorAll('.gif-cell img');
-  const idx = Math.floor(Math.random() * GRID_COUNT);
-  const img = cells[idx];
-  const next = rotPool[rimIdx % rotPool.length];
-  rimIdx++;
-  img.classList.add('out');
-  setTimeout(() => {
-    img.src = BASE + next;
-    img.classList.remove('out');
-  }, 700);
-}, 1800);
 
 // ── WAVEFORM ANIMATION ────────────────────────────────────────────────
 const wvEl = document.getElementById('waveform');
