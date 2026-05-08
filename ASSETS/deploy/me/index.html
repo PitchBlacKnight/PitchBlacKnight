@@ -20,6 +20,8 @@
 <meta name="twitter:image" content="https://pitchblacknight.com/me/images/og-preview.jpg">
 <!-- Canonical -->
 <link rel="canonical" href="https://pitchblacknight.com/me">
+<!-- Vercel Analytics -->
+<script defer src="/_vercel/insights/script.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -38,6 +40,9 @@ html{scroll-behavior:smooth}
 body{background:var(--cream);color:var(--ink);font-family:'EB Garamond',serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
 a{color:inherit;text-decoration:none}
 h1,h2,h3,h4{font-family:'Alexandria',sans-serif;font-weight:300;letter-spacing:-.02em}
+
+/* SCROLL OFFSET — prevents fixed nav from covering anchor targets */
+[id]{scroll-margin-top:80px}
 
 /* CONCEPT BADGE */
 .concept-bar{
@@ -754,6 +759,7 @@ footer{
   /* Nav */
   nav{padding:0 24px}
   .nav-links a{display:none}
+  .nav-links a[href="#work"],.nav-links a[href="#start"]{display:inline}
 
   /* Hero */
   .hero{padding:120px 24px 64px}
@@ -964,6 +970,13 @@ footer{
   /* sl-case info (branding carousels) */
   .sl-info{grid-template-columns:1fr;gap:20px;padding:28px 20px}
   .sl-carousel{aspect-ratio:4/3}
+
+  /* Capabilities grid — mobile: 2 cols */
+  .caps-grid{grid-template-columns:1fr 1fr!important}
+  .caps-grid > div{padding:24px 20px!important}
+
+  /* Nav overflow fix */
+  nav{overflow:hidden}
 }
 </style>
 </head>
@@ -975,10 +988,10 @@ footer{
 <nav style="margin-top:28px">
   <div class="nav-logo">PBK<em>·</em>STUDIO</div>
   <div class="nav-links">
-    <a href="#">Work</a>
-    <a href="#">Services</a>
-    <a href="#">Philosophy</a>
-    <a href="#">About</a>
+    <a href="#work">Work</a>
+    <a href="#services">Services</a>
+    <a href="#philosophy">Philosophy</a>
+    <a href="#about">About</a>
     <a class="nav-cta" href="#start">Start a Project →</a>
   </div>
 </nav>
@@ -1034,7 +1047,7 @@ footer{
 
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- 01 · WEB DESIGN ───────────────────────────────────────────────── -->
-<div class="svc-web">
+<div class="svc-web" id="services">
   <div class="svc-web-inner">
     <div>
       <div class="svc-num">01 — Web Design</div>
@@ -1282,7 +1295,7 @@ footer{
 </div>
 
 <!-- ── PHILOSOPHY / WISDOM ─────────────────────────────────────────────── -->
-<div class="wisdom-section">
+<div class="wisdom-section" id="philosophy">
   <img class="wisdom-bg" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Cosmos.gif" alt="" aria-hidden="true">
   <div class="wisdom-inner" style="position:relative;z-index:1">
     <div class="wisdom-kicker">#Philosophy</div>
@@ -1371,7 +1384,7 @@ footer{
     <div class="case-detail">
       <div class="cd-narrative">
         <div class="cd-label">Challenge &amp; Approach</div>
-        <div class="cd-text">40+ products. Global clinical environments. Zero tolerance for ambiguity — a hospital technician doesn't have time to guess. I worked on the Edison Design System's component libraries, built usage guidance, ran office hours, and drove adoption across teams. Every pattern had to survive real clinical conditions.</div>
+        <div class="cd-text">40+ products. Global clinical environments. Zero tolerance for ambiguity — a hospital technician doesn't have time to guess what a button does. I joined the Edison Design System during a critical scaling phase: GE Healthcare needed to consolidate a fragmented set of clinical applications into one coherent experience language. I built and extended component libraries, created comprehensive usage guidance, ran weekly office hours for engineering teams, and drove adoption metrics across the product portfolio. The system went on to win the Red Dot, Fast Company Innovation by Design, and dmi:DVA awards — the first healthcare design system to win all three in the same year.</div>
 
         <div class="cd-steps">
           <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Audited existing patterns across 40+ product teams</div></div>
@@ -1475,6 +1488,55 @@ footer{
         </div>
       </div>
     </div>
+    <div class="case-detail">
+      <div class="cd-narrative">
+        <div class="cd-label">Challenge &amp; Approach</div>
+        <div class="cd-text">Blue Cross Blue Shield was running 12+ product teams on completely separate design decisions — colors, components, patterns, even type. FIBER ended that. I built the design system from the ground up: color architecture, typography scale, icon library, grid system, and a component set with working code examples in each. The system wasn't just delivered — I drove adoption, ran office hours, and made it something designers actually wanted to use.</div>
+        <div class="cd-steps">
+          <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Audited design debt across 12+ product teams to identify the fracture points</div></div>
+          <div class="cd-step"><div class="cd-step-n">02</div><div class="cd-step-t">Built FIBER's foundational layer: color, type, grid, spacing, icons</div></div>
+          <div class="cd-step"><div class="cd-step-n">03</div><div class="cd-step-t">Developed component library with working usage examples and code specs</div></div>
+          <div class="cd-step"><div class="cd-step-n">04</div><div class="cd-step-t">Drove adoption through documentation, office hours, and team onboarding</div></div>
+        </div>
+      </div>
+      <div class="cd-stats">
+        <div class="cd-stat">
+          <div class="cd-stat-n">12+</div>
+          <div class="cd-stat-l">Teams Unified</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">44</div>
+          <div class="cd-stat-l">Documented Screens</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">↓</div>
+          <div class="cd-stat-l">Handoff Friction</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">2020</div>
+          <div class="cd-stat-l">Year Delivered</div>
+        </div>
+      </div>
+      <div class="cd-meta">
+        <div class="cd-label">Role</div>
+        <div class="cd-text" style="font-size:14px">Lead UX Designer · Design Systems · Contract</div>
+        <div class="cd-label" style="margin-top:8px">System Layers</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Color Architecture</span>
+          <span class="cd-tool">Typography</span>
+          <span class="cd-tool">Grid &amp; Spacing</span>
+          <span class="cd-tool">Icon Library</span>
+          <span class="cd-tool">Components</span>
+        </div>
+        <div class="cd-label" style="margin-top:8px">Tools</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Figma</span>
+          <span class="cd-tool">Sketch</span>
+          <span class="cd-tool">Abstract</span>
+          <span class="cd-tool">Zeplin</span>
+        </div>
+      </div>
+    </div>
     <div class="case-row">
       <div class="case-thumb" style="background:#090f1a;overflow:hidden;position:relative;padding:0">
         <div class="sl-carousel" id="pfCarousel" style="position:absolute;inset:0;width:100%;height:100%;aspect-ratio:unset">
@@ -1528,7 +1590,7 @@ footer{
     <div class="case-detail">
       <div class="cd-narrative">
         <div class="cd-label">Challenge &amp; Approach</div>
-        <div class="cd-text">Three product teams, two brand contexts, one system built from scratch over three years. When I took it on, there was no shared foundation — just inconsistency at scale. By the time I handed it off, ticket turnover had improved 10:1 and 350+ marketing managers had been trained to use the system correctly.</div>
+        <div class="cd-text">When I arrived at Avant, design was a patchwork: three product teams, two brand contexts (Avant and Amount), and a growing marketing operation — all working from different foundations. Pathfinder was built to fix that permanently. I established the token architecture, built 200+ components across both brand contexts, and maintained the system through three years of product evolution. The work extended beyond product: I designed the Colocation &amp; Cloud Report, the Colo Advisor platform, and the marketing design library. By the time I handed off, ticket turnover had improved 10:1 and 350+ marketing managers had been trained on the system.</div>
 
         <div class="cd-steps">
           <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Established design tokens, color, and typography foundation</div></div>
@@ -2036,7 +2098,7 @@ footer{
     <div class="case-detail">
       <div class="cd-narrative">
         <div class="cd-label">Challenge &amp; Approach</div>
-        <div class="cd-text">SurePeople needed a full product design for a behavioral personality platform — visual direction, interface, and a developer-ready handoff — all in a compressed timeline. I established the visual language, designed every screen from the PRISM psychometric engine to the consumer dashboard, and delivered coded-ready assets.</div>
+        <div class="cd-text">SurePeople came with a blank canvas and a sophisticated product: a behavioral personality platform built on psychometric science. They needed the design to match that intelligence — not look like a generic HR SaaS tool. Starting from zero, I established the full visual language, designed every screen across the PRISM psychometric engine (personality profiles, team dynamics, motivation mapping, conflict management), and delivered a complete developer-ready handoff in a compressed timeline. The hardest part wasn't the UI — it was making complex behavioral science feel immediately clear to a non-expert user.</div>
 
         <div class="cd-steps">
           <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Defined visual direction and brand language for the platform</div></div>
@@ -2111,6 +2173,54 @@ footer{
           <button class="sl-btn sl-prev" onclick="tcGo(-1)">&#8592;</button>
           <button class="sl-btn sl-next" onclick="tcGo(1)">&#8594;</button>
           <div class="sl-counter" id="tcCounter">1 / 19</div>
+        </div>
+      </div>
+    </div>
+    <div class="case-detail">
+      <div class="cd-narrative">
+        <div class="cd-label">Challenge &amp; Approach</div>
+        <div class="cd-text">TrueCredit had a classic consumer finance problem: the product existed to help people understand their credit, but the interface made them feel worse. Scores felt opaque, alerts felt alarming, and the information hierarchy buried the most important things. I rebuilt the product top-to-bottom — new IA, new visual language, and a new design system that made the data feel actionable instead of anxious. The ideation phase alone covered 16 explorations before locking direction.</div>
+        <div class="cd-steps">
+          <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Mapped the full consumer credit journey — awareness, anxiety, action</div></div>
+          <div class="cd-step"><div class="cd-step-n">02</div><div class="cd-step-t">Rebuilt information architecture to surface what matters first</div></div>
+          <div class="cd-step"><div class="cd-step-n">03</div><div class="cd-step-t">16-round visual ideation to find a language that felt trusted, not clinical</div></div>
+          <div class="cd-step"><div class="cd-step-n">04</div><div class="cd-step-t">Delivered redesigned UI with accompanying design system components</div></div>
+        </div>
+      </div>
+      <div class="cd-stats">
+        <div class="cd-stat">
+          <div class="cd-stat-n">16</div>
+          <div class="cd-stat-l">Visual Explorations</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">3</div>
+          <div class="cd-stat-l">Core Screens Redesigned</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">B2C</div>
+          <div class="cd-stat-l">Consumer Product</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">2018</div>
+          <div class="cd-stat-l">Year Delivered</div>
+        </div>
+      </div>
+      <div class="cd-meta">
+        <div class="cd-label">Role</div>
+        <div class="cd-text" style="font-size:14px">UX / UI / Visual Designer · Design Systems · Contract</div>
+        <div class="cd-label" style="margin-top:8px">Deliverables</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Information Architecture</span>
+          <span class="cd-tool">UI Redesign</span>
+          <span class="cd-tool">Design System Components</span>
+          <span class="cd-tool">Visual Language</span>
+        </div>
+        <div class="cd-label" style="margin-top:8px">Tools</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Sketch</span>
+          <span class="cd-tool">Abstract</span>
+          <span class="cd-tool">Zeplin</span>
+          <span class="cd-tool">InVision</span>
         </div>
       </div>
     </div>
@@ -2273,8 +2383,13 @@ footer{
     <div class="case-detail">
       <div class="cd-narrative">
         <div class="cd-label">Concept &amp; Approach</div>
-        <div class="cd-text">An unsolicited redesign concept for a Google productivity dashboard — team metrics, workload visibility, and focus data unified into one dark-mode information environment. The goal: show what G Suite could become if Google treated information density as a design value instead of an afterthought.</div>
-
+        <div class="cd-text">This was a self-initiated exploration: what if Google took workplace data seriously as a design problem? G Suite was technically powerful but visually fragmented — each tool lived in its own silo, with no unified view of how your team was actually working. I designed a dark-mode command center that pulled together calendar load, focus time, task completion, and team capacity into a single readable environment. No client brief. No deadline. Just a clear point of view about what was missing.</div>
+        <div class="cd-steps">
+          <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Identified the core problem: no unified productivity view across G Suite</div></div>
+          <div class="cd-step"><div class="cd-step-n">02</div><div class="cd-step-t">Defined key data surfaces: team load, focus blocks, task velocity</div></div>
+          <div class="cd-step"><div class="cd-step-n">03</div><div class="cd-step-t">Built dark-mode visual language with data-first hierarchy</div></div>
+          <div class="cd-step"><div class="cd-step-n">04</div><div class="cd-step-t">Designed full dashboard with multiple data modules and role-based views</div></div>
+        </div>
       </div>
       <div class="cd-stats">
         <div class="cd-stat">
@@ -2375,7 +2490,7 @@ footer{
 </section>
 
 <!-- ── CAREER TIMELINE ───────────────────────────────────────────────── -->
-<section>
+<section id="about">
   <div class="section-inner" style="padding-bottom:0">
     <div class="sec-header">
       <div class="sec-num">05 — Career</div>
@@ -2448,7 +2563,7 @@ footer{
 <!-- ── CAPABILITIES STRIP ─────────────────────────────────────────────────── -->
 <section style="background:#0b0d0f;padding:0">
   <div class="section-inner" style="padding-top:64px;padding-bottom:64px">
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;border-top:1px solid rgba(255,255,255,.08);margin-top:32px">
+    <div class="caps-grid" style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;border-top:1px solid rgba(255,255,255,.08);margin-top:32px">
       <div style="padding:32px 32px;border-right:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)">
         <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.3);margin-bottom:16px">Design Systems</div>
         <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(240,235,224,.6);line-height:1.4">
