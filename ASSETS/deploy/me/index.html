@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>mikelrosenthal.com — Business Redesign Concept</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --cream:#f0ebe0;
+  --ink:#1a1612;
+  --ink-75:rgba(26,22,18,.75);
+  --ink-50:rgba(26,22,18,.5);
+  --ink-25:rgba(26,22,18,.25);
+  --ink-10:rgba(26,22,18,.1);
+  --orange:#e8512a;
+  --rule:rgba(26,22,18,.1);
+  --muted:#8a7e6d;
+}
+body{background:var(--cream);color:var(--ink);font-family:'EB Garamond',serif;font-size:18px;line-height:1.6;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4{font-family:'Alexandria',sans-serif;font-weight:300;letter-spacing:-.02em}
+
+/* CONCEPT BADGE */
+.concept-bar{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:var(--orange);color:#fff;
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  text-align:center;padding:8px;
+}
+
+/* NAV */
+nav{
+  position:fixed;top:28px;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 56px;
+}
+.nav-logo{font-family:'Alexandria',sans-serif;font-weight:500;font-size:13px;letter-spacing:.18em;text-transform:uppercase}
+.nav-logo em{color:var(--orange);font-style:normal}
+.nav-links{display:flex;gap:32px;align-items:center}
+.nav-links a{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-75);transition:color .15s}
+.nav-links a:hover{color:var(--orange)}
+.nav-cta{
+  background:var(--orange);color:#fff;
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  padding:9px 20px;border:none;cursor:pointer;transition:opacity .15s;
+}
+.nav-cta:hover{opacity:.85}
+
+/* ── HERO ──────────────────────────────── */
+.hero{
+  min-height:100vh;
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:120px 56px 80px;
+  border-bottom:1px solid var(--rule);
+  position:relative;
+  overflow:hidden;
+}
+.hero-eyebrow{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:28px;
+  display:flex;align-items:center;gap:16px;
+}
+.hero-eyebrow::after{content:'';flex:1;height:1px;background:var(--orange);opacity:.35;max-width:120px}
+.hero-h1{
+  font-size:clamp(52px,6.5vw,112px);font-weight:200;line-height:.92;letter-spacing:-.03em;
+  max-width:900px;margin-bottom:48px;
+}
+.hero-h1 em{color:var(--orange);font-style:normal}
+.hero-sub{
+  font-size:19px;line-height:1.55;color:var(--ink-75);max-width:520px;font-style:italic;
+  margin-bottom:52px;
+}
+.hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.btn-primary{
+  background:var(--ink);color:var(--cream);
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  padding:14px 32px;border:none;cursor:pointer;transition:background .15s;
+}
+.btn-primary:hover{background:var(--orange)}
+.btn-ghost{
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-75);border:1px solid var(--rule);padding:13px 28px;cursor:pointer;
+  transition:border-color .15s,color .15s;background:transparent;
+}
+.btn-ghost:hover{border-color:var(--ink);color:var(--ink)}
+.hero-tags{
+  position:absolute;right:56px;bottom:80px;
+  display:flex;flex-direction:column;gap:10px;align-items:flex-end;
+}
+.hero-tag{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-25);border:1px solid var(--ink-10);padding:5px 12px;
+}
+.hero-available{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--orange);border:1px solid var(--orange);padding:5px 12px;
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* ── HERO GEO ──────────────────────────── */
+.hero-geo{
+  position:absolute;right:6%;top:50%;
+  transform:translateY(-52%);
+  width:min(119vw,1566px);
+  mix-blend-mode:multiply;opacity:.18;
+  pointer-events:none;user-select:none;
+}
+
+/* ── TRUST BAR ─────────────────────────── */
+.trust-bar{
+  border-bottom:1px solid var(--rule);
+  padding:28px 56px;
+  display:flex;align-items:center;gap:48px;
+  overflow-x:auto;
+}
+.trust-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-25);white-space:nowrap;flex-shrink:0;
+}
+.trust-logos{display:flex;gap:40px;align-items:center;flex-wrap:wrap}
+.trust-logo{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-50);
+}
+
+/* ── SECTIONS ──────────────────────────── */
+section{border-bottom:1px solid var(--rule)}
+.section-inner{padding:96px 56px}
+.sec-header{
+  display:grid;grid-template-columns:188px 1fr;gap:72px;
+  margin-bottom:72px;
+}
+.sec-num{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;color:var(--orange);
+  padding-top:6px;
+}
+.sec-title{font-size:clamp(36px,4vw,56px);font-weight:200;line-height:1}
+.sec-sub{font-size:18px;color:var(--ink-75);font-style:italic;margin-top:16px;line-height:1.5}
+
+/* ── QUOTE STRIP ── */
+.quote-strip{
+  padding:80px 56px;
+  border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  display:flex;align-items:center;gap:48px;
+}
+.quote-strip.dark{background:var(--ink);border-color:rgba(255,255,255,.08)}
+.qs-rule{width:2px;flex-shrink:0;align-self:stretch;background:var(--orange);opacity:.6}
+.qs-body{flex:1}
+.qs-text{
+  font-family:'EB Garamond',serif;font-size:clamp(22px,2.4vw,34px);
+  font-style:italic;line-height:1.4;letter-spacing:-.01em;
+  color:var(--ink);
+}
+.quote-strip.dark .qs-text{color:var(--cream)}
+.qs-attr{
+  margin-top:20px;font-family:'Space Mono',monospace;font-size:10px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--orange);
+}
+
+/* ── WISDOM QUOTES (philosophy section) ── */
+.wisdom-section{
+  background:var(--ink);color:var(--cream);
+  padding:120px 56px;
+}
+.wisdom-inner{max-width:1200px;margin:0 auto}
+.wisdom-kicker{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:64px;
+}
+.wisdom-intro{
+  font-size:clamp(36px,4.5vw,72px);font-family:'Alexandria',sans-serif;
+  font-weight:200;line-height:.95;letter-spacing:-.03em;
+  color:var(--cream);margin-bottom:96px;max-width:800px;
+}
+.wisdom-intro em{color:var(--orange);font-style:normal}
+.wisdom-quotes{display:flex;flex-direction:column;gap:0}
+.wisdom-q{
+  padding:48px 0;border-top:1px solid rgba(255,255,255,.1);
+  display:grid;grid-template-columns:80px 1fr;gap:40px;align-items:start;
+}
+.wisdom-q:last-child{border-bottom:1px solid rgba(255,255,255,.1)}
+.wq-num{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--orange);padding-top:8px;
+}
+.wq-text{
+  font-family:'EB Garamond',serif;font-size:clamp(20px,1.9vw,28px);
+  font-style:italic;line-height:1.5;color:rgba(240,235,224,.88);
+}
+.wq-text strong{
+  font-style:normal;font-weight:400;color:var(--cream);
+}
+.wq-sub{
+  margin-top:16px;font-family:'EB Garamond',serif;font-size:16px;
+  color:rgba(240,235,224,.5);line-height:1.5;font-style:normal;
+}
+
+/* ── SERVICES (new) ────────────────────── */
+.svc-num{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:20px;
+}
+.svc-h{
+  font-size:clamp(40px,4.5vw,72px);font-family:'Alexandria',sans-serif;
+  font-weight:200;line-height:.95;letter-spacing:-.03em;margin-bottom:24px;
+}
+.svc-p{
+  font-size:18px;line-height:1.65;font-style:italic;margin-bottom:28px;
+  max-width:520px;
+}
+.svc-tags-row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:28px}
+.svc-tag{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  padding:5px 12px;border:1px solid;
+}
+.svc-rate{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--orange);
+}
+
+/* 01 WEB */
+.svc-web{
+  background:var(--ink);color:var(--cream);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.svc-web-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;
+  max-width:1400px;margin:0 auto;padding:96px 56px;
+}
+.svc-web .svc-p{color:rgba(240,235,224,.72)}
+.svc-web .svc-tag{color:rgba(240,235,224,.45);border-color:rgba(255,255,255,.12)}
+.sites-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.site-card{overflow:hidden;background:#111;position:relative;cursor:pointer}
+.site-card img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover;transition:transform .5s,opacity .3s;opacity:.85}
+.site-card:hover img{transform:scale(1.05);opacity:1}
+.site-label{
+  position:absolute;bottom:0;left:0;right:0;padding:8px 12px;
+  background:linear-gradient(transparent,rgba(0,0,0,.7));
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;
+  color:rgba(255,255,255,.6);
+}
+
+/* 02 SOCIAL */
+.svc-social{background:var(--cream);border-bottom:1px solid var(--rule);position:relative;overflow:hidden}
+.svc-social-bg{
+  position:absolute;left:-8%;top:50%;transform:translateY(-50%);
+  width:min(55vw,680px);mix-blend-mode:multiply;opacity:.11;
+  pointer-events:none;user-select:none;
+}
+.svc-social-inner{padding:96px 56px;max-width:1400px;margin:0 auto;position:relative;z-index:1}
+.svc-social .svc-p{color:var(--ink-75)}
+.svc-social .svc-tag{color:var(--muted);border-color:var(--ink-10)}
+.plat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:48px}
+.plat-card{background:var(--cream);padding:32px 28px;position:relative;overflow:hidden}
+.plat-gif{
+  position:absolute;top:0;right:0;bottom:0;width:50%;
+  mix-blend-mode:multiply;opacity:.13;overflow:hidden;pointer-events:none;
+}
+.plat-gif img{width:100%;height:100%;object-fit:cover}
+.plat-name{font-family:'Alexandria',sans-serif;font-weight:300;font-size:24px;margin-bottom:10px;position:relative;z-index:1}
+.plat-handle{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);margin-bottom:16px;position:relative;z-index:1}
+.plat-desc{font-size:14px;color:var(--ink-50);line-height:1.55;position:relative;z-index:1}
+
+/* 03 CONTENT */
+.svc-content{
+  background:#f5f0e7;border-bottom:1px solid var(--rule);position:relative;overflow:hidden;
+}
+.svc-content-bg{
+  position:absolute;right:-5%;top:-10%;
+  width:min(52vw,620px);mix-blend-mode:multiply;opacity:.09;
+  pointer-events:none;user-select:none;transform:rotate(15deg);
+}
+.svc-content-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
+  padding:96px 56px;max-width:1400px;margin:0 auto;
+}
+.svc-content .svc-p{color:var(--ink-75)}
+.svc-content .svc-tag{color:var(--muted);border-color:var(--ink-10)}
+.content-list{border-top:1px solid var(--rule);margin-top:8px}
+.cl-row{
+  display:flex;align-items:baseline;justify-content:space-between;
+  padding:18px 0;border-bottom:1px solid var(--rule);
+  gap:20px;
+}
+.cl-label{font-family:'EB Garamond',serif;font-style:italic;font-size:19px}
+.cl-price{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--orange);white-space:nowrap;flex-shrink:0;
+}
+
+/* 04 PROJECT */
+.svc-project{background:var(--ink);color:var(--cream);border-bottom:1px solid rgba(255,255,255,.06);position:relative;overflow:hidden}
+.svc-project-bg{
+  position:absolute;right:-4%;bottom:-10%;
+  width:min(48vw,580px);mix-blend-mode:screen;opacity:.07;
+  pointer-events:none;user-select:none;
+}
+.svc-project-inner{padding:96px 56px;max-width:1400px;margin:0 auto}
+.svc-project .svc-p{color:rgba(240,235,224,.72)}
+.svc-project .svc-tag{color:rgba(240,235,224,.45);border-color:rgba(255,255,255,.12)}
+.proc-flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;margin-top:60px;border-top:1px solid rgba(255,255,255,.1)}
+.proc-step{padding:32px 24px;border-right:1px solid rgba(255,255,255,.08);position:relative}
+.proc-step:last-child{border-right:none}
+.proc-step::after{
+  content:'→';position:absolute;right:-14px;top:36px;
+  font-family:'Space Mono',monospace;font-size:12px;color:var(--orange);opacity:.5;
+}
+.proc-step:last-child::after{display:none}
+.proc-n{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:16px}
+.proc-title{font-family:'Alexandria',sans-serif;font-weight:300;font-size:18px;color:var(--cream);margin-bottom:10px}
+.proc-desc{font-size:13px;color:rgba(240,235,224,.45);line-height:1.55}
+
+/* 05 ANIMATION / GIF WALL */
+.svc-anim{background:#060503;border-bottom:1px solid rgba(255,255,255,.04)}
+.svc-anim-header{padding:72px 56px 0;max-width:1400px;margin:0 auto}
+.svc-anim .svc-h,.svc-anim .svc-num{color:var(--cream)}
+.svc-anim .svc-p{color:rgba(240,235,224,.65)}
+.svc-anim .svc-tag{color:rgba(240,235,224,.45);border-color:rgba(255,255,255,.1)}
+.svc-anim .svc-rate{color:var(--orange)}
+.gif-wall{display:grid;grid-template-columns:repeat(8,1fr);gap:3px;margin-top:56px}
+.gif-cell{
+  aspect-ratio:1;overflow:hidden;background:#111;cursor:pointer;position:relative;
+}
+.gif-cell img{
+  width:100%;height:100%;object-fit:cover;
+  transition:opacity .8s ease;display:block;
+}
+.gif-cell img.out{opacity:0}
+.gif-wall-caption{
+  padding:16px 56px;font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:.12em;text-transform:uppercase;color:rgba(240,235,224,.25);
+  display:flex;justify-content:space-between;align-items:center;margin-bottom:32px;
+}
+.gif-live-dot{
+  display:inline-block;width:6px;height:6px;border-radius:50%;
+  background:var(--orange);margin-right:8px;
+  animation:pulse 1.5s ease-in-out infinite;
+}
+
+/* 06 MUSIC */
+.svc-music{
+  background:linear-gradient(135deg,#120a04 0%,#1a100a 100%);
+  color:var(--cream);border-bottom:1px solid rgba(255,255,255,.05);position:relative;overflow:hidden;
+}
+.svc-music-bg{
+  position:absolute;left:-6%;top:50%;transform:translateY(-50%);
+  width:min(44vw,520px);mix-blend-mode:screen;opacity:.09;
+  pointer-events:none;user-select:none;
+}
+.svc-music-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+  padding:96px 56px;max-width:1400px;margin:0 auto;
+}
+.svc-music .svc-p{color:rgba(240,235,224,.7)}
+.svc-music .svc-tag{color:rgba(240,235,224,.4);border-color:rgba(255,255,255,.1)}
+.waveform{display:flex;align-items:flex-end;gap:4px;height:120px;padding:16px 0}
+.wv-bar{
+  flex:1;border-radius:2px;background:var(--orange);opacity:.75;
+  animation:wv var(--d,1.2s) ease-in-out infinite alternate;
+  transform-origin:bottom;
+}
+@keyframes wv{from{transform:scaleY(.2)}to{transform:scaleY(1)}}
+
+/* 07 VOICEOVER */
+.svc-voice{
+  background:var(--cream);border-bottom:1px solid var(--rule);position:relative;overflow:hidden;
+}
+.svc-voice-bg{
+  position:absolute;right:2%;top:50%;transform:translateY(-52%);
+  width:min(40vw,480px);mix-blend-mode:multiply;opacity:.08;
+  pointer-events:none;user-select:none;transform:translateY(-52%) scaleX(-1);
+}
+/* WISDOM bg */
+.wisdom-section{position:relative;overflow:hidden}
+.wisdom-bg{
+  position:absolute;right:-4%;top:50%;transform:translateY(-50%);
+  width:min(50vw,600px);mix-blend-mode:screen;opacity:.06;
+  pointer-events:none;user-select:none;
+}
+.svc-voice-inner{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+  padding:96px 56px;max-width:1400px;margin:0 auto;
+}
+.svc-voice .svc-p{color:var(--ink-75)}
+.svc-voice .svc-tag{color:var(--muted);border-color:var(--ink-10)}
+.voice-visual{
+  display:flex;flex-direction:column;gap:24px;
+}
+.voice-sample{
+  display:flex;align-items:center;gap:16px;padding:20px 24px;
+  border:1px solid var(--rule);cursor:pointer;transition:border-color .2s;
+}
+.voice-sample:hover{border-color:var(--orange)}
+.vs-play{
+  width:36px;height:36px;border-radius:50%;background:var(--orange);
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  font-size:12px;color:#fff;
+}
+.vs-info{flex:1}
+.vs-title{font-family:'Alexandria',sans-serif;font-size:16px;font-weight:300;margin-bottom:4px}
+.vs-meta{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-25)}
+
+/* ── ETHICS ────────────────────────────── */
+.ethics{
+  background:var(--ink);color:var(--cream);
+  padding:96px 56px;
+  border-bottom:1px solid rgba(240,235,224,.08);
+}
+.ethics-inner{display:grid;grid-template-columns:1fr 1fr;gap:96px;align-items:center}
+.ethics-kicker{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:28px;
+}
+.ethics-heading{font-size:clamp(36px,4vw,64px);font-weight:200;line-height:.95;color:#ede8dd;margin-bottom:40px}
+.ethics-heading em{color:var(--orange);font-style:normal}
+.ethics-body{font-size:18px;line-height:1.65;color:rgba(240,235,224,.72)}
+.ethics-pillars{display:flex;flex-direction:column;gap:0}
+.ethics-pillar{
+  padding:28px 0;border-bottom:1px solid rgba(240,235,224,.09);
+  display:flex;gap:24px;align-items:flex-start;
+}
+.ethics-pillar-num{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--orange);
+  padding-top:4px;flex-shrink:0;
+}
+.ethics-pillar-title{font-family:'Alexandria',sans-serif;font-weight:300;font-size:17px;color:#ede8dd;margin-bottom:6px}
+.ethics-pillar-desc{font-size:15px;color:rgba(240,235,224,.55);line-height:1.55}
+
+/* ── CASE STUDIES ──────────────────────── */
+.case-grid{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule)}
+.case-row{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-bottom:1px solid var(--rule);
+  min-height:360px;
+  cursor:pointer;
+  transition:background .2s;
+}
+.case-row:hover{background:rgba(26,22,18,.03)}
+.case-thumb{
+  background:var(--ink);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;
+}
+.case-thumb-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(240,235,224,.3);
+}
+.case-info{padding:56px 56px;display:flex;flex-direction:column;justify-content:space-between}
+.case-tag{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:16px;
+}
+.case-title{font-size:32px;font-weight:200;margin-bottom:16px;line-height:1.1}
+.case-outcome{
+  font-size:16px;color:var(--ink-75);line-height:1.5;font-style:italic;
+  border-left:2px solid var(--orange);padding-left:18px;margin-top:auto;
+}
+.case-meta{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-25);margin-top:28px;
+}
+
+/* ── INTAKE FORM ───────────────────────── */
+.intake{background:var(--cream);padding:96px 56px}
+.intake-inner{display:grid;grid-template-columns:400px 1fr;gap:96px}
+.intake-lede{position:sticky;top:96px;align-self:start}
+.intake-lede h2{font-size:clamp(32px,3.5vw,52px);font-weight:200;line-height:1;margin-bottom:28px}
+.intake-lede p{font-size:17px;color:var(--ink-75);line-height:1.65;font-style:italic;margin-bottom:32px}
+.intake-note{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--ink-25);line-height:1.8;
+}
+.intake-note strong{color:var(--orange);font-weight:400}
+
+/* FORM */
+.form{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule)}
+.form-group{
+  padding:32px 0;border-bottom:1px solid var(--rule);
+  display:flex;flex-direction:column;gap:10px;
+}
+.form-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--orange);
+}
+.form-input,.form-select,.form-textarea{
+  width:100%;background:transparent;border:none;border-bottom:1px solid var(--rule);
+  font-family:'EB Garamond',serif;font-size:18px;color:var(--ink);
+  padding:12px 0;outline:none;transition:border-color .15s;
+  -webkit-appearance:none;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--ink)}
+.form-textarea{min-height:100px;resize:none;line-height:1.5}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+.form-chips{display:flex;flex-wrap:wrap;gap:8px;padding-top:4px}
+.form-chip{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--rule);padding:7px 14px;cursor:pointer;
+  transition:border-color .15s,color .15s,background .15s;color:var(--ink-50);
+  background:transparent;
+}
+.form-chip:hover,.form-chip.sel{border-color:var(--orange);color:var(--orange)}
+.form-chip.sel{background:rgba(232,81,42,.06)}
+.form-submit{
+  margin-top:40px;
+  background:var(--ink);color:var(--cream);
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  padding:18px 40px;border:none;cursor:pointer;align-self:flex-start;
+  transition:background .15s;
+}
+.form-submit:hover{background:var(--orange)}
+.hs-badge{
+  margin-top:16px;font-family:'Space Mono',monospace;font-size:8px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink-25);
+  display:flex;align-items:center;gap:8px;
+}
+.hs-badge::before{
+  content:'●';color:#ff7a59;font-size:8px;
+}
+
+/* ── AUTOMATION CALLOUT ─────────────────── */
+.automation{
+  background:var(--ink);padding:64px 56px;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;
+  border-bottom:1px solid rgba(240,235,224,.06);
+}
+.auto-card{padding:0 40px;border-right:1px solid rgba(240,235,224,.08)}
+.auto-card:first-child{padding-left:0}
+.auto-card:last-child{border-right:none}
+.auto-step{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--orange);margin-bottom:16px;
+}
+.auto-title{font-family:'Alexandria',sans-serif;font-weight:300;font-size:20px;color:#ede8dd;margin-bottom:12px}
+.auto-desc{font-size:15px;color:rgba(240,235,224,.5);line-height:1.6}
+
+/* ── SOCIAL LAUNCH ─────────────────────── */
+.social{padding:96px 56px;background:var(--cream)}
+.social-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--rule);margin-top:56px}
+.social-card{
+  padding:36px;border-right:1px solid var(--rule);
+  display:flex;flex-direction:column;gap:12px;
+}
+.social-card:last-child{border-right:none}
+.social-platform{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--orange);
+}
+.social-desc{font-size:14px;color:var(--ink-75);line-height:1.55}
+.social-action{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-25);margin-top:auto;
+}
+
+/* ── FOOTER ────────────────────────────── */
+footer{
+  padding:64px 56px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+  border-top:1px solid var(--rule);
+}
+.footer-logo{font-family:'Alexandria',sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:500}
+.footer-logo em{color:var(--orange);font-style:normal}
+.footer-copy{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-25)}
+
+/* ── TABLET ─────────────────────────────── */
+@media(max-width:900px){
+  /* Nav */
+  nav{padding:0 24px}
+  .nav-links a{display:none}
+
+  /* Hero */
+  .hero{padding:120px 24px 64px}
+  .hero-tags{display:none}
+  .hero-geo{width:140vw;opacity:.12;right:-20%;top:40%}
+
+  /* Trust */
+  .trust-bar{padding:20px 24px;gap:24px}
+  .trust-logos{gap:20px;flex-wrap:wrap}
+
+  /* Quote strip */
+  .quote-strip{padding:56px 24px;gap:24px}
+
+  /* Section headers */
+  .section-inner,.intake,.social{padding:64px 24px}
+  .sec-header{grid-template-columns:1fr;gap:12px}
+
+  /* 01 Web */
+  .svc-web-inner{grid-template-columns:1fr;gap:40px;padding:72px 24px}
+  .sites-grid{grid-template-columns:1fr 1fr}
+
+  /* 02 Social */
+  .svc-social-inner{padding:72px 24px}
+  .plat-grid{grid-template-columns:1fr 1fr}
+
+  /* 03 Content */
+  .svc-content-inner{grid-template-columns:1fr;gap:40px;padding:72px 24px}
+
+  /* 04 Project */
+  .svc-project-inner{padding:72px 24px}
+  .proc-flow{grid-template-columns:1fr 1fr}
+  .proc-step::after{display:none}
+
+  /* 05 Anim */
+  .svc-anim-header{padding:56px 24px 0}
+  .gif-wall{grid-template-columns:repeat(4,1fr)}
+  .gif-wall-caption{padding:12px 24px}
+
+  /* 06 Music */
+  .svc-music-inner{grid-template-columns:1fr;gap:40px;padding:72px 24px}
+
+  /* 07 Voice */
+  .svc-voice-inner{grid-template-columns:1fr;gap:40px;padding:72px 24px}
+
+  /* Wisdom */
+  .wisdom-section{padding:80px 24px}
+  .wisdom-intro{font-size:clamp(32px,6vw,56px);margin-bottom:56px}
+  .wisdom-q{grid-template-columns:56px 1fr;gap:20px}
+
+  /* Case studies */
+  .case-row{grid-template-columns:1fr;min-height:auto}
+  .case-thumb{min-height:240px}
+  .case-info{padding:36px 24px}
+
+  /* Intake */
+  .intake{padding:64px 24px}
+  .intake-inner{grid-template-columns:1fr;gap:40px}
+  .intake-lede{position:static}
+
+  /* Automation */
+  .automation{grid-template-columns:1fr;padding:48px 24px}
+  .auto-card{border-right:none;padding:28px 0;border-bottom:1px solid rgba(240,235,224,.08)}
+  .auto-card:last-child{border-bottom:none}
+
+  /* Social launch */
+  .social-grid{grid-template-columns:1fr 1fr}
+  .social{padding:64px 24px}
+
+  /* Ethics */
+  .ethics-inner{grid-template-columns:1fr}
+  .ethics{padding:64px 24px}
+
+  /* Footer */
+  footer{padding:48px 24px;flex-direction:column;gap:16px}
+}
+
+/* ── MOBILE ─────────────────────────────── */
+@media(max-width:600px){
+  /* Nav */
+  nav{padding:0 20px}
+  .nav-links{gap:16px}
+  .nav-links a{display:none}
+  .nav-cta{font-size:9px;padding:8px 14px}
+
+  /* Hero */
+  .hero{padding:100px 20px 56px;min-height:auto}
+  .hero-h1{font-size:clamp(44px,12vw,72px);margin-bottom:32px}
+  .hero-sub{font-size:16px;margin-bottom:36px}
+  .hero-actions{flex-direction:column;align-items:flex-start;gap:12px}
+  .btn-primary,.btn-ghost{width:100%;text-align:center;padding:14px 20px}
+  .hero-tags{display:none}
+  .hero-geo{width:180vw;opacity:.10;right:-30%;top:30%}
+
+  /* Trust bar */
+  .trust-bar{padding:18px 20px;flex-direction:column;gap:16px;align-items:flex-start}
+  .trust-logos{gap:14px}
+  .trust-logo{font-size:9px}
+
+  /* Quote strip */
+  .quote-strip{padding:48px 20px;gap:20px}
+  .qs-text{font-size:20px}
+
+  /* 01 Web */
+  .svc-web-inner{grid-template-columns:1fr;gap:36px;padding:64px 20px}
+  .sites-grid{grid-template-columns:1fr;gap:8px}
+  .site-card img{aspect-ratio:16/10!important}
+
+  /* 02 Social */
+  .svc-social-inner{padding:64px 20px}
+  .svc-social-bg{display:none}
+  .plat-grid{grid-template-columns:1fr;gap:1px}
+  .plat-gif{display:none}
+
+  /* 03 Content */
+  .svc-content-inner{grid-template-columns:1fr;gap:36px;padding:64px 20px}
+
+  /* 04 Project */
+  .svc-project-inner{padding:64px 20px}
+  .proc-flow{grid-template-columns:1fr;gap:0}
+  .proc-step{border-left:none;border-top:1px solid rgba(255,255,255,.08);padding:24px 0}
+  .proc-step::after{display:none}
+
+  /* 05 Anim */
+  .svc-anim-header{padding:48px 20px 0}
+  .gif-wall{grid-template-columns:repeat(3,1fr);gap:2px}
+  .gif-wall-caption{padding:10px 20px;flex-direction:column;gap:4px;align-items:flex-start}
+
+  /* 06 Music */
+  .svc-music-inner{grid-template-columns:1fr;gap:36px;padding:64px 20px}
+  .svc-music-bg{display:none}
+  .waveform{height:80px}
+
+  /* 07 Voice */
+  .svc-voice-inner{grid-template-columns:1fr;gap:36px;padding:64px 20px}
+  .svc-voice-bg{display:none}
+
+  /* Service shared */
+  .svc-h{font-size:clamp(36px,10vw,56px)}
+  .svc-p{font-size:16px}
+  .svc-num{margin-bottom:14px}
+
+  /* Wisdom */
+  .wisdom-section{padding:64px 20px}
+  .wisdom-intro{font-size:clamp(30px,9vw,48px);margin-bottom:48px}
+  .wisdom-q{grid-template-columns:1fr;gap:12px;padding:36px 0}
+  .wq-num{padding-top:0}
+  .wq-text{font-size:18px}
+  .wisdom-bg{display:none}
+
+  /* Case studies */
+  .case-grid{border-top:1px solid var(--rule)}
+  .case-row{grid-template-columns:1fr;min-height:auto}
+  .case-thumb{min-height:200px}
+  .case-info{padding:28px 20px}
+  .case-title{font-size:24px}
+  .case-outcome{font-size:14px}
+  .section-inner{padding:56px 20px}
+
+  /* Intake form */
+  .intake{padding:56px 20px}
+  .intake-inner{grid-template-columns:1fr;gap:36px}
+  .intake-lede{position:static}
+  .intake-lede h2{font-size:clamp(28px,8vw,40px)}
+  .form-chips{gap:6px}
+  .form-chip{font-size:8px;padding:6px 10px}
+
+  /* Automation */
+  .automation{grid-template-columns:1fr;padding:40px 20px;gap:0}
+  .auto-step{font-size:8px}
+  .auto-title{font-size:18px}
+  .auto-card{padding:24px 0;border-right:none;border-bottom:1px solid rgba(240,235,224,.08)}
+  .auto-card:last-child{border-bottom:none}
+
+  /* Social launch */
+  .social-grid{grid-template-columns:1fr}
+  .social{padding:56px 20px}
+  .social-card{padding:24px 20px}
+
+  /* Footer */
+  footer{padding:40px 20px;flex-direction:column;gap:12px;text-align:center}
+  .footer-copy{font-size:8px}
+}
+</style>
+</head>
+<body>
+
+<div class="concept-bar">⚠ Concept Mockup — Not Live · mikelrosenthal.com redesign proposal</div>
+
+<!-- NAV -->
+<nav style="margin-top:28px">
+  <div class="nav-logo">PBK<em>·</em>STUDIO</div>
+  <div class="nav-links">
+    <a href="#">Work</a>
+    <a href="#">Services</a>
+    <a href="#">Philosophy</a>
+    <a href="#">About</a>
+    <button class="nav-cta">Start a Project →</button>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <img class="hero-geo" src="images/hero-geo.gif" alt="" aria-hidden="true">
+  <div class="hero-eyebrow">Available for Work · Chicago, IL</div>
+  <h1 class="hero-h1">
+    Design for companies<br>that give <em>a damn.</em>
+  </h1>
+  <p class="hero-sub">
+    Twenty-five years of building things that outlast their makers —
+    systems that scale, identities that endure, experiences that actually
+    respect the people using them.
+  </p>
+  <div class="hero-actions">
+    <button class="btn-primary">Start a Project →</button>
+    <button class="btn-ghost">View Selected Work</button>
+  </div>
+  <div class="hero-tags">
+    <div class="hero-available">● Available Now</div>
+    <div class="hero-tag">Design Systems</div>
+    <div class="hero-tag">Brand Identity</div>
+    <div class="hero-tag">UX / Product</div>
+    <div class="hero-tag">Voice Performance</div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-label">Trusted by</div>
+  <div class="trust-logos">
+    <span class="trust-logo">Google</span>
+    <span class="trust-logo">GE Healthcare</span>
+    <span class="trust-logo">Blue Cross Blue Shield</span>
+    <span class="trust-logo">Avant / Amount</span>
+    <span class="trust-logo">TransUnion</span>
+    <span class="trust-logo">Whirlpool</span>
+    <span class="trust-logo">Gartner</span>
+    <span class="trust-logo">Herman Miller</span>
+  </div>
+</div>
+
+<!-- ── QUOTE STRIP 01 ─────────────────────────────────────────────────── -->
+<div class="quote-strip">
+  <div class="qs-rule"></div>
+  <div class="qs-body">
+    <div class="qs-text">"Good design is the quietest form of respect. It does not demand attention — it earns trust."</div>
+    <div class="qs-attr">— Mikel Rosenthal · PBK Studio</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 01 · WEB DESIGN ───────────────────────────────────────────────── -->
+<div class="svc-web">
+  <div class="svc-web-inner">
+    <div>
+      <div class="svc-num">01 — Web Design</div>
+      <h2 class="svc-h" style="color:var(--cream)">Sites that<br>earn their<br>place.</h2>
+      <p class="svc-p">Marketing sites, portfolio sites, and product pages built to convert — and to look exceptional at every breakpoint. Fast, accessible, built to last.</p>
+      <div class="svc-tags-row">
+        <span class="svc-tag">HTML / CSS</span><span class="svc-tag">Responsive</span><span class="svc-tag">CMS</span><span class="svc-tag">SEO</span><span class="svc-tag">Accessibility</span>
+      </div>
+      <div class="svc-rate">From $3,000 / site</div>
+    </div>
+    <div class="sites-grid" style="grid-template-columns:1fr 1fr;grid-template-rows:auto auto">
+      <div class="site-card" style="grid-column:1/-1">
+        <img src="images/web-design/lindsey/01-screenshot.jpg" alt="Lindsey" style="aspect-ratio:21/9">
+        <div class="site-label">Lindsey</div>
+      </div>
+      <div class="site-card">
+        <img src="images/web-design/david/01-screenshot.jpg" alt="David">
+        <div class="site-label">David</div>
+      </div>
+      <div class="site-card">
+        <img src="images/web-design/bert/01-screenshot.jpg" alt="Bert">
+        <div class="site-label">Bert</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 02 · SOCIAL MEDIA ─────────────────────────────────────────────── -->
+<div class="svc-social">
+  <img class="svc-social-bg" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Zen%20Circle.gif" alt="" aria-hidden="true">
+  <div class="svc-social-inner">
+    <div class="svc-num">02 — Social Media</div>
+    <h2 class="svc-h" style="max-width:700px">A brand isn't just a logo. It's what you say every day.</h2>
+    <p class="svc-p">Strategy, content calendars, visual systems, and ongoing creative direction for brands that want to show up consistently — and memorably — across platforms.</p>
+    <div class="svc-tags-row">
+      <span class="svc-tag">Instagram</span><span class="svc-tag">LinkedIn</span><span class="svc-tag">TikTok</span><span class="svc-tag">Facebook</span><span class="svc-tag">Strategy</span><span class="svc-tag">Scheduling</span>
+    </div>
+    <div class="svc-rate">From $800 / month · or project rate</div>
+    <div class="plat-grid">
+      <div class="plat-card">
+        <div class="plat-gif"><img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Orbit%20v4.gif" alt=""></div>
+        <div class="plat-name">Instagram</div>
+        <div class="plat-handle">Visual-first storytelling</div>
+        <div class="plat-desc">Feed aesthetics, Reels strategy, Story templates, brand voice. Built to grow creative audiences and clients.</div>
+      </div>
+      <div class="plat-card">
+        <div class="plat-gif"><img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Signal.gif" alt=""></div>
+        <div class="plat-name">LinkedIn</div>
+        <div class="plat-handle">B2B authority building</div>
+        <div class="plat-desc">Case study posts, process threads, and thought leadership that attract design leaders and hiring managers.</div>
+      </div>
+      <div class="plat-card">
+        <div class="plat-gif"><img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Tunnel%20Vision.gif" alt=""></div>
+        <div class="plat-name">TikTok</div>
+        <div class="plat-handle">Behind-the-scenes reach</div>
+        <div class="plat-desc">Short-form creative process content, tutorials, and culture moments that humanize the brand and build loyalty.</div>
+      </div>
+      <div class="plat-card">
+        <div class="plat-gif"><img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Synchronization.gif" alt=""></div>
+        <div class="plat-name">Facebook</div>
+        <div class="plat-handle">Community &amp; referrals</div>
+        <div class="plat-desc">Long-form storytelling, event promotion, community groups, and local network activation for referral growth.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 03 · CONTENT ──────────────────────────────────────────────────── -->
+<div class="svc-content">
+  <img class="svc-content-bg" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Folding%20Time.gif" alt="" aria-hidden="true">
+  <div class="svc-content-inner" style="position:relative;z-index:1">
+    <div>
+      <div class="svc-num">03 — Content Production</div>
+      <h2 class="svc-h">Words.<br>Visuals.<br>Stories.</h2>
+      <p class="svc-p">Good content doesn't shout. It shows up, says the right thing, and earns attention over time. I help brands find their voice — then use it consistently.</p>
+      <div class="svc-tags-row">
+        <span class="svc-tag">Copywriting</span><span class="svc-tag">Art Direction</span><span class="svc-tag">Photography</span><span class="svc-tag">Video</span><span class="svc-tag">Blog</span>
+      </div>
+      <div class="svc-rate">Custom scope · starting $500</div>
+    </div>
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:4px">Deliverables</div>
+      <div class="content-list">
+        <div class="cl-row"><span class="cl-label">Brand messaging guide</span><span class="cl-price">$800+</span></div>
+        <div class="cl-row"><span class="cl-label">Monthly content calendar</span><span class="cl-price">$600/mo</span></div>
+        <div class="cl-row"><span class="cl-label">Social post creation (10/mo)</span><span class="cl-price">$800/mo</span></div>
+        <div class="cl-row"><span class="cl-label">Email newsletter series</span><span class="cl-price">$350/issue</span></div>
+        <div class="cl-row"><span class="cl-label">Case study write-up</span><span class="cl-price">$500+</span></div>
+        <div class="cl-row"><span class="cl-label">Video script &amp; direction</span><span class="cl-price">$400+</span></div>
+        <div class="cl-row"><span class="cl-label">Full content retainer</span><span class="cl-price">$2,500/mo</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 04 · PROJECT ORGANIZER ────────────────────────────────────────── -->
+<div class="svc-project">
+  <img class="svc-project-bg" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Data%20cycles.gif" alt="" aria-hidden="true">
+  <div class="svc-project-inner" style="position:relative;z-index:1">
+    <div class="svc-num">04 — Project Management &amp; Organization</div>
+    <h2 class="svc-h" style="color:var(--cream);max-width:800px">Chaos is expensive.<br>Clarity is a service.</h2>
+    <p class="svc-p">I bring structure to creative projects — timelines, briefs, vendor coordination, asset management, and stakeholder communication. Whether you need a producer or a creative director, I've run both.</p>
+    <div class="svc-tags-row">
+      <span class="svc-tag">Notion</span><span class="svc-tag">Asana</span><span class="svc-tag">HubSpot</span><span class="svc-tag">Briefs</span><span class="svc-tag">Timelines</span><span class="svc-tag">Vendor Mgmt</span>
+    </div>
+    <div class="svc-rate">$145/hr · or flat project rate</div>
+    <div class="proc-flow">
+      <div class="proc-step">
+        <div class="proc-n">Kickoff</div>
+        <div class="proc-title">Discovery &amp; Brief</div>
+        <div class="proc-desc">Scope definition, stakeholder alignment, success metrics. Everyone leaves knowing what we're building.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-n">Structure</div>
+        <div class="proc-title">Timeline &amp; Milestones</div>
+        <div class="proc-desc">Phased delivery plan with clear checkpoints. No surprises, no scope creep without consent.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-n">Execution</div>
+        <div class="proc-title">Production &amp; Coordination</div>
+        <div class="proc-desc">Vendors, contractors, and internal teams all moving in the same direction at the same time.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-n">Delivery</div>
+        <div class="proc-title">QA &amp; Handoff</div>
+        <div class="proc-desc">Every asset reviewed, every format correct, every stakeholder signed off before the file leaves.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-n">Support</div>
+        <div class="proc-title">Post-Launch</div>
+        <div class="proc-desc">Revisions, updates, and iterative improvements. The relationship doesn't end at delivery.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 05 · ANIMATION & DIGITAL ART — GIF WALL ───────────────────────── -->
+<div class="svc-anim">
+  <div class="svc-anim-header">
+    <div class="svc-num" style="color:var(--orange)">05 — Animation &amp; Digital Art</div>
+    <h2 class="svc-h">106 original works.<br>Every one <em style="color:var(--orange);font-style:normal">alive.</em></h2>
+    <p class="svc-p">Generative art, motion graphics, animated GIFs, and music video production. A decade of experiments with form, motion, and color — available for licensing, collaboration, or custom commissions.</p>
+    <div class="svc-tags-row">
+      <span class="svc-tag" style="color:rgba(240,235,224,.45);border-color:rgba(255,255,255,.1)">GIF</span>
+      <span class="svc-tag" style="color:rgba(240,235,224,.45);border-color:rgba(255,255,255,.1)">Generative</span>
+      <span class="svc-tag" style="color:rgba(240,235,224,.45);border-color:rgba(255,255,255,.1)">Motion Graphics</span>
+      <span class="svc-tag" style="color:rgba(240,235,224,.45);border-color:rgba(255,255,255,.1)">Music Video</span>
+      <span class="svc-tag" style="color:rgba(240,235,224,.45);border-color:rgba(255,255,255,.1)">Licensing</span>
+    </div>
+    <div class="svc-rate">From $350 / piece · Licensing available</div>
+  </div>
+  <div class="gif-wall" id="gifWall"></div>
+  <div class="gif-wall-caption">
+    <span><span class="gif-live-dot"></span>Live rotation — refreshing randomly</span>
+    <span>106 original works · PBK Digital Art Archive</span>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 06 · MUSIC PRODUCTION ─────────────────────────────────────────── -->
+<div class="svc-music">
+  <img class="svc-music-bg" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Spectral%20arc.gif" alt="" aria-hidden="true">
+  <div class="svc-music-inner" style="position:relative;z-index:1">
+    <div>
+      <div class="svc-num" style="color:var(--orange)">06 — Music Production</div>
+      <h2 class="svc-h" style="color:var(--cream)">Sound is the<br>last sense<br>you forget.</h2>
+      <p class="svc-p">Original music, beat production, sound design, and audio branding. From podcast intros to full album production — music that sets a mood and holds it.</p>
+      <div class="svc-tags-row">
+        <span class="svc-tag" style="color:rgba(240,235,224,.4);border-color:rgba(255,255,255,.1)">Original Music</span>
+        <span class="svc-tag" style="color:rgba(240,235,224,.4);border-color:rgba(255,255,255,.1)">Beat Production</span>
+        <span class="svc-tag" style="color:rgba(240,235,224,.4);border-color:rgba(255,255,255,.1)">Sound Design</span>
+        <span class="svc-tag" style="color:rgba(240,235,224,.4);border-color:rgba(255,255,255,.1)">Mixing</span>
+        <span class="svc-tag" style="color:rgba(240,235,224,.4);border-color:rgba(255,255,255,.1)">Audio Branding</span>
+      </div>
+      <div class="svc-rate" style="color:var(--orange)">From $500 / track · licensing available</div>
+    </div>
+    <div>
+      <div class="waveform" id="waveform"></div>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:0;border-top:1px solid rgba(255,255,255,.08)">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06)">
+          <span style="font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:rgba(240,235,224,.8)">Down Down We Go</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)">PBK</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.06)">
+          <span style="font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:rgba(240,235,224,.8)">Original score · campaign use</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)">License</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:16px 0">
+          <span style="font-family:'EB Garamond',serif;font-style:italic;font-size:18px;color:rgba(240,235,224,.8)">Podcast / brand audio intro</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange)">$500+</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- 07 · VOICEOVER ────────────────────────────────────────────────── -->
+<div class="svc-voice">
+  <img class="svc-voice-bg" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Dark%20waves.gif" alt="" aria-hidden="true">
+  <div class="svc-voice-inner" style="position:relative;z-index:1">
+    <div>
+      <div class="svc-num">07 — Voice Performance</div>
+      <h2 class="svc-h">The right voice changes everything.</h2>
+      <p class="svc-p">Professional voiceover for commercials, narration, e-learning, and brand content. Studio-quality audio, fast turnaround, warm-but-authoritative delivery that brands remember.</p>
+      <div class="svc-tags-row">
+        <span class="svc-tag">Commercial</span><span class="svc-tag">Narration</span><span class="svc-tag">E-Learning</span><span class="svc-tag">Brand</span><span class="svc-tag">Podcast</span>
+      </div>
+      <div class="svc-rate">From $350 / project</div>
+    </div>
+    <div class="voice-visual">
+      <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:8px">Sample Spots</div>
+      <div class="voice-sample" onclick="playVoice(0)" id="vs0">
+        <div class="vs-play" id="vp0">▶</div>
+        <div class="vs-info">
+          <div class="vs-title">Commercial — 30 sec spot</div>
+          <div class="vs-meta">Warm · Authoritative · Clear</div>
+        </div>
+      </div>
+      <div class="voice-sample" onclick="playVoice(1)" id="vs1">
+        <div class="vs-play" id="vp1">▶</div>
+        <div class="vs-info">
+          <div class="vs-title">E-Learning narration</div>
+          <div class="vs-meta">Conversational · Patient · Engaging</div>
+        </div>
+      </div>
+      <div class="voice-sample" onclick="playVoice(2)" id="vs2">
+        <div class="vs-play" id="vp2">▶</div>
+        <div class="vs-info">
+          <div class="vs-title">Brand storytelling</div>
+          <div class="vs-meta">Cinematic · Intimate · Confident</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-family:'EB Garamond',serif;font-size:16px;color:var(--ink-50);font-style:italic;line-height:1.5">Studio-quality home setup. Available for remote direction via Source-Connect or Zoom.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PHILOSOPHY / WISDOM ─────────────────────────────────────────────── -->
+<div class="wisdom-section">
+  <img class="wisdom-bg" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Cosmos.gif" alt="" aria-hidden="true">
+  <div class="wisdom-inner" style="position:relative;z-index:1">
+    <div class="wisdom-kicker">#Philosophy</div>
+    <h2 class="wisdom-intro">I don't separate<br>craft from <em>conscience.</em><br>Never have.</h2>
+    <div class="wisdom-quotes">
+      <div class="wisdom-q">
+        <div class="wq-num">01</div>
+        <div>
+          <div class="wq-text">"<strong>Clarity is a form of kindness.</strong> Design that confuses doesn't just frustrate — it excludes. Every choice I make asks: who does this leave behind?"</div>
+          <div class="wq-sub">On accessibility, plain language, and making the obvious thing obvious for everyone.</div>
+        </div>
+      </div>
+      <div class="wisdom-q">
+        <div class="wq-num">02</div>
+        <div>
+          <div class="wq-text">"<strong>If your product requires confusion to convert, you've engineered extraction — not experience.</strong> I don't build those. I've turned down the work before and I'll do it again."</div>
+          <div class="wq-sub">On dark patterns, predatory UX, and the designs I quietly walk away from.</div>
+        </div>
+      </div>
+      <div class="wisdom-q">
+        <div class="wq-num">03</div>
+        <div>
+          <div class="wq-text">"<strong>Structure is freedom.</strong> A great design system doesn't constrain creativity — it compounds it. The constraint is the invitation."</div>
+          <div class="wq-sub">On design systems, token architecture, and why rules at scale are a form of generosity.</div>
+        </div>
+      </div>
+      <div class="wisdom-q">
+        <div class="wq-num">04</div>
+        <div>
+          <div class="wq-text">"<strong>The projects you decline define you as much as the ones you take.</strong> I'm selective by design — because the work shapes the designer."</div>
+          <div class="wq-sub">On choosing mission-driven work, healthcare, education, and things built to serve rather than extract.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CASE STUDIES ───────────────────────────────────────────────────── -->
+<section>
+  <div class="section-inner" style="padding-bottom:0">
+    <div class="sec-header">
+      <div class="sec-num">02 — Selected Work</div>
+      <div>
+        <h2 class="sec-title">Projects with outcomes</h2>
+        <p class="sec-sub">Beautiful work means nothing if it doesn't change something. Here's what changed.</p>
+      </div>
+    </div>
+  </div>
+  <div class="case-grid">
+    <div class="case-row">
+      <div class="case-thumb" style="background:#061827;overflow:hidden">
+        <img src="images/design-systems/ge-edison/01-home-light.jpg" alt="Edison Design System" style="width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.92">
+      </div>
+      <div class="case-info">
+        <div>
+          <div class="case-tag">Design Systems · Healthcare · 2020</div>
+          <div class="case-title">Edison Design System</div>
+        </div>
+        <div class="case-outcome">"Unified 40+ products across global clinical environments. Zero ambiguity tolerance — every pattern documented, accessibility-tested, WCAG 2.1 AA."</div>
+        <div class="case-meta">GE Healthcare · Contract · Remote</div>
+      </div>
+    </div>
+    <div class="case-row">
+      <div class="case-info" style="border-right:1px solid var(--rule)">
+        <div>
+          <div class="case-tag">Design Systems · Healthcare Insurance · 2020</div>
+          <div class="case-title">Blue Cross Blue Shield<br>FIBER Design System</div>
+        </div>
+        <div class="case-outcome">"Ended design fragmentation across 12+ product teams. Reduced design-to-dev handoff time significantly. Made FIBER something designers actually wanted to use."</div>
+        <div class="case-meta">Blue Cross Blue Shield of Illinois · Lead UX · Contract</div>
+      </div>
+      <div class="case-thumb" style="background:#0d1f3c;overflow:hidden">
+        <img src="images/design-systems/bcbs-fiber-1.png" alt="FIBER Design System" style="width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.92">
+      </div>
+    </div>
+    <div class="case-row">
+      <div class="case-thumb" style="background:#090f1a;overflow:hidden">
+        <img src="images/design-systems/avant-pathfinder/08-pathfinder-3.jpg" alt="Pathfinder 2.0 Avant" style="width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.92">
+      </div>
+      <div class="case-info">
+        <div>
+          <div class="case-tag">Design Systems · Fintech · 2021–2024</div>
+          <div class="case-title">Avant — Pathfinder<br>Design System</div>
+        </div>
+        <div class="case-outcome">"200+ components serving 3 product teams and 2 brand contexts. Reduced new feature design time by ~40%. Built from scratch over 3 years."</div>
+        <div class="case-meta">Avant / Amount · Principal Designer · In-house</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Branding sub-header -->
+  <div class="section-inner" style="padding-top:72px;padding-bottom:0">
+    <div class="sec-header">
+      <div class="sec-num">03 — Branding & Identity</div>
+      <div>
+        <h2 class="sec-title">Identity systems that hold</h2>
+        <p class="sec-sub">Logos are easy. Brand systems that scale across campaigns, packaging, and platforms take a different kind of thinking.</p>
+      </div>
+    </div>
+  </div>
+  <div class="case-grid">
+    <div class="case-row">
+      <div class="case-thumb" style="background:#0b2145;overflow:hidden">
+        <img src="images/branding/spacelab/01-hero.jpg" alt="Spacelab Brand Identity" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:.95">
+      </div>
+      <div class="case-info">
+        <div>
+          <div class="case-tag">Branding & Packaging · Health & Wellness · 2019</div>
+          <div class="case-title">Spacelab Health<br>Brand Identity & Packaging</div>
+        </div>
+        <div class="case-outcome">"Full brand identity system for a premium CBD wellness line — logo, color system, typography, retail packaging, and digital applications. Designed to live at the intersection of science and calm."</div>
+        <div class="case-meta">Spacelab Health · Brand Identity · Contract</div>
+      </div>
+    </div>
+    <div class="case-row">
+      <div class="case-info" style="border-right:1px solid var(--rule)">
+        <div>
+          <div class="case-tag">Branding · Technology Consulting · 2020</div>
+          <div class="case-title">Maven Wave<br>Brand Identity System</div>
+        </div>
+        <div class="case-outcome">"Premium brand identity for an elite Google Cloud partner — built to signal authority and intelligence across digital, print, and enterprise environments. Precision over personality."</div>
+        <div class="case-meta">Maven Wave · Brand Identity · Contract</div>
+      </div>
+      <div class="case-thumb" style="background:#111112;overflow:hidden">
+        <img src="images/branding/maven-wave/01-logo-mockup.jpg" alt="Maven Wave Brand System" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:.97">
+      </div>
+    </div>
+    <div class="case-row">
+      <div class="case-thumb" style="background:#05091a;overflow:hidden">
+        <img src="images/branding/avant/00-portfolio-slide.jpg" alt="Avant Marketing Design Library" style="width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.95">
+      </div>
+      <div class="case-info">
+        <div>
+          <div class="case-tag">Marketing Design · Fintech · 2021–2024</div>
+          <div class="case-title">Avant — Marketing<br>Design Library</div>
+        </div>
+        <div class="case-outcome">"500+ branded assets across social, email, event, and partner channels — all built on a living design system. Consistent at scale without sacrificing campaign flexibility."</div>
+        <div class="case-meta">Avant / Amount · Principal Designer · In-house</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── QUOTE STRIP 02 ─────────────────────────────────────────────────── -->
+<div class="quote-strip dark">
+  <div class="qs-rule"></div>
+  <div class="qs-body">
+    <div class="qs-text">"There are fast solutions and right solutions. I've spent 25 years learning how to make them the same thing."</div>
+    <div class="qs-attr">— Mikel Rosenthal · PBK Studio</div>
+  </div>
+</div>
+
+<!-- ── INTAKE FORM ────────────────────────────────────────────────────── -->
+<section id="start">
+  <div class="intake">
+    <div class="intake-inner">
+      <div class="intake-lede">
+        <h2>Start a project</h2>
+        <p>Tell me what you're building and why it matters. I'll give you a straight answer — yes, no, or not yet — within 24 hours. No hedging. No sales pitch.</p>
+        <div class="intake-note">
+          <strong>Connected to HubSpot CRM</strong><br><br>
+          Your submission is automatically logged,<br>
+          categorized, and triggers a tailored<br>
+          response specific to your service type.<br><br>
+          No generic replies. No black holes.
+        </div>
+      </div>
+      <div>
+        <form class="form" onsubmit="return false">
+          <div class="form-group">
+            <div class="form-label">Your Name</div>
+            <input class="form-input" type="text" placeholder="First and last name">
+          </div>
+          <div class="form-group">
+            <div class="form-label">Email</div>
+            <input class="form-input" type="email" placeholder="you@company.com">
+          </div>
+          <div class="form-group">
+            <div class="form-label">Company / Organization</div>
+            <input class="form-input" type="text" placeholder="Who are you building for?">
+          </div>
+          <div class="form-group">
+            <div class="form-label">Service Type — Select all that apply</div>
+            <div class="form-chips">
+              <div class="form-chip sel" onclick="this.classList.toggle('sel')">Design System</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')">Brand Identity</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')">UX / Product</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')">Web Design</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')">Motion / Animation</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')">Voice Performance</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')">Not sure yet</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="form-label">Project Budget</div>
+            <select class="form-select">
+              <option value="">Select a range</option>
+              <option>Under $2,000 (Voice / Small Motion)</option>
+              <option>$2,000 – $5,000</option>
+              <option>$5,000 – $15,000</option>
+              <option>$15,000 – $50,000</option>
+              <option>$50,000+ (Enterprise)</option>
+              <option>Not sure — let's talk</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="form-label">Timeline</div>
+            <select class="form-select">
+              <option value="">When do you need this?</option>
+              <option>ASAP (rush available)</option>
+              <option>Within 1 month</option>
+              <option>1–3 months</option>
+              <option>3–6 months</option>
+              <option>Planning ahead (6+ months)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="form-label">Tell me about it</div>
+            <textarea class="form-textarea" placeholder="What are you building, who is it for, and what problem does it solve? The more specific, the better."></textarea>
+          </div>
+          <div class="form-group" style="border-bottom:none;padding-bottom:0">
+            <div class="form-label">How did you find me?</div>
+            <select class="form-select">
+              <option value="">Select one</option>
+              <option>LinkedIn</option>
+              <option>Instagram</option>
+              <option>Facebook</option>
+              <option>Upwork</option>
+              <option>Referral from someone I know</option>
+              <option>Google search</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <button class="form-submit">Submit Project Brief →</button>
+          <div class="hs-badge">Synced to HubSpot CRM · Auto-response within minutes</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AUTOMATION FLOW ────────────────────────────────────────────────── -->
+<div class="automation">
+  <div class="auto-card">
+    <div class="auto-step">Step 01 — Instant</div>
+    <div class="auto-title">Auto-Response by Service</div>
+    <div class="auto-desc">The moment you submit, HubSpot sends a tailored email. Design Systems gets a different reply than Voice Performance — specific, not generic.</div>
+  </div>
+  <div class="auto-card">
+    <div class="auto-step">Step 02 — Within 24hrs</div>
+    <div class="auto-title">Personal Review</div>
+    <div class="auto-desc">Mikel reviews every submission. You get a real answer: yes/no/not yet, with honest reasoning. No ghosting.</div>
+  </div>
+  <div class="auto-card">
+    <div class="auto-step">Step 03 — Ongoing</div>
+    <div class="auto-title">Project Dashboard</div>
+    <div class="auto-desc">Active clients get a shared HubSpot project view — timeline, milestones, deliverables, and communication all in one place.</div>
+  </div>
+</div>
+
+<!-- ── SOCIAL LAUNCH PLAN ─────────────────────────────────────────────── -->
+<section class="social">
+  <div class="sec-header">
+    <div class="sec-num">03 — Launch Plan</div>
+    <div>
+      <h2 class="sec-title">Where to find me</h2>
+      <p class="sec-sub">A focused presence across platforms. Quality over volume.</p>
+    </div>
+  </div>
+  <div class="social-grid">
+    <div class="social-card">
+      <div class="social-platform">LinkedIn</div>
+      <div class="social-desc">Primary B2B channel. Case study posts, design system insights, process threads. Connect with design leaders and hiring managers at target companies.</div>
+      <div class="social-action">linkedin.com/in/mikelrosenthal</div>
+    </div>
+    <div class="social-card">
+      <div class="social-platform">Instagram</div>
+      <div class="social-desc">Visual portfolio feed. Digital art, motion work, brand reveals. Stories for behind-the-scenes process. Primary for creative directors and agency leads.</div>
+      <div class="social-action">@pbkstudio</div>
+    </div>
+    <div class="social-card">
+      <div class="social-platform">Facebook</div>
+      <div class="social-desc">Community reach and long-form project posts. Good for referrals and local Chicago network. Share case studies with full context.</div>
+      <div class="social-action">PBK Studio page</div>
+    </div>
+    <div class="social-card">
+      <div class="social-platform">Upwork</div>
+      <div class="social-desc">Selective high-value projects. Design Systems and UX work. Top Rated status builds quickly. Vet clients through the intake form before engaging.</div>
+      <div class="social-action">Filter: Enterprise only</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">PBK <em>·</em> STUDIO</div>
+  <div class="footer-copy">© 2026 Mikel Rosenthal · Chicago, IL · Available for Contract & Freelance</div>
+</footer>
+
+<script>
+// ── VOICE SAMPLES (Web Speech API placeholder) ───────────────────────
+const VOICE_SCRIPTS = [
+  // 0 · Commercial
+  `There are moments that define a brand. Not the campaigns. Not the taglines. The quiet, consistent moments — when your product shows up exactly when someone needs it. That's the promise we help you keep. Every time.`,
+  // 1 · E-Learning
+  `Welcome. In this module, we're going to walk through the fundamentals of design systems — what they are, why they matter, and how a well-built system can reduce your team's decision fatigue while dramatically improving the quality and consistency of everything you ship.`,
+  // 2 · Brand storytelling
+  `Some things are built to ship. Others are built to last. The best work — the work that actually changes something — lives at the intersection of craft, conviction, and the willingness to say no to the easy version.`
+];
+
+let activeUtterance = null;
+let activeIdx = -1;
+
+function playVoice(idx) {
+  const btn = document.getElementById('vp' + idx);
+  // Stop if already playing this one
+  if (activeIdx === idx && speechSynthesis.speaking) {
+    speechSynthesis.cancel();
+    btn.textContent = '▶';
+    activeIdx = -1;
+    return;
+  }
+  // Cancel any running
+  speechSynthesis.cancel();
+  [0,1,2].forEach(i => { const b = document.getElementById('vp'+i); if(b) b.textContent='▶'; });
+
+  const u = new SpeechSynthesisUtterance(VOICE_SCRIPTS[idx]);
+  u.rate = 0.88;
+  u.pitch = 0.92;
+  u.volume = 1;
+  // pick a deep voice if available
+  const voices = speechSynthesis.getVoices();
+  const preferred = voices.find(v => /daniel|alex|fred|oliver|arthur|male/i.test(v.name))
+    || voices.find(v => v.lang.startsWith('en')) || voices[0];
+  if (preferred) u.voice = preferred;
+
+  btn.textContent = '■';
+  activeIdx = idx;
+  u.onend = () => { btn.textContent = '▶'; activeIdx = -1; };
+  u.onerror = () => { btn.textContent = '▶'; activeIdx = -1; };
+  speechSynthesis.speak(u);
+}
+// pre-load voices
+speechSynthesis.getVoices();
+window.addEventListener('focus', () => speechSynthesis.getVoices());
+
+// ── GIF WALL ─────────────────────────────────────────────────────────
+const BASE = 'https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/';
+const ALL_GIFS = [
+  '10%20Orbits.gif','3x%20Geo%20Twist.gif','All%20night%20long.gif','Amalgamation.gif',
+  'And%20what%20did%20you%20expect.gif','Arc%20flip.gif','As%20We%20Drift.gif','Asention.gif',
+  'Back%20to%20the%20beginning.gif','Black%20Sea.gif','Blurred%20Phase.gif','Box%20breaker.gif',
+  'Butterfly%20effect.gif','Bye%20for%20now.gif','CCCC.gif','Can%20you%20see%20me.gif',
+  'Chess%20anyone.gif','Circle%20drop.gif','Circle%20spheres.gif','Cloud%20twists.gif',
+  'Collapsing%20red%20and%20tan.gif','Coral%20Benz.gif','Cosmos.gif','Crank%20still.gif',
+  'Daisy%20Bloom.gif','Dance%20with%20me.gif','Dark%20skies.gif','Dark%20waves.gif',
+  'Data%20cycles.gif','Didn%27t%20mean%20to%20scare%20you.gif','Distant%20spin.gif',
+  'Divide%20and%20conquer.gif','Do%20you%20see%20the%20numbers.gif','Don%27t%20drowned.gif',
+  'Don%27t%20look%20away.gif','Double%20Vision%20v2.gif','Down%20we%20go.gif','Drip%20Row.gif',
+  'Drop%20in%20bucket.gif','Drugs.gif','Eggshell.gif','FAV0022.gif','Falling%20asleep.gif',
+  'Fast%20as%20you%20can.gif','Fibonacci%20twist.gif','Fire%20by%20the%20Sea.gif',
+  'Folding%20Time.gif','Nightsun.gif','Noble%20owl.gif','Old%20memories.gif','Orbit%20Wave.gif',
+  'Orbit%20v4.gif','Orbitals.gif','Orbits%20and%20orbits.gif','Out%20We%20Go.gif',
+  'PBK%20Dark%20Flam.gif','PBK%20Logo.gif','Perfect%20sink.gif','Play%20me.gif',
+  'Prism%20drift.gif','Promise%20me%20forever.gif','Signal.gif','Simplicity.gif',
+  'Slices%20of%20me.gif','Slinky%20Forgo.gif','Slowly%20going%20inward.gif','Solar%20B%3AW.gif',
+  'Solve%20me.gif','Space%20Trip.gif','Spectral%20arc.gif','Speed%20shape.gif','Star%20twist.gif',
+  'Stay%20in%20line.gif','Still%20waiting.gif','Stone%20Ascension.gif','Strings%20of%20chance.gif',
+  'Swin%20me%20around.gif','Synchronization.gif','Tailspin.gif','Tall%20Noble%20owl.gif',
+  'The%20biggest%20box.gif','The%20collector.gif','The%20world%20is%20yours.gif','Time%20scale.gif',
+  'Timebloom.gif','Tiny%20movements.gif','Tunnel%20Vision.gif','Twist%20Lattice.gif',
+  'Twist%20light.gif','Twisted%20sphere.gif','Twisting%20triangles.gif','Twisting%20vector.gif',
+  'Ultimate%20synchronization.gif','Under%20the%20cells.gif','Under%20the%20sea.gif','V.gif',
+  'Vector%20Spin.gif','Vector%20echo.gif','Vector%20life.gif','Walk%20the%20walk.gif',
+  'Water%20droplet.gif','Where%20am%20I.gif','Where%20is%20mom.gif','Wizard%20Stone.gif',
+  'Zen%20Circle.gif','Zip%20line%20logo.gif'
+];
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+const GRID_COUNT = 32;
+const wall = document.getElementById('gifWall');
+const initial = shuffle(ALL_GIFS).slice(0, GRID_COUNT);
+
+initial.forEach(gif => {
+  const cell = document.createElement('div');
+  cell.className = 'gif-cell';
+  const img = document.createElement('img');
+  img.src = BASE + gif;
+  img.loading = 'lazy';
+  cell.appendChild(img);
+  wall.appendChild(cell);
+});
+
+const rotPool = shuffle(ALL_GIFS);
+let rimIdx = 0;
+setInterval(() => {
+  const cells = wall.querySelectorAll('.gif-cell img');
+  const idx = Math.floor(Math.random() * GRID_COUNT);
+  const img = cells[idx];
+  const next = rotPool[rimIdx % rotPool.length];
+  rimIdx++;
+  img.classList.add('out');
+  setTimeout(() => {
+    img.src = BASE + next;
+    img.classList.remove('out');
+  }, 700);
+}, 1800);
+
+// ── WAVEFORM ANIMATION ────────────────────────────────────────────────
+const wvEl = document.getElementById('waveform');
+if (wvEl) {
+  for (let i = 0; i < 48; i++) {
+    const bar = document.createElement('div');
+    bar.className = 'wv-bar';
+    const dur = (0.6 + Math.random() * 1.2).toFixed(2) + 's';
+    const delay = (Math.random() * 1).toFixed(2) + 's';
+    bar.style.cssText = `--d:${dur};animation-delay:${delay}`;
+    wvEl.appendChild(bar);
+  }
+}
+</script>
+</body>
+</html>
