@@ -3,7 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>mikelrosenthal.com — Business Redesign Concept</title>
+<title>Mikel Rosenthal — Design Systems, UX, Brand & Product Designer · Chicago</title>
+<meta name="description" content="25 years building design systems, brand identities, and digital products. GE Healthcare · BCBS · Avant · TransUnion · Google. Available for contract and full-time work.">
+<meta name="author" content="Mikel Rosenthal">
+<meta name="robots" content="index, follow">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://pitchblacknight.com/me">
+<meta property="og:title" content="Mikel Rosenthal — Senior Design Systems & Product Designer">
+<meta property="og:description" content="25 years of design systems, UX, brand identity, and product design. Red Dot winner. GE Healthcare · BCBS · Avant · TransUnion. Available now.">
+<meta property="og:image" content="https://pitchblacknight.com/me/images/og-preview.jpg">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Mikel Rosenthal — Design Systems & Product Designer">
+<meta name="twitter:description" content="25 years. Design systems, UX, brand identity, product design. Red Dot winner. Available for contract work.">
+<meta name="twitter:image" content="https://pitchblacknight.com/me/images/og-preview.jpg">
+<!-- Canonical -->
+<link rel="canonical" href="https://pitchblacknight.com/me">
 <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -538,6 +554,89 @@ section{border-bottom:1px solid var(--rule)}
   color:var(--ink-25);margin-top:28px;
 }
 
+/* ── CASE DETAIL STRIPS ───────────────────── */
+.case-detail{
+  display:grid;grid-template-columns:1.3fr 1fr 0.8fr;
+  border-bottom:1px solid var(--rule);
+  background:#faf9f7;
+}
+.cd-narrative{
+  padding:40px 48px;border-right:1px solid var(--rule);
+  display:flex;flex-direction:column;gap:16px;
+}
+.cd-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-25);margin-bottom:4px;
+}
+.cd-text{
+  font-family:'EB Garamond',serif;font-size:17px;line-height:1.65;color:var(--ink-75);
+}
+.cd-steps{display:flex;flex-direction:column;gap:0;margin-top:8px}
+.cd-step{
+  display:flex;gap:16px;padding:10px 0;border-top:1px solid var(--rule);
+  align-items:flex-start;
+}
+.cd-step-n{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;
+  color:var(--orange);flex-shrink:0;width:20px;margin-top:1px;
+}
+.cd-step-t{font-size:13px;color:var(--ink-75);line-height:1.4}
+.cd-stats{
+  display:grid;grid-template-columns:1fr 1fr;
+  border-right:1px solid var(--rule);
+  align-content:start;
+}
+.cd-stat{
+  padding:28px 24px;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.cd-stat:nth-child(even){border-right:none}
+.cd-stat-n{
+  font-family:'Space Mono',monospace;font-size:32px;font-weight:700;line-height:1;color:var(--ink);
+}
+.cd-stat-l{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink-50);margin-top:6px;
+}
+.cd-meta{padding:36px 36px;display:flex;flex-direction:column;gap:20px}
+.cd-awards{display:flex;flex-direction:column;gap:8px}
+.cd-award{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:10px 0;border-bottom:1px solid var(--rule);
+}
+.cd-award:last-child{border-bottom:none}
+.cd-award-dot{width:7px;height:7px;border-radius:50%;background:var(--orange);flex-shrink:0;margin-top:4px}
+.cd-award-body{}
+.cd-award-name{font-size:12px;font-weight:500;color:var(--ink);line-height:1.3}
+.cd-award-sub{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--ink-50);margin-top:2px}
+.cd-tools{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px}
+.cd-tool{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 8px;border:1px solid var(--rule);color:var(--ink-50);
+}
+@media(max-width:900px){
+  .case-detail{grid-template-columns:1fr}
+  .cd-narrative{border-right:none;border-bottom:1px solid var(--rule)}
+  .cd-stats{border-right:none;border-bottom:1px solid var(--rule)}
+}
+
+/* ── CAREER TIMELINE ───────────────────────── */
+.timeline{padding:0;border-top:1px solid var(--rule)}
+.timeline-row{
+  display:grid;grid-template-columns:160px 1fr;
+  border-bottom:1px solid var(--rule);min-height:80px;
+}
+.timeline-year{
+  padding:24px 32px;
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-25);
+  border-right:1px solid var(--rule);
+  display:flex;align-items:flex-start;padding-top:28px;
+}
+.timeline-body{padding:24px 40px;display:flex;flex-direction:column;gap:4px}
+.timeline-co{font-size:13px;font-weight:500;color:var(--ink-75);letter-spacing:.02em}
+.timeline-role{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-25)}
+.timeline-proj{font-family:'EB Garamond',serif;font-size:16px;color:var(--ink-75);margin-top:4px;font-style:italic}
+
 /* ── INTAKE FORM ───────────────────────── */
 .intake{background:var(--cream);padding:96px 56px}
 .intake-inner{display:grid;grid-template-columns:400px 1fr;gap:96px}
@@ -578,6 +677,13 @@ section{border-bottom:1px solid var(--rule)}
 }
 .form-chip:hover,.form-chip.sel{border-color:var(--orange);color:var(--orange)}
 .form-chip.sel{background:rgba(232,81,42,.06)}
+.form-req{color:var(--orange);font-size:12px}
+.form-error{
+  display:none;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--orange);margin-top:6px;padding-left:2px;
+}
+.form-input.invalid,.form-select.invalid,.form-textarea.invalid{border-color:var(--orange)}
+.form-input.invalid + .form-error,.form-textarea.invalid + .form-error{display:block}
 .form-submit{
   margin-top:40px;
   background:var(--ink);color:var(--cream);
@@ -722,6 +828,20 @@ footer{
 
   /* Footer */
   footer{padding:48px 24px;flex-direction:column;gap:16px}
+
+  /* Case detail strips — tablet */
+  .case-detail{grid-template-columns:1fr}
+  .cd-narrative{border-right:none;border-bottom:1px solid var(--rule)}
+  .cd-stats{border-right:none;border-bottom:1px solid var(--rule)}
+  .cd-stats{grid-template-columns:repeat(4,1fr)}
+
+  /* Timeline — tablet */
+  .timeline-row{grid-template-columns:120px 1fr}
+  .timeline-year{padding:20px 20px;font-size:9px}
+  .timeline-body{padding:20px 24px}
+
+  /* Capabilities grid — tablet: 2 cols */
+  .caps-grid{grid-template-columns:1fr 1fr!important}
 }
 
 /* ── MOBILE ─────────────────────────────── */
@@ -829,12 +949,27 @@ footer{
   /* Footer */
   footer{padding:40px 20px;flex-direction:column;gap:12px;text-align:center}
   .footer-copy{font-size:8px}
+
+  /* Case detail strips */
+  .case-detail{grid-template-columns:1fr}
+  .cd-narrative{border-right:none;border-bottom:1px solid var(--rule)}
+  .cd-stats{border-right:none;border-bottom:1px solid var(--rule)}
+  .cd-stat-n{font-size:24px}
+
+  /* Timeline */
+  .timeline-row{grid-template-columns:1fr}
+  .timeline-year{border-right:none;border-bottom:1px solid var(--rule);padding:16px 20px}
+  .timeline-body{padding:16px 20px}
+
+  /* sl-case info (branding carousels) */
+  .sl-info{grid-template-columns:1fr;gap:20px;padding:28px 20px}
+  .sl-carousel{aspect-ratio:4/3}
 }
 </style>
 </head>
 <body>
 
-<div class="concept-bar">⚠ Concept Mockup — Not Live · mikelrosenthal.com redesign proposal</div>
+<div class="concept-bar">● Available for Contract & Freelance Work · Chicago, IL · <a href="#start" style="color:inherit;text-decoration:underline;text-underline-offset:3px">Start a project →</a></div>
 
 <!-- NAV -->
 <nav style="margin-top:28px">
@@ -844,7 +979,7 @@ footer{
     <a href="#">Services</a>
     <a href="#">Philosophy</a>
     <a href="#">About</a>
-    <button class="nav-cta">Start a Project →</button>
+    <a class="nav-cta" href="#start">Start a Project →</a>
   </div>
 </nav>
 
@@ -861,8 +996,8 @@ footer{
     respect the people using them.
   </p>
   <div class="hero-actions">
-    <button class="btn-primary">Start a Project →</button>
-    <button class="btn-ghost">View Selected Work</button>
+    <a class="btn-primary" href="#start">Start a Project →</a>
+    <a class="btn-ghost" href="#work">View Selected Work ↓</a>
   </div>
   <div class="hero-tags">
     <div class="hero-available">● Available Now</div>
@@ -1186,7 +1321,7 @@ footer{
 </div>
 
 <!-- ── CASE STUDIES ───────────────────────────────────────────────────── -->
-<section>
+<section id="work">
   <div class="section-inner" style="padding-bottom:0">
     <div class="sec-header">
       <div class="sec-num">02 — Selected Work</div>
@@ -1212,10 +1347,16 @@ footer{
           <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-09.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-10.png" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-11.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/guide-01.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/guide-02.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/guide-03.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/guide-04.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/guide-05.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
           </div>
           <button class="sl-btn sl-prev" onclick="edGo(-1)">&#8592;</button>
           <button class="sl-btn sl-next" onclick="edGo(1)">&#8594;</button>
-          <div class="sl-counter" id="edCounter">1 / 11</div>
+          <div class="sl-counter" id="edCounter">1 / 16</div>
         </div>
       </div>
       <div class="case-info">
@@ -1225,6 +1366,49 @@ footer{
         </div>
         <div class="case-outcome">"Unified 40+ products across global clinical environments. Zero ambiguity tolerance — every pattern documented, accessibility-tested, WCAG 2.1 AA."</div>
         <div class="case-meta">GE Healthcare · Contract · Remote</div>
+      </div>
+    </div>
+    <div class="case-detail">
+      <div class="cd-narrative">
+        <div class="cd-label">Challenge &amp; Approach</div>
+        <div class="cd-text">40+ products. Global clinical environments. Zero tolerance for ambiguity — a hospital technician doesn't have time to guess. I worked on the Edison Design System's component libraries, built usage guidance, ran office hours, and drove adoption across teams. Every pattern had to survive real clinical conditions.</div>
+
+        <div class="cd-steps">
+          <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Audited existing patterns across 40+ product teams</div></div>
+          <div class="cd-step"><div class="cd-step-n">02</div><div class="cd-step-t">Built base component library with WCAG 2.1 AA compliance</div></div>
+          <div class="cd-step"><div class="cd-step-n">03</div><div class="cd-step-t">Created how-to guidance, ran weekly office hours</div></div>
+          <div class="cd-step"><div class="cd-step-n">04</div><div class="cd-step-t">Drove adoption metrics and resolved friction points</div></div>
+        </div>
+      </div>
+      <div class="cd-stats">
+        <div class="cd-stat">
+          <div class="cd-stat-n">40+</div>
+          <div class="cd-stat-l">Products Unified</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">3</div>
+          <div class="cd-stat-l">Major Awards</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">WCAG</div>
+          <div class="cd-stat-l">2.1 AA Compliant</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">2020</div>
+          <div class="cd-stat-l">Year Delivered</div>
+        </div>
+      </div>
+      <div class="cd-meta">
+<div class="cd-label">Awards</div>
+        <div class="cd-awards">
+          <div class="cd-award"><div class="cd-award-dot"></div><div class="cd-award-body"><div class="cd-award-name">Red Dot Award</div><div class="cd-award-sub">Interface Design · 2020</div></div></div>
+          <div class="cd-award"><div class="cd-award-dot"></div><div class="cd-award-body"><div class="cd-award-name">Fast Company</div><div class="cd-award-sub">Innovation by Design · 2020</div></div></div>
+          <div class="cd-award"><div class="cd-award-dot"></div><div class="cd-award-body"><div class="cd-award-name">dmi:DVA</div><div class="cd-award-sub">Design Management Institute · 2020</div></div></div>
+        </div>
+<div class="cd-label" style="margin-top:8px">Tools</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Figma</span> <span class="cd-tool">Sketch</span> <span class="cd-tool">Abstract</span> <span class="cd-tool">Storybook</span>
+        </div>
       </div>
     </div>
     <div class="case-row">
@@ -1259,16 +1443,78 @@ footer{
           <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-18.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-19.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
           <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-20.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-01.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-02.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-03.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-04.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-05.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-06.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-07.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-08.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-09.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-10.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-11.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-12.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-13.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-14.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-15.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-16.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-17.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-18.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-19.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-20.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-21.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-22.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-23.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/guide-24.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
           </div>
           <button class="sl-btn sl-prev" onclick="bcGo(-1)">&#8592;</button>
           <button class="sl-btn sl-next" onclick="bcGo(1)">&#8594;</button>
-          <div class="sl-counter" id="bcCounter">1 / 20</div>
+          <div class="sl-counter" id="bcCounter">1 / 44</div>
         </div>
       </div>
     </div>
     <div class="case-row">
-      <div class="case-thumb" style="background:#090f1a;overflow:hidden">
-        <img src="images/design-systems/avant-pathfinder/08-pathfinder-3.jpg" alt="Pathfinder 2.0 Avant" style="width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.92">
+      <div class="case-thumb" style="background:#090f1a;overflow:hidden;position:relative;padding:0">
+        <div class="sl-carousel" id="pfCarousel" style="position:absolute;inset:0;width:100%;height:100%;aspect-ratio:unset">
+          <div class="sl-carousel-track" id="pfTrack">
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/00-portfolio-slide.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/01-dashboard.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/05-discovery.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/06-configuration.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/07-iqa-builder.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/08-pathfinder-3.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/09-hub-concept.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-10.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-11.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-12.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-13.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-14.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-15.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-16.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-17.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-18.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-19.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-20.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-21.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-22.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-23.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-24.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-25.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-26.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-27.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-28.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-29.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-30.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-31.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-32.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/avant-pathfinder/pf-33.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          </div>
+          <button class="sl-btn sl-prev" onclick="pfGo(-1)">&#8592;</button>
+          <button class="sl-btn sl-next" onclick="pfGo(1)">&#8594;</button>
+          <div class="sl-counter" id="pfCounter">1 / 31</div>
+        </div>
       </div>
       <div class="case-info">
         <div>
@@ -1277,6 +1523,45 @@ footer{
         </div>
         <div class="case-outcome">"200+ components serving 3 product teams and 2 brand contexts. Reduced new feature design time by ~40%. Built from scratch over 3 years."</div>
         <div class="case-meta">Avant / Amount · Principal Designer · In-house</div>
+      </div>
+    </div>
+    <div class="case-detail">
+      <div class="cd-narrative">
+        <div class="cd-label">Challenge &amp; Approach</div>
+        <div class="cd-text">Three product teams, two brand contexts, one system built from scratch over three years. When I took it on, there was no shared foundation — just inconsistency at scale. By the time I handed it off, ticket turnover had improved 10:1 and 350+ marketing managers had been trained to use the system correctly.</div>
+
+        <div class="cd-steps">
+          <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Established design tokens, color, and typography foundation</div></div>
+          <div class="cd-step"><div class="cd-step-n">02</div><div class="cd-step-t">Built 200+ components across Avant and Amount brand contexts</div></div>
+          <div class="cd-step"><div class="cd-step-n">03</div><div class="cd-step-t">Trained 350+ marketing managers on system usage and best practices</div></div>
+          <div class="cd-step"><div class="cd-step-n">04</div><div class="cd-step-t">Maintained and extended system through 3 years of product evolution</div></div>
+        </div>
+      </div>
+      <div class="cd-stats">
+        <div class="cd-stat">
+          <div class="cd-stat-n">200+</div>
+          <div class="cd-stat-l">Components</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">10:1</div>
+          <div class="cd-stat-l">Ticket Improvement</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">350+</div>
+          <div class="cd-stat-l">Managers Trained</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">3 yr</div>
+          <div class="cd-stat-l">Build Duration</div>
+        </div>
+      </div>
+      <div class="cd-meta">
+<div class="cd-label">Role</div>
+        <div class="cd-text" style="font-size:14px">Principal Designer · UI / UX / Product / Design Systems</div>
+<div class="cd-label" style="margin-top:8px">Tools</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Figma</span> <span class="cd-tool">Figma Admin</span> <span class="cd-tool">Jira</span> <span class="cd-tool">Monday</span> <span class="cd-tool">Tokens Studio</span>
+        </div>
       </div>
     </div>
   </div>
@@ -1748,6 +2033,48 @@ footer{
         <div class="case-meta">SurePeople · UX / UI / Visual / Product Designer · Contract</div>
       </div>
     </div>
+    <div class="case-detail">
+      <div class="cd-narrative">
+        <div class="cd-label">Challenge &amp; Approach</div>
+        <div class="cd-text">SurePeople needed a full product design for a behavioral personality platform — visual direction, interface, and a developer-ready handoff — all in a compressed timeline. I established the visual language, designed every screen from the PRISM psychometric engine to the consumer dashboard, and delivered coded-ready assets.</div>
+
+        <div class="cd-steps">
+          <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Defined visual direction and brand language for the platform</div></div>
+          <div class="cd-step"><div class="cd-step-n">02</div><div class="cd-step-t">Designed the full PRISM interface: personality profiles, team dynamics, motivation mapping</div></div>
+          <div class="cd-step"><div class="cd-step-n">03</div><div class="cd-step-t">Built developer-ready assets with annotated specs and component documentation</div></div>
+        </div>
+      </div>
+      <div class="cd-stats">
+        <div class="cd-stat">
+          <div class="cd-stat-n">1</div>
+          <div class="cd-stat-l">Full Product Design</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">4+</div>
+          <div class="cd-stat-l">Core Modules</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">2021</div>
+          <div class="cd-stat-l">Year Delivered</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">100%</div>
+          <div class="cd-stat-l">Dev-Ready</div>
+        </div>
+      </div>
+      <div class="cd-meta">
+<div class="cd-label">Role</div>
+        <div class="cd-text" style="font-size:14px">Lead UX / UI / Visual / Product Designer · Contract</div>
+<div class="cd-label" style="margin-top:8px">Modules</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Personality</span> <span class="cd-tool">Team Dynamics</span> <span class="cd-tool">Motivation</span> <span class="cd-tool">Conflict Mgmt</span>
+        </div>
+<div class="cd-label" style="margin-top:8px">Tools</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Figma</span> <span class="cd-tool">Sketch</span> <span class="cd-tool">Principle</span> <span class="cd-tool">InVision</span>
+        </div>
+      </div>
+    </div>
 
     <div class="case-row">
       <div class="case-info" style="border-right:1px solid var(--rule)">
@@ -1847,6 +2174,49 @@ footer{
         <div class="case-meta">TransUnion · UX / UI / Product Designer / Design Systems · Contract</div>
       </div>
     </div>
+    <div class="case-detail">
+      <div class="cd-narrative">
+        <div class="cd-label">Challenge &amp; Approach</div>
+        <div class="cd-text">Two parallel systems: the TransUnion Global Design System and the TUCM product design system. I established universal style guidelines, facilitated designer and developer requests in an agile environment, and transitioned all application designs into responsive, scaleable, code-ready assets.</div>
+
+        <div class="cd-steps">
+          <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Established universal style guidelines for both TU brand systems</div></div>
+          <div class="cd-step"><div class="cd-step-n">02</div><div class="cd-step-t">Built component libraries with responsive patterns</div></div>
+          <div class="cd-step"><div class="cd-step-n">03</div><div class="cd-step-t">Facilitated design and dev requests in agile sprint cadence</div></div>
+          <div class="cd-step"><div class="cd-step-n">04</div><div class="cd-step-t">Transitioned all designs to functional, scaleable code-ready assets</div></div>
+        </div>
+      </div>
+      <div class="cd-stats">
+        <div class="cd-stat">
+          <div class="cd-stat-n">2</div>
+          <div class="cd-stat-l">Parallel Systems</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">Global</div>
+          <div class="cd-stat-l">Design Scale</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">Agile</div>
+          <div class="cd-stat-l">Process</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">2019</div>
+          <div class="cd-stat-l">Year Delivered</div>
+        </div>
+      </div>
+      <div class="cd-meta">
+<div class="cd-label">Role</div>
+        <div class="cd-text" style="font-size:14px">Senior UX Product Designer · Design Systems · Contract</div>
+<div class="cd-label" style="margin-top:8px">Systems Built</div>
+        <div class="cd-tools">
+          <span class="cd-tool">TUCM Design System</span> <span class="cd-tool">TransUnion Global DS</span> <span class="cd-tool">SCVD</span>
+        </div>
+<div class="cd-label" style="margin-top:8px">Tools</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Sketch</span> <span class="cd-tool">Abstract</span> <span class="cd-tool">Zeplin</span> <span class="cd-tool">JIRA</span>
+        </div>
+      </div>
+    </div>
 
     <div class="case-row">
       <div class="case-info" style="border-right:1px solid var(--rule)">
@@ -1861,6 +2231,31 @@ footer{
         <img src="images/ux/credit-freeze/01-overview.jpg" alt="Credit Freeze" style="width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.95">
       </div>
     </div>
+    <div class="case-detail">
+      <div class="cd-narrative">
+        <div class="cd-label">Challenge &amp; Approach</div>
+        <div class="cd-text">Credit freezes are a consumer right that almost nobody understands. TransUnion needed to make a legally complex, anxiety-provoking feature feel simple and empowering. I designed the frozen/unfrozen state experience end-to-end — and explored what the brand identity for a product about protection and control should feel like.</div>
+        <div class="cd-steps">
+          <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Mapped the emotional journey around credit freeze — fear, confusion, relief</div></div>
+          <div class="cd-step"><div class="cd-step-n">02</div><div class="cd-step-t">Designed frozen / unfrozen state UX with clear confirmation patterns</div></div>
+          <div class="cd-step"><div class="cd-step-n">03</div><div class="cd-step-t">Explored brand identity to communicate protection without fear</div></div>
+        </div>
+      </div>
+      <div class="cd-stats">
+        <div class="cd-stat"><div class="cd-stat-n">2</div><div class="cd-stat-l">Core States</div></div>
+        <div class="cd-stat"><div class="cd-stat-n">1</div><div class="cd-stat-l">Brand Exploration</div></div>
+        <div class="cd-stat"><div class="cd-stat-n">2018</div><div class="cd-stat-l">Year Delivered</div></div>
+        <div class="cd-stat"><div class="cd-stat-n">TU</div><div class="cd-stat-l">Client</div></div>
+      </div>
+      <div class="cd-meta">
+        <div class="cd-label">Role</div>
+        <div class="cd-text" style="font-size:14px">UX Designer · Branding Ideation · Contract</div>
+        <div class="cd-label" style="margin-top:8px">Focus Areas</div>
+        <div class="cd-tools">
+          <span class="cd-tool">State Design</span><span class="cd-tool">Consumer UX</span><span class="cd-tool">Brand Ideation</span><span class="cd-tool">Regulatory UX</span>
+        </div>
+      </div>
+    </div>
 
     <div class="case-row">
       <div class="case-thumb" style="background:#1a73e8;overflow:hidden">
@@ -1873,6 +2268,39 @@ footer{
         </div>
         <div class="case-outcome">"Unsolicited design concept for a Google productivity dashboard — team metrics, workload visibility, and focus data unified into one dark-mode information environment. Built to show what Google's G Suite could become."</div>
         <div class="case-meta">Google · Concept / Speculative Design · 2016</div>
+      </div>
+    </div>
+    <div class="case-detail">
+      <div class="cd-narrative">
+        <div class="cd-label">Concept &amp; Approach</div>
+        <div class="cd-text">An unsolicited redesign concept for a Google productivity dashboard — team metrics, workload visibility, and focus data unified into one dark-mode information environment. The goal: show what G Suite could become if Google treated information density as a design value instead of an afterthought.</div>
+
+      </div>
+      <div class="cd-stats">
+        <div class="cd-stat">
+          <div class="cd-stat-n">1</div>
+          <div class="cd-stat-l">Speculative Concept</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">Dark</div>
+          <div class="cd-stat-l">Mode System</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">2016</div>
+          <div class="cd-stat-l">Year Created</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">G Suite</div>
+          <div class="cd-stat-l">Context</div>
+        </div>
+      </div>
+      <div class="cd-meta">
+<div class="cd-label">Role</div>
+        <div class="cd-text" style="font-size:14px">UX · Dashboard Design · Speculative / Concept</div>
+<div class="cd-label" style="margin-top:8px">Focus Areas</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Information Architecture</span> <span class="cd-tool">Data Visualization</span> <span class="cd-tool">Dark Mode UI</span> <span class="cd-tool">Team Metrics</span>
+        </div>
       </div>
     </div>
 
@@ -1903,7 +2331,203 @@ footer{
         <div class="case-meta">Blue Cross Blue Shield of Illinois · Web Design · Contract</div>
       </div>
     </div>
+    <div class="case-detail">
+      <div class="cd-narrative">
+        <div class="cd-label">Challenge &amp; Approach</div>
+        <div class="cd-text">Consumer-facing web redesign for Blue Cross Blue Shield of Illinois — benefits navigation, plan selection, doctor finder, and member services. The goal was to reduce support call volume by making self-service feel intuitive enough that members would actually use it.</div>
 
+        <div class="cd-steps">
+          <div class="cd-step"><div class="cd-step-n">01</div><div class="cd-step-t">Mapped existing user journeys and identified high-friction touchpoints</div></div>
+          <div class="cd-step"><div class="cd-step-n">02</div><div class="cd-step-t">Redesigned benefits navigation and plan selection flow</div></div>
+          <div class="cd-step"><div class="cd-step-n">03</div><div class="cd-step-t">Built doctor finder and member services interfaces</div></div>
+          <div class="cd-step"><div class="cd-step-n">04</div><div class="cd-step-t">Validated against real member scenarios to ensure intuitive self-service</div></div>
+        </div>
+      </div>
+      <div class="cd-stats">
+        <div class="cd-stat">
+          <div class="cd-stat-n">4</div>
+          <div class="cd-stat-l">Core User Flows</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">2019</div>
+          <div class="cd-stat-l">Year Delivered</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">BCBS IL</div>
+          <div class="cd-stat-l">Client</div>
+        </div>
+        <div class="cd-stat">
+          <div class="cd-stat-n">Web</div>
+          <div class="cd-stat-l">Platform</div>
+        </div>
+      </div>
+      <div class="cd-meta">
+<div class="cd-label">Role</div>
+        <div class="cd-text" style="font-size:14px">Web Designer · UX · Contract</div>
+<div class="cd-label" style="margin-top:8px">Focus Areas</div>
+        <div class="cd-tools">
+          <span class="cd-tool">Benefits Nav</span> <span class="cd-tool">Plan Selection</span> <span class="cd-tool">Doctor Finder</span> <span class="cd-tool">Member Services</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── CAREER TIMELINE ───────────────────────────────────────────────── -->
+<section>
+  <div class="section-inner" style="padding-bottom:0">
+    <div class="sec-header">
+      <div class="sec-num">05 — Career</div>
+      <div>
+        <h2 class="sec-title">25 years. One direction.</h2>
+        <p class="sec-sub">From animation loops in college to principal design systems at scale — the thread has always been the same: make complex things feel inevitable.</p>
+      </div>
+    </div>
+  </div>
+  <div class="timeline">
+    <div class="timeline-row">
+      <div class="timeline-year">2021 – 2024</div>
+      <div class="timeline-body">
+        <div class="timeline-co">Avant / Amount · Principal Designer</div>
+        <div class="timeline-role">UI / UX / Product / Design Systems · Chicago, IL · In-house</div>
+        <div class="timeline-proj">Pathfinder™ Design System · Marketing Design Library · Colo &amp; Cloud Report · Colocation Advisor Platform</div>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-year">2021</div>
+      <div class="timeline-body">
+        <div class="timeline-co">SurePeople · Lead UX/UI Visual Product Designer</div>
+        <div class="timeline-role">UX / UI / Visual / Product Design · Contract · Remote</div>
+        <div class="timeline-proj">PRISM Psychometric Application Engine — full consumer product design from blank canvas to developer handoff</div>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-year">2020 – 2021</div>
+      <div class="timeline-body">
+        <div class="timeline-co">GE Healthcare · Senior UX/UI Product / Design Systems</div>
+        <div class="timeline-role">UX / UI / Product Design / Design Systems · Contract · Remote</div>
+        <div class="timeline-proj">Edison Design System — Award-winning system unifying 40+ products across global clinical environments. Red Dot · Fast Company · dmi:DVA</div>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-year">2019 – 2020</div>
+      <div class="timeline-body">
+        <div class="timeline-co">Blue Cross Blue Shield · Senior Product Designer / Design Systems</div>
+        <div class="timeline-role">UX / Product / Design Systems · Contract · Chicago, IL</div>
+        <div class="timeline-proj">FIBER Design System — ended design fragmentation across 12+ product teams. Defined color, type, grid, icons, components, and working examples</div>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-year">2018 – 2019</div>
+      <div class="timeline-body">
+        <div class="timeline-co">TransUnion · Senior UX Product / Design Systems</div>
+        <div class="timeline-role">UX / UI / Product / Design Systems · Contract · Chicago, IL</div>
+        <div class="timeline-proj">TUCM Design System · TrueCredit Product Redesign · SCVD Design System · Credit Freeze UX</div>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-year">2005 – 2018</div>
+      <div class="timeline-body">
+        <div class="timeline-co">Eviden (formerly Atos) · UX Team Senior Lead / Design Systems</div>
+        <div class="timeline-role">UX / UI / Visual / Brand / Product Design · Full-time · Chicago, IL</div>
+        <div class="timeline-proj">Led global design system and visual product design for enterprise clients. Animation, video, illustration, branding, co-branding, and application development across 13 years</div>
+      </div>
+    </div>
+    <div class="timeline-row">
+      <div class="timeline-year">1997 – 2001</div>
+      <div class="timeline-body">
+        <div class="timeline-co">Missouri State University · BFA</div>
+        <div class="timeline-role">Electronic Arts &amp; Design · Mass Media Communications</div>
+        <div class="timeline-proj">2001 MSU Short Film Festival — 1st Place · Made 100+ animation loops that I thought were lost. Found them in 2023 on a hard drive I almost threw away.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CAPABILITIES STRIP ─────────────────────────────────────────────────── -->
+<section style="background:#0b0d0f;padding:0">
+  <div class="section-inner" style="padding-top:64px;padding-bottom:64px">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:0;border-top:1px solid rgba(255,255,255,.08);margin-top:32px">
+      <div style="padding:32px 32px;border-right:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.3);margin-bottom:16px">Design Systems</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(240,235,224,.6);line-height:1.4">
+          <span>Token Architecture</span><span>Component Libraries</span><span>Documentation Systems</span><span>Figma Admin</span><span>Design–Dev Handoff</span><span>System Adoption</span>
+        </div>
+      </div>
+      <div style="padding:32px 32px;border-right:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.3);margin-bottom:16px">UX / Product</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(240,235,224,.6);line-height:1.4">
+          <span>Information Architecture</span><span>Interaction Design</span><span>Journey Mapping</span><span>Prototyping</span><span>Usability Patterns</span><span>Dashboard Design</span>
+        </div>
+      </div>
+      <div style="padding:32px 32px;border-right:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08)">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.3);margin-bottom:16px">Brand &amp; Visual</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(240,235,224,.6);line-height:1.4">
+          <span>Brand Identity Systems</span><span>Logo &amp; Mark Design</span><span>Color Architecture</span><span>Typography Systems</span><span>Retail Packaging</span><span>Print &amp; Digital</span>
+        </div>
+      </div>
+      <div style="padding:32px 32px;border-bottom:1px solid rgba(255,255,255,.08)">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.3);margin-bottom:16px">Motion &amp; Media</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(240,235,224,.6);line-height:1.4">
+          <span>Animation Loops</span><span>Video Production</span><span>Voice Performance</span><span>Audio Engineering</span><span>After Effects</span><span>Cymatics / Generative</span>
+        </div>
+      </div>
+      <div style="padding:32px 32px;border-right:1px solid rgba(255,255,255,.08)">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.3);margin-bottom:16px">Tools</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px">
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">Figma</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">Sketch</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">Adobe CC</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">After Effects</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">Premiere</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">Audition</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">Jira</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">Monday</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">Asana</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">HTML</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">CSS</span>
+          <span style="font-family:'Space Mono',monospace;font-size:9px;padding:4px 8px;border:1px solid rgba(255,255,255,.1);color:rgba(240,235,224,.4);letter-spacing:.08em">Tokens Studio</span>
+        </div>
+      </div>
+      <div style="padding:32px 32px;border-right:1px solid rgba(255,255,255,.08)">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.3);margin-bottom:16px">Industries</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;color:rgba(240,235,224,.6);line-height:1.4">
+          <span>Fintech / Financial Services</span><span>Healthcare / Clinical</span><span>Healthcare Insurance</span><span>SaaS / Enterprise</span><span>Consumer Products</span><span>Agency / Brand</span>
+        </div>
+      </div>
+      <div style="padding:32px 32px;border-right:1px solid rgba(255,255,255,.08)">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.3);margin-bottom:16px">Education</div>
+        <div style="font-size:13px;color:rgba(240,235,224,.6);line-height:1.7">
+          <div style="font-weight:500;color:rgba(240,235,224,.85)">BFA — Electronic Arts &amp; Design</div>
+          <div>Mass Media Communications</div>
+          <div style="margin-top:4px;font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:rgba(240,235,224,.3)">Missouri State University · 1997–2001</div>
+          <div style="margin-top:16px;font-weight:500;color:rgba(240,235,224,.85)">2001 MSU Short Film Festival</div>
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--orange)">1st Place</div>
+        </div>
+      </div>
+      <div style="padding:32px 32px">
+        <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:rgba(240,235,224,.3);margin-bottom:16px">Career Stats</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:rgba(240,235,224,.9);line-height:1">25+</div>
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,235,224,.25);margin-top:4px">Years Design</div>
+          </div>
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:rgba(240,235,224,.9);line-height:1">7+</div>
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,235,224,.25);margin-top:4px">Years Systems</div>
+          </div>
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:var(--orange);line-height:1">3</div>
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,235,224,.25);margin-top:4px">Major Awards</div>
+          </div>
+          <div>
+            <div style="font-family:'Space Mono',monospace;font-size:28px;font-weight:700;color:rgba(240,235,224,.9);line-height:1">106</div>
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:rgba(240,235,224,.25);margin-top:4px">Animation Loops</div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1932,73 +2556,89 @@ footer{
         </div>
       </div>
       <div>
-        <form class="form" onsubmit="return false">
+        <form class="form" id="pbkForm" onsubmit="submitToHubspot(event)">
           <div class="form-group">
-            <div class="form-label">Your Name</div>
-            <input class="form-input" type="text" placeholder="First and last name">
+            <div class="form-label">Your Name <span class="form-req">*</span></div>
+            <input class="form-input" id="field-name" type="text" placeholder="First and last name" required autocomplete="name">
+            <div class="form-error" id="err-name">Please enter your name.</div>
           </div>
           <div class="form-group">
-            <div class="form-label">Email</div>
-            <input class="form-input" type="email" placeholder="you@company.com">
+            <div class="form-label">Email <span class="form-req">*</span></div>
+            <input class="form-input" id="field-email" type="email" placeholder="you@company.com" required autocomplete="email">
+            <div class="form-error" id="err-email">Please enter a valid email address.</div>
           </div>
           <div class="form-group">
             <div class="form-label">Company / Organization</div>
-            <input class="form-input" type="text" placeholder="Who are you building for?">
+            <input class="form-input" id="field-company" type="text" placeholder="Who are you building for?" autocomplete="organization">
           </div>
           <div class="form-group">
             <div class="form-label">Service Type — Select all that apply</div>
-            <div class="form-chips">
-              <div class="form-chip sel" onclick="this.classList.toggle('sel')">Design System</div>
-              <div class="form-chip" onclick="this.classList.toggle('sel')">Brand Identity</div>
-              <div class="form-chip" onclick="this.classList.toggle('sel')">UX / Product</div>
-              <div class="form-chip" onclick="this.classList.toggle('sel')">Web Design</div>
-              <div class="form-chip" onclick="this.classList.toggle('sel')">Motion / Animation</div>
-              <div class="form-chip" onclick="this.classList.toggle('sel')">Voice Performance</div>
-              <div class="form-chip" onclick="this.classList.toggle('sel')">Not sure yet</div>
+            <div class="form-chips" id="chips-service">
+              <div class="form-chip sel" onclick="this.classList.toggle('sel')" data-value="Design System">Design System</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')" data-value="Brand Identity">Brand Identity</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')" data-value="UX / Product">UX / Product</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')" data-value="Web Design">Web Design</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')" data-value="Motion / Animation">Motion / Animation</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')" data-value="Voice Performance">Voice Performance</div>
+              <div class="form-chip" onclick="this.classList.toggle('sel')" data-value="Not sure yet">Not sure yet</div>
             </div>
           </div>
           <div class="form-group">
             <div class="form-label">Project Budget</div>
-            <select class="form-select">
+            <select class="form-select" id="field-budget">
               <option value="">Select a range</option>
-              <option>Under $2,000 (Voice / Small Motion)</option>
-              <option>$2,000 – $5,000</option>
-              <option>$5,000 – $15,000</option>
-              <option>$15,000 – $50,000</option>
-              <option>$50,000+ (Enterprise)</option>
-              <option>Not sure — let's talk</option>
+              <option value="Under $2,000">Under $2,000 (Voice / Small Motion)</option>
+              <option value="$2,000 – $5,000">$2,000 – $5,000</option>
+              <option value="$5,000 – $15,000">$5,000 – $15,000</option>
+              <option value="$15,000 – $50,000">$15,000 – $50,000</option>
+              <option value="$50,000+">$50,000+ (Enterprise)</option>
+              <option value="Not sure">Not sure — let's talk</option>
             </select>
           </div>
           <div class="form-group">
             <div class="form-label">Timeline</div>
-            <select class="form-select">
+            <select class="form-select" id="field-timeline">
               <option value="">When do you need this?</option>
-              <option>ASAP (rush available)</option>
-              <option>Within 1 month</option>
-              <option>1–3 months</option>
-              <option>3–6 months</option>
-              <option>Planning ahead (6+ months)</option>
+              <option value="ASAP">ASAP (rush available)</option>
+              <option value="Within 1 month">Within 1 month</option>
+              <option value="1–3 months">1–3 months</option>
+              <option value="3–6 months">3–6 months</option>
+              <option value="6+ months">Planning ahead (6+ months)</option>
             </select>
           </div>
           <div class="form-group">
-            <div class="form-label">Tell me about it</div>
-            <textarea class="form-textarea" placeholder="What are you building, who is it for, and what problem does it solve? The more specific, the better."></textarea>
+            <div class="form-label">Tell me about it <span class="form-req">*</span></div>
+            <textarea class="form-textarea" id="field-message" placeholder="What are you building, who is it for, and what problem does it solve? The more specific, the better." required></textarea>
+            <div class="form-error" id="err-message">Please describe your project.</div>
           </div>
           <div class="form-group" style="border-bottom:none;padding-bottom:0">
             <div class="form-label">How did you find me?</div>
-            <select class="form-select">
+            <select class="form-select" id="field-source">
               <option value="">Select one</option>
-              <option>LinkedIn</option>
-              <option>Instagram</option>
-              <option>Facebook</option>
-              <option>Upwork</option>
-              <option>Referral from someone I know</option>
-              <option>Google search</option>
-              <option>Other</option>
+              <option value="LinkedIn">LinkedIn</option>
+              <option value="Instagram">Instagram</option>
+              <option value="Facebook">Facebook</option>
+              <option value="Upwork">Upwork</option>
+              <option value="Referral">Referral from someone I know</option>
+              <option value="Google">Google search</option>
+              <option value="Other">Other</option>
             </select>
           </div>
-          <button class="form-submit">Submit Project Brief →</button>
-          <div class="hs-badge">Synced to HubSpot CRM · Auto-response within minutes</div>
+          <button class="form-submit" id="form-submit-btn" type="submit">
+            <span id="submit-label">Submit Project Brief →</span>
+            <span id="submit-spinner" style="display:none">Sending…</span>
+          </button>
+          <div class="hs-badge" id="hs-badge">Synced to HubSpot CRM · Auto-response within minutes</div>
+          <!-- Success state -->
+          <div id="form-success" style="display:none;padding:32px;background:rgba(34,197,94,.06);border:1px solid rgba(34,197,94,.2);margin-top:24px">
+            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(34,197,94,.8);margin-bottom:8px">Received</div>
+            <div style="font-size:16px;font-weight:300;line-height:1.5;color:var(--ink)">Your brief is in. Expect a personal response within 24 hours — not a template, not a bot.</div>
+          </div>
+          <!-- Error state -->
+          <div id="form-err" style="display:none;padding:32px;background:rgba(232,81,42,.06);border:1px solid rgba(232,81,42,.2);margin-top:24px">
+            <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:8px">Submission Error</div>
+            <div id="form-err-msg" style="font-size:14px;color:var(--ink-75);line-height:1.5">Something went wrong. Please email directly: <a href="mailto:mikelrosenthal@me.com" style="color:var(--orange)">mikelrosenthal@me.com</a></div>
+          </div>
         </form>
       </div>
     </div>
@@ -2291,11 +2931,15 @@ makeCarousel({ total:21, trackId:'arTrack', counterId:'arCounter', dotsId:null,
   stripId:'arStrip', carouselId:'arCarousel', goName:'arGo', goToName:'arGoTo', interval:6000 });
 
 // Edison Design System (11 images) — mini-carousel in case-thumb
-makeCarousel({ total:11, trackId:'edTrack', counterId:'edCounter', dotsId:null,
+makeCarousel({ total:16, trackId:'edTrack', counterId:'edCounter', dotsId:null,
   stripId:null, carouselId:'edCarousel', goName:'edGo', goToName:'edGoTo', interval:4500 });
 
+// Avant Pathfinder Design System (31 slides)
+makeCarousel({ total:31, trackId:'pfTrack', counterId:'pfCounter', dotsId:null,
+  stripId:null, carouselId:'pfCarousel', goName:'pfGo', goToName:'pfGoTo', interval:4000 });
+
 // BCBS FIBER Design System (20 screenshots) — mini-carousel in case-thumb
-makeCarousel({ total:20, trackId:'bcTrack', counterId:'bcCounter', dotsId:null,
+makeCarousel({ total:44, trackId:'bcTrack', counterId:'bcCounter', dotsId:null,
   stripId:null, carouselId:'bcCarousel', goName:'bcGo', goToName:'bcGoTo', interval:4000 });
 
 // PRISM (3 screens) — mini-carousel in case-thumb
@@ -2309,6 +2953,172 @@ makeCarousel({ total:19, trackId:'tcTrack', counterId:'tcCounter', dotsId:null,
 // TransUnion TUCM (40 pages) — mini-carousel in case-thumb
 makeCarousel({ total:40, trackId:'tuTrack', counterId:'tuCounter', dotsId:null,
   stripId:null, carouselId:'tuCarousel', goName:'tuGo', goToName:'tuGoTo', interval:3500 });
+
+// ── HUBSPOT FORM INTEGRATION ──────────────────────────────────────────────
+//
+//  ┌─────────────────────────────────────────────────────────────────────┐
+//  │  SETUP: Fill in your HubSpot Portal ID and Form GUID below.        │
+//  │  Portal ID:   HubSpot → Settings → Account Setup → Account Info    │
+//  │  Form GUID:   HubSpot → Marketing → Forms → [your form] → Actions  │
+//  │               → Share → Embed → look for "portalId" and "formId"   │
+//  └─────────────────────────────────────────────────────────────────────┘
+//
+const HS_PORTAL_ID  = 'YOUR_PORTAL_ID';   // e.g. '12345678'
+const HS_FORM_GUID  = 'YOUR_FORM_GUID';   // e.g. 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+
+// HubSpot custom property names — create these in HubSpot:
+// Settings → Properties → Contact Properties → Create property
+// Name (internal): service_type, budget_range, project_timeline, lead_source_custom
+// You can also just use the 'message' field and bundle everything in.
+
+function validateForm() {
+  let valid = true;
+  const name = document.getElementById('field-name');
+  const email = document.getElementById('field-email');
+  const msg = document.getElementById('field-message');
+
+  [name, email, msg].forEach(el => {
+    el.classList.remove('invalid');
+  });
+
+  if (!name.value.trim()) {
+    name.classList.add('invalid');
+    valid = false;
+  }
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRe.test(email.value.trim())) {
+    email.classList.add('invalid');
+    valid = false;
+  }
+  if (!msg.value.trim()) {
+    msg.classList.add('invalid');
+    valid = false;
+  }
+  return valid;
+}
+
+function getSelectedChips() {
+  const chips = document.querySelectorAll('#chips-service .form-chip.sel');
+  return Array.from(chips).map(c => c.getAttribute('data-value')).join(', ');
+}
+
+async function submitToHubspot(e) {
+  e.preventDefault();
+  if (!validateForm()) return;
+
+  const btn = document.getElementById('form-submit-btn');
+  const label = document.getElementById('submit-label');
+  const spinner = document.getElementById('submit-spinner');
+  const successEl = document.getElementById('form-success');
+  const errEl = document.getElementById('form-err');
+  const errMsg = document.getElementById('form-err-msg');
+
+  // Show loading state
+  btn.disabled = true;
+  label.style.display = 'none';
+  spinner.style.display = 'inline';
+  successEl.style.display = 'none';
+  errEl.style.display = 'none';
+
+  // Parse name
+  const fullName = document.getElementById('field-name').value.trim();
+  const nameParts = fullName.split(' ');
+  const firstName = nameParts[0] || fullName;
+  const lastName  = nameParts.slice(1).join(' ') || '';
+
+  const serviceType    = getSelectedChips();
+  const budget         = document.getElementById('field-budget').value;
+  const timeline       = document.getElementById('field-timeline').value;
+  const messageBase    = document.getElementById('field-message').value.trim();
+  const source         = document.getElementById('field-source').value;
+
+  // Bundle everything into message field for HubSpot
+  const fullMessage = [
+    messageBase,
+    serviceType   ? '\n\nService Type: ' + serviceType   : '',
+    budget        ? '\nBudget: '        + budget         : '',
+    timeline      ? '\nTimeline: '      + timeline       : '',
+    source        ? '\nFound via: '     + source         : '',
+  ].join('');
+
+  const payload = {
+    fields: [
+      { name: 'firstname',  value: firstName },
+      { name: 'lastname',   value: lastName },
+      { name: 'email',      value: document.getElementById('field-email').value.trim() },
+      { name: 'company',    value: document.getElementById('field-company').value.trim() },
+      { name: 'message',    value: fullMessage },
+      // Uncomment these once you've created the custom HubSpot properties:
+      // { name: 'service_type',      value: serviceType },
+      // { name: 'budget_range',      value: budget },
+      // { name: 'project_timeline',  value: timeline },
+      // { name: 'lead_source_custom',value: source },
+    ].filter(f => f.value !== ''),
+    context: {
+      pageUri:  window.location.href,
+      pageName: document.title,
+    },
+    legalConsentOptions: {
+      consent: {
+        consentToProcess: true,
+        text: 'I agree to allow PBK Studio to store and process my personal data.',
+        communications: [{ value: true, subscriptionTypeId: 999, text: 'I agree to receive project-related communications from PBK Studio.' }],
+      },
+    },
+  };
+
+  // If portal ID not configured yet, simulate success locally
+  if (HS_PORTAL_ID === 'YOUR_PORTAL_ID' || HS_FORM_GUID === 'YOUR_FORM_GUID') {
+    console.log('HubSpot not configured. Payload that would be sent:', JSON.stringify(payload, null, 2));
+    setTimeout(() => {
+      btn.disabled = false;
+      label.style.display = 'inline';
+      spinner.style.display = 'none';
+      successEl.style.display = 'block';
+      document.getElementById('pbkForm').style.opacity = '0.4';
+      document.getElementById('pbkForm').style.pointerEvents = 'none';
+    }, 800);
+    return;
+  }
+
+  try {
+    const res = await fetch(
+      'https://api.hsforms.com/submissions/v3/integration/submit/' + HS_PORTAL_ID + '/' + HS_FORM_GUID,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      }
+    );
+
+    if (res.ok) {
+      successEl.style.display = 'block';
+      document.getElementById('pbkForm').style.opacity = '0.4';
+      document.getElementById('pbkForm').style.pointerEvents = 'none';
+      // Scroll success into view
+      successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      const body = await res.json().catch(() => ({}));
+      const detail = body.message || ('HTTP ' + res.status);
+      errMsg.innerHTML = 'Submission error: ' + detail + '. Email directly: <a href="mailto:mikelrosenthal@me.com" style="color:var(--orange)">mikelrosenthal@me.com</a>';
+      errEl.style.display = 'block';
+    }
+  } catch (err) {
+    errMsg.innerHTML = 'Network error. Please email directly: <a href="mailto:mikelrosenthal@me.com" style="color:var(--orange)">mikelrosenthal@me.com</a>';
+    errEl.style.display = 'block';
+    console.error('HubSpot submission error:', err);
+  } finally {
+    btn.disabled = false;
+    label.style.display = 'inline';
+    spinner.style.display = 'none';
+  }
+}
+
+// Real-time validation — clear error state on input
+['field-name','field-email','field-message'].forEach(function(id) {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', function() { this.classList.remove('invalid'); });
+});
 </script>
 </body>
 </html>
