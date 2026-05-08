@@ -434,6 +434,60 @@ section{border-bottom:1px solid var(--rule)}
 .ethics-pillar-title{font-family:'Alexandria',sans-serif;font-weight:300;font-size:17px;color:#ede8dd;margin-bottom:6px}
 .ethics-pillar-desc{font-size:15px;color:rgba(240,235,224,.55);line-height:1.55}
 
+/* ── SPACELAB CAROUSEL ─────────────────── */
+.sl-case{border-bottom:1px solid var(--rule)}
+.sl-carousel{position:relative;width:100%;aspect-ratio:16/9;background:#0b2145;overflow:hidden;cursor:pointer}
+.sl-carousel-track{display:flex;width:100%;height:100%;transition:transform .55s cubic-bezier(.4,0,.2,1)}
+.sl-slide{flex:0 0 100%;width:100%;height:100%;position:relative}
+.sl-slide img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.sl-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:48px;height:48px;border-radius:50%;border:1px solid rgba(255,255,255,.25);
+  background:rgba(10,16,30,.55);backdrop-filter:blur(8px);
+  color:#fff;font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,border-color .2s;z-index:10;
+}
+.sl-btn:hover{background:rgba(232,81,42,.75);border-color:var(--orange)}
+.sl-prev{left:20px}
+.sl-next{right:20px}
+.sl-dots{
+  position:absolute;bottom:16px;left:50%;transform:translateX(-50%);
+  display:flex;gap:7px;z-index:10;
+}
+.sl-dot{
+  width:7px;height:7px;border-radius:50%;
+  background:rgba(255,255,255,.35);border:none;cursor:pointer;
+  transition:background .2s,transform .2s;padding:0;
+}
+.sl-dot.active{background:#fff;transform:scale(1.3)}
+.sl-counter{
+  position:absolute;top:16px;right:20px;z-index:10;
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;
+  color:rgba(255,255,255,.5);
+}
+.sl-info{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  padding:48px 56px;gap:40px;border-top:1px solid var(--rule);
+  align-items:start;
+}
+.sl-info-left{display:flex;flex-direction:column;gap:16px}
+.sl-info-mid{display:flex;flex-direction:column;gap:12px}
+.sl-info-right{display:flex;flex-direction:column;gap:12px}
+.sl-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:4px;
+}
+.sl-title{font-size:28px;font-weight:200;line-height:1.1}
+.sl-body{font-size:15px;color:var(--ink-75);line-height:1.55;font-style:italic;border-left:2px solid var(--orange);padding-left:16px}
+.sl-meta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-25);margin-top:auto}
+.sl-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.sl-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--ink-25);color:var(--ink-50)}
+.sl-thumb-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:4px}
+.sl-thumb-strip button{border:none;padding:0;cursor:pointer;aspect-ratio:4/3;overflow:hidden;opacity:.45;transition:opacity .2s;background:#0b2145}
+.sl-thumb-strip button.active,.sl-thumb-strip button:hover{opacity:1}
+.sl-thumb-strip button img{width:100%;height:100%;object-fit:cover;display:block}
+
 /* ── CASE STUDIES ──────────────────────── */
 .case-grid{display:flex;flex-direction:column;gap:0;border-top:1px solid var(--rule)}
 .case-row{
@@ -571,6 +625,10 @@ footer{
 
 /* ── TABLET ─────────────────────────────── */
 @media(max-width:900px){
+  /* Spacelab carousel */
+  .sl-info{grid-template-columns:1fr;gap:24px;padding:36px 24px}
+  .sl-thumb-strip{grid-template-columns:repeat(6,1fr)}
+
   /* Nav */
   nav{padding:0 24px}
   .nav-links a{display:none}
@@ -1171,17 +1229,79 @@ footer{
     </div>
   </div>
   <div class="case-grid">
-    <div class="case-row">
-      <div class="case-thumb" style="background:#0b2145;overflow:hidden">
-        <img src="images/branding/spacelab/01-hero.jpg" alt="Spacelab Brand Identity" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:.95">
-      </div>
-      <div class="case-info">
-        <div>
-          <div class="case-tag">Branding & Packaging · Health & Wellness · 2019</div>
-          <div class="case-title">Spacelab Health<br>Brand Identity & Packaging</div>
+    <!-- ── SPACELAB CAROUSEL ── -->
+    <div class="sl-case">
+      <div class="sl-carousel" id="slCarousel">
+        <div class="sl-carousel-track" id="slTrack">
+          <div class="sl-slide"><img src="images/branding/spacelab/01-hero.jpg" alt="Spacelab 1"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/02-tin.jpg" alt="Spacelab 2"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/03-foil.jpg" alt="Spacelab 3"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/04-clean-harvest.jpg" alt="Spacelab 4"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/05-bar.jpg" alt="Spacelab 5"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/06-box-system.jpg" alt="Spacelab 6"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/07-box-lineup.jpg" alt="Spacelab 7"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/08-flat-box.jpg" alt="Spacelab 8"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/09-foil-detail.jpg" alt="Spacelab 9"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/10-brand-system.jpg" alt="Spacelab 10"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/11-dual-box.jpg" alt="Spacelab 11"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/12-open-box.jpg" alt="Spacelab 12"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/13-blue-gift-box.jpg" alt="Spacelab 13"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/14-white-terracotta-box.jpg" alt="Spacelab 14"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/15-alt-3.jpg" alt="Spacelab 15"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/16-alt-01.jpg" alt="Spacelab 16"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/17-purple-tin.jpg" alt="Spacelab 17"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/19-gradient-bar.jpg" alt="Spacelab 18"></div>
         </div>
-        <div class="case-outcome">"Full brand identity system for a premium CBD wellness line — logo, color system, typography, retail packaging, and digital applications. Designed to live at the intersection of science and calm."</div>
-        <div class="case-meta">Spacelab Health · Brand Identity · Contract</div>
+        <button class="sl-btn sl-prev" onclick="slGo(-1)">&#8592;</button>
+        <button class="sl-btn sl-next" onclick="slGo(1)">&#8594;</button>
+        <div class="sl-counter" id="slCounter">1 / 18</div>
+        <div class="sl-dots" id="slDots"></div>
+      </div>
+      <!-- thumbnail strip -->
+      <div class="sl-thumb-strip" id="slStrip">
+        <button onclick="slGoTo(0)" class="active"><img src="images/branding/spacelab/01-hero.jpg" alt=""></button>
+        <button onclick="slGoTo(1)"><img src="images/branding/spacelab/02-tin.jpg" alt=""></button>
+        <button onclick="slGoTo(2)"><img src="images/branding/spacelab/03-foil.jpg" alt=""></button>
+        <button onclick="slGoTo(3)"><img src="images/branding/spacelab/04-clean-harvest.jpg" alt=""></button>
+        <button onclick="slGoTo(4)"><img src="images/branding/spacelab/05-bar.jpg" alt=""></button>
+        <button onclick="slGoTo(5)"><img src="images/branding/spacelab/06-box-system.jpg" alt=""></button>
+        <button onclick="slGoTo(6)"><img src="images/branding/spacelab/07-box-lineup.jpg" alt=""></button>
+        <button onclick="slGoTo(7)"><img src="images/branding/spacelab/08-flat-box.jpg" alt=""></button>
+        <button onclick="slGoTo(8)"><img src="images/branding/spacelab/09-foil-detail.jpg" alt=""></button>
+        <button onclick="slGoTo(9)"><img src="images/branding/spacelab/10-brand-system.jpg" alt=""></button>
+        <button onclick="slGoTo(10)"><img src="images/branding/spacelab/11-dual-box.jpg" alt=""></button>
+        <button onclick="slGoTo(11)"><img src="images/branding/spacelab/12-open-box.jpg" alt=""></button>
+        <button onclick="slGoTo(12)"><img src="images/branding/spacelab/13-blue-gift-box.jpg" alt=""></button>
+        <button onclick="slGoTo(13)"><img src="images/branding/spacelab/14-white-terracotta-box.jpg" alt=""></button>
+        <button onclick="slGoTo(14)"><img src="images/branding/spacelab/15-alt-3.jpg" alt=""></button>
+        <button onclick="slGoTo(15)"><img src="images/branding/spacelab/16-alt-01.jpg" alt=""></button>
+        <button onclick="slGoTo(16)"><img src="images/branding/spacelab/17-purple-tin.jpg" alt=""></button>
+        <button onclick="slGoTo(17)"><img src="images/branding/spacelab/19-gradient-bar.jpg" alt=""></button>
+      </div>
+      <div class="sl-info">
+        <div class="sl-info-left">
+          <div>
+            <div class="sl-label">Branding & Packaging · Health & Wellness · 2019</div>
+            <div class="sl-title">Spacelab Health<br>Brand Identity & Packaging</div>
+          </div>
+          <div class="sl-meta">Spacelab Health · Brand Identity · Contract</div>
+        </div>
+        <div class="sl-info-mid">
+          <div class="sl-body">"Full brand identity system for a premium CBD wellness line — logo, color system, typography, retail packaging, and digital applications. Designed to live at the intersection of science and calm."</div>
+        </div>
+        <div class="sl-info-right">
+          <div class="sl-label">Deliverables</div>
+          <div class="sl-tags">
+            <span class="sl-tag">Logo System</span>
+            <span class="sl-tag">Color Palette</span>
+            <span class="sl-tag">Typography</span>
+            <span class="sl-tag">Retail Packaging</span>
+            <span class="sl-tag">Tin & Foil Designs</span>
+            <span class="sl-tag">Box System</span>
+            <span class="sl-tag">Brand Guidelines</span>
+            <span class="sl-tag">Digital Assets</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="case-row">
@@ -1497,6 +1617,63 @@ if (wvEl) {
     wvEl.appendChild(bar);
   }
 }
+
+/* ── SPACELAB CAROUSEL ── */
+(function(){
+  const TOTAL = 18;
+  let cur = 0;
+  let timer;
+
+  const track = document.getElementById('slTrack');
+  const counter = document.getElementById('slCounter');
+  const dotsEl = document.getElementById('slDots');
+  const strip = document.getElementById('slStrip');
+  if (!track) return;
+
+  // Build dots
+  for (let i = 0; i < TOTAL; i++) {
+    const d = document.createElement('button');
+    d.className = 'sl-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i+1));
+    d.addEventListener('click', () => slGoTo(i));
+    dotsEl.appendChild(d);
+  }
+
+  function update() {
+    track.style.transform = `translateX(-${cur * 100}%)`;
+    counter.textContent = `${cur + 1} / ${TOTAL}`;
+    // dots
+    dotsEl.querySelectorAll('.sl-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
+    // strip thumbs
+    if (strip) strip.querySelectorAll('button').forEach((b, i) => b.classList.toggle('active', i === cur));
+    resetTimer();
+  }
+
+  function resetTimer() {
+    clearInterval(timer);
+    timer = setInterval(() => { cur = (cur + 1) % TOTAL; update(); }, 4800);
+  }
+
+  window.slGo = function(dir) { cur = (cur + dir + TOTAL) % TOTAL; update(); };
+  window.slGoTo = function(idx) { cur = idx; update(); };
+
+  // Keyboard support
+  document.getElementById('slCarousel').addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft') slGo(-1);
+    if (e.key === 'ArrowRight') slGo(1);
+  });
+
+  // Touch/swipe
+  let sx = 0;
+  const carousel = document.getElementById('slCarousel');
+  carousel.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+  carousel.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - sx;
+    if (Math.abs(dx) > 40) slGo(dx < 0 ? 1 : -1);
+  }, {passive:true});
+
+  resetTimer();
+})();
 </script>
 </body>
 </html>
