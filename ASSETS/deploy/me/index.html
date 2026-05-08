@@ -1198,8 +1198,25 @@ footer{
   </div>
   <div class="case-grid">
     <div class="case-row">
-      <div class="case-thumb" style="background:#061827;overflow:hidden">
-        <img src="images/design-systems/ge-edison/01-home-light.jpg" alt="Edison Design System" style="width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.92">
+      <div class="case-thumb" style="background:#061827;overflow:hidden;position:relative;padding:0">
+        <div class="sl-carousel" id="edCarousel" style="position:absolute;inset:0;width:100%;height:100%;aspect-ratio:unset">
+          <div class="sl-carousel-track" id="edTrack">
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/01-home-light.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/02-home-alt.png" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/03-edl.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-04.png" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-05.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-06.png" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-07.png" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-08.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-09.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-10.png" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/design-systems/ge-edison/ge-11.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          </div>
+          <button class="sl-btn sl-prev" onclick="edGo(-1)">&#8592;</button>
+          <button class="sl-btn sl-next" onclick="edGo(1)">&#8594;</button>
+          <div class="sl-counter" id="edCounter">1 / 11</div>
+        </div>
       </div>
       <div class="case-info">
         <div>
@@ -1219,8 +1236,34 @@ footer{
         <div class="case-outcome">"Ended design fragmentation across 12+ product teams. Reduced design-to-dev handoff time significantly. Made FIBER something designers actually wanted to use."</div>
         <div class="case-meta">Blue Cross Blue Shield of Illinois · Lead UX · Contract</div>
       </div>
-      <div class="case-thumb" style="background:#0d1f3c;overflow:hidden">
-        <img src="images/design-systems/bcbs-fiber-1.png" alt="FIBER Design System" style="width:100%;height:100%;object-fit:cover;object-position:top center;opacity:.92">
+      <div class="case-thumb" style="background:#0d1f3c;overflow:hidden;position:relative;padding:0">
+        <div class="sl-carousel" id="bcCarousel" style="position:absolute;inset:0;width:100%;height:100%;aspect-ratio:unset">
+          <div class="sl-carousel-track" id="bcTrack">
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-01.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-02.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-03.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-04.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-05.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-06.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-07.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-08.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-09.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-10.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-11.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-12.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-13.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-14.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-15.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-16.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-17.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-18.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-19.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/bcbs-fiber/bc-20.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          </div>
+          <button class="sl-btn sl-prev" onclick="bcGo(-1)">&#8592;</button>
+          <button class="sl-btn sl-next" onclick="bcGo(1)">&#8594;</button>
+          <div class="sl-counter" id="bcCounter">1 / 20</div>
+        </div>
       </div>
     </div>
     <div class="case-row">
@@ -1512,17 +1555,161 @@ footer{
         </div>
       </div>
     </div>
-    <div class="case-row">
-      <div class="case-thumb" style="background:#05091a;overflow:hidden">
-        <img src="images/branding/avant/00-portfolio-slide.jpg" alt="Avant Marketing Design Library" style="width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.95">
-      </div>
-      <div class="case-info">
-        <div>
-          <div class="case-tag">Marketing Design · Fintech · 2021–2024</div>
-          <div class="case-title">Avant — Marketing<br>Design Library</div>
+    <div class="sl-case">
+      <div class="sl-carousel" id="amCarousel">
+        <div class="sl-carousel-track" id="amTrack">
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-1.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-2.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-3.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-4.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-5.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-6.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-7.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-8.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-9.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-10.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-11.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-12.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-13.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-14.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-15.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-16.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-17.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/frame-18.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/special-forces-concept-20.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/special-forces-concept-21.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/special-forces-concept-22.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/special-forces-concept-24.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/special-forces-concept-25.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-marketing/special-forces-concept-26.png" loading="lazy" alt=""></div>
         </div>
-        <div class="case-outcome">"500+ branded assets across social, email, event, and partner channels — all built on a living design system. Consistent at scale without sacrificing campaign flexibility."</div>
-        <div class="case-meta">Avant / Amount · Principal Designer · In-house</div>
+        <button class="sl-btn sl-prev" onclick="amGo(-1)">&#8592;</button>
+        <button class="sl-btn sl-next" onclick="amGo(1)">&#8594;</button>
+        <div class="sl-counter" id="amCounter">1 / 25</div>
+      </div>
+      <div class="sl-thumb-strip" id="amStrip">
+        <button class="active" onclick="amGoTo(0)"><img src="images/ux/avant-marketing/frame.png" alt=""></button>
+        <button onclick="amGoTo(1)"><img src="images/ux/avant-marketing/frame-1.png" alt=""></button>
+        <button onclick="amGoTo(2)"><img src="images/ux/avant-marketing/frame-2.png" alt=""></button>
+        <button onclick="amGoTo(3)"><img src="images/ux/avant-marketing/frame-3.png" alt=""></button>
+        <button onclick="amGoTo(4)"><img src="images/ux/avant-marketing/frame-4.png" alt=""></button>
+        <button onclick="amGoTo(5)"><img src="images/ux/avant-marketing/frame-5.png" alt=""></button>
+        <button onclick="amGoTo(6)"><img src="images/ux/avant-marketing/frame-6.png" alt=""></button>
+        <button onclick="amGoTo(7)"><img src="images/ux/avant-marketing/frame-7.png" alt=""></button>
+        <button onclick="amGoTo(8)"><img src="images/ux/avant-marketing/frame-8.png" alt=""></button>
+        <button onclick="amGoTo(9)"><img src="images/ux/avant-marketing/frame-9.png" alt=""></button>
+        <button onclick="amGoTo(10)"><img src="images/ux/avant-marketing/frame-10.png" alt=""></button>
+        <button onclick="amGoTo(11)"><img src="images/ux/avant-marketing/frame-11.png" alt=""></button>
+        <button onclick="amGoTo(12)"><img src="images/ux/avant-marketing/frame-12.png" alt=""></button>
+        <button onclick="amGoTo(13)"><img src="images/ux/avant-marketing/frame-13.png" alt=""></button>
+        <button onclick="amGoTo(14)"><img src="images/ux/avant-marketing/frame-14.png" alt=""></button>
+        <button onclick="amGoTo(15)"><img src="images/ux/avant-marketing/frame-15.png" alt=""></button>
+        <button onclick="amGoTo(16)"><img src="images/ux/avant-marketing/frame-16.png" alt=""></button>
+        <button onclick="amGoTo(17)"><img src="images/ux/avant-marketing/frame-17.png" alt=""></button>
+        <button onclick="amGoTo(18)"><img src="images/ux/avant-marketing/frame-18.png" alt=""></button>
+        <button onclick="amGoTo(19)"><img src="images/ux/avant-marketing/special-forces-concept-20.png" alt=""></button>
+        <button onclick="amGoTo(20)"><img src="images/ux/avant-marketing/special-forces-concept-21.png" alt=""></button>
+        <button onclick="amGoTo(21)"><img src="images/ux/avant-marketing/special-forces-concept-22.png" alt=""></button>
+        <button onclick="amGoTo(22)"><img src="images/ux/avant-marketing/special-forces-concept-24.png" alt=""></button>
+        <button onclick="amGoTo(23)"><img src="images/ux/avant-marketing/special-forces-concept-25.png" alt=""></button>
+        <button onclick="amGoTo(24)"><img src="images/ux/avant-marketing/special-forces-concept-26.png" alt=""></button>
+      </div>
+      <div class="sl-info">
+        <div class="sl-info-left">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-50)">Marketing Design · Fintech · 2021–2024</div>
+          <div style="font-size:28px;font-weight:200;line-height:1.1">Avant — Marketing<br>Design Library</div>
+        </div>
+        <div class="sl-info-mid">
+          <div class="sl-body">"500+ branded assets across social, email, event, and partner channels — all built on a living design system. Consistent at scale without sacrificing campaign flexibility. From quarterly campaigns to enterprise RFPs — one system, every surface."</div>
+        </div>
+        <div class="sl-info-right">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-50)">Avant / Amount · Principal Designer · In-house</div>
+          <div class="sl-tags">
+            <span class="sl-tag">Social Media</span>
+            <span class="sl-tag">Email Design</span>
+            <span class="sl-tag">Event Materials</span>
+            <span class="sl-tag">Partner Assets</span>
+            <span class="sl-tag">Campaign Templates</span>
+            <span class="sl-tag">Brand Guidelines</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Avant Colo & Cloud Report -->
+  <div class="case-grid">
+    <div class="sl-case">
+      <div class="sl-carousel" id="arCarousel">
+        <div class="sl-carousel-track" id="arTrack">
+          <div class="sl-slide"><img src="images/ux/avant-report/cover.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/intro.png" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-01.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-02.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-03.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-04.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-05.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-06.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-07.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-08.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-09.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-10.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-11.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-12.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-13.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-14.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-15.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-16.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-17.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-18.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/ux/avant-report/page-19.jpg" loading="lazy" alt=""></div>
+        </div>
+        <button class="sl-btn sl-prev" onclick="arGo(-1)">&#8592;</button>
+        <button class="sl-btn sl-next" onclick="arGo(1)">&#8594;</button>
+        <div class="sl-counter" id="arCounter">1 / 21</div>
+      </div>
+      <div class="sl-thumb-strip" id="arStrip">
+        <button class="active" onclick="arGoTo(0)"><img src="images/ux/avant-report/cover.png" alt=""></button>
+        <button onclick="arGoTo(1)"><img src="images/ux/avant-report/intro.png" alt=""></button>
+        <button onclick="arGoTo(2)"><img src="images/ux/avant-report/page-01.jpg" alt=""></button>
+        <button onclick="arGoTo(3)"><img src="images/ux/avant-report/page-02.jpg" alt=""></button>
+        <button onclick="arGoTo(4)"><img src="images/ux/avant-report/page-03.jpg" alt=""></button>
+        <button onclick="arGoTo(5)"><img src="images/ux/avant-report/page-04.jpg" alt=""></button>
+        <button onclick="arGoTo(6)"><img src="images/ux/avant-report/page-05.jpg" alt=""></button>
+        <button onclick="arGoTo(7)"><img src="images/ux/avant-report/page-06.jpg" alt=""></button>
+        <button onclick="arGoTo(8)"><img src="images/ux/avant-report/page-07.jpg" alt=""></button>
+        <button onclick="arGoTo(9)"><img src="images/ux/avant-report/page-08.jpg" alt=""></button>
+        <button onclick="arGoTo(10)"><img src="images/ux/avant-report/page-09.jpg" alt=""></button>
+        <button onclick="arGoTo(11)"><img src="images/ux/avant-report/page-10.jpg" alt=""></button>
+        <button onclick="arGoTo(12)"><img src="images/ux/avant-report/page-11.jpg" alt=""></button>
+        <button onclick="arGoTo(13)"><img src="images/ux/avant-report/page-12.jpg" alt=""></button>
+        <button onclick="arGoTo(14)"><img src="images/ux/avant-report/page-13.jpg" alt=""></button>
+        <button onclick="arGoTo(15)"><img src="images/ux/avant-report/page-14.jpg" alt=""></button>
+        <button onclick="arGoTo(16)"><img src="images/ux/avant-report/page-15.jpg" alt=""></button>
+        <button onclick="arGoTo(17)"><img src="images/ux/avant-report/page-16.jpg" alt=""></button>
+        <button onclick="arGoTo(18)"><img src="images/ux/avant-report/page-17.jpg" alt=""></button>
+        <button onclick="arGoTo(19)"><img src="images/ux/avant-report/page-18.jpg" alt=""></button>
+        <button onclick="arGoTo(20)"><img src="images/ux/avant-report/page-19.jpg" alt=""></button>
+      </div>
+      <div class="sl-info">
+        <div class="sl-info-left">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-50)">Content Design · Publication · Fintech · 2024</div>
+          <div style="font-size:28px;font-weight:200;line-height:1.1">Avant — Colo &amp; Cloud<br>6&#8211;12 Report</div>
+        </div>
+        <div class="sl-info-mid">
+          <div class="sl-body">"Annual industry report on colocation and cloud adoption trends — designed as a premium editorial publication. Full layout, data visualization, and cover design. Built to position Avant as a thought leader in infrastructure advisory."</div>
+        </div>
+        <div class="sl-info-right">
+          <div style="font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-50)">Avant / Amount · Principal Designer · In-house</div>
+          <div class="sl-tags">
+            <span class="sl-tag">Editorial Design</span>
+            <span class="sl-tag">Data Visualization</span>
+            <span class="sl-tag">Cover Design</span>
+            <span class="sl-tag">Publication Layout</span>
+            <span class="sl-tag">Thought Leadership</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -1540,8 +1727,17 @@ footer{
   <div class="case-grid">
 
     <div class="case-row">
-      <div class="case-thumb" style="background:#0d1b2e;overflow:hidden">
-        <img src="images/design-systems/sure-prism/00-portfolio-slide.jpg" alt="PRISM" style="width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.95">
+      <div class="case-thumb" style="background:#0d1b2e;overflow:hidden;position:relative;padding:0">
+        <div class="sl-carousel" id="prCarousel" style="position:absolute;inset:0;width:100%;height:100%;aspect-ratio:unset">
+          <div class="sl-carousel-track" id="prTrack">
+          <div class="sl-slide"><img src="images/ux/prism/tc-dashboard-01.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/prism/tc-ipad-01.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/prism/tc-iphone-01.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          </div>
+          <button class="sl-btn sl-prev" onclick="prGo(-1)">&#8592;</button>
+          <button class="sl-btn sl-next" onclick="prGo(1)">&#8594;</button>
+          <div class="sl-counter" id="prCounter">1 / 3</div>
+        </div>
       </div>
       <div class="case-info">
         <div>
@@ -1562,14 +1758,85 @@ footer{
         <div class="case-outcome">"Complete redesign of TransUnion's consumer credit monitoring product — new information architecture, design system, and visual language. Made credit scores feel actionable instead of anxious."</div>
         <div class="case-meta">TransUnion · UX / IU / Visual Designer / Design Systems · Contract</div>
       </div>
-      <div class="case-thumb" style="background:#f4f6fb;overflow:hidden">
-        <img src="images/ux/truecredit/00-portfolio-slide.jpg" alt="TrueCredit" style="width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.97">
+      <div class="case-thumb" style="background:#f4f6fb;overflow:hidden;position:relative;padding:0">
+        <div class="sl-carousel" id="tcCarousel" style="position:absolute;inset:0;width:100%;height:100%;aspect-ratio:unset">
+          <div class="sl-carousel-track" id="tcTrack">
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-1.png" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-2.png" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-3.png" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-01.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-02.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-03.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-04.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-05.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-06.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-07.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-08.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-09.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-10.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-11.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-12.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-13.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-14.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-15.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/truecredit-ideation-16.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          </div>
+          <button class="sl-btn sl-prev" onclick="tcGo(-1)">&#8592;</button>
+          <button class="sl-btn sl-next" onclick="tcGo(1)">&#8594;</button>
+          <div class="sl-counter" id="tcCounter">1 / 19</div>
+        </div>
       </div>
     </div>
 
     <div class="case-row">
-      <div class="case-thumb" style="background:#f5f7fa;overflow:hidden">
-        <img src="images/design-systems/transunion/00-portfolio-slide.jpg" alt="TUCM Design System" style="width:100%;height:100%;object-fit:cover;object-position:top left;opacity:.97">
+      <div class="case-thumb" style="background:#f5f7fa;overflow:hidden;position:relative;padding:0">
+        <div class="sl-carousel" id="tuCarousel" style="position:absolute;inset:0;width:100%;height:100%;aspect-ratio:unset">
+          <div class="sl-carousel-track" id="tuTrack">
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-01.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-02.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-03.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-04.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-05.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-06.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-07.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-08.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-09.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-10.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-11.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-12.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-13.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-14.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-15.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-16.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-17.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-18.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-19.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-20.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-21.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-22.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-23.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-24.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-25.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-26.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-27.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-28.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-29.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/showcase-30.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/scvd-01.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/scvd-02.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/scvd-03.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/scvd-04.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/scvd-05.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/scvd-06.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/scvd-07.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/scvd-08.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/scvd-09.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          <div class="sl-slide"><img src="images/ux/transunion/scvd-10.jpg" loading="lazy" alt="" style="width:100%;height:100%;object-fit:cover"></div>
+          </div>
+          <button class="sl-btn sl-prev" onclick="tuGo(-1)">&#8592;</button>
+          <button class="sl-btn sl-next" onclick="tuGo(1)">&#8594;</button>
+          <div class="sl-counter" id="tuCounter">1 / 40</div>
+        </div>
       </div>
       <div class="case-info">
         <div>
@@ -1950,10 +2217,10 @@ function makeCarousel(cfg) {
   const TOTAL = cfg.total;
   let cur = 0, timer;
   const track = document.getElementById(cfg.trackId);
-  const counter = document.getElementById(cfg.counterId);
-  const dotsEl = document.getElementById(cfg.dotsId);
-  const strip = document.getElementById(cfg.stripId);
-  const carousel = document.getElementById(cfg.carouselId);
+  const counter = cfg.counterId ? document.getElementById(cfg.counterId) : null;
+  const dotsEl = cfg.dotsId ? document.getElementById(cfg.dotsId) : null;
+  const strip = cfg.stripId ? document.getElementById(cfg.stripId) : null;
+  const carousel = cfg.carouselId ? document.getElementById(cfg.carouselId) : null;
   if (!track) return;
 
   // dots — only build if ≤ 38 (beyond that just use counter)
@@ -2014,6 +2281,34 @@ makeCarousel({ total:55, trackId:'slTrack', counterId:'slCounter', dotsId:'slDot
 
 makeCarousel({ total:38, trackId:'mwTrack', counterId:'mwCounter', dotsId:'mwDots',
   stripId:'mwStrip', carouselId:'mwCarousel', goName:'mwGo', goToName:'mwGoTo', interval:5500 });
+
+// Avant Marketing (25 frames)
+makeCarousel({ total:25, trackId:'amTrack', counterId:'amCounter', dotsId:null,
+  stripId:'amStrip', carouselId:'amCarousel', goName:'amGo', goToName:'amGoTo', interval:5000 });
+
+// Avant Colo & Cloud Report (21 pages)
+makeCarousel({ total:21, trackId:'arTrack', counterId:'arCounter', dotsId:null,
+  stripId:'arStrip', carouselId:'arCarousel', goName:'arGo', goToName:'arGoTo', interval:6000 });
+
+// Edison Design System (11 images) — mini-carousel in case-thumb
+makeCarousel({ total:11, trackId:'edTrack', counterId:'edCounter', dotsId:null,
+  stripId:null, carouselId:'edCarousel', goName:'edGo', goToName:'edGoTo', interval:4500 });
+
+// BCBS FIBER Design System (20 screenshots) — mini-carousel in case-thumb
+makeCarousel({ total:20, trackId:'bcTrack', counterId:'bcCounter', dotsId:null,
+  stripId:null, carouselId:'bcCarousel', goName:'bcGo', goToName:'bcGoTo', interval:4000 });
+
+// PRISM (3 screens) — mini-carousel in case-thumb
+makeCarousel({ total:3, trackId:'prTrack', counterId:'prCounter', dotsId:null,
+  stripId:null, carouselId:'prCarousel', goName:'prGo', goToName:'prGoTo', interval:5000 });
+
+// TrueCredit (19 images) — mini-carousel in case-thumb
+makeCarousel({ total:19, trackId:'tcTrack', counterId:'tcCounter', dotsId:null,
+  stripId:null, carouselId:'tcCarousel', goName:'tcGo', goToName:'tcGoTo', interval:4000 });
+
+// TransUnion TUCM (40 pages) — mini-carousel in case-thumb
+makeCarousel({ total:40, trackId:'tuTrack', counterId:'tuCounter', dotsId:null,
+  stripId:null, carouselId:'tuCarousel', goName:'tuGo', goToName:'tuGoTo', interval:3500 });
 </script>
 </body>
 </html>
