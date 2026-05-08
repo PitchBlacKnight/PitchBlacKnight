@@ -496,8 +496,11 @@ section{border-bottom:1px solid var(--rule)}
 .sl-meta{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-25);margin-top:auto}
 .sl-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .sl-tag{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;padding:5px 10px;border:1px solid var(--ink-25);color:var(--ink-50)}
-.sl-thumb-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:4px;margin-top:4px}
-.sl-thumb-strip button{border:none;padding:0;cursor:pointer;aspect-ratio:4/3;overflow:hidden;opacity:.45;transition:opacity .2s;background:#0b2145}
+.sl-thumb-strip{display:flex;flex-direction:row;gap:3px;margin-top:3px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.2) transparent}
+.sl-thumb-strip::-webkit-scrollbar{height:3px}
+.sl-thumb-strip::-webkit-scrollbar-track{background:transparent}
+.sl-thumb-strip::-webkit-scrollbar-thumb{background:rgba(255,255,255,.2);border-radius:2px}
+.sl-thumb-strip button{flex:0 0 72px;height:54px;border:none;padding:0;cursor:pointer;overflow:hidden;opacity:.4;transition:opacity .2s;background:#0b1a30}
 .sl-thumb-strip button.active,.sl-thumb-strip button:hover{opacity:1}
 .sl-thumb-strip button img{width:100%;height:100%;object-fit:cover;display:block}
 
@@ -1250,32 +1253,70 @@ footer{
     <div class="sl-case">
       <div class="sl-carousel" id="slCarousel">
         <div class="sl-carousel-track" id="slTrack">
-          <div class="sl-slide"><img src="images/branding/spacelab/01-hero.jpg" alt="Spacelab 1"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/02-tin.jpg" alt="Spacelab 2"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/03-foil.jpg" alt="Spacelab 3"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/04-clean-harvest.jpg" alt="Spacelab 4"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/05-bar.jpg" alt="Spacelab 5"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/06-box-system.jpg" alt="Spacelab 6"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/07-box-lineup.jpg" alt="Spacelab 7"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/08-flat-box.jpg" alt="Spacelab 8"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/09-foil-detail.jpg" alt="Spacelab 9"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/10-brand-system.jpg" alt="Spacelab 10"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/11-dual-box.jpg" alt="Spacelab 11"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/12-open-box.jpg" alt="Spacelab 12"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/13-blue-gift-box.jpg" alt="Spacelab 13"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/14-white-terracotta-box.jpg" alt="Spacelab 14"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/15-alt-3.jpg" alt="Spacelab 15"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/16-alt-01.jpg" alt="Spacelab 16"></div>
-          <div class="sl-slide"><img src="images/branding/spacelab/17-purple-tin.jpg" alt="Spacelab 17"></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/01-hero.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/02-tin.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/03-foil.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/04-clean-harvest.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/05-bar.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/06-box-system.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/07-box-lineup.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/08-flat-box.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/09-foil-detail.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/10-brand-system.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/11-dual-box.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/12-open-box.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/13-blue-gift-box.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/14-white-terracotta-box.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/15-alt-3.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/16-alt-01.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/17-purple-tin.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-01.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-02.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-03.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-04.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-05.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-06.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-07.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-08.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-09.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-10.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-11.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-12.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-13.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-14.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-15.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-16.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-17.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-18.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-19.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-20.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-21.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-22.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-23.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-24.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-25.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-26.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-27.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-28.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-29.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-30.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-31.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-32.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-33.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-34.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-35.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-36.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-37.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/spacelab/pdf-pages/cz-38.jpg" loading="lazy" alt=""></div>
         </div>
         <button class="sl-btn sl-prev" onclick="slGo(-1)">&#8592;</button>
         <button class="sl-btn sl-next" onclick="slGo(1)">&#8594;</button>
-        <div class="sl-counter" id="slCounter">1 / 17</div>
+        <div class="sl-counter" id="slCounter">1 / 55</div>
         <div class="sl-dots" id="slDots"></div>
       </div>
       <!-- thumbnail strip -->
       <div class="sl-thumb-strip" id="slStrip">
-        <button onclick="slGoTo(0)" class="active"><img src="images/branding/spacelab/01-hero.jpg" alt=""></button>
+        <button class="active" onclick="slGoTo(0)"><img src="images/branding/spacelab/01-hero.jpg" alt=""></button>
         <button onclick="slGoTo(1)"><img src="images/branding/spacelab/02-tin.jpg" alt=""></button>
         <button onclick="slGoTo(2)"><img src="images/branding/spacelab/03-foil.jpg" alt=""></button>
         <button onclick="slGoTo(3)"><img src="images/branding/spacelab/04-clean-harvest.jpg" alt=""></button>
@@ -1292,6 +1333,44 @@ footer{
         <button onclick="slGoTo(14)"><img src="images/branding/spacelab/15-alt-3.jpg" alt=""></button>
         <button onclick="slGoTo(15)"><img src="images/branding/spacelab/16-alt-01.jpg" alt=""></button>
         <button onclick="slGoTo(16)"><img src="images/branding/spacelab/17-purple-tin.jpg" alt=""></button>
+        <button onclick="slGoTo(17)"><img src="images/branding/spacelab/pdf-pages/cz-01.jpg" alt=""></button>
+        <button onclick="slGoTo(18)"><img src="images/branding/spacelab/pdf-pages/cz-02.jpg" alt=""></button>
+        <button onclick="slGoTo(19)"><img src="images/branding/spacelab/pdf-pages/cz-03.jpg" alt=""></button>
+        <button onclick="slGoTo(20)"><img src="images/branding/spacelab/pdf-pages/cz-04.jpg" alt=""></button>
+        <button onclick="slGoTo(21)"><img src="images/branding/spacelab/pdf-pages/cz-05.jpg" alt=""></button>
+        <button onclick="slGoTo(22)"><img src="images/branding/spacelab/pdf-pages/cz-06.jpg" alt=""></button>
+        <button onclick="slGoTo(23)"><img src="images/branding/spacelab/pdf-pages/cz-07.jpg" alt=""></button>
+        <button onclick="slGoTo(24)"><img src="images/branding/spacelab/pdf-pages/cz-08.jpg" alt=""></button>
+        <button onclick="slGoTo(25)"><img src="images/branding/spacelab/pdf-pages/cz-09.jpg" alt=""></button>
+        <button onclick="slGoTo(26)"><img src="images/branding/spacelab/pdf-pages/cz-10.jpg" alt=""></button>
+        <button onclick="slGoTo(27)"><img src="images/branding/spacelab/pdf-pages/cz-11.jpg" alt=""></button>
+        <button onclick="slGoTo(28)"><img src="images/branding/spacelab/pdf-pages/cz-12.jpg" alt=""></button>
+        <button onclick="slGoTo(29)"><img src="images/branding/spacelab/pdf-pages/cz-13.jpg" alt=""></button>
+        <button onclick="slGoTo(30)"><img src="images/branding/spacelab/pdf-pages/cz-14.jpg" alt=""></button>
+        <button onclick="slGoTo(31)"><img src="images/branding/spacelab/pdf-pages/cz-15.jpg" alt=""></button>
+        <button onclick="slGoTo(32)"><img src="images/branding/spacelab/pdf-pages/cz-16.jpg" alt=""></button>
+        <button onclick="slGoTo(33)"><img src="images/branding/spacelab/pdf-pages/cz-17.jpg" alt=""></button>
+        <button onclick="slGoTo(34)"><img src="images/branding/spacelab/pdf-pages/cz-18.jpg" alt=""></button>
+        <button onclick="slGoTo(35)"><img src="images/branding/spacelab/pdf-pages/cz-19.jpg" alt=""></button>
+        <button onclick="slGoTo(36)"><img src="images/branding/spacelab/pdf-pages/cz-20.jpg" alt=""></button>
+        <button onclick="slGoTo(37)"><img src="images/branding/spacelab/pdf-pages/cz-21.jpg" alt=""></button>
+        <button onclick="slGoTo(38)"><img src="images/branding/spacelab/pdf-pages/cz-22.jpg" alt=""></button>
+        <button onclick="slGoTo(39)"><img src="images/branding/spacelab/pdf-pages/cz-23.jpg" alt=""></button>
+        <button onclick="slGoTo(40)"><img src="images/branding/spacelab/pdf-pages/cz-24.jpg" alt=""></button>
+        <button onclick="slGoTo(41)"><img src="images/branding/spacelab/pdf-pages/cz-25.jpg" alt=""></button>
+        <button onclick="slGoTo(42)"><img src="images/branding/spacelab/pdf-pages/cz-26.jpg" alt=""></button>
+        <button onclick="slGoTo(43)"><img src="images/branding/spacelab/pdf-pages/cz-27.jpg" alt=""></button>
+        <button onclick="slGoTo(44)"><img src="images/branding/spacelab/pdf-pages/cz-28.jpg" alt=""></button>
+        <button onclick="slGoTo(45)"><img src="images/branding/spacelab/pdf-pages/cz-29.jpg" alt=""></button>
+        <button onclick="slGoTo(46)"><img src="images/branding/spacelab/pdf-pages/cz-30.jpg" alt=""></button>
+        <button onclick="slGoTo(47)"><img src="images/branding/spacelab/pdf-pages/cz-31.jpg" alt=""></button>
+        <button onclick="slGoTo(48)"><img src="images/branding/spacelab/pdf-pages/cz-32.jpg" alt=""></button>
+        <button onclick="slGoTo(49)"><img src="images/branding/spacelab/pdf-pages/cz-33.jpg" alt=""></button>
+        <button onclick="slGoTo(50)"><img src="images/branding/spacelab/pdf-pages/cz-34.jpg" alt=""></button>
+        <button onclick="slGoTo(51)"><img src="images/branding/spacelab/pdf-pages/cz-35.jpg" alt=""></button>
+        <button onclick="slGoTo(52)"><img src="images/branding/spacelab/pdf-pages/cz-36.jpg" alt=""></button>
+        <button onclick="slGoTo(53)"><img src="images/branding/spacelab/pdf-pages/cz-37.jpg" alt=""></button>
+        <button onclick="slGoTo(54)"><img src="images/branding/spacelab/pdf-pages/cz-38.jpg" alt=""></button>
       </div>
       <div class="sl-info">
         <div class="sl-info-left">
@@ -1319,17 +1398,118 @@ footer{
         </div>
       </div>
     </div>
-    <div class="case-row">
-      <div class="case-info" style="border-right:1px solid var(--rule)">
-        <div>
-          <div class="case-tag">Branding · Technology Consulting · 2020</div>
-          <div class="case-title">Maven Wave<br>Brand Identity System</div>
+    <!-- ── MAVEN WAVE CAROUSEL ── -->
+    <div class="sl-case">
+      <div class="sl-carousel" id="mwCarousel">
+        <div class="sl-carousel-track" id="mwTrack">
+          <div class="sl-slide"><img src="images/branding/maven-wave/01-logo-mockup.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/02-logo-construction-sail.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/03-logo-construction-m.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/04-logo-construction-wave.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/05-logo-layout.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/06-wall-mockup.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/07-paper-mockup.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-01.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-02.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-03.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-04.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-05.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-06.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-07.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-08.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-09.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-10.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-11.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-12.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-13.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-14.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-15.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-16.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-17.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-18.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-19.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-20.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-21.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-22.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-23.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-24.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-25.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-26.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-27.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-28.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-29.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-30.jpg" loading="lazy" alt=""></div>
+          <div class="sl-slide"><img src="images/branding/maven-wave/pdf-pages/mv-31.jpg" loading="lazy" alt=""></div>
         </div>
-        <div class="case-outcome">"Premium brand identity for an elite Google Cloud partner — built to signal authority and intelligence across digital, print, and enterprise environments. Precision over personality."</div>
-        <div class="case-meta">Maven Wave · Brand Identity · Contract</div>
+        <button class="sl-btn sl-prev" onclick="mwGo(-1)">&#8592;</button>
+        <button class="sl-btn sl-next" onclick="mwGo(1)">&#8594;</button>
+        <div class="sl-counter" id="mwCounter">1 / 38</div>
+        <div class="sl-dots" id="mwDots"></div>
       </div>
-      <div class="case-thumb" style="background:#111112;overflow:hidden">
-        <img src="images/branding/maven-wave/01-logo-mockup.jpg" alt="Maven Wave Brand System" style="width:100%;height:100%;object-fit:cover;object-position:center;opacity:.97">
+      <div class="sl-thumb-strip" id="mwStrip">
+        <button class="active" onclick="mwGoTo(0)"><img src="images/branding/maven-wave/01-logo-mockup.jpg" alt=""></button>
+        <button onclick="mwGoTo(1)"><img src="images/branding/maven-wave/02-logo-construction-sail.jpg" alt=""></button>
+        <button onclick="mwGoTo(2)"><img src="images/branding/maven-wave/03-logo-construction-m.jpg" alt=""></button>
+        <button onclick="mwGoTo(3)"><img src="images/branding/maven-wave/04-logo-construction-wave.jpg" alt=""></button>
+        <button onclick="mwGoTo(4)"><img src="images/branding/maven-wave/05-logo-layout.jpg" alt=""></button>
+        <button onclick="mwGoTo(5)"><img src="images/branding/maven-wave/06-wall-mockup.jpg" alt=""></button>
+        <button onclick="mwGoTo(6)"><img src="images/branding/maven-wave/07-paper-mockup.jpg" alt=""></button>
+        <button onclick="mwGoTo(7)"><img src="images/branding/maven-wave/pdf-pages/mv-01.jpg" alt=""></button>
+        <button onclick="mwGoTo(8)"><img src="images/branding/maven-wave/pdf-pages/mv-02.jpg" alt=""></button>
+        <button onclick="mwGoTo(9)"><img src="images/branding/maven-wave/pdf-pages/mv-03.jpg" alt=""></button>
+        <button onclick="mwGoTo(10)"><img src="images/branding/maven-wave/pdf-pages/mv-04.jpg" alt=""></button>
+        <button onclick="mwGoTo(11)"><img src="images/branding/maven-wave/pdf-pages/mv-05.jpg" alt=""></button>
+        <button onclick="mwGoTo(12)"><img src="images/branding/maven-wave/pdf-pages/mv-06.jpg" alt=""></button>
+        <button onclick="mwGoTo(13)"><img src="images/branding/maven-wave/pdf-pages/mv-07.jpg" alt=""></button>
+        <button onclick="mwGoTo(14)"><img src="images/branding/maven-wave/pdf-pages/mv-08.jpg" alt=""></button>
+        <button onclick="mwGoTo(15)"><img src="images/branding/maven-wave/pdf-pages/mv-09.jpg" alt=""></button>
+        <button onclick="mwGoTo(16)"><img src="images/branding/maven-wave/pdf-pages/mv-10.jpg" alt=""></button>
+        <button onclick="mwGoTo(17)"><img src="images/branding/maven-wave/pdf-pages/mv-11.jpg" alt=""></button>
+        <button onclick="mwGoTo(18)"><img src="images/branding/maven-wave/pdf-pages/mv-12.jpg" alt=""></button>
+        <button onclick="mwGoTo(19)"><img src="images/branding/maven-wave/pdf-pages/mv-13.jpg" alt=""></button>
+        <button onclick="mwGoTo(20)"><img src="images/branding/maven-wave/pdf-pages/mv-14.jpg" alt=""></button>
+        <button onclick="mwGoTo(21)"><img src="images/branding/maven-wave/pdf-pages/mv-15.jpg" alt=""></button>
+        <button onclick="mwGoTo(22)"><img src="images/branding/maven-wave/pdf-pages/mv-16.jpg" alt=""></button>
+        <button onclick="mwGoTo(23)"><img src="images/branding/maven-wave/pdf-pages/mv-17.jpg" alt=""></button>
+        <button onclick="mwGoTo(24)"><img src="images/branding/maven-wave/pdf-pages/mv-18.jpg" alt=""></button>
+        <button onclick="mwGoTo(25)"><img src="images/branding/maven-wave/pdf-pages/mv-19.jpg" alt=""></button>
+        <button onclick="mwGoTo(26)"><img src="images/branding/maven-wave/pdf-pages/mv-20.jpg" alt=""></button>
+        <button onclick="mwGoTo(27)"><img src="images/branding/maven-wave/pdf-pages/mv-21.jpg" alt=""></button>
+        <button onclick="mwGoTo(28)"><img src="images/branding/maven-wave/pdf-pages/mv-22.jpg" alt=""></button>
+        <button onclick="mwGoTo(29)"><img src="images/branding/maven-wave/pdf-pages/mv-23.jpg" alt=""></button>
+        <button onclick="mwGoTo(30)"><img src="images/branding/maven-wave/pdf-pages/mv-24.jpg" alt=""></button>
+        <button onclick="mwGoTo(31)"><img src="images/branding/maven-wave/pdf-pages/mv-25.jpg" alt=""></button>
+        <button onclick="mwGoTo(32)"><img src="images/branding/maven-wave/pdf-pages/mv-26.jpg" alt=""></button>
+        <button onclick="mwGoTo(33)"><img src="images/branding/maven-wave/pdf-pages/mv-27.jpg" alt=""></button>
+        <button onclick="mwGoTo(34)"><img src="images/branding/maven-wave/pdf-pages/mv-28.jpg" alt=""></button>
+        <button onclick="mwGoTo(35)"><img src="images/branding/maven-wave/pdf-pages/mv-29.jpg" alt=""></button>
+        <button onclick="mwGoTo(36)"><img src="images/branding/maven-wave/pdf-pages/mv-30.jpg" alt=""></button>
+        <button onclick="mwGoTo(37)"><img src="images/branding/maven-wave/pdf-pages/mv-31.jpg" alt=""></button>
+      </div>
+      <div class="sl-info">
+        <div class="sl-info-left">
+          <div>
+            <div class="sl-label">Branding &amp; Identity · Technology Consulting · 2014</div>
+            <div class="sl-title">Maven Wave<br>Brand Identity System</div>
+          </div>
+          <div class="sl-meta">Maven Wave · Brand Identity · Contract · January 2014</div>
+        </div>
+        <div class="sl-info-mid">
+          <div class="sl-body">"Full brand identity system for an elite Google Cloud partner — logo system, brand strategy, color, typography, and application guidelines. Built to signal authority and intelligence while staying approachable. Delivered as a complete brand presentation."</div>
+        </div>
+        <div class="sl-info-right">
+          <div class="sl-label">Deliverables</div>
+          <div class="sl-tags">
+            <span class="sl-tag">Logo System</span>
+            <span class="sl-tag">Brand Strategy</span>
+            <span class="sl-tag">Color Palette</span>
+            <span class="sl-tag">Typography</span>
+            <span class="sl-tag">Brand Guidelines</span>
+            <span class="sl-tag">Print Applications</span>
+            <span class="sl-tag">Digital Applications</span>
+            <span class="sl-tag">Mockups</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="case-row">
@@ -1652,62 +1832,76 @@ if (wvEl) {
   }
 }
 
-/* ── SPACELAB CAROUSEL ── */
-(function(){
-  const TOTAL = 17;
-  let cur = 0;
-  let timer;
-
-  const track = document.getElementById('slTrack');
-  const counter = document.getElementById('slCounter');
-  const dotsEl = document.getElementById('slDots');
-  const strip = document.getElementById('slStrip');
+/* ── CAROUSEL FACTORY ── */
+function makeCarousel(cfg) {
+  // cfg: { total, trackId, counterId, dotsId, stripId, carouselId, goName, goToName, interval }
+  const TOTAL = cfg.total;
+  let cur = 0, timer;
+  const track = document.getElementById(cfg.trackId);
+  const counter = document.getElementById(cfg.counterId);
+  const dotsEl = document.getElementById(cfg.dotsId);
+  const strip = document.getElementById(cfg.stripId);
+  const carousel = document.getElementById(cfg.carouselId);
   if (!track) return;
 
-  // Build dots
-  for (let i = 0; i < TOTAL; i++) {
-    const d = document.createElement('button');
-    d.className = 'sl-dot' + (i === 0 ? ' active' : '');
-    d.setAttribute('aria-label', 'Slide ' + (i+1));
-    d.addEventListener('click', () => slGoTo(i));
-    dotsEl.appendChild(d);
+  // dots — only build if ≤ 38 (beyond that just use counter)
+  if (TOTAL <= 38 && dotsEl) {
+    for (let i = 0; i < TOTAL; i++) {
+      const d = document.createElement('button');
+      d.className = 'sl-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Slide ' + (i+1));
+      d.addEventListener('click', () => goTo(i));
+      dotsEl.appendChild(d);
+    }
+  }
+
+  function scrollThumbIntoView(idx) {
+    if (!strip) return;
+    const btns = strip.querySelectorAll('button');
+    if (btns[idx]) btns[idx].scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
   }
 
   function update() {
-    track.style.transform = `translateX(-${cur * 100}%)`;
-    counter.textContent = `${cur + 1} / ${TOTAL}`;
-    // dots
-    dotsEl.querySelectorAll('.sl-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
-    // strip thumbs
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    if (counter) counter.textContent = (cur + 1) + ' / ' + TOTAL;
+    if (dotsEl) dotsEl.querySelectorAll('.sl-dot').forEach((d, i) => d.classList.toggle('active', i === cur));
     if (strip) strip.querySelectorAll('button').forEach((b, i) => b.classList.toggle('active', i === cur));
+    scrollThumbIntoView(cur);
     resetTimer();
   }
 
   function resetTimer() {
     clearInterval(timer);
-    timer = setInterval(() => { cur = (cur + 1) % TOTAL; update(); }, 4800);
+    timer = setInterval(function() { cur = (cur + 1) % TOTAL; update(); }, cfg.interval || 5000);
   }
 
-  window.slGo = function(dir) { cur = (cur + dir + TOTAL) % TOTAL; update(); };
-  window.slGoTo = function(idx) { cur = idx; update(); };
+  function go(dir) { cur = (cur + dir + TOTAL) % TOTAL; update(); }
+  function goTo(idx) { cur = idx; update(); }
 
-  // Keyboard support
-  document.getElementById('slCarousel').addEventListener('keydown', e => {
-    if (e.key === 'ArrowLeft') slGo(-1);
-    if (e.key === 'ArrowRight') slGo(1);
-  });
+  window[cfg.goName] = go;
+  window[cfg.goToName] = goTo;
 
-  // Touch/swipe
-  let sx = 0;
-  const carousel = document.getElementById('slCarousel');
-  carousel.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
-  carousel.addEventListener('touchend', e => {
-    const dx = e.changedTouches[0].clientX - sx;
-    if (Math.abs(dx) > 40) slGo(dx < 0 ? 1 : -1);
-  }, {passive:true});
+  if (carousel) {
+    carousel.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowLeft') go(-1);
+      if (e.key === 'ArrowRight') go(1);
+    });
+    let sx = 0;
+    carousel.addEventListener('touchstart', function(e) { sx = e.touches[0].clientX; }, {passive:true});
+    carousel.addEventListener('touchend', function(e) {
+      const dx = e.changedTouches[0].clientX - sx;
+      if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1);
+    }, {passive:true});
+  }
 
   resetTimer();
-})();
+}
+
+makeCarousel({ total:55, trackId:'slTrack', counterId:'slCounter', dotsId:'slDots',
+  stripId:'slStrip', carouselId:'slCarousel', goName:'slGo', goToName:'slGoTo', interval:5000 });
+
+makeCarousel({ total:38, trackId:'mwTrack', counterId:'mwCounter', dotsId:'mwDots',
+  stripId:'mwStrip', carouselId:'mwCarousel', goName:'mwGo', goToName:'mwGoTo', interval:5500 });
 </script>
 </body>
 </html>
