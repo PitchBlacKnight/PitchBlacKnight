@@ -326,6 +326,19 @@ section{border-bottom:1px solid var(--rule)}
 .svc-anim .svc-tag{color:rgba(240,235,224,.45);border-color:rgba(255,255,255,.1)}
 .svc-anim .svc-rate{color:var(--orange)}
 .gif-wall{display:grid;grid-template-columns:repeat(10,1fr);gap:3px;margin-top:56px}
+.gif-cell.hidden{display:none}
+.gif-cell.reveal{animation:cellIn .4s ease both}
+@keyframes cellIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+.gif-expand-btn{
+  display:flex;align-items:center;justify-content:center;gap:12px;
+  width:100%;margin-top:3px;padding:18px;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);cursor:pointer;
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(240,235,224,.6);transition:background .2s,color .2s,border-color .2s;
+}
+.gif-expand-btn:hover{background:var(--orange);color:#fff;border-color:var(--orange)}
+.gif-expand-btn svg{transition:transform .3s}
+.gif-expand-btn.open svg{transform:rotate(180deg)}
 .gif-cell{
   aspect-ratio:1;overflow:hidden;background:#111;cursor:pointer;position:relative;
 }
@@ -1040,8 +1053,11 @@ footer{
     <div class="svc-rate">From $350 / piece · Licensing available</div>
   </div>
   <div class="gif-wall" id="gifWall"></div>
+  <button class="gif-expand-btn" id="gifExpandBtn" onclick="toggleGifWall()">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 5l5 5 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span id="gifExpandLabel">View all 106 works</span>
+  </button>
   <div class="gif-wall-caption">
-    <span><span class="gif-live-dot"></span>Live rotation — refreshing randomly</span>
     <span>106 original works · PBK Digital Art Archive</span>
   </div>
 </div>
@@ -1576,19 +1592,53 @@ function shuffle(arr) {
   return a;
 }
 
-// Show all 106 GIFs — full archive
+// GIF wall — show 30 initially, reveal all on expand
+const GIF_INITIAL = 30;
 const wall = document.getElementById('gifWall');
 const allShuffled = shuffle(ALL_GIFS);
+let gifExpanded = false;
 
-allShuffled.forEach(gif => {
+allShuffled.forEach((gif, i) => {
   const cell = document.createElement('div');
-  cell.className = 'gif-cell';
+  cell.className = 'gif-cell' + (i >= GIF_INITIAL ? ' hidden' : '');
   const img = document.createElement('img');
   img.src = BASE + gif;
   img.loading = 'lazy';
   cell.appendChild(img);
   wall.appendChild(cell);
 });
+
+window.toggleGifWall = function() {
+  gifExpanded = !gifExpanded;
+  const btn = document.getElementById('gifExpandBtn');
+  const label = document.getElementById('gifExpandLabel');
+  const hidden = wall.querySelectorAll('.gif-cell.hidden');
+  const toHide = wall.querySelectorAll('.gif-cell:not(.hidden):nth-child(n+' + (GIF_INITIAL+1) + ')');
+
+  if (gifExpanded) {
+    let delay = 0;
+    hidden.forEach(cell => {
+      cell.classList.remove('hidden');
+      cell.classList.add('reveal');
+      cell.style.animationDelay = delay + 'ms';
+      delay += 18;
+    });
+    label.textContent = 'Show less';
+    btn.classList.add('open');
+  } else {
+    wall.querySelectorAll('.gif-cell').forEach((cell, i) => {
+      if (i >= GIF_INITIAL) {
+        cell.classList.add('hidden');
+        cell.classList.remove('reveal');
+        cell.style.animationDelay = '';
+      }
+    });
+    label.textContent = 'View all 106 works';
+    btn.classList.remove('open');
+    // scroll back up to wall top
+    wall.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+};
 
 // ── WAVEFORM ANIMATION ────────────────────────────────────────────────
 const wvEl = document.getElementById('waveform');
