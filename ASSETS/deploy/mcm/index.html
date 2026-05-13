@@ -779,6 +779,54 @@ body {
   pointer-events: none;
 }
 
+
+/* ── HOVER PREVIEW ─────────────────────────────────────────────────────── */
+#hover-preview {
+  position: fixed;
+  z-index: 9500;
+  pointer-events: none;
+  background: #1C1910;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+  width: 220px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  will-change: opacity, transform;
+}
+#hover-preview.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+#hover-preview-img {
+  width: 220px;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  background: #111008;
+}
+#hover-preview-label {
+  padding: 8px 11px 9px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.72);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+}
+#hover-preview-sub {
+  padding: 0 11px 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  color: rgba(255,255,255,0.36);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 </style>
 </head>
 <body>
@@ -1096,11 +1144,67 @@ let clusterGroup = L.markerClusterGroup({
   }
 });
 
+// Hover preview
+const hoverEl = document.getElementById('hover-preview');
+const hoverImg = document.getElementById('hover-preview-img');
+const hoverLabel = document.getElementById('hover-preview-label');
+const hoverSub = document.getElementById('hover-preview-sub');
+let hoverTimer = null;
+
+document.addEventListener('mousemove', e => {
+  if (!hoverEl.classList.contains('visible')) return;
+  const gap = 16;
+  let x = e.clientX + gap;
+  let y = e.clientY - hoverEl.offsetHeight / 2;
+  if (x + hoverEl.offsetWidth > window.innerWidth - 8) x = e.clientX - hoverEl.offsetWidth - gap;
+  if (y < 8) y = 8;
+  if (y + hoverEl.offsetHeight > window.innerHeight - 8) y = window.innerHeight - hoverEl.offsetHeight - 8;
+  hoverEl.style.left = x + 'px';
+  hoverEl.style.top = y + 'px';
+});
+
+function showHover(loc, e) {
+  clearTimeout(hoverTimer);
+  hoverLabel.textContent = loc.address + ', ' + loc.city;
+  const archStr = loc.architect_norm || loc.architect || '';
+  const yearStr = loc.year && loc.year !== 'nan' ? loc.year : '';
+  hoverSub.textContent = [archStr, yearStr].filter(Boolean).join(' · ');
+  if (loc.photos && loc.photos.length) {
+    hoverImg.src = loc.photos[0];
+    hoverImg.style.display = 'block';
+  } else {
+    hoverImg.style.display = 'none';
+  }
+  const gap = 16;
+  let x = e.originalEvent.clientX + gap;
+  let y = e.originalEvent.clientY - 75;
+  hoverEl.style.left = x + 'px';
+  hoverEl.style.top = y + 'px';
+  hoverEl.classList.add('visible');
+}
+
+function hideHover() {
+  hoverTimer = setTimeout(() => hoverEl.classList.remove('visible'), 80);
+}
+
 // Build all markers
 const markerObjects = LOCATIONS.map((loc, markerIdx) => {
   if (!loc.lat) return null;
   const marker = createMarker(loc);
-  marker.bindPopup(buildPopup(loc, markerIdx), { maxWidth: 320, minWidth: 280 });
+  const hasPhotos = loc.photos && loc.photos.length;
+
+  if (hasPhotos) {
+    // Photo locations: click opens drawer directly
+    marker.on('click', function(e) {
+      openDrawerByIdx(markerIdx);
+    });
+  } else {
+    // No-photo locations: click opens info popup
+    marker.bindPopup(buildPopup(loc, markerIdx), { maxWidth: 320, minWidth: 280 });
+  }
+
+  marker.on('mouseover', e => showHover(loc, e));
+  marker.on('mouseout', hideHover);
   marker._locData = loc;
   return marker;
 }).filter(Boolean);
@@ -1228,6 +1332,13 @@ document.getElementById('lightbox').addEventListener('click', e => {
   if (e.target === document.getElementById('lightbox')) closeLightbox();
 });
 </script>
+
+<!-- HOVER PREVIEW -->
+<div id="hover-preview">
+  <img id="hover-preview-img" src="" alt="">
+  <div id="hover-preview-label"></div>
+  <div id="hover-preview-sub"></div>
+</div>
 
 <!-- PHOTO DRAWER -->
 <div id="photo-drawer">
