@@ -3,6 +3,7 @@
   "trailingSlash": false,
   "routes": [
     { "src": "/david/(.*)", "dest": "/david/$1" },
-    { "src": "/david",      "dest": "/david/index.html" }
+    { "src": "/david",      "dest": "/david/index.html" },
+    { "src": "/mcm",        "dest": "/mcm/index.html" }
   ]
 }
