@@ -185,14 +185,35 @@ body {
 
 .sidebar-section:last-child { border-bottom: none; }
 
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
 .section-label {
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--text-dim);
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
+
+.toggle-all-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--orange);
+  padding: 0;
+  letter-spacing: 0.05em;
+  transition: opacity 0.15s;
+  text-transform: uppercase;
+}
+.toggle-all-btn:hover { opacity: 0.7; }
 
 /* Type filters */
 .type-filters {
@@ -902,12 +923,18 @@ body {
     </div>
 
     <div class="sidebar-section">
-      <div class="section-label">Community</div>
+      <div class="section-header">
+        <div class="section-label">Community</div>
+        <button class="toggle-all-btn" id="city-toggle" onclick="toggleAllCities(this)">Deselect All</button>
+      </div>
       <div class="city-list" id="city-list"></div>
     </div>
 
     <div class="sidebar-section">
-      <div class="section-label">Architect</div>
+      <div class="section-header">
+        <div class="section-label">Architect</div>
+        <button class="toggle-all-btn" id="arch-toggle" onclick="toggleAllArchitects(this)">Deselect All</button>
+      </div>
       <input class="architect-search" id="architect-search" type="text" placeholder="Search architects...">
       <div class="architect-list" id="architect-list"></div>
     </div>
@@ -1054,8 +1081,8 @@ function rebuildActive() {
   document.querySelectorAll('#architect-list input:checked').forEach(cb => activeArchitects.add(cb.dataset.arch));
 }
 
-function onCityChange() { rebuildActive(); applyFilters(); }
-function onArchChange() { rebuildActive(); applyFilters(); }
+function onCityChange() { rebuildActive(); applyFilters(); syncToggleBtn('city-toggle', '#city-list'); }
+function onArchChange() { rebuildActive(); applyFilters(); syncToggleBtn('arch-toggle', '#architect-list'); }
 
 // Create custom marker
 function createMarker(loc) {
@@ -1237,14 +1264,45 @@ function toggleSidebar() {
   document.getElementById('sidebar').classList.toggle('collapsed');
 }
 
+function toggleAllCities(btn) {
+  const allChecked = [...document.querySelectorAll('#city-list input')].every(cb => cb.checked);
+  const newState = !allChecked;
+  document.querySelectorAll('#city-list input').forEach(cb => cb.checked = newState);
+  btn.textContent = newState ? 'Deselect All' : 'Select All';
+  rebuildActive();
+  applyFilters();
+}
+
+function toggleAllArchitects(btn) {
+  const visible = [...document.querySelectorAll('#architect-list .city-item')].filter(el => el.style.display !== 'none');
+  const inputs = visible.length
+    ? visible.map(el => el.querySelector('input'))
+    : [...document.querySelectorAll('#architect-list input')];
+  const allChecked = inputs.every(cb => cb.checked);
+  const newState = !allChecked;
+  inputs.forEach(cb => cb.checked = newState);
+  btn.textContent = newState ? 'Deselect All' : 'Select All';
+  rebuildActive();
+  applyFilters();
+}
+
+function syncToggleBtn(btnId, listSelector) {
+  const allChecked = [...document.querySelectorAll(listSelector + ' input')].every(cb => cb.checked);
+  const btn = document.getElementById(btnId);
+  if (btn) btn.textContent = allChecked ? 'Deselect All' : 'Select All';
+}
+
 function resetFilters() {
   activeType = 'all';
   document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
   document.querySelector('[data-type="all"]').classList.add('active');
-  
+
   document.querySelectorAll('#city-list input').forEach(cb => cb.checked = true);
   document.querySelectorAll('#architect-list input').forEach(cb => cb.checked = true);
-  
+
+  syncToggleBtn('city-toggle', '#city-list');
+  syncToggleBtn('arch-toggle', '#architect-list');
+
   rebuildActive();
   applyFilters();
 }
