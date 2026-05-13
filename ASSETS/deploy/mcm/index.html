@@ -440,6 +440,52 @@ body {
   overflow: hidden;
 }
 
+.popup-photo {
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+  cursor: zoom-in;
+  position: relative;
+  background: #111008;
+  display: block;
+}
+
+.popup-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.popup-photo:hover img { transform: scale(1.04); }
+
+.popup-photo-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  color: rgba(255,255,255,0.85);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 4px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.popup-photo-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0);
+  transition: background 0.2s;
+}
+.popup-photo:hover .popup-photo-hint { background: rgba(0,0,0,0.18); }
+
 .popup-top {
   padding: 16px 18px 12px;
   border-bottom: 1px solid var(--border);
@@ -1118,7 +1164,16 @@ function buildPopup(loc, locIdx) {
     ? `<span class="popup-badge" style="color:var(--mustard);border-color:var(--mustard);margin-top:6px;display:inline-flex">★ Historic</span>` 
     : '';
 
+  const hasPhotos = loc.photos && loc.photos.length;
+  const photoHtml = hasPhotos ? `
+    <div class="popup-photo" onclick="openLightboxForLoc(${locIdx}, 0)">
+      <img src="${loc.photos[0]}" alt="${loc.address}" loading="lazy">
+      <div class="popup-photo-hint"></div>
+      ${loc.photos.length > 1 ? `<div class="popup-photo-badge">+${loc.photos.length - 1} more</div>` : ''}
+    </div>` : '';
+
   return `<div class="popup-card">
+    ${photoHtml}
     <div class="popup-top">
       <div class="popup-type-bar" style="background:${color}"></div>
       <div class="popup-address">${loc.address}</div>
@@ -1145,7 +1200,6 @@ function buildPopup(loc, locIdx) {
       ${combined ? `<div class="popup-notes">${combined.slice(0, 200)}${combined.length > 200 ? '…' : ''}</div>` : ''}
     </div>
     <div class="popup-actions">
-      ${loc.photos && loc.photos.length ? '<button class="popup-link primary" onclick="openDrawerByIdx(' + locIdx + '); return false;">&#128247; ' + loc.photos.length + ' Photo' + (loc.photos.length > 1 ? 's' : '') + '</button>' : ''}
       <a class="popup-link" href="${streetViewUrl}" target="_blank">Street View</a>
       <a class="popup-link" href="${mapsUrl}" target="_blank">Maps</a>
     </div>
@@ -1316,6 +1370,14 @@ if (allPoints.length) map.fitBounds(allPoints, { padding: [40, 40] });
 
 // ── PHOTO DRAWER & LIGHTBOX ──────────────────────────────────────────────────
 let currentPhotos = [], currentTitle = '', lbIndex = 0;
+
+function openLightboxForLoc(idx, photoIdx) {
+  const loc = LOCATIONS[idx];
+  if (!loc || !loc.photos || !loc.photos.length) return;
+  currentPhotos = loc.photos;
+  currentTitle = loc.address;
+  openLightbox(photoIdx || 0);
+}
 
 function openDrawerByIdx(idx) {
   const loc = LOCATIONS[idx];
