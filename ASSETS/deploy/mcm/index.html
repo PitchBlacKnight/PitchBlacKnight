@@ -1196,18 +1196,11 @@ function hideHover() {
 const markerObjects = LOCATIONS.map((loc, markerIdx) => {
   if (!loc.lat) return null;
   const marker = createMarker(loc);
-  const hasPhotos = loc.photos && loc.photos.length;
 
-  if (hasPhotos) {
-    // Photo locations: click opens drawer directly
-    marker.on('click', function(e) {
-      openDrawerByIdx(markerIdx);
-    });
-  } else {
-    // No-photo locations: click opens info popup
-    marker.bindPopup(buildPopup(loc, markerIdx), { maxWidth: 320, minWidth: 280 });
-  }
+  // All markers get the info popup on click
+  marker.bindPopup(buildPopup(loc, markerIdx), { maxWidth: 320, minWidth: 280 });
 
+  // All markers show the hover photo preview
   marker.on('mouseover', e => showHover(loc, e));
   marker.on('mouseout', hideHover);
   marker._locData = loc;
