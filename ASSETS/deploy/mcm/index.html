@@ -1144,26 +1144,31 @@ let clusterGroup = L.markerClusterGroup({
   }
 });
 
-// Hover preview
-const hoverEl = document.getElementById('hover-preview');
-const hoverImg = document.getElementById('hover-preview-img');
-const hoverLabel = document.getElementById('hover-preview-label');
-const hoverSub = document.getElementById('hover-preview-sub');
+// Hover preview — elements are below the script tag, so init lazily after DOM ready
+let hoverEl = null, hoverImg = null, hoverLabel = null, hoverSub = null;
 let hoverTimer = null;
 
-document.addEventListener('mousemove', e => {
-  if (!hoverEl.classList.contains('visible')) return;
-  const gap = 16;
-  let x = e.clientX + gap;
-  let y = e.clientY - hoverEl.offsetHeight / 2;
-  if (x + hoverEl.offsetWidth > window.innerWidth - 8) x = e.clientX - hoverEl.offsetWidth - gap;
-  if (y < 8) y = 8;
-  if (y + hoverEl.offsetHeight > window.innerHeight - 8) y = window.innerHeight - hoverEl.offsetHeight - 8;
-  hoverEl.style.left = x + 'px';
-  hoverEl.style.top = y + 'px';
+document.addEventListener('DOMContentLoaded', () => {
+  hoverEl    = document.getElementById('hover-preview');
+  hoverImg   = document.getElementById('hover-preview-img');
+  hoverLabel = document.getElementById('hover-preview-label');
+  hoverSub   = document.getElementById('hover-preview-sub');
+
+  document.addEventListener('mousemove', e => {
+    if (!hoverEl || !hoverEl.classList.contains('visible')) return;
+    const gap = 16;
+    let x = e.clientX + gap;
+    let y = e.clientY - hoverEl.offsetHeight / 2;
+    if (x + hoverEl.offsetWidth > window.innerWidth - 8) x = e.clientX - hoverEl.offsetWidth - gap;
+    if (y < 8) y = 8;
+    if (y + hoverEl.offsetHeight > window.innerHeight - 8) y = window.innerHeight - hoverEl.offsetHeight - 8;
+    hoverEl.style.left = x + 'px';
+    hoverEl.style.top = y + 'px';
+  });
 });
 
 function showHover(loc, e) {
+  if (!hoverEl) return;
   clearTimeout(hoverTimer);
   hoverLabel.textContent = loc.address + ', ' + loc.city;
   const archStr = loc.architect_norm || loc.architect || '';
@@ -1184,7 +1189,7 @@ function showHover(loc, e) {
 }
 
 function hideHover() {
-  hoverTimer = setTimeout(() => hoverEl.classList.remove('visible'), 80);
+  hoverTimer = setTimeout(() => hoverEl && hoverEl.classList.remove('visible'), 80);
 }
 
 // Build all markers
