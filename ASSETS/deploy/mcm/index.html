@@ -986,6 +986,7 @@ body {
     </div>
 
     <div class="sidebar-section">
+      <button class="reset-btn" onclick="resetMapView()">Reset Map View</button>
       <button class="reset-btn" onclick="resetFilters()">Reset All Filters</button>
     </div>
   </div>
@@ -1344,6 +1345,10 @@ function syncToggleBtn(btnId, listSelector) {
   const allChecked = [...document.querySelectorAll(listSelector + ' input')].every(cb => cb.checked);
   const btn = document.getElementById(btnId);
   if (btn) btn.textContent = allChecked ? 'Deselect All' : 'Select All';
+}
+
+function resetMapView() {
+  if (allPoints.length) map.fitBounds(allPoints, { padding: [40, 40] });
 }
 
 function resetFilters() {
