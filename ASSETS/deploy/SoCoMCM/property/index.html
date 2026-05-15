@@ -744,7 +744,7 @@ function render(p) {
 if (!slug) {
   document.getElementById('not-found').style.display = 'flex';
 } else {
-  fetch('../data/properties.json')
+  fetch('/SoCoMCM/data/properties.json')
     .then(r => r.json())
     .then(data => {
       const p = data.find(x => x.slug === slug);

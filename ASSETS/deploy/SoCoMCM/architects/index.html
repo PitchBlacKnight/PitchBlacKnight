@@ -762,7 +762,7 @@ async function loadData() {
   const map = new Map(); // canonical name → {cities: Set, years: [], count}
 
   try {
-    const res = await fetch('../data/properties.json');
+    const res = await fetch('/SoCoMCM/data/properties.json');
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const properties = await res.json();
 
