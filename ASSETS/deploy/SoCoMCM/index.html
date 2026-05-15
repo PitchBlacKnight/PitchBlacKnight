@@ -60,20 +60,40 @@ img { display: block; max-width: 100%; }
   overflow: hidden;
 }
 
-/* Animated dot grid */
-.hero-grid {
-  position: absolute; inset: 0; z-index: 0; pointer-events: none;
-  background-image: radial-gradient(circle, rgba(232,98,42,0.18) 1px, transparent 1px);
-  background-size: 36px 36px;
-  animation: gridDrift 25s ease-in-out infinite alternate;
+/* Photo slideshow */
+.hero-slides { position: absolute; inset: 0; z-index: 0; }
+.hero-slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0;
+  animation: heroFade 28s infinite;
+  will-change: opacity;
 }
-@keyframes gridDrift { from { transform: translate(0,0); } to { transform: translate(18px, 18px); } }
+.hero-slide:nth-child(1) { animation-delay: 0s; }
+.hero-slide:nth-child(2) { animation-delay: 7s; }
+.hero-slide:nth-child(3) { animation-delay: 14s; }
+.hero-slide:nth-child(4) { animation-delay: 21s; }
 
-/* Gradient overlay */
+@keyframes heroFade {
+  0%, 3%   { opacity: 0; }
+  8%, 82%  { opacity: 1; }
+  87%, 100%{ opacity: 0; }
+}
+
+/* Gradient overlay — heavier for photo legibility */
 .hero-overlay {
   position: absolute; inset: 0; z-index: 1; pointer-events: none;
-  background: radial-gradient(ellipse 80% 60% at 65% 50%, rgba(17,16,8,0) 0%, rgba(17,16,8,0.7) 100%),
-              linear-gradient(to right, rgba(17,16,8,0) 0%, rgba(17,16,8,0.85) 60%);
+  background:
+    linear-gradient(to right, rgba(17,16,8,0.82) 0%, rgba(17,16,8,0.45) 55%, rgba(17,16,8,0.15) 100%),
+    linear-gradient(to top, rgba(17,16,8,0.7) 0%, transparent 50%);
+}
+
+/* Photo credit */
+.hero-photo-credit {
+  position: absolute; bottom: 16px; right: 20px; z-index: 4;
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.35); text-transform: uppercase;
+  pointer-events: none;
 }
 
 /* Orange accent line on left */
@@ -471,11 +491,17 @@ footer {
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-grid"></div>
+  <div class="hero-slides">
+    <div class="hero-slide" style="background-image:url('/SoCoMCM/photos/240-country-club-road/IMG_0185.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('https://images.squarespace-cdn.com/content/v1/6413d73ddfaca617da84a02c/67d81659-de15-40f9-a947-1b220a8d8963/Design329-Photo.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('/SoCoMCM/photos/240-country-club-road/IMG_0184.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('/SoCoMCM/photos/240-country-club-road/IMG_0186.JPG')"></div>
+  </div>
   <div class="hero-overlay"></div>
   <div class="hero-accent"></div>
+  <div class="hero-photo-credit">Photo: EPeck / VHT / SoCoMCM</div>
   <div class="hero-content">
-    <div class="hero-eyebrow">Est. 2018 &nbsp;·&nbsp; Chicago South Suburbs</div>
+    <div class="hero-eyebrow">Est. 2024 &nbsp;·&nbsp; Chicago Southland</div>
     <h1>Documenting<br><em>Modernism</em><br>in the South<br>Suburbs</h1>
     <p class="hero-desc">SoCoMCM is a volunteer research group recording, preserving, and celebrating Mid-Century Modern architecture across Chicago's south suburban communities — from Flossmoor to Blue Island, Olympia Fields to Homewood.</p>
     <div class="hero-ctas">
@@ -527,9 +553,9 @@ footer {
         <div class="section-label fade-up">Who We Are</div>
         <h2 class="section-h2 fade-up fade-up-delay-1">A community built around<br>extraordinary houses</h2>
         <div class="about-body fade-up fade-up-delay-2">
-          <p>SoCoMCM began in 2018 as a small circle of architecture enthusiasts who noticed something hiding in plain sight: Chicago's south suburbs are filled with remarkable Mid-Century Modern homes, schools, churches, and public buildings — most of them undocumented and unknown beyond their neighborhoods.</p>
-          <p>We are researchers, photographers, architects, historians, and neighbors. Our work is volunteer-driven and grassroots. We knock on doors, comb through permit archives, visit county clerk offices, and dig through library microfilm to piece together the stories of these extraordinary buildings and the people who commissioned and built them.</p>
-          <p>Today our database documents 173 properties across 20 communities. Every entry represents hours of research. Our goal is to ensure that these buildings — and their histories — are never forgotten.</p>
+          <p>The MISSION of SoCoMCM is to bring awareness to the exemplary enclave of mid-century modern architecture in Chicago's Southland while also providing a forum for modernist enthusiasts and homeowners to gather, collaborate, and work towards preservation.</p>
+          <p>SoCoMCM advocates for safeguarding mid-century modern structures, artwork, objects, and the modernist ethos. We catalyze preservation initiatives and revitalize architectural interest across Southland communities through education, documentation, outreach, and advocacy. Programming encompasses architectural tours, educational lectures, and workshops addressing renovation tactics, design history, landscape planning, and landmark designation.</p>
+          <p>Founded in 2024 by Edward Peck, FAIA, the organization launched with member-supported programming and has grown into an active community of researchers, homeowners, architects, and preservationists dedicated to the Southland's extraordinary built heritage.</p>
         </div>
       </div>
       <div class="about-right fade-up fade-up-delay-2">
@@ -547,7 +573,7 @@ footer {
             <div class="stat-block-label">Architects Identified</div>
           </div>
           <div class="stat-block">
-            <div class="stat-block-num">2018</div>
+            <div class="stat-block-num">2024</div>
             <div class="stat-block-label">Year Founded</div>
           </div>
         </div>
@@ -712,6 +738,40 @@ footer {
   </div>
 </section>
 
+<!-- MEDIA -->
+<section class="section" style="background:var(--panel);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div class="section-inner">
+    <div class="section-label fade-up">Press &amp; Media</div>
+    <h2 class="section-h2 fade-up fade-up-delay-1">In the News</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px;" class="fade-up fade-up-delay-2">
+      <a href="https://www.youtube.com/watch?v=wq6dkkczBKs&t=1413" target="_blank" rel="noopener"
+         style="display:flex;gap:20px;padding:28px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;text-decoration:none;transition:border-color 0.2s;"
+         onmouseover="this.style.borderColor='var(--teal)'" onmouseout="this.style.borderColor='var(--border)'">
+        <img src="https://images.squarespace-cdn.com/content/v1/6413d73ddfaca617da84a02c/8db091ae-aba5-4a03-a94a-4b0e57e644bb/US-ModernistRadio-01.jpg"
+             alt="US Modernist Radio" style="width:96px;height:96px;object-fit:cover;border-radius:3px;flex-shrink:0;">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--teal);margin-bottom:8px;">Podcast · September 2025</div>
+          <div style="font-size:16px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3;">US Modernist Radio — Episode #422</div>
+          <div style="font-size:13px;color:var(--text-dim);line-height:1.6;">Founder Edward Peck discusses SoCoMCM's formation, Keck &amp; Keck, and Southland modernist heritage with host George Smart. Segment begins at 23:33.</div>
+          <div style="margin-top:12px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--teal);">Listen on YouTube &rarr;</div>
+        </div>
+      </a>
+      <a href="https://images.squarespace-cdn.com/content/v1/6413d73ddfaca617da84a02c/7b4c729d-bb4b-4c5a-94fb-6aa12dfe1b4d/HFC-SoCoMCM-Article-01.jpg" target="_blank" rel="noopener"
+         style="display:flex;gap:20px;padding:28px;background:var(--panel-2);border:1px solid var(--border);border-radius:4px;text-decoration:none;transition:border-color 0.2s;"
+         onmouseover="this.style.borderColor='var(--mustard)'" onmouseout="this.style.borderColor='var(--border)'">
+        <img src="https://images.squarespace-cdn.com/content/v1/6413d73ddfaca617da84a02c/7b4c729d-bb4b-4c5a-94fb-6aa12dfe1b4d/HFC-SoCoMCM-Article-01.jpg"
+             alt="Homewood-Flossmoor Chronicle" style="width:96px;height:96px;object-fit:cover;border-radius:3px;flex-shrink:0;">
+        <div>
+          <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--mustard);margin-bottom:8px;">Press · Homewood-Flossmoor Chronicle</div>
+          <div style="font-size:16px;font-weight:700;color:var(--cream);margin-bottom:8px;line-height:1.3;">SoCoMCM in the HF Chronicle</div>
+          <div style="font-size:13px;color:var(--text-dim);line-height:1.6;">Feature on founder Edward Peck's architectural work and the SoCoMCM organization's preservation mission in the Southland.</div>
+          <div style="margin-top:12px;font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--mustard);">View Article &rarr;</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- COMMUNITIES -->
 <section class="section communities-section">
   <div class="section-inner">
@@ -739,7 +799,7 @@ footer {
     <h2 class="fade-up">Join the Research<br>Community</h2>
     <p class="fade-up fade-up-delay-1">SoCoMCM is a volunteer group open to anyone interested in architectural history, photography, genealogical research, or simply the love of great mid-century design. No expertise required — only curiosity.</p>
     <div class="cta-band-btns fade-up fade-up-delay-2">
-      <a class="btn-primary" href="mailto:robinjarrett1@gmail.com">Get in Touch &rarr;</a>
+      <a class="btn-primary" href="mailto:soco@socomcm.org">Get in Touch &rarr;</a>
       <a class="btn-outline" href="/SoCoMCM/about/">Learn More About the Group</a>
     </div>
   </div>
@@ -764,8 +824,8 @@ footer {
           <div class="footer-subtitle">South Cook County</div>
         </div>
       </div>
-      <p class="footer-desc">A volunteer research group documenting Mid-Century Modern architecture across Chicago's south suburban communities since 2018.</p>
-      <p style="margin-top:16px;font-size:13px;color:var(--text-dim);">Contact: <a href="mailto:robinjarrett1@gmail.com" style="color:var(--orange);">robinjarrett1@gmail.com</a></p>
+      <p class="footer-desc">A volunteer collective documenting and preserving Mid-Century Modern architecture across Chicago's Southland communities. Founded 2024.</p>
+      <p style="margin-top:16px;font-size:13px;color:var(--text-dim);">Contact: <a href="mailto:soco@socomcm.org" style="color:var(--orange);">soco@socomcm.org</a></p>
     </div>
     <div class="footer-col">
       <h4>Explore</h4>
@@ -788,10 +848,10 @@ footer {
     <div class="footer-col">
       <h4>Participate</h4>
       <ul>
-        <li><a href="mailto:robinjarrett1@gmail.com">Join the Group</a></li>
+        <li><a href="mailto:soco@socomcm.org">Join the Group</a></li>
         <li><a href="/SoCoMCM/events/">Attend an Event</a></li>
-        <li><a href="mailto:robinjarrett1@gmail.com">Submit a Property</a></li>
-        <li><a href="mailto:robinjarrett1@gmail.com">Contribute Photos</a></li>
+        <li><a href="mailto:soco@socomcm.org">Submit a Property</a></li>
+        <li><a href="mailto:soco@socomcm.org">Contribute Photos</a></li>
       </ul>
     </div>
   </div>
@@ -835,10 +895,10 @@ counterIo.observe(counterProps);
 
 // ── EVENTS TEASER ──
 const UPCOMING_EVENTS = [
-  { title: "Spring House Tour — Flossmoor", date: "2026-06-13", time: "10:00 AM – 4:00 PM", location: "Flossmoor, IL", type: "tour" },
-  { title: "Monthly Research Meeting", date: "2026-05-21", time: "7:00 PM – 8:30 PM", location: "Virtual — Zoom", type: "meeting" },
-  { title: "Photography Walk — Olympia Fields", date: "2026-05-31", time: "9:00 AM – 12:00 PM", location: "Olympia Fields, IL", type: "walk" },
-  { title: "Lecture: George Fred Keck & the Solar House", date: "2026-07-10", time: "6:30 PM – 8:00 PM", location: "Flossmoor Public Library", type: "lecture" }
+  { title: "Sound Bath at the Rockwell House", date: "2026-05-31", time: "3:00 PM", location: "Rockwell House, Chicago", type: "tour" },
+  { title: "Keck & Keck Open House", date: "2026-06-07", time: "4:00 PM", location: "Schererville, Indiana", type: "tour" },
+  { title: "Happy Hour & Home Tour — Norton House", date: "2026-06-20", time: "4:00 PM", location: "Park Forest, IL", type: "tour" },
+  { title: "Annual Party & Home Tour — Pascale House", date: "2026-07-25", time: "3:00 PM", location: "Olympia Fields, IL", type: "tour" }
 ];
 const TYPE_COLORS_EV = { tour: '#E8622A', meeting: '#3DB8A4', walk: '#9B7FD4', lecture: '#F0C040' };
 const TYPE_LABELS_EV = { tour: 'House Tour', meeting: 'Meeting', walk: 'Photo Walk', lecture: 'Lecture' };

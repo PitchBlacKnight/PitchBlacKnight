@@ -732,21 +732,21 @@ footer a:hover { color: var(--text); }
     <div class="how-grid">
       <div class="how-card" data-type="tour">
         <span class="how-card-icon">🏠</span>
-        <div class="how-card-label">House Tours</div>
-        <h3>Ticketed Access to Private Homes</h3>
-        <p>Our house tours open privately owned MCM residences to the public. Tickets are required and space is limited. Advance registration is strongly recommended. Docents available at select properties.</p>
+        <div class="how-card-label">House Tours &amp; Social Events</div>
+        <h3>Members &amp; Public</h3>
+        <p>Home tours, cocktail receptions, and annual parties open the region's finest MCM residences to members and the public. Some events are members-only with limited capacity — join the mailing list to stay informed.</p>
       </div>
       <div class="how-card" data-type="meeting">
-        <span class="how-card-icon">📋</span>
-        <div class="how-card-label">Research Meetings</div>
-        <h3>Monthly, Open to All Members</h3>
-        <p>Monthly Zoom sessions for active researchers. Share findings, take on new properties, and coordinate outreach. Zoom link sent to the mailing list. New members welcome — no prior experience required.</p>
+        <span class="how-card-icon">🎄</span>
+        <div class="how-card-label">Member Gatherings</div>
+        <h3>For the SoCoMCM Community</h3>
+        <p>Annual celebrations, holiday pick-ups, and informal gatherings bring the membership together at member homes and curated venues. Members receive first notice and priority access to ticketed events.</p>
       </div>
-      <div class="how-card" data-type="walk">
-        <span class="how-card-icon">📷</span>
-        <div class="how-card-label">Photography Walks</div>
-        <h3>Free, All Skill Levels Welcome</h3>
-        <p>Guided neighborhood walks to photograph and document MCM exteriors. Bring any camera. No registration required unless noted. Meet at the listed location. Good shoes recommended.</p>
+      <div class="how-card" data-type="lecture" style="--card-accent: var(--mustard);">
+        <span class="how-card-icon">🎙</span>
+        <div class="how-card-label">Lectures &amp; Education</div>
+        <h3>Free &amp; Open to the Public</h3>
+        <p>Our lecture series covers historic landmark designation, architectural history, renovation tactics, and landscape planning — presented by leading experts. Free admission. The public is always welcome.</p>
       </div>
     </div>
   </section>
@@ -759,7 +759,7 @@ footer a:hover { color: var(--text); }
       <p class="cta-text">Join the SoCoMCM mailing list to receive announcements for house tours, lectures, photography walks, and research meetings as soon as they're scheduled.</p>
     </div>
     <div class="cta-action">
-      <a class="cta-btn" href="mailto:robinjarrett1@gmail.com?subject=Add%20me%20to%20the%20SoCoMCM%20mailing%20list">Join Mailing List</a>
+      <a class="cta-btn" href="mailto:soco@socomcm.org?subject=Add%20me%20to%20the%20SoCoMCM%20mailing%20list">Join Mailing List</a>
     </div>
   </div>
 
@@ -769,67 +769,91 @@ footer a:hover { color: var(--text); }
 <footer>
   <span>SoCoMCM &mdash; South Cook County Mid-Century Modern</span>
   &nbsp;&nbsp;·&nbsp;&nbsp;
-  <a href="mailto:robinjarrett1@gmail.com">robinjarrett1@gmail.com</a>
+  <a href="mailto:soco@socomcm.org">soco@socomcm.org</a>
 </footer>
 
 <!-- ═══ SCRIPT ════════════════════════════════════════════════ -->
 <script>
 const EVENTS = [
   {
-    title: "Spring House Tour — Flossmoor",
-    date: "2026-06-13",
-    time: "10:00 AM – 4:00 PM",
-    location: "Flossmoor, IL",
-    description: "Self-guided and docent-led tours of five privately owned Mid-Century Modern residences in Flossmoor, including three documented Keck & Keck homes. Tickets required. Advance registration recommended.",
-    type: "tour"
-  },
-  {
-    title: "Monthly Research Meeting",
-    date: "2026-05-21",
-    time: "7:00 PM – 8:30 PM",
-    location: "Virtual — Zoom",
-    description: "Monthly check-in for active SoCoMCM researchers. Share findings, assign new properties, coordinate outreach to owners. All members welcome. Zoom link sent to mailing list.",
-    type: "meeting"
-  },
-  {
-    title: "Photography Walk — Olympia Fields",
+    title: "Sound Bath at the Rockwell House",
     date: "2026-05-31",
-    time: "9:00 AM – 12:00 PM",
-    location: "Olympia Fields, IL",
-    description: "Guided walk through the Olympia Fields Country Club neighborhood to photograph and document MCM exteriors. Bring your camera. All skill levels welcome. Meet at the Metra station.",
-    type: "walk"
+    time: "3:00 PM",
+    location: "Rockwell House, Chicago",
+    description: "A 90-minute outdoor sound bath combining gentle yoga and calming sound therapy on the grounds of this landmark glass house. Members only — limited spots.",
+    type: "tour",
+    tickets: "Members Only",
+    ticketUrl: "https://www.zeffy.com"
   },
   {
-    title: "Lecture: George Fred Keck & the Solar House",
-    date: "2026-07-10",
-    time: "6:30 PM – 8:00 PM",
-    location: "Flossmoor Public Library",
-    description: "Illustrated lecture tracing the Keck & Keck firm's pioneering passive solar designs from the 1933 House of Tomorrow to their prolific south suburban residential work. Free and open to the public.",
-    type: "lecture"
+    title: "Keck & Keck Open House",
+    date: "2026-06-07",
+    time: "4:00 PM",
+    location: "1301 Saint Andrews Drive, Schererville, Indiana",
+    description: "Home tour and cocktail reception at a notable Keck & Keck residence in Briar Ridge. The architectural and preservation community is invited. RSVP details coming soon.",
+    type: "tour",
+    tickets: "RSVP Coming Soon",
+    ticketUrl: ""
   },
   {
-    title: "Monthly Research Meeting",
-    date: "2026-06-18",
-    time: "7:00 PM – 8:30 PM",
-    location: "Virtual — Zoom",
-    description: "Monthly check-in for active SoCoMCM researchers. Share findings, assign new properties, coordinate outreach to owners. All members welcome. Zoom link sent to mailing list.",
-    type: "meeting"
+    title: "Happy Hour & Home Tour — Norton House",
+    date: "2026-06-20",
+    time: "4:00 PM",
+    location: "Norton House, Park Forest, IL",
+    description: "Tour of a Richard A. Norton–designed organic modernist home featuring sweeping views over a ravine, hosted by the original architect's son. Ticketing coming soon.",
+    type: "tour",
+    tickets: "Coming Soon",
+    ticketUrl: ""
   },
   {
-    title: "Summer House Tour — Homewood",
-    date: "2026-08-08",
-    time: "11:00 AM – 5:00 PM",
-    location: "Homewood, IL",
-    description: "Annual summer house tour featuring documented MCM residences in Homewood. Self-paced walking and driving route. Map provided on registration.",
-    type: "tour"
-  },
-  {
-    title: "Archive Deep Dive — Art Institute Ryerson Library",
+    title: "Annual Party & Home Tour — Pascale House",
     date: "2026-07-25",
-    time: "10:00 AM – 2:00 PM",
-    location: "Art Institute of Chicago",
-    description: "Group visit to the Ryerson & Burnham Library to review architectural drawings from the Keck & Keck collection. Space limited to 8 participants. Pre-registration required.",
-    type: "lecture"
+    time: "3:00 PM",
+    location: "Pascale House, Olympia Fields, IL",
+    description: "Third annual celebration with a Mid-Century Italian Cinema theme at a Leo Cohen–designed home featuring a vintage television collection. Details coming soon.",
+    type: "tour",
+    tickets: "Coming Soon",
+    ticketUrl: ""
+  },
+  {
+    title: "Lecture Series 002 — Historic Registration",
+    date: "2026-09-15",
+    time: "6:30 PM",
+    location: "TBD — Southland",
+    description: "\"Demystifying Historic Registration for Properties and Districts\" — presented by Susan S. Benjamin, co-author of Modern in the Middle. Date is tentative.",
+    type: "lecture",
+    tickets: "Free",
+    ticketUrl: ""
+  },
+  {
+    title: "Exclusive House of Tomorrow Tour",
+    date: "2026-10-10",
+    time: "TBD",
+    location: "Beverly Shores, Indiana",
+    description: "Private tour of George Fred Keck's 1933 pioneering work of modern architecture, currently undergoing restoration by Indiana Landmarks. Date is tentative.",
+    type: "tour",
+    tickets: "Members Only",
+    ticketUrl: ""
+  },
+  {
+    title: "Lecture Series 003 & Annual Meeting",
+    date: "2026-11-12",
+    time: "6:30 PM",
+    location: "TBD — Southland",
+    description: "Discussion on modernism's evolution into Mid-Century Modern, followed by the annual membership meeting. Date is tentative.",
+    type: "lecture",
+    tickets: "Members",
+    ticketUrl: ""
+  },
+  {
+    title: "2026 Ornament Pick-Up & Holiday Gathering",
+    date: "2026-12-12",
+    time: "TBD",
+    location: "Member's Home — TBD",
+    description: "Informal holiday celebration at a member's home featuring curated seasonal objects. Date is tentative.",
+    type: "meeting",
+    tickets: "Members",
+    ticketUrl: ""
   }
 ];
 
@@ -857,6 +881,25 @@ function buildCard(ev, isPast) {
   const label = TYPE_LABELS[ev.type] || ev.type;
   const rsvpSubject = encodeURIComponent('RSVP: ' + ev.title);
 
+  // Build ticket/action button
+  let actionHtml = '';
+  if (ev.tickets === 'Members Only' && ev.ticketUrl) {
+    actionHtml = `<a class="event-rsvp" href="${ev.ticketUrl}" target="_blank" rel="noopener">Members Only — Register →</a>`;
+  } else if (ev.tickets === 'Members Only') {
+    actionHtml = `<span class="event-rsvp" style="cursor:default; opacity:0.6;">Members Only</span>`;
+  } else if (ev.tickets === 'Free') {
+    actionHtml = `<a class="event-rsvp" href="mailto:soco@socomcm.org?subject=${rsvpSubject}">Free — RSVP →</a>`;
+  } else if (ev.ticketUrl) {
+    actionHtml = `<a class="event-rsvp" href="${ev.ticketUrl}" target="_blank" rel="noopener">Get Tickets →</a>`;
+  } else if (ev.tickets && ev.tickets !== 'Coming Soon' && ev.tickets !== 'RSVP Coming Soon') {
+    actionHtml = `<a class="event-rsvp" href="mailto:soco@socomcm.org?subject=${rsvpSubject}">RSVP / Info →</a>`;
+  } else {
+    actionHtml = `<span class="event-rsvp" style="cursor:default; opacity:0.6;">${ev.tickets || 'Details Coming Soon'}</span>`;
+  }
+
+  // Ticket info label
+  const ticketLabel = ev.tickets ? `<div class="event-meta-item"><span class="event-meta-icon">◈</span><span>${ev.tickets}</span></div>` : '';
+
   const card = document.createElement('article');
   card.className = 'event-card' + (isPast ? ' past' : '');
   card.dataset.type = ev.type;
@@ -880,9 +923,10 @@ function buildCard(ev, isPast) {
           <span class="event-meta-icon">◎</span>
           <span>${ev.location}</span>
         </div>
+        ${ticketLabel}
       </div>
       <p class="event-desc">${ev.description}</p>
-      <a class="event-rsvp" href="mailto:robinjarrett1@gmail.com?subject=${rsvpSubject}">RSVP / Info →</a>
+      ${actionHtml}
     </div>
   `;
   return card;
@@ -890,7 +934,7 @@ function buildCard(ev, isPast) {
 
 // ── render ───────────────────────────────────────────────────
 
-const today = new Date();
+const today = new Date('2026-05-14');
 today.setHours(0, 0, 0, 0);
 
 const sorted = [...EVENTS].sort((a, b) => parseLocalDate(a.date) - parseLocalDate(b.date));
