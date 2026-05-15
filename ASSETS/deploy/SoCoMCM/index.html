@@ -66,18 +66,19 @@ img { display: block; max-width: 100%; }
   position: absolute; inset: 0;
   background-size: cover; background-position: center;
   opacity: 0;
-  animation: heroFade 28s infinite;
+  animation: heroFade 40s infinite;
   will-change: opacity;
 }
 .hero-slide:nth-child(1) { animation-delay: 0s; }
-.hero-slide:nth-child(2) { animation-delay: 7s; }
-.hero-slide:nth-child(3) { animation-delay: 14s; }
-.hero-slide:nth-child(4) { animation-delay: 21s; }
+.hero-slide:nth-child(2) { animation-delay: 8s; }
+.hero-slide:nth-child(3) { animation-delay: 16s; }
+.hero-slide:nth-child(4) { animation-delay: 24s; }
+.hero-slide:nth-child(5) { animation-delay: 32s; }
 
 @keyframes heroFade {
   0%, 3%   { opacity: 0; }
-  8%, 82%  { opacity: 1; }
-  87%, 100%{ opacity: 0; }
+  6%, 17%  { opacity: 1; }
+  20%, 100%{ opacity: 0; }
 }
 
 /* Gradient overlay — heavier for photo legibility */
@@ -492,10 +493,11 @@ footer {
 <!-- HERO -->
 <section class="hero">
   <div class="hero-slides">
-    <div class="hero-slide" style="background-image:url('/SoCoMCM/photos/240-country-club-road/IMG_0185.JPG')"></div>
+    <div class="hero-slide" style="background-image:url('/SoCoMCM/photos/hero/BW-20841OakLaneDrive-1-Wide.webp')"></div>
+    <div class="hero-slide" style="background-image:url('/SoCoMCM/photos/hero/13GM-Exterior-05BlkWh-Wide.webp')"></div>
+    <div class="hero-slide" style="background-image:url('/SoCoMCM/photos/hero/BW-98GM-01-Wide.webp')"></div>
+    <div class="hero-slide" style="background-image:url('/SoCoMCM/photos/hero/BW69-Brassie-Int-01-Wide.webp')"></div>
     <div class="hero-slide" style="background-image:url('https://images.squarespace-cdn.com/content/v1/6413d73ddfaca617da84a02c/67d81659-de15-40f9-a947-1b220a8d8963/Design329-Photo.jpg')"></div>
-    <div class="hero-slide" style="background-image:url('/SoCoMCM/photos/240-country-club-road/IMG_0184.JPG')"></div>
-    <div class="hero-slide" style="background-image:url('/SoCoMCM/photos/240-country-club-road/IMG_0186.JPG')"></div>
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-accent"></div>
