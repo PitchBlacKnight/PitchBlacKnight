@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — SoCoMCM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #111008;
+  --panel: #1C1910;
+  --panel-2: #251F12;
+  --border: #3A3220;
+  --orange: #E8622A;
+  --teal: #3DB8A4;
+  --mustard: #F0C040;
+  --cream: #F5EDD6;
+  --text: #D4CAB4;
+  --text-dim: #7A7060;
+  --font-head: "Space Grotesk", sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-head);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* HEADER */
+#header {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+#header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 50%, var(--mustard) 100%);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+
+.logo-mark svg { width: 100%; height: 100%; }
+
+.header-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1.1;
+}
+
+.header-subtitle {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.header-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border);
+}
+
+.header-nav {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav-link {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 2px;
+  transition: color 0.15s, background 0.15s;
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background: var(--panel-2);
+}
+
+.nav-link.active {
+  color: var(--orange);
+  background: color-mix(in srgb, var(--orange) 10%, transparent);
+}
+
+/* HERO */
+.page-hero {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 64px 24px 56px;
+  text-align: center;
+}
+
+.page-hero-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+
+.page-hero h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.page-hero p {
+  font-size: 17px;
+  color: var(--text-dim);
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* STAT ROW */
+.stat-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.stat-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px 40px;
+  border-right: 1px solid var(--border);
+}
+
+.stat-cell:last-child {
+  border-right: none;
+}
+
+.stat-num {
+  font-family: var(--font-mono);
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--orange);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.stat-label {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* CONTENT */
+.content-wrap {
+  flex: 1;
+  max-width: 740px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 64px 24px 80px;
+}
+
+.content-section {
+  margin-bottom: 60px;
+}
+
+.content-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.content-section h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.content-section p {
+  color: var(--text);
+  font-size: 16px;
+  line-height: 1.75;
+  margin-bottom: 16px;
+}
+
+.content-section p:last-child {
+  margin-bottom: 0;
+}
+
+/* Character list for MCM traits */
+.trait-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.trait-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.trait-list li::before {
+  content: '—';
+  font-family: var(--font-mono);
+  color: var(--mustard);
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+/* Involvement section */
+.involve-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.involve-item {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--orange);
+  border-radius: 2px;
+  padding: 16px 20px;
+  font-size: 15px;
+  color: var(--text);
+  line-height: 1.55;
+}
+
+.involve-item strong {
+  color: var(--cream);
+  font-weight: 600;
+}
+
+.involve-contact {
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 14px;
+  color: var(--text-dim);
+}
+
+.involve-contact a {
+  color: var(--orange);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.involve-contact a:hover {
+  text-decoration: underline;
+}
+
+/* Architect highlights */
+.architect-note {
+  margin-top: 20px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 20px 24px;
+}
+
+.architect-note-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.architect-name-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.arch-tag {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--cream);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+/* FOOTER */
+footer {
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  padding: 28px 24px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+footer a {
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+footer a:hover { color: var(--text); }
+
+/* MOBILE */
+@media (max-width: 640px) {
+  #header {
+    height: auto;
+    min-height: 56px;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .header-divider { display: none; }
+
+  .header-nav {
+    width: 100%;
+    margin-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    gap: 2px;
+    flex-wrap: wrap;
+  }
+
+  .nav-link { padding: 5px 8px; font-size: 10px; }
+
+  .page-hero { padding: 40px 20px 36px; }
+
+  .stat-row { flex-direction: row; }
+
+  .stat-cell {
+    padding: 18px 20px;
+    flex: 1 1 50%;
+  }
+
+  .stat-cell:nth-child(2) { border-right: none; }
+  .stat-cell:nth-child(3) { border-top: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .stat-cell:nth-child(4) { border-top: 1px solid var(--border); border-right: none; }
+
+  .stat-num { font-size: 26px; }
+
+  .content-wrap { padding: 40px 20px 60px; }
+
+  .content-section h2 { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+
+<header id="header">
+  <a class="header-logo" href="../">
+    <div class="logo-mark">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="15" stroke="#3A3220" stroke-width="1"/>
+        <circle cx="16" cy="16" r="4" fill="#E8622A"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#E8622A" stroke-width="1" stroke-opacity="0.6" transform="rotate(30 16 16)"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#3DB8A4" stroke-width="1" stroke-opacity="0.6" transform="rotate(-30 16 16)"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#F0C040" stroke-width="1" stroke-opacity="0.4" transform="rotate(90 16 16)"/>
+      </svg>
+    </div>
+    <div>
+      <div class="header-title">SoCoMCM</div>
+      <div class="header-subtitle">South Cook County</div>
+    </div>
+  </a>
+  <div class="header-divider"></div>
+  <nav class="header-nav">
+    <a class="nav-link" href="/SoCoMCM/">Home</a>
+    <a class="nav-link" href="/SoCoMCM/map/">Map</a>
+    <a class="nav-link" href="/SoCoMCM/browse/">Browse</a>
+    <a class="nav-link" href="/SoCoMCM/events/">Events</a>
+    <a class="nav-link" href="/SoCoMCM/architects/">Architects</a>
+    <a class="nav-link active" href="/SoCoMCM/about/">About</a>
+    <a class="nav-link" href="/SoCoMCM/resources/">Resources</a>
+  </nav>
+</header>
+
+<section class="page-hero">
+  <div class="page-hero-tag">SoCoMCM · South Cook County Mid-Century Modern</div>
+  <h1>About SoCoMCM</h1>
+  <p>Documenting Mid-Century Modernism across Chicago's south suburbs</p>
+</section>
+
+<div class="stat-row">
+  <div class="stat-cell">
+    <div class="stat-num">173</div>
+    <div class="stat-label">Properties</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">20</div>
+    <div class="stat-label">Communities</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">30+</div>
+    <div class="stat-label">Architects</div>
+  </div>
+  <div class="stat-cell">
+    <div class="stat-num">2018</div>
+    <div class="stat-label">Est.</div>
+  </div>
+</div>
+
+<main class="content-wrap">
+
+  <section class="content-section">
+    <span class="section-eyebrow">Who We Are</span>
+    <h2>Our Mission</h2>
+    <p>SoCoMCM (South Cook County Mid-Century Modern) is a community research group dedicated to identifying, documenting, and preserving exemplary Mid-Century Modern architecture across Chicago's south suburbs. Founded by Robin Jarrett, our volunteer researchers catalog homes and buildings that represent the postwar modernist movement in communities often overlooked by mainstream architectural histories.</p>
+  </section>
+
+  <section class="content-section">
+    <span class="section-eyebrow">The Architecture</span>
+    <h2>What is Mid-Century Modern?</h2>
+    <p>Mid-Century Modern architecture (roughly 1945–1975) emerged as a distinctive American response to postwar optimism and new manufacturing possibilities. Its defining characteristics include:</p>
+    <ul class="trait-list">
+      <li>Flat or low-pitched rooflines that emphasize horizontal form</li>
+      <li>Large windows and glass walls integrating indoor and outdoor space</li>
+      <li>Open floor plans that dissolve rigid room boundaries</li>
+      <li>Integration of nature and landscape as design elements</li>
+      <li>Passive solar design principles and climate-responsive siting</li>
+      <li>The use of natural materials alongside modern industrial manufacturing</li>
+    </ul>
+    <p style="margin-top: 20px;">In the Chicago south suburbs, this movement produced hundreds of residences and institutions by nationally recognized architects — many now underdocumented and at risk.</p>
+  </section>
+
+  <section class="content-section">
+    <span class="section-eyebrow">The Database</span>
+    <h2>The Survey</h2>
+    <p>Our database currently documents <strong style="color: var(--cream);">173 properties</strong> across <strong style="color: var(--cream);">20 communities</strong> in the Chicago south metro area — including Blue Island, Chicago Heights, Flossmoor, Homewood, Olympia Fields, Park Forest, and more.</p>
+    <p>Each property record tracks: address, architect, year built, building type, current ownership, research documentation status (photos, plans, permits, historic registration), and research notes. Our goal is to make this record as complete as possible and advocate for the protection of the most significant properties.</p>
+  </section>
+
+  <section class="content-section">
+    <span class="section-eyebrow">The Practitioners</span>
+    <h2>Architects Represented</h2>
+    <p>Thirty-plus architects are documented in our survey, ranging from nationally known figures to prolific regional practitioners who shaped entire neighborhoods.</p>
+    <div class="architect-note">
+      <div class="architect-note-label">Notable architects in our survey</div>
+      <div class="architect-name-list">
+        <span class="arch-tag">George Fred Keck</span>
+        <span class="arch-tag">William Keck</span>
+        <span class="arch-tag">Edward Dart</span>
+        <span class="arch-tag">Bertrand Goldberg</span>
+        <span class="arch-tag">Paul Schweikher</span>
+        <span class="arch-tag">John V. McPherson</span>
+        <span class="arch-tag">John S. Townsend Jr.</span>
+        <span class="arch-tag">H.P. Davis Rockwell</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <span class="section-eyebrow">Join the Work</span>
+    <h2>How to Get Involved</h2>
+    <ul class="involve-list">
+      <li class="involve-item"><strong>Own an MCM home?</strong> Contact us — we'd love to document your property and connect you with the community.</li>
+      <li class="involve-item"><strong>Research a property.</strong> Volunteer researchers help fill gaps in our database. No prior experience necessary — we'll show you how.</li>
+      <li class="involve-item"><strong>Share photos or documents.</strong> Architectural plans, permits, historic photos, and newspaper clippings help complete property records and preserve architectural history.</li>
+    </ul>
+    <div class="involve-contact">
+      Contact Robin Jarrett: <a href="mailto:robinjarrett1@gmail.com">robinjarrett1@gmail.com</a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <span>SoCoMCM &mdash; South Cook County Mid-Century Modern</span>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="mailto:robinjarrett1@gmail.com">robinjarrett1@gmail.com</a>
+</footer>
+
+</body>
+</html>

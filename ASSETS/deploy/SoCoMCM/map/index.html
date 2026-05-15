@@ -1,0 +1,1731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modernist South Suburbs — Architectural Survey</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css"/>
+<style>
+:root {
+  --bg: #111008;
+  --panel: #1C1910;
+  --panel-2: #251F12;
+  --border: #3A3220;
+  --orange: #E8622A;
+  --teal: #3DB8A4;
+  --mustard: #F0C040;
+  --cream: #F5EDD6;
+  --text: #D4CAB4;
+  --text-dim: #7A7060;
+  --residential: #E8622A;
+  --institutional: #3DB8A4;
+  --office: #9B7FD4;
+  --municipal: #F0C040;
+  --font-head: "Space Grotesk", sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-head);
+  background: var(--bg);
+  color: var(--text);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER */
+#header {
+  flex: 0 0 auto;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 1000;
+  position: relative;
+}
+
+#header::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 50%, var(--mustard) 100%);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-mark {
+  width: 32px; height: 32px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.logo-mark svg { width: 100%; height: 100%; }
+
+.header-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1.1;
+}
+
+.header-subtitle {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.header-divider {
+  width: 1px; height: 32px;
+  background: var(--border);
+}
+
+.header-stats {
+  display: flex;
+  gap: 24px;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--orange);
+  font-family: var(--font-mono);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.nav-link {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+}
+.nav-link:hover {
+  color: var(--cream);
+  background: var(--panel-2);
+  border-color: var(--border);
+}
+.nav-link.active {
+  color: var(--orange);
+  border-color: var(--border);
+  background: var(--panel-2);
+}
+
+.header-right {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.toggle-sidebar-btn {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 14px;
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.2s;
+}
+
+.toggle-sidebar-btn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+/* MAIN LAYOUT */
+#main {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  position: relative;
+}
+
+/* SIDEBAR */
+#sidebar {
+  width: 300px;
+  flex-shrink: 0;
+  background: var(--panel);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  transition: transform 0.3s ease, width 0.3s ease;
+  z-index: 100;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+#sidebar.collapsed {
+  transform: translateX(-300px);
+  width: 0;
+}
+
+.sidebar-section {
+  padding: 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.sidebar-section:last-child { border-bottom: none; }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.section-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 0;
+}
+
+.toggle-all-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--orange);
+  padding: 0;
+  letter-spacing: 0.05em;
+  transition: opacity 0.15s;
+  text-transform: uppercase;
+}
+.toggle-all-btn:hover { opacity: 0.7; }
+
+/* Type filters */
+.type-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.type-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 12px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+  color: var(--text);
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 500;
+  text-align: left;
+  transition: all 0.15s;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.type-btn:hover { border-color: var(--text-dim); }
+.type-btn.active { border-color: var(--color); background: color-mix(in srgb, var(--color) 12%, transparent); }
+
+.type-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--color);
+}
+
+.type-name { flex: 1; }
+
+.type-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+/* City filters */
+.city-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.city-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 2px;
+  cursor: pointer;
+  font-size: 12px;
+  color: var(--text);
+  border-radius: 2px;
+  transition: color 0.15s;
+}
+
+.city-item:hover { color: var(--cream); }
+
+.city-item input[type=checkbox] {
+  accent-color: var(--orange);
+  cursor: pointer;
+  width: 13px; height: 13px;
+}
+
+.city-name { flex: 1; }
+
+.city-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+/* Architect filter */
+.architect-search {
+  width: 100%;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 8px 10px;
+  font-family: var(--font-head);
+  font-size: 12px;
+  border-radius: 2px;
+  outline: none;
+  margin-bottom: 8px;
+  transition: border-color 0.15s;
+}
+
+.architect-search:focus { border-color: var(--orange); }
+.architect-search::placeholder { color: var(--text-dim); }
+
+.architect-list {
+  max-height: 180px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.architect-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 2px;
+  cursor: pointer;
+  font-size: 11px;
+  color: var(--text);
+  transition: color 0.15s;
+}
+
+.architect-item:hover { color: var(--cream); }
+
+.architect-item input[type=checkbox] {
+  accent-color: var(--teal);
+  cursor: pointer;
+  width: 12px; height: 12px;
+}
+
+/* Reset button */
+.reset-btn {
+  width: 100%;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 9px;
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.15s;
+  margin-top: 4px;
+}
+
+.reset-btn:hover {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+/* MAP */
+#map {
+  flex: 1;
+  z-index: 1;
+}
+
+/* LEGEND */
+#legend {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 14px 18px;
+  z-index: 500;
+  min-width: 170px;
+}
+
+#legend::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange), var(--teal));
+}
+
+.legend-title {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 10px;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  font-size: 11px;
+  color: var(--text);
+}
+
+.legend-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* CUSTOM POPUP */
+.leaflet-popup-content-wrapper {
+  background: var(--panel) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 0 !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.6) !important;
+  padding: 0 !important;
+  max-width: 320px;
+}
+
+.leaflet-popup-tip-container { display: none; }
+
+.leaflet-popup-close-button {
+  color: var(--text-dim) !important;
+  font-size: 18px !important;
+  top: 10px !important;
+  right: 10px !important;
+}
+
+.leaflet-popup-close-button:hover { color: var(--cream) !important; }
+
+.popup-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.popup-photo {
+  width: 100%;
+  height: 190px;
+  overflow: hidden;
+  cursor: zoom-in;
+  position: relative;
+  background: #111008;
+  display: block;
+}
+
+.popup-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.popup-photo:hover img { transform: scale(1.04); }
+
+.popup-photo-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0,0,0,0.65);
+  backdrop-filter: blur(4px);
+  color: rgba(255,255,255,0.85);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  padding: 4px 8px;
+  border-radius: 2px;
+  pointer-events: none;
+}
+
+.popup-photo-hint {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0);
+  transition: background 0.2s;
+}
+.popup-photo:hover .popup-photo-hint { background: rgba(0,0,0,0.18); }
+
+.popup-top {
+  padding: 16px 18px 12px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+
+.popup-type-bar {
+  height: 3px;
+  width: 40px;
+  margin-bottom: 10px;
+  border-radius: 1px;
+}
+
+.popup-address {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.3;
+  margin-bottom: 3px;
+  padding-right: 20px;
+}
+
+.popup-city {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.popup-body {
+  padding: 14px 18px;
+}
+
+.popup-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.popup-field {
+  flex: 1;
+}
+
+.popup-field-label {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 3px;
+}
+
+.popup-field-value {
+  font-size: 12px;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.popup-field-value.architect {
+  font-weight: 600;
+  color: var(--cream);
+}
+
+.popup-notes {
+  font-size: 11px;
+  color: var(--text-dim);
+  line-height: 1.5;
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 8px;
+}
+
+.popup-actions {
+  display: flex;
+  gap: 8px;
+  padding: 10px 18px 14px;
+  border-top: 1px solid var(--border);
+}
+
+.popup-link {
+  flex: 1;
+  display: block;
+  text-align: center;
+  padding: 7px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  transition: all 0.15s;
+  border-radius: 1px;
+}
+
+.popup-link.primary {
+  background: var(--orange);
+  border-color: var(--orange);
+  color: #fff;
+}
+
+.popup-link:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+}
+
+.popup-link.primary:hover {
+  background: var(--teal);
+  border-color: var(--teal);
+}
+
+.popup-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 2px;
+  border: 1px solid;
+}
+
+/* Cluster styles override */
+.marker-cluster-small { background-color: rgba(232, 98, 42, 0.3) !important; }
+.marker-cluster-small div { background-color: rgba(232, 98, 42, 0.7) !important; color: #fff !important; font-family: var(--font-mono); font-size: 12px; }
+.marker-cluster-medium { background-color: rgba(61, 184, 164, 0.3) !important; }
+.marker-cluster-medium div { background-color: rgba(61, 184, 164, 0.7) !important; color: #fff !important; font-family: var(--font-mono); font-size: 12px; }
+.marker-cluster-large { background-color: rgba(240, 192, 64, 0.3) !important; }
+.marker-cluster-large div { background-color: rgba(240, 192, 64, 0.8) !important; color: #111 !important; font-family: var(--font-mono); font-size: 12px; }
+
+/* Scrollbars */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-dim); }
+
+/* Leaflet attribution */
+.leaflet-control-attribution {
+  background: rgba(17, 16, 8, 0.85) !important;
+  color: var(--text-dim) !important;
+  font-size: 9px !important;
+}
+
+.leaflet-control-attribution a { color: var(--text-dim) !important; }
+
+/* PHOTO DRAWER */
+#photo-drawer {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: 0;
+  background: var(--panel);
+  border-top: 2px solid var(--orange);
+  z-index: 800;
+  transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+#photo-drawer.open { height: 320px; }
+
+.drawer-header {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 20px 8px;
+  border-bottom: 1px solid var(--border);
+}
+
+.drawer-title {
+  flex: 1;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.drawer-sub {
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.drawer-close {
+  background: none;
+  border: none;
+  color: var(--text-dim);
+  font-size: 18px;
+  cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.drawer-close:hover { color: var(--cream); }
+
+.drawer-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Film strip scroll area */
+.photo-strip {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+  scroll-behavior: smooth;
+  height: 100%;
+  align-items: center;
+}
+
+.photo-thumb {
+  flex-shrink: 0;
+  height: 210px;
+  aspect-ratio: auto;
+  cursor: pointer;
+  border: 2px solid transparent;
+  border-radius: 1px;
+  overflow: hidden;
+  transition: border-color 0.15s, transform 0.15s;
+  position: relative;
+  background: var(--panel-2);
+}
+
+.photo-thumb img {
+  height: 100%;
+  width: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.photo-thumb:hover { border-color: var(--orange); transform: scale(1.02); }
+.photo-thumb.active { border-color: var(--orange); }
+
+/* Arrow nav */
+.strip-arrow {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(17,16,8,0.85);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 32px; height: 48px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.15s;
+}
+.strip-arrow:hover { border-color: var(--orange); color: var(--orange); }
+.strip-arrow.left { left: 0; }
+.strip-arrow.right { right: 0; }
+
+/* LIGHTBOX */
+#lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 2000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+}
+#lightbox.open { display: flex; }
+
+.lb-img-wrap {
+  position: relative;
+  max-width: 90vw;
+  max-height: 85vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#lb-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  object-fit: contain;
+  display: block;
+  border: 1px solid var(--border);
+}
+
+.lb-close {
+  position: fixed;
+  top: 20px; right: 24px;
+  font-size: 28px;
+  color: var(--text);
+  cursor: pointer;
+  background: none; border: none;
+  line-height: 1;
+  transition: color 0.15s;
+}
+.lb-close:hover { color: var(--orange); }
+
+.lb-nav {
+  position: fixed;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(17,16,8,0.7);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-size: 22px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+  z-index: 2001;
+}
+.lb-nav:hover { border-color: var(--orange); color: var(--orange); }
+.lb-nav.lb-prev { left: 16px; }
+.lb-nav.lb-next { right: 16px; }
+
+.lb-counter {
+  position: fixed;
+  bottom: 24px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.1em;
+}
+
+.lb-caption {
+  position: fixed;
+  bottom: 48px; left: 50%; transform: translateX(-50%);
+  text-align: center;
+  font-size: 12px;
+  color: var(--text);
+  max-width: 600px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Photo count badge on markers */
+.photo-badge {
+  position: absolute;
+  top: -4px; right: -4px;
+  background: var(--orange);
+  color: white;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  pointer-events: none;
+}
+
+
+/* ── MOBILE ─────────────────────────────────────────────────────────────── */
+#mobile-filter-btn {
+  display: none;
+}
+
+.sidebar-handle {
+  display: none;
+}
+
+.sidebar-mobile-header {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Compact header */
+  #header {
+    height: auto;
+    padding: 10px 14px;
+    gap: 10px;
+    flex-wrap: nowrap;
+  }
+
+  .header-logo { gap: 8px; }
+  .logo-mark { width: 26px; height: 26px; }
+  .header-title { font-size: 12px; letter-spacing: 0.03em; }
+  .header-subtitle { font-size: 8px; }
+  .header-divider { display: none; }
+
+  .header-stats {
+    gap: 12px;
+    margin-left: auto;
+  }
+
+  .stat-num { font-size: 15px; }
+  .stat-label { font-size: 7.5px; }
+
+  /* Hide desktop sidebar toggle and nav — use FAB instead */
+  .header-right { display: none; }
+  .header-nav { display: none; }
+
+  /* Map fills screen */
+  #main { position: relative; }
+
+  #map { width: 100% !important; }
+
+  /* Sidebar becomes bottom sheet */
+  #sidebar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100% !important;
+    max-height: 75vh;
+    border-right: none;
+    border-top: 1px solid var(--border);
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%);
+    transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+    z-index: 600;
+    box-shadow: 0 -8px 40px rgba(0,0,0,0.5);
+  }
+
+  #sidebar.mobile-open {
+    transform: translateY(0);
+  }
+
+  /* Drag handle at top of sheet */
+  .sidebar-handle {
+    display: flex;
+    justify-content: center;
+    padding: 12px 0 4px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-handle-bar {
+    width: 36px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+  }
+
+  /* Close button row */
+  .sidebar-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px 12px;
+  }
+
+  .sidebar-mobile-title {
+    font-family: var(--font-head);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .sidebar-mobile-close {
+    background: none;
+    border: none;
+    color: var(--text-dim);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+  }
+
+  /* Dim overlay behind sheet */
+  #sidebar-overlay {
+    display: block;
+  }
+
+  /* Floating filter FAB */
+  #mobile-filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 500;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 12px 22px;
+    border-radius: 100px;
+    font-family: var(--font-head);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  #mobile-filter-btn:active {
+    transform: translateX(-50%) scale(0.97);
+  }
+
+  /* Legend — hide on mobile (info in sidebar) */
+  #legend { display: none; }
+
+  /* Popup — slightly narrower */
+  .leaflet-popup-content { margin: 0 !important; }
+}
+
+#sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 590;
+  backdrop-filter: blur(2px);
+}
+
+/* ── HOVER PREVIEW ─────────────────────────────────────────────────────── */
+#hover-preview {
+  position: fixed;
+  z-index: 9500;
+  pointer-events: none;
+  background: #1C1910;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.7);
+  width: 220px;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
+  will-change: opacity, transform;
+}
+#hover-preview.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+#hover-preview-img {
+  width: 220px;
+  height: 150px;
+  object-fit: cover;
+  display: block;
+  background: #111008;
+}
+#hover-preview-label {
+  padding: 8px 11px 9px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.72);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  letter-spacing: 0.02em;
+}
+#hover-preview-sub {
+  padding: 0 11px 8px;
+  font-family: 'Space Mono', monospace;
+  font-size: 9.5px;
+  color: rgba(255,255,255,0.36);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div class="header-logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- MCM atomic mark -->
+        <circle cx="16" cy="16" r="15" stroke="#3A3220" stroke-width="1"/>
+        <circle cx="16" cy="16" r="4" fill="#E8622A"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#E8622A" stroke-width="1" stroke-opacity="0.6" transform="rotate(30 16 16)"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#3DB8A4" stroke-width="1" stroke-opacity="0.6" transform="rotate(-30 16 16)"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#F0C040" stroke-width="1" stroke-opacity="0.4" transform="rotate(90 16 16)"/>
+      </svg>
+    </div>
+    <div>
+      <div class="header-title">Modernist South Suburbs</div>
+      <div class="header-subtitle">Architectural Survey · Chicago South Metro</div>
+    </div>
+  </div>
+  <div class="header-divider"></div>
+  <div class="header-stats">
+    <div class="stat-item">
+      <div class="stat-num" id="stat-shown">173</div>
+      <div class="stat-label">Sites Shown</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" style="color: var(--teal)">173</div>
+      <div class="stat-label">Total Mapped</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num" style="color: var(--mustard)">20</div>
+      <div class="stat-label">Communities</div>
+    </div>
+  </div>
+  <nav class="header-nav">
+    <a class="nav-link" href="/SoCoMCM/">Home</a>
+    <a class="nav-link active" href="/SoCoMCM/map/">Map</a>
+    <a class="nav-link" href="/SoCoMCM/browse/">Browse</a>
+    <a class="nav-link" href="/SoCoMCM/events/">Events</a>
+    <a class="nav-link" href="/SoCoMCM/architects/">Architects</a>
+    <a class="nav-link" href="/SoCoMCM/about/">About</a>
+    <a class="nav-link" href="/SoCoMCM/resources/">Resources</a>
+  </nav>
+  <div class="header-right">
+    <button class="toggle-sidebar-btn" onclick="toggleSidebar()">&#9776; Filters</button>
+  </div>
+</div>
+
+<div id="main">
+  <div id="sidebar-overlay" onclick="closeMobileSidebar()"></div>
+
+  <div id="sidebar">
+    <div class="sidebar-handle"><div class="sidebar-handle-bar"></div></div>
+    <div class="sidebar-mobile-header">
+      <span class="sidebar-mobile-title">Filters</span>
+      <button class="sidebar-mobile-close" onclick="closeMobileSidebar()">✕</button>
+    </div>
+    <div class="sidebar-section">
+      <div class="section-label">Building Type</div>
+      <div class="type-filters">
+        <button class="type-btn active" style="--color: var(--residential)" data-type="all" onclick="filterByType('all', this)">
+          <div class="type-dot" style="background: linear-gradient(135deg, var(--residential), var(--teal))"></div>
+          <span class="type-name">All Types</span>
+          <span class="type-count" id="count-all">173</span>
+        </button>
+        <button class="type-btn" style="--color: var(--residential)" data-type="residential" onclick="filterByType('residential', this)">
+          <div class="type-dot" style="background: var(--residential)"></div>
+          <span class="type-name">Residential</span>
+          <span class="type-count" id="count-residential">—</span>
+        </button>
+        <button class="type-btn" style="--color: var(--institutional)" data-type="institutional" onclick="filterByType('institutional', this)">
+          <div class="type-dot" style="background: var(--institutional)"></div>
+          <span class="type-name">Institutional</span>
+          <span class="type-count" id="count-institutional">—</span>
+        </button>
+        <button class="type-btn" style="--color: var(--office)" data-type="office" onclick="filterByType('office', this)">
+          <div class="type-dot" style="background: var(--office)"></div>
+          <span class="type-name">Office / Commercial</span>
+          <span class="type-count" id="count-office">—</span>
+        </button>
+        <button class="type-btn" style="--color: var(--mustard)" data-type="municipal" onclick="filterByType('municipal', this)">
+          <div class="type-dot" style="background: var(--mustard)"></div>
+          <span class="type-name">Municipal</span>
+          <span class="type-count" id="count-municipal">—</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">
+        <div class="section-label">Community</div>
+        <button class="toggle-all-btn" id="city-toggle" onclick="toggleAllCities(this)">Deselect All</button>
+      </div>
+      <div class="city-list" id="city-list"></div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-header">
+        <div class="section-label">Architect</div>
+        <button class="toggle-all-btn" id="arch-toggle" onclick="toggleAllArchitects(this)">Deselect All</button>
+      </div>
+      <input class="architect-search" id="architect-search" type="text" placeholder="Search architects...">
+      <div class="architect-list" id="architect-list"></div>
+    </div>
+
+    <div class="sidebar-section">
+      <button class="reset-btn" onclick="resetMapView()">Reset Map View</button>
+      <button class="reset-btn" onclick="resetFilters()">Reset All Filters</button>
+    </div>
+  </div>
+
+  <div id="map"></div>
+  <button id="mobile-filter-btn" onclick="openMobileSidebar()">&#9776; Filters</button>
+
+  <div id="legend">
+    <div class="legend-title">Building Type</div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: var(--residential)"></div>
+      Residential
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: var(--institutional)"></div>
+      Institutional
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: var(--office)"></div>
+      Office / Commercial
+    </div>
+    <div class="legend-item">
+      <div class="legend-dot" style="background: var(--mustard)"></div>
+      Municipal
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+<script>
+let LOCATIONS = [];
+
+
+const TYPE_COLORS = {
+  residential: '#E8622A',
+  institutional: '#3DB8A4',
+  office: '#9B7FD4',
+  municipal: '#F0C040'
+};
+
+const TYPE_LABELS = {
+  residential: 'Residential',
+  institutional: 'Institutional',
+  office: 'Office',
+  municipal: 'Municipal'
+};
+
+// Init map
+const map = L.map('map', {
+  center: [41.527, -87.675],
+  zoom: 12,
+  zoomControl: true,
+  preferCanvas: true
+});
+
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+  subdomains: 'abcd',
+  maxZoom: 19
+}).addTo(map);
+
+// State
+let activeType = 'all';
+let activeCities = new Set();
+let activeArchitects = new Set();
+let allCities = [];
+let allArchitects = [];
+
+function initMap() {
+// Count types
+const typeCounts = {};
+LOCATIONS.forEach(d => {
+  typeCounts[d.type_norm] = (typeCounts[d.type_norm] || 0) + 1;
+});
+
+// Update type counts in UI
+Object.keys(typeCounts).forEach(t => {
+  const el = document.getElementById('count-' + t);
+  if (el) el.textContent = typeCounts[t];
+});
+
+// Build city list
+const cityMap = {};
+LOCATIONS.forEach(d => {
+  const c = d.city.trim();
+  if (!cityMap[c]) cityMap[c] = 0;
+  cityMap[c]++;
+});
+allCities = Object.keys(cityMap).sort();
+
+const cityListEl = document.getElementById('city-list');
+allCities.forEach(city => {
+  activeCities.add(city);
+  const item = document.createElement('label');
+  item.className = 'city-item';
+  item.innerHTML = `
+    <input type="checkbox" checked data-city="${city}" onchange="onCityChange()">
+    <span class="city-name">${city}</span>
+    <span class="city-count">${cityMap[city]}</span>
+  `;
+  cityListEl.appendChild(item);
+});
+
+// Build architect list
+const archMap = {};
+LOCATIONS.forEach(d => {
+  const a = d.architect_norm || 'Unknown';
+  if (!archMap[a]) archMap[a] = 0;
+  archMap[a]++;
+});
+allArchitects = Object.keys(archMap).sort((a,b) => archMap[b] - archMap[a]);
+
+const archListEl = document.getElementById('architect-list');
+function renderArchitectList(filter = '') {
+  archListEl.innerHTML = '';
+  const filtered = filter ? allArchitects.filter(a => a.toLowerCase().includes(filter.toLowerCase())) : allArchitects;
+  filtered.forEach(arch => {
+    activeArchitects.add(arch);
+    const item = document.createElement('label');
+    item.className = 'architect-item';
+    item.innerHTML = `
+      <input type="checkbox" checked data-arch="${arch}" onchange="onArchChange()">
+      <span style="flex:1">${arch}</span>
+      <span style="font-family:var(--font-mono);font-size:10px;color:var(--text-dim)">${archMap[arch]}</span>
+    `;
+    archListEl.appendChild(item);
+  });
+}
+renderArchitectList();
+
+document.getElementById('architect-search').addEventListener('input', function() {
+  renderArchitectList(this.value);
+  rebuildActive();
+  applyFilters();
+});
+
+function rebuildActive() {
+  activeCities.clear();
+  document.querySelectorAll('#city-list input:checked').forEach(cb => activeCities.add(cb.dataset.city));
+  activeArchitects.clear();
+  document.querySelectorAll('#architect-list input:checked').forEach(cb => activeArchitects.add(cb.dataset.arch));
+}
+
+function onCityChange() { rebuildActive(); applyFilters(); syncToggleBtn('city-toggle', '#city-list'); }
+function onArchChange() { rebuildActive(); applyFilters(); syncToggleBtn('arch-toggle', '#architect-list'); }
+
+// Create custom marker
+function createMarker(loc) {
+  const color = TYPE_COLORS[loc.type_norm] || '#E8622A';
+  const svgIcon = L.divIcon({
+    className: '',
+    html: `<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="11" cy="11" r="10" fill="${color}" fill-opacity="0.2" stroke="${color}" stroke-width="1.5"/>
+      <circle cx="11" cy="11" r="4.5" fill="${color}"/>
+    </svg>`,
+    iconSize: [22, 22],
+    iconAnchor: [11, 11],
+    popupAnchor: [0, -14]
+  });
+  return L.marker([loc.lat, loc.lng], { icon: svgIcon });
+}
+
+// Build popup
+function buildPopup(loc, locIdx) {
+  const color = TYPE_COLORS[loc.type_norm] || '#E8622A';
+  const typeLabel = TYPE_LABELS[loc.type_norm] || loc.type_norm;
+  
+  const streetViewUrl = `https://www.google.com/maps/@?api=1&map_action=pano&viewpoint=${loc.lat},${loc.lng}`;
+  const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(loc.address + ', ' + loc.city + ', IL')}`;
+  
+  const yearStr = loc.year && loc.year !== 'nan' && loc.year !== '' ? loc.year : '—';
+  const archStr = loc.architect_norm || loc.architect || '—';
+  const histStr = loc.history && loc.history !== 'nan' && loc.history !== '' ? loc.history : '';
+  const notesStr = loc.notes && loc.notes !== 'nan' && loc.notes !== '' ? loc.notes : '';
+  const combined = [histStr, notesStr].filter(Boolean).join(' · ');
+  
+  const historicBadge = (loc.historic && loc.historic.toLowerCase() === 'yes') 
+    ? `<span class="popup-badge" style="color:var(--mustard);border-color:var(--mustard);margin-top:6px;display:inline-flex">★ Historic</span>` 
+    : '';
+
+  const hasPhotos = loc.photos && loc.photos.length;
+  const photoHtml = hasPhotos ? `
+    <div class="popup-photo" onclick="openLightboxForLoc(${locIdx}, 0)">
+      <img src="${loc.photos[0]}" alt="${loc.address}" loading="lazy">
+      <div class="popup-photo-hint"></div>
+      ${loc.photos.length > 1 ? `<div class="popup-photo-badge">+${loc.photos.length - 1} more</div>` : ''}
+    </div>` : '';
+
+  return `<div class="popup-card">
+    ${photoHtml}
+    <div class="popup-top">
+      <div class="popup-type-bar" style="background:${color}"></div>
+      <div class="popup-address">${loc.address}</div>
+      <div class="popup-city">${loc.city}</div>
+      ${historicBadge}
+    </div>
+    <div class="popup-body">
+      <div class="popup-row">
+        <div class="popup-field">
+          <div class="popup-field-label">Architect</div>
+          <div class="popup-field-value architect">${archStr}</div>
+        </div>
+        <div class="popup-field" style="flex:0 0 60px">
+          <div class="popup-field-label">Year</div>
+          <div class="popup-field-value">${yearStr}</div>
+        </div>
+      </div>
+      <div class="popup-row">
+        <div class="popup-field">
+          <div class="popup-field-label">Type</div>
+          <div class="popup-field-value" style="color:${color}">${typeLabel}</div>
+        </div>
+      </div>
+      ${combined ? `<div class="popup-notes">${combined.slice(0, 200)}${combined.length > 200 ? '…' : ''}</div>` : ''}
+    </div>
+    <div class="popup-actions">
+      <a class="popup-link" href="${streetViewUrl}" target="_blank">Street View</a>
+      <a class="popup-link" href="${mapsUrl}" target="_blank">Maps</a>
+    </div>
+  </div>`;
+}
+
+// Cluster group
+let clusterGroup = L.markerClusterGroup({
+  maxClusterRadius: 40,
+  spiderfyOnMaxZoom: true,
+  showCoverageOnHover: false,
+  zoomToBoundsOnClick: true,
+  iconCreateFunction: function(cluster) {
+    const count = cluster.getChildCount();
+    let cls = 'small';
+    if (count > 20) cls = 'large';
+    else if (count > 10) cls = 'medium';
+    return L.divIcon({
+      className: `marker-cluster marker-cluster-${cls}`,
+      html: `<div><span>${count}</span></div>`,
+      iconSize: [40, 40]
+    });
+  }
+});
+
+// Hover preview — elements are below the script tag, so init lazily after DOM ready
+let hoverEl = null, hoverImg = null, hoverLabel = null, hoverSub = null;
+let hoverTimer = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  hoverEl    = document.getElementById('hover-preview');
+  hoverImg   = document.getElementById('hover-preview-img');
+  hoverLabel = document.getElementById('hover-preview-label');
+  hoverSub   = document.getElementById('hover-preview-sub');
+
+  document.addEventListener('mousemove', e => {
+    if (!hoverEl || !hoverEl.classList.contains('visible')) return;
+    const gap = 16;
+    let x = e.clientX + gap;
+    let y = e.clientY - hoverEl.offsetHeight / 2;
+    if (x + hoverEl.offsetWidth > window.innerWidth - 8) x = e.clientX - hoverEl.offsetWidth - gap;
+    if (y < 8) y = 8;
+    if (y + hoverEl.offsetHeight > window.innerHeight - 8) y = window.innerHeight - hoverEl.offsetHeight - 8;
+    hoverEl.style.left = x + 'px';
+    hoverEl.style.top = y + 'px';
+  });
+});
+
+function showHover(loc, e) {
+  if (!hoverEl) return;
+  clearTimeout(hoverTimer);
+  hoverLabel.textContent = loc.address + ', ' + loc.city;
+  const archStr = loc.architect_norm || loc.architect || '';
+  const yearStr = loc.year && loc.year !== 'nan' ? loc.year : '';
+  hoverSub.textContent = [archStr, yearStr].filter(Boolean).join(' · ');
+  if (loc.photos && loc.photos.length) {
+    hoverImg.src = loc.photos[0];
+    hoverImg.style.display = 'block';
+  } else {
+    hoverImg.style.display = 'none';
+  }
+  const gap = 16;
+  let x = e.originalEvent.clientX + gap;
+  let y = e.originalEvent.clientY - 75;
+  hoverEl.style.left = x + 'px';
+  hoverEl.style.top = y + 'px';
+  hoverEl.classList.add('visible');
+}
+
+function hideHover() {
+  hoverTimer = setTimeout(() => hoverEl && hoverEl.classList.remove('visible'), 80);
+}
+
+// Build all markers
+const markerObjects = LOCATIONS.map((loc, markerIdx) => {
+  if (!loc.lat) return null;
+  const marker = createMarker(loc);
+
+  // All markers get the info popup on click
+  marker.bindPopup(buildPopup(loc, markerIdx), { maxWidth: 320, minWidth: 280 });
+
+  // All markers show the hover photo preview
+  marker.on('mouseover', e => showHover(loc, e));
+  marker.on('mouseout', hideHover);
+  marker._locData = loc;
+  return marker;
+}).filter(Boolean);
+
+function applyFilters() {
+  clusterGroup.clearLayers();
+  
+  const shown = markerObjects.filter(m => {
+    const loc = m._locData;
+    const typeMatch = activeType === 'all' || loc.type_norm === activeType;
+    const cityMatch = activeCities.has(loc.city.trim());
+    const archMatch = activeArchitects.has(loc.architect_norm || 'Unknown');
+    return typeMatch && cityMatch && archMatch;
+  });
+  
+  clusterGroup.addLayers(shown);
+  document.getElementById('stat-shown').textContent = shown.length;
+}
+
+map.addLayer(clusterGroup);
+applyFilters();
+}
+
+fetch('../data/properties.json')
+  .then(r => r.json())
+  .then(data => {
+    LOCATIONS = data;
+    initMap();
+  })
+  .catch(err => console.error('Failed to load properties:', err));
+
+// Type filter
+function filterByType(type, btn) {
+  activeType = type;
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  applyFilters();
+}
+
+function isMobile() { return window.innerWidth <= 768; }
+
+function toggleSidebar() {
+  if (isMobile()) {
+    const open = document.getElementById('sidebar').classList.contains('mobile-open');
+    open ? closeMobileSidebar() : openMobileSidebar();
+  } else {
+    document.getElementById('sidebar').classList.toggle('collapsed');
+  }
+}
+
+function openMobileSidebar() {
+  document.getElementById('sidebar').classList.add('mobile-open');
+  document.getElementById('sidebar-overlay').style.display = 'block';
+  document.getElementById('mobile-filter-btn').style.display = 'none';
+}
+
+function closeMobileSidebar() {
+  document.getElementById('sidebar').classList.remove('mobile-open');
+  document.getElementById('sidebar-overlay').style.display = 'none';
+  document.getElementById('mobile-filter-btn').style.display = 'flex';
+}
+
+function toggleAllCities(btn) {
+  const allChecked = [...document.querySelectorAll('#city-list input')].every(cb => cb.checked);
+  const newState = !allChecked;
+  document.querySelectorAll('#city-list input').forEach(cb => cb.checked = newState);
+  btn.textContent = newState ? 'Deselect All' : 'Select All';
+  rebuildActive();
+  applyFilters();
+}
+
+function toggleAllArchitects(btn) {
+  const visible = [...document.querySelectorAll('#architect-list .city-item')].filter(el => el.style.display !== 'none');
+  const inputs = visible.length
+    ? visible.map(el => el.querySelector('input'))
+    : [...document.querySelectorAll('#architect-list input')];
+  const allChecked = inputs.every(cb => cb.checked);
+  const newState = !allChecked;
+  inputs.forEach(cb => cb.checked = newState);
+  btn.textContent = newState ? 'Deselect All' : 'Select All';
+  rebuildActive();
+  applyFilters();
+}
+
+function syncToggleBtn(btnId, listSelector) {
+  const allChecked = [...document.querySelectorAll(listSelector + ' input')].every(cb => cb.checked);
+  const btn = document.getElementById(btnId);
+  if (btn) btn.textContent = allChecked ? 'Deselect All' : 'Select All';
+}
+
+function resetMapView() {
+  if (allPoints.length) map.fitBounds(allPoints, { padding: [40, 40] });
+}
+
+function resetFilters() {
+  activeType = 'all';
+  document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector('[data-type="all"]').classList.add('active');
+
+  document.querySelectorAll('#city-list input').forEach(cb => cb.checked = true);
+  document.querySelectorAll('#architect-list input').forEach(cb => cb.checked = true);
+
+  syncToggleBtn('city-toggle', '#city-list');
+  syncToggleBtn('arch-toggle', '#architect-list');
+
+  rebuildActive();
+  applyFilters();
+}
+
+// Zoom controls styling
+map.zoomControl.setPosition('topright');
+
+// Fit to all points
+const allPoints = markerObjects.map(m => [m._locData.lat, m._locData.lng]);
+if (allPoints.length) map.fitBounds(allPoints, { padding: [40, 40] });
+
+// ── PHOTO DRAWER & LIGHTBOX ──────────────────────────────────────────────────
+let currentPhotos = [], currentTitle = '', lbIndex = 0;
+
+function openLightboxForLoc(idx, photoIdx) {
+  const loc = LOCATIONS[idx];
+  if (!loc || !loc.photos || !loc.photos.length) return;
+  currentPhotos = loc.photos;
+  currentTitle = loc.address;
+  openLightbox(photoIdx || 0);
+}
+
+function openDrawerByIdx(idx) {
+  const loc = LOCATIONS[idx];
+  if (!loc || !loc.photos || !loc.photos.length) return;
+  openDrawer(loc.photos, loc.address, (loc.architect_norm || loc.architect || '') + (loc.year ? ' · ' + loc.year : ''));
+  map.closePopup();
+}
+
+function openDrawer(photos, title, sub) {
+  currentPhotos = photos;
+  currentTitle = title;
+  document.getElementById('drawer-title').textContent = title;
+  document.getElementById('drawer-sub').textContent = sub || '';
+  const strip = document.getElementById('photo-strip');
+  strip.innerHTML = '';
+  photos.forEach((url, i) => {
+    const thumb = document.createElement('div');
+    thumb.className = 'photo-thumb' + (i === 0 ? ' active' : '');
+    thumb.innerHTML = `<img src="${url}" loading="lazy" alt="Photo ${i+1}">`;
+    thumb.onclick = () => openLightbox(i);
+    strip.appendChild(thumb);
+  });
+  strip.scrollLeft = 0;
+  document.getElementById('photo-drawer').classList.add('open');
+  document.getElementById('map').style.paddingBottom = '320px';
+}
+
+function closeDrawer() {
+  document.getElementById('photo-drawer').classList.remove('open');
+  document.getElementById('map').style.paddingBottom = '';
+}
+
+function scrollStrip(dir) {
+  const strip = document.getElementById('photo-strip');
+  strip.scrollBy({ left: dir * 300, behavior: 'smooth' });
+}
+
+function openLightbox(idx) {
+  lbIndex = idx;
+  document.getElementById('lightbox').classList.add('open');
+  updateLightbox();
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+function lbNav(dir) {
+  lbIndex = (lbIndex + dir + currentPhotos.length) % currentPhotos.length;
+  updateLightbox();
+}
+
+function updateLightbox() {
+  document.getElementById('lb-img').src = currentPhotos[lbIndex];
+  document.getElementById('lb-counter').textContent = (lbIndex + 1) + ' / ' + currentPhotos.length;
+  document.getElementById('lb-caption').textContent = currentTitle;
+  document.querySelectorAll('.photo-thumb').forEach((t, i) => {
+    t.classList.toggle('active', i === lbIndex);
+  });
+}
+
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'ArrowRight') lbNav(1);
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'Escape') closeLightbox();
+});
+
+document.getElementById('lightbox').addEventListener('click', e => {
+  if (e.target === document.getElementById('lightbox')) closeLightbox();
+});
+</script>
+
+<!-- HOVER PREVIEW -->
+<div id="hover-preview">
+  <img id="hover-preview-img" src="" alt="">
+  <div id="hover-preview-label"></div>
+  <div id="hover-preview-sub"></div>
+</div>
+
+<!-- PHOTO DRAWER -->
+<div id="photo-drawer">
+  <div class="drawer-header">
+    <div>
+      <div class="drawer-title" id="drawer-title">—</div>
+      <div class="drawer-sub" id="drawer-sub">—</div>
+    </div>
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+  </div>
+  <div class="drawer-body">
+    <button class="strip-arrow left" onclick="scrollStrip(-1)">&#8249;</button>
+    <div class="photo-strip" id="photo-strip"></div>
+    <button class="strip-arrow right" onclick="scrollStrip(1)">&#8250;</button>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1)">&#8249;</button>
+  <div class="lb-img-wrap">
+    <img id="lb-img" src="" alt="">
+  </div>
+  <button class="lb-nav lb-next" onclick="lbNav(1)">&#8250;</button>
+  <div class="lb-caption" id="lb-caption"></div>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Browse Properties — Modernist South Suburbs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #111008;
+  --panel: #1C1910;
+  --panel-2: #251F12;
+  --border: #3A3220;
+  --orange: #E8622A;
+  --teal: #3DB8A4;
+  --mustard: #F0C040;
+  --cream: #F5EDD6;
+  --text: #D4CAB4;
+  --text-dim: #7A7060;
+  --residential: #E8622A;
+  --institutional: #3DB8A4;
+  --office: #9B7FD4;
+  --municipal: #F0C040;
+  --font-head: "Space Grotesk", sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-head);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ─────────────────────────────────────────────────────────────── */
+#header {
+  flex: 0 0 auto;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
+  position: relative;
+  flex-shrink: 0;
+}
+
+#header::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 50%, var(--mustard) 100%);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logo-mark {
+  width: 32px; height: 32px;
+  position: relative;
+  flex-shrink: 0;
+}
+.logo-mark svg { width: 100%; height: 100%; }
+
+.header-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1.1;
+}
+.header-subtitle {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.header-divider {
+  width: 1px; height: 32px;
+  background: var(--border);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav-link {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+}
+.nav-link:hover {
+  color: var(--cream);
+  background: var(--panel-2);
+  border-color: var(--border);
+}
+.nav-link.active {
+  color: var(--orange);
+  border-color: var(--border);
+  background: var(--panel-2);
+}
+
+.filter-search {
+  font-family: var(--font-head);
+  font-size: 13px;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  color: var(--cream);
+  padding: 6px 12px;
+  border-radius: 6px;
+  width: 220px;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.filter-search:focus { border-color: var(--orange); }
+.filter-search::placeholder { color: var(--text-dim); }
+
+/* ── FILTER BAR ─────────────────────────────────────────────────────────── */
+#filter-bar {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.filter-select {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 28px 6px 10px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237A7060' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+  min-width: 140px;
+  transition: border-color 0.15s;
+}
+.filter-select:hover, .filter-select:focus {
+  border-color: var(--orange);
+  outline: none;
+}
+
+.type-chips {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.type-chip {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 4px 12px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+.type-chip .chip-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.type-chip.active {
+  background: var(--panel-2);
+  border-color: var(--chip-color, var(--orange));
+  color: var(--chip-color, var(--orange));
+}
+
+.filter-divider {
+  width: 1px; height: 20px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.sort-select {
+  font-family: var(--font-head);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 6px 28px 6px 10px;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='none'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237A7060' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 9px center;
+  min-width: 180px;
+  transition: border-color 0.15s;
+}
+.sort-select:hover, .sort-select:focus {
+  border-color: var(--teal);
+  outline: none;
+}
+
+/* ── COUNT BAR ─────────────────────────────────────────────────────────── */
+#count-bar {
+  padding: 10px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.count-text {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-dim);
+}
+.count-text strong {
+  color: var(--teal);
+  font-family: var(--font-mono);
+}
+
+.count-reset {
+  font-family: var(--font-head);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.count-reset.visible {
+  opacity: 1;
+}
+
+/* ── GRID ────────────────────────────────────────────────────────────────── */
+#content {
+  flex: 1;
+  padding: 24px;
+}
+
+#grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 1024px) {
+  #grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 640px) {
+  #grid { grid-template-columns: 1fr; }
+  #filter-bar { padding: 10px 16px; gap: 8px; }
+  #content { padding: 16px; }
+  #count-bar { padding: 8px 16px; }
+  #header { padding: 0 16px; }
+  .header-title { font-size: 13px; }
+  .header-subtitle { display: none; }
+}
+
+/* ── CARD ─────────────────────────────────────────────────────────────── */
+.prop-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.prop-card:hover {
+  border-color: rgba(232, 98, 42, 0.45);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+
+.card-photo {
+  width: 100%;
+  aspect-ratio: 4/3;
+  object-fit: cover;
+  display: block;
+  background: var(--panel-2);
+}
+
+.card-photo-placeholder {
+  width: 100%;
+  aspect-ratio: 4/3;
+  background: var(--panel-2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-size: 48px;
+  font-weight: 700;
+  color: var(--border);
+  letter-spacing: -0.02em;
+  border-bottom: 1px solid var(--border);
+}
+
+.card-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.card-address {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.3;
+}
+
+.card-meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.card-badges {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-family: var(--font-head);
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid currentColor;
+  line-height: 1;
+}
+
+.badge-residential { color: var(--orange); }
+.badge-institutional { color: var(--teal); }
+.badge-office { color: var(--office); }
+.badge-municipal { color: var(--municipal); }
+
+.badge-historic {
+  color: var(--mustard);
+  border-color: var(--mustard);
+}
+
+/* ── EMPTY STATE ─────────────────────────────────────────────────────── */
+#empty-state {
+  display: none;
+  grid-column: 1 / -1;
+  padding: 60px 24px;
+  text-align: center;
+  color: var(--text-dim);
+}
+#empty-state p {
+  font-size: 14px;
+  margin-bottom: 16px;
+}
+#empty-state button {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: none;
+  border: 1px solid var(--orange);
+  border-radius: 6px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+#empty-state button:hover {
+  background: var(--orange);
+  color: var(--bg);
+}
+
+/* ── LOADING ─────────────────────────────────────────────────────────── */
+#loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div id="header">
+  <a class="header-logo" href="../">
+    <div class="logo-mark">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="15" stroke="#3A3220" stroke-width="1"/>
+        <circle cx="16" cy="16" r="4" fill="#E8622A"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#E8622A" stroke-width="1" stroke-opacity="0.6" transform="rotate(30 16 16)"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#3DB8A4" stroke-width="1" stroke-opacity="0.6" transform="rotate(-30 16 16)"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#F0C040" stroke-width="1" stroke-opacity="0.4" transform="rotate(90 16 16)"/>
+      </svg>
+    </div>
+    <div>
+      <div class="header-title">Modernist South Suburbs</div>
+      <div class="header-subtitle">Architectural Survey · Chicago South Metro</div>
+    </div>
+  </a>
+  <div class="header-divider"></div>
+  <nav class="header-nav">
+    <a class="nav-link" href="/SoCoMCM/">Home</a>
+    <a class="nav-link" href="/SoCoMCM/map/">Map</a>
+    <a class="nav-link active" href="/SoCoMCM/browse/">Browse</a>
+    <a class="nav-link" href="/SoCoMCM/events/">Events</a>
+    <a class="nav-link" href="/SoCoMCM/architects/">Architects</a>
+    <a class="nav-link" href="/SoCoMCM/about/">About</a>
+    <a class="nav-link" href="/SoCoMCM/resources/">Resources</a>
+  </nav>
+</div>
+
+<!-- FILTER BAR -->
+<div id="filter-bar">
+  <div class="filter-group">
+    <label class="filter-label" for="search-input">Search</label>
+    <input type="search" id="search-input" class="filter-search" placeholder="Address, architect, city…" autocomplete="off">
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">City</span>
+    <select class="filter-select" id="city-filter" onchange="applyFilters()">
+      <option value="">All Cities</option>
+    </select>
+  </div>
+  <div class="filter-group">
+    <span class="filter-label">Architect</span>
+    <select class="filter-select" id="arch-filter" onchange="applyFilters()">
+      <option value="">All Architects</option>
+    </select>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-label">Type</span>
+    <div class="type-chips" id="type-chips">
+      <button class="type-chip active" data-type="" style="--chip-color: var(--cream)" onclick="selectType(this)">
+        <span class="chip-dot" style="background: linear-gradient(135deg, var(--orange), var(--teal))"></span>
+        All
+      </button>
+      <button class="type-chip" data-type="residential" style="--chip-color: var(--residential)" onclick="selectType(this)">
+        <span class="chip-dot" style="background: var(--residential)"></span>
+        Residential
+      </button>
+      <button class="type-chip" data-type="institutional" style="--chip-color: var(--institutional)" onclick="selectType(this)">
+        <span class="chip-dot" style="background: var(--institutional)"></span>
+        Institutional
+      </button>
+      <button class="type-chip" data-type="office" style="--chip-color: var(--office)" onclick="selectType(this)">
+        <span class="chip-dot" style="background: var(--office)"></span>
+        Office
+      </button>
+      <button class="type-chip" data-type="municipal" style="--chip-color: var(--municipal)" onclick="selectType(this)">
+        <span class="chip-dot" style="background: var(--municipal)"></span>
+        Municipal
+      </button>
+    </div>
+  </div>
+  <div class="filter-divider"></div>
+  <div class="filter-group">
+    <span class="filter-label">Sort</span>
+    <select class="sort-select" id="sort-select" onchange="applyFilters()">
+      <option value="city-az">City A→Z</option>
+      <option value="arch-az">Architect A→Z</option>
+      <option value="year-asc">Year (Oldest First)</option>
+      <option value="year-desc">Year (Newest First)</option>
+    </select>
+  </div>
+</div>
+
+<!-- COUNT BAR -->
+<div id="count-bar">
+  <span class="count-text" id="count-text">Loading…</span>
+  <button class="count-reset" id="reset-btn" onclick="resetFilters()">Clear Filters</button>
+</div>
+
+<!-- MAIN CONTENT -->
+<div id="content">
+  <div id="loading">Loading properties…</div>
+  <div id="grid" style="display:none">
+    <div id="empty-state">
+      <p>No properties match your filters.</p>
+      <button onclick="resetFilters()">Clear Filters</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const TYPE_COLORS = {
+  residential: '#E8622A',
+  institutional: '#3DB8A4',
+  office: '#9B7FD4',
+  municipal: '#F0C040'
+};
+
+const TYPE_LABELS = {
+  residential: 'Residential',
+  institutional: 'Institutional',
+  office: 'Office',
+  municipal: 'Municipal'
+};
+
+let ALL_PROPERTIES = [];
+let activeType = '';
+
+// ── BOOT ──────────────────────────────────────────────────────────────────
+fetch('../data/properties.json')
+  .then(r => r.json())
+  .then(data => {
+    ALL_PROPERTIES = data;
+    document.getElementById('loading').style.display = 'none';
+    document.getElementById('grid').style.display = 'grid';
+    buildFilterOptions();
+
+    // Pre-select architect from URL param (e.g. ?architect=NAME)
+    const params = new URLSearchParams(location.search);
+    const archParam = params.get('architect');
+    if (archParam) {
+      document.getElementById('arch-filter').value = archParam;
+    }
+
+    applyFilters();
+  })
+  .catch(err => {
+    document.getElementById('loading').textContent = 'Failed to load properties.';
+    console.error(err);
+  });
+
+// Search input event listener
+document.getElementById('search-input').addEventListener('input', applyFilters);
+
+// ── BUILD FILTER DROPDOWNS ─────────────────────────────────────────────────
+function buildFilterOptions() {
+  // Cities
+  const cities = [...new Set(ALL_PROPERTIES.map(p => p.city.trim()))].sort();
+  const cityEl = document.getElementById('city-filter');
+  cities.forEach(c => {
+    const opt = document.createElement('option');
+    opt.value = c;
+    opt.textContent = c;
+    cityEl.appendChild(opt);
+  });
+
+  // Architects — sorted by count desc, then alpha
+  const archCount = {};
+  ALL_PROPERTIES.forEach(p => {
+    const a = p.architect_norm || p.architect || 'Unknown';
+    archCount[a] = (archCount[a] || 0) + 1;
+  });
+  const archs = Object.keys(archCount).sort((a, b) => archCount[b] - archCount[a] || a.localeCompare(b));
+  const archEl = document.getElementById('arch-filter');
+  archs.forEach(a => {
+    const opt = document.createElement('option');
+    opt.value = a;
+    opt.textContent = `${a} (${archCount[a]})`;
+    archEl.appendChild(opt);
+  });
+}
+
+// ── FILTERS ───────────────────────────────────────────────────────────────
+function selectType(btn) {
+  document.querySelectorAll('.type-chip').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  activeType = btn.dataset.type;
+  applyFilters();
+}
+
+function applyFilters() {
+  const cityVal = document.getElementById('city-filter').value;
+  const archVal = document.getElementById('arch-filter').value;
+  const sortVal = document.getElementById('sort-select').value;
+  const q = document.getElementById('search-input').value.toLowerCase().trim();
+
+  let filtered = ALL_PROPERTIES.filter(p => {
+    const cityMatch = !cityVal || p.city.trim() === cityVal;
+    const archMatch = !archVal || (p.architect_norm || p.architect || 'Unknown') === archVal;
+    const typeMatch = !activeType || p.type_norm === activeType;
+    return cityMatch && archMatch && typeMatch;
+  });
+
+  if (q) {
+    filtered = filtered.filter(p =>
+      (p.address||'').toLowerCase().includes(q) ||
+      (p.city||'').toLowerCase().includes(q) ||
+      (p.architect||'').toLowerCase().includes(q) ||
+      (p.architect_norm||'').toLowerCase().includes(q) ||
+      (p.history||'').toLowerCase().includes(q) ||
+      (p.owner||'').toLowerCase().includes(q)
+    );
+  }
+
+  // Sort
+  filtered = [...filtered].sort((a, b) => {
+    if (sortVal === 'city-az') {
+      return a.city.localeCompare(b.city) || a.address.localeCompare(b.address);
+    }
+    if (sortVal === 'arch-az') {
+      const aa = a.architect_norm || a.architect || 'Unknown';
+      const ba = b.architect_norm || b.architect || 'Unknown';
+      return aa.localeCompare(ba) || a.city.localeCompare(b.city);
+    }
+    const yearA = parseInt(a.year) || 0;
+    const yearB = parseInt(b.year) || 0;
+    if (sortVal === 'year-asc') return (yearA || 9999) - (yearB || 9999) || a.city.localeCompare(b.city);
+    if (sortVal === 'year-desc') return (yearB || 0) - (yearA || 0) || a.city.localeCompare(b.city);
+    return 0;
+  });
+
+  renderGrid(filtered);
+  updateCount(filtered.length);
+  updateResetBtn(cityVal || archVal || activeType || q);
+}
+
+function resetFilters() {
+  document.getElementById('city-filter').value = '';
+  document.getElementById('arch-filter').value = '';
+  document.getElementById('search-input').value = '';
+  document.querySelectorAll('.type-chip').forEach(b => b.classList.remove('active'));
+  document.querySelector('.type-chip[data-type=""]').classList.add('active');
+  activeType = '';
+  applyFilters();
+}
+
+function updateCount(shown) {
+  const total = ALL_PROPERTIES.length;
+  document.getElementById('count-text').innerHTML =
+    `Showing <strong>${shown}</strong> of <strong>${total}</strong> properties`;
+}
+
+function updateResetBtn(hasFilters) {
+  document.getElementById('reset-btn').classList.toggle('visible', !!hasFilters);
+}
+
+// ── RENDER GRID ───────────────────────────────────────────────────────────
+function renderGrid(props) {
+  const grid = document.getElementById('grid');
+  const emptyState = document.getElementById('empty-state');
+
+  // Remove existing cards (keep empty state el)
+  [...grid.children].forEach(el => {
+    if (el.id !== 'empty-state') el.remove();
+  });
+
+  if (props.length === 0) {
+    emptyState.style.display = 'block';
+    return;
+  }
+  emptyState.style.display = 'none';
+
+  props.forEach(p => {
+    const card = buildCard(p);
+    grid.appendChild(card);
+  });
+}
+
+function buildCard(p) {
+  const slug = p.slug || '';
+  const href = slug ? `../property/?slug=${slug}` : '#';
+
+  const a = document.createElement('a');
+  a.className = 'prop-card';
+  a.href = href;
+
+  // Photo or placeholder
+  let photoHtml;
+  if (p.photos && p.photos.length) {
+    photoHtml = `<img class="card-photo" src="${escHtml(p.photos[0])}" alt="${escHtml(p.address)}" loading="lazy">`;
+  } else {
+    const initial = (p.city || p.address || '?').charAt(0).toUpperCase();
+    photoHtml = `<div class="card-photo-placeholder">${escHtml(initial)}</div>`;
+  }
+
+  // Meta line
+  const parts = [];
+  if (p.city) parts.push(p.city);
+  const arch = p.architect_norm || p.architect || '';
+  if (arch) parts.push(arch);
+  const year = p.year && p.year !== 'nan' && p.year !== '' ? p.year : '';
+  if (year) parts.push(year);
+  const metaLine = parts.join(' · ');
+
+  // Type badge
+  const typeKey = p.type_norm || p.type || '';
+  const typeLabel = TYPE_LABELS[typeKey] || typeKey;
+  const typeBadge = typeKey
+    ? `<span class="badge badge-${typeKey}">${escHtml(typeLabel)}</span>`
+    : '';
+
+  // Historic badge
+  const historicBadge = (p.historic && String(p.historic).toLowerCase() === 'yes')
+    ? `<span class="badge badge-historic">★ Historic</span>`
+    : '';
+
+  a.innerHTML = `
+    ${photoHtml}
+    <div class="card-body">
+      <div class="card-address">${escHtml(p.address)}</div>
+      ${metaLine ? `<div class="card-meta">${escHtml(metaLine)}</div>` : ''}
+      <div class="card-badges">
+        ${typeBadge}
+        ${historicBadge}
+      </div>
+    </div>
+  `;
+
+  return a;
+}
+
+function escHtml(str) {
+  return String(str ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+</script>
+</body>
+</html>
