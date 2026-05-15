@@ -1516,7 +1516,7 @@ map.addLayer(clusterGroup);
 applyFilters();
 }
 
-fetch('../data/properties.json')
+fetch('/SoCoMCM/data/properties.json')
   .then(r => r.json())
   .then(data => {
     LOCATIONS = data;
