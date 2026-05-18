@@ -1174,9 +1174,9 @@ footer{
       <img id="featured-gif" src="" alt="" class="mf-gif">
       <div class="mf-info">
         <span class="mf-badge">★ FEATURED TRACK</span>
-        <span class="mf-title">Maybe Now!?</span>
+        <span class="mf-title">For Jon</span>
       </div>
-      <button class="mf-play" id="featured-play-btn" title="Play Maybe Now!?">
+      <button class="mf-play" id="featured-play-btn" title="Play For Jon">
         <svg width="12" height="14" viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7z"/></svg>
       </button>
     </div>
@@ -1413,30 +1413,16 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 /* ── MUSIC PLAYER ────────────────────────────────────── */
 (function initMusicPlayer() {
   const ALL_TRACKS = [
-    'dracula-grind-and-bump','deepdrums-alice-tinker','dan-the-man','complexica-090815',
-    'aint-always-magik','all-cried-out','american-boy','april-4-2022',
-    'bass-groove','better-alan-nothingness','black-kat','bongo-test',
-    'bright-swift-visions','building-short-wave','chear-up-charlie',
-    'clicky-clock-low-stock','colorblind-breakup',
-    'continued','country-italian','dark-mutters','dark-slug',
-    'death-tinker','decent-landscape',
-    'deeply-entertained','delicious-grit','do-it-again','downers',
-    'dragon-tov-love','dreams-of-dying',
-    'drink-from-the-same-cup','dripping-magma','drop-tick','echo-groove',
-    'eh','entertain-us','everybody-flows','first-run','for-jon',
-    'fresh-like-lettuce','fresh-like-lettuis-2','gay','going-crazy',
-    'halloween-store','here-comes-the-sun-guitar','here-we-are-now',
-    'hidding-carl','hollow-heart','human-leather-shoes','i-cant-go-for-that',
-    'i-just-wanna-dance-right-now','i-like-you','i-want-you-with-me',
-    'i-wont-give-up-now','latin-run','long-mashup','misfit',
-    'never-thought-i-could','new-york-i-thought-she-was','nice-groove',
-    'nice-matchup','not-bad','old-fast','piano-doodle',
-    'pleasure-pain-by-your-side','pogo','roughasf','shes-going-out-tonight',
-    'simian','slow-drip-piano-twist','slow-loris','slow-trip-piano',
-    'slowfastslow','sounded-like-the-truth','speed-trip','still-your-friend',
-    'tell-me-when-it-kicks-in','the-effect-you-have-on-others','tow-the-line',
-    'trickly-thumps','when-you-leave','wobble-dobble',
-    'you-have-a-wanting-alan','you-look-so-pretty'
+    'you-have-a-wanting-alan','shes-going-out-tonight','building-short-wave',
+    'death-tinker','bright-swift-visions','hollow-heart','clicky-clock-low-stock',
+    'deeply-entertained','dreams-of-dying','dripping-magma','drop-tick',
+    'eh','everybody-flows','first-run','for-jon','fresh-like-lettuce',
+    'halloween-store','i-cant-go-for-that','i-like-you','never-thought-i-could',
+    'new-york-i-thought-she-was','nice-groove','nice-matchup','old-fast',
+    'piano-doodle','pleasure-pain-by-your-side','roughasf','simian',
+    'slow-drip-piano-twist','slow-loris','slow-trip-piano','slowfastslow',
+    'speed-trip','tell-me-when-it-kicks-in','the-effect-you-have-on-others',
+    'when-you-leave','dracula-grind-and-bump'
   ];
   function slugToTitle(s){return s.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}
   const CHUNK=12;let loaded=0,activeEntry=null,currentTrackIndex=-1;
@@ -1525,9 +1511,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
   setPlayerGif();
   featuredBtn.addEventListener('click',()=>{
     initAudioCtx();
-    audio.src='/music/pbk-maybe-now.wav';
+    audio.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/for-jon.mp3';
     audio.load();audio.play().catch(e=>console.warn('Playback blocked:',e.message));
-    playerTitle.textContent='Maybe Now!?';playerSub.textContent='PitchBlacKnight · Original';
+    playerTitle.textContent='For Jon';playerSub.textContent='PitchBlacKnight · Original';
     setPlayerGif();
   });
   playerProgress.addEventListener('click',e=>{
