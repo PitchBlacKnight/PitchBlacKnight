@@ -236,7 +236,7 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 /* ━━━━━━━━━━━━━━━━━━━━
    PROFESSIONAL
 ━━━━━━━━━━━━━━━━━━━━ */
-#professional{padding:120px 40px;border-top:1px solid var(--rule)}
+#professional{border-top:1px solid var(--rule)}
 .pro-inner{max-width:var(--max);margin:0 auto}
 .pro-top{
   display:grid;grid-template-columns:1fr 1fr;gap:80px;
@@ -294,6 +294,34 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
   font-family:'EB Garamond',serif;font-size:14px;line-height:1.5;
   color:rgba(240,240,240,.80);
 }
+
+/* ── CV ACCORDION ── */
+.pro-cv-bar{
+  max-width:var(--max);margin:0 auto;padding:48px 40px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+}
+.pro-cv-meta{display:flex;flex-direction:column;gap:10px}
+.pro-cv-tagline{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+}
+.pro-cv-toggle{
+  display:flex;align-items:center;gap:12px;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--orange);
+  border:1px solid rgba(232,81,42,.35);padding:10px 22px;
+  cursor:pointer;transition:all .2s;flex-shrink:0;
+}
+.pro-cv-toggle:hover{background:rgba(232,81,42,.07);border-color:var(--orange)}
+.pro-cv-icon{font-size:16px;line-height:1;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+#professional.cv-open .pro-cv-icon{transform:rotate(45deg)}
+.pro-cv-body{
+  display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows .55s cubic-bezier(.4,0,.2,1);
+}
+#professional.cv-open .pro-cv-body{grid-template-rows:1fr}
+.pro-cv-inner{overflow:hidden;min-height:0}
+.pro-cv-content{padding:0 40px 80px;max-width:var(--max);margin:0 auto}
 
 /* ━━━━━━━━━━━━━━━━━━━━
    SERVICES
@@ -739,7 +767,7 @@ footer{
 @media(max-width:760px){
   .nav-links,.nav-avail{display:none}
   .nav-burger{display:flex}
-  #manifesto,#professional,#services,.work-bar,.art-header,#music,#wisdom,#contact,.footer-inner{
+  #manifesto,#services,.work-bar,.art-header,#music,#wisdom,#contact,.footer-inner,.pro-cv-bar,.pro-cv-content{
     padding-left:20px;padding-right:20px;
   }
   .hero-name{font-size:clamp(3rem,16vw,6rem)}
@@ -854,69 +882,84 @@ footer{
 <section id="professional" class="gif-section">
   <img class="s-gif" src="images/art/Grand Design.gif" alt="" style="opacity:0.16;object-position:center top">
   <div class="s-scrim" style="background:linear-gradient(180deg,rgba(6,6,6,0.68) 0%,rgba(6,6,6,0.56) 50%,rgba(6,6,6,0.72) 100%)"></div>
-  <div class="s-inner pro-inner">
-    <p class="section-label">02 — PROFESSIONAL</p>
-    <div class="pro-top">
-      <div>
-        <h2 class="pro-title">MIKEL<br>ROSEN<span>THAL</span></h2>
+  <div class="s-inner">
+    <div class="pro-cv-bar">
+      <div class="pro-cv-meta">
+        <p class="section-label" style="margin-bottom:0">02 — CV</p>
+        <p class="pro-cv-tagline">Principal Designer · 25 Yrs · GE Healthcare · BCBS · Avant · TransUnion</p>
       </div>
-      <div>
-        <p class="pro-bio">25 years building design systems, brand identities, and digital products for healthcare, fintech, and enterprise companies. GE Healthcare · BCBS · Avant · TransUnion · Maven Wave. Principal designer. Fluxus practitioner. Still learning.</p>
-      </div>
+      <button class="pro-cv-toggle" onclick="toggleCV()">
+        <span id="pro-cv-label">VIEW RÉSUMÉ</span>
+        <span class="pro-cv-icon" id="pro-cv-icon">+</span>
+      </button>
     </div>
-    <div class="pro-stats">
-      <div class="stat-cell">
-        <div class="stat-n">25<span>+</span></div>
-        <div class="stat-l">Years of<br>experience</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-n">40<span>+</span></div>
-        <div class="stat-l">Design systems<br>shipped</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-n">120<span>+</span></div>
-        <div class="stat-l">Brand projects<br>delivered</div>
-      </div>
-    </div>
-    <div class="career-list">
-      <div class="career-item">
-        <div class="ci-period">2020 — NOW</div>
-        <div>
-          <div class="ci-role">Principal Design Systems Lead</div>
-          <div class="ci-org">TransUnion / Independent</div>
-          <div class="ci-note">Leading enterprise-scale design system architecture, tokenization strategy, and cross-product consistency for multi-platform ecosystems.</div>
-        </div>
-      </div>
-      <div class="career-item">
-        <div class="ci-period">2017 — 2020</div>
-        <div>
-          <div class="ci-role">Lead UX Designer</div>
-          <div class="ci-org">Maven Wave Partners</div>
-          <div class="ci-note">Designed enterprise UX systems and brand identity for Google Cloud consulting practice.</div>
-        </div>
-      </div>
-      <div class="career-item">
-        <div class="ci-period">2014 — 2017</div>
-        <div>
-          <div class="ci-role">Senior Product Designer</div>
-          <div class="ci-org">Avant / Amount</div>
-          <div class="ci-note">Built Pathfinder design system from zero — tokenized, documented, deployed across consumer and B2B fintech products.</div>
-        </div>
-      </div>
-      <div class="career-item">
-        <div class="ci-period">2008 — 2014</div>
-        <div>
-          <div class="ci-role">Design Systems Architect</div>
-          <div class="ci-org">GE Healthcare / GE Digital</div>
-          <div class="ci-note">Designed and scaled the GE Edison Design System across 40+ clinical applications used by 500K+ healthcare professionals globally.</div>
-        </div>
-      </div>
-      <div class="career-item">
-        <div class="ci-period">2000 — 2008</div>
-        <div>
-          <div class="ci-role">Senior UX / Brand Designer</div>
-          <div class="ci-org">BCBS · TransUnion · Agencies</div>
-          <div class="ci-note">Spanning brand identity, interactive design, and early enterprise web applications for healthcare and financial services.</div>
+    <div class="pro-cv-body" id="pro-cv-body">
+      <div class="pro-cv-inner">
+        <div class="pro-cv-content">
+          <div class="pro-top">
+            <div>
+              <h2 class="pro-title">MIKEL<br>ROSEN<span>THAL</span></h2>
+            </div>
+            <div>
+              <p class="pro-bio">25 years building design systems, brand identities, and digital products for healthcare, fintech, and enterprise companies. GE Healthcare · BCBS · Avant · TransUnion · Maven Wave. Principal designer. Fluxus practitioner. Still learning.</p>
+            </div>
+          </div>
+          <div class="pro-stats">
+            <div class="stat-cell">
+              <div class="stat-n">25<span>+</span></div>
+              <div class="stat-l">Years of<br>experience</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-n">40<span>+</span></div>
+              <div class="stat-l">Design systems<br>shipped</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-n">120<span>+</span></div>
+              <div class="stat-l">Brand projects<br>delivered</div>
+            </div>
+          </div>
+          <div class="career-list">
+            <div class="career-item">
+              <div class="ci-period">2020 — NOW</div>
+              <div>
+                <div class="ci-role">Principal Design Systems Lead</div>
+                <div class="ci-org">TransUnion / Independent</div>
+                <div class="ci-note">Leading enterprise-scale design system architecture, tokenization strategy, and cross-product consistency for multi-platform ecosystems.</div>
+              </div>
+            </div>
+            <div class="career-item">
+              <div class="ci-period">2017 — 2020</div>
+              <div>
+                <div class="ci-role">Lead UX Designer</div>
+                <div class="ci-org">Maven Wave Partners</div>
+                <div class="ci-note">Designed enterprise UX systems and brand identity for Google Cloud consulting practice.</div>
+              </div>
+            </div>
+            <div class="career-item">
+              <div class="ci-period">2014 — 2017</div>
+              <div>
+                <div class="ci-role">Senior Product Designer</div>
+                <div class="ci-org">Avant / Amount</div>
+                <div class="ci-note">Built Pathfinder design system from zero — tokenized, documented, deployed across consumer and B2B fintech products.</div>
+              </div>
+            </div>
+            <div class="career-item">
+              <div class="ci-period">2008 — 2014</div>
+              <div>
+                <div class="ci-role">Design Systems Architect</div>
+                <div class="ci-org">GE Healthcare / GE Digital</div>
+                <div class="ci-note">Designed and scaled the GE Edison Design System across 40+ clinical applications used by 500K+ healthcare professionals globally.</div>
+              </div>
+            </div>
+            <div class="career-item">
+              <div class="ci-period">2000 — 2008</div>
+              <div>
+                <div class="ci-role">Senior UX / Brand Designer</div>
+                <div class="ci-org">BCBS · TransUnion · Agencies</div>
+                <div class="ci-note">Spanning brand identity, interactive design, and early enterprise web applications for healthcare and financial services.</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -1351,6 +1394,14 @@ const spObs = new IntersectionObserver(entries => {
   const el = document.getElementById(id);
   if (el) spObs.observe(el);
 });
+
+/* ── CV ACCORDION ───────────────────────────────────── */
+function toggleCV() {
+  const sec = document.getElementById('professional');
+  sec.classList.toggle('cv-open');
+  document.getElementById('pro-cv-label').textContent =
+    sec.classList.contains('cv-open') ? 'CLOSE' : 'VIEW RÉSUMÉ';
+}
 
 /* ── CASE STUDY ACCORDION ───────────────────────────── */
 function toggleProject(btn) {
