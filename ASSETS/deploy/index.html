@@ -1214,6 +1214,7 @@ footer{
   <div class="s-inner music-inner">
     <p class="section-label">06 — MUSIC</p>
     <h2 class="music-hed">SOUND<br><span>FROM</span> <span class="b">SILENCE.</span></h2>
+    <p style="font-family:'EB Garamond',serif;font-size:19px;line-height:1.7;color:rgba(240,240,240,.78);max-width:580px;margin-bottom:40px;">Seventeen years of improvisation, recorded live in single takes. No overdubs. No reconstruction. Each track is the documentation of a moment that cannot be repeated — listening and responding in real time, following wherever the sound goes. What you hear is what happened, once, and only once.</p>
     <div class="music-featured" id="featured-track">
       <img id="featured-gif" src="" alt="" class="mf-gif">
       <div class="mf-info">
@@ -1232,7 +1233,7 @@ footer{
         <div>
           <p class="player-now-playing">NOW PLAYING</p>
           <p class="player-title" id="player-title">Select a track</p>
-          <p class="player-sub" id="player-sub">PitchBlacKnight · Original</p>
+          <p class="player-sub" id="player-sub">Live improvisation · Single take · Unrepeatable</p>
         </div>
         <div class="player-progress" id="player-progress">
           <div class="player-progress-fill" id="player-progress-fill"></div>
@@ -1503,7 +1504,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     initAudioCtx();setPlayerGif();
     audio.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/'+slug+'.mp3';
     audio.load();audio.play().catch(e=>console.warn('Playback blocked:',e.message));
-    playerTitle.textContent=title;playerSub.textContent='PitchBlacKnight · Original';
+    playerTitle.textContent=title;playerSub.textContent='Live improvisation · Single take · Unrepeatable';
     updateMediaSession(title);
   }
   function handleTrackClick(entry,slug){
@@ -1515,7 +1516,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
       activeEntry=entry;entry.classList.add('active');initAudioCtx();
       audio.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/'+slug+'.mp3';
       audio.load();audio.play().catch(e=>{console.warn(e.message);entry.classList.remove('active');activeEntry=null;currentTrackIndex=-1});
-      playerTitle.textContent=slugToTitle(slug);playerSub.textContent='PitchBlacKnight · Original';
+      playerTitle.textContent=slugToTitle(slug);playerSub.textContent='Live improvisation · Single take · Unrepeatable';
       updateMediaSession(slugToTitle(slug));
     }
   }
@@ -1539,7 +1540,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     initAudioCtx();
     audio.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/for-jon.mp3';
     audio.load();audio.play().catch(e=>console.warn('Playback blocked:',e.message));
-    playerTitle.textContent='For Jon';playerSub.textContent='PitchBlacKnight · Original';
+    playerTitle.textContent='For Jon';playerSub.textContent='Live improvisation · Single take · Unrepeatable';
     updateMediaSession('For Jon');
     setPlayerGif();
   });
@@ -1596,7 +1597,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 
   function buildTrackRow(slug,idx){
     const div=document.createElement('div');div.className='music-track-entry';div.dataset.slug=slug;
-    div.innerHTML=`<div class="mte-num"><span class="num-label">${String(idx+1).padStart(2,'0')}</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div><div class="mte-info"><p class="mte-title">${slugToTitle(slug)}</p><p class="mte-tag">PitchBlacKnight · Original</p></div><div class="mte-dots">· · ·</div>`;
+    div.innerHTML=`<div class="mte-num"><span class="num-label">${String(idx+1).padStart(2,'0')}</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div><div class="mte-info"><p class="mte-title">${slugToTitle(slug)}</p><p class="mte-tag">Single take · Unrepeatable</p></div><div class="mte-dots">· · ·</div>`;
     div.addEventListener('click',()=>handleTrackClick(div,slug));return div;
   }
   function loadChunk(){
