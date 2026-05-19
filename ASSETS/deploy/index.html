@@ -1255,7 +1255,7 @@ footer{
       <div>
         <div class="music-track-list" id="music-tracks"></div>
         <button class="load-more-btn" id="load-more-btn">LOAD 12 MORE ↓</button>
-        <audio id="ap" crossorigin="anonymous"></audio>
+        <audio id="ap" crossorigin="anonymous" playsinline></audio>
       </div>
     </div>
   </div>
@@ -1531,6 +1531,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     audio.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/'+slug+'.mp3';
     audio.load();audio.play().catch(e=>console.warn('Playback blocked:',e.message));
     playerTitle.textContent=title;playerSub.textContent='PitchBlacKnight · Original';
+    updateMediaSession(title);
   }
   function handleTrackClick(entry,slug){
     if(activeEntry===entry){
@@ -1542,6 +1543,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
       audio.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/'+slug+'.mp3';
       audio.load();audio.play().catch(e=>{console.warn(e.message);entry.classList.remove('active');activeEntry=null;currentTrackIndex=-1});
       playerTitle.textContent=slugToTitle(slug);playerSub.textContent='PitchBlacKnight · Original';
+      updateMediaSession(slugToTitle(slug));
     }
   }
   ctrlPlay.addEventListener('click',()=>{
@@ -1565,6 +1567,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     audio.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/for-jon.mp3';
     audio.load();audio.play().catch(e=>console.warn('Playback blocked:',e.message));
     playerTitle.textContent='For Jon';playerSub.textContent='PitchBlacKnight · Original';
+    updateMediaSession('For Jon');
     setPlayerGif();
   });
   playerProgress.addEventListener('click',e=>{
@@ -1577,12 +1580,47 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     if(!audio.duration)return;
     playerProgressFill.style.width=(audio.currentTime/audio.duration*100)+'%';
     playerTime.textContent=fmtTime(audio.currentTime);playerTimeTotal.textContent=fmtTime(audio.duration);
+    if('mediaSession' in navigator&&navigator.mediaSession.setPositionState){
+      try{navigator.mediaSession.setPositionState({duration:audio.duration,playbackRate:audio.playbackRate,position:audio.currentTime});}catch(e){}
+    }
   });
   audio.addEventListener('ended',()=>{
     deactivate(activeEntry);activeEntry=null;
     if(currentTrackIndex<ALL_TRACKS.length-1)playTrackByIndex(currentTrackIndex+1);
     else{currentTrackIndex=-1;setPlayIcon(false)}
   });
+
+  /* ── MEDIA SESSION (lock-screen / background playback) ── */
+  function updateMediaSession(title){
+    if(!('mediaSession' in navigator))return;
+    navigator.mediaSession.metadata=new MediaMetadata({
+      title:title,
+      artist:'PitchBlacKnight',
+      album:'Original Works',
+      artwork:[{src:'/images/art/Orbit%20Wave.gif',sizes:'512x512',type:'image/gif'}]
+    });
+    navigator.mediaSession.setActionHandler('play',()=>{
+      audio.play().catch(()=>{});
+      if(activeEntry)activeEntry.classList.remove('paused');
+    });
+    navigator.mediaSession.setActionHandler('pause',()=>{
+      audio.pause();
+      if(activeEntry)activeEntry.classList.add('paused');
+    });
+    navigator.mediaSession.setActionHandler('previoustrack',()=>playTrackByIndex(Math.max(0,currentTrackIndex-1)));
+    navigator.mediaSession.setActionHandler('nexttrack',()=>playTrackByIndex(Math.min(ALL_TRACKS.length-1,currentTrackIndex+1)));
+    try{
+      navigator.mediaSession.setActionHandler('seekto',(d)=>{if(d.seekTime!=null)audio.currentTime=d.seekTime;});
+    }catch(e){}
+  }
+
+  /* Keep AudioContext alive when returning from background */
+  document.addEventListener('visibilitychange',()=>{
+    if(!document.hidden&&analyser&&analyser.context.state==='suspended'){
+      analyser.context.resume().catch(()=>{});
+    }
+  });
+
   function buildTrackRow(slug,idx){
     const div=document.createElement('div');div.className='music-track-entry';div.dataset.slug=slug;
     div.innerHTML=`<div class="mte-num"><span class="num-label">${String(idx+1).padStart(2,'0')}</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div><div class="mte-info"><p class="mte-title">${slugToTitle(slug)}</p><p class="mte-tag">PitchBlacKnight · Original</p></div><div class="mte-dots">· · ·</div>`;
