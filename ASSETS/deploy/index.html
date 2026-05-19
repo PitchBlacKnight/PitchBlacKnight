@@ -743,6 +743,48 @@ footer{
   color:rgba(240,240,240,.2);
 }
 
+/* ── ORIGIN / STORY ── */
+#origin{padding:120px 40px}
+.origin-inner{max-width:var(--max);margin:0 auto}
+.origin-beats{margin-top:80px}
+.origin-beat{
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:56px;
+  padding:60px 0;
+  border-top:1px solid var(--rule);
+  align-items:start;
+}
+.origin-beat:last-child{border-bottom:1px solid var(--rule)}
+.ob-era{
+  font-family:'Space Mono',monospace;
+  font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  line-height:2;
+  padding-top:8px;
+}
+.ob-era strong{
+  display:block;font-size:11px;
+  color:rgba(240,240,240,.45);font-weight:400;
+  letter-spacing:.1em;margin-bottom:4px;
+}
+.ob-hed{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.4rem,4.5vw,4.8rem);
+  line-height:.9;letter-spacing:.02em;
+  color:var(--white);
+  margin-bottom:22px;
+}
+.ob-hed em{color:var(--orange);font-style:normal}
+.ob-hed span{color:var(--blue)}
+.ob-body{
+  font-family:'EB Garamond',serif;
+  font-size:18px;line-height:1.78;
+  color:rgba(240,240,240,.68);
+  max-width:560px;
+}
+
 /* ━━━━━━━━━━━━━━━━━━━━
    RESPONSIVE
 ━━━━━━━━━━━━━━━━━━━━ */
@@ -757,9 +799,10 @@ footer{
 @media(max-width:760px){
   .nav-links,.nav-avail{display:none}
   .nav-burger{display:flex}
-  #manifesto,#services,.work-bar,.art-header,#music,#wisdom,#contact,.footer-inner,.pro-cv-bar,.pro-cv-content{
+  #manifesto,#origin,#services,.work-bar,.art-header,#music,#wisdom,#contact,.footer-inner,.pro-cv-bar,.pro-cv-content{
     padding-left:20px;padding-right:20px;
   }
+  .origin-beat{grid-template-columns:1fr;gap:16px}
   .hero-name{font-size:clamp(3rem,16vw,6rem)}
   .art-grid{grid-template-columns:repeat(3,1fr)}
   .svc-grid{grid-template-columns:1fr 1fr}
@@ -828,6 +871,7 @@ footer{
     </a>
     <ul class="nav-links">
       <li><a href="#manifesto" data-section="manifesto">ABOUT</a></li>
+      <li><a href="#origin" data-section="origin">ORIGIN</a></li>
       <li><a href="#professional" data-section="professional">CV</a></li>
       <li><a href="#services" data-section="services">SERVICES</a></li>
       <li><a href="#work" data-section="work">WORK</a></li>
@@ -846,6 +890,7 @@ footer{
 </nav>
 <nav class="nav-mobile" id="nav-mobile">
   <a href="#manifesto">ABOUT</a>
+  <a href="#origin">ORIGIN</a>
   <a href="#professional">CV</a>
   <a href="#services">SERVICES</a>
   <a href="#work">WORK</a>
@@ -896,6 +941,60 @@ footer{
       <p style="font-weight:400;color:rgba(240,240,240,.75)">The edges keep moving. That's how you know you're still in it.</p>
       <p style="font-weight:400;color:rgba(240,240,240,.58);font-family:'EB Garamond',serif;font-size:17px;max-width:560px;line-height:1.8;margin-top:20px;">The practice started in 1990 — a Mac in a high school computer lab, Photoshop 1.0, before digital art had a language. Thirty-six years across every discipline, most of it unseen. One imprecision was enough to discard ninety minutes of music. Hundreds of recordings, never heard. Then something changed at the foundation: body, chemistry, how the present tense actually feels. Twenty-five years medicated, done. Thirty-five pounds gone. A clarity I don't have a better word for than <span style="color:var(--blue);font-style:italic">awake.</span> Revelations keep arriving. This site is what the opening looks like.</p>
       <p style="font-weight:400;color:var(--orange);margin-top:8px;">Still going.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ORIGIN ══ -->
+<section id="origin" class="gif-section">
+  <img class="s-gif" src="images/art/Back to the beginning.gif" alt="" style="opacity:0.13;object-position:center center">
+  <div class="s-scrim" style="background:linear-gradient(160deg,rgba(6,6,6,0.76) 0%,rgba(6,6,6,0.64) 100%)"></div>
+  <div class="s-inner origin-inner">
+    <p class="section-label">ORIGIN</p>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,7rem);line-height:.9;letter-spacing:.02em;">THE STORY<br><span style="color:var(--orange)">IN FULL.</span></h2>
+
+    <div class="origin-beats">
+
+      <div class="origin-beat">
+        <div class="ob-era"><strong>1990</strong>Mexico, MO<br>Freshman year<br>High school</div>
+        <div>
+          <h3 class="ob-hed">PHOTOSHOP 1.0.<br><em>BEFORE DIGITAL ART<br>HAD A NAME.</em></h3>
+          <p class="ob-body">The school's first Mac arrived freshman year — and with it, Photoshop 1.0, days after its release. Before the internet was visual. Before digital art had a culture or a community of practice. Most people wouldn't encounter these tools for another decade. That's where it started. Not late. Not early. At the exact beginning.</p>
+        </div>
+      </div>
+
+      <div class="origin-beat">
+        <div class="ob-era"><strong>1993 — 1999</strong>Missouri State<br>BFA · Summa<br>The loops begin</div>
+        <div>
+          <h3 class="ob-hed">SUMMA CUM LAUDE.<br><em>THEN: THE LOOPS.</em></h3>
+          <p class="ob-body">Electronic Arts &amp; Design. Two years out of college, the animated GIF work began — generative, algorithmic, hand-crafted. 156 survive and are shown here. More exist in the archive. The earliest nearly didn't make it: lost in an incident involving an exterminator, a can of bug spray, and a stack of discs laid face-up on cheap carpet. The exterminator had one job.</p>
+        </div>
+      </div>
+
+      <div class="origin-beat">
+        <div class="ob-era"><strong>2002 — 2024</strong>Chicago<br>The double life<br>Both at once</div>
+        <div>
+          <h3 class="ob-hed">TWENTY-FIVE YEARS.<br><em>BOTH LIVES<br>AT ONCE.</em></h3>
+          <p class="ob-body">A career building design systems for GE Healthcare, BCBS, Avant, TransUnion — systems used by 500,000+ people, recognized by the Red Dot, Fast Company, and dmi:DVA. Running alongside it, invisible: eighteen years of improvised music recorded in single takes and mostly destroyed. 156 GIF works accumulating quietly. Two complete bodies of work, almost entirely unseen.</p>
+        </div>
+      </div>
+
+      <div class="origin-beat">
+        <div class="ob-era"><strong>18 years</strong>The archive<br>The standard<br>The silence</div>
+        <div>
+          <h3 class="ob-hed">HUNDREDS.<br><em>NEVER HEARD.</em></h3>
+          <p class="ob-body">A session could run ninety minutes. A single imprecision near the end was enough to discard all of it. Not laziness. Not doubt in the work. Something closer to reverence — and something that looked, from the outside, an awful lot like fear. The standard was real. So was the silence it imposed.</p>
+        </div>
+      </div>
+
+      <div class="origin-beat">
+        <div class="ob-era"><strong>Now · 2026</strong>Chicago Heights<br>The emergence<br>Still going</div>
+        <div>
+          <h3 class="ob-hed">TWENTY-FIVE YEARS<br>MEDICATED.<br><em>THEN: AWAKE.</em></h3>
+          <p class="ob-body">Off medication. Thirty-five pounds gone. A clarity arriving in waves, each one larger than the last. It felt like waking from a coma — because it was. The work is the same work it has always been. The willingness to share it is new. The revelations keep arriving faster than they can be catalogued. This site is what the opening looks like. Still figuring it out. Still going.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -1363,11 +1462,12 @@ footer{
           <img class="footer-logo-gif" src="images/art/Orbit Wave.gif" alt="PBK">
           <span><span style="color:var(--white);font-weight:700">PITCH</span><span style="color:var(--orange);font-weight:700">BLAC</span><span style="color:var(--blue);font-weight:700">KNIGHT</span></span>
         </div>
-        <p class="footer-tagline">Mikel Rosenthal is a Fluxus artist working across design systems, music, performance, visual art, and voice. 25 years of making. Still going.</p>
+        <p class="footer-tagline">Mikel Rosenthal is a Fluxus artist working across design systems, music, performance, visual art, and voice. 36 years of making. Still going.</p>
       </div>
       <div class="footer-col">
         <p class="footer-col-title">NAVIGATE</p>
         <a href="#manifesto">About</a>
+        <a href="#origin">Origin</a>
         <a href="#professional">CV</a>
         <a href="#services">Services</a>
         <a href="#work">Work</a>
@@ -1653,7 +1753,7 @@ function handleContactSubmit(e){
   const INTERVAL = 5000;
   const FADE     = 2500; // transition duration ms
 
-  const SECTIONS = ['manifesto','professional','services','work','art','music','wisdom','contact'];
+  const SECTIONS = ['manifesto','origin','professional','services','work','art','music','wisdom','contact'];
 
   function enc(n){ return n.split('').map(c=>c===' '?'%20':c==="'"?'%27':c).join('') }
 
