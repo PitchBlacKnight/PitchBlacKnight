@@ -549,9 +549,9 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
   padding:28px;display:flex;flex-direction:column;justify-content:flex-end;
   min-height:360px;position:relative;overflow:hidden;
 }
-.player-gif{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.28;transition:opacity .35s}
-.player-gif-scrim{position:absolute;inset:0;z-index:0;background:linear-gradient(to top,rgba(6,6,6,.85) 0%,rgba(6,6,6,.35) 55%,rgba(6,6,6,.1) 100%)}
-#viz-canvas{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.player-gif{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.62;transition:opacity .35s}
+.player-gif-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(6,6,6,.92) 0%,rgba(6,6,6,.52) 38%,rgba(6,6,6,.06) 100%)}
+#viz-canvas{display:none}
 .music-player-panel>*:not(canvas):not(.player-gif):not(.player-gif-scrim){position:relative;z-index:2}
 .player-now-playing{
   font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.25em;
@@ -564,8 +564,9 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
   font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.15em;
   text-transform:uppercase;color:var(--muted);margin-top:4px;
 }
-.player-progress{width:100%;height:1px;background:var(--rule);margin:20px 0 6px;cursor:pointer;position:relative}
-.player-progress-fill{height:100%;background:var(--orange);width:0;transition:width .25s linear}
+.player-progress{width:100%;height:28px;display:flex;align-items:center;margin:12px 0 2px;cursor:pointer;position:relative}
+.player-progress::after{content:'';position:absolute;left:0;right:0;height:2px;background:var(--rule);border-radius:1px;pointer-events:none}
+.player-progress-fill{position:absolute;left:0;height:2px;background:var(--orange);width:0;transition:width .25s linear;z-index:1;border-radius:1px;pointer-events:none}
 .player-time-row{
   display:flex;justify-content:space-between;
   font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);
@@ -1485,40 +1486,12 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
     ctrlPlayIcon=document.getElementById('ctrl-play-icon'),ctrlPrev=document.getElementById('ctrl-prev'),
     ctrlNext=document.getElementById('ctrl-next'),featuredBtn=document.getElementById('featured-play-btn');
   const PLAY_PATH='M0 0l12 7-12 7z',PAUSE_PATH='M0 0h4v14H0zM8 0h4v14H8z';
-  const canvas=document.getElementById('viz-canvas'),vCtx=canvas.getContext('2d');
-  let analyser=null,freqData=null,idleAngle=0;
-  function resizeCanvas(){canvas.width=canvas.offsetWidth;canvas.height=canvas.offsetHeight}
-  resizeCanvas();new ResizeObserver(resizeCanvas).observe(canvas.parentElement);
+  let analyser=null;
   function initAudioCtx(){
     if(analyser)return;const ctx=new(window.AudioContext||window.webkitAudioContext)();
     analyser=ctx.createAnalyser();analyser.fftSize=256;analyser.smoothingTimeConstant=.82;
-    freqData=new Uint8Array(analyser.frequencyBinCount);
     ctx.createMediaElementSource(audio).connect(analyser);analyser.connect(ctx.destination);
   }
-  (function drawLoop(){
-    requestAnimationFrame(drawLoop);
-    const W=canvas.width,H=canvas.height,cx=W/2,cy=H/2;
-    vCtx.clearRect(0,0,W,H);
-    if(analyser)analyser.getByteFrequencyData(freqData);
-    const bins=freqData?freqData.length:64,R=Math.min(W,H)*.20,maxL=Math.min(W,H)*.26,total=bins*2;
-    for(let i=0;i<total;i++){
-      const binIdx=i<bins?i:total-1-i,raw=freqData?freqData[binIdx]/255:0,
-        idle=audio.paused?0.04+0.04*Math.sin(idleAngle+i*.15):0,
-        mag=Math.max(raw,idle),barLen=mag*maxL+1,
-        angle=(i/total)*Math.PI*2-Math.PI/2,
-        x1=cx+Math.cos(angle)*R,y1=cy+Math.sin(angle)*R,
-        x2=cx+Math.cos(angle)*(R+barLen),y2=cy+Math.sin(angle)*(R+barLen),
-        t=binIdx/bins,r=Math.round(232-109*t),g=Math.round(81+60*t),b=Math.round(42+142*t);
-      vCtx.strokeStyle=`rgba(${r},${g},${b},${.25+mag*.75})`;
-      vCtx.lineWidth=Math.max(1,1.5*mag+.5);
-      vCtx.beginPath();vCtx.moveTo(x1,y1);vCtx.lineTo(x2,y2);vCtx.stroke();
-    }
-    const bass=freqData?(freqData[0]+freqData[1]+freqData[2])/(3*255):.06;
-    const gr=vCtx.createRadialGradient(cx,cy,0,cx,cy,R*(.6+bass));
-    gr.addColorStop(0,`rgba(232,81,42,${.12+bass*.28})`);gr.addColorStop(1,'rgba(232,81,42,0)');
-    vCtx.fillStyle=gr;vCtx.beginPath();vCtx.arc(cx,cy,R*(.6+bass),0,Math.PI*2);vCtx.fill();
-    if(audio.paused)idleAngle+=.007;
-  })();
   function fmtTime(s){if(!isFinite(s))return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0')}
   function setPlayIcon(p){ctrlPlayIcon.setAttribute('d',p?PAUSE_PATH:PLAY_PATH);ctrlPlay.classList.toggle('playing',p)}
   function deactivate(e){if(e)e.classList.remove('active','paused')}
