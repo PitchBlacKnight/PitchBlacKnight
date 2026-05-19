@@ -633,7 +633,14 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
   font-family:'Alexandria',sans-serif;font-weight:200;
   font-size:clamp(1.8rem,4vw,3.6rem);letter-spacing:-.03em;line-height:1.2;
   color:var(--white);max-width:900px;margin-bottom:24px;
+  transition:opacity .5s ease;
 }
+.wisdom-nav{display:flex;align-items:center;gap:20px;margin-top:28px}
+.wisdom-btn{background:none;border:1px solid var(--rule);color:var(--muted);
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;
+  padding:8px 16px;cursor:pointer;text-transform:uppercase;transition:color .2s,border-color .2s}
+.wisdom-btn:hover{color:var(--orange);border-color:var(--orange)}
+.wisdom-counter{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--muted)}
 .wisdom-quote em{font-style:normal;font-weight:700;color:var(--orange)}
 .wisdom-attr{
   font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;
@@ -1434,10 +1441,12 @@ footer{
   <div class="s-scrim" style="background:linear-gradient(180deg,rgba(6,6,6,0.64) 0%,rgba(6,6,6,0.48) 50%,rgba(6,6,6,0.68) 100%)"></div>
   <div class="s-inner wisdom-inner">
     <p class="section-label">07 — DAILY WISDOM</p>
-    <blockquote class="wisdom-quote">
-      "Perfectionism is often the most elegant form of fear. When it finally breaks — <em>really breaks</em> — what you're left with is just the work, which was always enough."
-    </blockquote>
-    <div class="wisdom-attr">MIKEL ROSENTHAL · 2026</div>
+    <blockquote class="wisdom-quote" id="wisdom-quote"></blockquote>
+    <div class="wisdom-attr">MIKEL ROSENTHAL · <span id="wisdom-counter"></span></div>
+    <div class="wisdom-nav">
+      <button class="wisdom-btn" id="wisdom-prev">← PREV</button>
+      <button class="wisdom-btn" id="wisdom-next">NEXT →</button>
+    </div>
   </div>
 </section>
 
@@ -1886,6 +1895,49 @@ function handleContactSubmit(e){
     if(incoming.complete && incoming.naturalWidth > 0) swap();
     else incoming.onload = swap;
   }, HOLD);
+})();
+
+/* ── DAILY WISDOM CYCLE ─────────────────────────────────── */
+(function initWisdom(){
+  const QUOTES = [
+    "Perfectionism is often the most elegant form of fear. When it finally breaks — really breaks — what you're left with is just the work, which was always enough.",
+    "The most radical act is to be entirely, unapologetically yourself in a world that profits from your self-doubt.",
+    "Growth is not construction. It is excavation. You are not building something new — you are uncovering what was always there, set down for safekeeping.",
+    "Art is not separate from life. Work is not separate from art. Every output is the same gesture, refracted differently.",
+    "Polymath is not a resume word. It's a condition. The edges blur. That's the point.",
+    "Every piece of work enters the world with intention. If it doesn't serve something larger, it doesn't leave the studio.",
+    "First take. No blueprint. No rehearsal. The imperfection is the craft — the breath of the moment, not the sterility of infinite takes.",
+    "Remix the remix. Layer on layer until the original DNA is just a ghost signal. That signal is still you.",
+    "Compression is not peace. The thaw is not explosive, not dramatic — just a door left open that you forgot you had the key to.",
+    "Silence while working feels like a missed opportunity.",
+    "I make art from other people's leftovers because everything deserves a second life.",
+    "There are 98 options between every yes and no. The extremes are comfortable because they require no tolerance — only position. Living in the gray means accepting the complexity of being right and wrong at the same time. That's not weakness. That's where the actual world is.",
+    "Binary thinking is not clarity. It's avoidance. The real answer to almost every question is somewhere in the middle — inconvenient, textured, and true.",
+    "Before you say 'it's either this or nothing' — remember that black and white together only account for 2% of what's possible. The answer you need is probably living somewhere in the other 98.",
+  ];
+
+  const el   = document.getElementById('wisdom-quote');
+  const ctr  = document.getElementById('wisdom-counter');
+  const prev = document.getElementById('wisdom-prev');
+  const next = document.getElementById('wisdom-next');
+  if(!el) return;
+
+  // Start on today's quote, naturally cycles through the year
+  const doy = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  let idx = doy % QUOTES.length;
+
+  function show(i){
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.textContent = '“' + QUOTES[i] + '”';
+      el.style.opacity = '1';
+      if(ctr) ctr.textContent = (i+1) + ' / ' + QUOTES.length;
+    }, 280);
+  }
+
+  show(idx);
+  if(prev) prev.addEventListener('click', () => { idx = (idx - 1 + QUOTES.length) % QUOTES.length; show(idx); });
+  if(next) next.addEventListener('click', () => { idx = (idx + 1) % QUOTES.length; show(idx); });
 })();
 </script>
 </body>
