@@ -123,7 +123,22 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
   display:flex;flex-direction:column;align-items:center;justify-content:center;
   overflow:hidden;
 }
-.hero-gif{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero-reel{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-reel-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:0;
+  transition:opacity 2s cubic-bezier(0.4,0,0.2,1);
+  transform:scale(1.05);
+  will-change:opacity,transform;
+}
+.hero-reel-img.hr-on{
+  opacity:1;
+  animation:hr-drift 10s ease-out forwards;
+}
+@keyframes hr-drift{
+  from{transform:scale(1.05)}
+  to  {transform:scale(1.0)}
+}
 .hero-scrim{
   position:absolute;inset:0;z-index:1;
   background:linear-gradient(to bottom,rgba(6,6,6,.25) 0%,rgba(6,6,6,.55) 70%,rgba(6,6,6,.95) 100%);
@@ -813,7 +828,10 @@ footer{
 
 <!-- ══ HERO ══ -->
 <section id="hero">
-  <img class="hero-gif" src="images/art/Orbit Wave.gif" alt="">
+  <div class="hero-reel">
+    <img class="hero-reel-img hr-on" id="hr-a" src="images/art/Orbit Wave.gif" alt="">
+    <img class="hero-reel-img" id="hr-b" src="" alt="">
+  </div>
   <div class="hero-scrim"></div>
   <div class="hero-content">
     <h1 class="hero-name">
@@ -1660,6 +1678,47 @@ function handleContactSubmit(e){
     // Stagger each section's start so they never all swap at once
     setTimeout(() => setInterval(advance, INTERVAL), si * 1500);
   });
+})();
+
+/* ── HERO REEL ──────────────────────────────────────────── */
+(function initHeroReel(){
+  const GIFS = [
+    'Orbit Wave.gif',
+    'Tunnel Vision.gif',
+    'Spectral arc.gif',
+    'Cosmos.gif',
+    'Slowly going inward.gif',
+    'Dark waves.gif',
+    'Prism drift.gif',
+    'Night Moon.gif',
+  ];
+  const HOLD = 7000; // ms each image shows
+  function enc(n){ return n.split('').map(c=>c===' '?'%20':c).join('') }
+
+  const imgA = document.getElementById('hr-a');
+  const imgB = document.getElementById('hr-b');
+  if(!imgA||!imgB) return;
+
+  let cur = 0;
+  let active = imgA, incoming = imgB;
+
+  setInterval(() => {
+    cur = (cur + 1) % GIFS.length;
+    incoming.src = 'images/art/' + enc(GIFS[cur]);
+
+    function swap(){
+      // restart drift animation on incoming
+      incoming.classList.remove('hr-on');
+      void incoming.offsetWidth;
+      incoming.classList.add('hr-on');
+      // fade out active
+      active.classList.remove('hr-on');
+      [active, incoming] = [incoming, active];
+    }
+
+    if(incoming.complete && incoming.naturalWidth > 0) swap();
+    else incoming.onload = swap;
+  }, HOLD);
 })();
 </script>
 </body>
