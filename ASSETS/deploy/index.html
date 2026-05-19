@@ -139,21 +139,9 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
   perspective:1400px;
 }
 .hero-name span{display:inline-block}
-.hn-pitch{
-  animation:
-    hn-enter-a 1s cubic-bezier(0.16,1,0.3,1) 0.95s both,
-    hn-drift-a 6s ease-in-out 1.95s infinite;
-}
-.hn-blac{
-  animation:
-    hn-enter-b 1s cubic-bezier(0.16,1,0.3,1) 1.12s both,
-    hn-drift-b 7s ease-in-out 2.12s infinite;
-}
-.hn-knight{
-  animation:
-    hn-enter-c 1s cubic-bezier(0.16,1,0.3,1) 1.29s both,
-    hn-drift-c 8s ease-in-out 2.29s infinite;
-}
+.hn-pitch{animation:hn-enter-a 1s cubic-bezier(0.16,1,0.3,1) 0.95s both}
+.hn-blac{animation:hn-enter-b 1s cubic-bezier(0.16,1,0.3,1) 1.12s both}
+.hn-knight{animation:hn-enter-c 1s cubic-bezier(0.16,1,0.3,1) 1.29s both}
 @keyframes hn-enter-a{
   from{opacity:0;transform:translateY(-70px) rotateX(75deg) translateZ(-50px)}
   to  {opacity:1;transform:translateY(0) rotateX(0) translateZ(0)}
@@ -165,21 +153,6 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 @keyframes hn-enter-c{
   from{opacity:0;transform:translateY(-50px) rotateY(50deg) translateZ(-90px)}
   to  {opacity:1;transform:translateY(0) rotateY(0) translateZ(0)}
-}
-@keyframes hn-drift-a{
-  0%,100%{transform:translateY(0) rotateY(0)}
-  35%    {transform:translateY(-6px) rotateY(-1.4deg)}
-  70%    {transform:translateY(4px) rotateY(.8deg)}
-}
-@keyframes hn-drift-b{
-  0%,100%{transform:translateY(0) rotateY(0)}
-  40%    {transform:translateY(5px) rotateY(1.6deg)}
-  72%    {transform:translateY(-4px) rotateY(-.9deg)}
-}
-@keyframes hn-drift-c{
-  0%,100%{transform:translateY(0) rotateY(0)}
-  28%    {transform:translateY(-5px) rotateY(1deg)}
-  62%    {transform:translateY(6px) rotateY(-1.4deg)}
 }
 .hero-sub{
   font-family:'Space Mono',monospace;
@@ -888,7 +861,7 @@ footer{
     <div class="pro-cv-bar">
       <div class="pro-cv-meta">
         <p class="section-label" style="margin-bottom:0">02 — CV</p>
-        <p class="pro-cv-tagline">Principal Designer · 25 Yrs · GE Healthcare · BCBS · Avant · TransUnion</p>
+        <p class="pro-cv-tagline">Design Systems Lead · 20+ Yrs · Avant · GE Healthcare · BCBS · Maven Wave</p>
       </div>
       <button class="pro-cv-toggle" onclick="toggleCV()">
         <span id="pro-cv-label">VIEW RÉSUMÉ</span>
@@ -903,12 +876,12 @@ footer{
               <h2 class="pro-title">MIKEL<br>ROSEN<span>THAL</span></h2>
             </div>
             <div>
-              <p class="pro-bio">25 years investigating design at scale — systems for healthcare, fintech, and enterprise that needed to hold under real pressure. Alongside that: music, art, voice, and performance. The two sides of the work inform each other more than people expect. GE Healthcare · BCBS · Avant · TransUnion · Maven Wave.</p>
+              <p class="pro-bio">Over twenty years designing systems that have to hold — clinical tools, fintech products, insurance platforms, enterprise frameworks. Edison for GE Healthcare (Red Dot Award · Fast Company Innovation by Design · dmi:DVA). Pathfinder for Avant. FIBER for BCBS. Alongside the professional work: eighteen years of improvised music, 156 digital artworks, voice performance, and a Fluxus practice that ties all of it together.</p>
             </div>
           </div>
           <div class="pro-stats">
             <div class="stat-cell">
-              <div class="stat-n">25<span>+</span></div>
+              <div class="stat-n">20<span>+</span></div>
               <div class="stat-l">Years of<br>experience</div>
             </div>
             <div class="stat-cell">
@@ -922,43 +895,43 @@ footer{
           </div>
           <div class="career-list">
             <div class="career-item">
-              <div class="ci-period">2020 — NOW</div>
+              <div class="ci-period">2024 — 2025</div>
               <div>
-                <div class="ci-role">Principal Design Systems Lead</div>
-                <div class="ci-org">TransUnion / Independent</div>
-                <div class="ci-note">Leading enterprise-scale design system architecture, tokenization strategy, and cross-product consistency for multi-platform ecosystems.</div>
+                <div class="ci-role">Brand Designer</div>
+                <div class="ci-org">The Bettering Company · Freelance</div>
+                <div class="ci-note">Led brand identity and design system from zero — translating the company's mission into a cohesive visual language across digital and physical touchpoints.</div>
               </div>
             </div>
             <div class="career-item">
-              <div class="ci-period">2017 — 2020</div>
+              <div class="ci-period">2021 — 2024</div>
               <div>
-                <div class="ci-role">Lead UX Designer</div>
-                <div class="ci-org">Maven Wave Partners</div>
-                <div class="ci-note">Designed enterprise UX systems and brand identity for Google Cloud consulting practice.</div>
+                <div class="ci-role">Senior Product & Design Systems Lead</div>
+                <div class="ci-org">Avant</div>
+                <div class="ci-note">Led Pathfinder™ Design System — component architecture, governance model, Figma standardization, and a marketing library that unified brand consistency for 350+ marketers across the organization.</div>
               </div>
             </div>
             <div class="career-item">
-              <div class="ci-period">2014 — 2017</div>
+              <div class="ci-period">2020 — 2021</div>
               <div>
-                <div class="ci-role">Senior Product Designer</div>
-                <div class="ci-org">Avant / Amount</div>
-                <div class="ci-note">Built Pathfinder design system from zero — tokenized, documented, deployed across consumer and B2B fintech products.</div>
+                <div class="ci-role">Senior UX/UI Design Systems Designer</div>
+                <div class="ci-org">GE Healthcare</div>
+                <div class="ci-note">Designed and evangelized the Edison Design System™ across 40+ enterprise products. Red Dot Award · Fast Company Innovation by Design · dmi:DVA Award for Interface Design.</div>
               </div>
             </div>
             <div class="career-item">
-              <div class="ci-period">2008 — 2014</div>
+              <div class="ci-period">2018 — 2020</div>
               <div>
-                <div class="ci-role">Design Systems Architect</div>
-                <div class="ci-org">GE Healthcare / GE Digital</div>
-                <div class="ci-note">Designed and scaled the GE Edison Design System across 40+ clinical applications used by 500K+ healthcare professionals globally.</div>
+                <div class="ci-role">Senior Design Systems Designer</div>
+                <div class="ci-org">BCBS · TransUnion · SurePeople</div>
+                <div class="ci-note">Three parallel contract engagements: FIBER system for BCBS, TUCM global identity for TransUnion, and PRISM psychometric platform for SurePeople.</div>
               </div>
             </div>
             <div class="career-item">
-              <div class="ci-period">2000 — 2008</div>
+              <div class="ci-period">2002 — 2018</div>
               <div>
-                <div class="ci-role">Senior UX / Brand Designer</div>
-                <div class="ci-org">BCBS · TransUnion · Agencies</div>
-                <div class="ci-note">Spanning brand identity, interactive design, and early enterprise web applications for healthcare and financial services.</div>
+                <div class="ci-role">Designer → Senior Lead</div>
+                <div class="ci-org">Maven Wave · Biersma Creative · Firebelly Design</div>
+                <div class="ci-note">Sixteen years across three studios — climbing from junior to team lead. Fortune 500 clients including Google, Nike, AT&T, Disney, Crate & Barrel, AbbVie, and Salesforce.</div>
               </div>
             </div>
           </div>
@@ -1467,7 +1440,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 /* ── MUSIC PLAYER ────────────────────────────────────── */
 (function initMusicPlayer() {
   const ALL_TRACKS = [
-    'you-have-a-wanting-alan','shes-going-out-tonight','building-short-wave',
+    'you-have-a-wanting-alan','building-short-wave',
     'death-tinker','bright-swift-visions','hollow-heart','clicky-clock-low-stock',
     'deeply-entertained','dreams-of-dying','dripping-magma','drop-tick',
     'eh','everybody-flows','first-run','for-jon','fresh-like-lettuce',
