@@ -41,8 +41,12 @@
       --gutter:     56px;
     }
 
+    html {
+      background: #d8ceb8;
+    }
+
     body {
-      background: var(--cream);
+      background: rgba(240,235,224,0.82);
       color: var(--ink);
       font-family: 'EB Garamond', Georgia, serif;
       font-size: 18px;
@@ -547,7 +551,7 @@
     }
 
     /* ── CONTACT ─────────────────────────────────────── */
-    #contact { background: var(--cream-warm); }
+    #contact { background: rgba(232,223,208,0.60); }
 
     .contact-grid {
       display: grid;
@@ -622,7 +626,7 @@
 
     /* ── SECTION ALTERNATION ─────────────────────────── */
     #branding,
-    #design-systems { background: var(--cream-warm); }
+    #design-systems { background: rgba(232,223,208,0.60); }
 
     /* ── PROJECT MODAL ───────────────────────────────── */
     .modal-overlay {
@@ -890,7 +894,10 @@
     }
 
     @media (max-width: 560px) {
-      .hero-name { font-size: 68px; }
+      /* Scale the display headline down on phones so the longest line
+         ("ROSENTHAL") always fits the viewport instead of being clipped. */
+      .hero-name { font-size: clamp(34px, 12vw, 68px); }
+      .prac-name { font-size: clamp(30px, 11vw, 52px); }
     }
 
     /* ── MOBILE BOTTOM NAV ───────────────────────────── */
@@ -963,6 +970,16 @@
 
     /* ── DARK MODE ───────────────────────────────────── */
     html.dark {
+      background: #0e0c09;
+    }
+    html.dark body {
+      background: rgba(28,24,20,0.85);
+    }
+    html.dark #contact,
+    html.dark #design-systems { background: rgba(34,30,25,0.65); }
+    html.dark #services       { background: rgba(42,37,32,0.65); }
+
+    html.dark {
       --cream:      #1c1814;
       --cream-warm: #221e19;
       --cream-deep: #2a2520;
@@ -980,6 +997,7 @@
     /* Practice section: --cream flips to near-black in dark mode; force light values */
     html.dark .prac-name       { color: #ede8dd; }
     html.dark .str-tag         { color: #ede8dd; border-color: rgba(237,232,221,0.55); }
+    html.dark .exp-co          { color: #ede8dd; }
 
     /* Mobile nav hardcodes var(--ink) as bg — keep it dark */
     html.dark .mobile-nav      { background: #0f0d0b; border-top-color: rgba(237,232,221,0.08); }
@@ -1035,7 +1053,7 @@
     body, .site-nav, .site-footer, #contact, #practice { transition: background-color 0.3s ease; }
 
     /* ── SERVICES ──────────────────────────────────── */
-    #services { background: var(--cream-deep); }
+    #services { background: rgba(221,213,196,0.60); }
 
     .services-intro-row {
       display: flex;
@@ -1833,7 +1851,7 @@
             </div>
           </a>
           <div class="project-card modal-card" data-project="bcbs-web" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/web-design/bcbs/01-homepage.jpg" alt="BCBS Illinois — Your Benefits. Simplified." loading="lazy"></div>
+            <div class="proj-thumb"><img src="images/ux/bcbs-fiber/bc-10.jpg" alt="BCBS Illinois — Your Benefits. Simplified." loading="lazy"></div>
             <div class="proj-meta">
               <div class="proj-title">BCBS Illinois</div>
               <div class="proj-info">Web Design · UX · 2018</div>
@@ -1952,7 +1970,7 @@
             </div>
           </div>
           <div class="project-card ds-card" data-project="bcbs-fiber" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/ux/bcbs-fiber/bc-10.jpg" alt="Blue Cross Blue Shield FIBER Design System" loading="lazy"></div>
+            <div class="proj-thumb"><img src="images/design-systems/bcbs-fiber-portfolio.png" alt="Blue Cross Blue Shield FIBER Design System" loading="lazy"></div>
             <div class="proj-meta">
               <div class="proj-title">Blue Cross Blue Shield — FIBER</div>
               <div class="proj-info">Enterprise Design System · Insurance · 2019</div>
@@ -2000,21 +2018,39 @@
         </div>
         <p class="sec-intro">First-take improv. Live-mastered. No overdubs. Produced as PitchBlacKnight — original tracks recorded by accident while working. That's the method.</p>
         <div class="music-grid">
-          <div class="mix-card" data-src="audio/hollow-heart.wav">
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/for-jon.mp3">
             <div class="mix-ep">Original · Track</div>
-            <div class="mix-title">Hollow Heart</div>
+            <div class="mix-title">For Jon</div>
             <div class="mix-date">PitchBlacKnight</div>
             <div class="mix-play">▶ Play</div>
           </div>
-          <div class="mix-card" data-src="audio/sounded-like-the-truth.wav">
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/you-have-a-wanting-alan.mp3">
             <div class="mix-ep">Original · Track</div>
-            <div class="mix-title">Sounded Like the Truth</div>
+            <div class="mix-title">You Have a Wanting Alan</div>
             <div class="mix-date">PitchBlacKnight</div>
             <div class="mix-play">▶ Play</div>
           </div>
-          <div class="mix-card" data-src="audio/sunday-play.wav">
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/bright-swift-visions.mp3">
             <div class="mix-ep">Original · Track</div>
-            <div class="mix-title">Sunday Play</div>
+            <div class="mix-title">Bright Swift Visions</div>
+            <div class="mix-date">PitchBlacKnight</div>
+            <div class="mix-play">▶ Play</div>
+          </div>
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/never-thought-i-could.mp3">
+            <div class="mix-ep">Original · Track</div>
+            <div class="mix-title">Never Thought I Could</div>
+            <div class="mix-date">PitchBlacKnight</div>
+            <div class="mix-play">▶ Play</div>
+          </div>
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/when-you-leave.mp3">
+            <div class="mix-ep">Original · Track</div>
+            <div class="mix-title">When You Leave</div>
+            <div class="mix-date">PitchBlacKnight</div>
+            <div class="mix-play">▶ Play</div>
+          </div>
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/dracula-grind-and-bump.mp3">
+            <div class="mix-ep">Original · Track</div>
+            <div class="mix-title">Dracula Grind and Bump</div>
             <div class="mix-date">PitchBlacKnight</div>
             <div class="mix-play">▶ Play</div>
           </div>
@@ -2124,14 +2160,15 @@
 
               <div class="exp-item">
                 <div class="exp-row">
-                  <span class="exp-co">PBK Studio</span>
+                  <span class="exp-co">PBK Studio LLC</span>
                   <span class="exp-when">2021 – Present</span>
                 </div>
-                <div class="exp-role-text">Founder · Independent Studio</div>
-                <div class="exp-tags-text">Music · Web · Motion · Voice · Design · Art Direction</div>
+                <div class="exp-role-text">Founder &amp; Principal · LLC est. May 18, 2026</div>
+                <div class="exp-tags-text">Art Direction · Design Systems · Product Design · Brand Identity · Web · Motion · Voice · Music</div>
                 <div class="exp-body-text">
-                  <p>Founded independent creative studio operating across music production, web design, motion art, voice performance, and brand identity.</p>
-                  <p>Produces original music as PitchBlacKnight — first-take improv, live-mastered, no overdubs; ten unreleased mixtapes archived and released publicly. Applies 25+ years of design systems and art direction experience to every output — from a single-page site to a multi-discipline brand.</p>
+                  <p>Independent multidisciplinary studio — incorporated as a full LLC in May 2026 — operating across art direction, design systems, product design, brand identity, web development, motion art, voice performance, and original music production.</p>
+                  <p>Client work spans enterprise design systems (healthcare, fintech, insurance), real estate microsites, consumer brand identity, and responsive web builds. Designs with governance and developer handoff built in — Figma-first, token-driven, accessibility-aware.</p>
+                  <p>Original music released as PitchBlacKnight — first-take improv sessions, live-mastered, no overdubs. SAG-eligible voice performance for commercial, narrative, and sonic branding. 25+ years of craft applied across every discipline the studio touches.</p>
                 </div>
               </div>
 
@@ -2200,10 +2237,10 @@
                   <span class="exp-co">TransUnion</span>
                   <span class="exp-when">May 2018 – May 2019</span>
                 </div>
-                <div class="exp-role-text">Product / UX Designer · Contract</div>
-                <div class="exp-tags-text">Enterprise UX · Scalable UI · Stakeholder Alignment</div>
+                <div class="exp-role-text">Design Systems Lead / Senior Product Designer · Contract</div>
+                <div class="exp-tags-text">Enterprise Design System · Marketing Library · Scalable UI · Stakeholder Alignment</div>
                 <div class="exp-body-text">
-                  <p>Delivered product UX and UI in complex enterprise environments with high stakeholder density. Improved consistency and clarity through pattern reuse and system-level thinking.</p>
+                  <p>Built and led the TransUnion Design System — a scalable component and pattern library supporting enterprise product teams across complex, high-stakeholder environments. Also designed and delivered the TransUnion Marketing Design Library, unifying visual standards across brand and digital marketing touchpoints. Drove system adoption through documentation, governance, and cross-functional enablement.</p>
                 </div>
               </div>
 
@@ -2397,7 +2434,6 @@
         tags: ['Enterprise Scale', 'Accessibility', 'Cross-platform', 'Component Architecture', 'Governance'],
         images: [
           'images/design-systems/ge-edison/portfolio-pdf.png',
-          'images/design-systems/ge-edison/00-portfolio-slide.jpg',
           'images/design-systems/ge-edison.png',
           'images/design-systems/ge-edison/01-home-light.jpg',
           'images/design-systems/ge-edison/02-home-alt.png',
@@ -2418,7 +2454,7 @@
         title: 'FIBER Design System',
         meta: 'Senior UI/UX Designer · Contract',
         tags: ['Enterprise Design System', 'Component Library', 'Healthcare', 'Multi-product', 'Documentation'],
-        images: ['images/ux/bcbs-fiber/bc-10.jpg', 'images/design-systems/bcbs-fiber-portfolio.png', 'images/design-systems/bcbs-fiber-slide.jpg', 'images/design-systems/bcbs-fiber-1.png', 'images/design-systems/bcbs-fiber-2.png'],
+        images: ['images/design-systems/bcbs-fiber-portfolio.png', 'images/design-systems/bcbs-fiber-slide.jpg', 'images/design-systems/bcbs-fiber-1.png', 'images/design-systems/bcbs-fiber-2.png'],
         intro: 'FIBER was the first unified design system across Blue Cross Blue Shield\'s fragmented digital product ecosystem — bringing consistency to a platform serving millions of members.',
         body: `<p>FIBER stood for Foundational Interface Building Elements Reference — a name that telegraphed exactly what it needed to do: give dozens of product teams a shared visual foundation they could actually build on.</p>
                <p>Coming into a large insurance enterprise, the design landscape was fractured. Each product team had developed its own patterns, its own component vocabulary, its own interpretation of the brand. FIBER's job was to end that fragmentation without disrupting the teams already shipping.</p>
@@ -2436,7 +2472,6 @@
         tags: ['Product System', 'Marketing System', 'Fintech', 'Brand-to-Product', 'Token Architecture', 'Multi-brand'],
         images: [
           'images/design-systems/avant-pathfinder/portfolio-pdf.png',
-          'images/design-systems/avant-pathfinder/00-portfolio-slide.jpg',
           'images/design-systems/avant-pathfinder/01-dashboard.jpg',
           'images/design-systems/avant-pathfinder/02-login.jpg',
           'images/design-systems/avant-pathfinder/03-style.png',
@@ -2465,7 +2500,6 @@
         tags: ['HR Technology', 'Component System', 'SaaS', 'Accessibility', 'Product Design'],
         images: [
           'images/design-systems/sure-prism/portfolio-pdf.png',
-          'images/design-systems/sure-prism/00-portfolio-slide.jpg',
           'images/design-systems/sure-prism/02-graphs-desktop.png',
           'images/design-systems/sure-prism/03-connect-macbook.png',
           'images/design-systems/sure-prism/04-relationship-advisor.png',
@@ -2491,7 +2525,6 @@
         tags: ['Enterprise UX', 'Data Products', 'Consumer Platform', 'Dashboard Design', 'Financial Data'],
         images: [
           'images/design-systems/transunion/portfolio-pdf.png',
-          'images/design-systems/transunion/00-portfolio-slide.jpg',
           'images/design-systems/transunion/01-tucm-overview.jpg',
           'images/design-systems/transunion/02-tucm-screens.jpg',
           'images/design-systems/transunion/03-tucm-detail.jpg',
@@ -2674,6 +2707,7 @@
         meta: 'Lead UX Designer · Enterprise Healthcare',
         tags: ['UX Design', 'Web Design', 'Healthcare', 'Enterprise', 'Responsive'],
         images: [
+          'images/ux/bcbs-fiber/bc-10.jpg',
           'images/web-design/bcbs/01-homepage.jpg',
           'images/web-design/bcbs/02-plan-select.jpg',
           'images/web-design/bcbs/03-find-doctor.jpg',
