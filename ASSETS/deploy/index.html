@@ -5,6 +5,20 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PitchBlacKnight — Mikel Rosenthal · Fluxus Artist</title>
 <meta name="description" content="Mikel Rosenthal is a Fluxus artist working across design systems, music, performance, visual art, voice, and brand. 25 years of making. Still going.">
+
+<!-- Open Graph (link previews: Facebook, iMessage, Slack, etc.) -->
+<meta property="og:title" content="PitchBlacKnight — Mikel Rosenthal · Fluxus Artist">
+<meta property="og:description" content="Mikel Rosenthal is a Fluxus artist working across design systems, music, performance, visual art, voice, and brand. 25 years of making. Still going.">
+<meta property="og:image" content="https://pitchblacknight.com/images/pbk-album-art.jpg">
+<meta property="og:url" content="https://pitchblacknight.com">
+<meta property="og:type" content="website">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PitchBlacKnight — Mikel Rosenthal · Fluxus Artist">
+<meta name="twitter:description" content="Mikel Rosenthal is a Fluxus artist working across design systems, music, performance, visual art, voice, and brand. 25 years of making. Still going.">
+<meta name="twitter:image" content="https://pitchblacknight.com/images/pbk-album-art.jpg">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Alexandria:wght@200;300;400;700;900&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
@@ -166,7 +180,6 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
   font-size:clamp(4rem,14vw,13rem);
   line-height:.88;letter-spacing:.04em;
   perspective:1400px;
-  filter:url(#pbk-inner);
 }
 .hero-name span{display:inline-block}
 .hn-pitch{animation:hn-enter-a 1s cubic-bezier(0.16,1,0.3,1) 0.95s both}
@@ -625,6 +638,53 @@ button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
 .load-more-btn.hidden{display:none}
 
 /* ━━━━━━━━━━━━━━━━━━━━
+   WISDOM BANNER (below hero)
+━━━━━━━━━━━━━━━━━━━━ */
+#wisdom-banner{
+  background:#0c0906;
+  border-bottom:3px solid var(--orange);
+  padding:clamp(72px,10vw,120px) clamp(24px,6vw,80px);
+  position:relative;overflow:hidden;
+}
+#wisdom-banner::before{
+  content:'\201C';
+  font-family:'Bebas Neue',sans-serif;
+  font-size:min(50vw,480px);
+  position:absolute;top:-8%;left:-2%;
+  color:var(--orange);opacity:.04;
+  line-height:1;pointer-events:none;user-select:none;
+}
+.wb-inner{max-width:960px;margin:0 auto;position:relative;z-index:1}
+.wb-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.5em;
+  text-transform:uppercase;color:var(--orange);opacity:.55;
+  display:block;margin-bottom:clamp(24px,4vw,40px);
+}
+.wb-quote{
+  font-family:'Alexandria',sans-serif;font-weight:200;
+  font-size:clamp(1.6rem,3.8vw,3.4rem);line-height:1.2;letter-spacing:-.03em;
+  color:var(--white);margin:0;
+  transition:opacity .45s ease;
+}
+.wb-quote em{font-style:normal;font-weight:700;color:var(--orange)}
+.wb-attr{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--orange);opacity:.55;
+  display:flex;align-items:center;gap:12px;
+  margin-top:clamp(20px,3vw,32px);
+}
+.wb-attr::before{content:'';display:block;width:24px;height:1px;background:var(--orange);opacity:.55}
+.wb-nav{display:flex;align-items:center;gap:16px;margin-top:20px}
+.wb-btn{
+  background:none;border:1px solid rgba(232,81,42,.2);
+  color:var(--muted);font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:.18em;padding:8px 16px;cursor:pointer;
+  text-transform:uppercase;transition:color .2s,border-color .2s;
+}
+.wb-btn:hover{color:var(--orange);border-color:var(--orange)}
+.wb-counter{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--muted);opacity:.5}
+
+/* ━━━━━━━━━━━━━━━━━━━━
    DAILY WISDOM
 ━━━━━━━━━━━━━━━━━━━━ */
 #wisdom{padding:140px 40px;border-top:1px solid var(--rule)}
@@ -850,21 +910,20 @@ footer{
 <svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
   <defs>
     <filter id="pbk-inner" x="-8%" y="-20%" width="116%" height="150%" color-interpolation-filters="linearRGB">
-      <!-- dark shadow from the top: invert alpha → blur → shift down → clip to letters → colorize -->
+      <!-- black inner shadow from top -->
       <feComponentTransfer in="SourceAlpha" result="inv1"><feFuncA type="linear" slope="-1" intercept="1"/></feComponentTransfer>
-      <feGaussianBlur stdDeviation="5" in="inv1" result="blur1"/>
-      <feOffset dx="1" dy="7" in="blur1" result="shift1"/>
+      <feGaussianBlur stdDeviation="8" in="inv1" result="blur1"/>
+      <feOffset dx="0" dy="10" in="blur1" result="shift1"/>
       <feComposite in="shift1" in2="SourceAlpha" operator="in" result="clip1"/>
-      <feFlood flood-color="rgba(0,0,0,0.88)" result="col1"/>
+      <feFlood flood-color="rgba(0,0,0,1)" result="col1"/>
       <feComposite in="col1" in2="clip1" operator="in" result="shadow1"/>
-      <!-- orange ember from the bottom: shift upward, low opacity -->
+      <!-- black inner shadow from bottom -->
       <feComponentTransfer in="SourceAlpha" result="inv2"><feFuncA type="linear" slope="-1" intercept="1"/></feComponentTransfer>
-      <feGaussianBlur stdDeviation="4" in="inv2" result="blur2"/>
-      <feOffset dx="-1" dy="-5" in="blur2" result="shift2"/>
+      <feGaussianBlur stdDeviation="6" in="inv2" result="blur2"/>
+      <feOffset dx="0" dy="-8" in="blur2" result="shift2"/>
       <feComposite in="shift2" in2="SourceAlpha" operator="in" result="clip2"/>
-      <feFlood flood-color="rgba(232,81,42,0.38)" result="col2"/>
+      <feFlood flood-color="rgba(0,0,0,0.85)" result="col2"/>
       <feComposite in="col2" in2="clip2" operator="in" result="shadow2"/>
-      <!-- stack: source · dark shadow · orange ember -->
       <feMerge>
         <feMergeNode in="SourceGraphic"/>
         <feMergeNode in="shadow1"/>
@@ -947,10 +1006,22 @@ footer{
   </div>
 </section>
 
+<!-- ══ WISDOM BANNER ══ -->
+<section id="wisdom-banner">
+  <div class="wb-inner">
+    <span class="wb-label">Daily Wisdom · PitchBlacKnight</span>
+    <blockquote class="wb-quote" id="wb-quote"></blockquote>
+    <div class="wb-attr">Mikel Rosenthal · <span class="wb-counter" id="wb-counter"></span></div>
+    <div class="wb-nav">
+      <button class="wb-btn" id="wb-prev">← Prev</button>
+      <button class="wb-btn" id="wb-next">Next →</button>
+    </div>
+  </div>
+</section>
+
 <!-- ══ MANIFESTO ══ -->
 <section id="manifesto" class="gif-section">
-  <img class="s-gif" src="images/art/Cosmos.gif" alt="" style="opacity:0.18;object-position:center center">
-  <div class="s-scrim" style="background:linear-gradient(160deg,rgba(6,6,6,0.71) 0%,rgba(6,6,6,0.58) 100%)"></div>
+  <div class="s-scrim" style="background:#0a0806"></div>
   <div class="s-inner mf-inner" style="padding:120px 40px">
     <p class="section-label">01 — MANIFESTO</p>
     <div class="mf-statement">
@@ -996,7 +1067,7 @@ footer{
         <div class="ob-era"><strong>2002 — 2024</strong>Chicago<br>The double life<br>Both at once</div>
         <div>
           <h3 class="ob-hed">TWENTY-FIVE YEARS.<br><em>BOTH LIVES<br>AT ONCE.</em></h3>
-          <p class="ob-body">A career building design systems for GE Healthcare, BCBS, Avant, TransUnion — systems used by 500,000+ people, recognized by the Red Dot, Fast Company, and dmi:DVA. Running alongside it, invisible: eighteen years of improvised music recorded in single takes and mostly destroyed. 156 GIF works accumulating quietly. Two complete bodies of work, almost entirely unseen.</p>
+          <p class="ob-body">A career building design systems for Verizon, GE Healthcare, BCBS, Avant, TransUnion — systems used by 500,000+ people, recognized by the Red Dot, Fast Company, and dmi:DVA. Running alongside it, invisible: eighteen years of improvised music recorded in single takes and mostly destroyed. 156 GIF works accumulating quietly. Two complete bodies of work, almost entirely unseen.</p>
         </div>
       </div>
 
@@ -1028,7 +1099,7 @@ footer{
     <div class="pro-cv-bar">
       <div class="pro-cv-meta">
         <p class="section-label" style="margin-bottom:0">02 — CV</p>
-        <p class="pro-cv-tagline">Design Systems Lead · 20+ Yrs · Avant · GE Healthcare · BCBS · Maven Wave</p>
+        <p class="pro-cv-tagline">Principal Design Systems Lead · 20+ Yrs · Verizon · Avant · GE Healthcare · BCBS</p>
       </div>
       <button class="pro-cv-toggle" onclick="toggleCV()">
         <span id="pro-cv-label">VIEW RÉSUMÉ</span>
@@ -1182,7 +1253,7 @@ footer{
     <div class="work-bar">
       <div>
         <p class="section-label" style="margin-bottom:16px">04 — SELECTED WORK</p>
-        <h2 class="work-hed">FIVE<br><span>SYSTEMS.</span><br>FIVE INDUSTRIES.</h2>
+        <h2 class="work-hed">EIGHT<br><span>SYSTEMS.</span><br>BUILT TO HOLD.</h2>
       </div>
       <p class="work-note">25 years · 40+ systems · 120+ projects · custom every time</p>
     </div>
@@ -1258,7 +1329,7 @@ footer{
             <span class="p-name">Avant Pathfinder</span>
             <span class="p-client">Avant / Amount · Fintech</span>
           </div>
-          <span class="p-year">2014 – 2017</span>
+          <span class="p-year">2021 – 2024</span>
           <span class="p-arrow">+</span>
         </button>
         <div class="proj-body"><div class="proj-body-inner">
@@ -1338,6 +1409,99 @@ footer{
                 <div class="kpi"><span class="kpi-n">Global</span><span class="kpi-l">Market<br>reach</span></div>
                 <div class="kpi"><span class="kpi-n">2</span><span class="kpi-l">Audience<br>types unified</span></div>
                 <div class="kpi"><span class="kpi-n">1</span><span class="kpi-l">Coherent<br>system</span></div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="proj-row">
+        <button class="proj-head" onclick="toggleProject(this)">
+          <span class="p-num">06</span>
+          <div class="p-info">
+            <span class="p-name">Avant Marketing Design Library</span>
+            <span class="p-client">Avant / Amount · Fintech</span>
+          </div>
+          <span class="p-year">2021 – 2024</span>
+          <span class="p-arrow">+</span>
+        </button>
+        <div class="proj-body"><div class="proj-body-inner">
+          <div class="proj-content">
+            <div class="case-info">
+              <div>
+                <p class="case-narrative">Avant's marketing output was massive in volume and brand-critical in visibility. I built a marketing design library that operates like a product system — shared tokens, reusable layouts, and a logic non-designers could execute without breaking the brand. It lives in Figma as a full component system: cover templates, social tiles, event graphics, partner communications, and campaign assets, all built on shared variables for color, type, and spacing. In 2024 alone it powered hundreds of assets across social channels, live events like the Special Forces Summit, and partner programs — produced faster and more consistently than any previous workflow.</p>
+                <div class="case-meta">
+                  <div class="cm-row"><span class="cm-label">Scope</span><span class="cm-val">Template System, Social, Event Graphics, Partner Comms, Campaign Design, Figma Variables</span></div>
+                  <div class="cm-row"><span class="cm-label">Audience</span><span class="cm-val">350+ internal managers &amp; non-designers</span></div>
+                  <div class="cm-row"><span class="cm-label">Stack</span><span class="cm-val">Figma Variables, Component Library, Templating</span></div>
+                </div>
+              </div>
+              <div class="case-kpis">
+                <div class="kpi"><span class="kpi-n">350+</span><span class="kpi-l">Marketers<br>enabled</span></div>
+                <div class="kpi"><span class="kpi-n">100s</span><span class="kpi-l">Assets<br>per year</span></div>
+                <div class="kpi"><span class="kpi-n">1</span><span class="kpi-l">Brand kept<br>intact</span></div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="proj-row">
+        <button class="proj-head" onclick="toggleProject(this)">
+          <span class="p-num">07</span>
+          <div class="p-info">
+            <span class="p-name">The Bettering Company</span>
+            <span class="p-client">Brand Identity &amp; Lightweight System</span>
+          </div>
+          <span class="p-year">2024 – 2025</span>
+          <span class="p-arrow">+</span>
+        </button>
+        <div class="proj-body"><div class="proj-body-inner">
+          <div class="proj-content">
+            <div class="case-info">
+              <div>
+                <p class="case-narrative">A brand built from the values up. I created a new brand identity and a lightweight design system for The Bettering Company — translating the company's mission into a cohesive visual language and shipping-ready guidelines. The work ran from logo exploration — form, symbolism, narrative — through token-based foundations that hold consistency across digital and physical touchpoints. A small system, but the same discipline: built so the brand stays itself everywhere it shows up, and so the team can extend it without me in the room.</p>
+                <div class="case-meta">
+                  <div class="cm-row"><span class="cm-label">Scope</span><span class="cm-val">Brand Identity, Logo System, Brand Guidelines, Token Foundations, Lightweight Design System</span></div>
+                  <div class="cm-row"><span class="cm-label">Engagement</span><span class="cm-val">Freelance · Stakeholder-led creative direction</span></div>
+                  <div class="cm-row"><span class="cm-label">Stack</span><span class="cm-val">Figma, Adobe Creative Suite, Design Tokens</span></div>
+                </div>
+              </div>
+              <div class="case-kpis">
+                <div class="kpi"><span class="kpi-n">0→1</span><span class="kpi-l">Brand built<br>from zero</span></div>
+                <div class="kpi"><span class="kpi-n">1</span><span class="kpi-l">Cohesive<br>visual language</span></div>
+                <div class="kpi"><span class="kpi-n">2</span><span class="kpi-l">Domains unified<br>(digital + print)</span></div>
+              </div>
+            </div>
+          </div>
+        </div></div>
+      </div>
+
+      <div class="proj-row">
+        <button class="proj-head" onclick="toggleProject(this)">
+          <span class="p-num">08</span>
+          <div class="p-info">
+            <span class="p-name">Verizon Design System</span>
+            <span class="p-client">Verizon · Telecom / Enterprise</span>
+          </div>
+          <span class="p-year">2025 – 2026</span>
+          <span class="p-arrow">+</span>
+        </button>
+        <div class="proj-body"><div class="proj-body-inner">
+          <div class="proj-content">
+            <div class="case-info">
+              <div>
+                <p class="case-narrative">Brought in as Principal Design Systems Lead on Verizon's mature, internal enterprise system — post-rebrand, at national scale. The work wasn't greenfield; it was the harder discipline of evolving a system already in production across iOS, Android, and web without breaking the teams depending on it. I owned primitive and semantic tokens, variables, and component architecture, drove cross-platform parity, and built polymorphic UI components — including a dedicated calendar and date-picker family engineered for theming and platform variance. Design-to-code stayed tight through Figma Dev Mode and Code Connect, with accessibility-by-default and AI-augmented documentation built into the contribution model.</p>
+                <div class="case-meta">
+                  <div class="cm-row"><span class="cm-label">Scope</span><span class="cm-val">Primitive &amp; Semantic Tokens, Variables, Component Architecture, Cross-Platform Parity, Governance</span></div>
+                  <div class="cm-row"><span class="cm-label">Platforms</span><span class="cm-val">iOS · Android · Web</span></div>
+                  <div class="cm-row"><span class="cm-label">Stack</span><span class="cm-val">Figma Variables, Dev Mode, Code Connect</span></div>
+                </div>
+              </div>
+              <div class="case-kpis">
+                <div class="kpi"><span class="kpi-n">3</span><span class="kpi-l">Platforms<br>in parity</span></div>
+                <div class="kpi"><span class="kpi-n">AA</span><span class="kpi-l">WCAG 2.2<br>by default</span></div>
+                <div class="kpi"><span class="kpi-n">1:1</span><span class="kpi-l">Figma-to-code<br>via Code Connect</span></div>
               </div>
             </div>
           </div>
@@ -1567,7 +1731,7 @@ const spObs = new IntersectionObserver(entries => {
     }
   });
 }, { threshold: 0.25 });
-['manifesto','professional','services','work','art','music','wisdom','contact'].forEach(id => {
+['wisdom-banner','manifesto','professional','services','work','art','music','wisdom','contact'].forEach(id => {
   const el = document.getElementById(id);
   if (el) spObs.observe(el);
 });
@@ -1641,16 +1805,10 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 /* ── MUSIC PLAYER ────────────────────────────────────── */
 (function initMusicPlayer() {
   const ALL_TRACKS = [
-    'you-have-a-wanting-alan','building-short-wave',
-    'death-tinker','bright-swift-visions','hollow-heart','clicky-clock-low-stock',
+    'you-have-a-wanting-alan','building-short-wave','death-tinker',
+    'bright-swift-visions','hollow-heart','clicky-clock-low-stock',
     'deeply-entertained','dreams-of-dying','dripping-magma','drop-tick',
-    'eh','everybody-flows','first-run','for-jon','fresh-like-lettuce',
-    'halloween-store','i-cant-go-for-that','i-like-you','never-thought-i-could',
-    'new-york-i-thought-she-was','nice-groove','nice-matchup','old-fast',
-    'piano-doodle','pleasure-pain-by-your-side','roughasf','simian',
-    'slow-drip-piano-twist','slow-loris','slow-trip-piano','slowfastslow',
-    'speed-trip','tell-me-when-it-kicks-in','the-effect-you-have-on-others',
-    'when-you-leave','dracula-grind-and-bump'
+    'eh','everybody-flows'
   ];
   function slugToTitle(s){return s.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}
   const CHUNK=12;let loaded=0,activeEntry=null,currentTrackIndex=-1;
@@ -1897,6 +2055,56 @@ function handleContactSubmit(e){
   }, HOLD);
 })();
 
+/* ── WISDOM BANNER (auto-cycle) ─────────────────────────── */
+(function initWisdomBanner(){
+  const QUOTES = [
+    "Every discipline is a different lens on the same question. When something catches me, I go all the way in.",
+    "First take. No blueprint. No rehearsal. The imperfection is the craft — the breath of the moment, not the sterility of infinite takes.",
+    "The practice started in 1990 in a high school computer lab. Photoshop 1.0, days after its release. Before digital art had a name. That's where it started — not late, not early. At the exact beginning.",
+    "Two complete bodies of work, almost entirely unseen. Running alongside a career. Invisible. Until now.",
+    "A session could run ninety minutes. A single imprecision near the end was enough to discard all of it. Not doubt. Something closer to reverence.",
+    "Off medication. Thirty-five pounds gone. A clarity arriving in waves, each one larger than the last. It felt like waking from a coma — because it was.",
+    "The revelations keep arriving faster than they can be catalogued. This site is what the opening looks like.",
+    "Polymath is not a resume word. It's a condition. The edges blur. That's the point.",
+    "Perfectionism is often the most elegant form of fear. When it finally breaks — really breaks — what you're left with is just the work, which was always enough.",
+    "Growth is not construction. It is excavation. You are not building something new — you are uncovering what was always there, set down for safekeeping.",
+    "The most radical act is to be entirely, unapologetically yourself in a world that profits from your self-doubt.",
+    "Art is not separate from life. Work is not separate from art. Every output is the same gesture, refracted differently.",
+    "There are 98 options between every yes and no. Living in the gray means accepting the complexity of being right and wrong at the same time. That's not weakness. That's where the actual world is.",
+    "Remix the remix. Layer on layer until the original DNA is just a ghost signal. That signal is still you.",
+    "Silence while working feels like a missed opportunity.",
+    "Self-knowledge is the foundation of all psychological clarity. The more precisely you see inward, the more accurately you see everything else.",
+  ];
+
+  const el   = document.getElementById('wb-quote');
+  const ctr  = document.getElementById('wb-counter');
+  const prev = document.getElementById('wb-prev');
+  const next = document.getElementById('wb-next');
+  if(!el) return;
+
+  const doy = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  let idx = doy % QUOTES.length;
+  let timer;
+
+  function show(i){
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.innerHTML = '“' + QUOTES[i] + '”';
+      el.style.opacity = '1';
+      if(ctr) ctr.textContent = (i+1) + ' / ' + QUOTES.length;
+    }, 300);
+  }
+
+  function autoNext(){ idx = (idx + 1) % QUOTES.length; show(idx); }
+  function resetTimer(){ clearInterval(timer); timer = setInterval(autoNext, 7000); }
+
+  show(idx);
+  timer = setInterval(autoNext, 7000);
+
+  if(prev) prev.addEventListener('click', () => { idx = (idx - 1 + QUOTES.length) % QUOTES.length; show(idx); resetTimer(); });
+  if(next) next.addEventListener('click', () => { idx = (idx + 1) % QUOTES.length; show(idx); resetTimer(); });
+})();
+
 /* ── DAILY WISDOM CYCLE ─────────────────────────────────── */
 (function initWisdom(){
   const QUOTES = [
@@ -1914,6 +2122,7 @@ function handleContactSubmit(e){
     "There are 98 options between every yes and no. The extremes are comfortable because they require no tolerance — only position. Living in the gray means accepting the complexity of being right and wrong at the same time. That's not weakness. That's where the actual world is.",
     "Binary thinking is not clarity. It's avoidance. The real answer to almost every question is somewhere in the middle — inconvenient, textured, and true.",
     "Before you say 'it's either this or nothing' — remember that black and white together only account for 2% of what's possible. The answer you need is probably living somewhere in the other 98.",
+    "Self-knowledge is the foundation of all psychological clarity. Not as a goal — as a ground. Everything you perceive about the world passes through what you know about yourself first. The more precisely you see inward, the more accurately you see everything else.",
   ];
 
   const el   = document.getElementById('wisdom-quote');
