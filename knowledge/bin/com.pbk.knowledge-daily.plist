@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.pbk.knowledge-daily</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/bash</string>
+    <string>/Users/mikelrosenthal/PitchBlacKnight/knowledge/bin/daily-update.sh</string>
+  </array>
+
+  <!-- Weekdays at 6:07am. Odd minute on purpose. If the Mac is asleep at 6:07,
+       launchd runs it at the next wake rather than skipping the day. -->
+  <key>StartCalendarInterval</key>
+  <array>
+    <dict><key>Weekday</key><integer>1</integer><key>Hour</key><integer>6</integer><key>Minute</key><integer>7</integer></dict>
+    <dict><key>Weekday</key><integer>2</integer><key>Hour</key><integer>6</integer><key>Minute</key><integer>7</integer></dict>
+    <dict><key>Weekday</key><integer>3</integer><key>Hour</key><integer>6</integer><key>Minute</key><integer>7</integer></dict>
+    <dict><key>Weekday</key><integer>4</integer><key>Hour</key><integer>6</integer><key>Minute</key><integer>7</integer></dict>
+    <dict><key>Weekday</key><integer>5</integer><key>Hour</key><integer>6</integer><key>Minute</key><integer>7</integer></dict>
+  </array>
+
+  <key>StandardOutPath</key>
+  <string>/Users/mikelrosenthal/PitchBlacKnight/knowledge/bin/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>/Users/mikelrosenthal/PitchBlacKnight/knowledge/bin/launchd.err.log</string>
+
+  <key>RunAtLoad</key>
+  <false/>
+</dict>
+</plist>

@@ -1,0 +1,16 @@
+{
+  "startDate": "2026-07-28",
+  "trackOrder": [
+    "current",
+    "defend"
+  ],
+  "currentWeek": 1,
+  "currentDay": 1,
+  "daysCompleted": 0,
+  "streak": 0,
+  "longestStreak": 0,
+  "lastCompleted": null,
+  "lastGenerated": "2026-07-28",
+  "history": [],
+  "artifactUrl": "https://claude.ai/code/artifact/998c80a5-4b42-45ad-8785-01e1df083bd7"
+}

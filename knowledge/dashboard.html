@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Knowledge — Daily</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0F0C0A;--ink2:#171210;--ink3:#1F1815;--cream:#F1E8D6;--c70:rgba(241,232,214,.72);
+--c45:rgba(241,232,214,.45);--c25:rgba(241,232,214,.25);--line:rgba(241,232,214,.13);
+--coral:#EF7A5E;--slate:#8FA8A6;
+--serif:"Fraunces","Iowan Old Style","Palatino Linotype",Georgia,serif;
+--sans:"Space Grotesk","Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--ink);color:var(--c70);font-family:var(--sans);font-weight:300;
+font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;padding:0 0 80px}
+.wrap{max-width:940px;margin:0 auto;padding:0 28px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.87em;
+background:var(--ink3);padding:2px 6px;border-radius:3px;color:var(--cream)}
+strong{color:var(--cream);font-weight:500} em{color:var(--cream);font-style:italic}
+a{color:var(--coral)}
+
+header{border-bottom:1px solid var(--line);padding:44px 0 26px;margin-bottom:34px}
+.kicker{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--coral);margin-bottom:14px}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(30px,5vw,50px);line-height:1.04;
+color:var(--cream);letter-spacing:-.02em;margin-bottom:8px}
+h1 em{font-style:italic;color:var(--coral)}
+.sub{font-size:14px;color:var(--c45);letter-spacing:.02em}
+
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;
+background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:26px 0 0}
+.metric{background:var(--ink2);padding:18px 20px}
+.metric .n{font-family:var(--serif);font-weight:300;font-size:34px;line-height:1;color:var(--cream);
+font-variant-numeric:tabular-nums}
+.metric .n em{font-style:italic;color:var(--coral)}
+.metric .l{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--c45);margin-top:7px;line-height:1.5}
+
+section{margin-top:46px}
+.sec-k{font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--coral);
+margin-bottom:12px;padding-bottom:11px;border-bottom:1px solid var(--line)}
+.card{background:var(--ink2);border:1px solid var(--line);border-radius:6px;padding:26px 26px 24px}
+.card h2{font-family:var(--serif);font-weight:400;font-size:24px;color:var(--cream);
+margin-bottom:14px;letter-spacing:-.01em}
+.card h3{font-family:var(--serif);font-weight:400;font-size:19px;color:var(--cream);margin:20px 0 8px}
+.card p{margin-bottom:13px} .card p:last-child{margin-bottom:0}
+.card ul,.card ol{margin:0 0 13px 20px} .card li{margin-bottom:7px}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+
+.claims{list-style:none}
+.claim{display:flex;align-items:center;gap:18px;padding:13px 16px;border:1px solid transparent;
+border-bottom:1px solid var(--line)}
+.claim.gap{background:rgba(239,122,94,.05);border-color:rgba(239,122,94,.22);border-radius:4px;margin:3px 0}
+.c-main{flex:1;min-width:0}
+.c-label{color:var(--cream);font-size:15px;line-height:1.4}
+.c-src{font-size:11.5px;color:var(--c25);letter-spacing:.02em;margin-top:3px}
+.badge{font-size:8.5px;letter-spacing:.14em;border:1px solid var(--c25);border-radius:2px;
+padding:2px 5px;color:var(--c45);vertical-align:middle;margin-left:5px;white-space:nowrap}
+.badge.res{border-color:rgba(239,122,94,.4);color:var(--coral)}
+.c-pips{display:flex;gap:4px;flex-shrink:0}
+.pip{width:9px;height:9px;border-radius:50%;border:1px solid var(--c25);display:block}
+.pip.on{background:var(--cream);border-color:var(--cream)}
+.pip.tgt{border-color:var(--coral);box-shadow:0 0 0 2px rgba(239,122,94,.2)}
+
+.note{font-size:13px;color:var(--c45);margin-top:14px;line-height:1.6}
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);
+font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c25);
+display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+</style></head><body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Week 1 · Day 1 · Tuesday 28 July 2026</div>
+  <h1>What MCP actually is, minus the hype</h1>
+  <div class="sub">15 minutes. End by having <em>done</em> something.</div>
+
+  <div class="metrics">
+    <div class="metric"><div class="n">0<em>d</em></div><div class="l">Current streak</div></div>
+    <div class="metric"><div class="n">0</div><div class="l">Units completed</div></div>
+    <div class="metric"><div class="n">6<em>/13</em></div><div class="l">Resume claims at target</div></div>
+    <div class="metric"><div class="n">0</div><div class="l">Recall items due</div></div>
+  </div>
+</header>
+
+<section>
+  <div class="sec-k">Today · Brief</div>
+  <div class="card"><p>Before anything else today: <strong>open <code>state/claims.json</code> and fix the numbers.</strong> Every confidence value in there is my estimate inferred from how recently each thing appears on your resume — not your judgement. The coverage map is worthless until those are yours. Three minutes, and it&#x27;s the highest-value thing you&#x27;ll do this week.</p>
+<p>Now, the idea.</p>
+<p>The Model Context Protocol is not an AI feature. It&#x27;s a <strong>wire protocol</strong> — a standard way for a program that holds context (Figma, a database, your filesystem) to expose that context to a program that reasons (Claude, Cursor, whatever comes next). That&#x27;s the whole thing.</p>
+<p>Why it matters to you specifically: for twenty years the design-to-dev handoff has been <em>lossy by design</em>. You export a spec, someone reads it, someone re-types it. Redlines, then Zeplin, then Dev Mode — each one narrowed the gap but never closed it, because a human was still transcribing between two systems that had no shared vocabulary.</p>
+<p>MCP closes it by making the design file <strong>queryable</strong> instead of viewable. The agent doesn&#x27;t look at a picture of your button and guess. It asks the file what the button is, and the file answers: <code>action.primary</code>, <code>space.stack.md</code>, these variants, these modes.</p>
+<p>That is exactly the argument you already make about tokens — decisions should live in one place and be consumed, never re-typed. <strong>MCP is that principle extended past the boundary of the design tool.</strong> You&#x27;re not learning a new philosophy here. You&#x27;re learning the transport layer for one you&#x27;ve been arguing for years.</p></div>
+</section>
+
+<section>
+  <div class="sec-k">Today · Drill</div>
+  <div class="card"><p>Write five sentences, in your own words, in <code>notes/mcp-fundamentals.md</code>. No borrowed phrasing — if you can&#x27;t unpack a word, don&#x27;t use it.</p>
+<ol>
+<li>What is an <strong>MCP server</strong>?</li>
+<li>What is a <strong>tool</strong>, in MCP terms?</li>
+<li>What is the <strong>client</strong>?</li>
+<li>What does the design file gain by being queryable rather than viewable?</li>
+<li>What&#x27;s the single sentence you&#x27;d use to explain MCP to a skeptical engineering director?</li>
+</ol>
+<p>Then set <code>mcp-fundamentals</code> in <code>claims.json</code> to whatever you honestly earned. Writing five sentences gets you to a 2, maybe a 3. It does not get you a 4. That&#x27;s fine — that&#x27;s what Thursday is for.</p></div>
+</section>
+
+<section>
+  <div class="sec-k">Recall</div>
+  <div class="card"><p>Queue is empty — it starts filling tomorrow with today&#x27;s material.</p></div>
+</section>
+
+<section>
+  <div class="sec-k">Claim coverage — 46% of resume claims at target</div>
+  <div class="card">
+    <h2>Defend the claim</h2>
+    <p class="note">On the resume. Target is <strong>4 — did it cold, unaided</strong>. Anything highlighted is an interview risk.</p>
+    <ul class="claims">
+      <li class="claim">
+        <div class="c-main">
+          <div class="c-label">Primitive &amp; semantic design tokens <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Verizon 2025–26 · Avant · BCBS · TransUnion</div>
+        </div>
+        <div class="c-pips" title="confidence 4 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim">
+        <div class="c-main">
+          <div class="c-label">Figma Variables — modes, scoping, aliasing <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Verizon 2025–26</div>
+        </div>
+        <div class="c-pips" title="confidence 4 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">Figma Dev Mode <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Verizon 2025–26</div>
+        </div>
+        <div class="c-pips" title="confidence 3 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip tgt"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">Code Connect — mapping Figma components to repo components <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Verizon 2025–26</div>
+        </div>
+        <div class="c-pips" title="confidence 3 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip tgt"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">AI-augmented contribution patterns <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Verizon 2025–26 — vague on the resume; needs specifics</div>
+        </div>
+        <div class="c-pips" title="confidence 2 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip"></i><i class="pip tgt"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim">
+        <div class="c-main">
+          <div class="c-label">Cross-platform parity — iOS / Android / web <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Verizon 2025–26</div>
+        </div>
+        <div class="c-pips" title="confidence 4 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">Theming &amp; platform variance (date-picker family) <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Verizon 2025–26</div>
+        </div>
+        <div class="c-pips" title="confidence 3 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip tgt"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim">
+        <div class="c-main">
+          <div class="c-label">Component library architecture &amp; state coverage <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Avant · GE · BCBS</div>
+        </div>
+        <div class="c-pips" title="confidence 4 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim">
+        <div class="c-main">
+          <div class="c-label">Governance, contribution &amp; versioning models <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Avant 2021–24</div>
+        </div>
+        <div class="c-pips" title="confidence 4 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">WCAG / accessibility in regulated environments <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">GE Healthcare 2020–21 · BCBS</div>
+        </div>
+        <div class="c-pips" title="confidence 3 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip tgt"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">European Accessibility Act — procurement impact </div>
+          <div class="c-src">In force June 2025 — post-dates the GE work</div>
+        </div>
+        <div class="c-pips" title="confidence 1 of 5 · target 3"><i class="pip on"></i><i class="pip"></i><i class="pip tgt"></i><i class="pip"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">React handoff — designs to coded components <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">BCBS FIBER · Avant</div>
+        </div>
+        <div class="c-pips" title="confidence 3 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip tgt"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim">
+        <div class="c-main">
+          <div class="c-label">Data visualization systems <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Avant Pathfinder chart library</div>
+        </div>
+        <div class="c-pips" title="confidence 4 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">CX audit + strategy <span class="badge res">ON RESUME</span></div>
+          <div class="c-src">Resume skill tag</div>
+        </div>
+        <div class="c-pips" title="confidence 3 of 5 · target 4"><i class="pip on"></i><i class="pip on"></i><i class="pip on"></i><i class="pip tgt"></i><i class="pip"></i></div>
+      </li></ul>
+    <h3>Get current</h3>
+    <p class="note">Not claimed yet. Target is 3 — enough to hold a real conversation.</p>
+    <ul class="claims">
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">MCP fundamentals — server, tool, client </div>
+          <div class="c-src">Track B week 1</div>
+        </div>
+        <div class="c-pips" title="confidence 1 of 5 · target 3"><i class="pip on"></i><i class="pip"></i><i class="pip tgt"></i><i class="pip"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">Figma Dev Mode MCP server </div>
+          <div class="c-src">Track B week 1</div>
+        </div>
+        <div class="c-pips" title="confidence 1 of 5 · target 3"><i class="pip on"></i><i class="pip"></i><i class="pip tgt"></i><i class="pip"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">Pulling variables &amp; design context over MCP </div>
+          <div class="c-src">Track B week 1</div>
+        </div>
+        <div class="c-pips" title="confidence 1 of 5 · target 3"><i class="pip on"></i><i class="pip"></i><i class="pip tgt"></i><i class="pip"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">Claude Code + Figma MCP — the working loop </div>
+          <div class="c-src">Track B week 3</div>
+        </div>
+        <div class="c-pips" title="confidence 1 of 5 · target 3"><i class="pip on"></i><i class="pip"></i><i class="pip tgt"></i><i class="pip"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">Code-to-Canvas — pushing code back into Figma </div>
+          <div class="c-src">Track B week 3</div>
+        </div>
+        <div class="c-pips" title="confidence 0 of 5 · target 3"><i class="pip"></i><i class="pip"></i><i class="pip tgt"></i><i class="pip"></i><i class="pip"></i></div>
+      </li>
+      <li class="claim gap">
+        <div class="c-main">
+          <div class="c-label">Figma Make — capability and honest limits </div>
+          <div class="c-src">Track B week 4</div>
+        </div>
+        <div class="c-pips" title="confidence 1 of 5 · target 3"><i class="pip on"></i><i class="pip"></i><i class="pip tgt"></i><i class="pip"></i><i class="pip"></i></div>
+      </li></ul>
+  </div>
+</section>
+
+<footer>
+  <span>Knowledge · PBK</span>
+  <span>Generated 2026-07-28 18:36</span>
+</footer>
+
+</div></body></html>

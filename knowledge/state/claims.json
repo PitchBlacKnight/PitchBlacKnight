@@ -1,0 +1,36 @@
+{
+  "updated": "2026-07-28",
+  "note": "Confidence values below are SEED ESTIMATES inferred from recency of use on the resume, not from Mikel. Day 1's first task is to correct every one of them. The dashboard is only as useful as the honesty of these numbers.",
+  "scale": {
+    "0": "Never heard of it / couldn't define it",
+    "1": "Read about it, couldn't do it",
+    "2": "Followed a tutorial, couldn't repeat it unaided",
+    "3": "Did it with help or reference",
+    "4": "Did it cold, unaided",
+    "5": "Could teach it and defend the tradeoffs in an interview"
+  },
+  "target": 4,
+  "claims": [
+    { "id": "tokens-primitive-semantic", "label": "Primitive & semantic design tokens", "track": "defend", "onResume": true, "source": "Verizon 2025–26 · Avant · BCBS · TransUnion", "confidence": 4, "lastDrilled": null, "evidence": [] },
+    { "id": "figma-variables", "label": "Figma Variables — modes, scoping, aliasing", "track": "defend", "onResume": true, "source": "Verizon 2025–26", "confidence": 4, "lastDrilled": null, "evidence": [] },
+    { "id": "dev-mode", "label": "Figma Dev Mode", "track": "defend", "onResume": true, "source": "Verizon 2025–26", "confidence": 3, "lastDrilled": null, "evidence": [] },
+    { "id": "code-connect", "label": "Code Connect — mapping Figma components to repo components", "track": "defend", "onResume": true, "source": "Verizon 2025–26", "confidence": 3, "lastDrilled": null, "evidence": [] },
+    { "id": "ai-contribution-patterns", "label": "AI-augmented contribution patterns", "track": "defend", "onResume": true, "source": "Verizon 2025–26 — vague on the resume; needs specifics", "confidence": 2, "lastDrilled": null, "evidence": [] },
+    { "id": "cross-platform-parity", "label": "Cross-platform parity — iOS / Android / web", "track": "defend", "onResume": true, "source": "Verizon 2025–26", "confidence": 4, "lastDrilled": null, "evidence": [] },
+    { "id": "theming-platform-variance", "label": "Theming & platform variance (date-picker family)", "track": "defend", "onResume": true, "source": "Verizon 2025–26", "confidence": 3, "lastDrilled": null, "evidence": [] },
+    { "id": "component-architecture", "label": "Component library architecture & state coverage", "track": "defend", "onResume": true, "source": "Avant · GE · BCBS", "confidence": 4, "lastDrilled": null, "evidence": [] },
+    { "id": "governance", "label": "Governance, contribution & versioning models", "track": "defend", "onResume": true, "source": "Avant 2021–24", "confidence": 4, "lastDrilled": null, "evidence": [] },
+    { "id": "a11y-wcag", "label": "WCAG / accessibility in regulated environments", "track": "defend", "onResume": true, "source": "GE Healthcare 2020–21 · BCBS", "confidence": 3, "lastDrilled": null, "evidence": [] },
+    { "id": "eaa", "label": "European Accessibility Act — procurement impact", "track": "defend", "onResume": false, "source": "In force June 2025 — post-dates the GE work", "confidence": 1, "lastDrilled": null, "evidence": [] },
+    { "id": "react-handoff", "label": "React handoff — designs to coded components", "track": "defend", "onResume": true, "source": "BCBS FIBER · Avant", "confidence": 3, "lastDrilled": null, "evidence": [] },
+    { "id": "data-viz", "label": "Data visualization systems", "track": "defend", "onResume": true, "source": "Avant Pathfinder chart library", "confidence": 4, "lastDrilled": null, "evidence": [] },
+    { "id": "cx-audit", "label": "CX audit + strategy", "track": "defend", "onResume": true, "source": "Resume skill tag", "confidence": 3, "lastDrilled": null, "evidence": [] },
+
+    { "id": "mcp-fundamentals", "label": "MCP fundamentals — server, tool, client", "track": "current", "onResume": false, "source": "Track B week 1", "confidence": 1, "lastDrilled": null, "evidence": [] },
+    { "id": "figma-mcp-server", "label": "Figma Dev Mode MCP server", "track": "current", "onResume": false, "source": "Track B week 1", "confidence": 1, "lastDrilled": null, "evidence": [] },
+    { "id": "mcp-variables", "label": "Pulling variables & design context over MCP", "track": "current", "onResume": false, "source": "Track B week 1", "confidence": 1, "lastDrilled": null, "evidence": [] },
+    { "id": "claude-code-figma-loop", "label": "Claude Code + Figma MCP — the working loop", "track": "current", "onResume": false, "source": "Track B week 3", "confidence": 1, "lastDrilled": null, "evidence": [] },
+    { "id": "code-to-canvas", "label": "Code-to-Canvas — pushing code back into Figma", "track": "current", "onResume": false, "source": "Track B week 3", "confidence": 0, "lastDrilled": null, "evidence": [] },
+    { "id": "figma-make", "label": "Figma Make — capability and honest limits", "track": "current", "onResume": false, "source": "Track B week 4", "confidence": 1, "lastDrilled": null, "evidence": [] }
+  ]
+}

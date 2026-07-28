@@ -1,0 +1,3 @@
+bin/daily.log
+bin/launchd.out.log
+bin/launchd.err.log
