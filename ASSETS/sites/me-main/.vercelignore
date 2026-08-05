@@ -1,0 +1,13 @@
+# ── Not deployed. Everything here was already unpublished (404) before
+#    the /guide deploy; this file just keeps that unchanged.
+#    To publish any file: delete its line, run ./ASSETS/deploy-sites.sh me
+
+# Employer-tailored resumes — publishing one where the other employer
+# can find it is the risk. resume.html stays public and unaffected.
+resume-state-farm.html
+resume-microsoft.html
+
+# Working files and backups
+pathfinder-expanded-backup.html
+*.html.bak
+CASE-STUDY-PLAYBOOK.md

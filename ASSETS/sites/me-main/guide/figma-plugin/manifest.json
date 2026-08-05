@@ -1,0 +1,12 @@
+{
+  "name": "Tokens Out — Variables to W3C DTCG",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html",
+  "editorType": ["figma"],
+  "documentAccess": "dynamic-page",
+  "networkAccess": {
+    "allowedDomains": ["none"],
+    "reasoning": "Runs entirely locally. Export is copied to the clipboard or downloaded from the plugin iframe."
+  }
+}

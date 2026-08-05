@@ -1,0 +1,160 @@
+/* ─── PBK Animation Engine — Case Study CSS ─── */
+
+/* ── Respect reduced motion ───────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Keyframes ────────────────────────────────── */
+@keyframes pbkHeroIn {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+@keyframes pbkFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pbkPulseRing {
+  0%   { transform: scale(1);   opacity: 0.9; }
+  80%  { opacity: 0; }
+  100% { transform: scale(2.6); opacity: 0;   }
+}
+
+/* ── Custom cursor (fine-pointer only) ─────────── */
+@media (pointer: fine) {
+  html, html * { cursor: none; }
+}
+
+.pbk-cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 7px; height: 7px;
+  background: var(--gold, #c8901a);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 10000;
+  margin: -3.5px 0 0 -3.5px;
+  transition: opacity 0.25s, transform 0.1s;
+  will-change: left, top;
+}
+
+.pbk-cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 34px; height: 34px;
+  border: 1px solid var(--gold, #c8901a);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  margin: -17px 0 0 -17px;
+  opacity: 0.45;
+  transition:
+    width  0.32s cubic-bezier(0.22,1,0.36,1),
+    height 0.32s cubic-bezier(0.22,1,0.36,1),
+    margin 0.32s cubic-bezier(0.22,1,0.36,1),
+    opacity 0.3s;
+  will-change: left, top;
+}
+
+.pbk-cursor-ring.hover {
+  width: 56px; height: 56px;
+  margin: -28px 0 0 -28px;
+  opacity: 0.28;
+}
+
+.pbk-cursor-ring.clicking {
+  width: 18px; height: 18px;
+  margin: -9px 0 0 -9px;
+  opacity: 0.95;
+}
+
+/* ── Scroll reveal ────────────────────────────── */
+.pbk-hidden {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity   0.74s cubic-bezier(0.22,1,0.36,1),
+    transform 0.74s cubic-bezier(0.22,1,0.36,1);
+  will-change: opacity, transform;
+}
+
+.pbk-hidden.pbk-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── Hero entrance ────────────────────────────── */
+.pbk-hero-item {
+  animation: pbkHeroIn 0.88s cubic-bezier(0.22,1,0.36,1) both;
+}
+
+/* ── Enhanced figure / image hovers ──────────── */
+figure .frame {
+  transition:
+    transform   0.45s cubic-bezier(0.22,1,0.36,1),
+    box-shadow  0.45s cubic-bezier(0.22,1,0.36,1);
+  overflow: hidden;
+}
+
+figure:hover .frame {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 56px rgba(0,0,0,0.36);
+}
+
+figure .frame img {
+  transition: transform 0.65s cubic-bezier(0.22,1,0.36,1);
+}
+
+figure:hover .frame img {
+  transform: scale(1.04);
+}
+
+/* ── Skill tag hover ──────────────────────────── */
+.skill {
+  transition:
+    background  0.22s ease,
+    transform   0.22s cubic-bezier(0.22,1,0.36,1);
+}
+
+.skill:hover {
+  background: rgba(200,144,26,0.14);
+  transform: translateY(-2px);
+}
+
+/* ── Section nav link hover fill ─────────────── */
+.section-nav a {
+  position: relative;
+}
+
+/* ── Pull quote ───────────────────────────────── */
+.pull {
+  transition: border-left-color 0.5s ease;
+}
+
+/* ── Topbar-resume hover glow ─────────────────── */
+.topbar-resume {
+  transition:
+    background   0.2s ease,
+    box-shadow   0.2s ease,
+    transform    0.2s cubic-bezier(0.22,1,0.36,1);
+}
+
+.topbar-resume:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(200,144,26,0.2);
+}
+
+/* ── Impact row entrance ──────────────────────── */
+.impact-row .impact,
+.stats .stat {
+  transition:
+    opacity   0.55s cubic-bezier(0.22,1,0.36,1),
+    transform 0.55s cubic-bezier(0.22,1,0.36,1);
+}
+
+/* stagger delays set by JS via inline style */

@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23111'/><text x='16' y='22' font-family='Georgia,serif' font-size='15' font-weight='700' fill='%23e06b2a' text-anchor='middle'>MR</text></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVANT Pathfinder — Product Design Case Study · Mikel Rosenthal</title>
+<meta name="description" content="How a five-state project lifecycle replaced an email-and-spreadsheet advisory process — and the design system that made it repeatable. AVANT Pathfinder, 2021–2024. By Mikel Rosenthal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@0,400;0,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="animations.css">
+<script>(function(){var s=localStorage.getItem('pbk-dark');if(s==='0')document.documentElement.classList.add('light');})();</script>
+<style>
+
+/* ─── TOKENS ─── */
+:root {
+  --bg:      #1a1a1a;
+  --raised:  #242424;
+  --border:  rgba(232,228,216,0.10);
+  --text:    #e8e4d8;
+  --body:    rgba(232,228,216,0.78);
+  --muted:   rgba(232,228,216,0.40);
+  --gold:    #c8901a;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 19px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--gold); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 2px; }
+
+/* ─── TOP BAR ─── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; gap: 20px;
+  padding: 0 32px; height: 50px;
+  background: rgba(26,26,26,0.95);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar-home {
+  font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: .1em;
+  color: var(--text); margin-right: auto;
+}
+.topbar-home b { color: var(--gold); }
+.topbar-tag {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.topbar-resume {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold);
+  padding: 4px 10px; border-radius: 2px; transition: background .15s;
+}
+.topbar-resume:hover { background: rgba(200,144,26,.12); text-decoration: none; }
+
+/* ─── SECTION NAV ─── */
+.section-nav {
+  position: sticky; top: 50px; z-index: 100;
+  display: flex; align-items: center; gap: 0;
+  padding: 0 40px;
+  background: rgba(26,26,26,0.95);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.section-nav a {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 14px 16px; display: block;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+}
+.section-nav a:hover { color: var(--text); text-decoration: none; }
+.section-nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
+.section-nav::-webkit-scrollbar { display: none; }
+
+/* ─── PAGE WRAPPER ─── */
+.wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ─── HERO ─── */
+.hero { padding: 72px 0 56px; }
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 22px;
+}
+h1.title {
+  font-family: 'Alexandria', sans-serif; font-weight: 200;
+  font-size: clamp(46px, 6.6vw, 88px);
+  line-height: .93; letter-spacing: -.03em; text-transform: uppercase;
+  color: var(--text); margin-bottom: 28px;
+}
+h1.title em { font-style: normal; color: var(--gold); }
+.hero-dek {
+  font-size: clamp(19px, 2.2vw, 23px); line-height: 1.5;
+  color: var(--body); max-width: 660px; margin-bottom: 36px;
+}
+.hero-dek b { color: var(--text); font-weight: 500; }
+
+/* ─── META STRIP ─── */
+.meta-strip {
+  display: flex; flex-wrap: wrap; gap: 10px 28px;
+  padding: 18px 0; border-top: 1px solid var(--border);
+  margin-bottom: 44px;
+}
+.meta-item { display: flex; align-items: baseline; gap: 10px; }
+.meta-item .mk {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); flex-shrink: 0;
+}
+.meta-item .mv { font-size: 15px; color: var(--body); line-height: 1.4; }
+
+/* ─── SKILLS ─── */
+.skills { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 48px; }
+.skill {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid rgba(200,144,26,0.35); border-radius: 3px;
+  padding: 5px 10px;
+}
+
+/* ─── IMPACT ROW ─── */
+.impact-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+}
+.impact { background: var(--raised); padding: 22px 20px; }
+.impact .n {
+  font-family: 'Alexandria', sans-serif; font-weight: 200; font-size: 40px;
+  line-height: 1; letter-spacing: -.02em; color: var(--text);
+}
+.impact .n em { font-style: normal; color: var(--gold); }
+.impact .d {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); margin-top: 8px; line-height: 1.5;
+}
+
+/* ─── ACT DIVIDER ─── */
+.act {
+  margin: 96px 0 8px; padding: 30px 0 0;
+  border-top: 2px solid var(--gold);
+}
+.act .act-k {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .24em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 10px;
+}
+.act h2 {
+  font-family: 'Alexandria', sans-serif; font-weight: 200;
+  font-size: clamp(30px, 4.6vw, 52px); line-height: 1.02;
+  letter-spacing: -.02em; text-transform: uppercase; color: var(--text);
+  margin-bottom: 14px;
+}
+.act p {
+  font-size: 18px; color: var(--muted); max-width: 620px;
+}
+
+/* ─── SECTION ─── */
+section { padding: 72px 0 0; scroll-margin-top: 100px; }
+.sec-label {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+}
+.sec-num { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .1em; color: var(--muted); margin-right: 10px; }
+h2.sec-title {
+  font-family: 'Alexandria', sans-serif; font-weight: 300;
+  font-size: clamp(22px, 3vw, 32px); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text); margin-bottom: 28px;
+  border-top: 1px solid var(--border); padding-top: 14px;
+}
+
+/* ─── PROSE ─── */
+.prose { color: var(--body); }
+.prose p { margin-bottom: 20px; max-width: 680px; }
+.prose p:last-child { margin-bottom: 0; }
+.prose b { color: var(--text); font-weight: 500; }
+.prose i { color: var(--text); }
+.mono { font-family: 'Space Mono', monospace; font-size: 14px; }
+
+/* placeholder for numbers only Mikel can supply */
+.tbd {
+  color: var(--gold); border-bottom: 1px dashed var(--gold);
+  font-family: 'Space Mono', monospace; font-size: .82em; letter-spacing: .04em;
+}
+
+/* ─── PULL QUOTE ─── */
+.pull {
+  font-family: 'Alexandria', sans-serif; font-weight: 300;
+  font-size: clamp(22px, 2.6vw, 28px); line-height: 1.3;
+  color: var(--text); max-width: 680px;
+  border-left: 3px solid var(--gold); padding-left: 22px;
+  margin: 32px 0;
+}
+
+/* ─── PILLAR HEADS ─── */
+.pillar {
+  font-family: 'Alexandria', sans-serif; font-weight: 300;
+  font-size: 16px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); margin: 52px 0 18px;
+  padding-top: 22px; border-top: 1px solid var(--border);
+}
+
+/* ─── PRINCIPLES ─── */
+.principles { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; margin: 20px 0; }
+.principle { background: var(--raised); border: 1px solid var(--border); border-radius: 5px; padding: 22px 20px; }
+.principle .pn { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .14em; color: var(--gold); }
+.principle h3 { font-family: 'Alexandria', sans-serif; font-weight: 400; font-size: 17px; margin: 8px 0 8px; color: var(--text); }
+.principle p { font-size: 15px; color: var(--muted); line-height: 1.55; }
+
+/* ─── LIST ─── */
+.cs-list { list-style: none; max-width: 680px; margin: 16px 0; }
+.cs-list li { display: grid; grid-template-columns: 80px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--border); color: var(--body); }
+.cs-list li .k { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); padding-top: 5px; }
+.cs-list li b { color: var(--text); font-weight: 500; }
+
+/* ─── TIMELINE ─── */
+.timeline { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 5px; overflow: hidden; margin: 20px 0; }
+@media(max-width:620px) { .timeline { grid-template-columns: 1fr 1fr; } }
+.phase { background: var(--raised); padding: 20px 18px; }
+.phase .yr { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .12em; color: var(--gold); }
+.phase h3 { font-family: 'Alexandria', sans-serif; font-weight: 400; font-size: 15px; margin: 6px 0 6px; color: var(--text); }
+.phase p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+/* ─── FIGURES ─── */
+figure { margin: 28px 0; }
+.frame { background: var(--raised); border: 1px solid var(--border); border-radius: 5px; padding: clamp(14px, 3vw, 28px); overflow: hidden; }
+.frame.dark { padding: 0; }
+figure img { width: 100%; display: block; border-radius: 3px; }
+figure svg { width: 100%; height: auto; display: block; }
+figcaption { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 10px; display: flex; gap: 12px; }
+.fig-n { color: var(--gold); flex-shrink: 0; }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:600px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ═══ DEVICE 1 — DECISION CARDS ═══ */
+.dcard {
+  background: var(--raised); border: 1px solid var(--border);
+  border-radius: 6px; padding: 26px 24px; margin: 20px 0;
+}
+.dcard > .dq {
+  font-family: 'Alexandria', sans-serif; font-weight: 400;
+  font-size: 20px; line-height: 1.3; color: var(--text); margin-bottom: 4px;
+}
+.dcard > .dk {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 12px;
+}
+.dopts { list-style: none; margin: 18px 0 0; display: grid; gap: 10px; }
+.dopt {
+  display: grid; grid-template-columns: 26px 1fr; gap: 14px;
+  padding: 14px 16px; border: 1px solid var(--border); border-radius: 5px;
+  font-size: 16px; line-height: 1.5; color: var(--muted);
+}
+.dopt .om {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .06em;
+  color: var(--muted); padding-top: 3px;
+}
+.dopt b { color: var(--body); font-weight: 500; display: block; margin-bottom: 2px; }
+.dopt.chosen { border-color: var(--gold); background: rgba(200,144,26,.06); color: var(--body); }
+.dopt.chosen .om { color: var(--gold); }
+.dopt.chosen b { color: var(--text); }
+.dwhy {
+  margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border);
+  font-size: 16.5px; line-height: 1.6; color: var(--body);
+}
+.dwhy .wk {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .18em;
+  text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 6px;
+}
+
+/* ═══ DEVICE 2 — ANNOTATED SCREEN ═══ */
+.shot { position: relative; line-height: 0; }
+.shot img { width: 100%; display: block; border-radius: 3px; }
+.hot {
+  position: absolute; transform: translate(-50%, -50%);
+  width: 30px; height: 30px; border-radius: 50%;
+  background: var(--gold); color: #16120a;
+  border: 2px solid rgba(0,0,0,.5);
+  font-family: 'Space Mono', monospace; font-size: 13px; font-weight: 700;
+  line-height: 1; cursor: pointer; padding: 0;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 0 0 rgba(200,144,26,.55);
+  transition: transform .18s ease-out, box-shadow .18s ease-out;
+}
+.hot:hover, .hot:focus-visible, .hot[data-on="1"] {
+  transform: translate(-50%, -50%) scale(1.22);
+  box-shadow: 0 0 0 8px rgba(200,144,26,.22);
+}
+.keys { list-style: none; margin: 16px 0 0; display: grid; gap: 2px; }
+.keys li {
+  display: grid; grid-template-columns: 30px 1fr; gap: 14px;
+  padding: 13px 14px; border-radius: 4px;
+  font-size: 16px; line-height: 1.55; color: var(--muted);
+  border: 1px solid transparent; transition: background .18s, color .18s, border-color .18s;
+}
+.keys li .kn { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--gold); padding-top: 3px; }
+.keys li b { color: var(--body); font-weight: 500; }
+.keys li[data-on="1"] { background: rgba(200,144,26,.08); border-color: rgba(200,144,26,.35); color: var(--body); }
+.keys li[data-on="1"] b { color: var(--text); }
+@media(max-width:640px) { .hot { width: 24px; height: 24px; font-size: 11px; } }
+
+/* ═══ DEVICE 3 — INTERACTIVE FLOW ═══ */
+.flow { margin: 28px 0; }
+.flow-steps {
+  display: grid; grid-template-columns: repeat(5, 1fr); gap: 2px;
+  background: var(--border); border: 1px solid var(--border);
+  border-radius: 5px; overflow: hidden; margin-bottom: 2px;
+}
+.flow-steps button {
+  background: var(--raised); border: 0; cursor: pointer;
+  padding: 14px 10px 13px; text-align: left;
+  font-family: 'Space Mono', monospace; color: var(--muted);
+  border-bottom: 2px solid transparent;
+  transition: background .18s, color .18s, border-color .18s;
+}
+.flow-steps button:hover { background: rgba(200,144,26,.07); color: var(--body); }
+.flow-steps button .sn { display: block; font-size: 10px; letter-spacing: .16em; color: var(--gold); margin-bottom: 5px; }
+.flow-steps button .st { display: block; font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; line-height: 1.35; }
+.flow-steps button[aria-selected="true"] { background: rgba(200,144,26,.12); color: var(--text); border-bottom-color: var(--gold); }
+@media(max-width:700px) { .flow-steps { grid-template-columns: repeat(3, 1fr); } }
+@media(max-width:420px) { .flow-steps { grid-template-columns: repeat(2, 1fr); } }
+
+.flow-panel { background: var(--raised); border: 1px solid var(--border); border-top: 0; border-radius: 0 0 5px 5px; padding: 26px 24px 24px; }
+.flow-panel[hidden] { display: none; }
+.flow-panel h3 { font-family: 'Alexandria', sans-serif; font-weight: 300; font-size: 24px; letter-spacing: -.01em; color: var(--text); margin-bottom: 4px; }
+.flow-panel .role { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+.flow-panel .fgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+@media(max-width:640px) { .flow-panel .fgrid { grid-template-columns: 1fr; gap: 14px; } }
+.fgrid h4 { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 7px; }
+.fgrid p { font-size: 16.5px; line-height: 1.55; color: var(--body); }
+.flow-shot { border: 1px solid var(--border); border-radius: 4px; overflow: hidden; line-height: 0; }
+.flow-shot img { width: 100%; display: block; }
+.flow-none {
+  border: 1px dashed var(--border); border-radius: 4px; padding: 26px 22px;
+  font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: .06em;
+  line-height: 1.7; color: var(--muted);
+}
+.flow-cap { font-family: 'Space Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-top: 9px; }
+
+/* ═══ DEVICE 4 — EXPLAINABILITY REVEAL ═══ */
+.xr { background: var(--raised); border: 1px solid var(--border); border-radius: 6px; padding: 24px 22px; margin: 24px 0; }
+.xr-k { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 14px; }
+.xr-row { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; padding-bottom: 16px; border-bottom: 1px solid var(--border); }
+.xr-name { font-family: 'Alexandria', sans-serif; font-weight: 400; font-size: 21px; color: var(--text); margin-right: auto; }
+.xr-score { font-family: 'Alexandria', sans-serif; font-weight: 200; font-size: 34px; line-height: 1; color: var(--gold); }
+.xr-score span { font-size: 17px; color: var(--muted); }
+.xr-btn {
+  background: none; border: 1px solid var(--gold); color: var(--gold);
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase; padding: 8px 13px; border-radius: 3px; cursor: pointer;
+  transition: background .15s;
+}
+.xr-btn:hover { background: rgba(200,144,26,.12); }
+.xr-body { padding-top: 18px; }
+.xr-body[hidden] { display: none; }
+.xr-body ul { list-style: none; display: grid; gap: 2px; margin-bottom: 16px; }
+.xr-body li { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: baseline; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 16.5px; color: var(--body); }
+.xr-body li span { font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: .06em; color: var(--gold); white-space: nowrap; }
+.xr-note { font-size: 16px; line-height: 1.6; color: var(--muted); }
+.xr-note b { color: var(--body); font-weight: 500; }
+
+/* ─── OUTCOME STATS ─── */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 2px; background: var(--border); border: 1px solid var(--border); border-radius: 5px; overflow: hidden; margin: 28px 0; }
+.stat { background: var(--raised); padding: 24px 22px; }
+.stat .n { font-family: 'Alexandria', sans-serif; font-weight: 200; font-size: 44px; line-height: 1; letter-spacing: -.02em; color: var(--text); }
+.stat .n em { font-style: normal; color: var(--gold); }
+.stat .d { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+
+/* ─── RETRO ─── */
+.retro { border: 1px solid var(--gold); border-radius: 6px; padding: 26px 24px; margin: 32px 0; background: rgba(200,144,26,.05); }
+.retro .rk { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin-bottom: 12px; }
+.retro p { font-size: 17px; line-height: 1.6; color: var(--body); margin-bottom: 14px; max-width: 660px; }
+.retro p:last-child { margin-bottom: 0; }
+.retro b { color: var(--text); font-weight: 500; }
+
+/* ─── FOOTER ─── */
+.cs-footer { margin-top: 80px; border-top: 1px solid var(--border); padding: 24px 0 80px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: .08em; color: var(--muted); }
+.cs-footer .lab { color: var(--gold); letter-spacing: .14em; margin-right: 8px; }
+.cs-footer a { color: var(--body); }
+.smallnote { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .05em; color: var(--muted); max-width: 660px; margin-top: 8px; line-height: 1.6; }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:640px) {
+  .wrap { padding: 0 20px; }
+  .hero { padding: 56px 0 44px; }
+  h1.title { font-size: 38px; }
+  .impact-row { grid-template-columns: 1fr 1fr; }
+  .section-nav { padding: 0 20px; }
+  .meta-strip { gap: 8px 20px; }
+  .dcard, .xr, .retro, .flow-panel { padding: 20px 17px; }
+}
+
+/* ─── REDUCED MOTION ─── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  .hot:hover, .hot:focus-visible, .hot[data-on="1"] { transform: translate(-50%, -50%); }
+}
+
+/* ─── THEME TOGGLE ─── */
+.topbar-theme { background: none; border: none; cursor: pointer; padding: 5px; color: var(--muted); transition: color .15s; display: flex; align-items: center; flex-shrink: 0; }
+.topbar-theme:hover { color: var(--text); }
+.topbar-theme .icon-sun  { display: block; }
+.topbar-theme .icon-moon { display: none; }
+html.light .topbar-theme .icon-sun  { display: none; }
+html.light .topbar-theme .icon-moon { display: block; }
+html.light {
+  --bg: #f0ebe0; --raised: #e8dfd0; --border: rgba(26,22,18,0.12);
+  --text: #1a1612; --body: rgba(26,22,18,0.78); --muted: rgba(26,22,18,0.45); --gold: #885800;
+}
+html.light .topbar      { background: rgba(240,235,224,0.96); }
+html.light .section-nav { background: rgba(240,235,224,0.96); }
+html.light .skill       { border-color: rgba(136,88,0,0.30); }
+html.light .topbar-resume:hover { background: rgba(136,88,0,.10); }
+html.light .hot { color: #f6f1e6; border-color: rgba(255,255,255,.6); }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <a class="topbar-home" href="/"><b>PBK</b>&nbsp;·&nbsp;Mikel Rosenthal</a>
+  <a class="topbar-resume" href="/resume.html" target="_blank">↓ Resume</a>
+  <button class="topbar-theme" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+  <span class="topbar-tag">Product Design · Pathfinder</span>
+</header>
+
+<!-- SECTION NAV -->
+<nav class="section-nav" aria-label="Case study sections">
+  <a href="#impact"    data-section="impact">Overview</a>
+  <a href="#stakes"    data-section="stakes">Stakes</a>
+  <a href="#evidence"  data-section="evidence">Evidence</a>
+  <a href="#model"     data-section="model">Model</a>
+  <a href="#decisions" data-section="decisions">Decisions</a>
+  <a href="#product"   data-section="product">Product</a>
+  <a href="#proof"     data-section="proof">Proof</a>
+  <a href="#system"    data-section="system">System</a>
+  <a href="#outcome"   data-section="outcome">Outcome</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="wrap">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero" id="impact">
+    <div class="hero-eyebrow">AVANT Communications · B2B Technology Services · 2021 – 2024</div>
+    <h1 class="title">Pathfinder<br><em>Five States</em></h1>
+    <p class="hero-dek">Technology advisors were running six-figure enterprise deals out of inboxes and spreadsheets. I redesigned Pathfinder around <b>one tracked project that moves through five states</b> — then built the design system that made it hold together from 2.0 to 3.0 without a redesign.</p>
+
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="mk">Role</span>
+        <span class="mv">Lead Product Designer &amp; Design Systems Lead — end to end</span>
+      </div>
+      <div class="meta-item">
+        <span class="mk">Team</span>
+        <span class="mv">Partnered with product, engineering, and the solutions-engineering group</span>
+      </div>
+      <div class="meta-item">
+        <span class="mk">Scope</span>
+        <span class="mv">Research · IA · Flows · Interaction · Data viz · Tokens · Components · Governance</span>
+      </div>
+      <div class="meta-item">
+        <span class="mk">Tools</span>
+        <span class="mv">Figma Variables · Design Tokens · React Handoff · Dev Mode</span>
+      </div>
+    </div>
+
+    <div class="skills">
+      <span class="skill">Product Design</span>
+      <span class="skill">Workflow Design</span>
+      <span class="skill">Information Architecture</span>
+      <span class="skill">Data Visualization</span>
+      <span class="skill">Design Tokens</span>
+      <span class="skill">Figma Variables</span>
+      <span class="skill">Dual Theming</span>
+      <span class="skill">Governance</span>
+      <span class="skill">A11y</span>
+    </div>
+
+    <div class="impact-row">
+      <div class="impact">
+        <div class="n">5<em>-step</em></div>
+        <div class="d">Lifecycle replacing an ad-hoc process</div>
+      </div>
+      <div class="impact">
+        <div class="n">3<em>yr</em></div>
+        <div class="d">Owned end to end · 2.0 → 3.0</div>
+      </div>
+      <div class="impact">
+        <div class="n">350<em>+</em></div>
+        <div class="d">Contributors enabled</div>
+      </div>
+      <div class="impact">
+        <div class="n">2<em>×</em></div>
+        <div class="d">Systems, one foundation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!--                  ACT I                          -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="act">
+    <div class="act-k">Act I</div>
+    <h2>The Product</h2>
+    <p>What advisors actually do all day, why the old shape of the work kept failing them, and the decisions behind the shape that replaced it.</p>
+  </div>
+
+  <!-- ═══ 01 STAKES ═══ -->
+  <section id="stakes">
+    <div class="sec-label"><span class="sec-num">01</span>The Stakes</div>
+    <h2 class="sec-title">What breaks if nothing changes</h2>
+
+    <div class="prose">
+      <p>A client says <i>"our contact center is failing and our WAN contract is up in ninety days."</i> The advisor has to translate that into a technical requirement, survey a market of dozens of providers, get real pricing, and then sit across a table and recommend a stack the client will spend six figures a year on.</p>
+      <p>Before Pathfinder, that work lived in an inbox. Requirements in email threads. Provider research in a spreadsheet. Assessments requested by Slack and remembered by whoever remembered. Quotes in attachments named <span class="mono">final_v3_REAL.xlsx</span>. Nothing had a state.</p>
+      <p>The advisor loses time — but worse, the advisor loses the thread. Walk into a client meeting unable to answer <i>"why this provider and not that one?"</i> and the recommendation dies with the relationship.</p>
+    </div>
+
+    <div class="pull">A recommendation you can't explain is a recommendation you can't sell.</div>
+
+    <div class="prose">
+      <p><b>The brief I gave myself:</b> give the advisory process a shape — a single project object that carries its own state, evidence, and reasoning from first conversation to signed contract, so that at any moment the advisor can answer <i>where are we</i> and <i>why this</i>.</p>
+    </div>
+  </section>
+
+  <!-- ═══ 02 EVIDENCE ═══ -->
+  <section id="evidence">
+    <div class="sec-label"><span class="sec-num">02</span>Evidence</div>
+    <h2 class="sec-title">What I found</h2>
+
+    <div class="prose">
+      <p>I shadowed advisors through live deals rather than interviewing them about deals — fifteen minutes watching someone reconstruct a quote history from their sent folder tells you more than an hour of them describing their process, because nobody describes the workarounds. They've stopped seeing them.</p>
+      <p>I paired that with a full interface inventory: every distinct screen state in production, clustered by pattern. Three years of separate teams had layered five primary blues, three button shapes, and mixed type stacks across a tool where advisors present live revenue data to clients.</p>
+    </div>
+
+    <div class="pull">Inconsistency reads as unreliability.</div>
+
+    <ul class="cs-list">
+      <li><span class="k">F·01</span><span><b>Context loss was the real cost.</b> The expensive moment wasn't doing the work — it was re-finding it. Which assessment was requested, which provider was ruled out, which version of the quote was live.</span></li>
+      <li><span class="k">F·02</span><span><b>Advisors don't want the answer. They want the argument.</b> A ranked provider list is only useful if the advisor can defend the ranking out loud, in front of a client, without the tool in the room.</span></li>
+      <li><span class="k">F·03</span><span><b>The in-between states <i>are</i> the product.</b> A deal spends most of its life with assessments in progress and quotes pending. Designing only the happy path would have designed for the rarest moment.</span></li>
+    </ul>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Audit findings: fragmented UI values consolidated into a single token source">
+          <style>
+            .t{font-family:'Space Mono',monospace;fill:#8a7e6d;font-size:11px;letter-spacing:1.5px;}
+            .tb{font-family:'Space Mono',monospace;fill:#1a1612;font-size:12px;letter-spacing:1px;}
+            .big{font-family:'Alexandria',sans-serif;fill:#1a1612;font-size:30px;font-weight:300;}
+          </style>
+          <text x="40" y="36" class="tb">BEFORE — AUDIT FINDINGS</text>
+          <text x="40" y="56" class="t">DISTINCT VALUES IN PRODUCTION</text>
+          <rect x="40" y="80" width="64" height="40" rx="3" fill="#0e6fb8"/>
+          <rect x="112" y="80" width="64" height="40" rx="3" fill="#1493e6"/>
+          <rect x="184" y="80" width="64" height="40" rx="3" fill="#0a4f86"/>
+          <rect x="256" y="80" width="64" height="40" rx="3" fill="#3aa9f0"/>
+          <rect x="328" y="80" width="64" height="40" rx="3" fill="#0d80cc"/>
+          <text x="40" y="142" class="t">5+ PRIMARY BLUES</text>
+          <rect x="40" y="170" width="110" height="34" rx="17" fill="none" stroke="#1a1612" stroke-width="1.4"/>
+          <rect x="160" y="170" width="110" height="34" rx="4" fill="#1a1612"/>
+          <rect x="280" y="170" width="110" height="34" rx="9" fill="none" stroke="#c8901a" stroke-width="1.4"/>
+          <text x="40" y="228" class="t">3 BUTTON SHAPES · 7 SIZES</text>
+          <text x="40" y="282" style="font-family:Georgia,serif;font-size:22px;fill:#1a1612;">Aa</text>
+          <text x="86" y="282" style="font-family:Arial,sans-serif;font-size:22px;fill:#1a1612;">Aa</text>
+          <text x="134" y="282" style="font-family:'Courier New',monospace;font-size:22px;fill:#1a1612;">Aa</text>
+          <text x="40" y="308" class="t">MIXED TYPE STACKS</text>
+          <line x1="470" y1="190" x2="540" y2="190" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="540,184 552,190 540,196" fill="#c8901a"/>
+          <text x="600" y="36" class="tb">AFTER — CONSOLIDATED</text>
+          <text x="600" y="56" class="t">SINGLE TOKEN SOURCE OF TRUTH</text>
+          <rect x="600" y="80" width="64" height="40" rx="3" fill="#0e6fb8"/>
+          <text x="676" y="105" class="t">COLOR.BRAND.PRIMARY</text>
+          <rect x="600" y="140" width="110" height="34" rx="4" fill="#1a1612"/>
+          <text x="600" y="196" class="t">ONE BUTTON · 3 SIZES · 5 STATES</text>
+          <text x="600" y="226" style="font-family:Arial,sans-serif;font-size:22px;fill:#1a1612;">Aa</text>
+          <text x="646" y="226" class="t">ONE STACK · 8-STEP SCALE</text>
+          <text x="600" y="300" class="big">Audit → argument</text>
+          <text x="600" y="324" class="t">FRAGMENTATION MADE COUNTABLE</text>
+        </svg>
+      </div>
+      <figcaption><span class="fig-n">FIG 01</span> Interface inventory — fragmentation made countable. Diagram recreated for this case study.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ═══ 03 MODEL ═══ -->
+  <section id="model">
+    <div class="sec-label"><span class="sec-num">03</span>The Model</div>
+    <h2 class="sec-title">One object, five states</h2>
+
+    <div class="prose">
+      <p>Everything else followed from one decision about nouns. The platform had been organised around <i>tools</i> — a fiber tool, a data center tool, a quote tool, each a destination you visited and left. I reorganised it around a single object: <b>the Project</b>.</p>
+      <p>A project has a client, a technology scope, a location, an owner, and — critically — <b>a state</b>. It moves through five of them, in order:</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="The five-state project lifecycle: Project Information, Configuration, Discovery, Registration, Contract — with evidence accumulating in a persistent project rail">
+          <style>
+            .sl{font-family:'Space Mono',monospace;fill:#8a7e6d;font-size:10.5px;letter-spacing:1.4px;}
+            .sn2{font-family:'Space Mono',monospace;fill:#c8901a;font-size:12px;letter-spacing:1px;}
+            .sh{font-family:'Alexandria',sans-serif;fill:#1a1612;font-size:12px;font-weight:500;letter-spacing:.6px;}
+            .sh.inv{fill:#ece4d2;}
+            .cap{font-family:'Alexandria',sans-serif;fill:#1a1612;font-size:22px;font-weight:300;}
+          </style>
+          <text x="30" y="36" class="sl">THE PROJECT OBJECT — ONE THING, MOVING THROUGH FIVE STATES</text>
+
+          <rect x="30" y="60" width="136" height="70" rx="5" fill="#ece4d2" stroke="rgba(26,22,18,.16)"/>
+          <text x="98" y="86" class="sn2" text-anchor="middle">01</text>
+          <text x="98" y="108" class="sh" text-anchor="middle">PROJECT INFO</text>
+          <line x1="170" y1="95" x2="190" y2="95" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="190,89 202,95 190,101" fill="#c8901a"/>
+
+          <rect x="206" y="60" width="136" height="70" rx="5" fill="#ece4d2" stroke="rgba(26,22,18,.16)"/>
+          <text x="274" y="86" class="sn2" text-anchor="middle">02</text>
+          <text x="274" y="108" class="sh" text-anchor="middle">CONFIGURATION</text>
+          <line x1="346" y1="95" x2="366" y2="95" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="366,89 378,95 366,101" fill="#c8901a"/>
+
+          <rect x="382" y="60" width="136" height="70" rx="5" fill="#ece4d2" stroke="rgba(26,22,18,.16)"/>
+          <text x="450" y="86" class="sn2" text-anchor="middle">03</text>
+          <text x="450" y="108" class="sh" text-anchor="middle">DISCOVERY</text>
+          <line x1="522" y1="95" x2="542" y2="95" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="542,89 554,95 542,101" fill="#c8901a"/>
+
+          <rect x="558" y="60" width="136" height="70" rx="5" fill="#ece4d2" stroke="rgba(26,22,18,.16)"/>
+          <text x="626" y="86" class="sn2" text-anchor="middle">04</text>
+          <text x="626" y="108" class="sh" text-anchor="middle">REGISTRATION</text>
+          <line x1="698" y1="95" x2="718" y2="95" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="718,89 730,95 718,101" fill="#c8901a"/>
+
+          <rect x="734" y="60" width="136" height="70" rx="5" fill="#1a1612"/>
+          <text x="802" y="86" class="sn2" text-anchor="middle">05</text>
+          <text x="802" y="108" class="sh inv" text-anchor="middle">CONTRACT</text>
+
+          <path d="M30 152 L870 152" stroke="rgba(26,22,18,.18)" stroke-width="1" stroke-dasharray="3 4"/>
+          <text x="30" y="180" class="sl">EVIDENCE ACCUMULATES — NEVER RE-ENTERED, NEVER LOST</text>
+
+          <rect x="30" y="196" width="270" height="34" rx="4" fill="none" stroke="rgba(26,22,18,.2)"/>
+          <text x="46" y="218" class="sl">RESEARCH · IQAS · UPLOADS</text>
+          <rect x="314" y="196" width="270" height="34" rx="4" fill="none" stroke="rgba(26,22,18,.2)"/>
+          <text x="330" y="218" class="sl">QUOTES · PROVIDER SHORTLIST</text>
+          <rect x="598" y="196" width="272" height="34" rx="4" fill="none" stroke="rgba(26,22,18,.2)"/>
+          <text x="614" y="218" class="sl">WATCH LIST · DECISION TRAIL</text>
+
+          <text x="30" y="278" class="cap">The rail carries the argument forward.</text>
+        </svg>
+      </div>
+      <figcaption><span class="fig-n">FIG 02</span> The five-state lifecycle. Evidence gathered in any state stays visible in every state that follows.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p>The second half of the model matters as much as the first. Each state produces <b>evidence</b> — research pulls, completed assessments, uploaded documents, provider shortlists — and that evidence never goes back in a drawer. It lives in a persistent rail alongside the work, so an advisor in the Contract state can still see the October research that led to the shortlist in Configuration.</p>
+      <p>That's the whole idea, and it's why the interface looks the way it does: <b>the project is the noun, the state is the verb, and the rail is the memory.</b></p>
+    </div>
+  </section>
+
+  <!-- ═══ 04 DECISIONS ═══ -->
+  <section id="decisions">
+    <div class="sec-label"><span class="sec-num">04</span>The Decisions</div>
+    <h2 class="sec-title">Where it was genuinely hard</h2>
+
+    <div class="prose">
+      <p>Three decisions were contested and could reasonably have gone the other way. Here they are with the alternatives I rejected.</p>
+    </div>
+
+    <!-- DECISION 1 -->
+    <div class="dcard">
+      <div class="dk">Decision 01 · Shape of the work</div>
+      <div class="dq">A guided sequence, or a free-form workspace?</div>
+      <ul class="dopts">
+        <li class="dopt"><span class="om">A</span><span><b>Free-form workspace</b> Every tool available at once; the advisor imposes their own order.</span></li>
+        <li class="dopt chosen"><span class="om">B</span><span><b>Explicit five-state sequence, non-blocking</b> The order is shown and tracked, but no step is locked. <i>Chosen.</i></span></li>
+        <li class="dopt"><span class="om">C</span><span><b>Hard wizard</b> Each step gated until the previous one validates. Maximum consistency, cleanest data.</span></li>
+      </ul>
+      <div class="dwhy">
+        <span class="wk">Why B</span>
+        A was the status quo with better styling — it had already failed, because the flexibility advisors "wanted" was what cost them the thread. C was tempting and wrong: real deals arrive out of order, and a gated wizard would have pushed advisors back into email the first time reality didn't cooperate. <b>The sequence is a spine, not a cage</b> — it tells you where you are without telling you where you're allowed to go.
+      </div>
+    </div>
+
+    <!-- DECISION 2 -->
+    <div class="dcard">
+      <div class="dk">Decision 02 · Provider comparison</div>
+      <div class="dq">Cards, or a dense table?</div>
+      <ul class="dopts">
+        <li class="dopt"><span class="om">A</span><span><b>Card grid</b> Each provider a tile with logo and summary. Modern, breathable, screenshots well.</span></li>
+        <li class="dopt chosen"><span class="om">B</span><span><b>Dense row table</b> Logo, overview, fit score, differentiator and select — one comparison per line. <i>Chosen.</i></span></li>
+        <li class="dopt"><span class="om">C</span><span><b>Progressive disclosure</b> Minimal rows that expand on click.</span></li>
+      </ul>
+      <div class="dwhy">
+        <span class="wk">Why B</span>
+        This is the screen an advisor shares on a video call with a client watching. Cards look better in a portfolio and are worse at the job — comparing across an attribute requires alignment along it, and a grid breaks the scan. C fails the same way with an extra click: when a client asks <i>"how does 8×8 compare to Masergy on support?"</i>, the answer has to already be on screen. <b>I optimised for the client in the room, not the reviewer on Dribbble.</b>
+      </div>
+    </div>
+
+    <!-- DECISION 3 -->
+    <div class="dcard">
+      <div class="dk">Decision 03 · The scored recommendation</div>
+      <div class="dq">How much of the reasoning do we show by default?</div>
+      <ul class="dopts">
+        <li class="dopt"><span class="om">A</span><span><b>Score only</b> Show "Technical Fit 5/5" and trust the model. Cleanest interface by far.</span></li>
+        <li class="dopt"><span class="om">B</span><span><b>Full breakdown always visible</b> Every input and weight, inline, for every provider.</span></li>
+        <li class="dopt chosen"><span class="om">C</span><span><b>Score plus a read-aloud differentiator, breakdown one interaction away</b> <i>Chosen.</i></span></li>
+      </ul>
+      <div class="dwhy">
+        <span class="wk">Why C</span>
+        Finding F·02 settles this. A bare score (A) is a liability in the meeting it exists for. B buries the comparison under its own arithmetic at exactly the moment the screen is shared. The differentiator column does the real work: <b>one sentence in the advisor's language, phrased to be read aloud verbatim</b> — "top rated support, 24/7" — with the inputs on demand for the client who pushes. And the score is never final: a checkbox lets the advisor register a provider the model ranked lower.
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 05 PRODUCT ═══ -->
+  <section id="product">
+    <div class="sec-label"><span class="sec-num">05</span>The Product</div>
+    <h2 class="sec-title">Walk the lifecycle</h2>
+
+    <div class="prose">
+      <p>Each state below is a real screen and the problem it had to solve.</p>
+    </div>
+
+    <!-- ═══ DEVICE: INTERACTIVE FLOW ═══ -->
+    <div class="flow">
+      <div class="flow-steps" role="tablist" aria-label="Project lifecycle states">
+        <button role="tab" id="tab-1" aria-controls="pan-1" aria-selected="true"  data-i="1"><span class="sn">01</span><span class="st">Project<br>Information</span></button>
+        <button role="tab" id="tab-2" aria-controls="pan-2" aria-selected="false" data-i="2" tabindex="-1"><span class="sn">02</span><span class="st">Config-<br>uration</span></button>
+        <button role="tab" id="tab-3" aria-controls="pan-3" aria-selected="false" data-i="3" tabindex="-1"><span class="sn">03</span><span class="st">Discovery</span></button>
+        <button role="tab" id="tab-4" aria-controls="pan-4" aria-selected="false" data-i="4" tabindex="-1"><span class="sn">04</span><span class="st">Regis-<br>tration</span></button>
+        <button role="tab" id="tab-5" aria-controls="pan-5" aria-selected="false" data-i="5" tabindex="-1"><span class="sn">05</span><span class="st">Contract</span></button>
+      </div>
+
+      <div class="flow-panel" role="tabpanel" id="pan-1" aria-labelledby="tab-1" tabindex="0">
+        <h3>Project Information</h3>
+        <div class="role">Where the advisor lives between deals</div>
+        <div class="fgrid">
+          <div><h4>The design problem</h4><p>An advisor carries a dozen live projects at once. Home has to answer "what needs me today?" in five seconds without becoming a wall of numbers.</p></div>
+          <div><h4>What I did</h4><p>Revenue by technology as standing context, then the two things that change hour to hour: project files with status, and current standings.</p></div>
+        </div>
+        <div class="flow-shot"><img src="images/design-systems/avant-pathfinder/08-pathfinder-3.jpg" alt="Pathfinder advisor home — yearly sales figures, project files with download and in-progress status, leading sales, and a sales report panel" loading="lazy"></div>
+        <div class="flow-cap">Advisor home — standing context above, live state below.</div>
+      </div>
+
+      <div class="flow-panel" role="tabpanel" id="pan-2" aria-labelledby="tab-2" tabindex="0" hidden>
+        <h3>Configuration</h3>
+        <div class="role">The screen the client sees</div>
+        <div class="fgrid">
+          <div><h4>The design problem</h4><p>Turn a market of dozens of providers into a defensible shortlist — on a screen shared live with the client paying for the recommendation.</p></div>
+          <div><h4>What I did</h4><p>One dense comparison row per provider: identity, overview, fit score, a read-aloud differentiator, and a register control the advisor can use to overrule the ranking.</p></div>
+        </div>
+        <div class="flow-none">Annotated in full below ↓</div>
+      </div>
+
+      <div class="flow-panel" role="tabpanel" id="pan-3" aria-labelledby="tab-3" tabindex="0" hidden>
+        <h3>Discovery</h3>
+        <div class="role">Where the evidence gets made</div>
+        <div class="fgrid">
+          <div><h4>The design problem</h4><p>Discovery is the longest state and the most likely to stall — assessments sit with solutions engineers for days. The interface has to make waiting legible instead of anxious.</p></div>
+          <div><h4>What I did</h4><p>Suggested tools narrowed by the project's scope on the left; live assessment status on the right, every one showing when it started and where it stands.</p></div>
+        </div>
+        <div class="flow-shot"><img src="images/design-systems/avant-pathfinder/05-discovery.jpg" alt="Pathfinder Discovery screen — suggested tools, all research tools, and an IQA status panel showing complete, in progress and cancelled assessments" loading="lazy"></div>
+        <div class="flow-cap">Discovery — suggested tools narrowed by scope, assessment status always visible.</div>
+      </div>
+
+      <div class="flow-panel" role="tabpanel" id="pan-4" aria-labelledby="tab-4" tabindex="0" hidden>
+        <h3>Registration</h3>
+        <div class="role">Committing to the shortlist</div>
+        <div class="fgrid">
+          <div><h4>The design problem</h4><p>Registration is the irreversible step — it commits the deal to specific providers and starts the clock on partner processes. It has to feel like a decision, not a form submission.</p></div>
+          <div><h4>What I did</h4><p>The register action lives inside Configuration as a per-provider checkbox, so the commitment happens next to the reasoning that justified it. <span class="mono">3 of 12 selected</span> is the confirmation.</p></div>
+        </div>
+        <div class="flow-shot"><img src="images/design-systems/avant-pathfinder/07-iqa-builder.jpg" alt="Pathfinder IQA Builder — assessment catalogue filtered by CCaaS, cloud, colocation, connectivity, SD-WAN, security and UCaaS" loading="lazy"></div>
+        <div class="flow-cap">IQA Builder — the assessment catalogue, filtered by the project's technology scope.</div>
+      </div>
+
+      <div class="flow-panel" role="tabpanel" id="pan-5" aria-labelledby="tab-5" tabindex="0" hidden>
+        <h3>Contract</h3>
+        <div class="role">The state that has to survive</div>
+        <div class="fgrid">
+          <div><h4>The design problem</h4><p>A signed deal isn't the end — it becomes a deployment, then a billing relationship, then a renewal three years later, usually handled by someone who wasn't in the original meeting.</p></div>
+          <div><h4>What I did</h4><p>Contract hands the project to the portfolio view, and the rail — every assessment, every provider ruled out — travels with it. The year-three renewal starts with the original reasoning intact.</p></div>
+        </div>
+        <div class="flow-shot"><img src="images/design-systems/avant-pathfinder/01-dashboard.jpg" alt="Pathfinder portfolio view — opportunities, deployments and billing columns alongside notifications and the assessment, knowledge, business and message centres" loading="lazy"></div>
+        <div class="flow-cap">Portfolio view — opportunities, deployments, and billing as one continuous life.</div>
+      </div>
+    </div>
+
+    <!-- ═══ DEVICE: ANNOTATED SCREEN ═══ -->
+    <div class="pillar">The screen that carries the argument</div>
+    <div class="prose">
+      <p>Five details on this screen came out of a research finding rather than a preference.</p>
+    </div>
+
+    <figure>
+      <div class="frame dark">
+        <div class="shot" id="shot1">
+          <img src="images/design-systems/avant-pathfinder/06-configuration.jpg" alt="Annotated Pathfinder Configuration screen with five numbered hotspots" loading="lazy">
+          <button class="hot" style="left:31%;  top:14.5%" data-k="1" aria-label="Annotation 1 — the state rail">1</button>
+          <button class="hot" style="left:49%;  top:45%"   data-k="2" aria-label="Annotation 2 — technical fit score">2</button>
+          <button class="hot" style="left:60%;  top:62%"   data-k="3" aria-label="Annotation 3 — differentiator column">3</button>
+          <button class="hot" style="left:67.5%;top:45%"   data-k="4" aria-label="Annotation 4 — register override">4</button>
+          <button class="hot" style="left:66%;  top:78%"   data-k="5" aria-label="Annotation 5 — selection count and full matrix">5</button>
+        </div>
+      </div>
+      <ol class="keys" id="keys1">
+        <li data-k="1"><span class="kn">01</span><span><b>The state rail, always on.</b> Position in the lifecycle is persistent chrome, not a page you navigate to — the direct fix for F·01.</span></li>
+        <li data-k="2"><span class="kn">02</span><span><b>A bounded score, not a percentage.</b> 5/5 reads as a judgement; 94.2% reads as a measurement the tool can't defend. The scale is coarse because the confidence is.</span></li>
+        <li data-k="3"><span class="kn">03</span><span><b>A differentiator written to be read aloud.</b> Not a feature list — one sentence that survives the trip from screen to spoken recommendation. F·02, made concrete.</span></li>
+        <li data-k="4"><span class="kn">04</span><span><b>The override.</b> CBTS scores 3/5 and can still be registered. The model advises; the human decides.</span></li>
+        <li data-k="5"><span class="kn">05</span><span><b>Show what was ruled out.</b> "3 of 12 selected" plus the full matrix answers the hardest client question — <i>what didn't you show me?</i> — before it's asked.</span></li>
+      </ol>
+      <figcaption><span class="fig-n">FIG 03</span> Configuration, annotated. Tap or focus a marker to highlight its note.</figcaption>
+    </figure>
+
+    <!-- ═══ DEVICE: EXPLAINABILITY REVEAL ═══ -->
+    <div class="pillar">Designing the score you have to defend</div>
+    <div class="prose">
+      <p>Any product that ranks, scores, or recommends is making a probabilistic claim on a user's behalf — whether or not a model is involved. The design question isn't <i>how accurate is it?</i> It's <b>what does the user have to be able to say when someone challenges it?</b></p>
+    </div>
+
+    <div class="xr">
+      <div class="xr-k">Technical fit — advisor view</div>
+      <div class="xr-row">
+        <div class="xr-name">8×8 <span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;color:var(--muted);">· CCAAS</span></div>
+        <div class="xr-score">5<span>/5</span></div>
+        <button class="xr-btn" id="xrBtn" aria-expanded="false" aria-controls="xrBody">Why this score</button>
+      </div>
+      <div class="xr-body" id="xrBody" hidden>
+        <ul>
+          <li><span style="font-family:'EB Garamond',Georgia,serif;font-size:16.5px;color:var(--body);">Feature coverage against the project's CCaaS requirement</span><span>Full</span></li>
+          <li><span style="font-family:'EB Garamond',Georgia,serif;font-size:16.5px;color:var(--body);">Serviceability at 2 N. Riverside Plaza, Chicago</span><span>Confirmed</span></li>
+          <li><span style="font-family:'EB Garamond',Georgia,serif;font-size:16.5px;color:var(--body);">Support model against stated client priority</span><span>24/7 · top rated</span></li>
+          <li><span style="font-family:'EB Garamond',Georgia,serif;font-size:16.5px;color:var(--body);">Deployment history at comparable scale</span><span>Strong</span></li>
+        </ul>
+        <p class="xr-note"><b>The advisor keeps the last word.</b> The score orders the list; it never removes an option. A tool that quietly filters is a tool that loses the deal it hid.</p>
+      </div>
+    </div>
+
+    <p class="smallnote">Scoring inputs above are a reconstruction of the advisor-facing interaction. The production weighting model is AVANT's and isn't shown.</p>
+  </section>
+
+  <!-- ═══ 06 PROOF ═══ -->
+  <section id="proof">
+    <div class="sec-label"><span class="sec-num">06</span>Proof</div>
+    <h2 class="sec-title">What testing changed</h2>
+
+    <div class="prose">
+      <p>The five-state model went in front of advisors as a clickable prototype before a line of it was built.</p>
+    </div>
+
+    <ul class="cs-list">
+      <li><span class="k">Held</span><span><b>The sequence read as obvious.</b> Advisors described the five states back in their own words without prompting — the strongest available signal that a conceptual model matches the one already in someone's head. They also stopped asking "where's the assessment I ran?", the question that had defined the old process.</span></li>
+      <li><span class="k">Failed</span><span><b>The first Configuration table was too quiet.</b> Fit score and differentiator carried the same weight as the overview copy, so advisors scanned past the score to the logo and made a brand-recognition decision — exactly what the screen existed to prevent. I rebuilt the row hierarchy to give the score its own type treatment and the differentiator its own column.</span></li>
+      <li><span class="k">Failed</span><span><b>"Registration" didn't mean what I thought.</b> I'd treated it as a lightweight confirmation; advisors treated it as a commitment with real consequences. That's why the register control ended up inside Configuration, next to the evidence, instead of on a step of its own.</span></li>
+    </ul>
+
+    <div class="prose">
+      <p>It then shipped behind a flag to a slice of advisors before general release. <span class="tbd">[ adoption / time-on-task figures to add ]</span></p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════ -->
+  <!--                  ACT II                         -->
+  <!-- ══════════════════════════════════════════════ -->
+  <div class="act">
+    <div class="act-k">Act II</div>
+    <h2>The System</h2>
+    <p>A five-state lifecycle is only coherent if every state is built from the same material. Act I is the product decision; Act II is the infrastructure that let it survive three years, two platforms, and 350 contributors.</p>
+  </div>
+
+  <section id="system">
+    <div class="sec-label"><span class="sec-num">07</span>The System</div>
+    <h2 class="sec-title">From zero — four pillars</h2>
+
+    <div class="prose">
+      <p>The interface inventory from section 02 did double duty — it diagnosed the product problem and made the business case for a design system in the same breath. Four principles governed everything that followed.</p>
+    </div>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="pn">P·01</div>
+        <h3>Credibility through clarity</h3>
+        <p>Quote values, assessment results, and deal data get the strongest hierarchy — no exceptions.</p>
+      </div>
+      <div class="principle">
+        <div class="pn">P·02</div>
+        <h3>Tokens before components</h3>
+        <p>Decisions live in the token layer. Components consume intent, never raw values.</p>
+      </div>
+      <div class="principle">
+        <div class="pn">P·03</div>
+        <h3>Designed or it isn't done</h3>
+        <p>Loading, empty, error, and disabled states ship with v1. A pattern without failure modes is a prototype.</p>
+      </div>
+      <div class="principle">
+        <div class="pn">P·04</div>
+        <h3>Adoption over mandate</h3>
+        <p>Does this make the right way the easy way? That's the test for every governance decision.</p>
+      </div>
+    </div>
+
+    <!-- Token Architecture -->
+    <div class="pillar">Token Architecture &amp; Theming</div>
+    <div class="prose">
+      <p>Three-tier architecture: <b>primitives</b> (raw values) → <b>semantic tokens</b> (intent) → <b>component tokens</b> (where it applies). Engineers consume tokens, not hex codes. When the brand evolves, the system re-themes from the primitive layer — nothing downstream changes.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three-tier token architecture: primitives to semantic to component">
+          <style>
+            .t2{font-family:'Space Mono',monospace;fill:#8a7e6d;font-size:11px;letter-spacing:1.5px;}
+            .tk{font-family:'Space Mono',monospace;fill:#1a1612;font-size:12.5px;}
+            .hd{font-family:'Alexandria',sans-serif;fill:#1a1612;font-size:16px;font-weight:500;letter-spacing:2px;}
+          </style>
+          <rect x="30" y="50" width="250" height="240" rx="6" fill="#ece4d2" stroke="rgba(26,22,18,.14)"/>
+          <text x="50" y="84" class="hd">PRIMITIVES</text>
+          <text x="50" y="104" class="t2">RAW VALUES</text>
+          <rect x="50" y="124" width="22" height="22" rx="3" fill="#0e6fb8"/>
+          <text x="82" y="140" class="tk">blue.600 #0E6FB8</text>
+          <rect x="50" y="156" width="22" height="22" rx="3" fill="#0c1420"/>
+          <text x="82" y="172" class="tk">night.900</text>
+          <rect x="50" y="188" width="22" height="22" rx="3" fill="#2bd97e"/>
+          <text x="82" y="204" class="tk">signal.500</text>
+          <text x="50" y="240" class="tk">space.4 = 16px</text>
+          <text x="50" y="264" class="tk">type.scale.125</text>
+          <line x1="290" y1="170" x2="330" y2="170" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="330,164 342,170 330,176" fill="#c8901a"/>
+          <rect x="350" y="50" width="250" height="240" rx="6" fill="#ece4d2" stroke="rgba(26,22,18,.14)"/>
+          <text x="370" y="84" class="hd">SEMANTIC</text>
+          <text x="370" y="104" class="t2">INTENT — WHAT IT MEANS</text>
+          <text x="370" y="140" class="tk">action.primary</text>
+          <text x="370" y="168" class="tk">surface.raised</text>
+          <text x="370" y="196" class="tk">status.complete</text>
+          <text x="370" y="224" class="tk">border.focus</text>
+          <text x="370" y="252" class="tk">space.stack.md</text>
+          <line x1="610" y1="170" x2="650" y2="170" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="650,164 662,170 650,176" fill="#c8901a"/>
+          <rect x="670" y="50" width="200" height="240" rx="6" fill="#ece4d2" stroke="rgba(26,22,18,.14)"/>
+          <text x="690" y="84" class="hd">COMPONENT</text>
+          <text x="690" y="104" class="t2">WHERE IT APPLIES</text>
+          <text x="690" y="140" class="tk">button.bg</text>
+          <text x="690" y="168" class="tk">card.border</text>
+          <text x="690" y="196" class="tk">input.focus</text>
+          <text x="690" y="224" class="tk">chart.series.1</text>
+          <text x="30" y="322" class="t2">RE-THEME FROM THE PRIMITIVE LAYER — NOTHING DOWNSTREAM CHANGES</text>
+        </svg>
+      </div>
+      <figcaption><span class="fig-n">FIG 04</span> Three-tier token architecture — the layer that let the system absorb Pathfinder 2.0 → 3.0.</figcaption>
+    </figure>
+
+    <!-- Components & data viz -->
+    <div class="pillar">Components &amp; Data Visualization</div>
+    <div class="prose">
+      <p>Every component shipped with documented anatomy, full state coverage — default, focus, error, disabled, loading — responsive behavior, and accessibility notes. <b>If a state isn't designed, it isn't done:</b> principle P·03, downstream of finding F·03.</p>
+      <p>Advisors present live revenue data to clients, which makes data visualization the credibility layer rather than decoration. The chart library — line, bar, area, stream, radar, hex — runs on the same tokens as everything else.</p>
+    </div>
+
+    
+
+    <div class="two-col">
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/pathfinder/avant-charts-sales-report.png" alt="Sales Report widget — light and dark theme variants" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 05</span> Sales Report widget — same component, both themes, zero overrides.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame dark">
+          <img src="images/case-studies/pathfinder/avant-charts-xl-line.png" alt="Full line chart library — dark and light size variants" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 06</span> Line chart library — full coverage across size variants, dark and light.</figcaption>
+      </figure>
+    </div>
+
+    <!-- Governance -->
+    <div class="pillar">Governance &amp; Design-to-Code</div>
+    <div class="prose">
+      <p>A system nobody uses is a wiki page. Every governance decision was tested against one question: does this make the right way the easy way?</p>
+    </div>
+
+    <ul class="cs-list">
+      <li><span class="k">Model</span><span><b>Federated contribution</b> — anyone could propose; a small core reviewed against documented criteria, so the system grew without rotting.</span></li>
+      <li><span class="k">Docs</span><span><b>Documentation as product</b> — usage guidance, do/don't pairs, accessibility behavior. Written for the person shipping at 4pm Friday.</span></li>
+      <li><span class="k">Versioning</span><span><b>Semantic releases with migration notes</b> — engineering upgraded on their own schedule, without surprise breakage.</span></li>
+      </ul>
+
+    <div class="prose" style="margin-top:28px">
+      <p><b>Design-to-code parity.</b> The same token name travels from Figma variable (<span class="mono">action/primary</span>) to CSS custom property (<span class="mono">--action-primary</span>) to React prop (<span class="mono">intent="primary"</span>). Designers and engineers are provably talking about the same thing, and drift becomes visible — and fixable — immediately.</p>
+    </div>
+
+    <figure>
+      <div class="frame dark">
+        <img src="images/case-studies/pathfinder/avant-style-tile-1.png" alt="Pathfinder style tile — color system, typography, and component foundations on one canvas" loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 07</span> Style tile — color system, typography, and component anatomy on one canvas.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ═══ 08 OUTCOME ═══ -->
+  <section id="outcome">
+    <div class="sec-label"><span class="sec-num">08</span>Outcome &amp; Retro</div>
+    <h2 class="sec-title">2021 – 2024</h2>
+
+    <div class="timeline">
+      <div class="phase"><div class="yr">2021 — PHASE 1</div><h3>Audit &amp; Foundations</h3><p>Advisor research, interface inventory, the five-state model, token architecture.</p></div>
+      <div class="phase"><div class="yr">2022 — PHASE 2</div><h3>Lifecycle &amp; Components</h3><p>The five states built on a component library with full state coverage.</p></div>
+      <div class="phase"><div class="yr">2023 — PHASE 3</div><h3>Adoption &amp; Governance</h3><p>Federated contribution, docs-as-product, office hours, semantic versioning.</p></div>
+      <div class="phase"><div class="yr">2024 — PHASE 4</div><h3>Marketing Library</h3><p>Token foundations extended to a self-serve marketing library.</p></div>
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="n">5<em>-step</em></div>
+        <div class="d">Project lifecycle unified on one component language, end to end</div>
+      </div>
+      <div class="stat">
+        <div class="n">3<em>yr</em></div>
+        <div class="d">Owned end-to-end — v1 through Pathfinder 3.0</div>
+      </div>
+      <div class="stat">
+        <div class="n">350<em>+</em></div>
+        <div class="d">Managers &amp; marketers trained and shipping from the library</div>
+      </div>
+      <div class="stat">
+        <div class="n">2<em>×</em></div>
+        <div class="d">One foundation, two systems — product UI and marketing library</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p><b>The system carried Pathfinder from 2.0 through 3.0 without a redesign — the architecture absorbed the evolution.</b> New surfaces shipped visually consistent on day one. Accessibility findings stopped recurring because the fixes lived in the tokens. The library became the default path for campaign work rather than a mandate, which was always the test.</p>
+    </div>
+
+    <div class="retro">
+      <div class="rk">Honest retro — what I'd do differently</div>
+      <p><b>I instrumented too late.</b> I defined the five states, designed them, and only then asked what we'd measure — so the first year of data told us how often each state was <i>visited</i> rather than how long advisors were <i>stuck</i> in one. On every engagement since, the metric gets named before a single flow.</p>
+      <p><b>Still unsolved: the handoff to solutions engineering.</b> Discovery stalls when an assessment sits with an SE. I made the advisor's side of that wait legible but never got to design the SE's side — the highest-value work left on the table, and a service design problem rather than a UI one.</p>
+    </div>
+
+    <p class="smallnote" style="margin-top:24px">Product imagery © AVANT Communications. Token names, diagrams, scoring inputs, and some workflow details are recreated or generalized for this case study per confidentiality.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="cs-footer">
+    <span><span class="lab">WORK</span><a href="/">MikelRosenthal.com</a></span>
+    <span><span class="lab">NEXT</span><a href="/#design-systems">More design systems →</a></span>
+    <span><span class="lab">CONTACT</span><a href="mailto:mikelrosenthal@me.com">mikelrosenthal@me.com</a></span>
+  </footer>
+
+</div><!-- /wrap -->
+
+<script>
+/* ─── Active section in the nav ─── */
+(function() {
+  var links = document.querySelectorAll('.section-nav a[data-section]');
+  var ids = ['impact','stakes','evidence','model','decisions','product','proof','system','outcome'];
+
+  function getActive() {
+    var offset = 120;
+    for (var i = ids.length - 1; i >= 0; i--) {
+      var el = document.getElementById(ids[i]);
+      if (el && el.getBoundingClientRect().top <= offset) return ids[i];
+    }
+    return ids[0];
+  }
+  function update() {
+    var active = getActive();
+    links.forEach(function(a) { a.classList.toggle('active', a.dataset.section === active); });
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+
+/* ─── Device: interactive lifecycle flow (tabs) ─── */
+(function() {
+  var tabs = Array.prototype.slice.call(document.querySelectorAll('.flow-steps [role="tab"]'));
+  if (!tabs.length) return;
+
+  function select(tab, focus) {
+    tabs.forEach(function(t) {
+      var on = t === tab;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+    });
+    if (focus) tab.focus();
+  }
+
+  tabs.forEach(function(tab, i) {
+    tab.addEventListener('click', function() { select(tab); });
+    tab.addEventListener('keydown', function(e) {
+      var k = e.key, next = null;
+      if (k === 'ArrowRight' || k === 'ArrowDown') next = tabs[(i + 1) % tabs.length];
+      else if (k === 'ArrowLeft' || k === 'ArrowUp') next = tabs[(i - 1 + tabs.length) % tabs.length];
+      else if (k === 'Home') next = tabs[0];
+      else if (k === 'End') next = tabs[tabs.length - 1];
+      if (next) { e.preventDefault(); select(next, true); }
+    });
+  });
+})();
+
+/* ─── Device: annotated screen (hotspots ↔ legend) ─── */
+(function() {
+  var shot = document.getElementById('shot1');
+  var keys = document.getElementById('keys1');
+  if (!shot || !keys) return;
+
+  var hots = Array.prototype.slice.call(shot.querySelectorAll('.hot'));
+  var rows = Array.prototype.slice.call(keys.querySelectorAll('li'));
+
+  function setOn(k) {
+    hots.forEach(function(h) { h.dataset.on = (h.dataset.k === k) ? '1' : '0'; });
+    rows.forEach(function(r) { r.dataset.on = (r.dataset.k === k) ? '1' : '0'; });
+  }
+  function clear() { setOn(null); }
+
+  hots.forEach(function(h) {
+    h.addEventListener('mouseenter', function() { setOn(h.dataset.k); });
+    h.addEventListener('mouseleave', clear);
+    h.addEventListener('focus',      function() { setOn(h.dataset.k); });
+    h.addEventListener('blur',       clear);
+    h.addEventListener('click',      function() { setOn(h.dataset.k); });
+  });
+  rows.forEach(function(r) {
+    r.addEventListener('mouseenter', function() { setOn(r.dataset.k); });
+    r.addEventListener('mouseleave', clear);
+  });
+})();
+
+/* ─── Device: explainability reveal ─── */
+(function() {
+  var btn = document.getElementById('xrBtn');
+  var body = document.getElementById('xrBody');
+  if (!btn || !body) return;
+  btn.addEventListener('click', function() {
+    var open = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', open ? 'false' : 'true');
+    body.hidden = open;
+    btn.textContent = open ? 'Why this score' : 'Hide reasoning';
+  });
+})();
+
+/* ─── Theme toggle ─── */
+(function() {
+  var btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', function() {
+    var isLight = document.documentElement.classList.toggle('light');
+    localStorage.setItem('pbk-dark', isLight ? '0' : '1');
+  });
+})();
+</script>
+<script src="animations.js" defer></script>
+
+</body>
+</html>

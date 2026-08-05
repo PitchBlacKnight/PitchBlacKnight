@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23111'/><text x='16' y='22' font-family='Georgia,serif' font-size='15' font-weight='700' fill='%23e06b2a' text-anchor='middle'>MR</text></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BCBS FIBER Design System — Case Study · Mikel Rosenthal</title>
+<meta name="description" content="Creating the FIBER Design System at Blue Cross Blue Shield — token-driven, React-compatible foundations across web and mobile enrollment.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@0,400;0,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case-study-dark.css">
+<link rel="stylesheet" href="animations.css">
+<script>(function(){var s=localStorage.getItem('pbk-dark');if(s==='0')document.documentElement.classList.add('light');})();</script>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="topbar-home" href="/"><b>PBK</b>&nbsp;·&nbsp;Mikel Rosenthal</a>
+  <a class="topbar-resume" href="/resume.html" target="_blank">↓ Resume</a>
+  <button class="topbar-theme" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+  <span class="topbar-tag">Design Systems · 03 of 06</span>
+</header>
+
+<nav class="section-nav" aria-label="Case study sections">
+  <a href="#impact" data-section="impact">Overview</a>
+  <a href="#problem" data-section="problem">Problem</a>
+  <a href="#foundations" data-section="foundations">Foundations</a>
+  <a href="#shipped" data-section="shipped">Shipped</a>
+  <a href="#outcome" data-section="outcome">Outcome</a>
+</nav>
+
+<div class="wrap">
+
+  <div class="hero" id="impact">
+    <div class="hero-eyebrow">Blue Cross Blue Shield · Healthcare &amp; Insurance · 2018 – 2019 · Built from zero</div>
+    <h1 class="title">FIBER<br><em>Design System</em></h1>
+    <p class="hero-dek">Blue Cross Blue Shield's first unified design system — token-driven, React-compatible foundations spanning consumer enrollment, member tools, and marketing.</p>
+
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="mk">Role</span>
+        <span class="mv">Design System Founder / Lead — contract</span>
+      </div>
+      <div class="meta-item">
+        <span class="mk">Scope</span>
+        <span class="mv">Foundations · Components · Guide · Web + Mobile · Enrollment Flows</span>
+      </div>
+      <div class="meta-item">
+        <span class="mk">Stack</span>
+        <span class="mv">Sketch libraries · React-compatible coded components · Token foundations</span>
+      </div>
+    </div>
+
+    <div class="skills">
+      <span class="skill">Token Foundations</span>
+      <span class="skill">React Components</span>
+      <span class="skill">Sketch Libraries</span>
+      <span class="skill">A11y</span>
+      <span class="skill">System Guide</span>
+      <span class="skill">Enrollment UX</span>
+    </div>
+
+    <div class="impact-row">
+      <div class="impact">
+        <div class="n">1<em>st</em></div>
+        <div class="d">BCBS's first unified, token-driven design system</div>
+      </div>
+      <div class="impact">
+        <div class="n">2<em>×</em></div>
+        <div class="d">Platforms — web and mobile from one foundation</div>
+      </div>
+      <div class="impact">
+        <div class="n">40<em>+</em></div>
+        <div class="d">Screens unified across enrollment and member flows</div>
+      </div>
+      <div class="impact">
+        <div class="n"><em>→</em>Dev</div>
+        <div class="d">React-compatible components — design to development without re-drawing</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROBLEM -->
+  <section id="problem">
+    <div class="sec-label"><span class="sec-num">01</span>Problem</div>
+    <h2 class="sec-title">Why FIBER existed</h2>
+
+    <div class="prose">
+      <p>BCBS member and enrollment experiences were built by many hands across many vendors — and it showed. Components were disjointed, specifications lived nowhere, and every new flow reconstructed the basics. For a healthcare brand whose entire promise is trust, the seams were the problem.</p>
+      <p>FIBER's brief, straight from the guide I wrote: <b>"disjointed components with no real visible path to constructing the design to developers' specifications"</b> — solved by a system of elements and code that let teams produce mockups, prototypes, or sites without error or question.</p>
+    </div>
+
+    <div class="pull">A design system that contains all colors, type, grids, icons, and components — to quickly build any outward-facing website or prototype, from Design to Development.</div>
+
+    <figure>
+      <div class="frame">
+        <img src="images/case-studies/bcbs/bcbs_-_fiber_design_system_-_guide_presentation_v1-0-01.jpg" alt="The FIBER guide — cover of the system presentation." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 01</span> The FIBER guide — cover of the system presentation I authored and delivered.</figcaption>
+    </figure>
+
+    <div class="two-col">
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/bcbs/bcbs_-_fiber_design_system_-_guide_presentation_v1-0-03.jpg" alt="Problem to solution, in the system's own words." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 02</span> Problem → solution, in the system's own words.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/bcbs/bcbs_-_fiber_design_system_-_guide_presentation_v1-0-05.jpg" alt="Adoption — shared vocabulary and sources." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 03</span> Adoption is critical — shared vocabulary and sources, communicated often.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- FOUNDATIONS -->
+  <section id="foundations">
+    <div class="sec-label"><span class="sec-num">02</span>Foundations</div>
+    <h2 class="sec-title">Color · Type · Icons · Grid</h2>
+
+    <div class="prose">
+      <p>Foundations first: a color system with interaction and accessibility tiers, a typographic scale built for dense insurance content, an icon library, and grid layouts that worked from marketing pages to enrollment forms.</p>
+      <p>In healthcare, accessibility isn't an enhancement — it's the product working or not working. Contrast, focus, and plain language were baked into the foundation layer, not added after.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <img src="images/case-studies/bcbs/2--color.jpg" alt="The FIBER color system — brand, interaction, neutral, and accent tiers." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 04</span> The FIBER color system — brand, interaction, neutral, and accent tiers with usage rules.</figcaption>
+    </figure>
+
+    <div class="two-col">
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/bcbs/3--fiber-typography.jpg" alt="Typography — one scale across light and dark surfaces." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 05</span> Typography — one scale across light and dark surfaces.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/bcbs/6--icons.jpg" alt="Icon library — consistent stroke, sized for clinical and enrollment UI." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 06</span> Icon library — consistent stroke, sized for clinical and enrollment UI.</figcaption>
+      </figure>
+    </div>
+
+    <div class="two-col">
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/bcbs/light-theme-buttons---links.jpg" alt="Buttons and links — full state coverage, light theme." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 07</span> Buttons &amp; links — full state coverage, light theme.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/bcbs/5--fiber-grid-layouts.jpg" alt="Grid layouts — responsive structure for content-dense pages." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 08</span> Grid layouts — responsive structure for content-dense pages.</figcaption>
+      </figure>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <img src="images/case-studies/bcbs/bcbs-components.png" alt="FIBER component library — buttons, forms, cards, and navigation at scale." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 09</span> FIBER component library — buttons, forms, cards, and navigation across states and themes.</figcaption>
+    </figure>
+  </section>
+
+  <!-- SHIPPED -->
+  <section id="shipped">
+    <div class="sec-label"><span class="sec-num">03</span>Shipped</div>
+    <h2 class="sec-title">The system in production</h2>
+
+    <div class="prose">
+      <p>FIBER proved itself on the highest-stakes consumer paths: plan selection and enrollment. Forms, payment, and confirmation patterns shipped as <b>coded components with theming hooks</b> — and the same foundations carried the outward-facing marketing surfaces.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <img src="images/case-studies/bcbs/bcbs-enter-doc-facility.jpg" alt="Outward-facing homepage built on FIBER foundations." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 10</span> Outward-facing homepage built on FIBER foundations.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="frame">
+        <img src="images/case-studies/bcbs/plan-select_u65--10.jpg" alt="Enrollment — payment step from the Plan Select flow." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 11</span> Enrollment — payment step from the Plan Select flow, all system components.</figcaption>
+    </figure>
+
+    <div class="two-col">
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/bcbs/bcbs-fiber-guide-intro.png" alt="FIBER system guide — introduction and adoption framework." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 12</span> FIBER system guide — introduction, shared vocabulary, and adoption principles for all contributors.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/bcbs/bcbs-fiber-components-5.png" alt="FIBER component library — documented states and variants." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 13</span> Component library — documented states and variants, designed and handed off for React implementation.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- OUTCOME -->
+  <section id="outcome">
+    <div class="sec-label"><span class="sec-num">04</span>Outcome</div>
+    <h2 class="sec-title">2018 – 2019</h2>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="n">1<em>st</em></div>
+        <div class="d">BCBS's first unified, token-driven design system</div>
+      </div>
+      <div class="stat">
+        <div class="n">2<em>×</em></div>
+        <div class="d">Platforms — web and mobile from one foundation</div>
+      </div>
+      <div class="stat">
+        <div class="n">40<em>+</em></div>
+        <div class="d">Screens unified across enrollment and member flows</div>
+      </div>
+      <div class="stat">
+        <div class="n"><em>→</em>Dev</div>
+        <div class="d">React-compatible components — design to development without re-drawing</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Teams stopped reconstructing the basics. Enrollment flows shipped visually consistent. The guide gave designers and developers one vocabulary — and the system accelerated concept-to-completion across BCBS's multi-product ecosystem.</p>
+      <p><b>Healthcare taught me accessibility discipline.</b> Contrast, focus, and plain language aren't enhancements in insurance enrollment — they're the product working or not working. That's a standard I've carried into every system since.</p>
+    </div>
+
+    <p class="smallnote">Product imagery © Blue Cross Blue Shield. Some details generalized per confidentiality.</p>
+  </section>
+
+  <footer class="cs-footer">
+    <span><span class="lab">WORK</span><a href="/">MikelRosenthal.com</a></span>
+    <span><span class="lab">NEXT</span><a href="/#design-systems">More design systems →</a></span>
+    <span><span class="lab">CONTACT</span><a href="mailto:mikelrosenthal@me.com">mikelrosenthal@me.com</a></span>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  const links = document.querySelectorAll('.section-nav a[data-section]');
+  const ids = ['impact','problem','foundations','shipped','outcome'];
+  function update() {
+    const offset = 120;
+    let active = ids[0];
+    for (let i = ids.length - 1; i >= 0; i--) {
+      const el = document.getElementById(ids[i]);
+      if (el && el.getBoundingClientRect().top <= offset) { active = ids[i]; break; }
+    }
+    links.forEach(a => a.classList.toggle('active', a.dataset.section === active));
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+<script>
+(function() {
+  var btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', function() {
+    var isLight = document.documentElement.classList.toggle('light');
+    localStorage.setItem('pbk-dark', isLight ? '0' : '1');
+  });
+})();
+</script>
+<script src="animations.js" defer></script>
+</body>
+</html>

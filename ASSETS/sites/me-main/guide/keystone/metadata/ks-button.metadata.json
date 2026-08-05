@@ -1,0 +1,192 @@
+{
+  "component": {
+    "name": "ks-button",
+    "category": "atoms",
+    "type": "interactive",
+    "description": "The action control. Announces an action, never a destination.",
+    "status": "stable",
+    "since": "1.0.0",
+    "replacedBy": null
+  },
+  "tokens": {
+    "background": "component.button.bg",
+    "backgroundHover": "component.button.bg-hover",
+    "backgroundActive": "component.button.bg-active",
+    "foreground": "component.button.fg",
+    "radius": "component.button.radius",
+    "focusRing": "component.button.focus-ring",
+    "motion": "component.button.motion",
+    "gap": "component.button.gap",
+    "height": "component.button.height-{size}",
+    "paddingInline": "component.button.pad-inline-{size}"
+  },
+  "usage": {
+    "useCases": [
+      "primary-call-to-action",
+      "form-submit",
+      "destructive-confirm",
+      "dialog-action"
+    ],
+    "requiredProps": [],
+    "selectionCriteria": {
+      "primary": "The single main action in a view. One per view — never two.",
+      "secondary": "Supporting actions shown alongside a primary.",
+      "ghost": "Tertiary actions in dense UI where visual weight would compete with content.",
+      "danger": "Destructive actions that have already been confirmed elsewhere."
+    },
+    "commonPatterns": [
+      {
+        "name": "submit-with-loading",
+        "description": "Form submit that must not reflow while pending.",
+        "composition": "<ks-button type=\"submit\" loading>Save</ks-button>"
+      },
+      {
+        "name": "confirm-pair",
+        "description": "Destructive confirm alongside a cancel.",
+        "composition": "<ks-button variant=\"secondary\">Cancel</ks-button>\n<ks-button variant=\"danger\">Delete</ks-button>"
+      }
+    ],
+    "antiPatterns": [
+      {
+        "scenario": "Using ks-button to navigate to another page",
+        "reason": "Buttons announce actions; links announce destinations. Screen-reader users navigate by role, so a button that navigates is unreachable in a links list.",
+        "alternative": "A link element"
+      },
+      {
+        "scenario": "Two primary buttons in one view",
+        "reason": "Primary means the single main action. Two primaries means neither is.",
+        "alternative": "One primary, the rest secondary"
+      },
+      {
+        "scenario": "Icon-only button with no aria-label",
+        "reason": "Produces an unlabelled control in the accessibility tree. The component warns in dev but cannot fix it.",
+        "alternative": "aria-label, or a visible label"
+      },
+      {
+        "scenario": "Removing the element from the tab order while disabled",
+        "reason": "A keyboard user auditing a form cannot find a control they cannot focus.",
+        "alternative": "aria-disabled plus suppressed activation — which is what this component does"
+      }
+    ]
+  },
+  "composition": {
+    "slots": {
+      "default": "label text",
+      "leadingIcon": "optional",
+      "trailingIcon": "optional"
+    },
+    "nestedComponents": [],
+    "commonPartners": [
+      "ks-input",
+      "form",
+      "dialog"
+    ],
+    "parentConstraints": [
+      "Must not be nested inside another interactive element"
+    ],
+    "forbiddenParents": [
+      "ks-button",
+      "a",
+      "button"
+    ]
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default"
+      },
+      {
+        "name": "hover",
+        "tokens": {
+          "background": "component.button.bg-hover"
+        }
+      },
+      {
+        "name": "active",
+        "tokens": {
+          "background": "component.button.bg-active"
+        }
+      },
+      {
+        "name": "focus-visible",
+        "tokens": {
+          "outline": "component.button.focus-ring"
+        },
+        "a11y": "2px ring at 2px offset, ≥3:1 against both the control and the surface behind it"
+      },
+      {
+        "name": "disabled",
+        "tokens": {
+          "background": "component.button.bg-disabled",
+          "foreground": "component.button.fg-disabled"
+        },
+        "a11y": "aria-disabled=true, remains focusable, carries an inset border as a non-colour signal"
+      },
+      {
+        "name": "loading",
+        "a11y": "aria-busy=true, label persists, width does not change"
+      }
+    ],
+    "interactions": {
+      "click": "fires click unless disabled or loading",
+      "Enter": "activates",
+      "Space": "activates"
+    }
+  },
+  "accessibility": {
+    "role": "button",
+    "accessibleName": "From slotted text, or aria-label when icon-only",
+    "keyboard": {
+      "Tab": "moves focus",
+      "Enter": "activate",
+      "Space": "activate"
+    },
+    "screenReader": "Announces name, role, and disabled/busy state",
+    "focusManagement": "delegatesFocus on the shadow root; never traps",
+    "contrast": [
+      {
+        "pair": [
+          "component.button.fg",
+          "component.button.bg"
+        ],
+        "min": 4.5
+      },
+      {
+        "pair": [
+          "component.button.focus-ring",
+          "semantic.surface"
+        ],
+        "min": 3
+      }
+    ],
+    "nonColorSignal": "Disabled carries an inset border and not-allowed cursor; loading carries a spinner",
+    "wcag": [
+      "1.4.3",
+      "1.4.11",
+      "2.1.1",
+      "2.4.7",
+      "2.5.5",
+      "4.1.2"
+    ],
+    "targetSize": "44×44 via an invisible ::after hit area, so the visual control is not inflated"
+  },
+  "aiHints": {
+    "priority": "high",
+    "keywords": [
+      "button",
+      "action",
+      "submit",
+      "cta",
+      "confirm",
+      "delete"
+    ],
+    "context": "Reach here for any action. For navigation, reach for a link instead."
+  },
+  "provenance": {
+    "generatedFrom": "components/ks-button.js",
+    "sourceChecksum": "sha256:951b558dc460d05c",
+    "tokensVersion": "sha256:dc07e783b0bab063",
+    "generator": "build/metadata.mjs",
+    "reviewedBy": "human"
+  }
+}

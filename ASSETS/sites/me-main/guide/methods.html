@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Methods — how you actually work</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css?v=2">
+<style>
+  .m{display:grid;grid-template-columns:38px 1fr;gap:var(--s4);padding:var(--s5) 0;border-bottom:1px solid var(--line)}
+  .m:last-child{border-bottom:0}
+  .m .n{font-family:var(--mono);font-size:11px;color:var(--accent);padding-top:6px;letter-spacing:.08em}
+  .m h3{font-size:19px;font-weight:500;letter-spacing:-.025em;margin-bottom:var(--s2)}
+  .m .trig{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--ok);border:1px solid rgba(127,183,126,.3);background:rgba(127,183,126,.07);
+    border-radius:5px;padding:5px 9px;display:inline-block;margin-bottom:var(--s3);
+  }
+  .m p{font-size:13.5px;color:var(--ink-2);line-height:1.6;max-width:76ch}
+  .m .art{
+    margin-top:var(--s3);font-family:var(--mono);font-size:11px;color:var(--ink-3);
+    display:flex;gap:var(--s2);align-items:baseline;flex-wrap:wrap;
+  }
+  .m .art b{color:var(--accent-2);font-weight:400}
+  .m .say{margin-top:var(--s4)}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="brand">
+      <div class="mark">Methods</div>
+      <h1>How you work</h1>
+      <div class="sub">10 named moves</div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="railfoot">
+      <div><kbd>R</kbd> &nbsp;practise</div>
+      <div><kbd>⌘</kbd><kbd>K</kbd> &nbsp;jump</div>
+      <div><kbd>J</kbd><kbd>K</kbd> &nbsp;next / prev</div>
+    </div>
+  </aside>
+
+  <div>
+  <header class="top">
+    <div class="who">
+      <strong>Methods</strong>
+      <span> &nbsp;·&nbsp; the answer to "how do you approach this"</span>
+    </div>
+    <nav class="swap">
+      <a href="index.html">Hub</a>
+      <a href="say.html">Say this</a>
+      <a href="state-farm.html">State Farm</a>
+      <a href="case-study.html">Case study</a>
+      <a href="phone.html">Voice</a>
+      <a href="methods.html" class="here">Methods</a>
+      <a href="questions.html">Questions</a>
+      <a href="talk-track.html">Talk track</a>
+      <a href="figma-demo.html">Figma</a>
+      <a href="goji-labs.html">Goji</a>
+      <a href="loom.html">Loom</a>
+      <a href="landscape.html">Landscape</a>
+    </nav>
+    <button class="btn" id="palBtn">⌘K</button>
+    <button class="btn btn--go" id="rehBtn">▶ &nbsp;Practise</button>
+  </header>
+
+  <main>
+
+    <section id="s0" class="hero">
+      <div class="kicker">00 — Why this page</div>
+      <h2 class="big">Ten moves. <em>Each one has a name, a trigger, and a receipt.</em></h2>
+
+      <div class="oneliner">
+        "How do you approach it" is the question people answer worst, because they reach for
+        a philosophy. A method has a <strong>trigger</strong> — the moment you use it — and an
+        <strong>artifact</strong> it produces. Naming both is what separates someone who has a
+        practice from someone who has opinions.
+        <span>The green tag on each is the question that triggers it</span>
+      </div>
+
+      <div class="grid g3" style="margin-top:var(--s6)">
+        <div class="card beat">
+          <div class="bh"><h3>Pattern-match, don't recite</h3><div class="t">in the room</div></div>
+          <p>You won't get asked "what are your methods." You'll get a situation. Recognise which of the ten it is, name it, then give the receipt.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>One receipt each</h3><div class="t">always</div></div>
+          <p>Every method below ends on something that actually happened. A method without a receipt is a preference.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>They map to the JD</h3><div class="t">deliberately</div></div>
+          <p>Research, audit, architecture, collaboration, adoption, automation, governance. Their requirement list, in the order you'd actually do it.</p>
+        </div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <section id="s1">
+      <div class="shead"><div class="num">01</div><h2>Discovery &amp; audit</h2></div>
+      <div class="card">
+
+        <div class="m">
+          <div class="n">01</div>
+          <div>
+            <div class="trig">"How do you do research?" · "How do you find problems?"</div>
+            <h3>Shadow, don't ask</h3>
+            <p>Watch people do the real work instead of interviewing them about it. Nobody describes their own workarounds — they've stopped seeing them. Fifteen minutes watching someone rebuild a quote history out of their sent folder tells you more than an hour of them explaining their process.</p>
+            <div class="art"><b>PRODUCES</b> a friction inventory — the specific moments where the tool loses the thread</div>
+            <div class="say">"I'd rather watch someone work for fifteen minutes than interview them for an hour. Nobody can describe a workaround they've stopped noticing."</div>
+          </div>
+        </div>
+
+        <div class="m">
+          <div class="n">02</div>
+          <div>
+            <div class="trig">"How do you make the case?" · "How do you get buy-in?"</div>
+            <h3>Make it countable</h3>
+            <p>You don't win the argument for a system with taste. Inventory every distinct state in production and cluster by pattern — the count ends a debate that opinions can't. Same move applies to a token collection: duplicates, orphans, off-scale values.</p>
+            <div class="art"><b>PRODUCES</b> an interface inventory · a number nobody can dispute</div>
+            <div class="art"><b>RECEIPT</b> Avant — five primary blues, three button shapes, seven sizes, in a tool where advisors present live revenue data</div>
+            <div class="say">"Inconsistency reads as unreliability. But I don't say that until I can show the count."</div>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <section id="s2">
+      <div class="shead"><div class="num">02</div><h2>Architecture</h2></div>
+      <div class="card">
+
+        <div class="m">
+          <div class="n">03</div>
+          <div>
+            <div class="trig">"Where do you start on a redesign?"</div>
+            <h3>Nouns before screens</h3>
+            <p>Decide what the object is before designing any view of it. Most broken products are organised around <em>tools</em> — destinations you visit and leave — when they should be organised around a single object that carries its own state and evidence.</p>
+            <div class="art"><b>PRODUCES</b> an object model · a state machine, not a sitemap</div>
+            <div class="art"><b>RECEIPT</b> Pathfinder — one Project object moving through five states, evidence accumulating forward</div>
+            <div class="say">"Everything followed from one decision about nouns."</div>
+          </div>
+        </div>
+
+        <div class="m">
+          <div class="n">04</div>
+          <div>
+            <div class="trig">"How do you structure tokens?" · "How do you handle theming?"</div>
+            <h3>Primitives private, semantics public</h3>
+            <p>Primitives are the raw scale and nothing may reference them directly. Semantics carry purpose and are the only thing that themes. Component tokens exist where one component must diverge without disturbing everything that shares its semantic — and only there. References point one way, and the build enforces it rather than a reviewer.</p>
+            <div class="art"><b>PRODUCES</b> three tiers · a build that fails on a violation</div>
+            <div class="art"><b>RECEIPT</b> Pathfinder carried 2.0 → 3.0 with no redesign · GE Healthcare resolved four theme targets from one semantic layer</div>
+            <div class="say">"A tier has to earn its keep. Only colour re-themes, so only colour gets a semantic layer — aliasing space-4 as semantic-space-4 adds a hop and no information."</div>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <section id="s3">
+      <div class="shead"><div class="num">03</div><h2>Collaboration</h2></div>
+      <div class="card">
+
+        <div class="m">
+          <div class="n">05</div>
+          <div>
+            <div class="trig">"How do you work with engineers?"</div>
+            <h3>Name it with the people who call it</h3>
+            <p>Token and component names are an API decision, so engineers are in the room when they're made — before the library gets built, not at handoff. This is the cheapest possible prevention for the design-and-code drift every system eventually gets.</p>
+            <div class="art"><b>PRODUCES</b> a naming convention with two authors · Code Connect mappings</div>
+            <div class="art"><b>RECEIPT</b> Verizon — design-to-code alignment through Dev Mode and Code Connect across iOS, Android and web</div>
+            <div class="say">"They pushed back on my first token names because they read as design words rather than API names. They were right."</div>
+          </div>
+        </div>
+
+        <div class="m">
+          <div class="n">06</div>
+          <div>
+            <div class="trig">"How do you support non-designers?"</div>
+            <h3>Harder rails, warmer docs</h3>
+            <p>Non-designers don't need more freedom, they need less — plus documentation written like a person talking. Same architecture as the product system, different empathy. The library has to be the fastest path, not the mandated one.</p>
+            <div class="art"><b>PRODUCES</b> token-locked templates · enablement sessions</div>
+            <div class="art"><b>RECEIPT</b> Avant marketing library — 350+ managers shipping on-brand with no designer in the loop</div>
+            <div class="say">"It became the default path because it was faster than the old way. Nobody was told to use it."</div>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <section id="s4">
+      <div class="shead"><div class="num">04</div><h2>Automation &amp; AI</h2></div>
+      <div class="card">
+
+        <div class="m">
+          <div class="n">07</div>
+          <div>
+            <div class="trig">"When do you build tooling?"</div>
+            <h3>Automate the third repetition</h3>
+            <p>Not the first — you don't know the shape yet. The third time you hand-fix the same drift is when the tool designs itself, and the tool you build then is the one people actually use. Build the smallest thing that removes the repetition, not the platform.</p>
+            <div class="art"><b>PRODUCES</b> a plugin · a script · a build step</div>
+            <div class="art"><b>RECEIPT</b> Figma variables → W3C DTCG exporter, so tokens can leave Figma and feed a pipeline</div>
+            <div class="say">"Building it taught me the real problem was upstream — Figma has one FLOAT type and the spec distinguishes a dimension from a number. The fix is the naming convention, not the exporter."</div>
+            <div class="art"><b>WHAT IT BOUGHT</b> roughly 10× on the mechanical work — audits, variant coverage, documentation, drift checks. Zero on the decisions, deliberately.</div>
+          </div>
+        </div>
+
+        <div class="m">
+          <div class="n">08</div>
+          <div>
+            <div class="trig">"What's AI's role?" · "How do you make a system AI-ready?"</div>
+            <h3>Encode the rule, don't document it</h3>
+            <p>Prose guidance is unenforceable by anything. A rule with a consequence — "raw hex is a defect", "annotate every value with its source token" — produces output you can audit. Two layers: the rules make a generated component correct, the inventory stops it generating a fourth button alongside your three.</p>
+            <div class="art"><b>PRODUCES</b> a skill file · component metadata with anti-patterns</div>
+            <div class="art"><b>RECEIPT</b> A rules pass found a missing focus state in a component I'd owned for three years</div>
+            <div class="say">"A design system that can't be written down as rules can't be automated by anything. The AI is just the first consumer that can't improvise around bad documentation."</div>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <section id="s5">
+      <div class="shead"><div class="num">05</div><h2>Adoption &amp; governance</h2></div>
+      <div class="card">
+
+        <div class="m">
+          <div class="n">09</div>
+          <div>
+            <div class="trig">"How do you measure adoption?"</div>
+            <h3>Measure to know what to fix</h3>
+            <p>Coverage is depth — how much of production is built from the system. Usage is breadth — which components get reached for. Detachment tells you where the system doesn't fit, and it isn't automatically bad: on a component built to be customised it may mean it's working. A bare percentage that doesn't point at a next question is theatre.</p>
+            <div class="art"><b>PRODUCES</b> coverage · detachment · adoption by team · staleness of the docs</div>
+            <div class="art"><b>RECEIPT</b> Avant — instance audits, changelogs, Dev Mode usage; the qualitative one: design review stopped being about policing basics</div>
+            <div class="say">"Eighty percent adoption doesn't tell you which teams, or why the other twenty aren't. The number is only useful if it points at the next question."</div>
+          </div>
+        </div>
+
+        <div class="m">
+          <div class="n">10</div>
+          <div>
+            <div class="trig">"How do you think about governance?"</div>
+            <h3>Build the exit, not just the entrance</h3>
+            <p>Everyone builds a contribution path. Almost nobody builds a deprecation path — which is why mature systems accumulate generations of names that all still resolve. A token leaves the same way it arrives: marked deprecated with a replacement pointer, kept one minor version, removed at the next major.</p>
+            <div class="art"><b>PRODUCES</b> a deprecation policy · a versioning story · a changelog people read</div>
+            <div class="art"><b>RECEIPT</b> Auditing my own file found three generations of naming coexisting — I'd built the entrance and never the exit</div>
+            <div class="say">"Governance is mostly about how things leave. I only solved how they enter, and I can show you what that cost."</div>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <section id="s6">
+      <div class="shead">
+        <div class="num">06</div><h2>Which method answers which question</h2>
+        <p>Skim this the morning of. It's the pattern-match, not the script.</p>
+      </div>
+      <div class="mx">
+        <div class="row"><div class="verdict v-strong">01 · 02</div><div class="what"><b>Anything about research, discovery, or making the case</b><span>Shadow rather than ask, then make the friction countable.</span></div></div>
+        <div class="row"><div class="verdict v-strong">03 · 04</div><div class="what"><b>Anything about structure — tokens, theming, where to start</b><span>Nouns before screens. Primitives private, semantics public, component tier only where it earns its keep.</span></div></div>
+        <div class="row"><div class="verdict v-strong">05</div><div class="what"><b>Anything about engineering partnership or design-to-code</b><span>Naming is an API decision, so engineers are in the room for it.</span></div></div>
+        <div class="row"><div class="verdict v-strong">06 · 09</div><div class="what"><b>Anything about adoption, barriers, or metrics</b><span>Harder rails and warmer docs; measure to find the next question, not to prove you're winning.</span></div></div>
+        <div class="row"><div class="verdict v-strong">07 · 08</div><div class="what"><b>Anything about automation, tooling, or AI</b><span>Automate the third repetition. Encode rules instead of documenting them.</span></div></div>
+        <div class="row"><div class="verdict v-strong">10</div><div class="what"><b>Anything about governance or long-term direction</b><span>Build the exit. Then show what it cost you not to.</span></div></div>
+      </div>
+    </section>
+
+  </main>
+  </div>
+</div>
+
+<div class="reh" id="reh" aria-hidden="true">
+  <div class="reh-in">
+    <div class="dots" id="rehDots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="beatname" id="rehName"></div>
+    <div class="clock" id="rehClock">0:00</div>
+    <div class="target" id="rehTarget"></div>
+    <div class="script" id="rehScript"></div>
+    <div class="ctl">
+      <button class="btn" id="rehPrev">← Back</button>
+      <button class="btn btn--go" id="rehNext">Next →</button>
+      <button class="btn" id="rehReset">Reset</button>
+      <button class="btn" id="rehClose">Esc · Close</button>
+    </div>
+    <div class="hint">Name the method, then give the receipt. Twenty seconds each.</div>
+  </div>
+</div>
+
+<div class="pal" id="pal" aria-hidden="true">
+  <div class="pal-in"><input id="palIn" placeholder="Jump to…" autocomplete="off" spellcheck="false"><ul id="palList"></ul></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+var KIT = { company:"State Farm", role:"Design Systems Engineer", system:"Keystone", date:"", pageTitle:"Methods — how you actually work" };
+var SECTIONS = [
+  {id:"s0", n:"00", t:"Why this page"},
+  {id:"s1", n:"01", t:"Discovery & audit"},
+  {id:"s2", n:"02", t:"Architecture"},
+  {id:"s3", n:"03", t:"Collaboration"},
+  {id:"s4", n:"04", t:"Automation & AI"},
+  {id:"s5", n:"05", t:"Adoption & governance"},
+  {id:"s6", n:"06", t:"Question → method"}
+];
+var BEATS = [
+  {name:"01 — Shadow, don't ask", sec:20, script:"I'd rather watch someone work for fifteen minutes than interview them for an hour. Nobody can describe a workaround they've stopped noticing."},
+  {name:"02 — Make it countable", sec:20, script:"Inconsistency reads as unreliability — but I don't say that until I can show the count. At Avant: five primary blues, three button shapes, seven sizes, in production."},
+  {name:"03 — Nouns before screens", sec:20, script:"Everything followed from one decision about nouns. The platform was organised around tools; I reorganised it around a single Project object that carries its own state."},
+  {name:"04 — Primitives private, semantics public", sec:25, script:"Primitives are private, semantics are the public API, and a component tier exists only where one component must diverge. References point one way and the build enforces it, not a reviewer."},
+  {name:"05 — Name it with the people who call it", sec:20, script:"Token names are an API decision, so engineers are in the room before the library gets built. They pushed back on my first names because they read as design words. They were right."},
+  {name:"06 — Harder rails, warmer docs", sec:20, script:"Non-designers need less freedom and warmer documentation. Same architecture, different empathy. It became the default path because it was faster — nobody was told to use it."},
+  {name:"07 — Automate the third repetition", sec:20, script:"Not the first — you don't know the shape yet. The third time you hand-fix the same drift, the tool designs itself."},
+  {name:"08 — Encode the rule, don't document it", sec:25, script:"Prose guidance is unenforceable by anything. A rule with a consequence produces auditable output. A rules pass found a missing focus state in a component I'd owned for three years."},
+  {name:"09 — Measure to know what to fix", sec:20, script:"Eighty percent adoption doesn't tell you which teams, or why the other twenty aren't. The number is only useful if it points at the next question."},
+  {name:"10 — Build the exit, not just the entrance", sec:20, script:"Everyone builds a contribution path. Almost nobody builds a deprecation path — which is why mature systems end up with three generations of names that all still resolve."}
+];
+</script>
+<script src="kit.js?v=2"></script>
+</body>
+</html>

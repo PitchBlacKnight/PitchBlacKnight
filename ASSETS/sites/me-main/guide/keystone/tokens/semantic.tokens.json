@@ -1,0 +1,54 @@
+{
+  "$description": "Tier 2 — SEMANTIC. The public API. Names describe purpose, never appearance. Every value is a reference into primitive; no raw values live here. Two modes: light and dark. Components bind to this tier or to component tokens, never to primitive.",
+  "semantic": {
+    "light": {
+      "surface":        { "$type": "color", "$value": "{primitive.color.neutral.0}" },
+      "surface-raised": { "$type": "color", "$value": "{primitive.color.neutral.50}" },
+      "surface-sunken": { "$type": "color", "$value": "{primitive.color.neutral.100}" },
+
+      "text":           { "$type": "color", "$value": "{primitive.color.neutral.900}" },
+      "text-muted":     { "$type": "color", "$value": "{primitive.color.neutral.600}" },
+      "text-disabled":  { "$type": "color", "$value": "{primitive.color.neutral.400}" },
+      "text-on-action": { "$type": "color", "$value": "{primitive.color.neutral.0}" },
+
+      "border":         { "$type": "color", "$value": "{primitive.color.neutral.200}" },
+      "border-strong":  { "$type": "color", "$value": "{primitive.color.neutral.400}" },
+
+      "action-bg":        { "$type": "color", "$value": "{primitive.color.brand.500}" },
+      "action-bg-hover":  { "$type": "color", "$value": "{primitive.color.brand.600}" },
+      "action-bg-active": { "$type": "color", "$value": "{primitive.color.brand.700}" },
+
+      "focus-ring": { "$type": "color", "$value": "{primitive.color.brand.600}" },
+      "danger":     { "$type": "color", "$value": "{primitive.color.danger.500}" },
+      "danger-bg":  { "$type": "color", "$value": "{primitive.color.danger.500}" },
+      "success":    { "$type": "color", "$value": "{primitive.color.success.500}" },
+      "warning":    { "$type": "color", "$value": "{primitive.color.warning.500}" }
+    },
+
+    "dark": {
+      "surface":        { "$type": "color", "$value": "{primitive.color.neutral.1000}" },
+      "surface-raised": { "$type": "color", "$value": "{primitive.color.neutral.900}" },
+      "surface-sunken": { "$type": "color", "$value": "{primitive.color.neutral.800}" },
+
+      "text":           { "$type": "color", "$value": "{primitive.color.neutral.50}" },
+      "text-muted":     { "$type": "color", "$value": "{primitive.color.neutral.400}" },
+      "text-disabled":  { "$type": "color", "$value": "{primitive.color.neutral.600}" },
+      "text-on-action": { "$type": "color", "$value": "{primitive.color.neutral.0}" },
+
+      "border":         { "$type": "color", "$value": "{primitive.color.neutral.800}" },
+      "border-strong":  { "$type": "color", "$value": "{primitive.color.neutral.600}" },
+
+      "action-bg":        { "$type": "color", "$value": "{primitive.color.brand.500}" },
+      "action-bg-hover":  { "$type": "color", "$value": "{primitive.color.brand.300}" },
+      "action-bg-active": { "$type": "color", "$value": "{primitive.color.brand.500}" },
+
+      "focus-ring": { "$type": "color", "$value": "{primitive.color.brand.300}" },
+      "danger":     { "$type": "color", "$value": "{primitive.color.danger.500}" },
+      "danger-bg":  { "$type": "color", "$value": "{primitive.color.danger.600}" },
+      "success":    { "$type": "color", "$value": "{primitive.color.success.500}" },
+      "warning":    { "$type": "color", "$value": "{primitive.color.warning.500}" }
+    }
+  },
+
+  "$note": "Only colour has a semantic tier, because only colour re-themes. Dimensions, durations and type carry no mode-dependent meaning, so component tokens reference primitive directly for those. Inventing semantic-space-4 as an alias of space-4 adds a hop and no information — a tier has to earn its keep."
+}

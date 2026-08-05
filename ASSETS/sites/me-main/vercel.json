@@ -1,0 +1,16 @@
+{
+  "redirects": [
+    { "source": "/guide", "destination": "/guide/", "permanent": true },
+    { "source": "/guide/keystone", "destination": "/guide/keystone/docs/", "permanent": false },
+    { "source": "/guide/keystone/docs", "destination": "/guide/keystone/docs/", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/guide/(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet, noimageindex" },
+        { "key": "Referrer-Policy", "value": "no-referrer" }
+      ]
+    }
+  ]
+}

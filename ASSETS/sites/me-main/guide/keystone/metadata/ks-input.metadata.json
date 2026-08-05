@@ -1,0 +1,185 @@
+{
+  "component": {
+    "name": "ks-input",
+    "category": "atoms",
+    "type": "input",
+    "description": "Single-line text entry with a always-visible label and an announced error state.",
+    "status": "stable",
+    "since": "1.0.0",
+    "replacedBy": null
+  },
+  "tokens": {
+    "background": "component.input.bg",
+    "foreground": "component.input.fg",
+    "placeholder": "component.input.fg-placeholder",
+    "border": "component.input.border",
+    "borderHover": "component.input.border-hover",
+    "borderInvalid": "component.input.border-invalid",
+    "focusRing": "component.input.focus-ring",
+    "radius": "component.input.radius",
+    "height": "component.input.height",
+    "paddingInline": "component.input.pad-inline"
+  },
+  "usage": {
+    "useCases": [
+      "form-field",
+      "search",
+      "inline-edit"
+    ],
+    "requiredProps": [
+      "label"
+    ],
+    "selectionCriteria": {
+      "text": "Default. Free-form short text.",
+      "email": "Triggers the correct mobile keyboard and browser validation.",
+      "password": "Obscured entry. Never reuse for non-secret values.",
+      "search": "Search affordance; pair with a clear control."
+    },
+    "commonPatterns": [
+      {
+        "name": "field-with-hint",
+        "description": "Helper text that explains why the value is needed.",
+        "composition": "<ks-input label=\"Work email\" type=\"email\" helper=\"We only use this to send your invite.\"></ks-input>"
+      },
+      {
+        "name": "server-error",
+        "description": "Error returned after submit.",
+        "composition": "<ks-input label=\"Work email\" error=\"Enter a valid email address.\"></ks-input>"
+      }
+    ],
+    "antiPatterns": [
+      {
+        "scenario": "Using placeholder as the label",
+        "reason": "The placeholder disappears on focus, so the user loses the field name exactly when they need it, and most screen readers do not announce it as a name.",
+        "alternative": "The label attribute — it is required for this reason"
+      },
+      {
+        "scenario": "Signalling invalid with a red border only",
+        "reason": "Fails for colour-blind users and for anyone with a high-contrast theme.",
+        "alternative": "Border plus icon plus message — which is what this component renders"
+      },
+      {
+        "scenario": "Showing helper and error at the same time",
+        "reason": "Two competing messages in one live region; the error is what matters.",
+        "alternative": "Error replaces helper while invalid"
+      }
+    ]
+  },
+  "composition": {
+    "slots": {},
+    "nestedComponents": [],
+    "commonPartners": [
+      "ks-button",
+      "form"
+    ],
+    "parentConstraints": [
+      "Should sit inside a form or fieldset for grouping semantics"
+    ],
+    "forbiddenParents": [
+      "ks-button",
+      "a"
+    ]
+  },
+  "behavior": {
+    "states": [
+      {
+        "name": "default"
+      },
+      {
+        "name": "hover",
+        "tokens": {
+          "border": "component.input.border-hover"
+        }
+      },
+      {
+        "name": "focus-visible",
+        "tokens": {
+          "outline": "component.input.focus-ring"
+        },
+        "a11y": "2px ring at 0 offset so the field boundary stays legible"
+      },
+      {
+        "name": "invalid",
+        "tokens": {
+          "border": "component.input.border-invalid"
+        },
+        "a11y": "aria-invalid=true, aria-describedby to the message, message carries role=alert"
+      },
+      {
+        "name": "disabled",
+        "tokens": {
+          "background": "component.input.bg-disabled"
+        },
+        "a11y": "native disabled"
+      },
+      {
+        "name": "readonly",
+        "a11y": "native readonly; border unchanged so it does not read as disabled"
+      }
+    ],
+    "interactions": {
+      "input": "emits ks-input with the current value"
+    }
+  },
+  "accessibility": {
+    "role": "textbox",
+    "accessibleName": "From the required label attribute, associated by for/id",
+    "keyboard": {
+      "Tab": "moves focus"
+    },
+    "screenReader": "Announces label, value, required and invalid state; error announced via role=alert",
+    "focusManagement": "delegatesFocus on the shadow root",
+    "contrast": [
+      {
+        "pair": [
+          "component.input.fg",
+          "component.input.bg"
+        ],
+        "min": 4.5
+      },
+      {
+        "pair": [
+          "component.input.border",
+          "semantic.surface"
+        ],
+        "min": 3
+      },
+      {
+        "pair": [
+          "component.input.border-invalid",
+          "semantic.surface"
+        ],
+        "min": 3
+      }
+    ],
+    "nonColorSignal": "Invalid carries a triangle icon and message text alongside the border colour",
+    "wcag": [
+      "1.3.1",
+      "1.4.3",
+      "1.4.11",
+      "2.4.7",
+      "3.3.1",
+      "3.3.2",
+      "4.1.2"
+    ],
+    "targetSize": "40px control height; 44px reachable via label click target"
+  },
+  "aiHints": {
+    "priority": "high",
+    "keywords": [
+      "input",
+      "field",
+      "text",
+      "form",
+      "email"
+    ],
+    "context": "Any single-line text entry. Multi-line needs a textarea component, which does not exist yet — flag the gap."
+  },
+  "provenance": {
+    "generatedFrom": "components/ks-input.js",
+    "sourceChecksum": "sha256:7d46ba5e01808764",
+    "tokensVersion": "sha256:dc07e783b0bab063",
+    "generator": "build/metadata.mjs",
+    "reviewedBy": "human"
+  }
+}

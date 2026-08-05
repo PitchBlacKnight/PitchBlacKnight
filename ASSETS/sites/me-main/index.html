@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PBK Studio — Mikel Rosenthal | Art Direction · Design Systems · Product Design</title>
-  <meta name="description" content="PBK Studio — Mikel Rosenthal. Art Direction, Design Systems, Product Design, UX, Voiceover, and Music. 25+ years. Trusted by Google, GE Healthcare, BCBS, Herman Miller. Chicago, IL. Available for contract and freelance.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23111'/><text x='16' y='22' font-family='Georgia,serif' font-size='15' font-weight='700' fill='%23e06b2a' text-anchor='middle'>MR</text></svg>">
+  <meta name="description" content="PBK Studio — Mikel Rosenthal. Art Direction, Design Systems, Product Design, UX, Voiceover, and Music. 24+ years. Trusted by Google, GE Healthcare, BCBS, Herman Miller. Chicago, IL. Available for contract and freelance.">
   <meta name="author" content="Mikel Rosenthal">
   <meta property="og:title" content="PBK Studio — Mikel Rosenthal">
   <meta property="og:description" content="Art Direction · Design Systems · Product Design · Music · Voice Performance. Trusted by Google, GE Healthcare, BCBS, and more. Chicago, IL. Available now.">
@@ -33,8 +34,10 @@
       --ink-25:     rgba(26,22,18,0.25);
       --ink-10:     rgba(26,22,18,0.10);
       --muted:      #8a7e6d;
-      --orange:     #e8512a;
-      --orange-10:  rgba(232,81,42,0.10);
+      --orange:     #c8901a;
+      --orange-10:  rgba(200,144,26,0.10);
+      --teal:       #2a9fa5;
+      --red:        #cc4444;
       --rule:       rgba(26,22,18,0.12);
       --rule-light: rgba(240,235,224,0.12);
       --nav-w:      216px;
@@ -196,20 +199,34 @@
       flex-direction: column;
       justify-content: flex-end;
       position: relative;
-      border-bottom: 1px solid var(--rule);
+      background: #252525;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
       overflow: hidden;
     }
+    #hero .hero-overline { color: var(--orange); }
+    #hero .hero-name { color: #ede8dd; }
+    #hero .hero-disciplines { color: rgba(237,232,221,0.42); }
+    #hero .hero-bio { color: rgba(237,232,221,0.70); }
+    #hero .hero-tag { color: rgba(237,232,221,0.38); border-color: rgba(237,232,221,0.14); }
+    #hero .hero-tag.live { color: var(--orange); border-color: var(--orange); }
+    #hero .hero-index span { color: rgba(237,232,221,0.14); }
 
     .hero-geo {
       position: absolute;
-      right: 6%;
+      right: -4%;
       top: 50%;
-      transform: translateY(-52%);
-      width: min(119vw, 1566px);
-      mix-blend-mode: multiply;
-      opacity: 0.18;
+      transform: translateY(-50%);
+      width: min(180vw, 2150px);
+      mix-blend-mode: screen;
+      opacity: 0.72;
       pointer-events: none;
       user-select: none;
+    }
+    .hero-text-shield {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, #252525 32%, transparent 72%);
+      pointer-events: none;
     }
 
     .hero-overline {
@@ -292,6 +309,7 @@
     }
 
     .project-card { cursor: pointer; }
+    a.project-card { display: block; text-decoration: none; color: inherit; }
     .project-card:hover .proj-thumb { opacity: 0.82; }
     .project-card:hover .proj-title { color: var(--orange); }
 
@@ -312,7 +330,7 @@
     }
     #grid-systems .proj-thumb {
       aspect-ratio: 16/9;
-      background: #0a0a0a;
+      background: #2c2c2c;
       border-color: transparent;
     }
     #grid-systems .proj-thumb img {
@@ -585,6 +603,13 @@
       border-radius: 50%;
       background: var(--orange);
     }
+    .avail-tag {
+      border: 1px solid var(--orange);
+      border-radius: 2px;
+      padding: 1px 6px;
+      font-size: 9px;
+      letter-spacing: 0.12em;
+    }
 
     .contact-item-label {
       font-family: 'Space Mono', monospace;
@@ -607,22 +632,179 @@
       color: var(--muted);
     }
 
-    /* ── FOOTER ──────────────────────────────────────── */
-    .site-footer {
-      padding: 28px var(--gutter);
-      border-top: 1px solid var(--rule);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: var(--cream);
-    }
-    .site-footer span {
+    /* ── INTAKE FORM ─────────────────────────────────── */
+    .vacation-notice {
+      display: none;
+      background: var(--orange);
+      color: var(--cream);
       font-family: 'Space Mono', monospace;
       font-size: 10px;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      padding: 10px 16px;
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .vacation-notice.active { display: block; }
+    .intake-form { width: 100%; }
+    .intake-field { margin-bottom: 22px; }
+    .intake-label {
+      display: block;
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--muted);
+      margin-bottom: 7px;
     }
+    .intake-label .req { color: var(--orange); margin-left: 2px; }
+    .intake-input,
+    .intake-select,
+    .intake-textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--rule);
+      padding: 8px 0;
+      font-family: 'Alexandria', sans-serif;
+      font-size: 15px;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+      appearance: none;
+      border-radius: 0;
+    }
+    .intake-select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238a7e6d'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 4px center;
+      padding-right: 20px;
+      cursor: pointer;
+    }
+    .intake-textarea { resize: vertical; min-height: 80px; padding: 8px 0; line-height: 1.6; }
+    .intake-input:focus,
+    .intake-select:focus,
+    .intake-textarea:focus { border-bottom-color: var(--ink); }
+    .intake-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .intake-section { display: none; }
+    .intake-section.active { display: block; }
+    .intake-divider {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin: 28px 0 20px;
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+    }
+    .intake-submit {
+      margin-top: 32px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .intake-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--ink);
+      border: none;
+      padding: 14px 28px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .intake-btn:hover { background: var(--orange); }
+    .intake-note {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .intake-success {
+      display: none;
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      padding: 16px 0;
+    }
+    .intake-success.active { display: block; }
+    .contact-lede { font-size: 15px; line-height: 1.75; color: var(--ink-75); max-width: 340px; margin-top: 24px; }
+    .contact-no-phone {
+      font-family: 'Space Mono', monospace;
+      font-size: 9px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 32px;
+      line-height: 2;
+      border-top: 1px solid var(--rule);
+      padding-top: 20px;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    .site-footer {
+      background: #0c0a08;
+      padding: 5rem var(--gutter) 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .site-footer-inner { position: relative; z-index: 1; }
+    .site-footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+      max-width: 420px;
+    }
+    .site-footer .footer-col-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.57rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+    .site-footer .footer-col a {
+      display: block;
+      font-family: 'Alexandria', sans-serif;
+      font-size: 0.88rem;
+      color: rgba(237,232,221,0.45);
+      margin-bottom: 0.55rem;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .site-footer .footer-col a:hover { color: #ede8dd; }
+    .site-footer-bar {
+      border-top: 1px solid rgba(237,232,221,0.08);
+      padding-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.53rem;
+      letter-spacing: 0.1em;
+      color: rgba(237,232,221,0.22);
+    }
+    .footer-wordmark {
+      font-family: 'Alexandria', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .footer-wordmark .fw-pitch { color: rgba(237,232,221,0.35); }
+    .footer-wordmark .fw-blac  { color: var(--orange); }
+    .footer-wordmark .fw-knight{ color: var(--teal); }
 
     /* ── SECTION ALTERNATION ─────────────────────────── */
     #design-systems { background: rgba(232,223,208,0.60); }
@@ -700,7 +882,7 @@
     .carousel-slide img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       display: block;
       user-select: none;
     }
@@ -969,13 +1151,13 @@
 
     /* ── DARK MODE ───────────────────────────────────── */
     html.dark {
-      background: #0e0c09;
+      background: #1e1e1e;
     }
     html.dark body {
-      background: rgba(28,24,20,0.85);
+      background: rgba(30,30,30,0.90);
     }
     html.dark #contact,
-    html.dark #design-systems { background: rgba(34,30,25,0.65); }
+    html.dark #design-systems { background: rgba(44,44,44,0.65); }
     html.dark #services       { background: rgba(42,37,32,0.65); }
 
     html.dark {
@@ -1004,8 +1186,8 @@
     /* Carousel bg in modal — keep it very dark */
     html.dark .modal-gallery   { background: #0f0d0b; }
 
-    /* Hero geo: multiply blend mode invisible on dark bg → screen */
-    html.dark .hero-geo        { mix-blend-mode: screen; opacity: 0.10; }
+    /* Hero is always dark — hero-geo stays at screen blend */
+    html.dark .hero-geo        { mix-blend-mode: screen; opacity: 0.28; }
 
     /* Playing music card — var(--ink) bg would become cream in dark mode */
     html.dark .mix-card.playing                         { background: rgba(237,232,221,0.07); }
@@ -1162,6 +1344,253 @@
       .services-grid { grid-template-columns: 1fr; }
       .services-intro-row { flex-direction: column; gap: 20px; }
     }
+
+    /* ══════════════════════════════════════════════
+       ANIMATION ENGINE — index.html
+    ══════════════════════════════════════════════ */
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* ── Keyframes ─────────────────────────────── */
+    @keyframes pbkHeroIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pbkPulseRing {
+      0%   { transform: scale(1);   opacity: 0.85; }
+      80%  { opacity: 0; }
+      100% { transform: scale(2.8); opacity: 0; }
+    }
+
+    /* ── Custom cursor ─────────────────────────── */
+    @media (pointer: fine) {
+      html, html * { cursor: none; }
+    }
+    .pbk-cursor-dot {
+      position: fixed; top: 0; left: 0;
+      width: 7px; height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      pointer-events: none; z-index: 10000;
+      margin: -3.5px 0 0 -3.5px;
+      transition: opacity 0.25s;
+      will-change: left, top;
+    }
+    .pbk-cursor-ring {
+      position: fixed; top: 0; left: 0;
+      width: 34px; height: 34px;
+      border: 1px solid var(--orange);
+      border-radius: 50%;
+      pointer-events: none; z-index: 9999;
+      margin: -17px 0 0 -17px;
+      opacity: 0.45;
+      transition:
+        width  0.32s cubic-bezier(0.22,1,0.36,1),
+        height 0.32s cubic-bezier(0.22,1,0.36,1),
+        margin 0.32s cubic-bezier(0.22,1,0.36,1),
+        opacity 0.3s;
+      will-change: left, top;
+    }
+    .pbk-cursor-ring.hover   { width: 56px; height: 56px; margin: -28px 0 0 -28px; opacity: 0.28; }
+    .pbk-cursor-ring.clicking { width: 18px; height: 18px; margin: -9px 0 0 -9px;  opacity: 0.95; }
+
+    /* ── Hero entrance ─────────────────────────── */
+    .pbk-hero-item {
+      animation: pbkHeroIn 0.90s cubic-bezier(0.22,1,0.36,1) both;
+    }
+
+    /* ── Scroll reveal ─────────────────────────── */
+    .pbk-hidden {
+      opacity: 0;
+      transform: translateY(28px);
+      transition:
+        opacity   0.74s cubic-bezier(0.22,1,0.36,1),
+        transform 0.74s cubic-bezier(0.22,1,0.36,1);
+      will-change: opacity, transform;
+    }
+    .pbk-hidden.pbk-visible { opacity: 1; transform: none; }
+
+    /* ── Availability dot pulse ────────────────── */
+    .avail-dot { position: relative; }
+    .avail-dot::after {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 50%;
+      background: var(--orange);
+      animation: pbkPulseRing 2.4s cubic-bezier(0.4,0,0.6,1) infinite;
+    }
+
+    /* ── Sidebar nav active indicator ─────────── */
+    .nav-index a {
+      padding-left: 14px;
+    }
+    .nav-index .nav-num { min-width: 18px; }
+    .nav-index a::before {
+      content: '';
+      position: absolute; left: 0; top: 50%;
+      transform: translateY(-50%) scaleY(0);
+      width: 2px; height: 16px;
+      background: var(--orange);
+      transition: transform 0.25s cubic-bezier(0.22,1,0.36,1);
+    }
+    .nav-index a { position: relative; }
+    .nav-index a.active::before { transform: translateY(-50%) scaleY(1); }
+
+    /* ── Enhanced card hovers ──────────────────── */
+    .project-card {
+      transition:
+        transform   0.36s cubic-bezier(0.22,1,0.36,1),
+        box-shadow  0.36s cubic-bezier(0.22,1,0.36,1);
+      will-change: transform;
+    }
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 48px rgba(26,22,18,0.13);
+    }
+    .proj-thumb img {
+      transition: transform 0.62s cubic-bezier(0.22,1,0.36,1);
+    }
+    .project-card:hover .proj-thumb img { transform: scale(1.05); }
+
+    .mix-card {
+      transition:
+        background  0.2s,
+        transform   0.32s cubic-bezier(0.22,1,0.36,1);
+    }
+    .mix-card:hover { transform: translateY(-4px); }
+
+    .svc-card {
+      transition:
+        background  0.2s,
+        transform   0.32s cubic-bezier(0.22,1,0.36,1);
+    }
+    .svc-card:hover { transform: translateY(-3px); }
+
+    /* Magnetic tilt via JS CSS vars */
+    .project-card, .mix-card, .svc-card { --card-lift: 0px; }
+
+    /* ── Hero-tag hover ────────────────────────── */
+    .hero-tag {
+      transition:
+        color        0.18s,
+        border-color 0.18s,
+        transform    0.22s cubic-bezier(0.22,1,0.36,1),
+        background   0.18s;
+    }
+    .hero-tag:hover { transform: translateY(-2px); }
+    a.hero-tag.live:hover { background: var(--orange); color: var(--cream); }
+
+    /* ── Nav-footer links ──────────────────────── */
+    .nav-footer a {
+      transition: color 0.18s, transform 0.2s cubic-bezier(0.22,1,0.36,1);
+    }
+    .nav-footer a:hover { transform: translateX(3px); }
+
+    /* ── Str-tag (strengths) hover ─────────────── */
+    .str-tag {
+      transition: background 0.2s, transform 0.22s cubic-bezier(0.22,1,0.36,1);
+      cursor: default;
+    }
+    .str-tag:hover { transform: translateY(-2px); background: rgba(200,144,26,0.12); }
+
+    /* ── Contact heading underline on reveal ───── */
+    .contact-hed {
+      background: linear-gradient(var(--orange), var(--orange)) no-repeat 0 100%;
+      background-size: 0% 2px;
+      transition: background-size 0.9s cubic-bezier(0.22,1,0.36,1);
+    }
+    .contact-hed.pbk-visible { background-size: 100% 2px; }
+
+    /* ── Not-AI badge pulse border ─────────────── */
+    @keyframes pbkBorderPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(200,144,26,0); }
+      50%       { box-shadow: 0 0 0 4px rgba(200,144,26,0.18); }
+    }
+    .not-ai-badge {
+      animation: pbkBorderPulse 3s ease infinite;
+    }
+
+    /* ── MUSIC (bottom section) ─────────────────── */
+    #music { background: var(--cream-warm); }
+
+    /* ── PBN BANNER ──────────────────────────────── */
+    .pbn-banner {
+      background: #0c0a08;
+      color: #ede8dd;
+      overflow: hidden;
+      position: relative;
+    }
+    .pbn-banner::before {
+      content: 'PBK';
+      position: absolute;
+      right: -3%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Alexandria', sans-serif;
+      font-weight: 200;
+      font-size: clamp(160px, 22vw, 340px);
+      letter-spacing: -0.04em;
+      color: rgba(200,144,26,0.06);
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+    }
+    .pbn-inner {
+      padding: 96px var(--gutter) 104px;
+      max-width: 900px;
+      position: relative;
+      z-index: 1;
+    }
+    .pbn-eyebrow {
+      font-family: 'Space Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 28px;
+    }
+    .pbn-name {
+      font-family: 'Alexandria', sans-serif;
+      font-weight: 200;
+      font-size: clamp(52px, 7.5vw, 112px);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      color: #ede8dd;
+      margin-bottom: 36px;
+    }
+    .pbn-name em {
+      color: var(--orange);
+      font-style: normal;
+    }
+    .pbn-sub {
+      font-size: clamp(17px, 2vw, 22px);
+      line-height: 1.52;
+      color: rgba(237,232,221,0.58);
+      max-width: 560px;
+      margin-bottom: 52px;
+      font-style: italic;
+    }
+    .pbn-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-family: 'Alexandria', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      color: var(--orange);
+      border: 1px solid var(--orange);
+      padding: 16px 32px;
+      transition: background 0.22s, color 0.22s, transform 0.28s cubic-bezier(0.22,1,0.36,1);
+    }
+    .pbn-link:hover {
+      background: var(--orange);
+      color: #0c0a08;
+      transform: translateY(-3px);
+    }
+    .pbn-link::after { content: '→'; }
   </style>
   <!-- Apply dark class before render to prevent flash -->
   <script>
@@ -1183,35 +1612,33 @@
       <svg class="icon-sun"  width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="2.6" fill="currentColor"/><path d="M7 1.5V3M7 11v1.5M1.5 7H3M11 7h1.5M3.4 3.4l1.06 1.06M9.54 9.54l1.06 1.06M10.6 3.4L9.54 4.46M4.46 9.54L3.4 10.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
     </button>
     <div class="nav-index">
-      <a href="#digital-art">
+      <a href="#design-systems">
         <span class="nav-num">01</span>
-        <span class="nav-label">Digital Art</span>
+        <span class="nav-label">Design Systems</span>
       </a>
       <a href="#web-design">
-        <span class="nav-num">03</span>
+        <span class="nav-num">02</span>
         <span class="nav-label">Product Design</span>
       </a>
       <a href="#branding">
-        <span class="nav-num">04</span>
+        <span class="nav-num">03</span>
         <span class="nav-label">Branding</span>
       </a>
-      <a href="#design-systems">
-        <span class="nav-num">05</span>
-        <span class="nav-label">Design Systems</span>
-      </a>
-      <a href="#music">
-        <span class="nav-num">06</span>
-        <span class="nav-label">Music</span>
-      </a>
       <a href="#services">
-        <span class="nav-num">07</span>
+        <span class="nav-num">04</span>
         <span class="nav-label">Services</span>
+      </a>
+      <a href="#digital-art">
+        <span class="nav-num">05</span>
+        <span class="nav-label">Digital Art</span>
       </a>
     </div>
     <div class="nav-rule"></div>
     <div class="nav-footer">
+      <a href="/resume.html" target="_blank">Resume</a>
       <a href="#practice">Practice Index</a>
       <a href="#contact">Contact</a>
+      <a href="https://pitchblacknight.com" target="_blank" rel="noopener">PitchBlacKnight ↗</a>
       <button class="dark-toggle" id="darkToggleSidebar" aria-label="Toggle dark mode">
         <svg class="icon-moon" width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.25 8.05A5.5 5.5 0 015.95 1.75a5.5 5.5 0 100 11 5.5 5.5 0 006.3-4.7z" fill="currentColor"/></svg>
         <svg class="icon-sun"  width="13" height="13" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="7" cy="7" r="2.6" fill="currentColor"/><path d="M7 1.5V3M7 11v1.5M1.5 7H3M11 7h1.5M3.4 3.4l1.06 1.06M9.54 9.54l1.06 1.06M10.6 3.4L9.54 4.46M4.46 9.54L3.4 10.6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
@@ -1222,14 +1649,14 @@
 
   <!-- ── MOBILE BOTTOM NAV ──────────────────────────────── -->
   <nav class="mobile-nav" aria-label="Jump to section">
-    <a href="#digital-art">01 Art</a>
-    <a href="#web-design">03 Design</a>
-    <a href="#branding">04 Brand</a>
-    <a href="#design-systems">05 Systems</a>
-    <a href="#music">06 Music</a>
-    <a href="#services">07 Services</a>
+    <a href="#design-systems">Systems</a>
+    <a href="#web-design">Design</a>
+    <a href="#branding">Brand</a>
+    <a href="#services">Services</a>
+    <a href="#digital-art">Art</a>
     <a href="#practice">Index</a>
     <a href="#contact">Contact</a>
+    <a href="/resume.html" target="_blank">Resume</a>
   </nav>
 
   <!-- ── MAIN ─────────────────────────────────────────── -->
@@ -1237,89 +1664,299 @@
 
     <!-- HERO -->
     <section id="hero">
-      <img class="hero-geo" src="images/hero-geo.gif" alt="" aria-hidden="true">
+      <img class="hero-geo" src="images/forever-wonder.gif" alt="" aria-hidden="true">
+      <div class="hero-text-shield"></div>
       <div class="hero-index">
-        <span>Digital Art</span>
+        <span>Design Systems</span>
         <span>Product Design</span>
         <span>Branding</span>
-        <span>Design Systems</span>
-        <span>Music</span>
+        <span>Services</span>
+        <span>Digital Art</span>
       </div>
       <div class="wrap" style="padding-top: 0; padding-bottom: 0; flex: 1; display: flex; flex-direction: column; justify-content: flex-end; padding-bottom: 88px;">
         <div class="hero-overline">PBK Studio · Est. 2021</div>
         <h1 class="hero-name">MIKEL<br>ROSENTHAL</h1>
-        <p class="hero-disciplines">Art Direction &middot; Design Systems &middot; Music &middot; Voice Performance &middot; Visual Art</p>
+        <p class="hero-disciplines">Senior Visual Designer &middot; Art Direction &middot; Design Systems &middot; Product Design &middot; UI / UX &middot; Branding &middot; Animation &middot; Sound &middot; Visual Art</p>
         <p class="hero-bio">I lead teams to create unmistakable visual worlds — then systematize them so they scale fast, stay consistent, and ship beautifully. Trusted by Google, GE Healthcare, Blue Cross Blue Shield, Avant, and Whirlpool.</p>
         <div class="hero-tags">
-          <span class="hero-tag">25+ Years</span>
+          <span class="hero-tag">24+ Years</span>
           <span class="hero-tag">Interdisciplinary</span>
-          <span class="hero-tag">Chicago, IL</span>
+          <span class="hero-tag">Chicago Heights, IL</span>
+          <a class="hero-tag" href="/resume.html" target="_blank" rel="noopener">Resume</a>
           <a class="hero-tag live" href="#contact">Available Now</a>
         </div>
       </div>
     </section>
 
-    <!-- 02 DESIGN SYSTEMS -->
+    <!-- 01 DESIGN SYSTEMS -->
     <section id="design-systems">
       <div class="wrap">
         <div class="sec-head">
-          <span class="sec-num">02</span>
+          <span class="sec-num">01</span>
           <span class="sec-name">Design Systems</span>
           <span class="sec-count">6 Systems</span>
         </div>
-        <p class="sec-intro">Enterprise-scale systems built to last — across 40+ product lines, hundreds of stakeholders, and every surface from dashboard to mobile. Never just components: governance, language, and rhythm.</p>
+        <p class="sec-intro">Built from zero at GE Healthcare, BCBS, TransUnion, Avant, and SurePeople. Not just components — token architecture, governance, and a language the whole organization could ship from.</p>
         <div class="project-grid" id="grid-systems">
-          <div class="project-card ds-card" data-project="avant-pathfinder" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/design-systems/avant-pathfinder/portfolio-pdf.png" alt="Avant Pathfinder 2.0 Dashboard" loading="lazy"></div>
+          <a href="pathfinder.html" class="project-card">
+            <div class="proj-thumb"><img src="images/design-systems/avant-pathfinder/portfolio-pdf.png" alt="Avant Pathfinder Design System" loading="lazy"></div>
             <div class="proj-meta">
               <div class="proj-title">Avant — Pathfinder</div>
-              <div class="proj-info">Product + Marketing System · Fintech · 2021–2024</div>
+              <div class="proj-info">Product + Marketing System · B2B Tech · 2021–2024</div>
             </div>
-          </div>
-          <div class="project-card ds-card" data-project="avant-marketing" style="cursor:pointer;">
+          </a>
+          <a href="avant-marketing.html" class="project-card">
             <div class="proj-thumb"><img src="images/ux/avant-marketing/portfolio-pdf.png" alt="Avant Marketing Design Library" loading="lazy"></div>
             <div class="proj-meta">
-              <div class="proj-title">Avant — Marketing Design Library</div>
+              <div class="proj-title">Avant — Marketing Library</div>
               <div class="proj-info">Design System · Marketing · 2024</div>
             </div>
-          </div>
-          <div class="project-card ds-card" data-project="bcbs-fiber" style="cursor:pointer;">
+          </a>
+          <a href="bcbs-fiber.html" class="project-card">
             <div class="proj-thumb"><img src="images/design-systems/bcbs-fiber-portfolio.png" alt="Blue Cross Blue Shield FIBER Design System" loading="lazy"></div>
             <div class="proj-meta">
-              <div class="proj-title">Blue Cross Blue Shield — FIBER</div>
+              <div class="proj-title">BCBS — FIBER</div>
               <div class="proj-info">Enterprise Design System · Insurance · 2018–2019</div>
             </div>
-          </div>
-          <div class="project-card ds-card" data-project="ge-edison" style="cursor:pointer;">
+          </a>
+          <a href="ge-edison.html" class="project-card">
             <div class="proj-thumb"><img src="images/design-systems/ge-edison/portfolio-pdf.png" alt="GE Healthcare Edison Design System" loading="lazy"></div>
             <div class="proj-meta">
               <div class="proj-title">GE Healthcare — Edison</div>
-              <div class="proj-info">Enterprise Design System · Healthcare · 2020–2021</div>
+              <div class="proj-info">Enterprise Design System · Clinical · 2020–2021</div>
             </div>
-          </div>
-          <div class="project-card ds-card" data-project="sure-prism" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/design-systems/sure-prism/portfolio-pdf.png" alt="SurePeople PRISM — Product Design" loading="lazy"></div>
+          </a>
+          <a href="surepeople-prism.html" class="project-card">
+            <div class="proj-thumb"><img src="images/design-systems/sure-prism/portfolio-pdf.png" alt="SurePeople PRISM Design System" loading="lazy"></div>
             <div class="proj-meta">
-              <div class="proj-title">Sure People — PRISM</div>
+              <div class="proj-title">SurePeople — PRISM</div>
               <div class="proj-info">Design System · HR Tech · 2020</div>
             </div>
-          </div>
-          <div class="project-card ds-card" data-project="transunion" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/design-systems/transunion/portfolio-pdf.png" alt="TransUnion Credit Manager Design System" loading="lazy"></div>
+          </a>
+          <a href="transunion-tucm.html" class="project-card">
+            <div class="proj-thumb"><img src="images/design-systems/transunion/portfolio-pdf.png" alt="TransUnion TUCM Design System" loading="lazy"></div>
             <div class="proj-meta">
               <div class="proj-title">TransUnion — TUCM</div>
-              <div class="proj-info">Design System · Credit Bureaus · 2018–2019</div>
+              <div class="proj-info">Design System · Credit &amp; Finance · 2018–2019</div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 PRODUCT DESIGN -->
+    <section id="web-design">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">02</span>
+          <span class="sec-name">Product Design &amp; UX</span>
+          <span class="sec-count">14 Projects</span>
+        </div>
+        <p class="sec-intro">Client websites, enterprise products, and mobile apps — from concept through deployment. Real estate, healthcare, fintech, consumer tech, and SaaS. Always includes identity, systems thinking, and developer-ready handoff.</p>
+        <div class="project-grid" id="grid-web">
+          <a class="project-card" href="https://socomcm.pitchblacknight.com" target="_blank" rel="noopener">
+            <div class="proj-thumb"><img src="images/web-design/socomcm/01-screenshot.jpg" alt="SoCoMCM — South Cook County Mid-Century Modern" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">SoCoMCM</div>
+              <div class="proj-info">Web Design · Architecture · 2024</div>
+            </div>
+          </a>
+          <a class="project-card" href="https://david.pitchblacknight.com" target="_blank" rel="noopener">
+            <div class="proj-thumb"><img src="images/web-design/david/01-screenshot.jpg" alt="For David" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">For David</div>
+              <div class="proj-info">Web Design · Multimedia · 2024</div>
+            </div>
+          </a>
+          <a class="project-card" href="https://www.lindseybingaman.com" target="_blank" rel="noopener">
+            <div class="proj-thumb"><img src="images/web-design/lindsey/01-screenshot.jpg" alt="Lindsey Bingaman" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Lindsey Bingaman</div>
+              <div class="proj-info">Web Design · Executive Coaching · 2023</div>
+            </div>
+          </a>
+          <a class="project-card" href="https://240ccr.pitchblacknight.com" target="_blank" rel="noopener">
+            <div class="proj-thumb"><img src="images/web-design/240ccr/01-screenshot.jpg" alt="240 Country Club Road" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">240 Country Club Road</div>
+              <div class="proj-info">Web Design · Architecture · 2023</div>
+            </div>
+          </a>
+          <a class="project-card" href="https://bert.pitchblacknight.com" target="_blank" rel="noopener">
+            <div class="proj-thumb"><img src="images/web-design/bert/01-screenshot.jpg" alt="Bert Gillette — Milehimodern" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Bert Gillette — Milehimodern</div>
+              <div class="proj-info">Web Design · Real Estate · 2023</div>
+            </div>
+          </a>
+          <a class="project-card" href="https://serenity.pitchblacknight.com" target="_blank" rel="noopener">
+            <div class="proj-thumb"><img src="images/web-design/serenity/01-screenshot.jpg" alt="Serenity Lounge Day Spa" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Serenity Lounge Day Spa</div>
+              <div class="proj-info">Web Design · Wellness · 2022</div>
+            </div>
+          </a>
+          <div class="project-card modal-card" data-project="bcbs-web" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/ux/bcbs-fiber/bc-10.jpg" alt="BCBS Illinois — Your Benefits. Simplified." loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">BCBS Illinois</div>
+              <div class="proj-info">Web Design · UX · 2018</div>
+            </div>
+          </div>
+          <div class="project-card modal-card" data-project="clique-tickets" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/web-design/clique-tickets/01-homepage.jpg" alt="Clique Tickets — Social Ticketing App" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Clique Tickets</div>
+              <div class="proj-info">Product Design · Mobile App · 2019</div>
+            </div>
+          </div>
+          <div class="project-card modal-card" data-project="truecredit" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/ux/truecredit/tc-02-dashboard.png" alt="TrueCredit — Rebranding & UX" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">TrueCredit</div>
+              <div class="proj-info">Product Design · Rebranding · 2018</div>
+            </div>
+          </div>
+          <div class="project-card modal-card" data-project="credit-freeze" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/ux/credit-freeze/01-overview.jpg" alt="TransUnion Credit Freeze" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Credit Freeze</div>
+              <div class="proj-info">Brand Ideation · Fintech · 2018</div>
+            </div>
+          </div>
+          <div class="project-card modal-card" data-project="whirlpool" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/ux/whirlpool/01-overview.jpg" alt="Whirlpool App Design" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Whirlpool Vision</div>
+              <div class="proj-info">Product Design · App · 2015</div>
+            </div>
+          </div>
+          <div class="project-card modal-card" data-project="google-dashboard" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/ux/google-dashboard/01-overview.jpg" alt="Google Information Dashboard" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Google Dashboard</div>
+              <div class="proj-info">Product Design · Information Design · 2016</div>
+            </div>
+          </div>
+          <div class="project-card modal-card" data-project="maven-wave" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/ux/maven-wave/01-overview.jpg" alt="Maven Wave Partners — UX Consulting" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Maven Wave Partners</div>
+              <div class="proj-info">Product Design · Google Cloud Partner · 2015–2016</div>
+            </div>
+          </div>
+          <div class="project-card modal-card" data-project="gartner" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/ux/gartner/01-journey-maps.jpg" alt="Gartner Journey Maps" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Gartner</div>
+              <div class="proj-info">Product Design · UX Strategy · 2015</div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 01 DIGITAL ART -->
+    <!-- 03 BRANDING -->
+    <section id="branding">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">03</span>
+          <span class="sec-name">Branding</span>
+          <span class="sec-count">4 Projects</span>
+        </div>
+        <p class="sec-intro">Identity systems, packaging, and visual language built for brands entering new territory — from naming through full production-ready output.</p>
+        <div class="project-grid" id="grid-branding">
+          <div class="project-card modal-card" data-project="spacelab" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/branding/spacelab/02-tin.jpg" alt="Spacelab — Brand Identity &amp; Packaging" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Spacelab</div>
+              <div class="proj-info">Brand Identity · Packaging System · 2021</div>
+            </div>
+          </div>
+          <div class="project-card modal-card" data-project="avant-brand" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/branding/avant/01-forge-hero.jpg" alt="Avant — Forge the Future Campaign" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Avant</div>
+              <div class="proj-info">Marketing Campaign · Brand Direction · 2022–2023</div>
+            </div>
+          </div>
+          <div class="project-card modal-card" data-project="maven-wave-brand" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/branding/maven-wave/01-logo-mockup.jpg" alt="Maven Wave — Brand Identity" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">Maven Wave Partners</div>
+              <div class="proj-info">Brand Identity · Logo System · 2013–2014</div>
+            </div>
+          </div>
+          <div class="project-card modal-card" data-project="firebelly-greetings" style="cursor:pointer;">
+            <div class="proj-thumb"><img src="images/branding/firebelly/01-1000-greetings.jpg" alt="1,000 Greetings — Published Work" loading="lazy"></div>
+            <div class="proj-meta">
+              <div class="proj-title">1,000 Greetings</div>
+              <div class="proj-info">Print · Published · 2009</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 SERVICES -->
+    <section id="services">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">04</span>
+          <span class="sec-name">Services</span>
+        </div>
+        <div class="services-intro-row">
+          <p class="sec-intro">Available for project, retainer, and contract engagements. Every deliverable — conceived, crafted, and executed by one person. Start to finish.</p>
+          <div class="not-ai-badge">Not AI · Human · Real</div>
+        </div>
+        <div class="services-grid">
+          <div class="svc-card">
+            <div class="svc-num">01</div>
+            <div class="svc-title">Design Consulting</div>
+            <div class="svc-body">Strategy, systems thinking, and creative direction for brands that need to scale with intention and stay visually coherent as they grow.</div>
+          </div>
+          <div class="svc-card">
+            <div class="svc-num">02</div>
+            <div class="svc-title">Product Design &amp; UX</div>
+            <div class="svc-body">End-to-end product design — research, wireframes, high-fidelity UI, and developer-ready handoff. Enterprise or startup, complex or clean.</div>
+          </div>
+          <div class="svc-card">
+            <div class="svc-num">03</div>
+            <div class="svc-title">Design Systems</div>
+            <div class="svc-body">Figma component libraries, design tokens, interaction patterns, and governance documentation — built once, used everywhere, maintained by your team.</div>
+          </div>
+          <div class="svc-card">
+            <div class="svc-num">04</div>
+            <div class="svc-title">Web &amp; Interactive</div>
+            <div class="svc-body">Pixel-perfect front-end execution. Visual identity extended into digital environments — from landing pages to full site builds.</div>
+          </div>
+          <div class="svc-card">
+            <div class="svc-num">05</div>
+            <div class="svc-title">Voiceover &amp; Audio</div>
+            <div class="svc-body">SAG-eligible. Commercial, narrative, animation, and sonic branding. Original music composition for film, brand, and media.</div>
+          </div>
+          <div class="svc-card">
+            <div class="svc-num">06</div>
+            <div class="svc-title">Art Direction</div>
+            <div class="svc-body">Visual identity, campaign concepting, and the aesthetic DNA that makes a brand unmistakable — and keeps it that way across every touchpoint.</div>
+          </div>
+        </div>
+        <div class="process-strip">
+          <span class="process-label">Process —</span>
+          <div class="process-step">Vision</div>
+          <div class="process-step">Clarify</div>
+          <div class="process-step">Map</div>
+          <div class="process-step">Execute</div>
+          <div class="process-step">Deliver</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 05 DIGITAL ART -->
     <section id="digital-art">
       <div class="wrap">
         <div class="sec-head">
-          <span class="sec-num">01</span>
+          <span class="sec-num">05</span>
           <span class="sec-name">Digital Art</span>
           <span class="sec-count">106 Works</span>
         </div>
@@ -1860,258 +2497,6 @@
       </div>
     </section>
 
-    <!-- 03 WEB DESIGN -->
-    <section id="web-design">
-      <div class="wrap">
-        <div class="sec-head">
-          <span class="sec-num">03</span>
-          <span class="sec-name">Product Design &amp; UX</span>
-          <span class="sec-count">13 Projects</span>
-        </div>
-        <p class="sec-intro">Client websites, enterprise products, and mobile apps — from concept through deployment. Real estate, healthcare, fintech, consumer tech, and SaaS. Always includes identity, systems thinking, and developer-ready handoff.</p>
-        <div class="project-grid" id="grid-web">
-          <a class="project-card" href="https://david.pitchblacknight.com" target="_blank" rel="noopener">
-            <div class="proj-thumb"><img src="images/web-design/david/01-screenshot.jpg" alt="For David" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">For David</div>
-              <div class="proj-info">Web Design · Multimedia · 2024</div>
-            </div>
-          </a>
-          <a class="project-card" href="https://www.lindseybingaman.com" target="_blank" rel="noopener">
-            <div class="proj-thumb"><img src="images/web-design/lindsey/01-screenshot.jpg" alt="Lindsey Bingaman" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Lindsey Bingaman</div>
-              <div class="proj-info">Web Design · Executive Coaching · 2023</div>
-            </div>
-          </a>
-          <a class="project-card" href="https://240ccr.pitchblacknight.com" target="_blank" rel="noopener">
-            <div class="proj-thumb"><img src="images/web-design/240ccr/01-screenshot.jpg" alt="240 Country Club Road" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">240 Country Club Road</div>
-              <div class="proj-info">Web Design · Architecture · 2023</div>
-            </div>
-          </a>
-          <a class="project-card" href="https://bert.pitchblacknight.com" target="_blank" rel="noopener">
-            <div class="proj-thumb"><img src="images/web-design/bert/01-screenshot.jpg" alt="Bert Gillette — Milehimodern" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Bert Gillette — Milehimodern</div>
-              <div class="proj-info">Web Design · Real Estate · 2023</div>
-            </div>
-          </a>
-          <a class="project-card" href="https://serenity.pitchblacknight.com" target="_blank" rel="noopener">
-            <div class="proj-thumb"><img src="images/web-design/serenity/01-screenshot.jpg" alt="Serenity Lounge Day Spa" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Serenity Lounge Day Spa</div>
-              <div class="proj-info">Web Design · Wellness · 2022</div>
-            </div>
-          </a>
-          <div class="project-card modal-card" data-project="bcbs-web" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/ux/bcbs-fiber/bc-10.jpg" alt="BCBS Illinois — Your Benefits. Simplified." loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">BCBS Illinois</div>
-              <div class="proj-info">Web Design · UX · 2018</div>
-            </div>
-          </div>
-          <div class="project-card modal-card" data-project="clique-tickets" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/web-design/clique-tickets/01-homepage.jpg" alt="Clique Tickets — Social Ticketing App" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Clique Tickets</div>
-              <div class="proj-info">Product Design · Mobile App · 2019</div>
-            </div>
-          </div>
-          <div class="project-card modal-card" data-project="truecredit" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/ux/truecredit/portfolio-pdf.png" alt="TrueCredit — Rebranding & UX" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">TrueCredit</div>
-              <div class="proj-info">Product Design · Rebranding · 2018</div>
-            </div>
-          </div>
-          <div class="project-card modal-card" data-project="credit-freeze" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/ux/credit-freeze/01-overview.jpg" alt="TransUnion Credit Freeze" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Credit Freeze</div>
-              <div class="proj-info">Brand Ideation · Fintech · 2018</div>
-            </div>
-          </div>
-          <div class="project-card modal-card" data-project="whirlpool" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/ux/whirlpool/01-overview.jpg" alt="Whirlpool App Design" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Whirlpool Vision</div>
-              <div class="proj-info">Product Design · App · 2015</div>
-            </div>
-          </div>
-          <div class="project-card modal-card" data-project="google-dashboard" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/ux/google-dashboard/01-overview.jpg" alt="Google Information Dashboard Concept" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Google Dashboard Concept</div>
-              <div class="proj-info">Product Design · Information Design · 2016</div>
-            </div>
-          </div>
-          <div class="project-card modal-card" data-project="maven-wave" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/ux/maven-wave/01-overview.jpg" alt="Maven Wave Partners — UX Consulting" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Maven Wave Partners</div>
-              <div class="proj-info">Product Design · Google Cloud Partner · 2015–2016</div>
-            </div>
-          </div>
-          <div class="project-card modal-card" data-project="gartner" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/ux/gartner/01-journey-maps.jpg" alt="Gartner Journey Maps" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Gartner</div>
-              <div class="proj-info">Product Design · UX Strategy · 2015</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 04 BRANDING -->
-    <section id="branding">
-      <div class="wrap">
-        <div class="sec-head">
-          <span class="sec-num">04</span>
-          <span class="sec-name">Branding</span>
-          <span class="sec-count">4 Projects</span>
-        </div>
-        <p class="sec-intro">Identity systems, packaging, and visual language built for brands entering new territory — from naming through full production-ready output.</p>
-        <div class="project-grid" id="grid-branding">
-          <div class="project-card modal-card" data-project="spacelab" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/branding/spacelab/02-tin.jpg" alt="Spacelab — Brand Identity &amp; Packaging" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Spacelab</div>
-              <div class="proj-info">Brand Identity · Packaging System · 2021</div>
-            </div>
-          </div>
-          <div class="project-card modal-card" data-project="avant-brand" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/branding/avant/01-forge-hero.jpg" alt="Avant — Forge the Future Campaign" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Avant</div>
-              <div class="proj-info">Marketing Campaign · Brand Direction · 2022–2023</div>
-            </div>
-          </div>
-          <div class="project-card modal-card" data-project="maven-wave-brand" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/branding/maven-wave/01-logo-mockup.jpg" alt="Maven Wave — Brand Identity" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">Maven Wave Partners</div>
-              <div class="proj-info">Brand Identity · Logo System · 2013–2014</div>
-            </div>
-          </div>
-          <div class="project-card modal-card" data-project="firebelly-greetings" style="cursor:pointer;">
-            <div class="proj-thumb"><img src="images/branding/firebelly/01-1000-greetings.jpg" alt="1,000 Greetings — Published Work" loading="lazy"></div>
-            <div class="proj-meta">
-              <div class="proj-title">1,000 Greetings</div>
-              <div class="proj-info">Print · Published · 2009</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 05 DESIGN SYSTEMS -->
-    <!-- 06 MUSIC -->
-    <section id="music">
-      <div class="wrap">
-        <div class="sec-head">
-          <span class="sec-num">06</span>
-          <span class="sec-name">Music</span>
-          <span class="sec-count">3 Tracks</span>
-        </div>
-        <p class="sec-intro">First-take improv. Live-mastered. No overdubs. Produced as PitchBlacKnight — original tracks recorded by accident while working. That's the method.</p>
-        <div class="music-grid">
-          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/for-jon.mp3">
-            <div class="mix-ep">Original · Track</div>
-            <div class="mix-title">For Jon</div>
-            <div class="mix-date">PitchBlacKnight</div>
-            <div class="mix-play">▶ Play</div>
-          </div>
-          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/you-have-a-wanting-alan.mp3">
-            <div class="mix-ep">Original · Track</div>
-            <div class="mix-title">You Have a Wanting Alan</div>
-            <div class="mix-date">PitchBlacKnight</div>
-            <div class="mix-play">▶ Play</div>
-          </div>
-          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/bright-swift-visions.mp3">
-            <div class="mix-ep">Original · Track</div>
-            <div class="mix-title">Bright Swift Visions</div>
-            <div class="mix-date">PitchBlacKnight</div>
-            <div class="mix-play">▶ Play</div>
-          </div>
-          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/never-thought-i-could.mp3">
-            <div class="mix-ep">Original · Track</div>
-            <div class="mix-title">Never Thought I Could</div>
-            <div class="mix-date">PitchBlacKnight</div>
-            <div class="mix-play">▶ Play</div>
-          </div>
-          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/when-you-leave.mp3">
-            <div class="mix-ep">Original · Track</div>
-            <div class="mix-title">When You Leave</div>
-            <div class="mix-date">PitchBlacKnight</div>
-            <div class="mix-play">▶ Play</div>
-          </div>
-          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/dracula-grind-and-bump.mp3">
-            <div class="mix-ep">Original · Track</div>
-            <div class="mix-title">Dracula Grind and Bump</div>
-            <div class="mix-date">PitchBlacKnight</div>
-            <div class="mix-play">▶ Play</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 07 SERVICES -->
-    <section id="services">
-      <div class="wrap">
-        <div class="sec-head">
-          <span class="sec-num">07</span>
-          <span class="sec-name">Services</span>
-        </div>
-        <div class="services-intro-row">
-          <p class="sec-intro">Available for project, retainer, and contract engagements. Every deliverable — conceived, crafted, and executed by one person. Start to finish.</p>
-          <div class="not-ai-badge">Not AI · Human · Real</div>
-        </div>
-        <div class="services-grid">
-          <div class="svc-card">
-            <div class="svc-num">01</div>
-            <div class="svc-title">Design Consulting</div>
-            <div class="svc-body">Strategy, systems thinking, and creative direction for brands that need to scale with intention and stay visually coherent as they grow.</div>
-          </div>
-          <div class="svc-card">
-            <div class="svc-num">02</div>
-            <div class="svc-title">Product Design &amp; UX</div>
-            <div class="svc-body">End-to-end product design — research, wireframes, high-fidelity UI, and developer-ready handoff. Enterprise or startup, complex or clean.</div>
-          </div>
-          <div class="svc-card">
-            <div class="svc-num">03</div>
-            <div class="svc-title">Design Systems</div>
-            <div class="svc-body">Figma component libraries, design tokens, interaction patterns, and governance documentation — built once, used everywhere, maintained by your team.</div>
-          </div>
-          <div class="svc-card">
-            <div class="svc-num">04</div>
-            <div class="svc-title">Web &amp; Interactive</div>
-            <div class="svc-body">Pixel-perfect front-end execution. Visual identity extended into digital environments — from landing pages to full site builds.</div>
-          </div>
-          <div class="svc-card">
-            <div class="svc-num">05</div>
-            <div class="svc-title">Voiceover &amp; Audio</div>
-            <div class="svc-body">SAG-eligible. Commercial, narrative, animation, and sonic branding. Original music composition for film, brand, and media.</div>
-          </div>
-          <div class="svc-card">
-            <div class="svc-num">06</div>
-            <div class="svc-title">Art Direction</div>
-            <div class="svc-body">Visual identity, campaign concepting, and the aesthetic DNA that makes a brand unmistakable — and keeps it that way across every touchpoint.</div>
-          </div>
-        </div>
-        <div class="process-strip">
-          <span class="process-label">Process —</span>
-          <div class="process-step">Vision</div>
-          <div class="process-step">Clarify</div>
-          <div class="process-step">Map</div>
-          <div class="process-step">Execute</div>
-          <div class="process-step">Deliver</div>
-        </div>
-      </div>
-    </section>
-
     <!-- PRACTICE INDEX -->
     <section id="practice" class="dark">
       <div class="wrap">
@@ -2168,7 +2553,7 @@
                 <div class="exp-body-text">
                   <p>Independent multidisciplinary studio — incorporated as a full LLC in May 2026 — operating across art direction, design systems, product design, brand identity, web development, motion art, voice performance, and original music production.</p>
                   <p>Client work spans enterprise design systems (healthcare, fintech, insurance), real estate microsites, consumer brand identity, and responsive web builds. Designs with governance and developer handoff built in — Figma-first, token-driven, accessibility-aware.</p>
-                  <p>Original music released as PitchBlacKnight — first-take improv sessions, live-mastered, no overdubs. SAG-eligible voice performance for commercial, narrative, and sonic branding. 25+ years of craft applied across every discipline the studio touches.</p>
+                  <p>Original music released as PitchBlacKnight — first-take improv sessions, live-mastered, no overdubs. SAG-eligible voice performance for commercial, narrative, and sonic branding. 24+ years of craft applied across every discipline the studio touches.</p>
                 </div>
               </div>
 
@@ -2293,7 +2678,7 @@
           <div class="prac-key">Education</div>
           <div class="prac-val">
             <div class="exp-co" style="margin-bottom: 6px;">Missouri State University</div>
-            <div class="exp-role-text">BFA · Electronic Arts &amp; Design / Communications</div>
+            <div class="exp-role-text">BFA · Electronic Arts &amp; Design / Communications and Mass Media</div>
           </div>
 
           <div class="prac-key">Tools +<br>Capabilities</div>
@@ -2346,55 +2731,387 @@
           <span class="sec-name">Contact</span>
         </div>
         <div class="contact-grid">
+
+          <!-- LEFT: context -->
           <div>
             <h2 class="contact-hed">Let's<br>make<br>something.</h2>
-            <p style="margin-top: 28px; font-size: 16px; line-height: 1.7; color: var(--ink-75); max-width: 320px;">Available for project, retainer, and contract engagements. One person. Full range. No handoffs to juniors.</p>
-          </div>
-          <div class="contact-body">
-            <div class="avail-status">
+            <p class="contact-lede">If your team has reached the point where design needs to do more — anchor a system, define a brand, or hold a complex product experience together — that's exactly the work I'm built for.</p>
+            <p class="contact-lede" style="margin-top:14px;">I work with organizations that treat design as infrastructure: leaders who need the range to cover what most teams staff across multiple hires, and the directness to get there without layers between vision and execution. Available for focused engagements and open to the right full- or part-time role.</p>
+            <div class="avail-status" style="margin-top: 28px;">
               <span class="avail-dot"></span>
-              Available Now · Contract &amp; Freelance
+              Available Now &nbsp;·&nbsp; <span class="avail-tag">Contract</span> &nbsp;<span class="avail-tag">Freelance</span>
             </div>
-            <div>
-              <div class="contact-item-label">Email</div>
-              <div class="contact-item-val"><a href="mailto:mikelrosenthal@me.com">mikelrosenthal@me.com</a></div>
+            <div class="contact-no-phone">
+              Email · mikelrosenthal@me.com<br>
+              Response within 2–3 business days.<br>
+              Phone available after initial contact · (773) 490-6923
             </div>
-            <div>
-              <div class="contact-item-label">Phone</div>
-              <div class="contact-item-val"><a href="tel:7734906923">(773) 490-6923</a></div>
+          </div>
+
+          <!-- RIGHT: intake form -->
+          <div>
+            <!-- Vacation notice — shown programmatically -->
+            <div class="vacation-notice" id="vacationNotice">
+              Taking a break around my birthday (June 26). Back July 7.
+              I'll respond to all inquiries when I return — thank you for your patience.
             </div>
-            <div>
-              <div class="contact-item-label">Studio</div>
-              <div class="contact-item-val"><a href="https://pitchblacknight.com" target="_blank" rel="noopener">pitchblacknight.com</a></div>
-            </div>
-            <div>
-              <div class="contact-item-label">LinkedIn</div>
-              <div class="contact-item-val"><a href="https://www.linkedin.com/in/mikel-rosenthal-5b85b17" target="_blank" rel="noopener">linkedin.com/in/mikel-rosenthal-5b85b17</a></div>
-            </div>
-            <div>
-              <div class="contact-item-label">Trusted By</div>
-              <div class="contact-caps">
-                Google · GE Healthcare · Blue Cross Blue Shield<br>
-                Herman Miller · Whirlpool · Avant
+
+            <form class="intake-form" id="intakeForm"
+                  action="https://formspree.io/f/YOUR_FORM_ID"
+                  method="POST">
+              <!-- Replace YOUR_FORM_ID with your Formspree endpoint.
+                   Sign up free at formspree.io → New Form → copy the ID. -->
+
+              <div class="intake-row">
+                <div class="intake-field">
+                  <label class="intake-label" for="i-name">Your name <span class="req">*</span></label>
+                  <input class="intake-input" id="i-name" name="name" type="text" required autocomplete="name">
+                </div>
+                <div class="intake-field">
+                  <label class="intake-label" for="i-email">Email <span class="req">*</span></label>
+                  <input class="intake-input" id="i-email" name="email" type="email" required autocomplete="email">
+                </div>
               </div>
-            </div>
-            <div>
-              <div class="contact-item-label">Disciplines</div>
-              <div class="contact-caps">
-                Design Systems · Art Direction<br>
-                Product Design · UI/UX<br>
-                Music · Voice Performance · Brand
+
+              <div class="intake-field">
+                <label class="intake-label" for="i-type">What are you looking for? <span class="req">*</span></label>
+                <select class="intake-select" id="i-type" name="inquiry_type" required>
+                  <option value="">— Select —</option>
+                  <option value="freelance">Freelance / Contract project</option>
+                  <option value="fulltime">Full-time role (direct hire)</option>
+                  <option value="recruiter">Recruiter outreach</option>
+                  <option value="collab">Creative collaboration</option>
+                  <option value="speaking">Speaking / Consulting</option>
+                  <option value="other">Something else</option>
+                </select>
               </div>
-            </div>
+
+              <!-- FREELANCE / CONTRACT -->
+              <div class="intake-section" id="sec-freelance">
+                <div class="intake-divider">Project details</div>
+                <div class="intake-row">
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-proj-type">Type of work</label>
+                    <select class="intake-select" id="i-proj-type" name="project_type">
+                      <option value="">— Select —</option>
+                      <option>Design System</option>
+                      <option>UI / UX Design</option>
+                      <option>Art Direction</option>
+                      <option>Branding / Identity</option>
+                      <option>Web Design</option>
+                      <option>Motion / Animation</option>
+                      <option>Voice Performance</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-proj-timeline">Timeline</label>
+                    <select class="intake-select" id="i-proj-timeline" name="project_timeline">
+                      <option value="">— Select —</option>
+                      <option>ASAP</option>
+                      <option>1–4 weeks</option>
+                      <option>1–3 months</option>
+                      <option>3–6 months</option>
+                      <option>6+ months / ongoing</option>
+                      <option>Flexible</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="intake-field">
+                  <label class="intake-label" for="i-proj-budget">Budget range</label>
+                  <select class="intake-select" id="i-proj-budget" name="project_budget">
+                    <option value="">— Select —</option>
+                    <option>Under $5K</option>
+                    <option>$5K – $15K</option>
+                    <option>$15K – $30K</option>
+                    <option>$30K – $60K</option>
+                    <option>$60K+</option>
+                    <option>Hourly / TBD</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- FULL-TIME (direct) -->
+              <div class="intake-section" id="sec-fulltime">
+                <div class="intake-divider">Role details</div>
+                <div class="intake-row">
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-ft-company">Company</label>
+                    <input class="intake-input" id="i-ft-company" name="company" type="text">
+                  </div>
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-ft-title">Role title</label>
+                    <input class="intake-input" id="i-ft-title" name="role_title" type="text">
+                  </div>
+                </div>
+                <div class="intake-row">
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-ft-level">Level</label>
+                    <select class="intake-select" id="i-ft-level" name="role_level">
+                      <option value="">— Select —</option>
+                      <option>Senior</option>
+                      <option>Lead</option>
+                      <option>Principal</option>
+                      <option>Staff</option>
+                      <option>Director</option>
+                      <option>VP / Head of Design</option>
+                    </select>
+                  </div>
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-ft-remote">Work model</label>
+                    <select class="intake-select" id="i-ft-remote" name="work_model">
+                      <option value="">— Select —</option>
+                      <option>Fully remote</option>
+                      <option>Hybrid (Chicago area)</option>
+                      <option>On-site</option>
+                      <option>Flexible</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="intake-field">
+                  <label class="intake-label" for="i-ft-comp">Compensation range</label>
+                  <select class="intake-select" id="i-ft-comp" name="compensation">
+                    <option value="">— Select —</option>
+                    <option>$100K – $130K</option>
+                    <option>$130K – $160K</option>
+                    <option>$160K – $190K</option>
+                    <option>$190K – $220K</option>
+                    <option>$220K+</option>
+                    <option>Equity-heavy / startup</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- RECRUITER -->
+              <div class="intake-section" id="sec-recruiter">
+                <div class="intake-divider">Recruiter info</div>
+                <div class="intake-row">
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-rec-agency">Your agency / company</label>
+                    <input class="intake-input" id="i-rec-agency" name="recruiter_agency" type="text" placeholder="e.g. Kforce, in-house at Acme Co.">
+                  </div>
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-rec-client">Client company (if different)</label>
+                    <input class="intake-input" id="i-rec-client" name="recruiter_client" type="text">
+                  </div>
+                </div>
+                <div class="intake-field">
+                  <label class="intake-label" for="i-rec-linkedin">Your LinkedIn URL</label>
+                  <input class="intake-input" id="i-rec-linkedin" name="recruiter_linkedin" type="url" placeholder="linkedin.com/in/…">
+                </div>
+                <div class="intake-row">
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-rec-title">Role title</label>
+                    <input class="intake-input" id="i-rec-title" name="rec_role_title" type="text">
+                  </div>
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-rec-type">Role type</label>
+                    <select class="intake-select" id="i-rec-type" name="rec_role_type">
+                      <option value="">— Select —</option>
+                      <option>Full-time / Perm</option>
+                      <option>Contract-to-hire</option>
+                      <option>Contract</option>
+                      <option>Freelance</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="intake-row">
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-rec-comp">Compensation / rate</label>
+                    <select class="intake-select" id="i-rec-comp" name="rec_compensation">
+                      <option value="">— Select —</option>
+                      <option>Under $100/hr</option>
+                      <option>$100 – $130/hr</option>
+                      <option>$130 – $160/hr</option>
+                      <option>$160/hr+</option>
+                      <option>$130K – $160K salary</option>
+                      <option>$160K – $200K salary</option>
+                      <option>$200K+ salary</option>
+                    </select>
+                  </div>
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-rec-size">Company size</label>
+                    <select class="intake-select" id="i-rec-size" name="company_size">
+                      <option value="">— Select —</option>
+                      <option>Startup (1–50)</option>
+                      <option>Growth (50–250)</option>
+                      <option>Mid-market (250–1K)</option>
+                      <option>Enterprise (1K – 10K)</option>
+                      <option>Large enterprise (10K+)</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="intake-row">
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-rec-remote">Work model</label>
+                    <select class="intake-select" id="i-rec-remote" name="rec_work_model">
+                      <option value="">— Select —</option>
+                      <option>Fully remote</option>
+                      <option>Hybrid (Chicago area)</option>
+                      <option>On-site</option>
+                      <option>Flexible</option>
+                    </select>
+                  </div>
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-rec-start">Start timeline</label>
+                    <select class="intake-select" id="i-rec-start" name="rec_start">
+                      <option value="">— Select —</option>
+                      <option>Immediate</option>
+                      <option>2–4 weeks</option>
+                      <option>1–2 months</option>
+                      <option>2–3 months</option>
+                      <option>Flexible</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- COLLAB -->
+              <div class="intake-section" id="sec-collab">
+                <div class="intake-divider">Collaboration details</div>
+                <div class="intake-field">
+                  <label class="intake-label" for="i-collab-timeline">Timeline</label>
+                  <select class="intake-select" id="i-collab-timeline" name="collab_timeline">
+                    <option value="">— Select —</option>
+                    <option>One-off / single piece</option>
+                    <option>Short-term (under 1 month)</option>
+                    <option>Ongoing</option>
+                    <option>Flexible</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- SPEAKING -->
+              <div class="intake-section" id="sec-speaking">
+                <div class="intake-divider">Speaking / consulting details</div>
+                <div class="intake-row">
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-speak-topic">Topic / event</label>
+                    <input class="intake-input" id="i-speak-topic" name="speak_topic" type="text">
+                  </div>
+                  <div class="intake-field">
+                    <label class="intake-label" for="i-speak-format">Format</label>
+                    <select class="intake-select" id="i-speak-format" name="speak_format">
+                      <option value="">— Select —</option>
+                      <option>Conference keynote</option>
+                      <option>Workshop</option>
+                      <option>Panel</option>
+                      <option>Podcast / interview</option>
+                      <option>Consulting session</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Notes (always shown once type is selected) -->
+              <div class="intake-section" id="sec-notes">
+                <div class="intake-field" style="margin-top: 8px;">
+                  <label class="intake-label" for="i-notes">Anything else I should know</label>
+                  <textarea class="intake-textarea" id="i-notes" name="notes" rows="3"></textarea>
+                </div>
+              </div>
+
+              <div class="intake-submit">
+                <button class="intake-btn" type="submit">Send inquiry →</button>
+                <span class="intake-note">Email only · No calls · 2–3 day response</span>
+              </div>
+              <div class="intake-success" id="intakeSuccess">
+                ✓ Received — I'll be in touch within 3–5 business days.
+              </div>
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- MUSIC -->
+    <section id="music">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="sec-num">—</span>
+          <span class="sec-name">Music</span>
+          <span class="sec-count">6 Originals</span>
+        </div>
+        <p class="sec-intro">First-take improv. Live-mastered. No overdubs. Produced as PitchBlacKnight — recorded by accident while working. That's the method.</p>
+        <div class="music-grid">
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/for-jon.mp3">
+            <div class="mix-ep">Original · Track</div>
+            <div class="mix-title">For Jon</div>
+            <div class="mix-date">PitchBlacKnight</div>
+            <div class="mix-play">▶ Play</div>
+          </div>
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/you-have-a-wanting-alan.mp3">
+            <div class="mix-ep">Original · Track</div>
+            <div class="mix-title">You Have a Wanting Alan</div>
+            <div class="mix-date">PitchBlacKnight</div>
+            <div class="mix-play">▶ Play</div>
+          </div>
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/bright-swift-visions.mp3">
+            <div class="mix-ep">Original · Track</div>
+            <div class="mix-title">Bright Swift Visions</div>
+            <div class="mix-date">PitchBlacKnight</div>
+            <div class="mix-play">▶ Play</div>
+          </div>
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/never-thought-i-could.mp3">
+            <div class="mix-ep">Original · Track</div>
+            <div class="mix-title">Never Thought I Could</div>
+            <div class="mix-date">PitchBlacKnight</div>
+            <div class="mix-play">▶ Play</div>
+          </div>
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/when-you-leave.mp3">
+            <div class="mix-ep">Original · Track</div>
+            <div class="mix-title">When You Leave</div>
+            <div class="mix-date">PitchBlacKnight</div>
+            <div class="mix-play">▶ Play</div>
+          </div>
+          <div class="mix-card" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/dracula-grind-and-bump.mp3">
+            <div class="mix-ep">Original · Track</div>
+            <div class="mix-title">Dracula Grind and Bump</div>
+            <div class="mix-date">PitchBlacKnight</div>
+            <div class="mix-play">▶ Play</div>
           </div>
         </div>
       </div>
     </section>
 
+    <!-- PBN BANNER -->
+    <section class="pbn-banner">
+      <div class="pbn-inner">
+        <div class="pbn-eyebrow">PBK Studio · The other side of the practice</div>
+        <h2 class="pbn-name">Pitch<em>Blac</em>Knight</h2>
+        <p class="pbn-sub">Original music produced in the dark — first-take improv sessions, live-mastered, no overdubs, no do-overs. A different kind of discipline. The same eye for what's true.</p>
+        <a class="pbn-link" href="https://pitchblacknight.com" target="_blank" rel="noopener">pitchblacknight.com</a>
+      </div>
+    </section>
+
     <!-- FOOTER -->
     <footer class="site-footer">
-      <span>PBK Studio · Mikel Rosenthal · &copy; 2026</span>
-      <span>Chicago, IL</span>
+      <div class="site-footer-inner">
+        <div class="site-footer-grid">
+          <div class="footer-col">
+            <p class="footer-col-title">Navigate</p>
+            <a href="#design-systems">Design Systems</a>
+            <a href="#product-design">Product Design</a>
+            <a href="#branding">Branding</a>
+            <a href="#services">Services</a>
+            <a href="#digital-art">Digital Art</a>
+          </div>
+          <div class="footer-col">
+            <p class="footer-col-title">Connect</p>
+            <a href="mailto:mikelrosenthal@me.com">Email</a>
+            <a href="https://www.linkedin.com/in/mikel-rosenthal-5b85b17" target="_blank" rel="noopener">LinkedIn</a>
+            <a href="https://pitchblacknight.com" target="_blank" rel="noopener">PitchBlacKnight.com</a>
+            <a href="/resume.html" target="_blank">Resume</a>
+          </div>
+        </div>
+        <div class="site-footer-bar">
+          <span class="footer-copy">PBK Studio &middot; Mikel Rosenthal &middot; &copy; 2026 &middot; Chicago, IL</span>
+          <div class="footer-wordmark">
+            <span class="fw-pitch">Pitch</span><span class="fw-blac">Blac</span><span class="fw-knight">Knight</span>
+          </div>
+        </div>
+      </div>
     </footer>
 
   </main>
@@ -2423,6 +3140,7 @@
     </div>
   </div>
 
+  <script src="animations.js" defer></script>
   <script>
     /* ── PROJECT DATA ─────────────────────────────────── */
     const DS_PROJECTS = {
@@ -2576,12 +3294,9 @@
         meta: 'Lead UX/UI Designer · Contract',
         tags: ['Rebranding', 'UX Design', 'Mobile', 'Desktop', 'Consumer Finance', 'Dashboard'],
         images: [
-          'images/ux/truecredit/portfolio-pdf.png',
-          'images/ux/truecredit/00-portfolio-slide.jpg',
-          'images/ux/truecredit/01-overview.jpg',
-          'images/ux/truecredit/02-dashboard.jpg',
-          'images/ux/truecredit/03-detail.jpg',
-          'images/ux/truecredit/04-landing.jpg'
+          'images/ux/truecredit/tc-02-dashboard.png',
+          'images/ux/truecredit/tc-01-calculator.png',
+          'images/ux/truecredit/tc-03-monitoring.png'
         ],
         intro: 'TrueCredit was TransUnion\'s flagship consumer credit monitoring service — a full rebrand and UX redesign across mobile, desktop, and landing page, built to make credit literacy feel personal rather than punitive.',
         body: `<p>The TrueCredit brief was substantial: complete visual rebrand, a new dashboard architecture for the credit monitoring product, and a redesigned onboarding and landing page experience — all designed to work across mobile, tablet, and desktop simultaneously.</p>
@@ -2631,19 +3346,19 @@
 
       'google-dashboard': {
         eyebrow: 'Google · Information Design · 2016',
-        title: 'Google Dashboard Concept',
+        title: 'Google Dashboard',
         meta: 'Senior UX Designer · Maven Wave Partners',
         tags: ['Information Design', 'Dashboard', 'Data Visualization', 'Cross-device', 'Google'],
         images: [
           'images/ux/google-dashboard/01-overview.jpg'
         ],
-        intro: 'An information dashboard concept designed for Google — bringing productivity metrics, team performance, and workflow data into a unified, cross-device view built on Material Design principles.',
-        body: `<p>The Google engagement through Maven Wave was a design concept exploration: how should Google's own productivity and analytics data look when surfaced back to teams and managers? The answer had to feel like Google — clean, information-dense, and instantly readable — without feeling like a third-party dashboard trying to imitate the aesthetic.</p>
-               <p>The concept centered on a unified "productivity overview" — donut charts for goal completion, line graphs for activity over time, a team sidebar with quick-access avatars, and data cards with at-a-glance metrics. The cross-device mockup (iPad + MacBook Pro) showed the same information architecture adapting gracefully between form factors.</p>
+        intro: 'An information dashboard designed for Google — bringing productivity metrics, team performance, and workflow data into a unified, cross-device view built on Material Design principles.',
+        body: `<p>The Google engagement through Maven Wave was an information design exploration: how should Google's own productivity and analytics data look when surfaced back to teams and managers? The answer had to feel like Google — clean, information-dense, and instantly readable — without feeling like a third-party dashboard trying to imitate the aesthetic.</p>
+               <p>The design centered on a unified "productivity overview" — donut charts for goal completion, line graphs for activity over time, a team sidebar with quick-access avatars, and data cards with at-a-glance metrics. The cross-device layout (iPad + MacBook Pro) showed the same information architecture adapting gracefully between form factors.</p>
                <p>The color system borrowed from Google Workspace's product palette — blue, green, red, yellow as semantic indicators — keeping the dashboard legible without needing a legend.</p>`,
         cols: [
-          { label: 'Deliverables', val: 'Dashboard concept · Cross-device layout · Data visualization · Information architecture' },
-          { label: 'Context', val: 'Google · Maven Wave Partners · 2016 · Internal productivity analytics · Design concept' }
+          { label: 'Deliverables', val: 'Dashboard design · Cross-device layout · Data visualization · Information architecture' },
+          { label: 'Context', val: 'Google · Maven Wave Partners · 2016 · Internal productivity analytics' }
         ]
       },
 
@@ -2655,12 +3370,12 @@
         images: [
           'images/ux/maven-wave/01-overview.jpg'
         ],
-        intro: 'Senior UX Designer embedded at Maven Wave Partners — a Google Cloud Premier Partner. Led UX across three simultaneous client engagements: Whirlpool Corporation, Gartner, and a Google-internal analytics dashboard concept.',
-        body: `<p>Maven Wave Partners placed me across three high-profile client engagements in 2015–2016, each requiring a different design mode: native mobile app design at Whirlpool, research-synthesis and journey mapping at Gartner, and information design concept work on a Google-internal productivity dashboard.</p>
-               <p>At Whirlpool, I designed a retail floor inventory app using image recognition — a novel interaction pattern at the time. At Gartner, I translated enterprise user research into persona grids and journey maps used to drive product prioritization. For the Google engagement, I led a design concept exploration of how Google's own analytics data should look when surfaced to teams and managers internally.</p>
+        intro: 'Senior UX Designer embedded at Maven Wave Partners — a Google Cloud Premier Partner. Led UX across three simultaneous client engagements: Whirlpool Corporation, Gartner, and a Google-internal analytics dashboard.',
+        body: `<p>Maven Wave Partners placed me across three high-profile client engagements in 2015–2016, each requiring a different design mode: native mobile app design at Whirlpool, research-synthesis and journey mapping at Gartner, and information design on a Google-internal productivity dashboard.</p>
+               <p>At Whirlpool, I designed a retail floor inventory app using image recognition — a novel interaction pattern at the time. At Gartner, I translated enterprise user research into persona grids and journey maps used to drive product prioritization. For the Google engagement, I led the information design for how Google's own analytics data should look when surfaced to teams and managers internally.</p>
                <p>Maven Wave operated at the intersection of Google Cloud infrastructure and UX maturity — the clients came in with complex data and limited design systems. My role was to make enterprise-grade tools feel like consumer products: readable, navigable, and worth opening.</p>`,
         cols: [
-          { label: 'Clients', val: 'Whirlpool Corporation · Gartner · Google (internal concept)' },
+          { label: 'Clients', val: 'Whirlpool Corporation · Gartner · Google (internal)' },
           { label: 'Context', val: 'Maven Wave Partners · Google Cloud Premier Partner · 2015–2016 · Chicago, IL' }
         ]
       },
@@ -2708,7 +3423,6 @@
         tags: ['UX Design', 'Web Design', 'Healthcare', 'Enterprise', 'Responsive'],
         images: [
           'images/ux/bcbs-fiber/bc-10.jpg',
-          'images/web-design/bcbs/01-homepage.jpg',
           'images/web-design/bcbs/02-plan-select.jpg',
           'images/web-design/bcbs/03-find-doctor.jpg',
           'images/web-design/bcbs/04-plan-tiers.jpg',
@@ -2954,7 +3668,7 @@
       document.body.style.overflow = '';
     }
 
-    document.querySelectorAll('.ds-card, .modal-card').forEach(card => {
+    document.querySelectorAll('.modal-card').forEach(card => {
       card.addEventListener('click', () => openModal(card.dataset.project));
     });
 
@@ -3051,6 +3765,81 @@
         });
       });
     })();
+  </script>
+
+  <script>
+  /* ── INTAKE FORM ─────────────────────────────────── */
+  (function () {
+
+    /* Vacation notice: show between Jun 23 and Jul 7 */
+    var notice = document.getElementById('vacationNotice');
+    if (notice) {
+      var now = new Date();
+      var yr  = now.getFullYear();
+      var start = new Date(yr, 5, 23);  /* June 23 */
+      var end   = new Date(yr, 5, 29);  /* June 29 — expired */
+      if (now >= start && now < end) notice.classList.add('active');
+    }
+
+    /* Conditional sections */
+    var typeSelect = document.getElementById('i-type');
+    var sectionMap = {
+      freelance: 'sec-freelance',
+      fulltime:  'sec-fulltime',
+      recruiter: 'sec-recruiter',
+      collab:    'sec-collab',
+      speaking:  'sec-speaking',
+      other:     'sec-notes'
+    };
+
+    function showSection(val) {
+      /* hide all conditional sections */
+      document.querySelectorAll('.intake-section').forEach(function (s) {
+        s.classList.remove('active');
+      });
+      /* show the matching one */
+      var id = sectionMap[val];
+      if (id) document.getElementById(id).classList.add('active');
+      /* always show notes when a type is chosen (except "other" which already includes it) */
+      if (val && val !== 'other') {
+        document.getElementById('sec-notes').classList.add('active');
+      }
+    }
+
+    if (typeSelect) {
+      typeSelect.addEventListener('change', function () {
+        showSection(this.value);
+      });
+    }
+
+    /* Form submission via Formspree */
+    var form    = document.getElementById('intakeForm');
+    var success = document.getElementById('intakeSuccess');
+
+    if (form) {
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var data = new FormData(form);
+        fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        })
+        .then(function (res) {
+          if (res.ok) {
+            form.style.display = 'none';
+            if (success) success.classList.add('active');
+          } else {
+            alert('Something went wrong. Please email mikelrosenthal@me.com directly.');
+          }
+        })
+        .catch(function () {
+          alert('Network error. Please email mikelrosenthal@me.com directly.');
+        });
+      });
+    }
+
+  })();
   </script>
 
 </body>

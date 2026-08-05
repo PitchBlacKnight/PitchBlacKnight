@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23111'/><text x='16' y='22' font-family='Georgia,serif' font-size='15' font-weight='700' fill='%23e06b2a' text-anchor='middle'>MR</text></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mikel Rosenthal — Resume 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:     #0b0b0b;
+    --bg2:    #111111;
+    --white:  #f0f0f0;
+    --dim:    rgba(240,240,240,.62);
+    --muted:  rgba(240,240,240,.36);
+    --orange: #e06b2a;
+    --rule:   rgba(255,255,255,.1);
+    --rule2:  rgba(255,255,255,.06);
+    --blue:   #8ca0b9;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--white);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 10.8pt;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Print bar ──────────────────────────────────── */
+  .print-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 7.4in;
+    margin: 0 auto;
+    padding: 14px 0.5in;
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .print-bar a { color: var(--muted); text-decoration: none; }
+  .print-bar a:hover { color: var(--orange); }
+  .print-bar button {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 7px 16px;
+    border-radius: 2px;
+  }
+  .print-bar button:hover { opacity: .85; }
+
+  /* ── Page ───────────────────────────────────────── */
+  .page {
+    max-width: 7.4in;
+    margin: 0 auto;
+    padding: 0.45in 0.5in 0.6in;
+  }
+
+  /* ── Header ─────────────────────────────────────── */
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .name {
+    font-family: 'Alexandria', sans-serif;
+    font-weight: 200;
+    font-size: 46pt;
+    line-height: .88;
+    letter-spacing: -0.025em;
+    color: var(--white);
+  }
+  .header-right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .role {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.8pt;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+  .contact {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.6pt;
+    letter-spacing: .06em;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+  .contact a { color: var(--blue); text-decoration: none; }
+
+  /* ── Divider ─────────────────────────────────────── */
+  .rule { height: 1px; background: var(--rule); border: 0; margin: 20px 0; }
+
+  /* ── Summary lede ────────────────────────────────── */
+  .lede {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 12.5pt;
+    line-height: 1.62;
+    color: rgba(240,240,240,.78);
+    max-width: 6in;
+    margin-bottom: 22px;
+  }
+  .lede b { font-style: normal; color: var(--white); font-weight: 500; }
+
+  /* ── Strengths pills ─────────────────────────────── */
+  .strengths-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 24px;
+  }
+  .pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.2pt;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--white);
+    border: 1px solid var(--rule);
+    padding: 5px 11px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* ── Section head ────────────────────────────────── */
+  .sec {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    border-top: 1px solid var(--rule);
+    padding-top: 9px;
+    margin: 26px 0 16px;
+  }
+  .sec-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.6pt;
+    letter-spacing: .12em;
+    color: var(--orange);
+    flex-shrink: 0;
+  }
+  .sec-name {
+    font-family: 'Alexandria', sans-serif;
+    font-weight: 300;
+    font-size: 10pt;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  /* ── Impact list ─────────────────────────────────── */
+  .impact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .impact-list li {
+    display: flex;
+    gap: 14px;
+    color: var(--dim);
+    font-size: 10.6pt;
+    line-height: 1.45;
+  }
+  .impact-list li::before {
+    content: '—';
+    color: var(--orange);
+    flex-shrink: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 8pt;
+    margin-top: 3px;
+  }
+
+  /* ── Jobs ────────────────────────────────────────── */
+  .job {
+    margin-bottom: 18px;
+    page-break-inside: avoid;
+    border-top: 1px solid var(--rule2);
+    padding-top: 14px;
+  }
+  .job:first-child { border-top: none; padding-top: 0; }
+
+  .job-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 3px;
+  }
+  .job-co {
+    font-family: 'Alexandria', sans-serif;
+    font-weight: 400;
+    font-size: 11.5pt;
+    color: var(--white);
+  }
+  .job-co .at {
+    color: var(--muted);
+    font-weight: 300;
+    font-size: 10pt;
+  }
+  .job-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.4pt;
+    letter-spacing: .07em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .job-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.6pt;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  .job-sum {
+    color: var(--dim);
+    font-size: 10.4pt;
+    line-height: 1.5;
+    margin-bottom: 7px;
+  }
+  .job ul { list-style: none; }
+  .job li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 3px;
+    font-size: 10.2pt;
+    line-height: 1.44;
+    color: var(--dim);
+  }
+  .job li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: .64em;
+    width: 5px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  /* ── Skills ──────────────────────────────────────── */
+  .skills-text {
+    font-size: 10.6pt;
+    line-height: 1.82;
+    color: var(--dim);
+  }
+  .skills-text b { color: var(--white); font-weight: 500; }
+
+  /* ── Awards / Edu grid ───────────────────────────── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; }
+  .item { font-size: 10.4pt; color: var(--dim); margin-bottom: 5px; line-height: 1.45; }
+  .item b { color: var(--white); font-weight: 500; }
+  .item .meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.4pt;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Footer ──────────────────────────────────────── */
+  .foot {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.6pt;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-top: 30px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .foot .lab { color: var(--orange); letter-spacing: .16em; margin-right: 6px; }
+  .foot a { color: var(--dim); text-decoration: none; }
+
+  /* ── Print ───────────────────────────────────────── */
+  @page { size: 8.5in auto; margin: 0; }
+  @media print {
+    .print-bar { display: none; }
+    .page { padding: 0.45in 0.55in 0.55in; max-width: none; }
+    html, body { background: var(--bg) !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="print-bar">
+  <a href="/">← MikelRosenthal.com</a>
+  <button onclick="window.print()">↓ Save as PDF</button>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header-row">
+    <h1 class="name">Mikel<br>Rosenthal</h1>
+    <div class="header-right">
+      <div class="role">Art Director · Design Director · Contract &amp; Freelance</div>
+      <div class="contact">
+        mikelrosenthal@me.com &nbsp;·&nbsp; (773) 490-6923<br>
+        Chicago Heights, IL<br>
+        <a href="https://mikelrosenthal.com">mikelrosenthal.com</a> &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/in/mikel-rosenthal-5b85b17">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- LEDE -->
+  <p class="lede">I lead teams to create unmistakable visual worlds — then systematize them so they scale fast, stay consistent, and ship beautifully. Trusted by <b>Google, GE Healthcare, Blue Cross Blue Shield, Herman Miller, Whirlpool,</b> and <b>Gartner.</b> My practice is rooted in a Fluxus mindset: interdisciplinary, concept-forward, and execution-complete.</p>
+
+  <!-- STRENGTHS -->
+  <div class="strengths-row">
+    <span class="pill">Art Direction</span>
+    <span class="pill">Design Systems</span>
+    <span class="pill">Brand-to-Product</span>
+    <span class="pill">Visual Leadership</span>
+    <span class="pill">CX Audit + Strategy</span>
+    <span class="pill">Cross-Functional Leadership</span>
+    <span class="pill">Figma-First Workflows</span>
+    <span class="pill">Accessibility + Craft</span>
+    <span class="pill">Voice &amp; Narrative</span>
+  </div>
+
+  <!-- IMPACT -->
+  <div class="sec"><span class="sec-num">00</span><span class="sec-name">Selected Impact</span></div>
+  <ul class="impact-list">
+    <li>Built &amp; scaled enterprise design systems adopted across 40+ product lines and hundreds of stakeholders</li>
+    <li>Led component libraries enabling faster delivery, visual coherence, and reduced rework</li>
+    <li>Directed cross-platform UI frameworks (web + mobile) with accessibility and governance baked in</li>
+    <li>Delivered product ecosystems spanning dashboards, responsive apps, and data visualization</li>
+    <li>Facilitated stakeholder alignment through workshops, critiques, and story-led presentations</li>
+  </ul>
+
+  <!-- EXPERIENCE -->
+  <div class="sec"><span class="sec-num">01</span><span class="sec-name">Experience</span></div>
+
+  <div class="job">
+    <div class="job-top">
+      <div class="job-co">PBK Studio LLC <span class="at">— Founder &amp; Principal</span></div>
+      <div class="job-date">2021 — Present</div>
+    </div>
+    <div class="job-role">Art Direction · Design Systems · Product Design · Brand Identity · Web · Motion · Voice · Music</div>
+    <p class="job-sum">Independent multidisciplinary studio — incorporated as a full LLC in May 2026 — operating across art direction, design systems, product design, brand identity, web development, motion art, voice performance, and original music production.</p>
+    <ul>
+      <li>Client work spans enterprise design systems (healthcare, fintech, insurance), real estate microsites, consumer brand identity, and responsive web builds.</li>
+      <li>Designs with governance and developer handoff built in — Figma-first, token-driven, accessibility-aware.</li>
+      <li>Original music released as PitchBlacKnight — first-take improv sessions, live-mastered, no overdubs. SAG-eligible voice performance for commercial, narrative, and sonic branding. 24+ years of craft applied across every discipline the studio touches.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top">
+      <div class="job-co">Verizon <span class="at">— Senior Design System Designer II</span></div>
+      <div class="job-date">Dec 2025 – Jan 2026</div>
+    </div>
+    <div class="job-role">Contract via Insight Global · Fully Remote</div>
+    <p class="job-sum">Senior design systems designer on Verizon's mature, post-rebrand enterprise system — end-to-end across iOS, Android, and web teams.</p>
+    <ul>
+      <li>Owned primitive and semantic design tokens, variables, and component architecture driving cross-platform parity.</li>
+      <li>Built a scalable calendar/date-picker family engineered for theming and platform variance.</li>
+      <li>Led design-to-code alignment via Figma Dev Mode and Code Connect; authored AI-augmented contribution patterns.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top">
+      <div class="job-co">Avant <span class="at">— Senior Product / Design Systems Designer</span></div>
+      <div class="job-date">May 2021 – Aug 2024</div>
+    </div>
+    <div class="job-role">Full-Time · Hybrid / Chicago, IL</div>
+    <p class="job-sum">Led design and development of Avant's Pathfinder™ Design System and a marketing design library spanning product and brand.</p>
+    <ul>
+      <li>Defined visual language, component architecture, governance model, and contribution patterns for multi-platform consistency.</li>
+      <li>Introduced a brand/marketing design library that streamlined consistency for 350+ internal stakeholders.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top">
+      <div class="job-co">GE Healthcare <span class="at">— Senior UX/UI Designer, Design Systems</span></div>
+      <div class="job-date">Jan 2020 – Feb 2021</div>
+    </div>
+    <div class="job-role">Contract · Hybrid / Chicago, IL</div>
+    <p class="job-sum">Core contributor on the award-winning Edison Design System™ — a token-driven foundation unifying 40+ regulated enterprise products.</p>
+    <ul>
+      <li>Central role in winning the 2020 Red Dot Award, Fast Company Innovation by Design, and dmi:DVA Award for Interface Design.</li>
+      <li>Developed scalable Figma component libraries across diverse teams; ensured WCAG compliance for regulated healthcare environments.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top">
+      <div class="job-co">Blue Cross Blue Shield <span class="at">— Senior Design Systems Designer</span></div>
+      <div class="job-date">May 2018 – Dec 2019</div>
+    </div>
+    <div class="job-role">Contract · Hybrid / Chicago, IL</div>
+    <p class="job-sum">Created the FIBER™ Design System — a token-driven, React-compatible framework that unified 40+ screens across enrollment and member flows.</p>
+    <ul>
+      <li>Defined typography, color, grids, iconography, and coded components with theming hooks.</li>
+      <li>Partnered with developers to translate designs into React components; established accessibility and documentation standards.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top">
+      <div class="job-co">TransUnion <span class="at">— Senior UX Designer, Design Systems</span></div>
+      <div class="job-date">May 2018 – Jun 2019</div>
+    </div>
+    <div class="job-role">Contract · Hybrid / Chicago, IL</div>
+    <p class="job-sum">Designed the global TUCM Design System™ and TrueCredit consumer rebrand for customer-facing and internal applications.</p>
+    <ul>
+      <li>Built responsive, scalable UI libraries with integrated tokens; established universal style guidelines and design-to-code workflows.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top">
+      <div class="job-co">Maven Wave / Eviden <span class="at">— UX Senior Lead, Design Systems</span></div>
+      <div class="job-date">Jan 2005 – May 2018</div>
+    </div>
+    <div class="job-role">Full-Time · Hybrid / Chicago, IL</div>
+    <p class="job-sum">Directed conceptual and visual direction across Fortune 500 client projects, integrating UX principles with brand storytelling.</p>
+    <ul>
+      <li>Established scalable design workflows and early design-system patterns for clients including Google, AT&amp;T, and Nike.</li>
+      <li>Created prototypes, journey maps, and digital ecosystems across app, web, and co-branded products; mentored design teams.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top">
+      <div class="job-co">Biersma Creative <span class="at">— Senior Designer &amp; UX Lead</span></div>
+      <div class="job-date">Jan 2006 – Jan 2013</div>
+    </div>
+    <div class="job-role">Full-Time · Chicago, IL</div>
+    <p class="job-sum">Led visual brand and UX direction across healthcare, retail, and entertainment for clients including Aflac, AbbVie, Crate &amp; Barrel, Disney, Google, Nike, Herman Miller, and Salesforce.</p>
+  </div>
+
+  <div class="job">
+    <div class="job-top">
+      <div class="job-co">Firebelly Design <span class="at">— Senior Graphic Designer</span></div>
+      <div class="job-date">Jan 2002 – Jan 2005</div>
+    </div>
+    <div class="job-role">Full-Time · Chicago, IL</div>
+    <p class="job-sum">Concept-to-execution brand and web design for ComEd, Petco, Harris Bank, and Scholastic.</p>
+  </div>
+
+  <!-- SKILLS -->
+  <div class="sec"><span class="sec-num">02</span><span class="sec-name">Skills</span></div>
+  <p class="skills-text"><b>Design Systems Leadership</b> · Composable / Token-Driven Systems · W3C Design Tokens · Figma (Variables, Dev Mode, Code Connect) · Component Architecture · Multi-Brand Theming · UI/UX Design · Cross-Platform Parity (iOS · Android · Web) · Visual Design Craft · Brand Systems &amp; Generative Identity · Accessibility-by-Default (WCAG 2.2 / 3.0) · AI-Augmented Design Workflows · Documentation &amp; Governance · DesignOps · Adobe Creative Suite · HTML / CSS · Motion · Voice Performance</p>
+
+  <!-- AWARDS + EDU -->
+  <div class="sec"><span class="sec-num">03</span><span class="sec-name">Awards &amp; Education</span></div>
+  <div class="grid2">
+    <div>
+      <div class="item"><b>2020 Red Dot Award</b> — Interface Design<br><span class="meta">Edison Design System · GE Healthcare</span></div>
+      <div class="item"><b>2020 Fast Company</b> — Innovation by Design</div>
+      <div class="item"><b>2020 dmi:DVA</b> — Design Value Award</div>
+      <div class="item"><b>MSU Film Festival</b> — 1st Place, Published Works</div>
+    </div>
+    <div>
+      <div class="item"><b>Missouri State University</b> · Springfield, MO<br><span class="meta">BFA Summa Cum Laude — Electronic Arts &amp; Design</span><br><span class="meta">Minor: Mass Media &amp; Communications</span></div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="foot">
+    <span><span class="lab">WORK</span><a href="https://mikelrosenthal.com">mikelrosenthal.com</a></span>
+    <span><span class="lab">ART</span><a href="https://pitchblacknight.com">pitchblacknight.com</a></span>
+    <span><span class="lab">EMAIL</span><a href="mailto:mikelrosenthal@me.com">mikelrosenthal@me.com</a></span>
+  </div>
+
+</div>
+</body>
+</html>

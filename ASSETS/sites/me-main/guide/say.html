@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Say this</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500&family=Space+Mono:wght@400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css?v=2">
+<style>
+  body{background:var(--bg)}
+  .sbar{
+    position:sticky;top:0;z-index:30;background:rgba(18,17,16,.94);
+    backdrop-filter:blur(16px);border-bottom:1px solid var(--line);
+    padding:var(--s4) var(--s6);display:flex;gap:var(--s4);align-items:center;flex-wrap:wrap;
+  }
+  .sbar input{
+    flex:1;min-width:240px;background:var(--panel);border:1px solid var(--line-2);
+    border-radius:var(--r-md);padding:14px 18px;color:var(--ink);
+    font-family:var(--sans);font-size:16px;font-weight:300;outline:none;
+  }
+  .sbar input::placeholder{color:var(--ink-3)}
+  .sbar input:focus-visible{border-color:var(--accent)}
+  .sbar .count{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.1em;white-space:nowrap}
+  .sbar a.home{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);text-decoration:none}
+  .sbar a.home:hover{color:var(--accent)}
+
+  .wrap{max-width:860px;margin:0 auto;padding:var(--s7) var(--s6) var(--s8)}
+  .lead{margin-bottom:var(--s7)}
+  .lead h1{font-size:clamp(30px,4vw,42px);font-weight:300;letter-spacing:-.04em;line-height:1.1;margin-bottom:var(--s4)}
+  .lead h1 em{font-style:normal;color:var(--accent)}
+  .lead p{color:var(--ink-2);font-size:15px;line-height:1.65;max-width:62ch}
+
+  .card2{padding:var(--s6) 0;border-bottom:1px solid var(--line)}
+  .card2:last-child{border-bottom:0}
+  .q2{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--accent);
+    margin-bottom:var(--s4);line-height:1.7;
+  }
+  .q2 span{color:var(--ink-3)}
+  .a2{
+    font-family:var(--serif);font-size:22px;line-height:1.5;color:var(--ink);
+  }
+  .a2 em{font-style:italic;color:var(--ink)}
+  .stop{
+    font-family:var(--mono);font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--ink-3);margin-top:var(--s4);display:block;
+  }
+  .more{
+    margin-top:var(--s4);font-size:13px;color:var(--ink-3);line-height:1.6;
+    border-left:2px solid var(--line-2);padding-left:var(--s4);
+  }
+  .more b{color:var(--ink-2);font-weight:400;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:5px}
+  .none{color:var(--ink-3);font-size:15px;padding:var(--s7) 0;text-align:center;font-family:var(--mono)}
+  mark{background:rgba(232,106,51,.28);color:var(--ink);border-radius:2px;padding:0 2px}
+</style>
+</head>
+<body>
+
+<div class="sbar">
+  <a class="home" href="index.html">← Kit</a>
+  <input id="q" placeholder="Type a word he said — tokens, plugin, AI, accessibility, engineers…" autocomplete="off" spellcheck="false">
+  <span class="count" id="count"></span>
+</div>
+
+<div class="wrap">
+  <div class="lead" id="lead">
+    <h1>Say this. <em>Then stop talking.</em></h1>
+    <p>Every answer here is one breath long and written the way you'd actually say it out loud. Type a word he used and the answer appears. Nothing else on this page — the detail lives everywhere else in the kit, and you do not need it while he's waiting.</p>
+  </div>
+  <div id="list"></div>
+  <div class="none" id="none" hidden>Nothing matches that. Try a plainer word.</div>
+</div>
+
+<script>
+/* Short, spoken, human. If an answer takes more than one breath, it's too long. */
+var A = [
+
+/* ── OPENING ───────────────────────────────────────────── */
+{q:["Tell me about yourself","Walk me through your background","So, give me the overview"],
+ t:"intro background about yourself overview",
+ a:"I'm a design systems person who ended up half in code. Nineteen years in product design, and the last seven almost entirely on systems — Verizon, GE Healthcare, Blue Cross. What I actually do all day sits between Figma and the codebase: the tokens, the components, and the tooling that keeps those two from drifting apart.",
+ stop:"Then stop. Let him pick the thread."},
+
+{q:["Why this role?","Why are you interested?","What made you apply?"],
+ t:"why this role interested apply motivation fit",
+ a:"Honestly, the platform-agnostic piece. Getting a system off a single tool as its source of truth — without making the designers' day worse — is a genuinely hard problem, and it's the one I most want to be working on. Most places aren't there yet. You've written it into the job description."},
+
+/* ── BUILDING SYSTEMS ──────────────────────────────────── */
+{q:["Have you built systems or just worked in them?","Building versus consuming"],
+ t:"built building consuming from scratch zero founded",
+ a:"Four from scratch. Blue Cross Blue Shield's first unified system, TransUnion's global one, Pathfinder at Avant, and the marketing library that came off it. And the building part is honestly the easy half — Pathfinder went 2.0 to 3.0 and never needed a redesign. That's the part I'm actually proud of.",
+ more:["Why that's the real test","A token layer that survives a major version has the architecture right. One that gets replaced didn't."]},
+
+{q:["How do you scale a system across teams?","How do you handle many products?"],
+ t:"scale scaling across teams multiple products enterprise",
+ a:"The hard problems are never visual — they're alignment. Edison at GE unified forty-plus regulated products, and almost none of that work was design. It was getting teams to agree on names, and giving them a path to contribute that didn't route through me."},
+
+/* ── TOKENS ────────────────────────────────────────────── */
+{q:["How do you structure tokens?","Talk me through your token architecture","Tell me about design tokens"],
+ t:"tokens token architecture structure tiers primitive semantic component variables",
+ a:"Three tiers, and they only point one direction. Primitives are the raw scale and nothing touches them directly. Semantics carry the meaning — that's the public API, and it's the only layer that themes. Then component tokens, but only where one component actually needs to break from the rest.",
+ more:["If he pushes on the third tier","Most people skip it. You need it the first time you want to change one button without touching everything that shares its background."]},
+
+{q:["Why not just two tiers?","Do you really need component tokens?"],
+ t:"two tiers three tier component tokens why need",
+ a:"You don't, until you do. The moment you need a per-component exception and you don't have that layer, you either hardcode it or you change the semantic and break four other things. I've been on the wrong side of that.",
+ stop:"Short answer. Don't lecture."},
+
+{q:["How do you handle theming?","Light and dark mode?","Multi-brand?"],
+ t:"theming theme light dark mode modes multi-brand brands",
+ a:"One semantic layer, resolved differently. At GE we had four theme targets — light and dark, across desktop and touch — and the components never forked. Same component, the layer underneath it just resolves to different values.",
+ more:["The failure mode to name","The second you have a dark version of a component as a separate component, you've doubled your maintenance forever."]},
+
+{q:["How do you name things?","Naming conventions?"],
+ t:"naming names convention conventions token names",
+ a:"With the engineers in the room, before I build anything. A semantic token is an interface — and interfaces get named by the people who call them. At Avant they pushed back on my first set because they read like design words instead of API names, and they were right."},
+
+/* ── ENGINEERS ─────────────────────────────────────────── */
+{q:["How do you work with engineers?","Tell me about partnering with developers"],
+ t:"engineers engineering developers partner partnering collaborate collaboration handoff",
+ a:"I try to make handoff not be a thing that happens. I spec with states enumerated and theming hooks already there, so implementation isn't a re-draw. At Verizon I wired up Code Connect so when an engineer opens a component in Dev Mode they see our actual code, not a generated guess at it."},
+
+{q:["How do you get design into production code?","Design to code?","Reducing manual translation"],
+ t:"design to code production translation dev mode code connect handoff implementation",
+ a:"Two halves, and people only ever do the fun one. The fun half is generating code from a design. The unglamorous half is Code Connect — actually mapping each component to the real thing in the repo. That's the half that makes anyone trust the output, and it's the half that gets skipped."},
+
+/* ── PLUGINS & AUTOMATION ──────────────────────────────── */
+{q:["Tell me about a plugin you've built","Figma Plugin API experience?","What have you automated?"],
+ t:"plugin plugins figma plugin api automation automated tooling built exporter dtcg",
+ a:"The one I keep coming back to pulls a file's variable collections out as W3C token JSON, so the tokens can leave Figma and feed a build. The tricky part was keeping the aliases — if you flatten the semantic layer into resolved values you get a file that's technically valid and architecturally dead.",
+ more:["The detail that proves you wrote it","Figma has one FLOAT type. The token spec cares whether 4 means 4 pixels or a 4× multiplier — and nothing in the API tells you which. So the real fix is upstream, in what you named the token. It's a design system problem wearing an engineering costume."]},
+
+{q:["When do you decide to automate something?","How do you pick what to build?"],
+ t:"automate automation when decide build tooling pick",
+ a:"Third time I do it by hand. Not the first — I don't know the shape of the problem yet. By the third repetition the tool basically designs itself, and it's the one people actually end up using."},
+
+/* ── ACCESSIBILITY ─────────────────────────────────────── */
+{q:["Talk to me about accessibility","How do you handle a11y?","WCAG experience"],
+ t:"accessibility a11y wcag inclusive contrast focus screen reader",
+ a:"I write it as something a script can check instead of something a person asserts. Contrast as a token pair with a ratio. A focus ring that's never allowed to be removed. Forty-four pixel targets. And nothing that signals state with colour alone.",
+ more:["Where it came from","GE Healthcare and Blue Cross — WCAG was a legal requirement, not a preference. That's when it stops being a checklist and becomes architecture."]},
+
+{q:["How do you keep things consistent across platforms?"],
+ t:"consistency consistent platforms cross-platform ios android web parity",
+ a:"You can't enforce it downstream, so you have to make it fall out of the source. One token file, and the build emits CSS, iOS, and the docs from it. If somebody wants to be inconsistent they have to go out of their way."},
+
+/* ── AI ────────────────────────────────────────────────── */
+{q:["What do you think AI's role is in design systems?","How should we use AI?"],
+ t:"ai artificial intelligence role generative llm claude workflows",
+ a:"It moves the judgment upstream, it doesn't remove it. Somebody still decides there are three button sizes and not seven, and that an error is never just a colour. That's the design work — it just happens once, in the system, instead of once per component.",
+ stop:"That's the whole answer. Don't add to it unless he asks."},
+
+{q:["What are skill files?","How do you make a system AI-ready?","Machine-readable guidance?"],
+ t:"skill files skill file ai-ready machine readable guidance rules encode",
+ a:"It's the system's rules written so a machine can't ignore them. Tokens, required states, the accessibility floor — plus a rule that every value it generates has to be annotated with the token it came from. That way the output is auditable instead of just trusted.",
+ more:["The part worth saying next","Two layers, really. The rules make a generated component correct. The inventory — what already exists — stops it building you a fourth button next to your three."]},
+
+{q:["Has AI actually made you faster?","What's the real productivity gain?","Is it hype or does it work?"],
+ t:"faster speed productivity gain 10x time savings efficiency real hype",
+ a:"On the mechanical work, easily ten times. Audits, variant coverage, documentation, drift checks — the tedious high-volume stuff that used to eat days now takes an afternoon. On the decisions it's zero, and I wouldn't want it to be anything else.",
+ more:["Why bound it that way","An unbounded 10x invites “measured how?” Naming exactly what it accelerates is more credible, and it's the honest answer — the speedup is on volume, not judgment."],
+ stop:"Say the two halves. The second half is what makes the first believable."},
+
+{q:["Doesn't AI just make more work to review?","How do you stop it becoming tech debt?"],
+ t:"tech debt review generated code trust risk quality",
+ a:"Generated code is a draft PR. Same review bar as anything a person wrote — nothing merges because a machine made it. The thing that actually worries me isn't bad output, it's plausible output nobody checked."},
+
+{q:["How do you keep the documentation from going stale?"],
+ t:"documentation docs stale rot drift maintain generated provenance",
+ a:"You generate it from the same source as the code, or it rots. And I know that because mine did — I went back through my own system and the guide said forty-three tokens when the collection actually had sixty-two. Nobody noticed, including me."},
+
+/* ── PLATFORM-AGNOSTIC ─────────────────────────────────── */
+{q:["How would you make us less dependent on Figma?","Platform-agnostic source of truth?"],
+ t:"platform agnostic figma dependency source of truth migration neutral git",
+ a:"Tokens live in a neutral file in Git, and a build carries them out to every platform. Figma becomes a consumer instead of the origin. But the order matters — you don't take anything away. You make the neutral source generate the Figma variables, so nothing changes for a designer except that drift stops.",
+ more:["Say this last","And I'd hold you to your own wording — if the designer's day gets worse, the migration failed, no matter how clean the architecture looks."]},
+
+/* ── GOVERNANCE & ADOPTION ─────────────────────────────── */
+{q:["How do you think about governance?","How do you manage contributions?"],
+ t:"governance contribution contributions deprecation versioning long-term direction",
+ a:"Governance is mostly about how things leave, and almost everybody only builds how things get in. I only built the entrance too — and I can show you what that cost. Three generations of naming in my own file, all still resolving, because nothing ever got retired."},
+
+{q:["How do you measure adoption?","How do you know it's working?"],
+ t:"measure measuring adoption metrics coverage detachment usage success",
+ a:"Coverage is depth, usage is breadth, and detachment tells you where the system doesn't fit. But a bare percentage is theatre. Eighty percent adoption doesn't tell you which teams, or why the other twenty aren't — the number's only useful if it points at the next question.",
+ more:["The one I actually trust","What design review meetings are about. At Avant they went from policing the basics to arguing about ideas. You feel that before you can chart it."]},
+
+{q:["What if a team won't adopt it?","How do you drive adoption?"],
+ t:"adoption resist wont adopt buy-in barriers drive rollout",
+ a:"I assume they're right first. Usually it means the system doesn't cover their case, or using it is slower than the workaround — and both of those are my bug. The marketing library at Avant got three hundred and fifty people because it was faster than the old way, not because anyone was told to use it."},
+
+/* ── HARD ONES ─────────────────────────────────────────── */
+{q:["What would you improve about your own work?","What would you do differently?"],
+ t:"improve differently weakness self-critical retrospective mistakes",
+ a:"I went back through my own system recently and found four things. No deprecation path. No component token tier. My documentation was off by nineteen tokens. And the button has no focus state — the token's defined, the input uses it, the button just never picked it up. I owned that system for three years and missed it.",
+ more:["How it got caught","A rules pass against my own accessibility standards found it in about four seconds. Which is the honest argument for encoding standards instead of writing them down."],
+ stop:"Say it unhurried. Smile. It only sounds defensive if you rush."},
+
+{q:["How much code do you actually write?","Are you technical enough?"],
+ t:"code coding technical write javascript typescript engineer hands-on",
+ a:"Plugins, token pipelines, web components, the audit scripts around a system. I'm not applying as a front-end engineer and you're not hiring one — your description says hybrid. What I bring is that I can build the tooling and also make the call about what the tooling should enforce. Usually that's two people."},
+
+{q:["You've done a lot of contract work","Why so many contracts?"],
+ t:"contract contracts contractor freelance history job hopping tenure",
+ a:"That's how enterprise design systems get staffed — GE, Blue Cross, TransUnion, Verizon all brought me in as a specialist to build or scale a system. And every one of them outlasted my engagement, which is sort of the point. The counterweight is three years full-time at Avant owning Pathfinder end to end.",
+ stop:"Don't get defensive. It reads as 'repeatedly hired to do the hard version.'"},
+
+{q:["What are you learning right now?","Where do you think this is going?"],
+ t:"learning curious curiosity future direction headed next unknown",
+ a:"The token spec still has no real answer for modes — light and dark are genuinely unsettled, and every tool solves it differently. I don't know what the right answer is there yet. That's the thing I'm poking at.",
+ more:["If he asks where systems are headed","Toward having two consumers instead of one. Humans and machines. And the second one can't improvise its way around bad documentation, which makes documentation quality load-bearing in a way it never was."]},
+
+{q:["Do you have questions for me?"],
+ t:"questions for me ask you anything else",
+ a:"Where do the tokens live today — what's the actual path from a Figma variable to production CSS? And on the skill files, is anything running yet, or is this the first attempt?",
+ more:["Then, later","Who does this role sit closest to day to day, and where's that seam been uncomfortable? And at the end: a year from now, what would make you say this hire worked?"]},
+/* ── FIGMA → CODE TOOLING ──────────────────────────────── */
+{q:["What tools do you use for Figma to code?","Have you looked at Anima or Locofy?","How do you get from Figma into code?"],
+ t:"figma to code tools plugins anima locofy builder visual copilot framelink mcp export",
+ a:"The plugin route — Anima, Locofy, Builder — is the wrong shape for a design system. They export a finished frame, so you get a one-off. I use the Figma MCP server inside Claude Code instead, because it reads the live file rather than a snapshot of it.",
+ more:["The number that makes the case","Without Code Connect wired up, the reported styling inaccuracy is somewhere around 85 to 90 percent — you get generic markup with hardcoded values. With it, the agent composes from your actual components. That mapping is the whole ballgame, and it's the part everybody skips."]},
+
+{q:["How do you go from Figma to an AI-maintained system?","What does that pipeline look like?"],
+ t:"pipeline figma ai maintained system mcp code connect skill files layers workflow",
+ a:"Three layers, and you need all three. The MCP reads the real file, so nothing's guessed. Code Connect maps each component to the thing in the repo, so it composes instead of inventing. And the skill files carry the rules — tokens, required states, the accessibility floor. Miss any one of those and you're back to output that looks right and isn't.",
+ stop:"That's the architecture answer. Stop there unless he wants the demo."},
+
+{q:["Doesn't the AI just guess at the values?","How do you know the output matches the design?"],
+ t:"guess accuracy values match design fidelity screenshot descriptive prescriptive",
+ a:"That's the difference between reading a screenshot and reading the file. The MCP pulls the actual variables — real names, real values — so it isn't inferring a hex from an image. And I'd rather it hand back descriptive data and let it compose from our components than have it prescribe markup it invented."},
+
+/* ── RUNNING THE SYSTEM ────────────────────────────────── */
+{q:["How would you manage the system day to day?","What does maintaining it actually look like?"],
+ t:"manage managing maintain maintenance day to day operate operations steward triage audit release",
+ a:"Five things, honestly. Audit it so drift is a number instead of a feeling. Triage requests — the default answer to a new component is no. Deprecate on purpose. Cut releases the consumer can read. And measure adoption by team, because a single percentage tells you nothing.",
+ more:["The triage rule worth saying","I ask for three real usages before building anything. One is a one-off. Three is a pattern."]},
+
+{q:["Someone asks for a new component. What do you do?"],
+ t:"new component request triage contribution ask backlog no",
+ a:"Work down the ladder and stop at the first thing that fits. Does something already do this and they just couldn't find it — that's a discoverability bug, not a gap. Does it do it with a prop nobody documented. Can two existing components compose into it. Does one need a new variant. And only then: is it actually new.",
+ more:["And record the no","A no with a reason is a contribution. A no with silence is how people stop asking and start forking."]}
+]
+
+/* ── render + search ───────────────────────────────────── */
+var list = document.getElementById('list'),
+    none = document.getElementById('none'),
+    lead = document.getElementById('lead'),
+    countEl = document.getElementById('count'),
+    input = document.getElementById('q');
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+function mark(s, q){
+  if(!q) return esc(s);
+  try{ return esc(s).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>'); }
+  catch(e){ return esc(s); }
+}
+
+/* Rank matters more than matching. Typing "AI" must not surface "contrast p-AI-r"
+   above the actual AI answer, so tag and question hits outrank body hits, and a
+   whole-word hit outranks a substring. */
+function score(item, q){
+  if(!q) return 1;
+  var tags = item.t.toLowerCase(),
+      ques = item.q.join(' ').toLowerCase(),
+      body = (item.a + ' ' + (item.more ? item.more.join(' ') : '')).toLowerCase(),
+      word = new RegExp('\\b' + q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'), 'i'),
+      s = 0;
+  if(word.test(tags)) s += 100;
+  if(word.test(ques)) s += 60;
+  if(tags.indexOf(q) > -1) s += 12;
+  if(ques.indexOf(q) > -1) s += 8;
+  if(word.test(body)) s += 6;
+  if(body.indexOf(q) > -1) s += 1;
+  return s;
+}
+
+function render(q){
+  q = (q||'').trim().toLowerCase();
+  var shown = 0;
+  var ranked = A.map(function(item, i){ return {item:item, s:score(item,q), i:i}; })
+                .filter(function(r){ return r.s > 0; })
+                .sort(function(a,b){ return b.s - a.s || a.i - b.i; });
+  list.innerHTML = ranked.map(function(r){
+    var item = r.item;
+    shown++;
+    var qs = item.q.map(function(x){return mark(x,q);}).join('<span> &nbsp;·&nbsp; </span>');
+    var html = '<div class="card2"><div class="q2">' + qs + '</div>';
+    html += '<div class="a2">' + mark(item.a, q) + '</div>';
+    if(item.more) html += '<div class="more"><b>' + esc(item.more[0]) + '</b>' + mark(item.more[1], q) + '</div>';
+    if(item.stop) html += '<span class="stop">' + esc(item.stop) + '</span>';
+    return html + '</div>';
+  }).join('');
+  none.hidden = shown > 0;
+  lead.hidden = !!q;
+  countEl.textContent = q ? shown + ' of ' + A.length : A.length + ' answers';
+}
+
+input.addEventListener('input', function(){ render(input.value); });
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape'){ input.value=''; render(''); input.blur(); }
+  else if(e.key === '/' && document.activeElement !== input){ e.preventDefault(); input.focus(); }
+});
+render('');
+input.focus();
+</script>
+</body>
+</html>

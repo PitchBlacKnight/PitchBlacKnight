@@ -1,0 +1,833 @@
+{
+  "$description": "Resolved Keystone tokens, all modes.",
+  "modes": {
+    "light": {
+      "primitive.color.neutral.0": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "primitive.color.neutral.50": {
+        "$type": "color",
+        "$value": "#f7f6f3"
+      },
+      "primitive.color.neutral.100": {
+        "$type": "color",
+        "$value": "#edebe6"
+      },
+      "primitive.color.neutral.200": {
+        "$type": "color",
+        "$value": "#d9d5cc"
+      },
+      "primitive.color.neutral.300": {
+        "$type": "color",
+        "$value": "#bfbab0"
+      },
+      "primitive.color.neutral.400": {
+        "$type": "color",
+        "$value": "#9a938a"
+      },
+      "primitive.color.neutral.500": {
+        "$type": "color",
+        "$value": "#7c756c"
+      },
+      "primitive.color.neutral.600": {
+        "$type": "color",
+        "$value": "#5c564e"
+      },
+      "primitive.color.neutral.700": {
+        "$type": "color",
+        "$value": "#403b35"
+      },
+      "primitive.color.neutral.800": {
+        "$type": "color",
+        "$value": "#2a2724"
+      },
+      "primitive.color.neutral.900": {
+        "$type": "color",
+        "$value": "#1a1917"
+      },
+      "primitive.color.neutral.1000": {
+        "$type": "color",
+        "$value": "#121110"
+      },
+      "primitive.color.brand.100": {
+        "$type": "color",
+        "$value": "#fbe3d8"
+      },
+      "primitive.color.brand.300": {
+        "$type": "color",
+        "$value": "#f2a882"
+      },
+      "primitive.color.brand.500": {
+        "$type": "color",
+        "$value": "#e86a33"
+      },
+      "primitive.color.brand.600": {
+        "$type": "color",
+        "$value": "#c8552b"
+      },
+      "primitive.color.brand.700": {
+        "$type": "color",
+        "$value": "#9e4222"
+      },
+      "primitive.color.danger.500": {
+        "$type": "color",
+        "$value": "#c0392b"
+      },
+      "primitive.color.danger.600": {
+        "$type": "color",
+        "$value": "#9b2d22"
+      },
+      "primitive.color.success.500": {
+        "$type": "color",
+        "$value": "#3f7d52"
+      },
+      "primitive.color.warning.500": {
+        "$type": "color",
+        "$value": "#b7791f"
+      },
+      "primitive.color.info.500": {
+        "$type": "color",
+        "$value": "#2f6f9f"
+      },
+      "primitive.space.0": {
+        "$type": "dimension",
+        "$value": "0px"
+      },
+      "primitive.space.1": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "primitive.space.2": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "primitive.space.3": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.space.4": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "primitive.space.5": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "primitive.space.6": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.space.7": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "primitive.space.8": {
+        "$type": "dimension",
+        "$value": "64px"
+      },
+      "primitive.size.control.sm": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.size.control.md": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "primitive.size.control.lg": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "primitive.size.target.min": {
+        "$type": "dimension",
+        "$value": "44px"
+      },
+      "primitive.radius.sm": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "primitive.radius.md": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "primitive.radius.lg": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.radius.full": {
+        "$type": "dimension",
+        "$value": "999px"
+      },
+      "primitive.font.family.sans": {
+        "$type": "fontFamily",
+        "$value": [
+          "Alexandria",
+          "system-ui",
+          "sans-serif"
+        ]
+      },
+      "primitive.font.family.mono": {
+        "$type": "fontFamily",
+        "$value": [
+          "Space Mono",
+          "ui-monospace",
+          "monospace"
+        ]
+      },
+      "primitive.font.size.xs": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.font.size.sm": {
+        "$type": "dimension",
+        "$value": "14px"
+      },
+      "primitive.font.size.base": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "primitive.font.size.lg": {
+        "$type": "dimension",
+        "$value": "18px"
+      },
+      "primitive.font.size.xl": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "primitive.font.weight.regular": {
+        "$type": "number",
+        "$value": 400
+      },
+      "primitive.font.weight.medium": {
+        "$type": "number",
+        "$value": 500
+      },
+      "primitive.font.weight.bold": {
+        "$type": "number",
+        "$value": 700
+      },
+      "primitive.duration.fast": {
+        "$type": "duration",
+        "$value": "120ms"
+      },
+      "primitive.duration.base": {
+        "$type": "duration",
+        "$value": "180ms"
+      },
+      "primitive.duration.slow": {
+        "$type": "duration",
+        "$value": "280ms"
+      },
+      "primitive.border.width.thin": {
+        "$type": "dimension",
+        "$value": "1px"
+      },
+      "primitive.border.width.focus": {
+        "$type": "dimension",
+        "$value": "2px"
+      },
+      "semantic.surface": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.surface-raised": {
+        "$type": "color",
+        "$value": "#f7f6f3"
+      },
+      "semantic.surface-sunken": {
+        "$type": "color",
+        "$value": "#edebe6"
+      },
+      "semantic.text": {
+        "$type": "color",
+        "$value": "#1a1917"
+      },
+      "semantic.text-muted": {
+        "$type": "color",
+        "$value": "#5c564e"
+      },
+      "semantic.text-disabled": {
+        "$type": "color",
+        "$value": "#9a938a"
+      },
+      "semantic.text-on-action": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.border": {
+        "$type": "color",
+        "$value": "#d9d5cc"
+      },
+      "semantic.border-strong": {
+        "$type": "color",
+        "$value": "#9a938a"
+      },
+      "semantic.action-bg": {
+        "$type": "color",
+        "$value": "#e86a33"
+      },
+      "semantic.action-bg-hover": {
+        "$type": "color",
+        "$value": "#c8552b"
+      },
+      "semantic.action-bg-active": {
+        "$type": "color",
+        "$value": "#9e4222"
+      },
+      "semantic.focus-ring": {
+        "$type": "color",
+        "$value": "#c8552b"
+      },
+      "semantic.danger": {
+        "$type": "color",
+        "$value": "#c0392b"
+      },
+      "semantic.danger-bg": {
+        "$type": "color",
+        "$value": "#c0392b"
+      },
+      "semantic.success": {
+        "$type": "color",
+        "$value": "#3f7d52"
+      },
+      "semantic.warning": {
+        "$type": "color",
+        "$value": "#b7791f"
+      },
+      "component.button.bg": {
+        "$type": "color",
+        "$value": "#e86a33"
+      },
+      "component.button.bg-hover": {
+        "$type": "color",
+        "$value": "#c8552b"
+      },
+      "component.button.bg-active": {
+        "$type": "color",
+        "$value": "#9e4222"
+      },
+      "component.button.bg-disabled": {
+        "$type": "color",
+        "$value": "#edebe6"
+      },
+      "component.button.fg": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "component.button.fg-disabled": {
+        "$type": "color",
+        "$value": "#9a938a"
+      },
+      "component.button.border": {
+        "$type": "color",
+        "$value": "#9a938a"
+      },
+      "component.button.danger-bg": {
+        "$type": "color",
+        "$value": "#c0392b"
+      },
+      "component.button.focus-ring": {
+        "$type": "color",
+        "$value": "#c8552b"
+      },
+      "component.button.radius": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.button.height-sm": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "component.button.height-md": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "component.button.height-lg": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "component.button.pad-inline-sm": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "component.button.pad-inline-md": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "component.button.pad-inline-lg": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "component.button.gap": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.button.motion": {
+        "$type": "duration",
+        "$value": "120ms"
+      },
+      "component.input.bg": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "component.input.bg-disabled": {
+        "$type": "color",
+        "$value": "#edebe6"
+      },
+      "component.input.fg": {
+        "$type": "color",
+        "$value": "#1a1917"
+      },
+      "component.input.fg-placeholder": {
+        "$type": "color",
+        "$value": "#5c564e"
+      },
+      "component.input.border": {
+        "$type": "color",
+        "$value": "#d9d5cc"
+      },
+      "component.input.border-hover": {
+        "$type": "color",
+        "$value": "#9a938a"
+      },
+      "component.input.border-invalid": {
+        "$type": "color",
+        "$value": "#c0392b"
+      },
+      "component.input.focus-ring": {
+        "$type": "color",
+        "$value": "#c8552b"
+      },
+      "component.input.radius": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.input.height": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "component.input.pad-inline": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "component.input.motion": {
+        "$type": "duration",
+        "$value": "120ms"
+      }
+    },
+    "dark": {
+      "primitive.color.neutral.0": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "primitive.color.neutral.50": {
+        "$type": "color",
+        "$value": "#f7f6f3"
+      },
+      "primitive.color.neutral.100": {
+        "$type": "color",
+        "$value": "#edebe6"
+      },
+      "primitive.color.neutral.200": {
+        "$type": "color",
+        "$value": "#d9d5cc"
+      },
+      "primitive.color.neutral.300": {
+        "$type": "color",
+        "$value": "#bfbab0"
+      },
+      "primitive.color.neutral.400": {
+        "$type": "color",
+        "$value": "#9a938a"
+      },
+      "primitive.color.neutral.500": {
+        "$type": "color",
+        "$value": "#7c756c"
+      },
+      "primitive.color.neutral.600": {
+        "$type": "color",
+        "$value": "#5c564e"
+      },
+      "primitive.color.neutral.700": {
+        "$type": "color",
+        "$value": "#403b35"
+      },
+      "primitive.color.neutral.800": {
+        "$type": "color",
+        "$value": "#2a2724"
+      },
+      "primitive.color.neutral.900": {
+        "$type": "color",
+        "$value": "#1a1917"
+      },
+      "primitive.color.neutral.1000": {
+        "$type": "color",
+        "$value": "#121110"
+      },
+      "primitive.color.brand.100": {
+        "$type": "color",
+        "$value": "#fbe3d8"
+      },
+      "primitive.color.brand.300": {
+        "$type": "color",
+        "$value": "#f2a882"
+      },
+      "primitive.color.brand.500": {
+        "$type": "color",
+        "$value": "#e86a33"
+      },
+      "primitive.color.brand.600": {
+        "$type": "color",
+        "$value": "#c8552b"
+      },
+      "primitive.color.brand.700": {
+        "$type": "color",
+        "$value": "#9e4222"
+      },
+      "primitive.color.danger.500": {
+        "$type": "color",
+        "$value": "#c0392b"
+      },
+      "primitive.color.danger.600": {
+        "$type": "color",
+        "$value": "#9b2d22"
+      },
+      "primitive.color.success.500": {
+        "$type": "color",
+        "$value": "#3f7d52"
+      },
+      "primitive.color.warning.500": {
+        "$type": "color",
+        "$value": "#b7791f"
+      },
+      "primitive.color.info.500": {
+        "$type": "color",
+        "$value": "#2f6f9f"
+      },
+      "primitive.space.0": {
+        "$type": "dimension",
+        "$value": "0px"
+      },
+      "primitive.space.1": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "primitive.space.2": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "primitive.space.3": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.space.4": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "primitive.space.5": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "primitive.space.6": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.space.7": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "primitive.space.8": {
+        "$type": "dimension",
+        "$value": "64px"
+      },
+      "primitive.size.control.sm": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.size.control.md": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "primitive.size.control.lg": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "primitive.size.target.min": {
+        "$type": "dimension",
+        "$value": "44px"
+      },
+      "primitive.radius.sm": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "primitive.radius.md": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "primitive.radius.lg": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.radius.full": {
+        "$type": "dimension",
+        "$value": "999px"
+      },
+      "primitive.font.family.sans": {
+        "$type": "fontFamily",
+        "$value": [
+          "Alexandria",
+          "system-ui",
+          "sans-serif"
+        ]
+      },
+      "primitive.font.family.mono": {
+        "$type": "fontFamily",
+        "$value": [
+          "Space Mono",
+          "ui-monospace",
+          "monospace"
+        ]
+      },
+      "primitive.font.size.xs": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.font.size.sm": {
+        "$type": "dimension",
+        "$value": "14px"
+      },
+      "primitive.font.size.base": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "primitive.font.size.lg": {
+        "$type": "dimension",
+        "$value": "18px"
+      },
+      "primitive.font.size.xl": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "primitive.font.weight.regular": {
+        "$type": "number",
+        "$value": 400
+      },
+      "primitive.font.weight.medium": {
+        "$type": "number",
+        "$value": 500
+      },
+      "primitive.font.weight.bold": {
+        "$type": "number",
+        "$value": 700
+      },
+      "primitive.duration.fast": {
+        "$type": "duration",
+        "$value": "120ms"
+      },
+      "primitive.duration.base": {
+        "$type": "duration",
+        "$value": "180ms"
+      },
+      "primitive.duration.slow": {
+        "$type": "duration",
+        "$value": "280ms"
+      },
+      "primitive.border.width.thin": {
+        "$type": "dimension",
+        "$value": "1px"
+      },
+      "primitive.border.width.focus": {
+        "$type": "dimension",
+        "$value": "2px"
+      },
+      "semantic.surface": {
+        "$type": "color",
+        "$value": "#121110"
+      },
+      "semantic.surface-raised": {
+        "$type": "color",
+        "$value": "#1a1917"
+      },
+      "semantic.surface-sunken": {
+        "$type": "color",
+        "$value": "#2a2724"
+      },
+      "semantic.text": {
+        "$type": "color",
+        "$value": "#f7f6f3"
+      },
+      "semantic.text-muted": {
+        "$type": "color",
+        "$value": "#9a938a"
+      },
+      "semantic.text-disabled": {
+        "$type": "color",
+        "$value": "#5c564e"
+      },
+      "semantic.text-on-action": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.border": {
+        "$type": "color",
+        "$value": "#2a2724"
+      },
+      "semantic.border-strong": {
+        "$type": "color",
+        "$value": "#5c564e"
+      },
+      "semantic.action-bg": {
+        "$type": "color",
+        "$value": "#e86a33"
+      },
+      "semantic.action-bg-hover": {
+        "$type": "color",
+        "$value": "#f2a882"
+      },
+      "semantic.action-bg-active": {
+        "$type": "color",
+        "$value": "#e86a33"
+      },
+      "semantic.focus-ring": {
+        "$type": "color",
+        "$value": "#f2a882"
+      },
+      "semantic.danger": {
+        "$type": "color",
+        "$value": "#c0392b"
+      },
+      "semantic.danger-bg": {
+        "$type": "color",
+        "$value": "#9b2d22"
+      },
+      "semantic.success": {
+        "$type": "color",
+        "$value": "#3f7d52"
+      },
+      "semantic.warning": {
+        "$type": "color",
+        "$value": "#b7791f"
+      },
+      "component.button.bg": {
+        "$type": "color",
+        "$value": "#e86a33"
+      },
+      "component.button.bg-hover": {
+        "$type": "color",
+        "$value": "#f2a882"
+      },
+      "component.button.bg-active": {
+        "$type": "color",
+        "$value": "#e86a33"
+      },
+      "component.button.bg-disabled": {
+        "$type": "color",
+        "$value": "#2a2724"
+      },
+      "component.button.fg": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "component.button.fg-disabled": {
+        "$type": "color",
+        "$value": "#5c564e"
+      },
+      "component.button.border": {
+        "$type": "color",
+        "$value": "#5c564e"
+      },
+      "component.button.danger-bg": {
+        "$type": "color",
+        "$value": "#9b2d22"
+      },
+      "component.button.focus-ring": {
+        "$type": "color",
+        "$value": "#f2a882"
+      },
+      "component.button.radius": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.button.height-sm": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "component.button.height-md": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "component.button.height-lg": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "component.button.pad-inline-sm": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "component.button.pad-inline-md": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "component.button.pad-inline-lg": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "component.button.gap": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.button.motion": {
+        "$type": "duration",
+        "$value": "120ms"
+      },
+      "component.input.bg": {
+        "$type": "color",
+        "$value": "#121110"
+      },
+      "component.input.bg-disabled": {
+        "$type": "color",
+        "$value": "#2a2724"
+      },
+      "component.input.fg": {
+        "$type": "color",
+        "$value": "#f7f6f3"
+      },
+      "component.input.fg-placeholder": {
+        "$type": "color",
+        "$value": "#9a938a"
+      },
+      "component.input.border": {
+        "$type": "color",
+        "$value": "#2a2724"
+      },
+      "component.input.border-hover": {
+        "$type": "color",
+        "$value": "#5c564e"
+      },
+      "component.input.border-invalid": {
+        "$type": "color",
+        "$value": "#c0392b"
+      },
+      "component.input.focus-ring": {
+        "$type": "color",
+        "$value": "#f2a882"
+      },
+      "component.input.radius": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.input.height": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "component.input.pad-inline": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "component.input.motion": {
+        "$type": "duration",
+        "$value": "120ms"
+      }
+    }
+  }
+}

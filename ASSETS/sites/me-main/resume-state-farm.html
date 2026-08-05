@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23111'/><text x='16' y='22' font-family='Georgia,serif' font-size='15' font-weight='700' fill='%23e06b2a' text-anchor='middle'>MR</text></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mikel Rosenthal — Resume 2026 · Design Systems Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:     #0b0b0b;
+    --bg2:    #111111;
+    --white:  #f0f0f0;
+    --dim:    rgba(240,240,240,.62);
+    --muted:  rgba(240,240,240,.36);
+    --orange: #e06b2a;
+    --rule:   rgba(255,255,255,.1);
+    --rule2:  rgba(255,255,255,.06);
+    --blue:   #8ca0b9;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    background: var(--bg);
+    color: var(--white);
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+    color-adjust: exact;
+  }
+
+  body {
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 10.8pt;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Print bar ──────────────────────────────────── */
+  .print-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 7.4in;
+    margin: 0 auto;
+    padding: 14px 0.5in;
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .print-bar a { color: var(--muted); text-decoration: none; }
+  .print-bar a:hover { color: var(--orange); }
+  .print-bar button {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    background: var(--orange);
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    padding: 7px 16px;
+    border-radius: 2px;
+  }
+  .print-bar button:hover { opacity: .85; }
+
+  /* ── Page ───────────────────────────────────────── */
+  .page {
+    max-width: 7.4in;
+    margin: 0 auto;
+    padding: 0.45in 0.5in 0.6in;
+  }
+
+  /* ── Header ─────────────────────────────────────── */
+  .header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 40px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .name {
+    font-family: 'Alexandria', sans-serif;
+    font-weight: 200;
+    font-size: 46pt;
+    line-height: .88;
+    letter-spacing: -0.025em;
+    color: var(--white);
+  }
+  .header-right {
+    text-align: right;
+    flex-shrink: 0;
+  }
+  .role {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.8pt;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 10px;
+  }
+  .contact {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.6pt;
+    letter-spacing: .06em;
+    color: var(--muted);
+    line-height: 1.9;
+  }
+  .contact a { color: var(--blue); text-decoration: none; }
+
+  /* ── Divider ─────────────────────────────────────── */
+  .rule { height: 1px; background: var(--rule); border: 0; margin: 20px 0; }
+
+  /* ── Summary lede ────────────────────────────────── */
+  .lede {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 12.5pt;
+    line-height: 1.62;
+    color: rgba(240,240,240,.78);
+    max-width: 6in;
+    margin-bottom: 22px;
+  }
+  .lede b { font-style: normal; color: var(--white); font-weight: 500; }
+
+  /* ── Strengths pills ─────────────────────────────── */
+  .strengths-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 24px;
+  }
+  .pill {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.2pt;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--white);
+    border: 1px solid var(--rule);
+    padding: 5px 11px;
+    border-radius: 2px;
+    white-space: nowrap;
+  }
+
+  /* ── Section head ────────────────────────────────── */
+  .sec {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    border-top: 1px solid var(--rule);
+    padding-top: 9px;
+    margin: 26px 0 16px;
+  }
+  .sec-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.6pt;
+    letter-spacing: .12em;
+    color: var(--orange);
+    flex-shrink: 0;
+  }
+  .sec-name {
+    font-family: 'Alexandria', sans-serif;
+    font-weight: 300;
+    font-size: 10pt;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  /* ── Impact list ─────────────────────────────────── */
+  .impact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+  }
+  .impact-list li {
+    display: flex;
+    gap: 14px;
+    color: var(--dim);
+    font-size: 10.6pt;
+    line-height: 1.45;
+  }
+  .impact-list li::before {
+    content: '—';
+    color: var(--orange);
+    flex-shrink: 0;
+    font-family: 'Space Mono', monospace;
+    font-size: 8pt;
+    margin-top: 3px;
+  }
+
+  /* ── Jobs ────────────────────────────────────────── */
+  .job {
+    margin-bottom: 18px;
+    page-break-inside: avoid;
+    border-top: 1px solid var(--rule2);
+    padding-top: 14px;
+  }
+  .job:first-child { border-top: none; padding-top: 0; }
+
+  .job-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 3px;
+  }
+  .job-co {
+    font-family: 'Alexandria', sans-serif;
+    font-weight: 400;
+    font-size: 11.5pt;
+    color: var(--white);
+  }
+  .job-co .at {
+    color: var(--muted);
+    font-weight: 300;
+    font-size: 10pt;
+  }
+  .job-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.4pt;
+    letter-spacing: .07em;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .job-role {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.6pt;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+  .job-sum {
+    color: var(--dim);
+    font-size: 10.4pt;
+    line-height: 1.5;
+    margin-bottom: 7px;
+  }
+  .job ul { list-style: none; }
+  .job li {
+    position: relative;
+    padding-left: 16px;
+    margin-bottom: 3px;
+    font-size: 10.2pt;
+    line-height: 1.44;
+    color: var(--dim);
+  }
+  .job li::before {
+    content: '';
+    position: absolute;
+    left: 2px;
+    top: .64em;
+    width: 5px;
+    height: 1px;
+    background: var(--orange);
+  }
+
+  /* ── Skills ──────────────────────────────────────── */
+  .skills-text {
+    font-size: 10.6pt;
+    line-height: 1.82;
+    color: var(--dim);
+  }
+  .skills-text b { color: var(--white); font-weight: 500; }
+
+  /* ── Awards / Edu grid ───────────────────────────── */
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 48px; }
+  .item { font-size: 10.4pt; color: var(--dim); margin-bottom: 5px; line-height: 1.45; }
+  .item b { color: var(--white); font-weight: 500; }
+  .item .meta {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.4pt;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── Footer ──────────────────────────────────────── */
+  .foot {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.6pt;
+    letter-spacing: .1em;
+    color: var(--muted);
+    margin-top: 30px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .foot .lab { color: var(--orange); letter-spacing: .16em; margin-right: 6px; }
+  .foot a { color: var(--dim); text-decoration: none; }
+
+  /* ── Print ───────────────────────────────────────── */
+  @page { size: 8.5in auto; margin: 0; }
+  @media print {
+    .print-bar { display: none; }
+    .page { padding: 0.45in 0.55in 0.55in; max-width: none; }
+    html, body { background: var(--bg) !important; }
+  }
+
+  /* ── Fill-in markers — replace every one before sending ── */
+  .fill {
+    color: #e0a63a;
+    border-bottom: 1px dashed rgba(224,166,58,.55);
+    font-style: normal;
+    font-family: 'Space Mono', monospace;
+    font-size: 8.6pt;
+  }
+  .fill-note {
+    font-family: 'Space Mono', monospace;
+    font-size: 7.6pt;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #e0a63a;
+    border: 1px dashed rgba(224,166,58,.5);
+    padding: 9px 12px;
+    margin: 0 0 18px;
+    line-height: 1.7;
+  }
+  @media print { .fill-note { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="print-bar">
+  <a href="/">← MikelRosenthal.com</a>
+  <button onclick="window.print()">↓ Save as PDF</button>
+</div>
+
+<div class="page">
+
+  <div class="fill-note">
+    Before sending: confirm the MIKEL UI edition names and the release count, and swap in a specific plugin name if you would rather lead with one. Everything else is drawn from work already verified in your files.
+  </div>
+
+  <!-- HEADER -->
+  <div class="header-row">
+    <h1 class="name">Mikel<br>Rosenthal</h1>
+    <div class="header-right">
+      <div class="role">Design Systems Engineer · Design Technologist</div>
+      <div class="contact">
+        mikelrosenthal@me.com &nbsp;·&nbsp; (773) 490-6923<br>
+        Chicago Heights, IL &nbsp;·&nbsp; Remote<br>
+        <a href="https://mikelrosenthal.com">mikelrosenthal.com</a> &nbsp;·&nbsp;
+        <a href="https://www.linkedin.com/in/mikel-rosenthal-5b85b17">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+
+  <hr class="rule">
+
+  <!-- LEDE -->
+  <p class="lede">I work at the intersection of Figma and code. Nineteen years in product design, the last seven building enterprise design systems — <b>token architecture, accessible components, and the tooling that keeps design and code in sync.</b> I write the plugins that automate designer busywork, the pipelines that carry tokens to every platform, and the machine-readable guidance that lets AI generate on-system output instead of generic output. Built for <b>Verizon, GE Healthcare, Blue Cross Blue Shield, TransUnion,</b> and <b>Avant</b> — and I maintain my own published system, <b>MIKEL UI</b>, now in its seventh version across three distribution editions.</p>
+
+  <!-- STRENGTHS -->
+  <div class="strengths-row">
+    <span class="pill">Design Tokens · W3C DTCG</span>
+    <span class="pill">Figma Plugin API</span>
+    <span class="pill">Web Components</span>
+    <span class="pill">TypeScript · JS · HTML · CSS</span>
+    <span class="pill">Token Build Pipelines</span>
+    <span class="pill">Multi-Brand Theming</span>
+    <span class="pill">Code Connect · Dev Mode</span>
+    <span class="pill">Accessibility · WCAG 2.2</span>
+    <span class="pill">AI-Assisted Workflows</span>
+    <span class="pill">Governance &amp; Adoption</span>
+  </div>
+
+  <!-- 00 ── ENGINEERING & TOOLING ─────────────────────── -->
+  <!-- 00 ── MIKEL UI ───────────────────────────────────── -->
+  <div class="sec"><span class="sec-num">00</span><span class="sec-name">MIKEL UI — Design System (v7.0)</span></div>
+  <p class="job-sum" style="margin-bottom:10px">A design system I build and maintain, published as a Figma library in <b>three editions</b> — Lite, Styles, and Variables — so teams adopt at the level they're ready for. Seven major versions.</p>
+  <ul class="impact-list">
+    <li><b>Three-edition distribution.</b> One component library, three consumption models: no tokens, Figma styles, or full variables. Teams migrate between editions instead of forking the system.</li>
+    <li><b>Semantic tokens with bound scopes.</b> Purpose-named — <span style="font-family:'Space Mono',monospace;font-size:8.6pt">bg-brand-primary</span>, <span style="font-family:'Space Mono',monospace;font-size:8.6pt">border-primary</span>, <span style="font-family:'Space Mono',monospace;font-size:8.6pt">text-primary</span> — with Figma variable scopes set per property, so a designer choosing a stroke only sees border tokens.</li>
+    <li><b>Multi-mode theming from a single semantic layer</b>, so components are authored once and re-themed rather than duplicated per theme.</li>
+    <li><b>Component sets with full variant coverage</b> — buttons (default, destructive, utility, loading, close, groups), input fields, textarea, verification code, modals, and a scoped icon set.</li>
+    <li><b>Discoverability engineered in.</b> Icon components carry keyword metadata so search resolves by intent — "controller" returns the keyboard icon. The same structured-description layer that makes a system machine-readable.</li>
+    <li><b>Versioned and governed</b> across seven major releases, with internal-only components marked by naming convention and every update published across all three editions together, so no edition silently falls behind.</li>
+  </ul>
+
+  <!-- 01 ── ENGINEERING & TOOLING -->
+  <div class="sec"><span class="sec-num">01</span><span class="sec-name">Engineering &amp; Tooling</span></div>
+  <ul class="impact-list">
+    <li><b>Figma plugins.</b> Built and maintained tooling against the Figma Plugin API to remove designer busywork — most recently a <b>variables-to-W3C-DTCG exporter</b> that lifts a whole token collection out of Figma into a neutral, diffable, versionable format, resolving aliases into DTCG references so the semantic layer survives the export instead of being flattened into duplicates.</li>
+    <li><b>Web components.</b> Authored reusable, accessible custom elements with full state coverage — every value bound to a token, focus-visible never suppressed, 44px targets, non-colour signals on every state, and <span style="font-family:'Space Mono',monospace;font-size:8.6pt">aria-invalid</span> / <span style="font-family:'Space Mono',monospace;font-size:8.6pt">aria-describedby</span> wired into the component rather than left to the consumer. Themed through custom properties, which inherit across the shadow boundary that blocks external stylesheets.</li>
+    <li><b>Token pipelines.</b> DTCG source → transformation → four platform outputs: CSS custom properties with light and dark modes, resolved JSON, Swift for iOS, and machine-readable system guidance. The build <b>enforces the architecture</b> — it fails on a reference pointing the wrong way up the tier stack and warns on a same-tier one, so governance is a pipeline step rather than a review conversation.</li>
+    <li><b>Versioning &amp; distribution.</b> Shipped systems as versioned, published libraries with changelog discipline and a deprecation policy — a token leaves the system the way it enters it, marked with a replacement pointer, held one minor version, removed at the next major.</li>
+    <li><b>Documentation tooling.</b> Storybook and living documentation treated as part of the product — component state coverage, usage and anti-patterns, and accessibility behaviour documented where an engineer actually reads it rather than in a separate wiki.</li>
+    <li><b>AI-assisted workflows.</b> Authored reusable skill files that encode a system's tokens, component rules, and accessibility standards as machine-readable constraints, so generated output lands on-system and every value is traceable to its source token. Paired with the Figma MCP server and Code Connect to move from design intent to production code without manual translation.</li>
+  </ul>
+
+  <!-- 01 ── SELECTED IMPACT ───────────────────────────── -->
+  <div class="sec"><span class="sec-num">02</span><span class="sec-name">Selected Impact</span></div>
+  <ul class="impact-list">
+    <li>Owned primitive and semantic token architecture driving cross-platform parity across <b>iOS, Android, and web</b> on a mature enterprise system</li>
+    <li>Unified <b>40+ regulated clinical products</b> on one semantic layer — four theme targets, light and dark across desktop and touch, components never forked</li>
+    <li>Built four design systems <b>from zero</b> — BCBS's first unified system, TransUnion's global TUCM, Avant's Pathfinder, and the marketing library extended from its token foundation. Pathfinder carried the product from 2.0 to 3.0 without a redesign</li>
+    <li>Enabled <b>350+ non-design contributors</b> to ship on-brand work from a token-locked library, with no designer in the loop</li>
+    <li>Measured adoption with signal rather than sentiment — component coverage, detachment rate, adoption by team, and documentation staleness; an audit of my own system found its guidance describing <b>43 tokens against an actual 62</b></li>
+  </ul>
+
+  <!-- 02 ── EXPERIENCE ────────────────────────────────── -->
+  <div class="sec"><span class="sec-num">03</span><span class="sec-name">Experience</span></div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">Verizon <span class="at">— Senior Design System Designer II</span></div><div class="job-date">Dec 2025 – Jan 2026</div></div>
+    <div class="job-role">Contract via Insight Global · Remote</div>
+    <div class="job-sum">Senior design systems designer on Verizon's mature, post-rebrand enterprise system — end to end across iOS, Android, and web.</div>
+    <ul>
+      <li>Owned primitive and semantic design tokens, variables, and component architecture driving cross-platform parity</li>
+      <li>Built a scalable calendar and date-picker family engineered for theming and platform variance</li>
+      <li>Led design-to-code alignment through Figma Dev Mode and <b>Code Connect</b>, mapping library components to their real implementations so engineers saw production code rather than generated approximations</li>
+      <li>Authored <b>AI-augmented contribution patterns</b> — structured guidance for how work enters the system when part of it is machine-generated</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">PBK Studio <span class="at">— Founder &amp; Principal</span></div><div class="job-date">2021 — Present</div></div>
+    <div class="job-role">Design Systems · Design Engineering · Product · Brand</div>
+    <div class="job-sum">Independent studio focused on enterprise design systems and the tooling around them — healthcare, fintech, insurance.</div>
+    <ul>
+      <li>Token architecture, component libraries, and governance delivered Figma-first and handoff-ready</li>
+      <li>Built the internal tooling the systems work depends on — Figma plugins, token exporters, contrast and drift audit scripts, and the token build that generates every platform output from one source</li>
+      <li>Author <b>reusable AI skill files</b> that encode a system's tokens, component rules, and accessibility standards as machine-readable constraints, so generated output lands on-system and every value is traceable to its source token — paired with the Figma MCP server so tooling reads real variables from a file rather than inferring them from an image</li>
+      <li>Hand-built responsive sites and interactive tools in HTML, CSS, TypeScript and JavaScript</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">Avant <span class="at">— Senior Product / Design Systems Designer</span></div><div class="job-date">May 2021 – Aug 2024</div></div>
+    <div class="job-role">Full-Time · Hybrid / Chicago, IL</div>
+    <div class="job-sum">Led design and development of Avant's Pathfinder™ Design System and a marketing design library spanning product and brand.</div>
+    <ul>
+      <li>Defined token architecture, component structure, governance model, and contribution patterns for multi-platform consistency</li>
+      <li>Carried the system from <b>2.0 to 3.0 without a redesign</b> — the durability test for a token layer</li>
+      <li>Extended the same token foundation into a self-serve marketing library used by <b>350+ contributors</b></li>
+      <li>Ran adoption measurement through instance audits, changelogs, and direct feedback loops</li>
+      <li>Began folding AI into design-system operations — generating documentation templates, assisting QA and consistency audits, and exploring component variant coverage — with every output reviewed before it entered the system</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">GE Healthcare <span class="at">— Senior UX/UI Designer, Design Systems</span></div><div class="job-date">Jan 2020 – Feb 2021</div></div>
+    <div class="job-role">Contract · Hybrid / Chicago, IL</div>
+    <div class="job-sum">Core contributor on the award-winning Edison Design System™ — a token-driven foundation unifying 40+ regulated enterprise products.</div>
+    <ul>
+      <li>Built component libraries with full state coverage and <b>100% accessibility behavior documented</b> for regulated review</li>
+      <li>Resolved four theme targets — light/dark × desktop/touch — from one semantic layer, so components never forked</li>
+      <li>Central role in work recognized by the <b>2020 Red Dot Award</b>, Fast Company Innovation by Design, and dmi:DVA</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">Blue Cross Blue Shield <span class="at">— Senior Design Systems Designer</span></div><div class="job-date">May 2018 – Dec 2019</div></div>
+    <div class="job-role">Contract · Hybrid / Chicago, IL</div>
+    <div class="job-sum">Created FIBER™ — BCBS's first unified design system, built from zero.</div>
+    <ul>
+      <li>Token-driven, <b>React-compatible coded components with theming hooks</b>, unifying 40+ screens across enrollment and member flows</li>
+      <li>Partnered directly with engineers to translate design into implementation without re-drawing</li>
+      <li>Established accessibility and documentation standards where WCAG compliance was a legal requirement, not a preference</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">TransUnion <span class="at">— Senior UX Designer, Design Systems</span></div><div class="job-date">May 2018 – Jun 2019</div></div>
+    <div class="job-role">Contract · Hybrid / Chicago, IL</div>
+    <div class="job-sum">Designed the global TUCM Design System™ and the TrueCredit consumer rebrand.</div>
+    <ul>
+      <li>Responsive, token-integrated UI libraries with universal style guidelines and design-to-code workflows</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">Maven Wave / Eviden <span class="at">— UX Senior Lead, Design Systems</span></div><div class="job-date">Jan 2005 – May 2018</div></div>
+    <div class="job-role">Full-Time · Hybrid / Chicago, IL</div>
+    <div class="job-sum">Directed UX and visual direction across Fortune 500 client work — Google, AT&amp;T, Nike — and established early design-system patterns and scalable design workflows.</div>
+  </div>
+
+  <!-- 03 ── SKILLS ────────────────────────────────────── -->
+  <div class="sec"><span class="sec-num">04</span><span class="sec-name">Skills</span></div>
+  <p class="skills-text">
+    <b>Tokens &amp; architecture:</b> W3C Design Tokens (DTCG) · primitive/semantic layering · naming, theming, transformation, distribution · multi-brand · cross-platform parity (iOS · Android · Web)<br>
+    <b>Engineering:</b> TypeScript · JavaScript · HTML · CSS · web components · React-compatible component authoring · Figma Plugin API · Git · package versioning · Storybook<br>
+    <b>Figma:</b> Variables · component architecture · library management · Dev Mode · Code Connect · plugin development<br>
+    <b>AI-assisted workflows:</b> reusable skill files &amp; machine-readable system guidance · Model Context Protocol (Figma MCP) · AI-augmented contribution patterns · generated-output auditing<br>
+    <b>Practice:</b> accessibility by default (WCAG 2.2) · documentation &amp; governance · adoption measurement · DesignOps · designer↔engineer translation
+  </p>
+
+  <!-- 04 ── AWARDS & EDUCATION ────────────────────────── -->
+  <div class="sec"><span class="sec-num">05</span><span class="sec-name">Awards &amp; Education</span></div>
+  <div class="grid2">
+    <div>
+      <div class="item"><b>2020 Red Dot Award</b> — Interface Design<br><span class="meta">Edison Design System · GE Healthcare</span></div>
+      <div class="item"><b>2020 Fast Company</b> — Innovation by Design</div>
+      <div class="item"><b>2020 dmi:DVA</b> — Design Value Award</div>
+    </div>
+    <div>
+      <div class="item"><b>Missouri State University</b> · Springfield, MO<br><span class="meta">BFA Summa Cum Laude — Electronic Arts &amp; Design</span><br><span class="meta">Minor: Mass Media &amp; Communications</span></div>
+    </div>
+  </div>
+
+  <div class="foot">
+    <div><span class="lab">WORK</span><a href="https://mikelrosenthal.com">mikelrosenthal.com</a></div>
+    <div><span class="lab">ART</span><a href="https://pitchblacknight.com">pitchblacknight.com</a></div>
+    <div><span class="lab">EMAIL</span><a href="mailto:mikelrosenthal@me.com">mikelrosenthal@me.com</a></div>
+  </div>
+
+</div>
+
+</body>
+</html>

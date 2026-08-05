@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Landscape — AI and design systems, what already exists</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css?v=2">
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="rail">
+    <div class="brand">
+      <div class="mark">Landscape</div>
+      <h1>What already exists</h1>
+      <div class="sub">Don't get blindsided</div>
+    </div>
+    <nav class="nav" id="nav"></nav>
+    <div class="railfoot">
+      <div><kbd>⌘</kbd><kbd>K</kbd> &nbsp;jump</div>
+      <div><kbd>J</kbd><kbd>K</kbd> &nbsp;next / prev</div>
+    </div>
+  </aside>
+
+  <div>
+  <header class="top">
+    <div class="who">
+      <strong>The landscape</strong>
+      <span> &nbsp;·&nbsp; AI + design systems, publicly, right now</span>
+    </div>
+    <nav class="swap">
+      <a href="index.html">Hub</a>
+      <a href="say.html">Say this</a>
+      <a href="state-farm.html">State Farm</a>
+      <a href="case-study.html">Case study</a>
+      <a href="phone.html">Voice</a>
+      <a href="methods.html">Methods</a>
+      <a href="questions.html">Questions</a>
+      <a href="talk-track.html">Talk track</a>
+      <a href="figma-demo.html">Figma</a>
+      <a href="goji-labs.html">Goji</a>
+      <a href="loom.html">Loom</a>
+      <a href="landscape.html" class="here">Landscape</a>
+    </nav>
+    <button class="btn" id="palBtn">⌘K &nbsp;Jump</button>
+  </header>
+
+  <main>
+
+    <section id="s0" class="hero">
+      <div class="kicker">00 — Why this page exists</div>
+      <h2 class="big">You are early. <em>You are not alone.</em></h2>
+
+      <div class="oneliner">
+        Both interviews will ask some version of "is anyone actually doing this?" The wrong
+        answer is a shrug. The right answer names two or three real efforts, says what each one
+        gets right, and explains where yours differs — which turns a gotcha into evidence that
+        you track the field.
+        <span>Confidence comes from knowing the neighbours</span>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <section id="s1">
+      <div class="shead">
+        <div class="num">01</div><h2>What's out there</h2>
+        <p>Verified by reading the source, not the marketing.</p>
+      </div>
+
+      <div class="grid" style="gap:var(--s4)">
+
+        <div class="card">
+          <span class="pill pill--go">Community skills — the metadata pattern</span>
+          <p style="font-size:13.5px;color:var(--ink-2);margin-top:var(--s3);line-height:1.6"><strong>cris-achiardi/claude-skills</strong> — a public, MIT-licensed marketplace of eight Claude skills, five of them design-system focused. The important pair:</p>
+          <ul class="tight">
+            <li><strong>ai-component-metadata</strong> — generates a structured record per component: category, use cases, common patterns, <em>anti-patterns</em>, composition rules, slots, states, an accessibility block, and AI hints.</li>
+            <li><strong>ai-ds-composer</strong> — consumes that metadata to <em>select</em> components rather than generate new ones. Reads the hierarchy broad-to-narrow, matches intent against documented selection criteria, treats anti-patterns as hard rules, and flags gaps instead of inventing components.</li>
+            <li>Also there: a Figma variables generator (tokens → Figma, the opposite direction from your exporter) and a codebase indexer that maps component dependency graphs.</li>
+          </ul>
+          <p style="font-size:12.5px;color:var(--ink-3);margin-top:var(--s3)">Its governing line: <em>"Your suggestions should always map back to documented metadata, not assumptions."</em> That's the right instinct, and it's the same instinct behind your output contract.</p>
+          <p style="font-size:12.5px;color:var(--ink-3);margin-top:var(--s3)">Also published as <strong>thedesignproject/agent-skills</strong> via the skills.sh registry — same schema, same reference files, same generator.</p>
+        </div>
+
+        <div class="card" style="border-color:rgba(217,164,65,.3)">
+          <span class="pill pill--warn">Read the source, not the schema — the gap between them is the story</span>
+          <p style="font-size:13.5px;color:var(--ink-2);margin-top:var(--s3);line-height:1.6">Installed and read <span style="font-family:var(--mono);font-size:12.5px">generate_metadata.py</span>. The hand-written Button example in that repo is genuinely good — six states, two real anti-patterns, four composition patterns. <strong>The generator produces almost none of it.</strong></p>
+          <ul class="tight">
+            <li><strong><code>antiPatterns: []</code> — always empty.</strong> The most valuable field in the schema is a stub the generator never fills. Every anti-pattern in their example was written by a human.</li>
+            <li><strong>Use cases come from a hardcoded name lookup.</strong> If the filename contains "button" you get <code>primary-actions, form-submission, navigation-triggers</code>. That's a keyword guess wearing the costume of analysis.</li>
+            <li><strong>Accessibility is asserted, not derived.</strong> It writes <code>role: "generic"</code>, <code>wcag: "AA"</code> and <code>screenReader: "Properly announced"</code> regardless of what the component actually does.</li>
+            <li><strong>Regex TypeScript parsing.</strong> <code>type \\w+Props = \\{([^}]+)\\}</code> breaks on any nested brace, misses <code>interface</code> entirely, and can't see generics.</li>
+          </ul>
+          <div class="say" style="margin-top:var(--s4)">The schema is the good idea. The generator is a scaffold — and the one part I'd actually push back on is that it writes confident accessibility claims it never checked. In regulated work an unverified "WCAG AA" in a file that looks authoritative is worse than an empty field, because someone downstream believes it. That's exactly why every record I generate is marked unreviewed until a person reads it, and why my accessibility block names contrast pairs a script can verify instead of a grade.</div>
+          <p style="font-size:12.5px;color:var(--ink-3);margin-top:var(--s3)">Say that and you've demonstrated three things at once: you read source, you have a regulated-work instinct, and your design decisions are reactions to real failure modes rather than preferences.</p>
+        </div>
+
+        <div class="card">
+          <span class="pill">Figma's own tooling — first-party</span>
+          <ul class="tight">
+            <li><strong>The Figma MCP server</strong> — one command to connect, then the model reads real frames: layout, variables, component metadata, Code Connect mappings. Both directions; it can write to the canvas too.</li>
+            <li><strong>Figma ships Agent Skills</strong> alongside it — for using the plugin API, generating a library from code, and wiring Code Connect. So the "skill file" idea isn't a community experiment any more; the tool vendor ships them.</li>
+            <li><strong>Code Connect</strong> — maps a Figma component to the real component in the repo so Dev Mode shows an engineer the team's actual code. <em>You have already done this at Verizon.</em></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill">The format layer — the boring, durable part</span>
+          <ul class="tight">
+            <li><strong>W3C Design Tokens (DTCG) format</strong> — the neutral, machine-readable token file. It's what makes "platform-agnostic source of truth" a concrete deliverable instead of an aspiration. Already on your resume.</li>
+            <li><strong>Token transformation tooling</strong> — the build step that turns that JSON into CSS, iOS, Android, and docs. This is the layer State Farm's JD calls "token transformation or build pipelines."</li>
+            <li>Worth knowing honestly: DTCG has <strong>no native concept of modes</strong>. Light/dark is still an unsolved question in the spec, and every tool solves it differently. Saying that out loud signals you've actually worked in the format rather than read about it.</li>
+          </ul>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <section id="s2">
+      <div class="shead">
+        <div class="num">02</div><h2>Where your work actually sits</h2>
+        <p>Honest comparison. Two of these are genuine advantages; one is a genuine gap.</p>
+      </div>
+
+      <div class="mx">
+        <div class="row">
+          <div class="verdict v-strong">Ahead</div>
+          <div class="what"><b>Tokens bound into the component record</b>
+            <span>The public metadata schemas describe components — props, variants, states, accessibility — but not which token each visual value resolves to. Yours binds them, and carries per-state token overrides.</span>
+            <em>"Describing a component without naming its tokens documents the shape and loses the system."</em>
+          </div>
+        </div>
+        <div class="row">
+          <div class="verdict v-strong">Ahead</div>
+          <div class="what"><b>Provenance — the anti-rot mechanism</b>
+            <span>Source checksum, token version, and a reviewed/unreviewed flag on every record. Nothing public that I read has an answer for what happens when the metadata and the component drift apart — and they always do.</span>
+            <em>"A skill file that isn't generated from the same source as the code is just another document nobody updates."</em>
+          </div>
+        </div>
+        <div class="row">
+          <div class="verdict v-strong">Ahead</div>
+          <div class="what"><b>Accessibility as a checkable contract</b>
+            <span>Public schemas carry a flat block — role, keyboard, <code>wcag: "AA"</code>. Yours names contrast pairs as token pairs a script can verify, requires a non-color signal, and attaches an obligation to each individual state.</span>
+            <em>Earned at GE Healthcare and BCBS. Say where it came from.</em>
+          </div>
+        </div>
+        <div class="row">
+          <div class="verdict v-partial">Level</div>
+          <div class="what"><b>The producer/consumer split</b>
+            <span>They got there first with the two-skill pattern — one generates the inventory, one consumes it. You now have both halves too, but the idea was theirs and it's a good one.</span>
+            <em>Credit it if it comes up. "There's a public marketplace doing metadata-driven composition — the pattern is real and converging" is a stronger thing to say than pretending you invented it.</em>
+          </div>
+        </div>
+        <div class="row">
+          <div class="verdict v-gap">Behind</div>
+          <div class="what"><b>Shipped, installed, used by strangers</b>
+            <span>Theirs is public, versioned, installable, and has an audience. Yours is a working artifact used by you.</span>
+            <em>Don't oversell reach. "I built this for my own workflow and it works" is true and sufficient — inflating it is the only version of this that hurts you.</em>
+          </div>
+        </div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <section id="s3">
+      <div class="shead">
+        <div class="num">03</div><h2>What to say, per room</h2>
+      </div>
+
+      <div class="grid g2">
+        <div class="card">
+          <span class="pill pill--go">State Farm</span>
+          <p style="font-size:13.5px;color:var(--ink-2);margin-top:var(--s3)">Their JD lists skill files and machine-readable guidance under <em>preferred</em>, which means they expect nobody to have them. Position accordingly:</p>
+          <div class="say">This isn't speculative any more. Figma ships agent skills with their MCP server, there's a public marketplace of design-system skills doing metadata-driven component selection, and the token format layer has been stable for a while. What almost nobody has solved is keeping the guidance in sync with the system — which is why every record I generate carries a checksum and a token version. The interesting problem isn't producing skill files. It's making them not rot.</div>
+        </div>
+        <div class="card">
+          <span class="pill pill--go">Goji Labs</span>
+          <p style="font-size:13.5px;color:var(--ink-2);margin-top:var(--s3)">They sell AI-accelerated prototyping. Their risk is that it's a marketing line their delivery teams can't cash. Speak to the delivery side:</p>
+          <div class="say">The tooling has matured faster than most teams have adopted it. The MCP reads real variables, Code Connect maps components to the repo, and the skill layer means output lands on-system instead of generic. What that changes for an agency is the economics — a client can get a real system inside a project budget, which is the thing that always used to get cut.</div>
+        </div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <section id="s4">
+      <div class="shead">
+        <div class="num">04</div><h2>Attribution — the one way this backfires</h2>
+      </div>
+
+      <div class="card" style="border-color:rgba(217,164,65,.35)">
+        <span class="pill pill--warn">Rules</span>
+        <ul class="tight">
+          <li><strong>Demo your own artifact.</strong> MIT means you can adapt someone's work; it doesn't make it yours. "I built a skill-based approach" collapses badly if someone in the room recognises a public repo — and this is a small enough niche that they might.</li>
+          <li><strong>Name the neighbours unprompted.</strong> Volunteering "there's a public marketplace doing this, here's what it gets right" costs you nothing and reads as someone who tracks their field. Being told about it reads as someone who doesn't.</li>
+          <li><strong>Credit the pattern, own the implementation.</strong> The producer/consumer split isn't your idea. The token binding, the provenance block, and the accessibility contract are.</li>
+          <li><strong>Don't inflate usage.</strong> "I use this in my own workflow" is true. Anything more invites a question you can't answer.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+  </div>
+</div>
+
+<div class="pal" id="pal" aria-hidden="true">
+  <div class="pal-in">
+    <input id="palIn" placeholder="Jump to…" autocomplete="off" spellcheck="false">
+    <ul id="palList"></ul>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var KIT = {
+  company:"Landscape", role:"Reference", system:"Keystone", date:"",
+  pageTitle:"Landscape — AI and design systems, what already exists"
+};
+var SECTIONS = [
+  {id:"s0", n:"00", t:"Why this page"},
+  {id:"s1", n:"01", t:"What's out there"},
+  {id:"s2", n:"02", t:"Where yours sits"},
+  {id:"s3", n:"03", t:"What to say"},
+  {id:"s4", n:"04", t:"Attribution"}
+];
+var BEATS = [];
+</script>
+<script src="kit.js?v=2"></script>
+</body>
+</html>

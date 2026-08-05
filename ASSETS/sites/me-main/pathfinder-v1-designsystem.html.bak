@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23111'/><text x='16' y='22' font-family='Georgia,serif' font-size='15' font-weight='700' fill='%23e06b2a' text-anchor='middle'>MR</text></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AVANT Pathfinder — Design System Case Study · Mikel Rosenthal</title>
+<meta name="description" content="Building AVANT's first unified design system from zero — token architecture, dual theming, 350+ contributors, three years end-to-end. By Mikel Rosenthal.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@0,400;0,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="animations.css">
+<script>(function(){var s=localStorage.getItem('pbk-dark');if(s==='0')document.documentElement.classList.add('light');})();</script>
+<style>
+
+/* ─── TOKENS ─── */
+:root {
+  --bg:      #1a1a1a;
+  --raised:  #242424;
+  --border:  rgba(232,228,216,0.10);
+  --text:    #e8e4d8;
+  --body:    rgba(232,228,216,0.78);
+  --muted:   rgba(232,228,216,0.40);
+  --gold:    #c8901a;
+}
+
+/* ─── RESET ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--body);
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 19px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--gold); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ─── TOP BAR ─── */
+.topbar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; gap: 20px;
+  padding: 0 32px; height: 50px;
+  background: rgba(26,26,26,0.95);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+}
+.topbar-home {
+  font-family: 'Space Mono', monospace; font-size: 13px; letter-spacing: .1em;
+  color: var(--text); margin-right: auto;
+}
+.topbar-home b { color: var(--gold); }
+.topbar-tag {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+}
+.topbar-resume {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--gold); border: 1px solid var(--gold);
+  padding: 4px 10px; border-radius: 2px; transition: background .15s;
+}
+.topbar-resume:hover { background: rgba(200,144,26,.12); text-decoration: none; }
+
+/* ─── SECTION NAV ─── */
+.section-nav {
+  position: sticky; top: 50px; z-index: 100;
+  display: flex; align-items: center; gap: 0;
+  padding: 0 40px;
+  background: rgba(26,26,26,0.95);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.section-nav a {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--muted);
+  padding: 14px 20px; display: block;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color .2s, border-color .2s;
+}
+.section-nav a:hover { color: var(--text); text-decoration: none; }
+.section-nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
+.section-nav::-webkit-scrollbar { display: none; }
+
+/* ─── PAGE WRAPPER ─── */
+.wrap {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+/* ─── HERO ─── */
+.hero {
+  padding: 72px 0 56px;
+}
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 22px;
+}
+h1.title {
+  font-family: 'Alexandria', sans-serif; font-weight: 200;
+  font-size: clamp(48px, 7vw, 92px);
+  line-height: .93; letter-spacing: -.03em; text-transform: uppercase;
+  color: var(--text); margin-bottom: 28px;
+}
+h1.title em { font-style: normal; color: var(--gold); }
+.hero-dek {
+  font-size: clamp(19px, 2.2vw, 23px); line-height: 1.5;
+  color: var(--body); max-width: 640px; margin-bottom: 36px;
+}
+
+/* ─── META STRIP ─── */
+.meta-strip {
+  display: flex; flex-wrap: wrap; gap: 10px 28px;
+  padding: 18px 0; border-top: 1px solid var(--border);
+  margin-bottom: 44px;
+}
+.meta-item { display: flex; align-items: baseline; gap: 10px; }
+.meta-item .mk {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--muted); flex-shrink: 0;
+}
+.meta-item .mv { font-size: 15px; color: var(--body); line-height: 1.4; }
+
+/* ─── SKILLS ─── */
+.skills {
+  display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 48px;
+}
+.skill {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--gold);
+  border: 1px solid rgba(200,144,26,0.35); border-radius: 3px;
+  padding: 5px 10px;
+}
+
+/* ─── IMPACT ROW ─── */
+.impact-row {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 6px; overflow: hidden;
+}
+.impact { background: var(--raised); padding: 22px 20px; }
+.impact .n {
+  font-family: 'Alexandria', sans-serif; font-weight: 200; font-size: 40px;
+  line-height: 1; letter-spacing: -.02em; color: var(--text);
+}
+.impact .n em { font-style: normal; color: var(--gold); }
+.impact .d {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--muted); margin-top: 8px; line-height: 1.5;
+}
+
+/* ─── SECTION ─── */
+section {
+  padding: 72px 0 0;
+  scroll-margin-top: 100px; /* offset for sticky bars */
+}
+.sec-label {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--gold); margin-bottom: 6px;
+}
+.sec-num {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .1em;
+  color: var(--muted); margin-right: 10px;
+}
+h2.sec-title {
+  font-family: 'Alexandria', sans-serif; font-weight: 300;
+  font-size: clamp(22px, 3vw, 32px); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--text); margin-bottom: 28px;
+  border-top: 1px solid var(--border); padding-top: 14px;
+}
+
+/* ─── PROSE ─── */
+.prose { color: var(--body); }
+.prose p { margin-bottom: 20px; max-width: 680px; }
+.prose p:last-child { margin-bottom: 0; }
+.prose b { color: var(--text); font-weight: 500; }
+.prose i { color: var(--text); }
+.mono { font-family: 'Space Mono', monospace; font-size: 14px; }
+
+/* ─── PULL QUOTE ─── */
+.pull {
+  font-family: 'Alexandria', sans-serif; font-weight: 300;
+  font-size: clamp(22px, 2.6vw, 28px); line-height: 1.3;
+  color: var(--text); max-width: 680px;
+  border-left: 3px solid var(--gold); padding-left: 22px;
+  margin: 32px 0;
+}
+
+/* ─── PILLAR HEADS ─── */
+.pillar {
+  font-family: 'Alexandria', sans-serif; font-weight: 300;
+  font-size: 16px; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--muted); margin: 52px 0 18px;
+  padding-top: 22px; border-top: 1px solid var(--border);
+}
+
+/* ─── PRINCIPLES ─── */
+.principles {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px; margin: 20px 0;
+}
+.principle { background: var(--raised); border: 1px solid var(--border); border-radius: 5px; padding: 22px 20px; }
+.principle .pn { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .14em; color: var(--gold); }
+.principle h3 { font-family: 'Alexandria', sans-serif; font-weight: 400; font-size: 17px; margin: 8px 0 8px; color: var(--text); }
+.principle p { font-size: 15px; color: var(--muted); line-height: 1.55; }
+
+/* ─── LIST ─── */
+.cs-list { list-style: none; max-width: 680px; margin: 16px 0; }
+.cs-list li {
+  display: grid; grid-template-columns: 80px 1fr; gap: 16px;
+  padding: 14px 0; border-bottom: 1px solid var(--border); color: var(--body);
+}
+.cs-list li .k {
+  font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gold); padding-top: 5px;
+}
+.cs-list li b { color: var(--text); font-weight: 500; }
+
+/* ─── TIMELINE ─── */
+.timeline {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 2px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 5px; overflow: hidden;
+  margin: 20px 0;
+}
+@media(max-width:620px) { .timeline { grid-template-columns: 1fr 1fr; } }
+.phase { background: var(--raised); padding: 20px 18px; }
+.phase .yr { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .12em; color: var(--gold); }
+.phase h3 { font-family: 'Alexandria', sans-serif; font-weight: 400; font-size: 15px; margin: 6px 0 6px; color: var(--text); }
+.phase p { font-size: 14px; color: var(--muted); line-height: 1.5; }
+
+/* ─── FIGURES ─── */
+figure { margin: 28px 0; }
+.frame {
+  background: var(--raised); border: 1px solid var(--border);
+  border-radius: 5px; padding: clamp(14px, 3vw, 28px); overflow: hidden;
+}
+.frame.dark { padding: 0; }
+figure img { width: 100%; display: block; border-radius: 3px; }
+figure svg { width: 100%; height: auto; display: block; }
+figcaption {
+  font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .08em;
+  text-transform: uppercase; color: var(--muted); margin-top: 10px;
+  display: flex; gap: 12px;
+}
+.fig-n { color: var(--gold); }
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media(max-width:600px) { .two-col { grid-template-columns: 1fr; } }
+
+/* ─── OUTCOME STATS ─── */
+.stats {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 2px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 5px; overflow: hidden;
+  margin: 28px 0;
+}
+.stat { background: var(--raised); padding: 24px 22px; }
+.stat .n { font-family: 'Alexandria', sans-serif; font-weight: 200; font-size: 44px; line-height: 1; letter-spacing: -.02em; color: var(--text); }
+.stat .n em { font-style: normal; color: var(--gold); }
+.stat .d { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: 8px; line-height: 1.5; }
+
+/* ─── FOOTER ─── */
+.cs-footer {
+  margin-top: 80px; border-top: 1px solid var(--border);
+  padding: 24px 0 80px;
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  font-family: 'Space Mono', monospace; font-size: 12px; letter-spacing: .08em; color: var(--muted);
+}
+.cs-footer .lab { color: var(--gold); letter-spacing: .14em; margin-right: 8px; }
+.cs-footer a { color: var(--body); }
+.smallnote { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: .05em; color: var(--muted); max-width: 640px; margin-top: 8px; line-height: 1.6; }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:640px) {
+  .wrap { padding: 0 20px; }
+  .hero { padding: 56px 0 44px; }
+  h1.title { font-size: 40px; }
+  .impact-row { grid-template-columns: 1fr 1fr; }
+  .section-nav { padding: 0 20px; }
+  .meta-strip { gap: 8px 20px; }
+}
+.topbar-theme {
+  background: none; border: none; cursor: pointer; padding: 5px;
+  color: var(--muted); transition: color .15s;
+  display: flex; align-items: center; flex-shrink: 0;
+}
+.topbar-theme:hover { color: var(--text); }
+.topbar-theme .icon-sun  { display: block; }
+.topbar-theme .icon-moon { display: none; }
+html.light .topbar-theme .icon-sun  { display: none; }
+html.light .topbar-theme .icon-moon { display: block; }
+html.light {
+  --bg: #f0ebe0; --raised: #e8dfd0; --border: rgba(26,22,18,0.12);
+  --text: #1a1612; --body: rgba(26,22,18,0.78); --muted: rgba(26,22,18,0.45); --gold: #885800;
+}
+html.light .topbar     { background: rgba(240,235,224,0.96); }
+html.light .section-nav { background: rgba(240,235,224,0.96); }
+html.light .skill      { border-color: rgba(136,88,0,0.30); }
+html.light .topbar-resume:hover { background: rgba(136,88,0,.10); }
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <a class="topbar-home" href="/"><b>PBK</b>&nbsp;·&nbsp;Mikel Rosenthal</a>
+  <a class="topbar-resume" href="/resume.html" target="_blank">↓ Resume</a>
+  <button class="topbar-theme" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+  <span class="topbar-tag">Design Systems · 01 of 06</span>
+</header>
+
+<!-- SECTION NAV -->
+<nav class="section-nav" aria-label="Case study sections">
+  <a href="#impact" data-section="impact">Overview</a>
+  <a href="#problem" data-section="problem">Problem</a>
+  <a href="#built" data-section="built">What I Built</a>
+  <a href="#shipped" data-section="shipped">Shipped</a>
+  <a href="#outcome" data-section="outcome">Outcome</a>
+</nav>
+
+<!-- MAIN CONTENT -->
+<div class="wrap">
+
+  <!-- ═══ HERO ═══ -->
+  <div class="hero" id="impact">
+    <div class="hero-eyebrow">AVANT Communications · B2B Technology Services · 2021 – 2024</div>
+    <h1 class="title">Pathfinder<br><em>Design System</em></h1>
+    <p class="hero-dek">AVANT's first unified design system — token-driven, dual-themed, and built from zero.</p>
+
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="mk">Role</span>
+        <span class="mv">Senior Design Systems Lead — end to end</span>
+      </div>
+      <div class="meta-item">
+        <span class="mk">Scope</span>
+        <span class="mv">Research · Tokens · Components · Theming · A11y · Governance · Marketing Library</span>
+      </div>
+      <div class="meta-item">
+        <span class="mk">Tools</span>
+        <span class="mv">Figma Variables · Design Tokens · React Handoff · Dev Mode</span>
+      </div>
+    </div>
+
+    <div class="skills">
+      <span class="skill">Design Tokens</span>
+      <span class="skill">Figma Variables</span>
+      <span class="skill">Token Architecture</span>
+      <span class="skill">React Handoff</span>
+      <span class="skill">Dual Theming</span>
+      <span class="skill">Governance</span>
+      <span class="skill">A11y</span>
+      <span class="skill">Design-to-Code</span>
+    </div>
+
+    <div class="impact-row">
+      <div class="impact">
+        <div class="n">350<em>+</em></div>
+        <div class="d">Contributors enabled</div>
+      </div>
+      <div class="impact">
+        <div class="n">3<em>yr</em></div>
+        <div class="d">Owned end to end</div>
+      </div>
+      <div class="impact">
+        <div class="n">2<em>×</em></div>
+        <div class="d">Systems, one foundation</div>
+      </div>
+      <div class="impact">
+        <div class="n">5<em>-step</em></div>
+        <div class="d">Lifecycle on one language</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PROBLEM ═══ -->
+  <section id="problem">
+    <div class="sec-label"><span class="sec-num">01</span>Problem</div>
+    <h2 class="sec-title">Why this work existed</h2>
+
+    <div class="prose">
+      <p>AVANT's Pathfinder platform — where technology advisors research, assess, quote, and close enterprise deals — had grown faster than its design language. Different components, different blues, different spacing decisions had layered across three years of separate teams. Marketing was producing assets at high volume with no shared foundations.</p>
+      <p>In a tool where advisors make six-figure technology recommendations in front of clients, visual fragmentation undermines trust in the data itself.</p>
+    </div>
+
+    <div class="pull">Inconsistency reads as unreliability.</div>
+
+    <div class="prose">
+      <p>The brief I gave myself: <b>one visual language, expressed as tokens and components, that product engineers and marketers could both ship from — without asking permission.</b></p>
+    </div>
+  </section>
+
+  <!-- ═══ WHAT I BUILT ═══ -->
+  <section id="built">
+    <div class="sec-label"><span class="sec-num">02</span>What I Built</div>
+    <h2 class="sec-title">From zero — four pillars</h2>
+
+    <!-- Audit -->
+    <div class="pillar">Audit &amp; Principles</div>
+    <div class="prose">
+      <p><b>I started with evidence.</b> A full interface inventory — screenshotting every distinct screen state and marketing template, clustering by pattern. The audit made fragmentation measurable, not anecdotal. It gave the system a business case before a single component existed.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Audit findings: fragmented UI values consolidated into a single token source">
+          <style>
+            .t{font-family:'Space Mono',monospace;fill:#8a7e6d;font-size:11px;letter-spacing:1.5px;}
+            .tb{font-family:'Space Mono',monospace;fill:#1a1612;font-size:12px;letter-spacing:1px;}
+            .big{font-family:'Alexandria',sans-serif;fill:#1a1612;font-size:30px;font-weight:300;}
+          </style>
+          <text x="40" y="36" class="tb">BEFORE — AUDIT FINDINGS</text>
+          <text x="40" y="56" class="t">DISTINCT VALUES IN PRODUCTION</text>
+          <rect x="40" y="80" width="64" height="40" rx="3" fill="#0e6fb8"/>
+          <rect x="112" y="80" width="64" height="40" rx="3" fill="#1493e6"/>
+          <rect x="184" y="80" width="64" height="40" rx="3" fill="#0a4f86"/>
+          <rect x="256" y="80" width="64" height="40" rx="3" fill="#3aa9f0"/>
+          <rect x="328" y="80" width="64" height="40" rx="3" fill="#0d80cc"/>
+          <text x="40" y="142" class="t">5+ PRIMARY BLUES</text>
+          <rect x="40" y="170" width="110" height="34" rx="17" fill="none" stroke="#1a1612" stroke-width="1.4"/>
+          <rect x="160" y="170" width="110" height="34" rx="4" fill="#1a1612"/>
+          <rect x="280" y="170" width="110" height="34" rx="9" fill="none" stroke="#c8901a" stroke-width="1.4"/>
+          <text x="40" y="228" class="t">3 BUTTON SHAPES · 7 SIZES</text>
+          <text x="40" y="282" style="font-family:Georgia,serif;font-size:22px;fill:#1a1612;">Aa</text>
+          <text x="86" y="282" style="font-family:Arial,sans-serif;font-size:22px;fill:#1a1612;">Aa</text>
+          <text x="134" y="282" style="font-family:'Courier New',monospace;font-size:22px;fill:#1a1612;">Aa</text>
+          <text x="40" y="308" class="t">MIXED TYPE STACKS</text>
+          <line x1="470" y1="190" x2="540" y2="190" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="540,184 552,190 540,196" fill="#c8901a"/>
+          <text x="600" y="36" class="tb">AFTER — CONSOLIDATED</text>
+          <text x="600" y="56" class="t">SINGLE TOKEN SOURCE OF TRUTH</text>
+          <rect x="600" y="80" width="64" height="40" rx="3" fill="#0e6fb8"/>
+          <text x="676" y="105" class="t">COLOR.BRAND.PRIMARY</text>
+          <rect x="600" y="140" width="110" height="34" rx="4" fill="#1a1612"/>
+          <text x="722" y="162" class="t">BUTTON / 3 SIZES · 5 STATES</text>
+          <text x="600" y="226" style="font-family:Arial,sans-serif;font-size:22px;fill:#1a1612;">Aa</text>
+          <text x="646" y="226" class="t">ONE STACK · 8-STEP SCALE</text>
+          <text x="600" y="300" class="big">Audit → argument</text>
+          <text x="600" y="324" class="t">FRAGMENTATION, MADE VISIBLE AND COUNTABLE</text>
+        </svg>
+      </div>
+      <figcaption><span class="fig-n">FIG 01</span> Interface inventory — fragmentation made countable. Diagram recreated for this case study.</figcaption>
+    </figure>
+
+    <div class="principles">
+      <div class="principle">
+        <div class="pn">P·01</div>
+        <h3>Credibility through clarity</h3>
+        <p>Quote values, assessment results, and deal data get the strongest hierarchy — no exceptions.</p>
+      </div>
+      <div class="principle">
+        <div class="pn">P·02</div>
+        <h3>Tokens before components</h3>
+        <p>Decisions live in the token layer. Components consume intent, never raw values.</p>
+      </div>
+      <div class="principle">
+        <div class="pn">P·03</div>
+        <h3>Designed or it isn't done</h3>
+        <p>Loading, empty, error, and disabled states ship with v1. A pattern without failure modes is a prototype.</p>
+      </div>
+      <div class="principle">
+        <div class="pn">P·04</div>
+        <h3>Adoption over mandate</h3>
+        <p>Does this make the right way the easy way? That's the test for every governance decision.</p>
+      </div>
+    </div>
+
+    <!-- Token Architecture -->
+    <div class="pillar">Token Architecture &amp; Theming</div>
+    <div class="prose">
+      <p>Three-tier architecture: <b>primitives</b> (raw values) → <b>semantic tokens</b> (intent) → <b>component tokens</b> (where it applies). Engineers consume tokens, not hex codes. When the brand evolves, the system re-themes from the primitive layer — nothing downstream changes.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 900 340" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Three-tier token architecture: primitives to semantic to component">
+          <style>
+            .t2{font-family:'Space Mono',monospace;fill:#8a7e6d;font-size:11px;letter-spacing:1.5px;}
+            .tk{font-family:'Space Mono',monospace;fill:#1a1612;font-size:12.5px;}
+            .hd{font-family:'Alexandria',sans-serif;fill:#1a1612;font-size:16px;font-weight:500;letter-spacing:2px;}
+          </style>
+          <rect x="30" y="50" width="250" height="240" rx="6" fill="#ece4d2" stroke="rgba(26,22,18,.14)"/>
+          <text x="50" y="84" class="hd">PRIMITIVES</text>
+          <text x="50" y="104" class="t2">RAW VALUES</text>
+          <rect x="50" y="124" width="22" height="22" rx="3" fill="#0e6fb8"/>
+          <text x="82" y="140" class="tk">blue.600 #0E6FB8</text>
+          <rect x="50" y="156" width="22" height="22" rx="3" fill="#0c1420"/>
+          <text x="82" y="172" class="tk">night.900</text>
+          <rect x="50" y="188" width="22" height="22" rx="3" fill="#2bd97e"/>
+          <text x="82" y="204" class="tk">signal.500</text>
+          <text x="50" y="240" class="tk">space.4 = 16px</text>
+          <text x="50" y="264" class="tk">type.scale.125</text>
+          <line x1="290" y1="170" x2="330" y2="170" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="330,164 342,170 330,176" fill="#c8901a"/>
+          <rect x="350" y="50" width="250" height="240" rx="6" fill="#ece4d2" stroke="rgba(26,22,18,.14)"/>
+          <text x="370" y="84" class="hd">SEMANTIC</text>
+          <text x="370" y="104" class="t2">INTENT — WHAT IT MEANS</text>
+          <text x="370" y="140" class="tk">action.primary</text>
+          <text x="370" y="168" class="tk">surface.raised</text>
+          <text x="370" y="196" class="tk">status.complete</text>
+          <text x="370" y="224" class="tk">border.focus</text>
+          <text x="370" y="252" class="tk">space.stack.md</text>
+          <line x1="610" y1="170" x2="650" y2="170" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="650,164 662,170 650,176" fill="#c8901a"/>
+          <rect x="670" y="50" width="200" height="240" rx="6" fill="#ece4d2" stroke="rgba(26,22,18,.14)"/>
+          <text x="690" y="84" class="hd">COMPONENT</text>
+          <text x="690" y="104" class="t2">WHERE IT APPLIES</text>
+          <text x="690" y="140" class="tk">button.bg</text>
+          <text x="690" y="168" class="tk">table.row.border</text>
+          <text x="690" y="196" class="tk">card.shadow</text>
+          <text x="690" y="224" class="tk">badge.status</text>
+          <text x="30" y="326" class="t2">RE-THEME FROM THE PRIMITIVE LAYER — COMPONENTS NEVER TOUCH RAW VALUES</text>
+        </svg>
+      </div>
+      <figcaption><span class="fig-n">FIG 02</span> Three-tier token architecture — primitives → semantic → component.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <p><b>Theming was the proof.</b> Pathfinder's product surfaces run dark — dense data reads better on dark ground. Marketing runs light. Both resolve from the same semantic layer: <span class="mono">surface.raised</span> and <span class="mono">text.heading</span> map to different primitives per theme. Nothing downstream changes.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 900 290" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Same tokens resolving to dark product theme and light marketing theme">
+          <style>.t6{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;}.ui6{font-family:Arial,Helvetica,sans-serif;}</style>
+          <text x="40" y="36" class="t6" fill="#8a7e6d">ONE SEMANTIC LAYER → TWO THEMES · ZERO COMPONENT CHANGES</text>
+          <text x="40" y="72" class="t6" fill="#1a1612">THEME / PRODUCT (DARK)</text>
+          <rect x="40" y="86" width="380" height="170" rx="8" fill="#0c1420" stroke="rgba(26,22,18,.3)"/>
+          <text x="64" y="120" class="ui6" font-size="12" fill="#7d8aa0">ACME QUOTE 10.30.21</text>
+          <text x="64" y="152" class="ui6" font-size="26" font-weight="bold" fill="#f2f6fc">$124K MRC</text>
+          <rect x="64" y="176" width="332" height="6" rx="3" fill="#1d2a3d"/>
+          <rect x="64" y="176" width="240" height="6" rx="3" fill="#1493e6"/>
+          <rect x="64" y="204" width="140" height="34" rx="5" fill="#1493e6"/>
+          <text x="84" y="226" class="ui6" font-size="13" fill="#0c1420">Add to project</text>
+          <text x="480" y="72" class="t6" fill="#1a1612">THEME / MARKETING (LIGHT)</text>
+          <rect x="480" y="86" width="380" height="170" rx="8" fill="#ffffff" stroke="rgba(26,22,18,.18)"/>
+          <text x="504" y="120" class="ui6" font-size="12" fill="#6f6657">PARTNER ENABLEMENT</text>
+          <text x="504" y="152" class="ui6" font-size="26" font-weight="bold" fill="#161310">$124K MRC</text>
+          <rect x="504" y="176" width="332" height="6" rx="3" fill="#eee7d8"/>
+          <rect x="504" y="176" width="240" height="6" rx="3" fill="#0e6fb8"/>
+          <rect x="504" y="204" width="140" height="34" rx="5" fill="#0e6fb8"/>
+          <text x="524" y="226" class="ui6" font-size="13" fill="#fff">Add to project</text>
+          <text x="40" y="282" class="t6" fill="#8a7e6d">SAME COMPONENT · SAME TOKENS — action.primary / surface.raised / text.heading RESOLVE PER THEME</text>
+        </svg>
+      </div>
+      <figcaption><span class="fig-n">FIG 03</span> Token-driven theming — dark product and light marketing from one semantic layer.</figcaption>
+    </figure>
+
+    <!-- Components -->
+    <div class="pillar">Component Library</div>
+    <div class="prose">
+      <p>Every component shipped with documented anatomy, full state coverage, responsive behavior, and accessibility notes — built as Figma components with variables bound to the token tiers, mirrored by engineering as coded equivalents.</p>
+      <p><b>If a state isn't designed, it isn't done.</b> Loading, error, empty, and disabled states were first-class. In a platform full of in-progress assessments and pending quotes, the in-between states <i>are</i> the product.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 900 380" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Component anatomy specification — quote value input with all states">
+          <style>
+            .t4{font-family:'Space Mono',monospace;fill:#8a7e6d;font-size:11px;letter-spacing:1.5px;}
+            .callout{font-family:'Space Mono',monospace;fill:#c8901a;font-size:11.5px;letter-spacing:1px;}
+            .ui{font-family:Arial,Helvetica,sans-serif;}
+          </style>
+          <text x="40" y="40" class="t4">COMPONENT SPEC — QUOTE VALUE INPUT / DEFAULT</text>
+          <text x="120" y="106" class="ui" font-size="13" fill="#1a1612" font-weight="bold">Monthly recurring charge</text>
+          <rect x="120" y="118" width="380" height="54" rx="6" fill="#ffffff" stroke="#1a1612" stroke-width="1.4"/>
+          <text x="142" y="152" class="ui" font-size="19" fill="#8a7e6d">$</text>
+          <text x="160" y="152" class="ui" font-size="19" fill="#1a1612">12,500</text>
+          <text x="120" y="196" class="ui" font-size="12" fill="#8a7e6d">Per location · before vendor promotions</text>
+          <line x1="120" y1="100" x2="60" y2="100" stroke="#c8901a" stroke-width="1"/>
+          <circle cx="60" cy="100" r="2.5" fill="#c8901a"/>
+          <text x="40" y="86" class="callout">1 LABEL — text.secondary · space.stack.xs</text>
+          <line x1="500" y1="145" x2="560" y2="145" stroke="#c8901a" stroke-width="1"/>
+          <circle cx="560" cy="145" r="2.5" fill="#c8901a"/>
+          <text x="572" y="140" class="callout">2 FIELD — input.border · radius.md</text>
+          <text x="572" y="158" class="callout">  56px touch target · tabular figures</text>
+          <line x1="120" y1="200" x2="60" y2="200" stroke="#c8901a" stroke-width="1"/>
+          <circle cx="60" cy="200" r="2.5" fill="#c8901a"/>
+          <text x="40" y="226" class="callout">3 HELPER — persistent, never placeholder-only</text>
+          <text x="40" y="280" class="t4">STATES — DESIGNED OR IT ISN'T DONE</text>
+          <rect x="40" y="296" width="150" height="44" rx="5" fill="#fff" stroke="#1a1612"/>
+          <text x="58" y="323" class="ui" font-size="13" fill="#1a1612">Default</text>
+          <rect x="206" y="296" width="150" height="44" rx="5" fill="#fff" stroke="#0e6fb8" stroke-width="2.5"/>
+          <text x="224" y="323" class="ui" font-size="13" fill="#1a1612">Focus</text>
+          <rect x="372" y="296" width="150" height="44" rx="5" fill="#fff" stroke="#b3261e" stroke-width="2"/>
+          <text x="390" y="323" class="ui" font-size="13" fill="#b3261e">Error</text>
+          <rect x="538" y="296" width="150" height="44" rx="5" fill="#eee7d8" stroke="rgba(26,22,18,.25)"/>
+          <text x="556" y="323" class="ui" font-size="13" fill="#8a7e6d">Disabled</text>
+          <rect x="704" y="296" width="150" height="44" rx="5" fill="#fff" stroke="rgba(26,22,18,.25)"/>
+          <rect x="722" y="312" width="80" height="12" rx="6" fill="#e3d9c4"/>
+          <text x="704" y="358" class="t4">LOADING</text>
+        </svg>
+      </div>
+      <figcaption><span class="fig-n">FIG 04</span> Anatomy spec — every component documented to this depth before engineering pickup.</figcaption>
+    </figure>
+
+    <!-- Data Visualization Library -->
+    <div class="pillar">Data Visualization Library</div>
+    <div class="prose">
+      <p>Pathfinder advisors present live revenue data to clients — making data visualization the product's credibility layer, not decoration. I designed a full chart library: line, bar, area, stream, radar, and hex — each token-driven, dual-themed, and documented to the same anatomy depth as every other component.</p>
+    </div>
+
+    <figure>
+      <div class="frame dark">
+        <img src="images/case-studies/pathfinder/avant-charts-line-hex.png" alt="Pathfinder line chart with interactive crosshair and hex heatmap" loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 05</span> Line chart with interactive crosshair and hex heatmap — all driven by the same token foundation.</figcaption>
+    </figure>
+
+    <div class="two-col">
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/pathfinder/avant-charts-sales-report.png" alt="Sales Report widget — light and dark theme variants" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 06</span> Sales Report widget — same component, both themes, zero overrides.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame dark">
+          <img src="images/case-studies/pathfinder/avant-charts-xl-line.png" alt="Full line chart library — dark and light size variants" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 07</span> Line chart library — full coverage across size variants, dark and light.</figcaption>
+      </figure>
+    </div>
+
+    <!-- Governance -->
+    <div class="pillar">Governance &amp; Design-to-Code</div>
+    <div class="prose">
+      <p>A system nobody uses is a wiki page. Every governance decision was tested against one question: does this make the right way the easy way?</p>
+    </div>
+
+    <ul class="cs-list">
+      <li><span class="k">Model</span><span><b>Federated contribution</b> — anyone could propose; a small core reviewed against documented criteria, so the system grew without rotting.</span></li>
+      <li><span class="k">Docs</span><span><b>Documentation as product</b> — usage guidance, do/don't pairs, accessibility behavior. Written for the person shipping at 4pm Friday.</span></li>
+      <li><span class="k">Cadence</span><span><b>Office hours</b> — a weekly forum where teams brought edge cases before they became forks.</span></li>
+      <li><span class="k">Versioning</span><span><b>Semantic releases with migration notes</b> — engineering upgraded on their own schedule, without surprise breakage.</span></li>
+      <li><span class="k">Signals</span><span><b>Library analytics as a health metric</b> — a rising detach rate meant the component was wrong, not the user.</span></li>
+    </ul>
+
+    <div class="prose" style="margin-top:28px">
+      <p><b>Design-to-code parity.</b> The same token name travels from Figma variable to CSS custom property to React prop. Designers and engineers are provably talking about the same thing. Drift becomes visible — and fixable — immediately.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <svg viewBox="0 0 900 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Naming parity: same token from Figma variable to CSS to React prop">
+          <style>
+            .t8{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:1.5px;fill:#8a7e6d;}
+            .code{font-family:'Space Mono',monospace;font-size:13.5px;fill:#1a1612;}
+            .hd8{font-family:'Alexandria',sans-serif;font-size:15px;font-weight:500;fill:#1a1612;letter-spacing:2px;}
+          </style>
+          <rect x="30" y="50" width="255" height="140" rx="6" fill="#ece4d2" stroke="rgba(26,22,18,.14)"/>
+          <text x="50" y="82" class="hd8">FIGMA VARIABLE</text>
+          <text x="50" y="120" class="code">action/primary</text>
+          <text x="50" y="146" class="code">space/stack/md</text>
+          <text x="50" y="172" class="t8">BOUND TO COMPONENT PROPS</text>
+          <line x1="295" y1="120" x2="330" y2="120" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="330,114 342,120 330,126" fill="#c8901a"/>
+          <rect x="352" y="50" width="255" height="140" rx="6" fill="#ece4d2" stroke="rgba(26,22,18,.14)"/>
+          <text x="372" y="82" class="hd8">CSS CUSTOM PROPERTY</text>
+          <text x="372" y="120" class="code">--action-primary</text>
+          <text x="372" y="146" class="code">--space-stack-md</text>
+          <text x="372" y="172" class="t8">GENERATED FROM TOKEN SOURCE</text>
+          <line x1="617" y1="120" x2="652" y2="120" stroke="#c8901a" stroke-width="2"/>
+          <polygon points="652,114 664,120 652,126" fill="#c8901a"/>
+          <rect x="674" y="50" width="196" height="140" rx="6" fill="#ece4d2" stroke="rgba(26,22,18,.14)"/>
+          <text x="694" y="82" class="hd8">REACT PROP</text>
+          <text x="694" y="120" class="code">&lt;Button</text>
+          <text x="694" y="146" class="code"> intent="primary"</text>
+          <text x="694" y="172" class="code">/&gt;</text>
+          <text x="30" y="232" class="t8">ONE VOCABULARY ACROSS DESIGN AND ENGINEERING — DRIFT BECOMES VISIBLE, AND FIXABLE, IMMEDIATELY</text>
+        </svg>
+      </div>
+      <figcaption><span class="fig-n">FIG 08</span> Naming parity — one token name across Figma, CSS, and the component API.</figcaption>
+    </figure>
+  </section>
+
+  <!-- ═══ SHIPPED ═══ -->
+  <section id="shipped">
+    <div class="sec-label"><span class="sec-num">03</span>Shipped</div>
+    <h2 class="sec-title">In production · 2021 – 2024</h2>
+
+    <div class="timeline">
+      <div class="phase"><div class="yr">2021 — PHASE 1</div><h3>Audit &amp; Foundations</h3><p>Interface inventory, principles, token architecture, type and color foundations.</p></div>
+      <div class="phase"><div class="yr">2022 — PHASE 2</div><h3>Components &amp; Proof</h3><p>Core component library with full state coverage; the project lifecycle as the proving ground.</p></div>
+      <div class="phase"><div class="yr">2023 — PHASE 3</div><h3>Adoption &amp; Governance</h3><p>Federated contribution model, docs-as-product, office hours, semantic versioning.</p></div>
+      <div class="phase"><div class="yr">2024 — PHASE 4</div><h3>Marketing Library</h3><p>Token foundations extended to a self-serve marketing library; 350+ managers enabled.</p></div>
+    </div>
+
+    
+
+    <div class="two-col">
+      <figure>
+        <div class="frame dark">
+          <img src="images/design-systems/avant-pathfinder/03-style.png" alt="Pathfinder tools dashboard" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 09</span> Data-dense tools view — charts, status, and team modules sharing one rhythm.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame dark">
+          <img src="images/case-studies/pathfinder/pathfinder-sfdc-620.jpg" alt="Pathfinder 2.0 concept screen" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 10</span> Pathfinder 2.0 concept — system components in a full-page client-facing layout.</figcaption>
+      </figure>
+    </div>
+
+    <div class="two-col">
+      <figure>
+        <div class="frame dark">
+          <img src="images/design-systems/avant-pathfinder/05-discovery.jpg" alt="Pathfinder Discovery step with IQA status" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 11</span> Discovery — step 3 of the lifecycle, with live IQA status.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame dark">
+          <img src="images/design-systems/avant-pathfinder/07-iqa-builder.jpg" alt="Pathfinder IQA Builder" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 12</span> IQA Builder — assessments across CCaaS, cloud, SD-WAN, security.</figcaption>
+      </figure>
+    </div>
+
+    <div class="two-col">
+      <figure>
+        <div class="frame dark">
+          <img src="images/case-studies/pathfinder/avant-charts-xl-bar.png" alt="Bar chart library — full dark and light size variants" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 13</span> Bar chart library — full coverage across size variants, dark and light.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame dark">
+          <img src="images/case-studies/pathfinder/avant-charts-stream-heat.png" alt="Stream chart and income heatmap variants" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 14</span> Stream chart and income heatmap — advanced types on the same token foundation.</figcaption>
+      </figure>
+    </div>
+
+    <figure>
+        <div class="frame dark">
+          <img src="images/case-studies/pathfinder/avant-style-tile-1.png" alt="Pathfinder style tile — color, type, and component foundations" loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 15</span> Style tile — color system, typography, and component anatomy on one canvas.</figcaption>
+      </figure>
+
+    
+  </section>
+
+  <!-- ═══ OUTCOME ═══ -->
+  <section id="outcome">
+    <div class="sec-label"><span class="sec-num">04</span>Outcome</div>
+    <h2 class="sec-title">2021 – 2024</h2>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="n">350<em>+</em></div>
+        <div class="d">Managers &amp; marketers trained and shipping from the library</div>
+      </div>
+      <div class="stat">
+        <div class="n">3<em>yr</em></div>
+        <div class="d">System owned end-to-end — v1 through Pathfinder 3.0</div>
+      </div>
+      <div class="stat">
+        <div class="n">2<em>×</em></div>
+        <div class="d">One foundation, two systems — product UI and marketing library</div>
+      </div>
+      <div class="stat">
+        <div class="n">5<em>-step</em></div>
+        <div class="d">Project lifecycle unified on one component language, end to end</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>The library became the default path for campaign work rather than a mandate. Brand reviews shifted from policing basics to discussing ideas. New surfaces shipped visually consistent on day one because the foundations were already in the file. Accessibility findings stopped recurring because the fixes lived in the tokens.</p>
+      <p><b>The system carried Pathfinder from 2.0 through 3.0 without a redesign — the architecture absorbed the evolution.</b></p>
+      <p>When the same feedback keeps arriving, the fix is upstream in the system, not in the individual deliverables. Pathfinder's system was that fix, applied twice — once for product, once for marketing.</p>
+    </div>
+
+    <p class="smallnote" style="margin-top:24px">Product imagery © AVANT Communications. Token names, diagrams, and some details are recreated or generalized for this case study per confidentiality.</p>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="cs-footer">
+    <span><span class="lab">WORK</span><a href="/">MikelRosenthal.com</a></span>
+    <span><span class="lab">NEXT</span><a href="/#design-systems">More design systems →</a></span>
+    <span><span class="lab">CONTACT</span><a href="mailto:mikelrosenthal@me.com">mikelrosenthal@me.com</a></span>
+  </footer>
+
+</div><!-- /wrap -->
+
+<script>
+/* Highlight active section in the section nav */
+(function() {
+  const links = document.querySelectorAll('.section-nav a[data-section]');
+  const sections = ['impact','problem','built','shipped','outcome'];
+
+  function getActive() {
+    const offset = 120;
+    for (let i = sections.length - 1; i >= 0; i--) {
+      const el = document.getElementById(sections[i]);
+      if (el && el.getBoundingClientRect().top <= offset) return sections[i];
+    }
+    return sections[0];
+  }
+
+  function update() {
+    const active = getActive();
+    links.forEach(a => {
+      a.classList.toggle('active', a.dataset.section === active);
+    });
+  }
+
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+<script>
+(function() {
+  var btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', function() {
+    var isLight = document.documentElement.classList.toggle('light');
+    localStorage.setItem('pbk-dark', isLight ? '0' : '1');
+  });
+})();
+</script>
+<script src="animations.js" defer></script>
+
+</body>
+</html>

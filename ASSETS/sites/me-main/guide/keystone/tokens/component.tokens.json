@@ -1,0 +1,45 @@
+{
+  "$description": "Tier 3 — COMPONENT. Localised exceptions, not global rules. Each token references semantic (for colour, which re-themes) or primitive (for dimensions, which don't). A component token exists only where a component needs to diverge or where a per-component change must be possible without disturbing everything else sharing the semantic.",
+  "component": {
+    "button": {
+      "bg":            { "$type": "color",     "$value": "{semantic.action-bg}" },
+      "bg-hover":      { "$type": "color",     "$value": "{semantic.action-bg-hover}" },
+      "bg-active":     { "$type": "color",     "$value": "{semantic.action-bg-active}" },
+      "bg-disabled":   { "$type": "color",     "$value": "{semantic.surface-sunken}" },
+      "fg":            { "$type": "color",     "$value": "{semantic.text-on-action}" },
+      "fg-disabled":   { "$type": "color",     "$value": "{semantic.text-disabled}" },
+      "border":        { "$type": "color",     "$value": "{semantic.border-strong}" },
+      "danger-bg":     { "$type": "color",     "$value": "{semantic.danger-bg}" },
+      "focus-ring":    { "$type": "color",     "$value": "{semantic.focus-ring}" },
+      "radius":        { "$type": "dimension", "$value": "{primitive.radius.md}" },
+      "height-sm":     { "$type": "dimension", "$value": "{primitive.size.control.sm}" },
+      "height-md":     { "$type": "dimension", "$value": "{primitive.size.control.md}" },
+      "height-lg":     { "$type": "dimension", "$value": "{primitive.size.control.lg}" },
+      "pad-inline-sm": { "$type": "dimension", "$value": "{primitive.space.3}" },
+      "pad-inline-md": { "$type": "dimension", "$value": "{primitive.space.5}" },
+      "pad-inline-lg": { "$type": "dimension", "$value": "{primitive.space.6}" },
+      "gap":           { "$type": "dimension", "$value": "{primitive.space.2}" },
+      "motion":        { "$type": "duration",  "$value": "{primitive.duration.fast}" }
+    },
+
+    "input": {
+      "bg":           { "$type": "color",     "$value": "{semantic.surface}" },
+      "bg-disabled":  { "$type": "color",     "$value": "{semantic.surface-sunken}" },
+      "fg":           { "$type": "color",     "$value": "{semantic.text}" },
+      "fg-placeholder": { "$type": "color",   "$value": "{semantic.text-muted}" },
+      "border":       { "$type": "color",     "$value": "{semantic.border}" },
+      "border-hover": { "$type": "color",     "$value": "{semantic.border-strong}" },
+      "border-invalid": { "$type": "color",   "$value": "{semantic.danger}" },
+      "focus-ring":   { "$type": "color",     "$value": "{semantic.focus-ring}" },
+      "radius":       { "$type": "dimension", "$value": "{primitive.radius.md}" },
+      "height":       { "$type": "dimension", "$value": "{primitive.size.control.md}" },
+      "pad-inline":   { "$type": "dimension", "$value": "{primitive.space.3}" },
+      "motion":       { "$type": "duration",  "$value": "{primitive.duration.fast}" }
+    }
+  },
+
+  "$governance": {
+    "rule": "primitive → semantic → component. References point one way only. A component token that merely restates its semantic with a new name should not exist.",
+    "deprecation": "A token leaves the system the same way it enters it: marked $deprecated with a $replacedBy pointer, kept for one minor version, removed at the next major. Contribution paths are common; deprecation paths are what actually keep a system from accumulating three generations of names."
+  }
+}

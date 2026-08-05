@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23111'/><text x='16' y='22' font-family='Georgia,serif' font-size='15' font-weight='700' fill='%23e06b2a' text-anchor='middle'>MR</text></svg>">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TransUnion TUCM Design System — Case Study · Mikel Rosenthal</title>
+<meta name="description" content="Building the TUCM Design System at TransUnion — audit, responsive symbol grid, system guide, and the TrueCredit consumer rebrand.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Mono:wght@0,400;0,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="case-study-dark.css">
+<link rel="stylesheet" href="animations.css">
+<script>(function(){var s=localStorage.getItem('pbk-dark');if(s==='0')document.documentElement.classList.add('light');})();</script>
+</head>
+<body>
+
+<header class="topbar">
+  <a class="topbar-home" href="/"><b>PBK</b>&nbsp;·&nbsp;Mikel Rosenthal</a>
+  <a class="topbar-resume" href="/resume.html" target="_blank">↓ Resume</a>
+  <button class="topbar-theme" id="themeToggle" aria-label="Toggle theme">
+    <svg class="icon-sun" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    <svg class="icon-moon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  </button>
+  <span class="topbar-tag">Design Systems · 06 of 06</span>
+</header>
+
+<nav class="section-nav" aria-label="Case study sections">
+  <a href="#impact" data-section="impact">Overview</a>
+  <a href="#audit" data-section="audit">Audit</a>
+  <a href="#system" data-section="system">System</a>
+  <a href="#truecredit" data-section="truecredit">TrueCredit</a>
+  <a href="#outcome" data-section="outcome">Outcome</a>
+</nav>
+
+<div class="wrap">
+
+  <div class="hero" id="impact">
+    <div class="hero-eyebrow">TransUnion · Credit &amp; Consumer Finance · 2018 – 2019 · Built from zero</div>
+    <h1 class="title">TUCM<br><em>Design System</em></h1>
+    <p class="hero-dek">Building TransUnion's global design system from audit to adoption — responsive symbol libraries, a written guide, and the TrueCredit consumer rebrand that put the system to work.</p>
+
+    <div class="meta-strip">
+      <div class="meta-item">
+        <span class="mk">Role</span>
+        <span class="mv">Senior UX Designer, Design Systems — contract</span>
+      </div>
+      <div class="meta-item">
+        <span class="mk">Scope</span>
+        <span class="mv">Audit · Grid &amp; Symbols · System Guide · Marketing Library · TrueCredit Rebrand</span>
+      </div>
+      <div class="meta-item">
+        <span class="mk">Surfaces</span>
+        <span class="mv">Customer-facing + internal applications · responsive web · mobile</span>
+      </div>
+    </div>
+
+    <div class="skills">
+      <span class="skill">Design Systems</span>
+      <span class="skill">Audit</span>
+      <span class="skill">Responsive Symbols</span>
+      <span class="skill">System Guide</span>
+      <span class="skill">Consumer Rebrand</span>
+      <span class="skill">Financial UX</span>
+    </div>
+
+    <div class="impact-row">
+      <div class="impact">
+        <div class="n">1<em>st</em></div>
+        <div class="d">Global design system for TransUnion's credit-view products</div>
+      </div>
+      <div class="impact">
+        <div class="n">100<em>%</em></div>
+        <div class="d">Responsive symbol coverage — every component, every breakpoint</div>
+      </div>
+      <div class="impact">
+        <div class="n">2</div>
+        <div class="d">Systems delivered — TUCM product system + marketing library</div>
+      </div>
+      <div class="impact">
+        <div class="n"><em>+</em>Brand</div>
+        <div class="d">TrueCredit rebrand shipped on system foundations</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUDIT -->
+  <section id="audit">
+    <div class="sec-label"><span class="sec-num">01</span>Audit First</div>
+    <h2 class="sec-title">Making the case</h2>
+
+    <div class="prose">
+      <p>TUCM started the way every honest system does: with an audit. I mapped the existing credit-view experiences — every component, color, and pattern in production — into a single research artifact that <b>made the fragmentation undeniable</b> and gave the system its priorities.</p>
+      <p>Audit → argument → architecture. That's the pattern I've reused on every system since. The audit isn't just discovery; it's the business case before a single component exists.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <img src="images/case-studies/transunion/transunion_audit-1.jpg" alt="The TrueCredit competitor and pattern audit — research that set the system's priorities." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 01</span> The TrueCredit competitor &amp; pattern audit — research that set the system's priorities.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="frame">
+        <img src="images/case-studies/transunion/transuntion_showcase-02.jpg" alt="The program in context — TransUnion's product design evolution, 2014–2018." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 02</span> The program in context — TransUnion's product design evolution, 2014–2018.</figcaption>
+    </figure>
+  </section>
+
+  <!-- SYSTEM -->
+  <section id="system">
+    <div class="sec-label"><span class="sec-num">02</span>The System</div>
+    <h2 class="sec-title">Symbols · Guide · Foundations</h2>
+
+    <div class="prose">
+      <p>The system itself: <b>fully responsive symbol libraries</b> (years before Figma variants, this was disciplined Sketch architecture), a written guide covering color, type, and library workflow, and foundations tuned for data-dense credit dashboards.</p>
+      <p>Financial UI is trust UI. Hierarchy and plain numbers decide whether someone believes their own credit score. Every decision was made with that stakes in mind.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <img src="images/case-studies/transunion/transunion_grid-1.jpg" alt="Fully responsive symbols — one component, every breakpoint and state." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 03</span> Fully responsive symbols — one component, every breakpoint and state.</figcaption>
+    </figure>
+
+    <figure>
+      <div class="frame">
+        <img src="images/case-studies/transunion/scvd_-_design_system_guide-01.jpg" alt="The SCVD guide — Standard Credit View Dashboard system, v1.5." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 04</span> The SCVD guide — Standard Credit View Dashboard system, v1.5.</figcaption>
+    </figure>
+
+    <div class="two-col">
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/transunion/scvd_-_design_system_guide-05.jpg" alt="Color library — main, highlight, and score tiers." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 05</span> Color library — main, highlight, and score tiers.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/transunion/scvd_-_design_system_guide-06.jpg" alt="Typographic style — scale and usage, documented for the team." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 06</span> Typographic style — scale and usage, documented for the team.</figcaption>
+      </figure>
+    </div>
+
+    <div class="two-col">
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/transunion/scvd_-_design_system_guide-03.jpg" alt="Library files — shared symbols and color libraries." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 07</span> Library files — shared symbols and color libraries, the workflow itself.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/transunion/scvd_-_design_system_guide-02.jpg" alt="Getting started — adoption written for designers, not archivists." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 08</span> Getting started — adoption written for designers, not archivists.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- TRUECREDIT -->
+  <section id="truecredit">
+    <div class="sec-label"><span class="sec-num">03</span>TrueCredit</div>
+    <h2 class="sec-title">The system at work</h2>
+
+    <div class="prose">
+      <p>The consumer proof: <b>TrueCredit</b> — a rebrand and product design pass on TransUnion's consumer credit experience, built on TUCM foundations. Credit scores, calculators, and walkthroughs designed to make intimidating financial data feel navigable.</p>
+    </div>
+
+    <figure>
+      <div class="frame">
+        <img src="images/case-studies/transunion/transuntion_showcase-04.jpg" alt="Be a force for good — the re-brand across surfaces." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 09</span> "Be a force for good" — the rebrand across surfaces.</figcaption>
+    </figure>
+
+    <div class="two-col">
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/transunion/truecredit1.jpg" alt="TrueCredit — credit calculator and walkthrough, desktop and mobile." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 10</span> TrueCredit — credit calculator and walkthrough, desktop and mobile.</figcaption>
+      </figure>
+      <figure>
+        <div class="frame">
+          <img src="images/case-studies/transunion/tc_dashboard-1.jpg" alt="TransUnion credit monitoring dashboard." loading="lazy">
+        </div>
+        <figcaption><span class="fig-n">FIG 11</span> TrueCredit — dashboard and content system across devices.</figcaption>
+      </figure>
+    </div>
+
+    <figure>
+      <div class="frame" style="padding: 32px 0;">
+        <img src="images/case-studies/transunion/truecredit2.jpg" alt="TrueCredit — dashboard and content system across devices." loading="lazy">
+      </div>
+      <figcaption><span class="fig-n">FIG 12</span> One system, every screen size — the responsive family.</figcaption>
+    </figure>
+  </section>
+
+  <!-- OUTCOME -->
+  <section id="outcome">
+    <div class="sec-label"><span class="sec-num">04</span>Outcome</div>
+    <h2 class="sec-title">2018 – 2019</h2>
+
+    <div class="stats">
+      <div class="stat">
+        <div class="n">1<em>st</em></div>
+        <div class="d">Global design system for TransUnion's credit-view products</div>
+      </div>
+      <div class="stat">
+        <div class="n">100<em>%</em></div>
+        <div class="d">Responsive symbol coverage — every component, every breakpoint</div>
+      </div>
+      <div class="stat">
+        <div class="n">2</div>
+        <div class="d">Systems delivered — TUCM product system + marketing library</div>
+      </div>
+      <div class="stat">
+        <div class="n"><em>+</em>Brand</div>
+        <div class="d">TrueCredit rebrand shipped on system foundations</div>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>Design-to-code workflows got a shared vocabulary. The marketing library unified brand touchpoints. Credit data — some of the most anxiety-inducing content on the internet — got an interface language built for clarity.</p>
+      <p><b>TUCM is where I learned to make the audit itself persuasive.</b> The pattern of audit → argument → architecture has carried into every system since. Financial UI is trust UI — hierarchy and plain numbers decide whether someone believes their own data.</p>
+    </div>
+
+    <p class="smallnote">Product imagery © TransUnion. Some details generalized per confidentiality.</p>
+  </section>
+
+  <footer class="cs-footer">
+    <span><span class="lab">WORK</span><a href="/">MikelRosenthal.com</a></span>
+    <span><span class="lab">NEXT</span><a href="/#design-systems">More design systems →</a></span>
+    <span><span class="lab">CONTACT</span><a href="mailto:mikelrosenthal@me.com">mikelrosenthal@me.com</a></span>
+  </footer>
+
+</div>
+
+<script>
+(function() {
+  const links = document.querySelectorAll('.section-nav a[data-section]');
+  const ids = ['impact','audit','system','truecredit','outcome'];
+  function update() {
+    const offset = 120;
+    let active = ids[0];
+    for (let i = ids.length - 1; i >= 0; i--) {
+      const el = document.getElementById(ids[i]);
+      if (el && el.getBoundingClientRect().top <= offset) { active = ids[i]; break; }
+    }
+    links.forEach(a => a.classList.toggle('active', a.dataset.section === active));
+  }
+  window.addEventListener('scroll', update, { passive: true });
+  update();
+})();
+</script>
+<script>
+(function() {
+  var btn = document.getElementById('themeToggle');
+  if (btn) btn.addEventListener('click', function() {
+    var isLight = document.documentElement.classList.toggle('light');
+    localStorage.setItem('pbk-dark', isLight ? '0' : '1');
+  });
+})();
+</script>
+<script src="animations.js" defer></script>
+</body>
+</html>
