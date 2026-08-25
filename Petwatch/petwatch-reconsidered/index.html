@@ -8,74 +8,77 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
 <style>
 /* PetWatch Reconsidered, the design system is this file.
+   Reskinned to sit beside the timed original: same family, same voice.
    One palette, two surfaces:
-   - the ground: warm tan, navy ink, for the case study and the prototype shell
-   - the object: deep navy, ivory ink, for the phone, cards, and sheets
-   Gold is the single accent on both. No red exists in this file; that is a
-   product decision, not an omission. Colors are painted explicitly everywhere. */
+   - the ground: deep navy, light ink, for the case study and the prototype shell
+   - the object: raised navy panels for the phone, cards, and sheets
+   Blue is the single accent, matching the original exercise. Amber remains only
+   where the copy promises it (past-due is "warm amber, in words"). No red exists
+   in this file; that is a product decision, not an omission. Colors are painted
+   explicitly everywhere. */
 
 :root {
-  /* the ground (tan) */
-  --paper: #d4bfa3;
-  --paper-2: #e2d3bb;
-  --paper-3: #c6ad8e;
-  --card: #1c2130;            /* objects on the ground are navy */
-  --ground: linear-gradient(160deg, #e6d8c1 0%, #d2bc9e 55%, #c3a886 100%);
+  /* the ground (navy) */
+  --paper: #080B14;
+  --paper-2: #0e1424;
+  --paper-3: #060910;
+  --card: #1c2130;            /* objects on the ground are raised navy */
+  --ground: linear-gradient(160deg, #0c1120 0%, #080B14 55%, #060910 100%);
 
   /* ink on the ground */
-  --ink: #1c2130;
-  --ink-2: #3d4354;
-  --ink-3: #5e6374;
-  --line: #b9a586;
-  --line-2: #a38f70;
+  --ink: #F2F5FA;
+  --ink-2: #AAB6CF;
+  --ink-3: #7C89A6;
+  --line: #1b2438;
+  --line-2: #273349;
 
-  /* the accent: gold */
-  --ember: #f0a93a;
-  --ember-ink: #7a4d08;        /* gold dark enough for small text on tan (AA) */
-  --ember-wash: rgba(240, 169, 58, 0.18);
+  /* the accent: blue, from the timed original */
+  --ember: #4D8DFF;
+  --ember-ink: #8FB3FF;        /* blue light enough for small text on navy (AA) */
+  --ember-wash: rgba(77, 141, 255, 0.16);
 
-  /* affirmative and attention share the accent family; no second hue */
-  --moss: #f0a93a;
-  --moss-ink: #7a4d08;
-  --moss-wash: rgba(240, 169, 58, 0.18);
-  --amber-ink: #7a4d08;
-  --amber-wash: rgba(240, 169, 58, 0.2);
+  /* affirmative is the original's ok-cyan; attention stays warm amber */
+  --moss: #3DD9C4;
+  --moss-ink: #7FE3D4;
+  --moss-wash: rgba(61, 217, 196, 0.15);
+  --amber-ink: #f5c063;
+  --amber-wash: rgba(240, 169, 58, 0.16);
 
-  --slate: #2a3040;
+  --slate: #AAB6CF;
 
-  /* type */
-  --serif: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
-  --sans: 'Manrope', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --mono: 'Manrope', -apple-system, sans-serif;
-  --code: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+  /* type: the original exercise's pairing */
+  --serif: 'Alexandria', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sans: 'Alexandria', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Space Mono', ui-monospace, Menlo, monospace;
+  --code: 'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* scale */
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px;
   --s6: 32px; --s7: 48px; --s8: 72px; --s9: 112px;
   --r1: 8px; --r2: 14px; --r3: 20px; --r4: 28px;
 
-  --shadow-soft: 0 2px 6px rgba(28, 33, 48, 0.12), 0 18px 48px rgba(28, 33, 48, 0.18);
-  --shadow-sheet: 0 -8px 40px rgba(0, 0, 0, 0.35);
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.25), 0 18px 48px rgba(0, 0, 0, 0.35);
+  --shadow-sheet: 0 -8px 40px rgba(0, 0, 0, 0.5);
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* inside a navy object, the ink tokens flip to ivory */
+/* inside a raised navy object, lines and surfaces step up one level */
 .dark, .phone, .sheet, .clockbox, .trylist button, .vignette, .toast {
-  --ink: #f4efe6;
-  --ink-2: #b9bfcc;
-  --ink-3: #8b92a5;
-  --line: #30374b;
-  --line-2: #414a61;
-  --card: #262c3e;
-  --paper-2: #2d3447;
-  --paper-3: #222837;
-  --ember-ink: #f0a93a;
-  --moss-ink: #f0a93a;
+  --ink: #F2F5FA;
+  --ink-2: #AAB6CF;
+  --ink-3: #7C89A6;
+  --line: #2a3450;
+  --line-2: #3a4666;
+  --card: #242e47;
+  --paper-2: #232d45;
+  --paper-3: #1a2338;
+  --ember-ink: #8FB3FF;
+  --moss-ink: #7FE3D4;
   --amber-ink: #f5c063;
-  --slate: #f4efe6;
+  --slate: #F2F5FA;
   color: var(--ink);
 }
 
@@ -170,7 +173,7 @@ h2.ch-title {
   padding: 12px 22px; border-radius: 999px;
 }
 .hero-links a.primary { background: var(--ink); color: var(--paper-2); }
-.hero-links a.primary:hover { background: #3a3226; }
+.hero-links a.primary:hover { background: #2a3450; }
 .hero-links a.secondary { border: 1px solid var(--line-2); color: var(--ink); }
 .hero-links a.secondary:hover { background: var(--paper-2); }
 .hero-cat img { width: 100%; height: auto; display: block; border-radius: var(--r3); }
@@ -203,7 +206,7 @@ figure.diagram.door svg { border-radius: var(--r3); }
 .v-btn { font: 600 13px var(--sans); border-radius: 999px; padding: 9px 15px; border: 1px solid var(--line-2); background: var(--paper-2); color: var(--ink); }
 .v-btn.go { background: var(--moss); border-color: var(--moss); color: #F6FBF7; }
 .v-micro { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin: 12px 0 6px; }
-.v-src { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); background: #e6e9ee; border-radius: 999px; padding: 3px 9px; display: inline-block; margin-bottom: 10px; }
+.v-src { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); background: var(--paper-3); border-radius: 999px; padding: 3px 9px; display: inline-block; margin-bottom: 10px; }
 .v-stop { margin-top: 10px; padding: 9px 11px; border-radius: 8px; background: var(--amber-wash); color: var(--amber-ink); font-size: 12.5px; font-weight: 500; }
 .v-relief { text-align: center; padding: 10px 0 4px; }
 .v-relief .ring { width: 52px; height: 52px; border-radius: 50%; margin: 0 auto 12px; background: var(--moss-wash); color: var(--moss-ink); display: grid; place-items: center; font-size: 22px; }
@@ -259,8 +262,8 @@ footer li { margin-bottom: 6px; }
   .hero-cat { max-width: 420px; }
 }
 
-/* ----- brand skin: navy objects on a tan ground, gold accent ----- */
-body { background: var(--ground) fixed; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 900'%3E%3Cg fill='none' stroke='%23a88f6c' stroke-width='1.2' opacity='.55'%3E%3Cpath d='M-40 120c180-90 320 40 420-60s260-70 360 20 220 140 420 60'/%3E%3Cpath d='M900 880c60-140 260-180 360-120s140 60 220-20'/%3E%3Cpath d='M-60 700c120-40 200-160 330-120s150 120 270 60'/%3E%3C/g%3E%3C/svg%3E"), var(--ground); background-attachment: fixed; background-size: cover; }
+/* ----- brand skin: raised navy objects on a deep navy ground, blue accent ----- */
+body { background: var(--ground) fixed; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 900'%3E%3Cg fill='none' stroke='%2333436b' stroke-width='1.2' opacity='.55'%3E%3Cpath d='M-40 120c180-90 320 40 420-60s260-70 360 20 220 140 420 60'/%3E%3Cpath d='M900 880c60-140 260-180 360-120s140 60 220-20'/%3E%3Cpath d='M-60 700c120-40 200-160 330-120s150 120 270 60'/%3E%3C/g%3E%3C/svg%3E"), var(--ground); background-attachment: fixed; background-size: cover; }
 .hero h1, h2.ch-title, .pull, .v-title, .v-relief h4 { font-family: var(--serif); font-weight: 500; }
 .hero h1 { letter-spacing: -0.01em; }
 .eyebrow, .mnote .tag, .toc a, .vignette .vcap, .aitable th, .rq .how b, .v-when, .v-micro, .v-src { letter-spacing: 0.12em; font-weight: 700; }
@@ -281,9 +284,9 @@ body { background: var(--ground) fixed; background-image: url("data:image/svg+xm
 figure.diagram { background: #1c2130; border-radius: var(--r3); padding: 20px; color: #f4efe6; }
 figure.diagram figcaption { color: #b9bfcc; }
 figure.diagram .n { fill: #262c3e; stroke: #414a61; }
-figure.diagram .n-hot { stroke: #f0a93a; }
-figure.diagram .n-done { fill: rgba(240,169,58,.18); stroke: #f0a93a; }
-figure.diagram .lbl { fill: #f4efe6; font-family: 'Manrope', sans-serif; font-weight: 700; }
+figure.diagram .n-hot { stroke: #4D8DFF; }
+figure.diagram .n-done { fill: rgba(61,217,196,.18); stroke: #3DD9C4; }
+figure.diagram .lbl { fill: #F2F5FA; font-family: 'Alexandria', sans-serif; font-weight: 700; }
 figure.diagram .edge { stroke: #b9bfcc; }
 figure.diagram .elbl { fill: #b9bfcc; }
 figure.diagram #arr path { fill: #b9bfcc; }
@@ -562,7 +565,7 @@ footer { border-color: var(--line); }
             .n { fill: #FFFDF8; stroke: #CFC1A5; rx: 10; }
             .n-hot { stroke: #C75C12; stroke-width: 1.5; }
             .n-done { fill: #E2ECE5; stroke: #2F6B50; }
-            .lbl { font: 500 12px 'IBM Plex Mono', monospace; fill: #262019; text-anchor: middle; letter-spacing: .08em; }
+            .lbl { font: 500 12px 'Space Mono', monospace; fill: #262019; text-anchor: middle; letter-spacing: .08em; }
             .edge { stroke: #59503F; stroke-width: 1.2; fill: none; marker-end: url(#arr); }
             .elbl { font: italic 11.5px 'Fraunces', serif; fill: #59503F; text-anchor: middle; }
           </style>
@@ -839,7 +842,7 @@ footer { border-color: var(--line); }
     <div>
       <h3>Craft notes</h3>
       <ul>
-        <li>Type: Playfair Display, Manrope, IBM Plex Mono</li>
+        <li>Type: Alexandria, Space Mono</li>
         <li>No framework. One token file. An event-log domain core with 14 passing tests.</li>
         <li>WCAG 2.2 AA target: semantic structure, full keyboard operation, visible focus, reduced-motion support, no meaning carried by color alone.</li>
       </ul>

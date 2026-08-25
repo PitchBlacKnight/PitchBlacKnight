@@ -1,73 +1,76 @@
 <title>PetWatch: The Stay</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
 <style>
 /* PetWatch Reconsidered, the design system is this file.
+   Reskinned to sit beside the timed original: same family, same voice.
    One palette, two surfaces:
-   - the ground: warm tan, navy ink, for the case study and the prototype shell
-   - the object: deep navy, ivory ink, for the phone, cards, and sheets
-   Gold is the single accent on both. No red exists in this file; that is a
-   product decision, not an omission. Colors are painted explicitly everywhere. */
+   - the ground: deep navy, light ink, for the case study and the prototype shell
+   - the object: raised navy panels for the phone, cards, and sheets
+   Blue is the single accent, matching the original exercise. Amber remains only
+   where the copy promises it (past-due is "warm amber, in words"). No red exists
+   in this file; that is a product decision, not an omission. Colors are painted
+   explicitly everywhere. */
 
 :root {
-  /* the ground (tan) */
-  --paper: #d4bfa3;
-  --paper-2: #e2d3bb;
-  --paper-3: #c6ad8e;
-  --card: #1c2130;            /* objects on the ground are navy */
-  --ground: linear-gradient(160deg, #e6d8c1 0%, #d2bc9e 55%, #c3a886 100%);
+  /* the ground (navy) */
+  --paper: #080B14;
+  --paper-2: #0e1424;
+  --paper-3: #060910;
+  --card: #1c2130;            /* objects on the ground are raised navy */
+  --ground: linear-gradient(160deg, #0c1120 0%, #080B14 55%, #060910 100%);
 
   /* ink on the ground */
-  --ink: #1c2130;
-  --ink-2: #3d4354;
-  --ink-3: #5e6374;
-  --line: #b9a586;
-  --line-2: #a38f70;
+  --ink: #F2F5FA;
+  --ink-2: #AAB6CF;
+  --ink-3: #7C89A6;
+  --line: #1b2438;
+  --line-2: #273349;
 
-  /* the accent: gold */
-  --ember: #f0a93a;
-  --ember-ink: #7a4d08;        /* gold dark enough for small text on tan (AA) */
-  --ember-wash: rgba(240, 169, 58, 0.18);
+  /* the accent: blue, from the timed original */
+  --ember: #4D8DFF;
+  --ember-ink: #8FB3FF;        /* blue light enough for small text on navy (AA) */
+  --ember-wash: rgba(77, 141, 255, 0.16);
 
-  /* affirmative and attention share the accent family; no second hue */
-  --moss: #f0a93a;
-  --moss-ink: #7a4d08;
-  --moss-wash: rgba(240, 169, 58, 0.18);
-  --amber-ink: #7a4d08;
-  --amber-wash: rgba(240, 169, 58, 0.2);
+  /* affirmative is the original's ok-cyan; attention stays warm amber */
+  --moss: #3DD9C4;
+  --moss-ink: #7FE3D4;
+  --moss-wash: rgba(61, 217, 196, 0.15);
+  --amber-ink: #f5c063;
+  --amber-wash: rgba(240, 169, 58, 0.16);
 
-  --slate: #2a3040;
+  --slate: #AAB6CF;
 
-  /* type */
-  --serif: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
-  --sans: 'Manrope', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
-  --mono: 'Manrope', -apple-system, sans-serif;
-  --code: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+  /* type: the original exercise's pairing */
+  --serif: 'Alexandria', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --sans: 'Alexandria', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'Space Mono', ui-monospace, Menlo, monospace;
+  --code: 'Space Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 
   /* scale */
   --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px;
   --s6: 32px; --s7: 48px; --s8: 72px; --s9: 112px;
   --r1: 8px; --r2: 14px; --r3: 20px; --r4: 28px;
 
-  --shadow-soft: 0 2px 6px rgba(28, 33, 48, 0.12), 0 18px 48px rgba(28, 33, 48, 0.18);
-  --shadow-sheet: 0 -8px 40px rgba(0, 0, 0, 0.35);
+  --shadow-soft: 0 2px 6px rgba(0, 0, 0, 0.25), 0 18px 48px rgba(0, 0, 0, 0.35);
+  --shadow-sheet: 0 -8px 40px rgba(0, 0, 0, 0.5);
   --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* inside a navy object, the ink tokens flip to ivory */
+/* inside a raised navy object, lines and surfaces step up one level */
 .dark, .phone, .sheet, .clockbox, .trylist button, .vignette, .toast {
-  --ink: #f4efe6;
-  --ink-2: #b9bfcc;
-  --ink-3: #8b92a5;
-  --line: #30374b;
-  --line-2: #414a61;
-  --card: #262c3e;
-  --paper-2: #2d3447;
-  --paper-3: #222837;
-  --ember-ink: #f0a93a;
-  --moss-ink: #f0a93a;
+  --ink: #F2F5FA;
+  --ink-2: #AAB6CF;
+  --ink-3: #7C89A6;
+  --line: #2a3450;
+  --line-2: #3a4666;
+  --card: #242e47;
+  --paper-2: #232d45;
+  --paper-3: #1a2338;
+  --ember-ink: #8FB3FF;
+  --moss-ink: #7FE3D4;
   --amber-ink: #f5c063;
-  --slate: #f4efe6;
+  --slate: #F2F5FA;
   color: var(--ink);
 }
 
@@ -411,8 +414,8 @@ body {
   .phone { width: min(384px, 94vw); }
 }
 
-/* ----- brand skin: navy phone on a tan ground, gold accent ----- */
-body { background: var(--ground) fixed; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 900'%3E%3Cg fill='none' stroke='%23a88f6c' stroke-width='1.2' opacity='.55'%3E%3Cpath d='M-40 120c180-90 320 40 420-60s260-70 360 20 220 140 420 60'/%3E%3Cpath d='M900 880c60-140 260-180 360-120s140 60 220-20'/%3E%3Cpath d='M-60 700c120-40 200-160 330-120s150 120 270 60'/%3E%3C/g%3E%3C/svg%3E"), var(--ground); background-attachment: fixed; background-size: cover; }
+/* ----- brand skin: navy phone on a deep navy ground, blue accent ----- */
+body { background: var(--ground) fixed; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 900'%3E%3Cg fill='none' stroke='%2333436b' stroke-width='1.2' opacity='.55'%3E%3Cpath d='M-40 120c180-90 320 40 420-60s260-70 360 20 220 140 420 60'/%3E%3Cpath d='M900 880c60-140 260-180 360-120s140 60 220-20'/%3E%3Cpath d='M-60 700c120-40 200-160 330-120s150 120 270 60'/%3E%3C/g%3E%3C/svg%3E"), var(--ground); background-attachment: fixed; background-size: cover; }
 .greet, .next-card h3, .sheet h3, .guided h2, .relief h2, .allgood, .clockbox .now { font-family: var(--serif); font-weight: 500; }
 .rail h2, .clockbox .nowlabel, .sec-label, .next-card .when, .sheet .microlabel, .guided .gcrumb, .stepcard .src, .know-item .k, .chip-runner, .topbar .wordmark { letter-spacing: 0.12em; font-weight: 700; }
 .topbar { border-color: var(--line); }
@@ -453,7 +456,7 @@ body { background: var(--ground) fixed; background-image: url("data:image/svg+xm
 .orow { border-color: var(--line); }
 .o-fine { border-color: var(--line-2); }
 .toast { background: #f4efe6; color: #1c2130; }
-.toast button { color: #7a4d08; }
+.toast button { color: #2b53c4; }
 .phone-caption, .ownerline .fine, .clocknote { color: var(--ink-3); }
 
 </style>

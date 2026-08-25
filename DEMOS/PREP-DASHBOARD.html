@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>PetWatch Prep · Private</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #171b26; --card: #222837; --card-2: #262c3e;
+  --ink: #f4efe6; --ink-2: #b9bfcc; --ink-3: #8b92a5;
+  --line: #30374b; --line-2: #414a61;
+  --gold: #f0a93a; --gold-soft: #f5c063; --gold-wash: rgba(240,169,58,.14);
+  --blue: #4D8DFF; --blue-soft: #8FB3FF; --blue-wash: rgba(77,141,255,.14);
+  --serif: 'Playfair Display', Georgia, serif;
+  --sans: 'Manrope', -apple-system, 'Segoe UI', sans-serif;
+  --code: 'IBM Plex Mono', Menlo, monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: 15.5px; line-height: 1.6; padding: 32px clamp(16px, 3vw, 40px) 80px; }
+a { color: var(--gold-soft); }
+.wrap { max-width: 1240px; margin: 0 auto; }
+.eyebrow { font-family: var(--code); font-size: 11.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font-family: var(--serif); font-weight: 500; font-size: clamp(28px, 4vw, 44px); line-height: 1.1; margin: 10px 0 6px; }
+.sub { color: var(--ink-2); max-width: 70ch; }
+h2 { font-family: var(--serif); font-weight: 500; font-size: 24px; margin: 0 0 14px; }
+h3 { font-size: 15px; font-weight: 800; margin-bottom: 6px; }
+section { margin-top: 44px; }
+.private { display: inline-block; font-family: var(--code); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); border: 1px solid rgba(240,169,58,.4); background: var(--gold-wash); border-radius: 999px; padding: 3px 10px; margin-left: 10px; vertical-align: middle; }
+
+/* compare grid */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.col { background: var(--card); border: 1px solid var(--line-2); border-radius: 12px; padding: 22px; }
+.col.v2 { border-color: rgba(77,141,255,.45); }
+.col .tag { font-family: var(--code); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; margin-bottom: 10px; display: block; }
+.col.v1 .tag { color: var(--gold); }
+.col.v2 .tag { color: var(--blue-soft); }
+.col h2 { font-size: 21px; }
+.col dl { margin-top: 14px; }
+.col dt { font-family: var(--code); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin-top: 12px; }
+.col dd { color: var(--ink-2); font-size: 14px; margin-top: 2px; }
+.col dd strong { color: var(--ink); }
+.btns { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.btns a { font-size: 13px; font-weight: 700; text-decoration: none; padding: 8px 14px; border-radius: 999px; }
+.col.v1 .btns a { background: var(--gold); color: #241a06; }
+.col.v2 .btns a { background: var(--blue); color: #06101f; }
+.btns a.ghost { background: transparent !important; border: 1px solid var(--line-2); color: var(--ink-2) !important; }
+.bridge { margin-top: 14px; background: var(--card); border-left: 3px solid var(--gold); border-radius: 0 10px 10px 0; padding: 14px 18px; font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink); }
+
+/* two-column content area */
+.duo { display: grid; grid-template-columns: 1.15fr 1fr; gap: 18px; align-items: start; }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; }
+.panel + .panel { margin-top: 18px; }
+.script { font-size: 14.5px; color: var(--ink-2); }
+.script p { margin-bottom: 10px; }
+.script strong { color: var(--ink); }
+
+details { border-top: 1px solid var(--line); }
+details:last-child { border-bottom: 1px solid var(--line); }
+summary { cursor: pointer; padding: 10px 4px; font-weight: 700; font-size: 14px; list-style: none; display: flex; gap: 10px; align-items: baseline; }
+summary::before { content: "+"; color: var(--gold); font-family: var(--code); }
+details[open] summary::before { content: "–"; }
+summary .st { font-family: var(--code); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
+details .body { padding: 0 4px 14px 22px; font-size: 14px; color: var(--ink-2); }
+details .body .r { font-family: var(--code); font-size: 11px; color: var(--ink-3); display: block; margin-top: 6px; }
+
+/* Q&A */
+.qa { border-top: 1px solid var(--line); padding: 12px 2px; }
+.qa:last-child { border-bottom: 1px solid var(--line); }
+.qa .q { font-weight: 800; font-size: 14px; }
+.qa .q::before { content: "Q · "; color: var(--gold); font-family: var(--code); font-size: 11px; }
+.qa .a { font-size: 13.5px; color: var(--ink-2); margin-top: 4px; }
+.qa .a::before { content: "A · "; color: var(--ink-3); font-family: var(--code); font-size: 11px; }
+.qa.hard .q::before { content: "IF ASKED · "; color: var(--blue-soft); }
+
+/* links strip */
+.links { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; }
+.links a { display: block; text-decoration: none; background: var(--card); border: 1px solid var(--line-2); border-radius: 10px; padding: 12px 14px; }
+.links a:hover { border-color: var(--gold); }
+.links b { display: block; color: var(--ink); font-size: 13.5px; }
+.links span { font-family: var(--code); font-size: 10.5px; color: var(--ink-3); word-break: break-all; }
+
+.openq li { margin: 6px 0 6px 18px; color: var(--ink-2); font-size: 14px; }
+@media (max-width: 900px) { .compare, .duo { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <span class="eyebrow">PetWatch · Interview prep</span><span class="private">Private · not deployed</span>
+  <h1>Two versions, one story.</h1>
+  <p class="sub">Everything on one page: the comparison, the talk track, the questions to expect, and every live link. The narrative spine: <strong style="color:var(--ink)">the reconsidered version exists because the timed one taught me something.</strong></p>
+</header>
+
+<!-- ===== COMPARE ===== -->
+<section>
+  <h2>The two, side by side</h2>
+  <div class="compare">
+    <div class="col v1">
+      <span class="tag">Version 1 · The timed original</span>
+      <h2>Four hours, unedited, still public.</h2>
+      <dl>
+        <dt>Scenario</dt><dd>Kenji &amp; Marmalade, owner Priya. Generic but complete.</dd>
+        <dt>Approach</dt><dd>Screens-first. Five-tab hub: overview, prototype, maps, direction, documents. PRD, backlog, research plan, ways of working, AI log.</dd>
+        <dt>What it proves</dt><dd><strong>Speed and breadth.</strong> Found the hole in the brief (a schedule that's written and read but never done). Wrote decision rules before research. Honest about ambiguity.</dd>
+        <dt>What to own (see questions below)</dt><dd>Ownership modeled twice. The V2 privacy fallback guts the medication safeguard. Metrics with invented precision. No emergency-vet field. The undo timer that never made the prototype.</dd>
+      </dl>
+      <div class="btns">
+        <a href="https://petwatch-exercise.vercel.app">Open v1</a>
+        <a class="ghost" href="https://claude.ai/code/artifact/b755a7b9-2041-4f2b-a851-c5ea2d6c51a1">Written artifacts</a>
+        <a class="ghost" href="https://claude.ai/code/artifact/d36ef11c-53b5-4e60-9e7b-7be2fde568ce">Flows &amp; maps</a>
+      </div>
+    </div>
+    <div class="col v2">
+      <span class="tag">Version 2 · Reconsidered</span>
+      <h2>Outside the timebox, on purpose, and it says so.</h2>
+      <dl>
+        <dt>Scenario</dt><dd>Hex (real cat, real insulin) &amp; Sam house-sitting. Emotionally concrete.</dd>
+        <dt>Approach</dt><dd>Domain-first. Append-only event log, derived status, 14 passing tests, then the interface. Seven-chapter case study + working prototype with a controllable clock.</dd>
+        <dt>What it proves</dt><dd><strong>Judgment and restraint.</strong> Care Moments vs Always-Know. Snooze as agency, not failure. No MISSED state, no countdown, no red. Guided care with owner-authored stop points. NOT-BUILDING as a standing artifact. Open questions left open.</dd>
+        <dt>The frame shift</dt><dd>v1 answered "did someone handle it?" This answers <strong>"can I handle this?"</strong> A schedule transfers information; this transfers the owner's context and confidence.</dd>
+      </dl>
+      <div class="btns">
+        <a href="https://petwatch-reconsidered.vercel.app">Open the case study</a>
+        <a class="ghost" href="https://petwatch-reconsidered.vercel.app/prototype.html">Working prototype</a>
+        <a class="ghost" href="https://petwatch-reconsidered.vercel.app/v1/">Pre-restyle look</a>
+      </div>
+    </div>
+  </div>
+  <p class="bridge">"I did this twice. The first version showed how much I could make. The second asks the harder question: what should I have made? Reconsidering your own shipped answer is part of product judgment."</p>
+</section>
+
+<div class="duo">
+<div>
+
+<!-- ===== NOTES ===== -->
+<section style="margin-top:0">
+  <h2>Notes · the talk track</h2>
+  <div class="panel">
+    <h3>The 60-second opener</h3>
+    <div class="script">
+      <p>"When a brief lands, the first thing I do is feed the machine everything. The AI reads it in minutes and builds a synthesis, and my job on day one is to <strong>find the hole</strong>, the thing the documents assume but never say, because absences don't pattern-match and a model won't catch them.</p>
+      <p>From there it's a rhythm. Rank assumptions by risk, write the decision rules before the research runs, one room, one metric, one page of truth. Then build the real thing fast, because <strong>a prototype beats an opinion</strong>, and spend my hours on the part no model has: the scope cuts and the taste.</p>
+      <p>Handoff isn't a file dump. Docs generate from the same source as the artifact so they can't drift. <strong>The test of my handoff is whether they still need me in the room. They shouldn't."</strong></p>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h3>Stage anecdotes (expand what you need)</h3>
+    <details><summary>Intake <span class="st">the hole in the brief</span></summary><div class="body">"On PetWatch the hole was a product with no completion state. The stories were internally consistent, nothing flagged it, and that's exactly why it's still a designer's job to find it."<span class="r">Pull up: petwatch-exercise.vercel.app, overview tab</span></div></details>
+    <details><summary>Research <span class="st">decision rules first</span></summary><div class="body">"I write the decision rule before the study runs so I can't rationalize afterwards. Four of six watchers react fine, we build the active version. Three or more hate it, we ship passive. I do the interviews myself. You don't delegate listening."<span class="r">Pull up: validation plan in the written artifacts</span></div></details>
+    <details><summary>The artifact <span class="st">the red that became amber</span></summary><div class="body">"First pass at overdue styling was red and urgent. Confidently produced, standard pattern, wrong product. It shouts at a volunteer doing you a favor. The amber treatment is the correction, and in the reconsidered version the whole product refuses red, and refuses a MISSED state: past-due is just due, 20 minutes ago."<span class="r">Pull up: reconsidered ch. 4, When life interrupts</span></div></details>
+    <details><summary>Pressure-test <span class="st">snooze revealed the state model</span></summary><div class="body">"Snooze sounds like one small button. Implementation immediately asks: what state is the Care Moment in now? What if two watchers act? Whose timezone owns 7:15? One button revealed the whole state model, which became an event log with tests. The implementation gets to argue back."<span class="r">Pull up: reconsidered ch. 6, Where the interface ends</span></div></details>
+    <details><summary>Handoff <span class="st">the package, not the goodbye deck</span></summary><div class="body">"The decision log says what we chose, what we rejected, and what would reopen each call. Docs generate from the same source as components so they physically can't drift. Tokens ship as standard DTCG. There's even a skill file so their AI tooling inherits the rules."<span class="r">Pull up: pbk-guide.vercel.app/pathfinder/docs</span></div></details>
+  </div>
+
+  <div class="panel">
+    <h3>The closer (always land here)</h3>
+    <div class="script"><p>"One honest thing, because a process that only lists successes is marketing: <strong>the AI is sometimes confidently wrong, and it matters.</strong> It produces the standard pattern with total confidence when this product needed a different one. The workflow works because a designer is standing exactly where the judgment goes. That's the job now. I think it's a better job than the one it replaced."</p></div>
+  </div>
+</section>
+
+</div>
+<div>
+
+<!-- ===== QUESTIONS ===== -->
+<section style="margin-top:0">
+  <h2>Questions</h2>
+  <div class="panel">
+    <h3>If they push back</h3>
+    <div class="qa"><p class="q">Doesn't AI make designers lazy?</p><p class="a">"It makes lazy designers faster and rigorous designers more rigorous. The edge-case sweep moved QA thinking earlier. That's more rigor, not less."</p></div>
+    <div class="qa"><p class="q">How do we know what's yours?</p><p class="a">"I keep an AI-usage log on every project, with the failures in it. Ask me about the red overdue styling."</p></div>
+    <div class="qa"><p class="q">What if the team doesn't use AI?</p><p class="a">"Nothing in the package requires it. Generated docs, standard tokens, a decision log. The skill file is a bonus, not a dependency."</p></div>
+  </div>
+
+  <div class="panel">
+    <h3>On the v1 mistakes (lead with these before they find them)</h3>
+    <div class="qa hard"><p class="q">Your data model stores ownership twice.</p><p class="a">"Yes, and it's the exact bug class my own PRD brags about eliminating for occurrences. I'd derive owner from Membership. The reconsidered event log is that lesson, systematized."</p></div>
+    <div class="qa hard"><p class="q">Your privacy fallback breaks the safety case.</p><p class="a">"The V2 'last activity' view protects the relationship by destroying the double-dosing guarantee. The fix is a third variant: passive for routine, itemized for anything safety-flagged. A fallback needs the same scrutiny as the primary, because it's what you ship when the test goes badly."</p></div>
+    <div class="qa hard"><p class="q">Where did the 60% metric come from?</p><p class="a">"Nowhere yet, honestly. They should have been labeled working hypotheses, replaced after the first five real handoffs. Same rigor as my decision rules, applied to the numbers."</p></div>
+    <div class="qa hard"><p class="q">Why does retention punish the product for working?</p><p class="a">"A 90-day window on an episodic product reads a happy twice-a-year traveler as churn. Measure 'used again on the next trip' against their travel cadence instead."</p></div>
+    <div class="qa hard"><p class="q">Where's the emergency vet number?</p><p class="a">"Cut by association when I excluded 'vet records' as adjacent product. Needs don't arrive in categories. Always-Know in the reconsidered version is partly that lesson."</p></div>
+    <div class="qa hard"><p class="q">The prototype ignores your own 5-minute undo rule.</p><p class="a">"Right, and I called the prototype the spec. Either build the constraint or annotate exactly where the demo simplifies. The reconsidered domain model has tests for this reason."</p></div>
+  </div>
+
+  <div class="panel">
+    <h3>Open questions (keep them open, that's the point)</h3>
+    <ul class="openq">
+      <li>Does completion visibility reassure the owner without making the watcher feel monitored?</li>
+      <li>Does guided care actually increase first-time confidence at the moment of care?</li>
+      <li>Does snooze reduce anxiety or license drift?</li>
+      <li>Do Always-Know cards stay useful without becoming wallpaper?</li>
+    </ul>
+    <p style="font-family:var(--code); font-size:11.5px; color:var(--ink-3); margin-top:10px">If asked "did you test this?": "Not yet, and I won't pretend the design resolved these. They're ranked by cost-of-being-wrong in the research plan."</p>
+  </div>
+</section>
+
+</div>
+</div>
+
+<!-- ===== LINKS ===== -->
+<section>
+  <h2>Every live link</h2>
+  <div class="links">
+    <a href="https://petwatch-reconsidered.vercel.app"><b>Reconsidered · case study</b><span>petwatch-reconsidered.vercel.app</span></a>
+    <a href="https://petwatch-reconsidered.vercel.app/prototype.html"><b>Reconsidered · prototype</b><span>…/prototype.html</span></a>
+    <a href="https://petwatch-reconsidered.vercel.app/v1/"><b>Reconsidered · previous look</b><span>…/v1/</span></a>
+    <a href="https://petwatch-exercise.vercel.app"><b>The timed original</b><span>petwatch-exercise.vercel.app</span></a>
+    <a href="https://pbk-demos.vercel.app"><b>Practice hub</b><span>pbk-demos.vercel.app</span></a>
+    <a href="https://pbk-demos.vercel.app/process"><b>Process, seams shown</b><span>…/process</span></a>
+    <a href="https://pbk-guide.vercel.app"><b>Interview kit</b><span>pbk-guide.vercel.app</span></a>
+    <a href="https://claude.ai/code/artifact/b755a7b9-2041-4f2b-a851-c5ea2d6c51a1"><b>Written artifacts (login)</b><span>PRD, backlog, research plan</span></a>
+    <a href="https://claude.ai/code/artifact/d36ef11c-53b5-4e60-9e7b-7be2fde568ce"><b>Flows &amp; maps (login)</b><span>swim lanes, invite lifecycle</span></a>
+    <a href="https://claude.ai/code/artifact/66494373-3140-460f-aa4b-e706d86040e4"><b>AI usage log (login)</b><span>including the failures</span></a>
+  </div>
+</section>
+
+</div>
+</body>
+</html>
