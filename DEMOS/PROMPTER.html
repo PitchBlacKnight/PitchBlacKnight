@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>Prompter · Private</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Sized to dock on the right of a screen-share. Everything scannable in one
+   glance: gold = you say it, blue = they ask it, the bolded words are the
+   anchors to grab when the thread slips. */
+:root {
+  --bg: #12151d; --card: #1b1f2b; --line: #2b3145;
+  --ink: #f2efe8; --ink-2: #b6bccb; --ink-3: #848ca0;
+  --gold: #f0a93a; --blue: #7fa9ff; --green: #57d0b8;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: 'Manrope', -apple-system, sans-serif;
+  font-size: 15.5px; line-height: 1.55;
+  max-width: 430px; margin: 0 auto; padding: 18px 16px 60px;
+}
+.kick { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font-size: 19px; font-weight: 800; margin: 4px 0 2px; }
+.note { font-size: 12.5px; color: var(--ink-3); }
+
+section { margin-top: 26px; }
+.sec { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid var(--line); padding-bottom: 6px; margin-bottom: 12px; }
+
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 15px; margin-bottom: 10px; }
+.card h3 { font-size: 13.5px; font-weight: 800; margin-bottom: 8px; }
+ul { list-style: none; }
+li { padding: 3px 0 3px 16px; position: relative; color: var(--ink-2); font-size: 14.5px; }
+li::before { content: "–"; position: absolute; left: 2px; color: var(--gold); }
+li b, p b { color: var(--ink); font-weight: 800; }
+.land { margin-top: 8px; padding: 8px 11px; background: rgba(240,169,58,.1); border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; font-size: 14px; font-weight: 700; }
+
+/* rescue box */
+.rescue { background: rgba(87,208,184,.08); border: 1px solid rgba(87,208,184,.4); border-radius: 10px; padding: 14px 15px; }
+.rescue .kick { color: var(--green); }
+.rescue p { font-size: 14.5px; font-weight: 700; margin-top: 6px; }
+.rescue p span { color: var(--green); font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .1em; display: block; font-weight: 500; margin-bottom: 1px; margin-top: 8px; color: var(--ink-3); }
+
+/* Q&A */
+.q { border-left: 3px solid var(--blue); border-radius: 0 10px 10px 0; background: var(--card); padding: 11px 13px; margin-bottom: 9px; }
+.q .ask { color: var(--blue); font-weight: 800; font-size: 13.5px; }
+.q ul { margin-top: 6px; }
+.q li { font-size: 13.5px; }
+.q .land { font-size: 13px; margin-top: 7px; }
+</style>
+</head>
+<body>
+
+<p class="kick">Prompter · keep right of screen</p>
+<h1>PetWatch, both versions</h1>
+<p class="note">Gold boxes are landing lines. Say one, then stop talking. Blue = questions they'll ask.</p>
+
+<!-- ============ RESCUE ============ -->
+<section>
+  <div class="rescue">
+    <span class="kick">If you lose the thread, say one of these</span>
+    <p><span>The universal reset</span>"Let me show you rather than tell you." <em style="color:var(--ink-3);font-weight:500">(open the prototype, click something)</em></p>
+    <p><span>The whole story in one line</span>"The first version proved speed. The second proved judgment."</p>
+    <p><span>Buys ten seconds, sounds senior</span>"That's a good question. The honest answer is…"</p>
+  </div>
+</section>
+
+<!-- ============ OPENER ============ -->
+<section>
+  <p class="sec">01 · Opener (60 sec)</p>
+  <div class="card">
+    <ul>
+      <li><b>Feed the machine everything.</b> Brief, research, emails. AI synthesizes in minutes.</li>
+      <li>My day-one job: <b>find the hole</b>. Absences don't pattern-match. A model won't catch them.</li>
+      <li><b>Rank assumptions by risk.</b> Write decision rules before research runs.</li>
+      <li><b>Prototype beats an opinion.</b> Build the real thing fast.</li>
+      <li>My hours go to <b>scope cuts and taste</b>.</li>
+    </ul>
+    <p class="land">"The test of my handoff is whether they still need me in the room. They shouldn't."</p>
+  </div>
+</section>
+
+<!-- ============ THE STORY ============ -->
+<section>
+  <p class="sec">02 · The PetWatch story, four beats</p>
+  <div class="card">
+    <h3>Beat 1 · The hole</h3>
+    <ul>
+      <li>Brief looked like <b>scheduling</b>. Stories were consistent.</li>
+      <li>But: a schedule that's <b>written and read, never done</b>.</li>
+      <li>Nothing flagged it. <b>That's why it's a designer's job.</b></li>
+    </ul>
+  </div>
+  <div class="card">
+    <h3>Beat 2 · Hex</h3>
+    <ul>
+      <li><b>Hex is my real cat.</b> Insulin twice a day.</li>
+      <li>Friend can remember "7:15." Doesn't mean they <b>feel able to do it</b>.</li>
+      <li>Their fear: <b>"This is my friend's animal. I don't want to hurt him."</b></li>
+    </ul>
+    <p class="land">"A schedule transfers information. This has to transfer confidence."</p>
+  </div>
+  <div class="card">
+    <h3>Beat 3 · Two kinds of knowing</h3>
+    <ul>
+      <li><b>Care Moments:</b> insulin at 7:15. Becomes due, gets done, resolves for both people.</li>
+      <li><b>Always-Know:</b> Hex bolts through doors. No schedule. Never interrupts, never goes away.</li>
+    </ul>
+    <p class="land">"Some knowledge has a time. Some knowledge has a door."</p>
+  </div>
+  <div class="card">
+    <h3>Beat 4 · The refusals</h3>
+    <ul>
+      <li><b>No countdown.</b> A countdown counts down to stress.</li>
+      <li><b>No MISSED state.</b> Past-due is "due, 20 minutes ago." Verdicts belong to the owner.</li>
+      <li><b>No red anywhere.</b> It shouts at a volunteer doing you a favor.</li>
+      <li><b>No confetti.</b> Completion is relief, twice: "I handled it." "Someone handled it."</li>
+      <li><b>No AI at the moment of care.</b> Instructions come from owner and vet, verbatim.</li>
+    </ul>
+    <p class="land">"Every one of those is a decision, not an omission."</p>
+  </div>
+</section>
+
+<!-- ============ QUESTIONS: AI ============ -->
+<section>
+  <p class="sec">03 · They'll ask about AI</p>
+  <div class="q"><p class="ask">"Doesn't AI make designers lazy?"</p>
+    <ul><li>"Lazy designers get <b>faster</b>. Rigorous designers get <b>more rigorous</b>."</li>
+    <li>"Edge-case sweep moved <b>QA thinking earlier</b>. More rigor, not less."</li></ul>
+  </div>
+  <div class="q"><p class="ask">"How do we know what's yours?"</p>
+    <ul><li>"I keep an <b>AI-usage log</b> on every project. With the <b>failures in it</b>."</li></ul>
+    <p class="land">"Ask me about the red overdue styling."</p>
+  </div>
+  <div class="q"><p class="ask">"Tell me about the red styling." (they will)</p>
+    <ul><li>"First pass at overdue was <b>red and urgent</b>. Confidently produced. Standard pattern."</li>
+    <li>"<b>Wrong product.</b> It shouts at a volunteer doing you a favor."</li>
+    <li>"Amber is the correction. That's the job: <b>standing where the judgment goes</b>."</li></ul>
+  </div>
+  <div class="q"><p class="ask">"What if our team doesn't use AI?"</p>
+    <ul><li>"Nothing in the package <b>requires it</b>. Generated docs, standard tokens, decision log."</li>
+    <li>"The skill file is a <b>bonus, not a dependency</b>."</li></ul>
+  </div>
+</section>
+
+<!-- ============ QUESTIONS: TWO VERSIONS ============ -->
+<section>
+  <p class="sec">04 · They'll ask about the two versions</p>
+  <div class="q"><p class="ask">"Why did you redo it?"</p>
+    <ul><li>"The timed version answered <b>'did someone handle it?'</b>"</li>
+    <li>"It never answered <b>'can I handle this?'</b> That's the real product."</li></ul>
+    <p class="land">"Reconsidering your own shipped answer is part of product judgment."</p>
+  </div>
+  <div class="q"><p class="ask">"Isn't it cheating to go outside the timebox?"</p>
+    <ul><li>"The original is <b>still public, untouched</b>. Four hours, unedited."</li>
+    <li>"The second version <b>says on its face</b> it broke the timebox, and why."</li></ul>
+  </div>
+  <div class="q"><p class="ask">"What would you do next?"</p>
+    <ul><li>"Run the research plan. Four open questions, <b>ranked by cost of being wrong</b>."</li>
+    <li>"Top one: does completion visibility <b>reassure the owner without making the watcher feel monitored</b>?"</li></ul>
+    <p class="land">"I won't pretend the design resolved those. Testing will."</p>
+  </div>
+</section>
+
+<!-- ============ QUESTIONS: MISTAKES ============ -->
+<section>
+  <p class="sec">05 · If they dig into v1 (own it fast)</p>
+  <div class="q"><p class="ask">Data model: ownership stored twice</p>
+    <ul><li>"Yes. The <b>exact bug class</b> my PRD brags about eliminating for occurrences."</li>
+    <li>"Fix: <b>derive owner from Membership</b>. The reconsidered event log is that lesson, systematized."</li></ul>
+  </div>
+  <div class="q"><p class="ask">Privacy fallback vs. the safety case</p>
+    <ul><li>"The passive view protects the relationship by <b>destroying the double-dosing guarantee</b>."</li>
+    <li>"Fix: <b>third variant</b>. Passive for routine, itemized for safety-flagged."</li></ul>
+    <p class="land">"A fallback needs the same scrutiny as the primary. It's what you ship when the test goes badly."</p>
+  </div>
+  <div class="q"><p class="ask">"Where did the 60% metric come from?"</p>
+    <ul><li>"<b>Nowhere yet.</b> Honestly."</li>
+    <li>"Should have said: <b>working hypotheses</b>, replaced after five real handoffs."</li></ul>
+  </div>
+  <div class="q"><p class="ask">Retention metric</p>
+    <ul><li>"90-day window on an <b>episodic product</b>. A happy twice-a-year traveler reads as churn."</li>
+    <li>"Measure <b>'used again on the next trip'</b> instead."</li></ul>
+  </div>
+  <div class="q"><p class="ask">Missing emergency vet number</p>
+    <ul><li>"Cut by association when I excluded 'vet records.' <b>Needs don't arrive in categories.</b>"</li>
+    <li>"Always-Know is <b>partly that lesson</b>."</li></ul>
+  </div>
+</section>
+
+<!-- ============ CLOSER ============ -->
+<section>
+  <p class="sec">06 · Land the plane</p>
+  <div class="card">
+    <ul>
+      <li>"One honest thing, because a process that only lists successes is <b>marketing</b>:"</li>
+      <li>"The AI is sometimes <b>confidently wrong</b>, and it matters."</li>
+      <li>"The workflow works because a designer stands <b>exactly where the judgment goes</b>."</li>
+    </ul>
+    <p class="land">"That's the job now. I think it's a better job than the one it replaced."</p>
+  </div>
+  <p class="note" style="margin-top:10px">Links if they lean in: petwatch-reconsidered.vercel.app · petwatch-exercise.vercel.app · pbk-demos.vercel.app</p>
+</section>
+
+</body>
+</html>
