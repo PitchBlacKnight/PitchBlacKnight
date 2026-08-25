@@ -16,7 +16,7 @@ const MIN = 60000;
 const HOUR = 60 * MIN;
 const at = (h, m = 0) => h * HOUR + m * MIN;
 
-const WATCHER = 'Sam';
+const WATCHER = 'Jessie';
 const OWNER = 'Mikel';
 
 /** @type {import('../domain/caremoment.js').CareMoment[]} */
@@ -544,7 +544,7 @@ function renderOwner() {
   return `
     <div class="ownerband" data-note="ownergran">MIKEL’S VIEW · 1:45 AM in Lisbon · Hex’s schedule stays on the household clock</div>
     <h2 class="allgood">${s.allGood ? 'Hex is all good.' : s.open === 1 ? 'One thing left today.' : `${s.open} things left today.`}</h2>
-    <p class="o-sub">Sam has it covered. You’ll see each moment here as it’s done.</p>
+    <p class="o-sub">Jessie has it covered. You’ll see each moment here as it’s done.</p>
     <div>
       ${MOMENTS.map((m) => {
         const c = logs.get(m.id).find((e) => e.type === 'completed');
@@ -555,7 +555,7 @@ function renderOwner() {
       }).join('')}
     </div>
     ${s.lastCare ? `<p class="lastcare">Last care: <strong>${s.lastCare.title}</strong> at ${fmtClock(s.lastCare.at)} by ${s.lastCare.by}</p>` : ''}
-    <p class="o-fine" data-note="ownergran">This view shows outcomes only. Snoozes, steps, and timing between them belong to Sam, and Sam knows exactly what you can see.</p>`;
+    <p class="o-fine" data-note="ownergran">This view shows outcomes only. Snoozes, steps, and timing between them belong to Jessie, and Jessie knows exactly what you can see.</p>`;
 }
 
 /* ----- events ----- */
@@ -697,7 +697,7 @@ function runScript(name) {
 }
 
 // Jumping straight to 7:15 shouldn't leave the story littered with overdue
-// chores: Sam handled dinner and water on time before the insulin moment.
+// chores: Jessie handled dinner and water on time before the insulin moment.
 function settleEvening() {
   const settled = [
     { id: 'dinner', doneAt: at(18, 5) },

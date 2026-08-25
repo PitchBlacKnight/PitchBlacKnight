@@ -158,8 +158,8 @@ QA upstream. Name them before the panel does.
    mystery third pet.
 6. **AA claim vs reality.** Note says small text on orange "goes dark for AA";
    the white status bar on #F07A28 is ~2.8:1, a fail.
-7. **Dead tokens.** --kenji and --biscuit defined, never used; --biscuit holds
-   Marcus's avatar color, not Biscuit's.
+7. **Dead tokens.** --kenji and --hex defined, never used; --hex holds
+   Marcus's avatar color, not Hex's.
 8. **Broken annotation target.** The overdue state, the philosophy's favorite
    moment, has a data-note with no matching note entry.
 9. **Hardcoded red-brick #A03A2B** on the owner's "Remove access" confirm,

@@ -114,7 +114,7 @@ td strong{color:var(--ink)}
 <div class="tw"><table><thead><tr><th></th><th>Without completion</th><th>With completion</th></tr></thead><tbody>
 <tr><td>What the owner gets</td><td>A copy of their own instructions</td><td>Evidence</td></tr>
 <tr><td>What the watcher gets</td><td>A list of obligations</td><td>A record of having done it</td></tr>
-<tr><td>What happens with 2 watchers</td><td>Ambiguity, duplicate care</td><td>"Sam fed Kenji at 7:12am"</td></tr>
+<tr><td>What happens with 2 watchers</td><td>Ambiguity, duplicate care</td><td>"Jessie fed Kenji at 7:12am"</td></tr>
 <tr><td>Product category</td><td>Schedule viewer</td><td>Trust instrument</td></tr>
 </tbody></table></div>
 <p><strong>Everything else in this document follows from that decision.</strong></p>
@@ -203,10 +203,10 @@ Invite        id · pet_id → Pet · inviter_id → User · invitee_email
 <li>Completion is one tap, optimistic, and immediately reversible for 5 minutes.</li>
 </ul>
 <p>Undo is not a confirmation dialog - dialogs before an action punish the 99% who meant it. Reversal after the fact costs the 1% nothing.</p>
-<p><strong>Framing decision:</strong> the completion control reads as <em>"I did this"</em> - first person, the watcher's own record. Nowhere does the owner-facing language say "verified" or "confirmed by." The activity feed reads <em>"Sam fed Kenji · 7:12am"</em> - a factual record, not a compliance report. This is the design answer to the surveillance risk raised earlier.</p>
+<p><strong>Framing decision:</strong> the completion control reads as <em>"I did this"</em> - first person, the watcher's own record. Nowhere does the owner-facing language say "verified" or "confirmed by." The activity feed reads <em>"Jessie fed Kenji · 7:12am"</em> - a factual record, not a compliance report. This is the design answer to the surveillance risk raised earlier.</p>
 <h3>6.2 The double-completion guard</h3>
 <p>Two watchers, one task. Watcher B opens the app and the task already shows as done, attributed. If B taps it anyway - race condition, stale screen - the write fails on the unique constraint and B sees:</p>
-<blockquote><strong>Already done.</strong> Sam marked this complete at 7:12am.</blockquote>
+<blockquote><strong>Already done.</strong> Jessie marked this complete at 7:12am.</blockquote>
 <p>Not an error. A fact, delivered calmly. For a medication task this is the most important interaction in the product.</p>
 <h3>6.3 Week view</h3>
 <p>Same data, seven columns. Its job is different: it answers <em>"what am I signed up for"</em> rather than <em>"what do I do now."</em> Density over immediacy. Filter by pet persists across both views - it is a property of the session, not the screen.</p>

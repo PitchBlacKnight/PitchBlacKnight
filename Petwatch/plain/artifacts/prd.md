@@ -64,7 +64,7 @@ what the product *is*:
 |---|---|---|
 | What the owner gets | A copy of their own instructions | Evidence |
 | What the sitter gets | A list of obligations | A record of having done it |
-| What happens with 2 sitters | Ambiguity, duplicate care | "Sam fed Kenji at 7:12am" |
+| What happens with 2 sitters | Ambiguity, duplicate care | "Jessie fed Kenji at 7:12am" |
 | Product category | Schedule viewer | Trust instrument |
 
 **Everything else in this document follows from that decision.**
@@ -219,7 +219,7 @@ The sitter's entire relationship with PetWatch is this screen. It opens to
 
 **Framing decision:** the completion control reads as *"I did this"* - first
 person, the sitter's own record. Nowhere does the owner-facing language say
-"verified" or "confirmed by." The activity feed reads *"Sam fed Kenji · 7:12am"* -
+"verified" or "confirmed by." The activity feed reads *"Jessie fed Kenji · 7:12am"* -
 a factual record, not a compliance report. This is the design answer to the
 surveillance risk raised earlier.
 
@@ -229,7 +229,7 @@ Two sitters, one task. Sitter B opens the app and the task already shows as
 done, attributed. If B taps it anyway - race condition, stale screen - the write
 fails on the unique constraint and B sees:
 
-> **Already done.** Sam marked this complete at 7:12am.
+> **Already done.** Jessie marked this complete at 7:12am.
 
 Not an error. A fact, delivered calmly. For a medication task this is the most
 important interaction in the product.
