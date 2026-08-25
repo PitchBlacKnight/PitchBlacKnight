@@ -50,6 +50,13 @@ body {
 .t-bak { background: var(--orange); }
 .t-ask { background: var(--purple); }
 .t-words { background: #6ecbe8; }
+.t-walk { background: var(--ink); }
+.banner.s-walk { background: var(--ink); }
+.stop { display: grid; grid-template-columns: 200px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 16.5px; align-items: start; }
+.stop:first-of-type { border-top: none; }
+.stop b.do { color: var(--green); font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; padding-top: 3px; }
+.stop span { color: var(--ink-2); }
+@media (max-width: 620px) { .stop { grid-template-columns: 1fr; gap: 3px; } }
 .banner.s-words { background: #6ecbe8; }
 .w { display: grid; grid-template-columns: 150px 1fr; gap: 14px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 16px; }
 .w:first-of-type { border-top: none; }
@@ -154,6 +161,7 @@ b { color: var(--gold); font-weight: 800; }
     <a class="t-home" href="#top">HQ</a>
     <a class="t-intro" href="#s-intro">Intro</a>
     <a class="t-present" href="#s-present">Present</a>
+    <a class="t-walk" href="#s-walk">Walk</a>
     <a class="t-qa" href="#s-qa">Q&amp;A</a>
     <a class="t-bak" href="#s-bak">Projects</a>
     <a class="t-ask" href="#s-ask">Ask</a>
@@ -291,6 +299,61 @@ b { color: var(--gold); font-weight: 800; }
   <p>"You encouraged AI use, so here's the honest ledger. It compressed the reading, the first drafts, the edge-case lists, and the build itself. <b>That's how four hours produced this much.</b> And it was also <b>confidently wrong</b>: its first overdue styling came back red and urgent. Standard pattern, wrong product. The amber correction, and the rest of the misses, are <b>in the AI log</b>.</p>
   <p>One more thing, because I think it matters most. <b>The review didn't stop when I hit send.</b> I went back through my own submission with fresh eyes and found real flaws: a stray owner field that breaks the brief's own per-pet rule, a retention metric that punishes an episodic product for working, an emergency vet number I cut by category. <b>The original stays public and unedited.</b> The findings became talking points, not quiet patches.</p>
   <p class="last">"That's the practice: a designer standing <b>exactly where the judgment goes</b>, including on their own work. <b>Production got cheap. Deciding didn't.</b> That's the talk. Questions?"</p>
+</div>
+
+<!-- ================= WALKTHROUGH ================= -->
+<div class="banner s-walk" id="s-walk" style="color:var(--bg); background:#e9e6de">Site walkthrough <small>petwatch-exercise, tab by tab</small></div>
+
+<div class="card" style="border-left-color:#e9e6de">
+  <span class="tag" style="color:var(--ink-3)">Walk</span>
+  <h3>The one rule</h3>
+  <p><b>Click first. Talk second. Then stop talking and let them look.</b> The left column below is what you click or scroll to; the right column is roughly what comes out of your mouth. These are cues, not scripts: say them your way, and if you say something different, that's fine, the screen is carrying the demo, not you.</p>
+  <p class="last">Filler lines while a tab loads: "So this next part is where it gets interesting…" · "Let me show you rather than tell you…" · "This is the part I'd want to see if I were you…"</p>
+</div>
+
+<div class="card" style="border-left-color:#e9e6de">
+  <span class="tag" style="color:var(--ink-3)">Walk</span>
+  <h3>Tab 1 · Overview <span class="min">~2 min</span></h3>
+  <div class="stop"><b class="do">Land on the page</b><span>"This is the whole submission on one page, five tabs. Let me give you the shape of it before we go clicking."</span></div>
+  <div class="stop"><b class="do">Scroll to "What the brief leaves open, on purpose"</b><span>"This is my favorite section in here. Seven places where the brief goes quiet. And the big one: <b>nobody can ever mark anything done</b>. Two of the sample tasks are medication. That silence turned out to be the product."</span></div>
+  <div class="stop"><b class="do">"The calls I made, and where they're defended"</b><span>"Every judgment call links to where it's defended. So if you disagree with one, <b>there's a paragraph you can argue with</b>. That's on purpose."</span></div>
+  <div class="stop"><b class="do">"How the four hours were spent"</b><span>"And the timebox, accounted for. <b>Hour one was reading, not sketching.</b>"</span></div>
+</div>
+
+<div class="card" style="border-left-color:#e9e6de">
+  <span class="tag" style="color:var(--ink-3)">Walk</span>
+  <h3>Tab 2 · Prototype <span class="min">~6 min · the heart</span></h3>
+  <div class="stop"><b class="do">Point at "Try these"</b><span>"There are four moments in here worth your time. Let me just run them."</span></div>
+  <div class="stop"><b class="do">Run "Complete the overdue walk"</b><span>"The walk's overdue. Notice it's <b>amber, not red</b>, red shouts, and you'd be shouting at a volunteer doing you a favor. One tap… done, with undo. <b>Optimistic</b>, because someone mid-walk shouldn't fight a workflow."</span></div>
+  <div class="stop"><b class="do">Run "The double-completion guard"</b><span>"Now the scary one. Daily medication, two well-meaning people. Watch: Marcus already logged it, so <b>I can't log it again</b>. This little guard is the most important interaction in the product, because the failure mode is <b>a double-dosed animal</b>."</span></div>
+  <div class="stop"><b class="do">Run "Invite someone not on PetWatch"</b><span>"The brief says invitees already have accounts. So, no fake signup. It <b>tells Priya the truth</b> and hands her a text to send herself. And revoke is right here, because the brief promises owners <b>control over access</b>."</span></div>
+  <div class="stop"><b class="do">Open the Activity log</b><span>"And the quiet hero. Priya sees the walk happened <b>from another city</b>. This log is the answer to the hole in the brief."</span></div>
+  <div class="stop"><b class="do">Hover a design note</b><span>"One more thing: every decision on screen has a note, and hovering one <b>points at the exact pixel it's about</b>. The reasoning ships with the screen."</span></div>
+</div>
+
+<div class="card" style="border-left-color:#e9e6de">
+  <span class="tag" style="color:var(--ink-3)">Walk</span>
+  <h3>Tab 3 · Maps <span class="min">~3 min</span></h3>
+  <div class="stop"><b class="do">"One watch period, both sides"</b><span>"One stay, both people, side by side. <b>Where the lanes touch is where trust transfers.</b>"</span></div>
+  <div class="stop"><b class="do">"Invite &amp; membership lifecycle"</b><span>"The invite as a state machine: invited, accepted, watching, revoked, expired. Engineering gets <b>states, not vibes</b>."</span></div>
+  <div class="stop"><b class="do">Object map · point at the two ownership edges</b><span>"The nouns of the product. And I'll point at my own mistake: <b>two edges here say who owns the pet</b>. The brief says roles are per-pet, and my stray owner field broke my own rule. I'd derive it. I found this reviewing my own work after I submitted."</span></div>
+  <div class="stop"><b class="do">"Every screen in v1"</b><span>"All twenty screens, each with a verdict: <b>prototyped, specified, or deferred, with a reason</b>. You asked how I prioritize work I don't do. This column is the answer."</span></div>
+</div>
+
+<div class="card" style="border-left-color:#e9e6de">
+  <span class="tag" style="color:var(--ink-3)">Walk</span>
+  <h3>Tab 4 · Direction <span class="min">~2 min</span></h3>
+  <div class="stop"><b class="do">Land on the phone mock</b><span>"Marmalade is just the codename for the visual direction. 'What survived, what changed, and why': one direction's <b>data density</b> wearing the other's <b>warmth</b>."</span></div>
+  <div class="stop"><b class="do">Say it before they see it</b><span>"And I'll name the seam before you spot it: <b>the oranges on this screen don't reconcile</b>. Count them, there are five. Four hours buys a direction, not a reconciled palette. That's exactly what a token file exists to fix, and I left it as shipped, because <b>an honest baseline beats a quietly polished one</b>."</span></div>
+</div>
+
+<div class="card" style="border-left-color:#e9e6de">
+  <span class="tag" style="color:var(--ink-3)">Walk</span>
+  <h3>Tab 5 · Documents <span class="min">~2 min</span></h3>
+  <div class="stop"><b class="do">PRD · "1. The problem, stated honestly"</b><span>"The PRD opens with the problem stated honestly, and section two is the gap, with <b>the proposal and the honest counter-argument</b>, both written down."</span></div>
+  <div class="stop"><b class="do">Point at the backlog</b><span>"Backlog's sequenced <b>by risk, not by feature</b>. IDs your TPMs can drop into Linear."</span></div>
+  <div class="stop"><b class="do">"How I'd find out I'm wrong"</b><span>"That's the research plan's actual title. <b>Decision rules written before the studies run</b>, so I can't rationalize afterward."</span></div>
+  <div class="stop"><b class="do">"How AI was used, including where it was wrong"</b><span>"And the AI ledger, with the failures in it. <b>Ask me about the red overdue styling.</b>"</span></div>
 </div>
 
 <!-- ================= THEIR QA ================= -->
