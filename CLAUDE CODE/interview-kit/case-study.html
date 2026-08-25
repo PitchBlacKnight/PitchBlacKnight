@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case study — Pathfinder, for Stephen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css?v=4">
+<style>
+  .part{display:grid;grid-template-columns:34px 1fr;gap:var(--s4);padding:var(--s5) 0;border-bottom:1px solid var(--line)}
+  .part:last-child{border-bottom:0}
+  .part .n{font-family:var(--mono);font-size:11px;color:var(--accent);padding-top:5px}
+  .part h3{font-size:16px;font-weight:500;margin-bottom:var(--s2);letter-spacing:-.015em}
+  .part p{font-size:13.5px;color:var(--ink-2);line-height:1.6;max-width:74ch}
+  .part .skip{margin-top:var(--s3);font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--warn)}
+  .short{
+    margin-top:var(--s4);padding:var(--s4);border:1px solid rgba(127,183,126,.28);
+    background:rgba(127,183,126,.06);border-radius:var(--r-md);
+  }
+  .short b{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ok);display:block;margin-bottom:var(--s2)}
+  .short span{font-family:var(--serif);font-size:16px;line-height:1.5;color:var(--ink)}
+  .pause{
+    margin-top:var(--s3);font-family:var(--mono);font-size:11px;color:var(--accent-2);
+    letter-spacing:.06em;display:flex;gap:var(--s2);align-items:baseline;
+  }
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="rail">
+    <a class="brand" href="index.html">
+      <div class="mark">Case Study</div>
+      <h1>Pathfinder</h1>
+      <div class="sub">for Stephen · the main event</div>
+    </a>
+    <nav class="nav" id="nav"></nav>
+    <div class="railfoot">
+      <div><kbd>R</kbd> &nbsp;practise mode</div>
+      <div><kbd>⌘</kbd><kbd>K</kbd> &nbsp;jump</div>
+      <div><kbd>J</kbd><kbd>K</kbd> &nbsp;next / prev</div>
+    </div>
+  </aside>
+
+  <div>
+  <header class="top">
+    <div class="who">
+      <strong>Case study walkthrough</strong>
+      <span> &nbsp;·&nbsp; Stephen spends most of the interview here</span>
+    </div>
+    <nav class="swap">
+      <a href="index.html">Hub</a>
+      <a href="stephen.html">Stephen</a>
+      <a href="say.html">Say this</a>
+      <a href="state-farm.html">State Farm</a>
+      <a href="case-study.html" class="here">Case study</a>
+      <a href="phone.html">Voice</a>
+      <a href="methods.html">Methods</a>
+      <a href="questions.html">Questions</a>
+      <a href="talk-track.html">Talk track</a>
+      <a href="figma-demo.html">Figma</a>
+      <a href="goji-labs.html">Goji</a>
+      <a href="loom.html">Loom</a>
+      <a href="landscape.html">Landscape</a>
+    </nav>
+    <button class="btn" id="palBtn">⌘K</button>
+    <button class="btn btn--go" id="rehBtn">▶ &nbsp;Practise</button>
+  </header>
+
+  <main>
+
+    <!-- ══ 00 ══════════════════════════════════════════════ -->
+    <section id="s0" class="hero">
+      <div class="kicker">00 — How Stephen runs this</div>
+      <h2 class="big">He's evaluating <em>how you think</em>, not what you shipped.</h2>
+
+      <div class="oneliner">
+        Angela's read: he asks intentional questions, prefers concise answers over long ones,
+        and wants collaborative, humble, curious. With nineteen years behind you, the risk in
+        this room isn't being underqualified — <strong>it's sounding like someone who has already
+        figured everything out.</strong>
+        <span>Section 03 is where you fix that</span>
+      </div>
+
+      <div class="grid g3" style="margin-top:var(--s6)">
+        <div class="card beat">
+          <div class="bh"><h3>Be direct</h3><div class="t">answer, then stop</div></div>
+          <p>He prefers concise over thorough. Answer in three sentences, then stop talking and let him steer. If he wants depth he'll ask — and then you go deep.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>Pause first</h3><div class="t">2 seconds</div></div>
+          <p>Angela flagged that his questions are intentional. Take a beat before answering and make sure you're answering the question he asked, not the one you prepared for.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>Stay curious</h3><div class="t">out loud</div></div>
+          <p>Name what you're actively learning and what you don't know yet. Nineteen years of range reads as closed unless you deliberately open it.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:var(--s4);border-color:rgba(217,164,65,.32)">
+        <span class="pill pill--warn">The two habits to break for this conversation</span>
+        <ul class="tight">
+          <li><strong>Don't lead with breadth.</strong> Your instinct will be to show range — Verizon, GE, BCBS, Avant. Pick <em>one</em> and go deep. Breadth is on the resume; depth is what he's testing.</li>
+          <li><strong>Don't narrate screens.</strong> "Here's the dashboard" tells him nothing. Every screen you show should be attached to a decision you made and a reason you made it.</li>
+          <li><strong>Say "I don't know" at least once</strong>, if it's true. It's the fastest credibility you can buy with someone who values humility, and it makes everything else you claim more believable.</li>
+        </ul>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 01 THE STRUCTURE ════════════════════════════════ -->
+    <section id="s1">
+      <div class="shead">
+        <div class="num">01</div><h2>The eight parts</h2>
+        <p>Angela spelled out exactly what Stephen wants covered. Three of these are the ones candidates skip — and they're where he's actually evaluating you.</p>
+      </div>
+
+      <div class="card">
+        <div class="part"><div class="n">01</div><div><h3>The problem you were solving</h3><p>Concrete and human. Not "the system was inconsistent" — what was actually going wrong for a person doing their job.</p></div></div>
+        <div class="part"><div class="n">02</div><div><h3>Why it mattered</h3><p>The business cost. If nothing changed, what broke and who paid for it.</p></div></div>
+        <div class="part"><div class="n">03</div><div><h3>Constraints and tradeoffs</h3><p>What you couldn't do, what you gave up, and what you'd have done with more room.<span class="skip">Most candidates skip this — it's the first place he'll find out whether it's a real story</span></p></div></div>
+        <div class="part"><div class="n">04</div><div><h3>Your thinking process</h3><p>How you got from "something's wrong" to "here's the shape of the fix." The messy middle, not the tidy summary.</p></div></div>
+        <div class="part"><div class="n">05</div><div><h3>Decisions and why</h3><p>Named decisions with named alternatives. "I chose X over Y because Z" — the alternative is what makes it a decision rather than a description.</p></div></div>
+        <div class="part"><div class="n">06</div><div><h3>How you collaborated with engineering</h3><p>Specific: what you argued about, what they pushed back on, what changed because of them.<span class="skip">He's hiring for a hybrid role — this part is the job</span></p></div></div>
+        <div class="part"><div class="n">07</div><div><h3>What impact it had</h3><p>Numbers where you have them, honest qualitative where you don't.</p></div></div>
+        <div class="part"><div class="n">08</div><div><h3>What you'd improve</h3><p>Real, specific, and self-critical.<span class="skip">The single highest-value answer in the interview — see section 03</span></p></div></div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 02 THE WALKTHROUGH ══════════════════════════════ -->
+    <section id="s2">
+      <div class="shead">
+        <div class="num">02</div><h2>Pathfinder, beat by beat</h2>
+        <p>~12 minutes if he lets you run. The green block under each beat is the <strong>short version</strong> — lead with that, expand only if he asks. That's the "be direct" instruction made operational.</p>
+      </div>
+
+      <div class="tp">
+
+        <div class="beat">
+          <div class="clockcol">01<span>problem</span></div>
+          <div>
+            <div class="onscreen">Pathfinder case study · top</div>
+            <div class="words">Technology advisors at Avant were running six-figure enterprise deals out of their inbox. Requirements in email threads, provider research in spreadsheets, quotes in attachments named final_v3_REAL. Nothing had a state. And the expensive part wasn't doing the work — it was re-finding it. An advisor would walk into a client meeting unable to answer "why this provider and not that one," and the recommendation died with the relationship.</div>
+            <div class="short"><b>Short version — lead with this</b><span>Advisors were running six-figure deals out of their inbox, and the expensive part wasn't doing the work — it was re-finding it.</span></div>
+            <div class="pause">▸ &nbsp;Pause here. Let him ask.</div>
+          </div>
+        </div>
+
+        <div class="beat">
+          <div class="clockcol">02<span>why</span></div>
+          <div>
+            <div class="onscreen">Stay on the same screen</div>
+            <div class="words">Two costs. The advisor loses time, but worse, they lose the thread — and a recommendation you can't explain is a recommendation you can't sell. And on the interface side: three years of separate teams had layered five primary blues, three button shapes and seven sizes into a tool where advisors present live revenue data to clients. Inconsistency reads as unreliability.</div>
+            <div class="short"><b>Short version</b><span>A recommendation you can't explain is one you can't sell. And inconsistency reads as unreliability when you're presenting live revenue data to a client.</span></div>
+          </div>
+        </div>
+
+        <div class="beat">
+          <div class="clockcol">03<span>constraints</span></div>
+          <div>
+            <div class="onscreen">Nothing — talk to him</div>
+            <div class="words">Three real ones. I was the design team, so anything I built had to be maintainable by one person. Feature work couldn't stop, so there was never a moment to rebuild — the system had to go in underneath a moving product. And it had to serve two audiences with opposite needs: a product team who wanted flexibility, and later a marketing org of non-designers who needed the opposite, hard rails. The tradeoff I made was deliberately fewer options than people asked for. One button, three sizes, five states — when the ask was closer to seven.</div>
+            <div class="short"><b>Short version</b><span>One designer, a product that couldn't stop shipping, and two audiences with opposite needs. So I shipped fewer options than people asked for — one button, three sizes, not seven.</span></div>
+            <div class="note"><strong>This is the beat most candidates skip.</strong> Don't. It's where a real story separates from a rehearsed one.</div>
+          </div>
+        </div>
+
+        <div class="beat">
+          <div class="clockcol">04<span>thinking</span></div>
+          <div>
+            <div class="onscreen">Click "Evidence" — the audit diagram</div>
+            <div class="words">I started by watching rather than asking. I shadowed advisors through live deals instead of interviewing them about deals — fifteen minutes watching someone reconstruct a quote history from their sent folder tells you more than an hour of them describing their process, because nobody describes their own workarounds. They've stopped seeing them. Then I made the fragmentation countable — a full interface inventory, every distinct screen state in production, clustered by pattern. That's the diagram on screen. Numbers ended an argument that opinions couldn't.</div>
+            <div class="short"><b>Short version</b><span>I shadowed advisors instead of interviewing them, then made the fragmentation countable. Nobody describes their own workarounds — they've stopped seeing them.</span></div>
+            <div class="pause">▸ &nbsp;Let the diagram sit. Stop talking for two seconds.</div>
+          </div>
+        </div>
+
+        <div class="beat">
+          <div class="clockcol">05<span>decisions</span></div>
+          <div>
+            <div class="onscreen">Click "Model" — the five-state rail</div>
+            <div class="words">Two decisions carried everything. The first was about nouns. The platform was organised around tools — a fiber tool, a quote tool, each a destination you visited and left. I reorganised it around a single object: the Project, which carries a state and moves through five of them in order. Evidence gathered in any state stays visible in every state after it. The alternative was improving each tool individually, which would have been faster and would have left the advisor exactly as lost. The second decision was underneath: primitives stay private, semantics are the public API. That's what let the system survive a major version change instead of being replaced by one.</div>
+            <div class="short"><b>Short version</b><span>One decision about nouns — the platform was organised around tools, I reorganised it around a single Project object with five states. The alternative was improving each tool individually, which was faster and would have left the advisor just as lost.</span></div>
+          </div>
+        </div>
+
+        <div class="beat">
+          <div class="clockcol">06<span>engineering</span></div>
+          <div>
+            <div class="onscreen">Figma file — Components page</div>
+            <div class="words">The naming was a negotiation, not a handoff. Engineering pushed back on my first token names because they read as design words rather than API names, and they were right — a semantic token is an interface, and interfaces get named by the people who call them. So we settled the naming convention together before I built the library. Then I specced with theming hooks and states enumerated so implementation wasn't a re-draw, and later wired Dev Mode so they were reading the system rather than a picture of it.</div>
+            <div class="short"><b>Short version</b><span>Engineering pushed back on my first token names — they read as design words, not API names. They were right. A semantic token is an interface, and interfaces get named by the people who call them.</span></div>
+            <div class="note"><strong>Say the pushback out loud.</strong> He's hiring a hybrid, and "engineering told me I was wrong and they were right" is the most credible collaboration answer available to you.</div>
+          </div>
+        </div>
+
+        <div class="beat">
+          <div class="clockcol">07<span>impact</span></div>
+          <div>
+            <div class="onscreen">Click "Outcome"</div>
+            <div class="words">The number I trust most: it carried the product from 2.0 to 3.0 without a redesign, over two and a half years. That's the durability test for a token layer — it absorbed a major version instead of being replaced by one. Then we extended the same token foundation into a marketing library that 350-plus managers shipped from with no designer in the loop. And the qualitative one I actually watch for: brand review meetings stopped being about policing basics and started being about ideas.</div>
+            <div class="short"><b>Short version</b><span>2.0 to 3.0 without a redesign — the durability test for a token layer. Then 350-plus non-designers shipping from the same foundation.</span></div>
+          </div>
+        </div>
+
+        <div class="beat">
+          <div class="clockcol">08<span>improve</span></div>
+          <div>
+            <div class="onscreen">Figma file — variable collection</div>
+            <div class="words">I actually audited this file recently, and I found three things I'd fix. Section 03 has them.</div>
+            <div class="note">Full answer in the next section — this is the most important thing you'll say all interview, so it gets its own page.</div>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 03 WHAT I'D IMPROVE ═════════════════════════════ -->
+    <section id="s3">
+      <div class="shead">
+        <div class="num">03</div><h2>"What would you improve?"</h2>
+        <p>The highest-value ninety seconds in the interview. Most people answer this with a soft non-answer. You can answer it with an audit you actually ran on your own system last week.</p>
+      </div>
+
+      <div class="card" style="border-color:rgba(232,106,51,.32)">
+        <span class="pill pill--go">The opener that changes the room</span>
+        <div class="say" style="margin-top:var(--s4)">I went back through this file recently with fresh eyes, and I found three things I'd fix — which is a slightly uncomfortable answer, but it's the honest one.</div>
+        <ul class="tight">
+          <li>Nobody expects a candidate to have <em>re-audited their own case study</em>. It reframes you from someone presenting past work to someone still working on it.</li>
+          <li>It's the humility Angela flagged, delivered as competence rather than as an apology.</li>
+        </ul>
+      </div>
+
+      <div class="grid" style="gap:var(--s4);margin-top:var(--s4)">
+
+        <div class="card">
+          <span class="pill pill--warn">One · No deprecation path</span>
+          <div class="say" style="margin-top:var(--s4)">The variable collection has three generations of naming living side by side — a current lowercase semantic layer, an older PascalCase set, and some bare unnamespaced names from before either. Same values, three conventions. Each generation got added and none got retired, because I built a contribution path and never built a deprecation path. Governance is usually described as how things enter a system. The harder half is how they leave.</div>
+          <div class="short"><b>Short version</b><span>Three generations of naming coexisting, because I built a contribution path and never built a deprecation path. Governance is mostly about how things leave, and I only solved how they enter.</span></div>
+        </div>
+
+        <div class="card">
+          <span class="pill pill--warn">Two · No component tier</span>
+          <div class="say" style="margin-top:var(--s4)">The token layer is three collections — Tailwind primitives at 269 variables, Global Tokens for brand at 51, and Semantic Tokens at 62 carrying the Light and Dark modes. That part I'd defend. What's missing is the tier above it: component tokens, so a button's background is <span style="font-family:var(--mono);font-size:13px">button.bg.default</span> pointing at a semantic rather than the component consuming the semantic directly. It sounds like indirection until you need to change one component without touching everything else that shares its semantic. Every per-component exception here is currently made by hand.</div>
+          <div class="short"><b>Short version</b><span>Three token collections, but no component tier &mdash; so every per-component exception gets made by hand instead of by the architecture.</span></div>
+        </div>
+
+        <div class="card">
+          <span class="pill pill--warn">Three · A gap the tooling found, not me</span>
+          <div class="say" style="margin-top:var(--s4)">The button component has default, hover, pressed and disabled — and no focus state. The focus token is defined in the collection, the input component uses it correctly, the button just never picked it up. I didn't catch that in two and a half years of ownership. A generation pass against my own rules caught it in about four seconds. Which is the honest argument for encoding standards as machine-readable rules rather than documenting them: I'm the person who wrote the accessibility standard for that system, and I still shipped a component that missed it.</div>
+          <div class="short"><b>Short version</b><span>The button has no focus state. The token's defined, the input uses it, the button never picked it up — and I missed it for two and a half years. A rules pass caught it in four seconds.</span></div>
+        </div>
+
+        <div class="card">
+          <span class="pill pill--warn">Four · The documentation drifted 44% and nobody noticed</span>
+          <div class="say" style="margin-top:var(--s4)">The User Guide page inside my own file documents "Semantic Tokens (43 vars)." The collection actually holds 62. The system grew almost half again past its own documentation and nobody caught it, including me. That isn't carelessness &mdash; it's what hand-written documentation does by default. It's also the clearest argument I have for generating guidance from the same source as the tokens instead of maintaining it separately, which is exactly what your JD is describing.</div>
+          <div class="short"><b>Short version</b><span>My own docs say 43 semantic tokens. There are 62. Hand-written documentation rots by definition &mdash; which is the argument for generating it from the same source as the code.</span></div>
+        </div>
+
+      </div>
+
+      <div class="card" style="margin-top:var(--s4);border-color:rgba(127,183,126,.3)">
+        <span class="pill pill--ok">Why this answer wins</span>
+        <ul class="tight">
+          <li>All four are <strong>real, checkable, and specific.</strong> He can open the file and verify every one.</li>
+          <li>Each one implies a capability rather than just a flaw — deprecation governance, three-tier architecture, machine-readable standards. Every weakness names a thing you now know how to do.</li>
+          <li>The last two are directly the job he's hiring for. You've turned "what would you improve" into the argument for the role's central premise.</li>
+        </ul>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 04 HOW I'D WORK ═════════════════════════════════ -->
+    <section id="s4">
+      <div class="shead">
+        <div class="num">04</div><h2>How you'd actually work</h2>
+        <p>He'll ask some version of "how would you approach this." Have a shape, not a philosophy. This is the loop, not a phased plan.</p>
+      </div>
+
+      <div class="card">
+        <div class="step"><div class="no">01</div><div>
+          <h3>Make it countable before you argue</h3>
+          <p>Inventory first, always. Which components exist, which are used, which got detached, where the raw values are. You don't win the case for a system with taste — you win it with a number nobody can dispute.</p>
+          <div class="proof"><b>Avant</b> five primary blues, three button shapes, seven sizes → one token source of truth</div>
+        </div></div>
+        <div class="step"><div class="no">02</div><div>
+          <h3>Fix the foundation before the surface</h3>
+          <p>Tokens before components, components before templates. A beautiful component on an unstable token layer is rework waiting to happen — and the order is what makes theming and multi-platform possible later instead of impossible.</p>
+          <div class="proof"><b>GE Healthcare</b> four theme targets resolved from one semantic layer, so components never forked</div>
+        </div></div>
+        <div class="step"><div class="no">03</div><div>
+          <h3>Ship the smallest thing that gets used</h3>
+          <p>A perfect system nobody adopts is a wiki page. I'd rather ship three components people use than thirty nobody knows about, then let real contribution friction tell me what governance actually needs to exist.</p>
+          <div class="proof"><b>Avant marketing library</b> became the default path because it was faster, not because it was mandated</div>
+        </div></div>
+        <div class="step"><div class="no">04</div><div>
+          <h3>Name things with the people who call them</h3>
+          <p>Token and component naming is an API decision, so engineers are in the room for it. This is the single cheapest way to prevent the design-and-code drift that every system eventually gets.</p>
+          <div class="proof"><b>Verizon</b> design-to-code alignment through Dev Mode and Code Connect across three platforms</div>
+        </div></div>
+        <div class="step"><div class="no">05</div><div>
+          <h3>Automate the thing you've done manually three times</h3>
+          <p>Not before. The third time you hand-fix the same drift is when you know the shape of the tool — and the tool you build then is the one people actually use.</p>
+          <div class="proof"><b>Now</b> variables → DTCG exporter, and skill files that encode the rules so generated output lands on-system</div>
+        </div></div>
+        <div class="step"><div class="no">06</div><div>
+          <h3>Measure so you know what to fix, not to prove you're winning</h3>
+          <p>Coverage, detachment, adoption by team. The number matters less than the follow-up question it lets you ask.</p>
+          <div class="proof"><b>Section 05</b> the nuance worth knowing about detachment rate</div>
+        </div></div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 05 BEST PRACTICE ════════════════════════════════ -->
+    <section id="s5">
+      <div class="shead">
+        <div class="num">05</div><h2>Have an opinion on these</h2>
+        <p>Current practice on the two things a design systems engineer is expected to have a view about. Both give you something better than a textbook answer.</p>
+      </div>
+
+      <div class="grid g2">
+        <div class="card">
+          <span class="pill pill--go">Three-tier tokens</span>
+          <p style="font-size:13.5px;color:var(--ink-2);margin-top:var(--s3);line-height:1.6">The mature pattern — Carbon is the usual reference — is <strong>primitive → semantic → component</strong>:</p>
+          <div class="annot" style="margin-top:var(--s4)">
+            <div><b>primitive</b> what it is &nbsp;·&nbsp; <code>color.blue.500 = #3B82F6</code></div>
+            <div><b>semantic</b> what it means &nbsp;·&nbsp; <code>color.action.primary</code></div>
+            <div><b>component</b> where it lives &nbsp;·&nbsp; <code>button.background.default</code></div>
+          </div>
+          <ul class="tight">
+            <li><strong>The rule that matters:</strong> strict one-way flow. Primitive → semantic → component, never sideways or backwards. Bidirectional references create circular dependencies that break build-time resolution.</li>
+            <li><strong>Component tokens are localised exceptions, not global rules</strong> — that's the sentence that shows you understand why the tier exists rather than just that it does.</li>
+            <li><strong>Your honest position:</strong> you built two tiers. Say so, say what it cost you, and say you'd add the third. That's section 03, item two.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill pill--go">Adoption measurement</span>
+          <p style="font-size:13.5px;color:var(--ink-2);margin-top:var(--s3);line-height:1.6">Two complementary metrics people usually conflate:</p>
+          <ul class="tight">
+            <li><strong>Usage</strong> is breadth — which components get used, how often. <strong>Coverage</strong> is depth — what share of production UI is built from the system versus one-offs.</li>
+            <li><strong>Detachment rate</strong> — how often instances get detached or overridden. And here's the nuance worth having: <em>a high detachment rate isn't automatically bad.</em> On a component built to be customised it may mean the component is working as designed. On a button it means your button is wrong.</li>
+            <li><strong>The line to say:</strong> "a bare adoption percentage doesn't tell you which teams, or why the rest aren't. The number is only useful if it points at the next question."</li>
+            <li><strong>Your qualitative one:</strong> what design review meetings are about. At Avant they shifted from policing basics to arguing about ideas.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:var(--s4)">
+        <span class="pill">Curiosity — have two real answers ready</span>
+        <ul class="tight">
+          <li><strong>"What are you learning right now?"</strong> Be specific and current: DTCG 2025.10 answered modes with resolvers last October, but Style Dictionary hasn't implemented them yet — the spec is ahead of the toolchain, and the runtime half is still open. Current AND honest.</li>
+          <li><strong>"Where do you think design systems are headed?"</strong> Toward systems that have two consumers — humans and models — and the second one can't improvise around bad documentation. Which means documentation quality stops being a nice-to-have and becomes load-bearing.</li>
+          <li>Both answers end in something unresolved. That's the point — curiosity is demonstrated by naming an open question, not by expressing enthusiasm.</li>
+        </ul>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 06 CHECKS ═══════════════════════════════════════ -->
+    <section id="s6">
+      <div class="shead">
+        <div class="num">06</div><h2>Before the call</h2>
+      </div>
+      <div class="grid g2">
+        <div>
+          <div class="lbl" style="margin-bottom:var(--s3)">Prep</div>
+          <div class="check" id="ck1">
+            <label><input type="checkbox"><span>Run practise mode once, out loud<span class="sm">Press R. Short versions only — that's the "be direct" rehearsal.</span></span></label>
+            <label><input type="checkbox"><span>Rehearse section 03 until it's comfortable<span class="sm">Self-criticism sounds defensive when it's under-rehearsed</span></span></label>
+            <label><input type="checkbox"><span>Pick your one "I don't know" in advance<span class="sm">resolver adoption is a good one — spec answered modes, toolchain hasn't caught up</span></span></label>
+            <label><input type="checkbox"><span>Decide: Pathfinder case study page, or the Figma file, or both<span class="sm">Both is fine — case study for the story, Figma for the system</span></span></label>
+            <label><input type="checkbox"><span>Ask Angela what Stephen's own background is<span class="sm">Designer-who-codes or engineer-who-designs changes your emphasis</span></span></label>
+          </div>
+        </div>
+        <div>
+          <div class="lbl" style="margin-bottom:var(--s3)">Questions for Stephen</div>
+          <div class="check" id="ck2">
+            <label><input type="checkbox"><span>"Where does the system sit today — token source of truth, and who owns it?"</span></label>
+            <label><input type="checkbox"><span>"What happens now when a team needs a component that doesn't exist?"<span class="sm">The contribution answer reveals the real culture</span></span></label>
+            <label><input type="checkbox"><span>"Are the skill files a first attempt, or is something running?"<span class="sm">If it's the first attempt, you're ahead of them — say so</span></span></label>
+            <label><input type="checkbox"><span>"What broke that made platform-agnostic a priority now?"</span></label>
+            <label><input type="checkbox"><span>"What would make you say, a year from now, that this hire worked?"</span></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  </div>
+</div>
+
+<div class="reh" id="reh" aria-hidden="true">
+  <div class="reh-in">
+    <div class="dots" id="rehDots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="beatname" id="rehName"></div>
+    <div class="clock" id="rehClock">0:00</div>
+    <div class="target" id="rehTarget"></div>
+    <div class="script" id="rehScript"></div>
+    <div class="ctl">
+      <button class="btn" id="rehPrev">← Back</button>
+      <button class="btn btn--go" id="rehNext">Next →</button>
+      <button class="btn" id="rehReset">Reset</button>
+      <button class="btn" id="rehClose">Esc · Close</button>
+    </div>
+    <div class="hint">These are the SHORT versions — say them, then stop talking</div>
+  </div>
+</div>
+
+<div class="pal" id="pal" aria-hidden="true">
+  <div class="pal-in">
+    <input id="palIn" placeholder="Jump to…" autocomplete="off" spellcheck="false">
+    <ul id="palList"></ul>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var KIT = {
+  company:"State Farm", role:"Design Systems Engineer", system:"Pathfinder", date:"",
+  pageTitle:"Case study — Pathfinder, for Stephen"
+};
+
+var SECTIONS = [
+  {id:"s0", n:"00", t:"How Stephen runs this"},
+  {id:"s1", n:"01", t:"The eight parts"},
+  {id:"s2", n:"02", t:"Pathfinder, beat by beat"},
+  {id:"s3", n:"03", t:"What I'd improve"},
+  {id:"s4", n:"04", t:"How you'd work"},
+  {id:"s5", n:"05", t:"Have an opinion on these"},
+  {id:"s6", n:"06", t:"Before the call"}
+];
+
+var BEATS = [
+  {name:"01 — The problem", sec:20, script:"Advisors were running six-figure deals out of their inbox, and the expensive part wasn't doing the work — it was re-finding it."},
+  {name:"02 — Why it mattered", sec:20, script:"A recommendation you can't explain is one you can't sell. And inconsistency reads as unreliability when you're presenting live revenue data to a client."},
+  {name:"03 — Constraints", sec:25, script:"One designer, a product that couldn't stop shipping, and two audiences with opposite needs. So I shipped fewer options than people asked for — one button, three sizes, not seven."},
+  {name:"04 — Thinking", sec:25, script:"I shadowed advisors instead of interviewing them, then made the fragmentation countable. Nobody describes their own workarounds — they've stopped seeing them."},
+  {name:"05 — Decisions", sec:30, script:"One decision about nouns. The platform was organised around tools; I reorganised it around a single Project object with five states. The alternative was improving each tool individually, which was faster and would have left the advisor just as lost."},
+  {name:"06 — Engineering", sec:25, script:"Engineering pushed back on my first token names — they read as design words, not API names. They were right. A semantic token is an interface, and interfaces get named by the people who call them."},
+  {name:"07 — Impact", sec:20, script:"2.0 to 3.0 without a redesign — the durability test for a token layer. Then 350-plus non-designers shipping from the same foundation."},
+  {name:"08 — What I'd improve", sec:55, script:"Four things. No deprecation path, so three generations of naming coexist. No component token tier, so every exception is made by hand. And the button has no focus state — the token's defined, the input uses it, the button never picked it up, and I missed it for two and a half years. A rules pass caught it in four seconds. And my own documentation says 43 semantic tokens when there are 62."}
+];
+</script>
+<script src="kit.js?v=2"></script>
+</body>
+</html>

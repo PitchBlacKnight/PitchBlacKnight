@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Voice-first — the spoken case study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css?v=4">
+<style>
+  .beat2{display:grid;grid-template-columns:78px 1fr;gap:var(--s5);padding:var(--s5) 0;border-bottom:1px solid var(--line)}
+  .beat2:last-child{border-bottom:0}
+  .beat2 .bn{font-family:var(--mono);font-size:11px;color:var(--accent);line-height:1.5}
+  .beat2 .bn span{display:block;color:var(--ink-3);font-size:9.5px;letter-spacing:.1em;margin-top:4px}
+  .spoken{font-family:var(--serif);font-size:17.5px;line-height:1.6;color:var(--ink)}
+  .spoken em{font-style:normal;color:var(--accent-2)}
+  .signpost{
+    font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ok);border:1px solid rgba(127,183,126,.3);background:rgba(127,183,126,.07);
+    border-radius:5px;padding:5px 9px;display:inline-block;margin-bottom:var(--s3);
+  }
+  .bnote{margin-top:var(--s3);font-size:12.5px;color:var(--ink-3);line-height:1.6}
+  .bnote strong{color:var(--ink-2)}
+  .pullup{background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;margin-bottom:var(--s4)}
+  .pullup .ph{display:flex;align-items:center;gap:var(--s3);padding:var(--s3) var(--s4);border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .pullup .ph .t{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--accent)}
+  .pullup .pb{padding:var(--s5) var(--s4);display:grid;gap:var(--s4)}
+  .step2{display:grid;grid-template-columns:64px 1fr;gap:var(--s4);align-items:start}
+  .step2 b{font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);padding-top:4px}
+  .step2 div{font-size:13.5px;color:var(--ink-2);line-height:1.6}
+  .step2 .said{font-family:var(--serif);font-size:16px;color:var(--ink);line-height:1.5}
+  .url{font-family:var(--mono);font-size:11.5px;color:var(--accent-2);word-break:break-all}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="rail">
+    <a class="brand" href="index.html">
+      <div class="mark">Voice First</div>
+      <h1>Spoken version</h1>
+      <div class="sub">Phone · no continuous share</div>
+    </a>
+    <nav class="nav" id="nav"></nav>
+    <div class="railfoot">
+      <div><kbd>R</kbd> &nbsp;practise</div>
+      <div><kbd>⌘</kbd><kbd>K</kbd> &nbsp;jump</div>
+      <div><kbd>J</kbd><kbd>K</kbd> &nbsp;next / prev</div>
+    </div>
+  </aside>
+
+  <div>
+  <header class="top">
+    <div class="who">
+      <strong>Voice-first case study</strong>
+      <span> &nbsp;·&nbsp; works on a phone call · screen optional</span>
+    </div>
+    <nav class="swap">
+      <a href="index.html">Hub</a>
+      <a href="stephen.html">Stephen</a>
+      <a href="say.html">Say this</a>
+      <a href="state-farm.html">State Farm</a>
+      <a href="case-study.html">Case study</a>
+      <a href="phone.html" class="here">Voice</a>
+      <a href="methods.html">Methods</a>
+      <a href="questions.html">Questions</a>
+      <a href="talk-track.html">Talk track</a>
+      <a href="figma-demo.html">Figma</a>
+      <a href="goji-labs.html">Goji</a>
+      <a href="loom.html">Loom</a>
+      <a href="landscape.html">Landscape</a>
+    </nav>
+    <button class="btn" id="palBtn">⌘K</button>
+    <button class="btn btn--go" id="rehBtn">▶ &nbsp;Practise</button>
+  </header>
+
+  <main>
+
+    <section id="s0" class="hero">
+      <div class="kicker">00 — What changes on a phone</div>
+      <h2 class="big">He can't see the work. <em>So the structure has to be audible.</em></h2>
+
+      <div class="oneliner">
+        On a screenshare, layout does your signposting for you — he can see there are three
+        constraints. On a call, you have to say "there were three." Every beat below is re-cut
+        so the shape of the answer is carried by <strong>voice, not layout</strong>.
+        <span>And nobody can see your notes. That's an advantage — use it.</span>
+      </div>
+
+      <div class="grid g3" style="margin-top:var(--s6)">
+        <div class="card beat">
+          <div class="bh"><h3>Count out loud</h3><div class="t">signposting</div></div>
+          <p>"Two costs." "Three constraints." "One decision." Numbers give him a container to put the answer in, and they're free.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>Pause longer than feels right</h3><div class="t">2–3 seconds</div></div>
+          <p>Silence stretches on a call. His questions are intentional — the beat before answering reads as considered, and it stops you over-answering.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>Numbers land harder</h3><div class="t">no competition</div></div>
+          <p>"Five primary blues, three button shapes, seven sizes" has nothing to compete with on a call. Say it slowly.</p>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:var(--s4);border-color:rgba(217,164,65,.32)">
+        <span class="pill pill--warn">Confirm the format with Angela first</span>
+        <ul class="tight">
+          <li>Neither her email nor the JD says phone or video. <strong>Ask on your prep call</strong> — "is this a video call or phone, and is it worth having anything ready to share?"</li>
+          <li>Also ask: <strong>how long</strong> (30 min is a screen, 60 is a working session), and <strong>Stephen's own background</strong> — designer-who-codes or engineer-who-designs changes which half you lead with.</li>
+          <li>If it turns out to be video after all, use the <a href="case-study.html" style="color:var(--accent-2)">full case study page</a> instead. This one is the voice cut.</li>
+        </ul>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ── 01 SPOKEN CASE STUDY ─────────────────────────── -->
+    <section id="s1">
+      <div class="shead">
+        <div class="num">01</div><h2>The case study, spoken</h2>
+        <p>Same eight beats, re-cut for the ear. Shorter, explicitly counted, no "as you can see." Roughly seven minutes if he lets you run — and he'll interrupt, which is fine.</p>
+      </div>
+
+      <div class="card">
+
+        <div class="beat2">
+          <div class="bn">01<span>problem</span></div>
+          <div>
+            <div class="signpost">Open on the person, not the system</div>
+            <div class="spoken">Advisors at Avant were running six-figure enterprise deals out of their inbox. Requirements in email threads, provider research in spreadsheets, quotes in attachments called <em>final_v3_REAL</em>. Nothing had a state. And the expensive part wasn't doing the work — it was re-finding it.</div>
+            <div class="bnote"><strong>Let the filename land.</strong> It's the funniest thing you'll say and it makes the problem concrete in one word. Then stop and let him react.</div>
+          </div>
+        </div>
+
+        <div class="beat2">
+          <div class="bn">02<span>why</span></div>
+          <div>
+            <div class="signpost">Say "two costs"</div>
+            <div class="spoken">There were two costs. The advisor lost time — but worse, they lost the thread. And a recommendation you can't explain is a recommendation you can't sell. The second cost was on the interface: three years of separate teams had layered five primary blues, three button shapes and seven sizes into a tool where advisors present live revenue data to clients. Inconsistency reads as unreliability.</div>
+            <div class="bnote"><strong>Slow down on the count.</strong> Five, three, seven. On a call those three numbers are the whole audit and there's nothing on screen competing with them.</div>
+          </div>
+        </div>
+
+        <div class="beat2">
+          <div class="bn">03<span>constraints</span></div>
+          <div>
+            <div class="signpost">Say "three constraints" — then actually give three</div>
+            <div class="spoken">Three constraints. One, I was the design team, so anything I built had to be maintainable by one person. Two, feature work couldn't stop, so the system had to go in underneath a moving product — there was never a moment to rebuild. Three, it had to serve two audiences with opposite needs: a product team that wanted flexibility, and later a marketing org of non-designers who needed the opposite. The tradeoff I made was shipping fewer options than people asked for. One button, three sizes, five states — when the ask was closer to seven.</div>
+            <div class="bnote"><strong>This is the beat most candidates skip</strong>, and on a call it's also the one that proves the story is real rather than rehearsed. Don't cut it for time.</div>
+          </div>
+        </div>
+
+        <div class="beat2">
+          <div class="bn">04<span>thinking</span></div>
+          <div>
+            <div class="signpost">Method, then the number it produced</div>
+            <div class="spoken">I started by watching rather than asking. I shadowed advisors through live deals instead of interviewing them about deals — fifteen minutes watching someone reconstruct a quote history out of their sent folder tells you more than an hour of them describing their process, because nobody describes their own workarounds. They've stopped seeing them. Then I made the fragmentation countable: a full inventory of every distinct screen state in production, clustered by pattern. Numbers ended an argument that opinions couldn't.</div>
+            <div class="bnote"><strong>Natural pull-up point.</strong> If he sounds engaged: "I can send you the inventory diagram if it's useful — it's one image." See section 02.</div>
+          </div>
+        </div>
+
+        <div class="beat2">
+          <div class="bn">05<span>decisions</span></div>
+          <div>
+            <div class="signpost">Say "one decision about nouns" — the strongest sentence you have</div>
+            <div class="spoken">Everything followed from one decision about nouns. The platform was organised around <em>tools</em> — a fiber tool, a quote tool, each a destination you visited and left. I reorganised it around a single object: the Project. It carries a state, and it moves through five of them in order, and evidence gathered in any state stays visible in every state after it. The alternative was improving each tool individually — which would have been faster, and would have left the advisor exactly as lost. Underneath that: primitives stay private, semantics are the public API. That's what let the system survive a major version instead of being replaced by one.</div>
+            <div class="bnote"><strong>Naming the alternative is what makes it a decision</strong> rather than a description. On a call that distinction is the whole beat — he can't see the work, so the reasoning <em>is</em> the evidence.</div>
+          </div>
+        </div>
+
+        <div class="beat2">
+          <div class="bn">06<span>engineering</span></div>
+          <div>
+            <div class="signpost">Lead with them being right</div>
+            <div class="spoken">The naming was a negotiation, not a handoff. Engineering pushed back on my first token names because they read as design words rather than API names — and they were right. A semantic token is an interface, and interfaces get named by the people who call them. So we settled the convention together before I built the library. Then I specced with theming hooks and states enumerated so implementation wasn't a re-draw, and later wired Dev Mode so they were reading the system rather than a picture of it.</div>
+            <div class="bnote"><strong>Highest-value beat for this specific role.</strong> He's hiring a hybrid — "engineering told me I was wrong and they were right" is the most credible collaboration answer available, and it costs you nothing.</div>
+          </div>
+        </div>
+
+        <div class="beat2">
+          <div class="bn">07<span>impact</span></div>
+          <div>
+            <div class="signpost">One number you trust, then the qualitative one</div>
+            <div class="spoken">That was the fourth system I'd built from scratch, and the number I trust most is this: it carried the product from 2.0 to 3.0 without a redesign, over two and a half years. That's the durability test for a token layer — it absorbed a major version instead of being replaced by one. Then we extended the same foundation into a marketing library that 350-plus managers shipped from with no designer in the loop. And the one I actually watch for: brand review meetings stopped being about policing basics and started being about ideas.</div>
+            <div class="bnote">The last sentence is the one people remember. It's qualitative, it's specific, and it's the only adoption metric that can't be gamed.</div>
+          </div>
+        </div>
+
+        <div class="beat2">
+          <div class="bn">08<span>improve</span></div>
+          <div>
+            <div class="signpost">Say "four things" — then be genuinely self-critical</div>
+            <div class="spoken">I went back through this file recently with fresh eyes and found four things I'd fix. One: no deprecation path — three generations of naming coexisting, because I built the way in and never the way out. Two: no component token tier, so every per-component exception gets made by hand. Three: the button has no focus state — the token's defined, the input component uses it, the button never picked it up, and I missed it for two and a half years. An automated pass against my own accessibility rules caught it in seconds. And four: my own documentation says forty-three semantic tokens when the collection actually holds sixty-two.</div>
+            <div class="bnote"><strong>This is the answer that wins it, and it's better on the phone than on a screen</strong> — because it's pure substance with nothing to look at. Say it unhurried. It's about fifty seconds and every second earns.</div>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ── 02 PULL-UPS ──────────────────────────────────── -->
+    <section id="s2">
+      <div class="shead">
+        <div class="num">02</div><h2>Pull-up moments</h2>
+        <p>Five things worth showing for sixty to ninety seconds — never a continuous share. Each has an <strong>offer line</strong>, the thing itself, and a <strong>stop line</strong> so you close it cleanly instead of trailing off.</p>
+      </div>
+
+      <div class="card" style="margin-bottom:var(--s5);border-color:rgba(232,106,51,.3)">
+        <span class="pill pill--go">How to offer, on a call</span>
+        <ul class="tight">
+          <li><strong>If you're on video:</strong> "Can I share for about a minute? There's one thing that's much easier to show than describe." Share, show, <em>stop sharing</em>. The stopping is what keeps it from becoming a demo.</li>
+          <li><strong>If you're on the phone:</strong> "I can send you a link right now if you want to look while we talk — it's a ninety-second thing." Sending a link mid-call is unusual enough to be memorable and it costs him nothing.</li>
+          <li><strong>Either way, offer once.</strong> If he declines, describe it in two sentences and move on. Pushing a demo at someone who said no is the fastest way to read as a person who likes their tools more than the problem.</li>
+        </ul>
+      </div>
+
+      <div class="pullup">
+        <div class="ph"><span class="pill pill--go">1 · The skill file</span><span class="t">~60s · strongest</span></div>
+        <div class="pb">
+          <div class="step2"><b>Offer</b><div class="said">"The AI-readiness piece is much easier to show than describe — can I put one file on screen for a minute?"</div></div>
+          <div class="step2"><b>Show</b><div><span class="url">interview-kit/skill/keystone-ds/SKILL.md</span> — scroll the output contract only. Do not scroll the reference files.</div></div>
+          <div class="step2"><b>Say</b><div class="said">"An output contract, three reference files, and a forced self-check. Two rules make it useful: every generated value carries a comment naming the token it came from, so output is auditable rather than trusted — and it has to state its contrast, focus and target-size checks before it returns anything."</div></div>
+          <div class="step2"><b>Stop</b><div class="said">"That's the whole thing — I'll stop sharing. The short version is: constraints, not vibes."</div></div>
+        </div>
+      </div>
+
+      <div class="pullup">
+        <div class="ph"><span class="pill">2 · The staleness check</span><span class="t">~45s · most dramatic</span></div>
+        <div class="pb">
+          <div class="step2"><b>Offer</b><div class="said">"There's a forty-five second thing that shows how I stop the guidance rotting — worth a look?"</div></div>
+          <div class="step2"><b>Show</b><div>Terminal in <span class="url">interview-kit/keystone/</span> — run <span class="url">node build/metadata.mjs --check</span>, edit a component, run it again, watch it report STALE and exit non-zero.</div></div>
+          <div class="step2"><b>Say</b><div class="said">"Each record carries a checksum of the source it came from. I change the component — and the record reports itself stale and fails the build. That's the difference between documentation that rots silently and documentation that tells you it has."</div></div>
+          <div class="step2"><b>Stop</b><div class="said">"That's a CI gate, not a comment. Stopping the share."</div></div>
+        </div>
+      </div>
+
+      <div class="pullup">
+        <div class="ph"><span class="pill">3 · The token pipeline</span><span class="t">~60s</span></div>
+        <div class="pb">
+          <div class="step2"><b>Offer</b><div class="said">"On the platform-agnostic piece — I built a small system that does exactly that. One minute?"</div></div>
+          <div class="step2"><b>Show</b><div><span class="url">localhost:4321/keystone/docs/index.html</span> — the stat row and the three-tier diagram, then toggle the theme once.</div></div>
+          <div class="step2"><b>Say</b><div class="said">"Tokens in DTCG format, three tiers, one-way flow — and the build fails on a higher-tier reference, so the architecture is enforced by the pipeline rather than by a reviewer. One source, four outputs: CSS, JSON, Swift, and the guidance file, which is generated so it can't drift."</div></div>
+          <div class="step2"><b>Stop</b><div class="said">"Hundred and one tokens, two modes, zero violations. I'll stop there."</div></div>
+        </div>
+      </div>
+
+      <div class="pullup">
+        <div class="ph"><span class="pill">4 · The audit finding</span><span class="t">~60s · pairs with beat 08</span></div>
+        <div class="pb">
+          <div class="step2"><b>Offer</b><div class="said">"That focus-state thing I mentioned — I can show you it's real rather than a story."</div></div>
+          <div class="step2"><b>Show</b><div>Figma → <span class="url">ui/button</span> variant grid, then <span class="url">ui/input</span> beside it. Dev Mode annotations are already on both.</div></div>
+          <div class="step2"><b>Say</b><div class="said">"Default, hover, pressed, disabled — no focus. The input right here does have one, and it's using the token that's already defined in the collection. So the system knew about focus; the button just never picked it up."</div></div>
+          <div class="step2"><b>Stop</b><div class="said">"Which is the argument for encoding standards as rules instead of writing them down."</div></div>
+        </div>
+      </div>
+
+      <div class="pullup">
+        <div class="ph"><span class="pill">5 · Live generation</span><span class="t">~90s · only if time is generous</span></div>
+        <div class="pb">
+          <div class="step2"><b>Offer</b><div class="said">"If you've got ninety seconds I can run one live — it's the fastest way to see what the skill file actually does."</div></div>
+          <div class="step2"><b>Show</b><div>Claude with the skill on — "Build me a primary button with all its variants and states, as a React component."</div></div>
+          <div class="step2"><b>Say</b><div class="said">"Narrate while it runs — never go quiet. Every value annotated with its source token. Six states from an ask for one. A focus ring nobody requested, because accessibility is a rule rather than a review note."</div></div>
+          <div class="step2"><b>Skip if</b><div><strong>You're under 30 minutes, or the connection is unreliable.</strong> A stalled generation on a first call costs more than the demo earns. Items 1 and 2 make the same point in half the time and never fail.</div></div>
+        </div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ── 03 MECHANICS ─────────────────────────────────── -->
+    <section id="s3">
+      <div class="shead">
+        <div class="num">03</div><h2>Phone mechanics</h2>
+        <p>Small things that decide how you come across when voice is the only channel.</p>
+      </div>
+
+      <div class="grid g2">
+        <div class="card">
+          <span class="pill pill--go">Do</span>
+          <ul class="tight">
+            <li><strong>Stand up.</strong> It changes your breath and your energy, and it's audible. Walk if you think better moving.</li>
+            <li><strong>Count your lists out loud</strong> before giving them. "Three constraints" tells him how long to listen.</li>
+            <li><strong>Pause two to three seconds</strong> before answering. Longer than feels natural. It reads as considered and it stops you padding.</li>
+            <li><strong>Stop talking at the end of an answer.</strong> On a call the silence after a good answer does real work — let him fill it.</li>
+            <li><strong>Smile on the hard questions.</strong> It genuinely changes your tone, and the "what would you improve" answer needs warmth or it sounds defensive.</li>
+            <li><strong>Use his name once or twice.</strong> Not more. On a call it re-establishes that it's a conversation.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="pill pill--warn">Don't</span>
+          <ul class="tight no">
+            <li><strong>Read.</strong> He can't see your notes but he can hear them. Glance at a beat name, then look away and say it.</li>
+            <li><strong>Fill silence.</strong> The urge is strongest on a phone call and it's where over-answering comes from. Angela flagged that he prefers concise.</li>
+            <li><strong>Say "as you can see" or "on the screen here."</strong> Habitual, and instantly wrong on a call.</li>
+            <li><strong>Trail off.</strong> Ends like "…so, yeah" undo a good answer. End on the sentence you meant to end on.</li>
+            <li><strong>Run the demo just because you prepared it.</strong> If he's deep in the case study, stay there. The artifacts keep.</li>
+            <li><strong>Take the call on speaker or AirPods</strong> if you can avoid it. Wired headset or handset — the audio difference is real and it's the whole channel.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:var(--s4);border-color:rgba(127,183,126,.3)">
+        <span class="pill pill--ok">The one advantage phone gives you</span>
+        <p style="font-size:14px;color:var(--ink-2);margin-top:var(--s4);line-height:1.65">Nobody can see your notes. Have this page, the <a href="questions.html" style="color:var(--accent-2)">four questions</a>, and the <a href="state-farm.html" style="color:var(--accent-2)">match matrix</a> open the entire call. The only discipline that matters is not <em>sounding</em> like you're reading — which is exactly what practise mode drills. Run it once out loud before you dial.</p>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ── 04 READY ─────────────────────────────────────── -->
+    <section id="s4">
+      <div class="shead">
+        <div class="num">04</div><h2>Have these open before you dial</h2>
+      </div>
+      <div class="grid g2">
+        <div>
+          <div class="lbl" style="margin-bottom:var(--s3)">Tabs and windows</div>
+          <div class="check" id="ck1">
+            <label><input type="checkbox"><span>This page, section 01<span class="sm">Your primary. Beat names visible, not sentences.</span></span></label>
+            <label><input type="checkbox"><span>Questions page<span class="sm">The four picks — ask two mid-conversation</span></span></label>
+            <label><input type="checkbox"><span>Match matrix, section 02 of the State Farm page<span class="sm">If he asks a requirement you didn't expect</span></span></label>
+            <label><input type="checkbox"><span><code style="font-family:var(--mono);font-size:12px">SKILL.md</code> open in an editor, scrolled to the top</span></label>
+            <label><input type="checkbox"><span>Terminal in <code style="font-family:var(--mono);font-size:12px">keystone/</code>, command already typed but not run</span></label>
+            <label><input type="checkbox"><span>Keystone docs at localhost:4321 — <strong>server already running</strong></span></label>
+            <label><input type="checkbox"><span>Figma on the ui/button variant grid</span></label>
+          </div>
+        </div>
+        <div>
+          <div class="lbl" style="margin-bottom:var(--s3)">Before you dial</div>
+          <div class="check" id="ck2">
+            <label><input type="checkbox"><span>Confirm with Angela: phone or video, and how long</span></label>
+            <label><input type="checkbox"><span>Ask Angela: Stephen's background — design or engineering</span></label>
+            <label><input type="checkbox"><span>Wired headset tested, not speaker</span></label>
+            <label><input type="checkbox"><span>Run practise mode once, standing, out loud</span></label>
+            <label><input type="checkbox"><span>Pick your one "I don't know"<span class="sm">DTCG answered modes (resolvers, 2025.10) but Style Dictionary hasn't shipped them — spec ahead of toolchain</span></span></label>
+            <label><input type="checkbox"><span>Water. Notifications off. Door shut.</span></label>
+            <label><input type="checkbox"><span>Decide in advance: you will not run the live generation unless he has time and asks</span></label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  </div>
+</div>
+
+<div class="reh" id="reh" aria-hidden="true">
+  <div class="reh-in">
+    <div class="dots" id="rehDots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="beatname" id="rehName"></div>
+    <div class="clock" id="rehClock">0:00</div>
+    <div class="target" id="rehTarget"></div>
+    <div class="script" id="rehScript"></div>
+    <div class="ctl">
+      <button class="btn" id="rehPrev">← Back</button>
+      <button class="btn btn--go" id="rehNext">Next →</button>
+      <button class="btn" id="rehReset">Reset</button>
+      <button class="btn" id="rehClose">Esc · Close</button>
+    </div>
+    <div class="hint">Stand up. Full voice. Count your lists out loud.</div>
+  </div>
+</div>
+
+<div class="pal" id="pal" aria-hidden="true">
+  <div class="pal-in"><input id="palIn" placeholder="Jump to…" autocomplete="off" spellcheck="false"><ul id="palList"></ul></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+var KIT = { company:"State Farm", role:"Design Systems Engineer", system:"Keystone", date:"", pageTitle:"Voice-first — the spoken case study" };
+var SECTIONS = [
+  {id:"s0", n:"00", t:"What changes on a phone"},
+  {id:"s1", n:"01", t:"The case study, spoken"},
+  {id:"s2", n:"02", t:"Pull-up moments"},
+  {id:"s3", n:"03", t:"Phone mechanics"},
+  {id:"s4", n:"04", t:"Have these open"}
+];
+var BEATS = [
+  {name:"01 — The problem", sec:25, script:"Advisors were running six-figure deals out of their inbox. Quotes in attachments called final_v3_REAL. Nothing had a state. And the expensive part wasn't doing the work — it was re-finding it."},
+  {name:"02 — Two costs", sec:25, script:"Two costs. The advisor lost time, but worse, lost the thread — and a recommendation you can't explain is one you can't sell. And on the interface: five primary blues, three button shapes, seven sizes, in a tool where advisors present live revenue data. Inconsistency reads as unreliability."},
+  {name:"03 — Three constraints", sec:30, script:"Three constraints. One, I was the design team. Two, feature work couldn't stop, so the system went in underneath a moving product. Three, two audiences with opposite needs. So I shipped fewer options than people asked for — one button, three sizes, not seven."},
+  {name:"04 — How I found it", sec:30, script:"I shadowed advisors through live deals instead of interviewing them about deals. Nobody describes their own workarounds — they've stopped seeing them. Then I made the fragmentation countable. Numbers ended an argument that opinions couldn't."},
+  {name:"05 — One decision about nouns", sec:35, script:"The platform was organised around tools — destinations you visited and left. I reorganised it around a single object: the Project, carrying a state, moving through five in order. The alternative was improving each tool individually, which was faster and would have left the advisor just as lost."},
+  {name:"06 — Engineering was right", sec:25, script:"Engineering pushed back on my first token names because they read as design words rather than API names. They were right. A semantic token is an interface, and interfaces get named by the people who call them."},
+  {name:"07 — Impact", sec:25, script:"2.0 to 3.0 without a redesign, over two and a half years — the durability test for a token layer. Then 350-plus people shipping from the same foundation. And brand review stopped being about policing basics."},
+  {name:"08 — Four things I'd fix", sec:50, script:"Four things. No deprecation path, so three generations of naming coexist. No component token tier, so exceptions get made by hand. The button has no focus state — the token's defined, the input uses it, the button never picked it up, and I missed it for two and a half years. And my own documentation says forty-three semantic tokens when there are sixty-two."}
+];
+</script>
+<script src="kit.js?v=2"></script>
+</body>
+</html>

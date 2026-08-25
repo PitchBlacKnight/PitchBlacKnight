@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Keystone — a design system, end to end</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../dist/pathfinder.css">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--semantic-surface);
+    color:var(--semantic-text);
+    font-family:var(--primitive-font-family-sans);
+    font-weight:300;line-height:1.6;
+    transition:background 180ms cubic-bezier(.2,0,.1,1),color 180ms cubic-bezier(.2,0,.1,1);
+  }
+  .wrap{max-width:1080px;margin:0 auto;padding:var(--primitive-space-8) var(--primitive-space-6)}
+  header{display:flex;align-items:flex-end;justify-content:space-between;gap:var(--primitive-space-5);flex-wrap:wrap;margin-bottom:var(--primitive-space-7)}
+  .kicker{font-family:var(--primitive-font-family-mono);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--semantic-action-bg)}
+  h1{font-size:clamp(32px,4.5vw,50px);font-weight:300;letter-spacing:-.04em;line-height:1.05;margin:var(--primitive-space-3) 0}
+  .lede{color:var(--semantic-text-muted);font-size:16px;max-width:62ch}
+  h2{font-size:22px;font-weight:500;letter-spacing:-.02em;margin-bottom:var(--primitive-space-2)}
+  .sec{margin-top:var(--primitive-space-8);padding-top:var(--primitive-space-5);border-top:1px solid var(--semantic-border)}
+  .sec > p{color:var(--semantic-text-muted);font-size:14px;max-width:70ch;margin-bottom:var(--primitive-space-5)}
+  .row{display:flex;flex-wrap:wrap;gap:var(--primitive-space-4);align-items:flex-end}
+  .lbl{font-family:var(--primitive-font-family-mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--semantic-text-muted);margin-bottom:var(--primitive-space-3)}
+  .grp{margin-bottom:var(--primitive-space-6)}
+  .flow{display:flex;align-items:center;gap:var(--primitive-space-3);flex-wrap:wrap;margin-bottom:var(--primitive-space-5)}
+  .tier{flex:1;min-width:190px;background:var(--semantic-surface-raised);border:1px solid var(--semantic-border);border-radius:var(--primitive-radius-lg);padding:var(--primitive-space-4)}
+  .tier b{display:block;font-size:15px;font-weight:500}
+  .tier code{font-family:var(--primitive-font-family-mono);font-size:11px;color:var(--semantic-text-muted);display:block;margin-top:6px}
+  .tier .t{font-family:var(--primitive-font-family-mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--semantic-action-bg)}
+  .arrow{font-family:var(--primitive-font-family-mono);color:var(--semantic-action-bg);font-size:16px}
+  .sw{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:var(--primitive-space-3)}
+  .sw div{border:1px solid var(--semantic-border);border-radius:var(--primitive-radius-md);overflow:hidden}
+  .sw i{display:block;height:44px}
+  .sw span{display:block;font-family:var(--primitive-font-family-mono);font-size:10px;padding:8px;color:var(--semantic-text-muted);word-break:break-all}
+  pre{background:var(--semantic-surface-sunken);border:1px solid var(--semantic-border);border-radius:var(--primitive-radius-md);padding:var(--primitive-space-4);overflow-x:auto;font-family:var(--primitive-font-family-mono);font-size:12px;line-height:1.7;color:var(--semantic-text)}
+  .toggle{
+    all:unset;cursor:pointer;font-family:var(--primitive-font-family-mono);font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;padding:10px 16px;border-radius:var(--primitive-radius-md);
+    border:1px solid var(--semantic-border-strong);color:var(--semantic-text);
+  }
+  .toggle:hover{background:var(--semantic-surface-raised)}
+  .toggle:focus-visible{outline:2px solid var(--semantic-focus-ring);outline-offset:2px}
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:var(--semantic-border);border:1px solid var(--semantic-border);border-radius:var(--primitive-radius-lg);overflow:hidden}
+  .stats div{background:var(--semantic-surface-raised);padding:var(--primitive-space-4)}
+  .stats b{display:block;font-size:26px;font-weight:400;letter-spacing:-.03em}
+  .stats span{font-size:11.5px;color:var(--semantic-text-muted)}
+  footer{margin-top:var(--primitive-space-8);padding-top:var(--primitive-space-5);border-top:1px solid var(--semantic-border);font-family:var(--primitive-font-family-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--semantic-text-muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <div class="kicker">Keystone · design system</div>
+      <h1>One source. Four outputs.<br>Nothing hand-maintained.</h1>
+      <p class="lede">Tokens in W3C DTCG format, a build that enforces one-way tier flow, accessible web components that consume the result, and machine-readable guidance generated from the same source — so it cannot drift from the system it describes.</p>
+    </div>
+    <button class="toggle" id="themeBtn">◐ &nbsp;Toggle theme</button>
+  </header>
+
+  <div class="stats">
+    <div><b>101</b><span>Tokens resolved</span></div>
+    <div><b>2</b><span>Modes, one semantic layer</span></div>
+    <div><b>3</b><span>Tiers, one-way flow enforced</span></div>
+    <div><b>4</b><span>Build outputs from one source</span></div>
+    <div><b>0</b><span>Governance violations</span></div>
+  </div>
+
+  <!-- ── TOKENS ─────────────────────────────────────────── -->
+  <section class="sec">
+    <h2>Token architecture</h2>
+    <p>References point one way only. The build fails on a higher-tier reference, warns on a same-tier one, and resolves aliases to final values per mode.</p>
+
+    <div class="flow">
+      <div class="tier"><div class="t">Tier 1 — private</div><b>Primitive</b><code>color.brand.500 = #e86a33</code></div>
+      <div class="arrow">→</div>
+      <div class="tier"><div class="t">Tier 2 — the public API</div><b>Semantic</b><code>action-bg = {brand.500}</code></div>
+      <div class="arrow">→</div>
+      <div class="tier"><div class="t">Tier 3 — local exceptions</div><b>Component</b><code>button.bg = {action-bg}</code></div>
+    </div>
+
+    <div class="lbl">Semantic layer — these swatches re-resolve when you toggle the theme</div>
+    <div class="sw">
+      <div><i style="background:var(--semantic-surface)"></i><span>--semantic-surface</span></div>
+      <div><i style="background:var(--semantic-surface-raised)"></i><span>--semantic-surface-raised</span></div>
+      <div><i style="background:var(--semantic-surface-sunken)"></i><span>--semantic-surface-sunken</span></div>
+      <div><i style="background:var(--semantic-text)"></i><span>--semantic-text</span></div>
+      <div><i style="background:var(--semantic-action-bg)"></i><span>--semantic-action-bg</span></div>
+      <div><i style="background:var(--semantic-focus-ring)"></i><span>--semantic-focus-ring</span></div>
+      <div><i style="background:var(--semantic-danger)"></i><span>--semantic-danger</span></div>
+      <div><i style="background:var(--semantic-border)"></i><span>--semantic-border</span></div>
+    </div>
+  </section>
+
+  <!-- ── BUTTON ─────────────────────────────────────────── -->
+  <section class="sec">
+    <h2>ks-button</h2>
+    <p>A custom element. Shadow DOM blocks external stylesheets but custom properties inherit through it — which is exactly why tokens-as-custom-properties is the right vehicle for a web-component system. Tab into the row below to see the focus ring in either theme.</p>
+
+    <div class="grp">
+      <div class="lbl">Variants</div>
+      <div class="row">
+        <ks-button>Primary</ks-button>
+        <ks-button variant="secondary">Secondary</ks-button>
+        <ks-button variant="ghost">Ghost</ks-button>
+        <ks-button variant="danger">Delete</ks-button>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="lbl">Sizes</div>
+      <div class="row">
+        <ks-button size="sm">Small</ks-button>
+        <ks-button size="md">Medium</ks-button>
+        <ks-button size="lg">Large</ks-button>
+      </div>
+    </div>
+
+    <div class="grp">
+      <div class="lbl">States — disabled carries a non-colour signal; loading keeps its label and width</div>
+      <div class="row">
+        <ks-button>Default</ks-button>
+        <ks-button disabled>Disabled</ks-button>
+        <ks-button loading>Saving</ks-button>
+        <ks-button variant="secondary" disabled>Disabled</ks-button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INPUT ──────────────────────────────────────────── -->
+  <section class="sec">
+    <h2>ks-input</h2>
+    <p>The label is always rendered and associated — a placeholder is not a label. The error state carries a border, an icon, and text, is wired with <code style="font-family:var(--primitive-font-family-mono);font-size:12px">aria-invalid</code> and <code style="font-family:var(--primitive-font-family-mono);font-size:12px">aria-describedby</code>, and announces through a live region.</p>
+    <div class="row" style="align-items:flex-start">
+      <ks-input label="Work email" type="email" placeholder="you@company.com" helper="We only use this to send your invite." style="width:280px"></ks-input>
+      <ks-input label="Work email" type="email" value="not-an-email" error="Enter a valid email address." style="width:280px"></ks-input>
+      <ks-input label="Account ID" value="AC-4471" readonly helper="Read-only." style="width:220px"></ks-input>
+      <ks-input label="Disabled" placeholder="Unavailable" disabled style="width:220px"></ks-input>
+    </div>
+  </section>
+
+  <!-- ── GENERATED GUIDANCE ─────────────────────────────── -->
+  <section class="sec">
+    <h2>Generated guidance</h2>
+    <p>The build emits a skill file alongside the CSS. It is not written by hand, so it cannot fall out of date with the tokens — which is the whole failure mode of documentation as a separate artifact.</p>
+    <pre id="skill">Loading dist/pathfinder.skill.md…</pre>
+  </section>
+
+  <footer>
+    Build:&nbsp; node build/build.mjs &nbsp;·&nbsp; outputs: pathfinder.css · pathfinder.tokens.json · Pathfinder.swift · pathfinder.skill.md
+  </footer>
+</div>
+
+<script type="module" src="../components/pf-button.js"></script>
+<script type="module" src="../components/pf-input.js"></script>
+<script>
+  const btn = document.getElementById('themeBtn');
+  btn.addEventListener('click', () => {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark';
+    document.documentElement.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+
+  fetch('../dist/pathfinder.skill.md')
+    .then(r => r.ok ? r.text() : Promise.reject(r.status))
+    .then(t => {
+      const rules = t.slice(t.indexOf('## Counts'), t.indexOf('## Semantic tokens'));
+      document.getElementById('skill').textContent = rules.trim();
+    })
+    .catch(() => {
+      document.getElementById('skill').textContent = 'Run `node build/build.mjs`, then serve this folder over http:// — fetch is blocked on file://';
+    });
+</script>
+</body>
+</html>

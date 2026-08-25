@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Questions for Stephen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css?v=4">
+<style>
+  .q{padding:var(--s5) 0;border-bottom:1px solid var(--line)}
+  .q:last-child{border-bottom:0}
+  .q .ask{font-family:var(--serif);font-size:20px;line-height:1.4;color:var(--ink);margin-bottom:var(--s4)}
+  .q .ask::before{content:"“";color:var(--accent)}
+  .q .ask::after{content:"”";color:var(--accent)}
+  .q .meta{display:grid;grid-template-columns:96px 1fr;gap:var(--s3) var(--s4);font-size:13px;line-height:1.6}
+  .q .meta b{font-family:var(--mono);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);padding-top:3px}
+  .q .meta span{color:var(--ink-2)}
+  .q .meta .listen{color:var(--accent-2)}
+  .pick{display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ok);border:1px solid rgba(127,183,126,.35);background:rgba(127,183,126,.08);border-radius:5px;padding:4px 8px;margin-bottom:var(--s3)}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="rail">
+    <a class="brand" href="index.html">
+      <div class="mark">Questions</div>
+      <h1>For Stephen</h1>
+      <div class="sub">Pick four · ask two early</div>
+    </a>
+    <nav class="nav" id="nav"></nav>
+    <div class="railfoot">
+      <div><kbd>⌘</kbd><kbd>K</kbd> &nbsp;jump</div>
+      <div><kbd>J</kbd><kbd>K</kbd> &nbsp;next / prev</div>
+    </div>
+  </aside>
+
+  <div>
+  <header class="top">
+    <div class="who">
+      <strong>Questions for Stephen</strong>
+      <span> &nbsp;·&nbsp; curiosity is the thing he's screening for</span>
+    </div>
+    <nav class="swap">
+      <a href="index.html">Hub</a>
+      <a href="stephen.html">Stephen</a>
+      <a href="say.html">Say this</a>
+      <a href="state-farm.html">State Farm</a>
+      <a href="case-study.html">Case study</a>
+      <a href="phone.html">Voice</a>
+      <a href="methods.html">Methods</a>
+      <a href="questions.html" class="here">Questions</a>
+      <a href="talk-track.html">Talk track</a>
+      <a href="figma-demo.html">Figma</a>
+      <a href="goji-labs.html">Goji</a>
+      <a href="loom.html">Loom</a>
+      <a href="landscape.html">Landscape</a>
+    </nav>
+    <button class="btn" id="palBtn">⌘K</button>
+  </header>
+
+  <main>
+
+    <section id="s0" class="hero">
+      <div class="kicker">00 — How to use this</div>
+      <h2 class="big">Ask two early. <em>Not all of them at the end.</em></h2>
+
+      <div class="oneliner">
+        Questions saved for the last five minutes read as a formality. Two asked <em>during</em>
+        the conversation — right after he describes something — read as genuine interest, and
+        they change what you say next because you actually learn something.
+        <span>Angela flagged curiosity specifically. This is where it shows.</span>
+      </div>
+
+      <div class="grid g3" style="margin-top:var(--s6)">
+        <div class="card beat">
+          <div class="bh"><h3>Four is plenty</h3><div class="t">not ten</div></div>
+          <p>Pick the four marked <strong>PICK</strong>. A long list reads as prepared rather than curious, and you won't get through it anyway.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>Listen to the answer</h3><div class="t">actually</div></div>
+          <p>Every question below has a "listen for" line. The answer should change something about how you pitch yourself for the rest of the call.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>One should be human</h3><div class="t">at least</div></div>
+          <p>He's screening for someone easy to work with. A question about how the team actually operates does more for that than any technical one.</p>
+        </div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 01 DIAGNOSTIC -->
+    <section id="s1">
+      <div class="shead">
+        <div class="num">01</div><h2>Diagnostic — what's actually there</h2>
+        <p>Ask one of these <strong>early</strong>. What you learn should reshape everything you say afterwards.</p>
+      </div>
+      <div class="card">
+
+        <div class="q">
+          <span class="pick">Pick · ask this first</span>
+          <div class="ask">Where do the tokens live today, and what's the path from a Figma variable to production CSS?</div>
+          <div class="meta">
+            <b>Reveals</b><span>Whether this is a greenfield architecture job, a rescue, or a scale job. Three very different roles wearing the same title.</span>
+            <b>Listen for</b><span class="listen">"It's manual" or "designers hand off a spec" → the pipeline doesn't exist and you're building it. "We have a repo but it drifts" → it's a rescue, and your provenance work is the pitch. "Style Dictionary in CI" → they're mature, and the real job is the AI layer.</span>
+            <b>Then say</b><span>Whichever of your three stories matches — the build-from-zero at BCBS, the rescue framing, or the durability of Pathfinder 2.0 → 3.0.</span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="ask">What happens right now when a product team needs a component that doesn't exist?</div>
+          <div class="meta">
+            <b>Reveals</b><span>The real culture, faster than anything on the job post. Contribution answers are where design systems teams are honest.</span>
+            <b>Listen for</b><span class="listen">"They file a request and wait" → there's a bottleneck and it's probably the person you'd be joining. "They build it themselves and we absorb it later" → there are shadow components everywhere, which is your inventory pitch.</span>
+            <b>Follow up</b><span>"And how long does that usually take?" The number tells you whether the backlog is the actual problem.</span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="ask">What broke that made platform-agnostic a priority now?</div>
+          <div class="meta">
+            <b>Reveals</b><span>There is always a specific incident behind a strategic bullet. Knowing it tells you what success actually means here.</span>
+            <b>Listen for</b><span class="listen">A licensing or vendor-risk answer is a very different mandate than "our native teams can't consume our tokens." The first is a business decision; the second is an engineering one, and only the second is yours to solve.</span>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 02 THE UNUSUAL BULLETS -->
+    <section id="s2">
+      <div class="shead">
+        <div class="num">02</div><h2>The unusual bullets</h2>
+        <p>Skill files and AI-assisted workflows are the rarest thing in their JD. Find out whether it's real or aspirational — the answer decides whether you're a contributor or the person defining it.</p>
+      </div>
+      <div class="card">
+
+        <div class="q">
+          <span class="pick">Pick</span>
+          <div class="ask">On the skill files — is anything running today, or is this the first attempt?</div>
+          <div class="meta">
+            <b>Reveals</b><span>Whether you're joining an effort or starting one. This is the single most useful thing you can learn in the whole interview.</span>
+            <b>Listen for</b><span class="listen">"First attempt" or "we're figuring it out" → <strong>you are ahead of them</strong>, and you should say so plainly: "I've been building this for my own work — I'd want to show you what I've got and hear where you'd point it."</span>
+            <b>Careful</b><span>If they <em>do</em> have something running, switch to genuine questions about it rather than presenting yours. Curiosity beats a pitch when they're further along.</span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="ask">When you say AI should generate on-system output — what does failure look like today? What does it produce that you don't want?</div>
+          <div class="meta">
+            <b>Reveals</b><span>Whether they've actually tried it. People who've run this have vivid, specific complaints. People who haven't answer abstractly.</span>
+            <b>Listen for</b><span class="listen">"It reinvents components we already have" → that's the <em>inventory</em> problem and your metadata layer is the answer. "It uses the wrong values" → that's the <em>rules</em> problem and your skill file is the answer. Two different fixes; don't offer the wrong one.</span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="ask">Who's the consumer you're most worried about — designers, engineers, or the tooling?</div>
+          <div class="meta">
+            <b>Reveals</b><span>Where the political weight sits. The answer tells you whose experience you'd be optimising for when the three conflict — and they will.</span>
+            <b>Listen for</b><span class="listen">If they say "designers," the "preserving an excellent designer experience" clause in the JD is load-bearing and someone senior is nervous about the migration.</span>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 03 THE TEAM -->
+    <section id="s3">
+      <div class="shead">
+        <div class="num">03</div><h2>The team and the hybrid seam</h2>
+        <p>At least one of your four should be from here. It's how you show you're thinking about working <em>with</em> people rather than just shipping.</p>
+      </div>
+      <div class="card">
+
+        <div class="q">
+          <span class="pick">Pick · the human one</span>
+          <div class="ask">This role sits between design and engineering. Who does it sit closest to day to day — and where has that seam been uncomfortable before?</div>
+          <div class="meta">
+            <b>Reveals</b><span>Honest answer to "why is this role open." The seam is always uncomfortable somewhere, and asking about it directly signals you've worked in it.</span>
+            <b>Listen for</b><span class="listen">Any hesitation is information. "Design owns it but engineering implements" is a very different day than "we sit in the engineering org."</span>
+            <b>Why it lands</b><span>It's the least performative question here. You're asking about friction, not org charts — which is what someone who's actually done the job asks.</span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="ask">What's your own background — did you come to this from design or from engineering?</div>
+          <div class="meta">
+            <b>Reveals</b><span>Which half of yourself to emphasise for the rest of the conversation. Ask Angela beforehand if you can, but ask him if you can't.</span>
+            <b>Listen for</b><span class="listen">Engineer-who-designs → lead with the pipeline, the build enforcement, the components. Designer-who-codes → lead with adoption, governance, and the 350 contributors.</span>
+            <b>Bonus</b><span>People like being asked about themselves. It's the warmest question on this page and costs nothing.</span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="ask">How big is the team, and is this role replacing someone or adding a capability?</div>
+          <div class="meta">
+            <b>Reveals</b><span>Replacing → there's an incumbent's shape you'd be measured against. Adding → the role is undefined and you have room to define it.</span>
+            <b>Listen for</b><span class="listen">"Adding" plus a 12-month contract usually means they're testing whether the capability is worth making permanent. That's worth knowing before you talk about the first 90 days.</span>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 04 GOVERNANCE -->
+    <section id="s4">
+      <div class="shead">
+        <div class="num">04</div><h2>Governance and scale</h2>
+        <p>At a company State Farm's size, this is most of the job. These questions signal that you know that.</p>
+      </div>
+      <div class="card">
+
+        <div class="q">
+          <div class="ask">How does the design system team sit relative to product teams — central, federated, or embedded?</div>
+          <div class="meta">
+            <b>Reveals</b><span>How much of the job is politics. Central means you own everything and become a bottleneck; federated means you spend your time on standards and review.</span>
+            <b>Listen for</b><span class="listen">Federated → your governance and contribution work is the whole pitch. Central → your automation work is, because the bottleneck is throughput.</span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="ask">When you deprecate something, what actually happens to the teams still using it?</div>
+          <div class="meta">
+            <b>Reveals</b><span>Whether they have a deprecation path at all. Most don't — and you have a genuinely good story about discovering that in your own system.</span>
+            <b>Listen for</b><span class="listen">Silence or "we mostly don't" → say your three-generations-of-naming story. It'll land hard, because you found it in your own work rather than criticising theirs.</span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="ask">How do you know today whether the system is being adopted?</div>
+          <div class="meta">
+            <b>Reveals</b><span>Whether measurement exists. It's a preferred qual in their JD, which usually means they know they should and don't.</span>
+            <b>Listen for</b><span class="listen">If the answer is anecdotal, offer the distinction that separates you: coverage is depth, usage is breadth, and detachment isn't automatically bad — on a component built to be customised it may mean it's working.</span>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 05 CLOSING -->
+    <section id="s5">
+      <div class="shead">
+        <div class="num">05</div><h2>Closing</h2>
+      </div>
+      <div class="card">
+
+        <div class="q">
+          <span class="pick">Pick · ask last</span>
+          <div class="ask">A year from now, what would make you say this hire clearly worked?</div>
+          <div class="meta">
+            <b>Reveals</b><span>His actual success metric, in his own words — which almost never matches the JD's "success looks like" section.</span>
+            <b>Then</b><span>Echo it back in your thank-you note, in his phrasing. It's the highest-return sentence you can write afterwards.</span>
+            <b>Why last</b><span>It's a natural closing question and it leaves the conversation on him imagining you in the role.</span>
+          </div>
+        </div>
+
+        <div class="q">
+          <div class="ask">Is there anything about my background that gives you pause? I'd rather address it now than have it sit there.</div>
+          <div class="meta">
+            <b>Reveals</b><span>The objection you'd otherwise never get to answer.</span>
+            <b>Risk</b><span>Only ask if you're steady enough to hear it without getting defensive. If he says "the contract history" or "how much code you write," you have prepared answers — but you have to deliver them calmly, not fast.</span>
+            <b>Why it works</b><span>It's a confident question. People who ask it are usually people who aren't worried about the answer, and that reads.</span>
+          </div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 06 DON'T -->
+    <section id="s6">
+      <div class="shead">
+        <div class="num">06</div><h2>Don't ask these</h2>
+      </div>
+      <div class="card" style="border-color:rgba(217,164,65,.3)">
+        <ul class="tight no">
+          <li><strong>"What's your tech stack?"</strong> — you can find most of it out by asking a better question, and it reads junior.</li>
+          <li><strong>"What's a typical day?"</strong> — the JD already has a Day-to-Day section. Asking signals you skimmed.</li>
+          <li><strong>Rate, hours, or extension terms.</strong> That's Angela's conversation, not his. Raising it with the hiring manager makes the wrong thing the last thing he remembers.</li>
+          <li><strong>"Do you have any concerns?"</strong> phrased vaguely — either ask it directly, as in section 05, or not at all.</li>
+          <li><strong>Anything you could have answered by reading their JD.</strong> He wrote it.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:var(--s4);border-color:rgba(127,183,126,.3)">
+        <span class="pill pill--ok">The four to actually use</span>
+        <ul class="tight">
+          <li><strong>Early:</strong> "Where do the tokens live today, and what's the path to production CSS?"</li>
+          <li><strong>Mid:</strong> "On the skill files — is anything running today, or is this the first attempt?"</li>
+          <li><strong>Mid:</strong> "Who does this role sit closest to day to day, and where has that seam been uncomfortable?"</li>
+          <li><strong>Last:</strong> "A year from now, what would make you say this hire clearly worked?"</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+  </div>
+</div>
+
+<div class="pal" id="pal" aria-hidden="true">
+  <div class="pal-in"><input id="palIn" placeholder="Jump to…" autocomplete="off" spellcheck="false"><ul id="palList"></ul></div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+var KIT = { company:"State Farm", role:"Design Systems Engineer", system:"Keystone", date:"", pageTitle:"Questions for Stephen" };
+var SECTIONS = [
+  {id:"s0", n:"00", t:"How to use this"},
+  {id:"s1", n:"01", t:"Diagnostic"},
+  {id:"s2", n:"02", t:"The unusual bullets"},
+  {id:"s3", n:"03", t:"Team & the hybrid seam"},
+  {id:"s4", n:"04", t:"Governance & scale"},
+  {id:"s5", n:"05", t:"Closing"},
+  {id:"s6", n:"06", t:"Don't ask these"}
+];
+var BEATS = [];
+</script>
+<script src="kit.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Artifact</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css?v=4">
+<style>
+  body{overflow-x:hidden}
+  .vtop{
+    position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:var(--s4);
+    padding:var(--s4) var(--s6);border-bottom:1px solid var(--line);
+    background:rgba(18,17,16,.9);backdrop-filter:blur(14px);flex-wrap:wrap;
+  }
+  .vtop .path{flex:1;min-width:0;font-family:var(--mono);font-size:12.5px;color:var(--ink-2);word-break:break-all}
+  .vtop .path b{color:var(--accent);font-weight:400;display:block;font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:3px}
+  .vwrap{max-width:1100px;margin:0 auto;padding:var(--s6)}
+  .vwrap h1{font-size:26px;font-weight:500;letter-spacing:-.03em;margin-bottom:var(--s2)}
+  .vwrap .sub{color:var(--ink-3);font-size:13px;margin-bottom:var(--s5);max-width:70ch;line-height:1.6}
+  pre.src{
+    background:var(--panel);border:1px solid var(--line);border-radius:var(--r-lg);
+    padding:var(--s5);overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+    line-height:1.75;color:var(--ink);white-space:pre;tab-size:2;
+  }
+  pre.src .c{color:var(--ink-3)}
+  pre.src .s{color:var(--ok)}
+  pre.src .k{color:var(--accent-2)}
+  .err{border:1px dashed var(--warn);color:var(--warn);border-radius:var(--r-md);padding:var(--s5);font-size:13.5px;line-height:1.6}
+  .err code{font-family:var(--mono);font-size:12px}
+  .jump{display:flex;flex-wrap:wrap;gap:var(--s2);margin-bottom:var(--s5)}
+</style>
+</head>
+<body>
+
+<div class="vtop">
+  <a class="btn" href="javascript:history.back()">← Back</a>
+  <a class="btn" href="index.html">Hub</a>
+  <div class="path"><b id="kind">Artifact</b><span id="path">—</span></div>
+  <button class="btn" id="copyBtn">Copy all</button>
+  <a class="btn" id="rawLink" href="#" target="_blank">Raw</a>
+</div>
+
+<div class="vwrap">
+  <h1 id="title">Loading…</h1>
+  <div class="sub" id="desc"></div>
+  <div class="jump" id="jump"></div>
+  <pre class="src" id="src">…</pre>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* Known artifacts — title + one line of context, so a screenshare has a caption. */
+var CATALOG = {
+  'figma-plugin/code.js': ['Figma plugin — variables → W3C DTCG',
+    'Reads every local variable collection and emits DTCG token JSON. Resolves VARIABLE_ALIAS into DTCG references so the semantic layer survives the export instead of being flattened into duplicates.'],
+  'figma-plugin/README.md': ['Figma plugin — notes',
+    'What it does, the three judgment calls worth explaining, and the known limits.'],
+  'figma-plugin/manifest.json': ['Figma plugin — manifest', 'Runs locally. No network access.'],
+  'skill/keystone-ds/SKILL.md': ['Skill file — the rules layer',
+    'The output contract: token-first, annotate every value with its source token, full state coverage, accessibility as architecture, and a forced self-check before anything is returned.'],
+  'skill/keystone-ds/references/tokens.md': ['Skill reference — tokens',
+    'Three tiers with a strict one-way flow. Only colour gets a semantic tier, because only colour re-themes.'],
+  'skill/keystone-ds/references/accessibility.md': ['Skill reference — accessibility',
+    'WCAG 2.2 AA written as build-time requirements rather than review notes.'],
+  'skill/keystone-ds/references/components.md': ['Skill reference — components',
+    'Anatomy, variants, and required states. Variants change appearance, never structure.'],
+  'skill/keystone-ds/references/metadata.md': ['Skill reference — component metadata',
+    'The inventory layer: what exists, when to reach for it, what never to do with it — plus the provenance block that makes staleness detectable.'],
+  'skill/keystone-composer/SKILL.md': ['Skill file — the consumer layer',
+    'Selects existing components instead of generating new ones. Anti-patterns are hard rules; stale records are not silently trusted; gaps are flagged rather than filled.'],
+  'keystone/build/build.mjs': ['Token build — one source, four outputs',
+    'Resolves aliases, enforces the one-way tier flow, and emits CSS, JSON, Swift, and the generated guidance file. Fails on a reference pointing the wrong way up the stack.'],
+  'keystone/build/metadata.mjs': ['Metadata build — the anti-rot mechanism',
+    'Each record carries a SHA-256 of its component source. Run with --check after editing a component and it reports STALE and exits non-zero.'],
+  'keystone/tokens/primitive.tokens.json': ['Tokens — tier 1, primitive', 'Raw scale. Private: no component references this tier directly.'],
+  'keystone/tokens/semantic.tokens.json': ['Tokens — tier 2, semantic', 'The public API. Purpose-named, two modes, every value a reference into primitive.'],
+  'keystone/tokens/component.tokens.json': ['Tokens — tier 3, component', 'Localised exceptions only. Includes the deprecation policy.'],
+  'keystone/dist/keystone.css': ['Generated — CSS custom properties', 'Light and dark from one semantic layer. Do not edit by hand.'],
+  'keystone/dist/keystone.skill.md': ['Generated — machine-readable guidance',
+    'The skill file that falls out of the same build as the CSS, so it cannot drift from the system it describes.'],
+  'keystone/dist/Keystone.swift': ['Generated — iOS', 'Same source as the CSS. Proof the token layer is platform-agnostic.'],
+  'keystone/components/ks-button.js': ['Web component — ks-button',
+    'Every value bound to a token. Focus never suppressed, 44px target via an invisible hit area, non-colour signal on disabled, aria-busy on loading.'],
+  'keystone/components/ks-input.js': ['Web component — ks-input',
+    'Label always rendered and associated. Invalid carries border, icon and text, wired with aria-invalid and aria-describedby.'],
+  'keystone/metadata/ks-button.metadata.json': ['Metadata record — ks-button',
+    'The inventory record: selection criteria, four anti-patterns, per-state token overrides, contrast pairs, and provenance.'],
+  'keystone/metadata/ks-input.metadata.json': ['Metadata record — ks-input', 'Same schema, three anti-patterns.']
+};
+
+var params = new URLSearchParams(location.search);
+var f = params.get('f') || '';
+
+/* only relative paths inside the kit */
+function safe(p) {
+  return p && !/^[a-z]+:/i.test(p) && !p.startsWith('/') && p.indexOf('..') === -1;
+}
+
+var meta = CATALOG[f] || [f.split('/').pop() || 'Artifact', ''];
+document.getElementById('title').textContent = meta[0];
+document.getElementById('desc').textContent = meta[1];
+document.getElementById('path').textContent = f || '(no file specified)';
+document.getElementById('kind').textContent = (f.split('.').pop() || '').toUpperCase() + ' file';
+document.title = meta[0];
+document.getElementById('rawLink').href = f;
+
+var srcEl = document.getElementById('src');
+
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+/* deliberately light highlighting — comments and strings only. Enough to read
+   on a screenshare, not so much that it looks like a toy editor. */
+function highlight(text, ext) {
+  var out = esc(text);
+  if (ext === 'md') {
+    out = out.replace(/^(#{1,6} .*)$/gm, '<span class="k">$1</span>')
+             .replace(/(`[^`\n]+`)/g, '<span class="s">$1</span>');
+  } else {
+    out = out.replace(/(\/\*[\s\S]*?\*\/|\/\/[^\n]*)/g, '<span class="c">$1</span>')
+             .replace(/(&quot;[^&\n]*?&quot;|'[^'\n]*?')/g, '<span class="s">$1</span>');
+  }
+  return out;
+}
+
+if (!safe(f)) {
+  srcEl.outerHTML = '<div class="err">No file specified, or the path is outside the kit. Open this page from a link rather than directly — it takes a <code>?f=</code> parameter with a path relative to <code>interview-kit/</code>.</div>';
+} else {
+  fetch(f)
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.text(); })
+    .then(function (t) {
+      srcEl.innerHTML = highlight(t, f.split('.').pop());
+      // heading jump links for long markdown
+      if (f.endsWith('.md')) {
+        var heads = t.split('\n').filter(function (l) { return /^#{2,3} /.test(l); }).slice(0, 8);
+        if (heads.length > 2) {
+          document.getElementById('jump').innerHTML = heads.map(function (h) {
+            return '<span class="pill">' + esc(h.replace(/^#+ /, '')) + '</span>';
+          }).join('');
+        }
+      }
+      window._raw = t;
+    })
+    .catch(function () {
+      srcEl.outerHTML = '<div class="err">Could not load <code>' + esc(f) + '</code>.<br><br>' +
+        'This viewer needs the kit served over http — run <code>python3 -m http.server 4321</code> inside <code>interview-kit/</code>, or use the preview server.</div>';
+    });
+}
+
+document.getElementById('copyBtn').addEventListener('click', function () {
+  var t = window._raw || '';
+  if (!t) return;
+  navigator.clipboard && navigator.clipboard.writeText(t);
+  var el = document.getElementById('toast');
+  el.textContent = 'Copied'; el.dataset.on = '1';
+  setTimeout(function () { el.dataset.on = '0'; }, 1400);
+});
+</script>
+</body>
+</html>

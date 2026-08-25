@@ -1,0 +1,63 @@
+{
+  "$description": "Provenance for the token sources in this directory. Written by the extraction step, read by build/build.mjs so every generated artefact can name the file, collection and mode it came from — and so a count that no longer matches is a build warning rather than a surprise six weeks later.",
+
+  "file": {
+    "name": "Pathfinder Design System V.3",
+    "key": "IXARP0cNnQOUmaDVQYZkNe",
+    "url": "https://www.figma.com/design/IXARP0cNnQOUmaDVQYZkNe/Pathfinder-Design-System-V.3",
+    "extractedAt": "2026-08-05",
+    "extractedVia": "Figma MCP · Plugin API — see build/figma-extract.js for the exact script"
+  },
+
+  "collections": [
+    { "name": "PF3/Primitives", "id": "VariableCollectionId:10040:2661", "variables": 73,  "modes": ["Default"],       "tier": "primitive", "mappedTo": "primitive.color.*" },
+    { "name": "PF3/Spacing",    "id": "VariableCollectionId:10040:2603", "variables": 17,  "modes": ["Default"],       "tier": "primitive", "mappedTo": "primitive.space.*" },
+    { "name": "PF3/Radius",     "id": "VariableCollectionId:10040:2604", "variables": 9,   "modes": ["Default"],       "tier": "primitive", "mappedTo": "primitive.radius.*" },
+    { "name": "PF3/Sizing",     "id": "VariableCollectionId:10040:2605", "variables": 16,  "modes": ["Default"],       "tier": "primitive", "mappedTo": "primitive.size.*" },
+    { "name": "PF3/Opacity",    "id": "VariableCollectionId:10040:2606", "variables": 12,  "modes": ["Default"],       "tier": "primitive", "mappedTo": "primitive.opacity.*" },
+    { "name": "PF3/Semantic",   "id": "VariableCollectionId:10040:2736", "variables": 105, "modes": ["Light", "Dark"], "tier": "semantic",  "mappedTo": "semantic.<mode>.*" }
+  ],
+
+  "styles": [
+    { "kind": "text",   "prefix": "PF3/",  "count": 21, "mappedTo": "typography.*", "note": "Type is styles, not variables — sizes and line heights are literals in typography.tokens.json for that reason." },
+    { "kind": "effect", "prefix": "PF3/",  "count": 12, "mappedTo": "elevation.*, focus.*, backdrop.*" }
+  ],
+
+  "findings": [
+    {
+      "id": "scope-hygiene",
+      "severity": "warn",
+      "claim": "All 232 PF3 variables carry scopes = ALL_SCOPES.",
+      "consequence": "Every colour token appears in every property picker, so a designer choosing a stroke colour is offered text and background tokens too. Scoping is the mechanism that makes a large semantic tier usable in the canvas.",
+      "fix": "Bind border/* to STROKE, text/* and icon/* to TEXT_FILL, bg/* and surface/* to FRAME_FILL + SHAPE_FILL, space/* to GAP + WIDTH_HEIGHT."
+    },
+    {
+      "id": "legacy-collections",
+      "severity": "warn",
+      "claim": "Three legacy collections — _Legacy/Tailwind (269), _Legacy/Global Tokens (51), _Legacy/Semantic Tokens (132) — remain in the file alongside PF3, 452 variables in total.",
+      "consequence": "Nothing prevents a new frame binding to a retired generation, and the count in any documentation of 'how many tokens the system has' depends on which generation you believe.",
+      "fix": "A deprecation pass: mark, redirect, then remove at the next major. The underscore prefix is a convention, not an enforcement."
+    },
+    {
+      "id": "component-names-at-semantic-tier",
+      "severity": "warn",
+      "claim": "PF3/Semantic contains component-scoped names — bg/button-primary, bg/button-secondary, bg/button-destructive, border/input, border/input-focus, bg/table-header, bg/nav-active, bg/scrollbar, bg/tooltip.",
+      "consequence": "The semantic tier stops being the small re-themeable vocabulary it is meant to be, and grows once per component instead of once per meaning.",
+      "fix": "Either move them into a third collection, or accept a two-tier system and say so. The failure mode is claiming three tiers while shipping two."
+    },
+    {
+      "id": "two-focus-colours",
+      "severity": "warn",
+      "claim": "border/focus and border/focus-ring resolve to blue/500, while border/input-focus resolves to purple/500.",
+      "consequence": "Focus reads as two different affordances depending on which control has it.",
+      "fix": "Pick one. The effect style PF3/Focus/Ring already commits to blue, which makes purple the outlier."
+    },
+    {
+      "id": "no-motion-tier",
+      "severity": "info",
+      "claim": "There is no motion collection: no durations, no easings.",
+      "consequence": "Every transition in code is a literal, so motion cannot be reviewed, re-themed, or reduced from one place.",
+      "fix": "primitive.duration.* exists in code only, marked $codeOnly, until it exists in the file."
+    }
+  ]
+}

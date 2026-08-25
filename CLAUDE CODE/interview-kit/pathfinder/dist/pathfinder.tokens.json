@@ -1,0 +1,3842 @@
+{
+  "$description": "Resolved Pathfinder tokens, all modes.",
+  "provenance": {
+    "file": {
+      "name": "Pathfinder Design System V.3",
+      "key": "IXARP0cNnQOUmaDVQYZkNe",
+      "url": "https://www.figma.com/design/IXARP0cNnQOUmaDVQYZkNe/Pathfinder-Design-System-V.3",
+      "extractedAt": "2026-08-05",
+      "extractedVia": "Figma MCP · Plugin API — see build/figma-extract.js for the exact script"
+    },
+    "collections": [
+      "PF3/Primitives (73)",
+      "PF3/Spacing (17)",
+      "PF3/Radius (9)",
+      "PF3/Sizing (16)",
+      "PF3/Opacity (12)",
+      "PF3/Semantic (105)"
+    ],
+    "tokensVersion": "sha256:f7f5e829649da5cd",
+    "generator": "build/build.mjs"
+  },
+  "audit": {
+    "findings": [
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "7 names resolve identically in both modes: semantic.bg.tertiary, semantic.bg.scrollbar, semantic.bg.skeleton, semantic.border.default, semantic.border.disabled, semantic.border.table, semantic.action.disabled"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "5 names resolve identically in both modes: semantic.bg.hover, semantic.bg.button-secondary, semantic.bg.nav-active, semantic.bg.badge, semantic.action.secondary"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "4 names resolve identically in both modes: semantic.bg.secondary, semantic.bg.disabled, semantic.border.subtle, semantic.border.divider"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "4 names resolve identically in both modes: semantic.bg.sidebar, semantic.bg.input, semantic.surface.default, semantic.text.inverse"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "4 names resolve identically in both modes: semantic.bg.scrollbar-hover, semantic.text.disabled, semantic.icon.disabled, semantic.border.input"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "4 names resolve identically in both modes: semantic.border.focus, semantic.border.focus-ring, semantic.data.series-2, semantic.brand.blue"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "3 names resolve identically in both modes: semantic.bg.elevated, semantic.bg.card, semantic.bg.popover"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "3 names resolve identically in both modes: semantic.bg.active, semantic.bg.button-secondary-hover, semantic.action.secondary-hover"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "3 names resolve identically in both modes: semantic.bg.button-primary, semantic.action.primary, semantic.brand.primary"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "3 names resolve identically in both modes: semantic.bg.button-primary-hover, semantic.action.primary-hover, semantic.brand.primary-hover"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "3 names resolve identically in both modes: semantic.text.tertiary, semantic.text.nav-default, semantic.icon.secondary"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "3 names resolve identically in both modes: semantic.text.on-primary, semantic.text.on-accent, semantic.icon.on-primary"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "3 names resolve identically in both modes: semantic.text.placeholder, semantic.border.strong, semantic.border.input-hover"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "3 names resolve identically in both modes: semantic.text.success, semantic.icon.success, semantic.status.success"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "3 names resolve identically in both modes: semantic.text.error, semantic.icon.error, semantic.status.error"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "3 names resolve identically in both modes: semantic.text.warning, semantic.icon.warning, semantic.status.warning"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.bg.primary, semantic.icon.inverse"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.bg.card-hover, semantic.bg.table-row-hover"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.bg.selected, semantic.bg.table-row-selected"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.bg.button-primary-active, semantic.action.primary-pressed"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.bg.button-destructive, semantic.action.destructive"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.bg.table-header, semantic.surface.raised"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.text.primary, semantic.text.nav-active"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.text.secondary, semantic.text.label"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.text.accent, semantic.icon.accent"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.icon.info, semantic.status.info"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.border.accent, semantic.border.input-focus"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.data.series-1, semantic.brand.purple"
+      },
+      {
+        "kind": "duplicate-semantics",
+        "severity": "warn",
+        "text": "2 names resolve identically in both modes: semantic.data.series-3, semantic.brand.accent"
+      },
+      {
+        "kind": "contrast",
+        "severity": "fail",
+        "text": "light: semantic.text.tertiary on semantic.bg.app is 4.43:1, below the 4.5:1 it needs — 1.4.3 body text (#70788a on #ffffff)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "fail",
+        "text": "light: semantic.text.placeholder on semantic.bg.input is 2.45:1, below the 4.5:1 it needs — 1.4.3 — placeholders are text (#9ea6b5 on #ffffff)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "fail",
+        "text": "light: semantic.text.nav-default on semantic.bg.app is 4.43:1, below the 4.5:1 it needs — 1.4.3 body text (#70788a on #ffffff)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "fail",
+        "text": "light: semantic.status.warning on semantic.bg.app is 3.28:1, below the 4.5:1 it needs — 1.4.3 status text (#d97305 on #ffffff)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "fail",
+        "text": "light: semantic.border.input on semantic.bg.input is 1.53:1, below the 3:1 it needs — 1.4.11 — the border is the field boundary (#ccd1db on #ffffff)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "warn",
+        "text": "light: component.button.focus-ring on component.button.bg is 1.53:1, below the 3:1 it needs — 1.4.11 — adjacency only applies at outline-offset 0; the ring is offset 2px over bg/app, so this is the ratio it would have if anyone removed the offset (#3d78f0 on #7038e3)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "warn",
+        "text": "light: semantic.border.default on semantic.bg.app is 1.26:1, below the 3:1 it needs — decorative — 1.4.11 applies only if this border is the sole boundary signal (#e3e5ed on #ffffff)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "warn",
+        "text": "light: semantic.border.divider on semantic.bg.app is 1.12:1, below the 3:1 it needs — decorative — dividers separate content that is already distinguishable (#f2f2f7 on #ffffff)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "fail",
+        "text": "dark: semantic.text.placeholder on semantic.bg.input is 3.83:1, below the 4.5:1 it needs — 1.4.3 — placeholders are text (#70788a on #1a1c26)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "fail",
+        "text": "dark: semantic.border.input on semantic.bg.input is 2.52:1, below the 3:1 it needs — 1.4.11 — the border is the field boundary (#545c6b on #1a1c26)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "warn",
+        "text": "dark: component.button.focus-ring on component.button.bg is 1.6:1, below the 3:1 it needs — 1.4.11 — adjacency only applies at outline-offset 0; the ring is offset 2px over bg/app, so this is the ratio it would have if anyone removed the offset (#6196ff on #8554f5)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "warn",
+        "text": "dark: semantic.border.default on semantic.bg.app is 1.77:1, below the 3:1 it needs — decorative — 1.4.11 applies only if this border is the sole boundary signal (#383d4d on #0d0f17)"
+      },
+      {
+        "kind": "contrast",
+        "severity": "warn",
+        "text": "dark: semantic.border.divider on semantic.bg.app is 1.32:1, below the 3:1 it needs — decorative — dividers separate content that is already distinguishable (#262936 on #0d0f17)"
+      },
+      {
+        "kind": "scope-hygiene",
+        "severity": "warn",
+        "text": "All 232 PF3 variables carry scopes = ALL_SCOPES.",
+        "fix": "Bind border/* to STROKE, text/* and icon/* to TEXT_FILL, bg/* and surface/* to FRAME_FILL + SHAPE_FILL, space/* to GAP + WIDTH_HEIGHT."
+      },
+      {
+        "kind": "legacy-collections",
+        "severity": "warn",
+        "text": "Three legacy collections — _Legacy/Tailwind (269), _Legacy/Global Tokens (51), _Legacy/Semantic Tokens (132) — remain in the file alongside PF3, 452 variables in total.",
+        "fix": "A deprecation pass: mark, redirect, then remove at the next major. The underscore prefix is a convention, not an enforcement."
+      },
+      {
+        "kind": "component-names-at-semantic-tier",
+        "severity": "warn",
+        "text": "PF3/Semantic contains component-scoped names — bg/button-primary, bg/button-secondary, bg/button-destructive, border/input, border/input-focus, bg/table-header, bg/nav-active, bg/scrollbar, bg/tooltip.",
+        "fix": "Either move them into a third collection, or accept a two-tier system and say so. The failure mode is claiming three tiers while shipping two."
+      },
+      {
+        "kind": "two-focus-colours",
+        "severity": "warn",
+        "text": "border/focus and border/focus-ring resolve to blue/500, while border/input-focus resolves to purple/500.",
+        "fix": "Pick one. The effect style PF3/Focus/Ring already commits to blue, which makes purple the outlier."
+      },
+      {
+        "kind": "no-motion-tier",
+        "severity": "info",
+        "text": "There is no motion collection: no durations, no easings.",
+        "fix": "primitive.duration.* exists in code only, marked $codeOnly, until it exists in the file."
+      }
+    ],
+    "contrast": [
+      {
+        "mode": "light",
+        "fg": "semantic.text.primary",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 16.96,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.text.secondary",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 6.73,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.text.tertiary",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 4.43,
+        "pass": false
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.text.label",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 form labels",
+        "severity": "fail",
+        "ratio": 6.73,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.text.link",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 links",
+        "severity": "fail",
+        "ratio": 6.12,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.text.placeholder",
+        "bg": "semantic.bg.input",
+        "min": 4.5,
+        "why": "1.4.3 — placeholders are text",
+        "severity": "fail",
+        "ratio": 2.45,
+        "pass": false
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.text.badge",
+        "bg": "semantic.bg.badge",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 9.69,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.text.nav-default",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 4.43,
+        "pass": false
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.text.tooltip",
+        "bg": "semantic.bg.tooltip",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 16.27,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.status.error",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 status text",
+        "severity": "fail",
+        "ratio": 4.86,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.status.success",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 status text",
+        "severity": "fail",
+        "ratio": 4.7,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.status.warning",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 status text",
+        "severity": "fail",
+        "ratio": 3.28,
+        "pass": false
+      },
+      {
+        "mode": "light",
+        "fg": "component.button.fg",
+        "bg": "component.button.bg",
+        "min": 4.5,
+        "why": "1.4.3 label on control",
+        "severity": "fail",
+        "ratio": 6.24,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "component.input.fg",
+        "bg": "component.input.bg",
+        "min": 4.5,
+        "why": "1.4.3 value on control",
+        "severity": "fail",
+        "ratio": 16.96,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.border.input",
+        "bg": "semantic.bg.input",
+        "min": 3,
+        "why": "1.4.11 — the border is the field boundary",
+        "severity": "fail",
+        "ratio": 1.53,
+        "pass": false
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.border.focus-ring",
+        "bg": "semantic.bg.app",
+        "min": 3,
+        "why": "1.4.11 focus indicator vs page",
+        "severity": "fail",
+        "ratio": 4.08,
+        "pass": true
+      },
+      {
+        "mode": "light",
+        "fg": "component.button.focus-ring",
+        "bg": "component.button.bg",
+        "min": 3,
+        "why": "1.4.11 — adjacency only applies at outline-offset 0; the ring is offset 2px over bg/app, so this is the ratio it would have if anyone removed the offset",
+        "severity": "warn",
+        "ratio": 1.53,
+        "pass": false
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.border.default",
+        "bg": "semantic.bg.app",
+        "min": 3,
+        "why": "decorative — 1.4.11 applies only if this border is the sole boundary signal",
+        "severity": "warn",
+        "ratio": 1.26,
+        "pass": false
+      },
+      {
+        "mode": "light",
+        "fg": "semantic.border.divider",
+        "bg": "semantic.bg.app",
+        "min": 3,
+        "why": "decorative — dividers separate content that is already distinguishable",
+        "severity": "warn",
+        "ratio": 1.12,
+        "pass": false
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.text.primary",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 18.35,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.text.secondary",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 12.49,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.text.tertiary",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 7.81,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.text.label",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 form labels",
+        "severity": "fail",
+        "ratio": 12.49,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.text.link",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 links",
+        "severity": "fail",
+        "ratio": 6.66,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.text.placeholder",
+        "bg": "semantic.bg.input",
+        "min": 4.5,
+        "why": "1.4.3 — placeholders are text",
+        "severity": "fail",
+        "ratio": 3.83,
+        "pass": false
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.text.badge",
+        "bg": "semantic.bg.badge",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 8.59,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.text.nav-default",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 7.81,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.text.tooltip",
+        "bg": "semantic.bg.tooltip",
+        "min": 4.5,
+        "why": "1.4.3 body text",
+        "severity": "fail",
+        "ratio": 10.37,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.status.error",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 status text",
+        "severity": "fail",
+        "ratio": 6.94,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.status.success",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 status text",
+        "severity": "fail",
+        "ratio": 8.42,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.status.warning",
+        "bg": "semantic.bg.app",
+        "min": 4.5,
+        "why": "1.4.3 status text",
+        "severity": "fail",
+        "ratio": 10.47,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "component.button.fg",
+        "bg": "component.button.bg",
+        "min": 4.5,
+        "why": "1.4.3 label on control",
+        "severity": "fail",
+        "ratio": 4.58,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "component.input.fg",
+        "bg": "component.input.bg",
+        "min": 4.5,
+        "why": "1.4.3 value on control",
+        "severity": "fail",
+        "ratio": 16.27,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.border.input",
+        "bg": "semantic.bg.input",
+        "min": 3,
+        "why": "1.4.11 — the border is the field boundary",
+        "severity": "fail",
+        "ratio": 2.52,
+        "pass": false
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.border.focus-ring",
+        "bg": "semantic.bg.app",
+        "min": 3,
+        "why": "1.4.11 focus indicator vs page",
+        "severity": "fail",
+        "ratio": 6.66,
+        "pass": true
+      },
+      {
+        "mode": "dark",
+        "fg": "component.button.focus-ring",
+        "bg": "component.button.bg",
+        "min": 3,
+        "why": "1.4.11 — adjacency only applies at outline-offset 0; the ring is offset 2px over bg/app, so this is the ratio it would have if anyone removed the offset",
+        "severity": "warn",
+        "ratio": 1.6,
+        "pass": false
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.border.default",
+        "bg": "semantic.bg.app",
+        "min": 3,
+        "why": "decorative — 1.4.11 applies only if this border is the sole boundary signal",
+        "severity": "warn",
+        "ratio": 1.77,
+        "pass": false
+      },
+      {
+        "mode": "dark",
+        "fg": "semantic.border.divider",
+        "bg": "semantic.bg.app",
+        "min": 3,
+        "why": "decorative — dividers separate content that is already distinguishable",
+        "severity": "warn",
+        "ratio": 1.32,
+        "pass": false
+      }
+    ]
+  },
+  "modes": {
+    "light": {
+      "primitive.color.neutral.50": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "primitive.color.neutral.100": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "primitive.color.neutral.200": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "primitive.color.neutral.300": {
+        "$type": "color",
+        "$value": "#ccd1db"
+      },
+      "primitive.color.neutral.400": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "primitive.color.neutral.500": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "primitive.color.neutral.600": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "primitive.color.neutral.700": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "primitive.color.neutral.800": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "primitive.color.neutral.900": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "primitive.color.neutral.950": {
+        "$type": "color",
+        "$value": "#0d0f17"
+      },
+      "primitive.color.purple.50": {
+        "$type": "color",
+        "$value": "#f5f0ff"
+      },
+      "primitive.color.purple.100": {
+        "$type": "color",
+        "$value": "#ede3ff"
+      },
+      "primitive.color.purple.200": {
+        "$type": "color",
+        "$value": "#dbc9ff"
+      },
+      "primitive.color.purple.300": {
+        "$type": "color",
+        "$value": "#c2a6ff"
+      },
+      "primitive.color.purple.400": {
+        "$type": "color",
+        "$value": "#a178ff"
+      },
+      "primitive.color.purple.500": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "primitive.color.purple.600": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "primitive.color.purple.700": {
+        "$type": "color",
+        "$value": "#5e29c2"
+      },
+      "primitive.color.purple.800": {
+        "$type": "color",
+        "$value": "#4f219e"
+      },
+      "primitive.color.purple.900": {
+        "$type": "color",
+        "$value": "#401c80"
+      },
+      "primitive.color.blue.50": {
+        "$type": "color",
+        "$value": "#f0f5ff"
+      },
+      "primitive.color.blue.100": {
+        "$type": "color",
+        "$value": "#deebff"
+      },
+      "primitive.color.blue.200": {
+        "$type": "color",
+        "$value": "#c2d9ff"
+      },
+      "primitive.color.blue.300": {
+        "$type": "color",
+        "$value": "#94bdff"
+      },
+      "primitive.color.blue.400": {
+        "$type": "color",
+        "$value": "#6196ff"
+      },
+      "primitive.color.blue.500": {
+        "$type": "color",
+        "$value": "#3d78f0"
+      },
+      "primitive.color.blue.600": {
+        "$type": "color",
+        "$value": "#2659d1"
+      },
+      "primitive.color.blue.700": {
+        "$type": "color",
+        "$value": "#1c45a8"
+      },
+      "primitive.color.blue.800": {
+        "$type": "color",
+        "$value": "#1f3b87"
+      },
+      "primitive.color.blue.900": {
+        "$type": "color",
+        "$value": "#1f366e"
+      },
+      "primitive.color.green.50": {
+        "$type": "color",
+        "$value": "#f0fcf2"
+      },
+      "primitive.color.green.100": {
+        "$type": "color",
+        "$value": "#dbf7e3"
+      },
+      "primitive.color.green.200": {
+        "$type": "color",
+        "$value": "#bdedc9"
+      },
+      "primitive.color.green.300": {
+        "$type": "color",
+        "$value": "#87de9e"
+      },
+      "primitive.color.green.400": {
+        "$type": "color",
+        "$value": "#4ac270"
+      },
+      "primitive.color.green.500": {
+        "$type": "color",
+        "$value": "#21a354"
+      },
+      "primitive.color.green.600": {
+        "$type": "color",
+        "$value": "#178542"
+      },
+      "primitive.color.green.700": {
+        "$type": "color",
+        "$value": "#17693b"
+      },
+      "primitive.color.green.800": {
+        "$type": "color",
+        "$value": "#1a5233"
+      },
+      "primitive.color.green.900": {
+        "$type": "color",
+        "$value": "#17452e"
+      },
+      "primitive.color.red.50": {
+        "$type": "color",
+        "$value": "#fff2f2"
+      },
+      "primitive.color.red.100": {
+        "$type": "color",
+        "$value": "#ffe3e3"
+      },
+      "primitive.color.red.200": {
+        "$type": "color",
+        "$value": "#ffc9c9"
+      },
+      "primitive.color.red.300": {
+        "$type": "color",
+        "$value": "#ffa1a1"
+      },
+      "primitive.color.red.400": {
+        "$type": "color",
+        "$value": "#fa7070"
+      },
+      "primitive.color.red.500": {
+        "$type": "color",
+        "$value": "#f04545"
+      },
+      "primitive.color.red.600": {
+        "$type": "color",
+        "$value": "#db2626"
+      },
+      "primitive.color.red.700": {
+        "$type": "color",
+        "$value": "#ba1c1c"
+      },
+      "primitive.color.red.800": {
+        "$type": "color",
+        "$value": "#991c1c"
+      },
+      "primitive.color.red.900": {
+        "$type": "color",
+        "$value": "#802121"
+      },
+      "primitive.color.amber.50": {
+        "$type": "color",
+        "$value": "#fffaeb"
+      },
+      "primitive.color.amber.100": {
+        "$type": "color",
+        "$value": "#fff2d1"
+      },
+      "primitive.color.amber.200": {
+        "$type": "color",
+        "$value": "#ffe09e"
+      },
+      "primitive.color.amber.300": {
+        "$type": "color",
+        "$value": "#ffc961"
+      },
+      "primitive.color.amber.400": {
+        "$type": "color",
+        "$value": "#ffb02b"
+      },
+      "primitive.color.amber.500": {
+        "$type": "color",
+        "$value": "#f5940f"
+      },
+      "primitive.color.amber.600": {
+        "$type": "color",
+        "$value": "#d97305"
+      },
+      "primitive.color.amber.700": {
+        "$type": "color",
+        "$value": "#b5540a"
+      },
+      "primitive.color.amber.800": {
+        "$type": "color",
+        "$value": "#94420f"
+      },
+      "primitive.color.amber.900": {
+        "$type": "color",
+        "$value": "#783814"
+      },
+      "primitive.color.cyan.50": {
+        "$type": "color",
+        "$value": "#edfcff"
+      },
+      "primitive.color.cyan.100": {
+        "$type": "color",
+        "$value": "#cff5ff"
+      },
+      "primitive.color.cyan.200": {
+        "$type": "color",
+        "$value": "#a6e8fc"
+      },
+      "primitive.color.cyan.300": {
+        "$type": "color",
+        "$value": "#69d6f7"
+      },
+      "primitive.color.cyan.400": {
+        "$type": "color",
+        "$value": "#21b8e8"
+      },
+      "primitive.color.cyan.500": {
+        "$type": "color",
+        "$value": "#0d96c7"
+      },
+      "primitive.color.cyan.600": {
+        "$type": "color",
+        "$value": "#0d78a8"
+      },
+      "primitive.color.cyan.700": {
+        "$type": "color",
+        "$value": "#0f618a"
+      },
+      "primitive.color.cyan.800": {
+        "$type": "color",
+        "$value": "#174f70"
+      },
+      "primitive.color.cyan.900": {
+        "$type": "color",
+        "$value": "#14425e"
+      },
+      "primitive.color.white": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "primitive.color.black": {
+        "$type": "color",
+        "$value": "#000000"
+      },
+      "primitive.space.0": {
+        "$type": "dimension",
+        "$value": "0px"
+      },
+      "primitive.space.1": {
+        "$type": "dimension",
+        "$value": "2px"
+      },
+      "primitive.space.2": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "primitive.space.3": {
+        "$type": "dimension",
+        "$value": "6px"
+      },
+      "primitive.space.4": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "primitive.space.5": {
+        "$type": "dimension",
+        "$value": "10px"
+      },
+      "primitive.space.6": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.space.8": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "primitive.space.10": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "primitive.space.12": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "primitive.space.16": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.space.20": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "primitive.space.24": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "primitive.space.32": {
+        "$type": "dimension",
+        "$value": "64px"
+      },
+      "primitive.space.40": {
+        "$type": "dimension",
+        "$value": "80px"
+      },
+      "primitive.space.48": {
+        "$type": "dimension",
+        "$value": "96px"
+      },
+      "primitive.space.64": {
+        "$type": "dimension",
+        "$value": "128px"
+      },
+      "primitive.radius.none": {
+        "$type": "dimension",
+        "$value": "0px"
+      },
+      "primitive.radius.xs": {
+        "$type": "dimension",
+        "$value": "2px"
+      },
+      "primitive.radius.sm": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "primitive.radius.md": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "primitive.radius.lg": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.radius.xl": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "primitive.radius.2xl": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "primitive.radius.3xl": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "primitive.radius.full": {
+        "$type": "dimension",
+        "$value": "9999px"
+      },
+      "primitive.size.icon-xs": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.size.icon-sm": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "primitive.size.icon-md": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "primitive.size.icon-lg": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "primitive.size.icon-xl": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.size.avatar-sm": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.size.avatar-md": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "primitive.size.avatar-lg": {
+        "$type": "dimension",
+        "$value": "56px"
+      },
+      "primitive.size.avatar-xl": {
+        "$type": "dimension",
+        "$value": "72px"
+      },
+      "primitive.size.button-sm": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.size.button-md": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "primitive.size.button-lg": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "primitive.size.sidebar": {
+        "$type": "dimension",
+        "$value": "64px"
+      },
+      "primitive.size.sidebar-expanded": {
+        "$type": "dimension",
+        "$value": "240px"
+      },
+      "primitive.size.topbar": {
+        "$type": "dimension",
+        "$value": "56px"
+      },
+      "primitive.size.card-min": {
+        "$type": "dimension",
+        "$value": "280px"
+      },
+      "primitive.size.target-min": {
+        "$type": "dimension",
+        "$value": "44px"
+      },
+      "primitive.opacity.0": {
+        "$type": "number",
+        "$value": 0
+      },
+      "primitive.opacity.5": {
+        "$type": "number",
+        "$value": 0.05
+      },
+      "primitive.opacity.10": {
+        "$type": "number",
+        "$value": 0.1
+      },
+      "primitive.opacity.20": {
+        "$type": "number",
+        "$value": 0.2
+      },
+      "primitive.opacity.30": {
+        "$type": "number",
+        "$value": 0.3
+      },
+      "primitive.opacity.40": {
+        "$type": "number",
+        "$value": 0.4
+      },
+      "primitive.opacity.50": {
+        "$type": "number",
+        "$value": 0.5
+      },
+      "primitive.opacity.60": {
+        "$type": "number",
+        "$value": 0.6
+      },
+      "primitive.opacity.70": {
+        "$type": "number",
+        "$value": 0.7
+      },
+      "primitive.opacity.80": {
+        "$type": "number",
+        "$value": 0.8
+      },
+      "primitive.opacity.90": {
+        "$type": "number",
+        "$value": 0.9
+      },
+      "primitive.opacity.100": {
+        "$type": "number",
+        "$value": 1
+      },
+      "primitive.font.family.sans": {
+        "$type": "fontFamily",
+        "$value": [
+          "Inter",
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "sans-serif"
+        ]
+      },
+      "primitive.font.family.mono": {
+        "$type": "fontFamily",
+        "$value": [
+          "Roboto Mono",
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "monospace"
+        ]
+      },
+      "primitive.font.weight.regular": {
+        "$type": "number",
+        "$value": 400
+      },
+      "primitive.font.weight.medium": {
+        "$type": "number",
+        "$value": 500
+      },
+      "primitive.font.weight.semibold": {
+        "$type": "number",
+        "$value": 600
+      },
+      "primitive.font.weight.bold": {
+        "$type": "number",
+        "$value": 700
+      },
+      "primitive.duration.fast": {
+        "$type": "duration",
+        "$value": "120ms"
+      },
+      "primitive.duration.base": {
+        "$type": "duration",
+        "$value": "180ms"
+      },
+      "primitive.duration.slow": {
+        "$type": "duration",
+        "$value": "280ms"
+      },
+      "primitive.border.width.thin": {
+        "$type": "dimension",
+        "$value": "1px"
+      },
+      "primitive.border.width.focus": {
+        "$type": "dimension",
+        "$value": "2px"
+      },
+      "semantic.bg.app": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.bg.primary": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "semantic.bg.secondary": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.bg.tertiary": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.bg.elevated": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.bg.overlay": {
+        "$type": "color",
+        "$value": "#000000"
+      },
+      "semantic.bg.card": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.bg.card-hover": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "semantic.bg.hover": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.bg.active": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.bg.selected": {
+        "$type": "color",
+        "$value": "#f5f0ff"
+      },
+      "semantic.bg.disabled": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.bg.sidebar": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.bg.popover": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.bg.tooltip": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "semantic.bg.input": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.bg.button-primary": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "semantic.bg.button-primary-hover": {
+        "$type": "color",
+        "$value": "#5e29c2"
+      },
+      "semantic.bg.button-primary-active": {
+        "$type": "color",
+        "$value": "#4f219e"
+      },
+      "semantic.bg.button-secondary": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.bg.button-secondary-hover": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.bg.button-destructive": {
+        "$type": "color",
+        "$value": "#db2626"
+      },
+      "semantic.bg.button-destructive-hover": {
+        "$type": "color",
+        "$value": "#ba1c1c"
+      },
+      "semantic.bg.nav-active": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.bg.scrollbar": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.bg.scrollbar-hover": {
+        "$type": "color",
+        "$value": "#ccd1db"
+      },
+      "semantic.bg.skeleton": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.bg.skeleton-pulse": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.bg.badge": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.bg.table-header": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "semantic.bg.table-row-hover": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "semantic.bg.table-row-selected": {
+        "$type": "color",
+        "$value": "#f5f0ff"
+      },
+      "semantic.surface.default": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.surface.raised": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "semantic.surface.sunken": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.text.primary": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "semantic.text.secondary": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "semantic.text.tertiary": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "semantic.text.disabled": {
+        "$type": "color",
+        "$value": "#ccd1db"
+      },
+      "semantic.text.inverse": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.text.link": {
+        "$type": "color",
+        "$value": "#2659d1"
+      },
+      "semantic.text.accent": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "semantic.text.on-primary": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.text.on-accent": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.text.placeholder": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "semantic.text.label": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "semantic.text.tooltip": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "semantic.text.nav-active": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "semantic.text.nav-default": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "semantic.text.badge": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.text.success": {
+        "$type": "color",
+        "$value": "#178542"
+      },
+      "semantic.text.error": {
+        "$type": "color",
+        "$value": "#db2626"
+      },
+      "semantic.text.warning": {
+        "$type": "color",
+        "$value": "#d97305"
+      },
+      "semantic.icon.primary": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "semantic.icon.secondary": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "semantic.icon.accent": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "semantic.icon.disabled": {
+        "$type": "color",
+        "$value": "#ccd1db"
+      },
+      "semantic.icon.inverse": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "semantic.icon.success": {
+        "$type": "color",
+        "$value": "#178542"
+      },
+      "semantic.icon.error": {
+        "$type": "color",
+        "$value": "#db2626"
+      },
+      "semantic.icon.warning": {
+        "$type": "color",
+        "$value": "#d97305"
+      },
+      "semantic.icon.info": {
+        "$type": "color",
+        "$value": "#0d78a8"
+      },
+      "semantic.icon.on-primary": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.border.default": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.border.subtle": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.border.strong": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "semantic.border.accent": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "semantic.border.focus": {
+        "$type": "color",
+        "$value": "#3d78f0"
+      },
+      "semantic.border.focus-ring": {
+        "$type": "color",
+        "$value": "#3d78f0"
+      },
+      "semantic.border.disabled": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.border.error": {
+        "$type": "color",
+        "$value": "#f04545"
+      },
+      "semantic.border.success": {
+        "$type": "color",
+        "$value": "#21a354"
+      },
+      "semantic.border.warning": {
+        "$type": "color",
+        "$value": "#f5940f"
+      },
+      "semantic.border.divider": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.border.table": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.border.input": {
+        "$type": "color",
+        "$value": "#ccd1db"
+      },
+      "semantic.border.input-hover": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "semantic.border.input-focus": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "semantic.action.primary": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "semantic.action.primary-hover": {
+        "$type": "color",
+        "$value": "#5e29c2"
+      },
+      "semantic.action.primary-pressed": {
+        "$type": "color",
+        "$value": "#4f219e"
+      },
+      "semantic.action.secondary": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.action.secondary-hover": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.action.destructive": {
+        "$type": "color",
+        "$value": "#db2626"
+      },
+      "semantic.action.success": {
+        "$type": "color",
+        "$value": "#178542"
+      },
+      "semantic.action.disabled": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.status.success": {
+        "$type": "color",
+        "$value": "#178542"
+      },
+      "semantic.status.warning": {
+        "$type": "color",
+        "$value": "#d97305"
+      },
+      "semantic.status.error": {
+        "$type": "color",
+        "$value": "#db2626"
+      },
+      "semantic.status.info": {
+        "$type": "color",
+        "$value": "#0d78a8"
+      },
+      "semantic.status.success-bg": {
+        "$type": "color",
+        "$value": "#f0fcf2"
+      },
+      "semantic.status.error-bg": {
+        "$type": "color",
+        "$value": "#fff2f2"
+      },
+      "semantic.status.warning-bg": {
+        "$type": "color",
+        "$value": "#fffaeb"
+      },
+      "semantic.status.info-bg": {
+        "$type": "color",
+        "$value": "#edfcff"
+      },
+      "semantic.data.series-1": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "semantic.data.series-2": {
+        "$type": "color",
+        "$value": "#3d78f0"
+      },
+      "semantic.data.series-3": {
+        "$type": "color",
+        "$value": "#0d96c7"
+      },
+      "semantic.data.series-4": {
+        "$type": "color",
+        "$value": "#21a354"
+      },
+      "semantic.data.series-5": {
+        "$type": "color",
+        "$value": "#f5940f"
+      },
+      "semantic.data.series-6": {
+        "$type": "color",
+        "$value": "#f04545"
+      },
+      "semantic.brand.primary": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "semantic.brand.primary-hover": {
+        "$type": "color",
+        "$value": "#5e29c2"
+      },
+      "semantic.brand.accent": {
+        "$type": "color",
+        "$value": "#0d96c7"
+      },
+      "semantic.brand.purple": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "semantic.brand.blue": {
+        "$type": "color",
+        "$value": "#3d78f0"
+      },
+      "typography.display.xl": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 700,
+          "fontSize": "48px",
+          "lineHeight": "56px",
+          "letterSpacing": "-1.5px"
+        }
+      },
+      "typography.display.lg": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 700,
+          "fontSize": "36px",
+          "lineHeight": "44px",
+          "letterSpacing": "-1px"
+        }
+      },
+      "typography.display.md": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 600,
+          "fontSize": "30px",
+          "lineHeight": "38px",
+          "letterSpacing": "-0.5px"
+        }
+      },
+      "typography.heading.h1": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 600,
+          "fontSize": "24px",
+          "lineHeight": "32px",
+          "letterSpacing": "-0.3px"
+        }
+      },
+      "typography.heading.h2": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 600,
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "letterSpacing": "-0.2px"
+        }
+      },
+      "typography.heading.h3": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "18px",
+          "lineHeight": "26px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.heading.h4": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "16px",
+          "lineHeight": "24px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.body.lg": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 400,
+          "fontSize": "18px",
+          "lineHeight": "28px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.body.md": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 400,
+          "fontSize": "16px",
+          "lineHeight": "24px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.body.sm": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 400,
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.body.xs": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 400,
+          "fontSize": "12px",
+          "lineHeight": "18px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.label.lg": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.label.md": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "12px",
+          "lineHeight": "18px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.label.sm": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "11px",
+          "lineHeight": "16px",
+          "letterSpacing": "0.2px"
+        }
+      },
+      "typography.label.xs": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "10px",
+          "lineHeight": "14px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "typography.kpi.lg": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 700,
+          "fontSize": "36px",
+          "lineHeight": "44px",
+          "letterSpacing": "-1px"
+        }
+      },
+      "typography.kpi.md": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 700,
+          "fontSize": "28px",
+          "lineHeight": "36px",
+          "letterSpacing": "-0.5px"
+        }
+      },
+      "typography.kpi.sm": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 700,
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "letterSpacing": "-0.3px"
+        }
+      },
+      "typography.caption": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 400,
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "letterSpacing": "0.2px"
+        }
+      },
+      "typography.overline": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 600,
+          "fontSize": "11px",
+          "lineHeight": "16px",
+          "letterSpacing": "1.5px",
+          "textTransform": "uppercase"
+        }
+      },
+      "typography.code": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Roboto Mono",
+            "ui-monospace",
+            "SFMono-Regular",
+            "Menlo",
+            "monospace"
+          ],
+          "fontWeight": 400,
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "letterSpacing": "0"
+        }
+      },
+      "elevation.sm": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#00000014",
+            "offsetX": "0",
+            "offsetY": "1px",
+            "blur": "3px",
+            "spread": "0"
+          },
+          {
+            "color": "#0000000a",
+            "offsetX": "0",
+            "offsetY": "1px",
+            "blur": "2px",
+            "spread": "-1px"
+          }
+        ]
+      },
+      "elevation.md": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#0000001a",
+            "offsetX": "0",
+            "offsetY": "4px",
+            "blur": "8px",
+            "spread": "-2px"
+          },
+          {
+            "color": "#0000000f",
+            "offsetX": "0",
+            "offsetY": "2px",
+            "blur": "4px",
+            "spread": "-2px"
+          }
+        ]
+      },
+      "elevation.lg": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#0000001f",
+            "offsetX": "0",
+            "offsetY": "12px",
+            "blur": "20px",
+            "spread": "-4px"
+          },
+          {
+            "color": "#0000000f",
+            "offsetX": "0",
+            "offsetY": "4px",
+            "blur": "8px",
+            "spread": "-4px"
+          }
+        ]
+      },
+      "elevation.xl": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#00000033",
+            "offsetX": "0",
+            "offsetY": "24px",
+            "blur": "40px",
+            "spread": "-8px"
+          },
+          {
+            "color": "#00000014",
+            "offsetX": "0",
+            "offsetY": "8px",
+            "blur": "16px",
+            "spread": "-6px"
+          }
+        ]
+      },
+      "elevation.glow-purple": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#8554f540",
+            "offsetX": "0",
+            "offsetY": "0",
+            "blur": "24px",
+            "spread": "0"
+          }
+        ]
+      },
+      "elevation.glow-blue": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#3d78f040",
+            "offsetX": "0",
+            "offsetY": "0",
+            "blur": "24px",
+            "spread": "0"
+          }
+        ]
+      },
+      "elevation.glass-border": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#ffffff14",
+            "offsetX": "0",
+            "offsetY": "1px",
+            "blur": "0",
+            "spread": "0",
+            "inset": true
+          }
+        ]
+      },
+      "focus.ring": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#3d78f066",
+            "offsetX": "0",
+            "offsetY": "0",
+            "blur": "0",
+            "spread": "3px"
+          }
+        ]
+      },
+      "focus.ring-error": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#f0454566",
+            "offsetX": "0",
+            "offsetY": "0",
+            "blur": "0",
+            "spread": "3px"
+          }
+        ]
+      },
+      "backdrop.blur-sm": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "backdrop.blur-md": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "backdrop.blur-lg": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "component.button.bg": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "component.button.bg-hover": {
+        "$type": "color",
+        "$value": "#5e29c2"
+      },
+      "component.button.bg-active": {
+        "$type": "color",
+        "$value": "#4f219e"
+      },
+      "component.button.bg-disabled": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "component.button.fg": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "component.button.fg-disabled": {
+        "$type": "color",
+        "$value": "#ccd1db"
+      },
+      "component.button.border": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "component.button.danger-bg": {
+        "$type": "color",
+        "$value": "#db2626"
+      },
+      "component.button.focus-ring": {
+        "$type": "color",
+        "$value": "#3d78f0"
+      },
+      "component.button.radius": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.button.height-sm": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "component.button.height-md": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "component.button.height-lg": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "component.button.pad-inline-sm": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "component.button.pad-inline-md": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "component.button.pad-inline-lg": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "component.button.gap": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.button.motion": {
+        "$type": "duration",
+        "$value": "120ms"
+      },
+      "component.input.bg": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "component.input.bg-disabled": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "component.input.fg": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "component.input.fg-placeholder": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "component.input.border": {
+        "$type": "color",
+        "$value": "#ccd1db"
+      },
+      "component.input.border-hover": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "component.input.border-invalid": {
+        "$type": "color",
+        "$value": "#f04545"
+      },
+      "component.input.focus-ring": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "component.input.radius": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.input.height": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "component.input.pad-inline": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "component.input.motion": {
+        "$type": "duration",
+        "$value": "120ms"
+      }
+    },
+    "dark": {
+      "primitive.color.neutral.50": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "primitive.color.neutral.100": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "primitive.color.neutral.200": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "primitive.color.neutral.300": {
+        "$type": "color",
+        "$value": "#ccd1db"
+      },
+      "primitive.color.neutral.400": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "primitive.color.neutral.500": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "primitive.color.neutral.600": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "primitive.color.neutral.700": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "primitive.color.neutral.800": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "primitive.color.neutral.900": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "primitive.color.neutral.950": {
+        "$type": "color",
+        "$value": "#0d0f17"
+      },
+      "primitive.color.purple.50": {
+        "$type": "color",
+        "$value": "#f5f0ff"
+      },
+      "primitive.color.purple.100": {
+        "$type": "color",
+        "$value": "#ede3ff"
+      },
+      "primitive.color.purple.200": {
+        "$type": "color",
+        "$value": "#dbc9ff"
+      },
+      "primitive.color.purple.300": {
+        "$type": "color",
+        "$value": "#c2a6ff"
+      },
+      "primitive.color.purple.400": {
+        "$type": "color",
+        "$value": "#a178ff"
+      },
+      "primitive.color.purple.500": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "primitive.color.purple.600": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "primitive.color.purple.700": {
+        "$type": "color",
+        "$value": "#5e29c2"
+      },
+      "primitive.color.purple.800": {
+        "$type": "color",
+        "$value": "#4f219e"
+      },
+      "primitive.color.purple.900": {
+        "$type": "color",
+        "$value": "#401c80"
+      },
+      "primitive.color.blue.50": {
+        "$type": "color",
+        "$value": "#f0f5ff"
+      },
+      "primitive.color.blue.100": {
+        "$type": "color",
+        "$value": "#deebff"
+      },
+      "primitive.color.blue.200": {
+        "$type": "color",
+        "$value": "#c2d9ff"
+      },
+      "primitive.color.blue.300": {
+        "$type": "color",
+        "$value": "#94bdff"
+      },
+      "primitive.color.blue.400": {
+        "$type": "color",
+        "$value": "#6196ff"
+      },
+      "primitive.color.blue.500": {
+        "$type": "color",
+        "$value": "#3d78f0"
+      },
+      "primitive.color.blue.600": {
+        "$type": "color",
+        "$value": "#2659d1"
+      },
+      "primitive.color.blue.700": {
+        "$type": "color",
+        "$value": "#1c45a8"
+      },
+      "primitive.color.blue.800": {
+        "$type": "color",
+        "$value": "#1f3b87"
+      },
+      "primitive.color.blue.900": {
+        "$type": "color",
+        "$value": "#1f366e"
+      },
+      "primitive.color.green.50": {
+        "$type": "color",
+        "$value": "#f0fcf2"
+      },
+      "primitive.color.green.100": {
+        "$type": "color",
+        "$value": "#dbf7e3"
+      },
+      "primitive.color.green.200": {
+        "$type": "color",
+        "$value": "#bdedc9"
+      },
+      "primitive.color.green.300": {
+        "$type": "color",
+        "$value": "#87de9e"
+      },
+      "primitive.color.green.400": {
+        "$type": "color",
+        "$value": "#4ac270"
+      },
+      "primitive.color.green.500": {
+        "$type": "color",
+        "$value": "#21a354"
+      },
+      "primitive.color.green.600": {
+        "$type": "color",
+        "$value": "#178542"
+      },
+      "primitive.color.green.700": {
+        "$type": "color",
+        "$value": "#17693b"
+      },
+      "primitive.color.green.800": {
+        "$type": "color",
+        "$value": "#1a5233"
+      },
+      "primitive.color.green.900": {
+        "$type": "color",
+        "$value": "#17452e"
+      },
+      "primitive.color.red.50": {
+        "$type": "color",
+        "$value": "#fff2f2"
+      },
+      "primitive.color.red.100": {
+        "$type": "color",
+        "$value": "#ffe3e3"
+      },
+      "primitive.color.red.200": {
+        "$type": "color",
+        "$value": "#ffc9c9"
+      },
+      "primitive.color.red.300": {
+        "$type": "color",
+        "$value": "#ffa1a1"
+      },
+      "primitive.color.red.400": {
+        "$type": "color",
+        "$value": "#fa7070"
+      },
+      "primitive.color.red.500": {
+        "$type": "color",
+        "$value": "#f04545"
+      },
+      "primitive.color.red.600": {
+        "$type": "color",
+        "$value": "#db2626"
+      },
+      "primitive.color.red.700": {
+        "$type": "color",
+        "$value": "#ba1c1c"
+      },
+      "primitive.color.red.800": {
+        "$type": "color",
+        "$value": "#991c1c"
+      },
+      "primitive.color.red.900": {
+        "$type": "color",
+        "$value": "#802121"
+      },
+      "primitive.color.amber.50": {
+        "$type": "color",
+        "$value": "#fffaeb"
+      },
+      "primitive.color.amber.100": {
+        "$type": "color",
+        "$value": "#fff2d1"
+      },
+      "primitive.color.amber.200": {
+        "$type": "color",
+        "$value": "#ffe09e"
+      },
+      "primitive.color.amber.300": {
+        "$type": "color",
+        "$value": "#ffc961"
+      },
+      "primitive.color.amber.400": {
+        "$type": "color",
+        "$value": "#ffb02b"
+      },
+      "primitive.color.amber.500": {
+        "$type": "color",
+        "$value": "#f5940f"
+      },
+      "primitive.color.amber.600": {
+        "$type": "color",
+        "$value": "#d97305"
+      },
+      "primitive.color.amber.700": {
+        "$type": "color",
+        "$value": "#b5540a"
+      },
+      "primitive.color.amber.800": {
+        "$type": "color",
+        "$value": "#94420f"
+      },
+      "primitive.color.amber.900": {
+        "$type": "color",
+        "$value": "#783814"
+      },
+      "primitive.color.cyan.50": {
+        "$type": "color",
+        "$value": "#edfcff"
+      },
+      "primitive.color.cyan.100": {
+        "$type": "color",
+        "$value": "#cff5ff"
+      },
+      "primitive.color.cyan.200": {
+        "$type": "color",
+        "$value": "#a6e8fc"
+      },
+      "primitive.color.cyan.300": {
+        "$type": "color",
+        "$value": "#69d6f7"
+      },
+      "primitive.color.cyan.400": {
+        "$type": "color",
+        "$value": "#21b8e8"
+      },
+      "primitive.color.cyan.500": {
+        "$type": "color",
+        "$value": "#0d96c7"
+      },
+      "primitive.color.cyan.600": {
+        "$type": "color",
+        "$value": "#0d78a8"
+      },
+      "primitive.color.cyan.700": {
+        "$type": "color",
+        "$value": "#0f618a"
+      },
+      "primitive.color.cyan.800": {
+        "$type": "color",
+        "$value": "#174f70"
+      },
+      "primitive.color.cyan.900": {
+        "$type": "color",
+        "$value": "#14425e"
+      },
+      "primitive.color.white": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "primitive.color.black": {
+        "$type": "color",
+        "$value": "#000000"
+      },
+      "primitive.space.0": {
+        "$type": "dimension",
+        "$value": "0px"
+      },
+      "primitive.space.1": {
+        "$type": "dimension",
+        "$value": "2px"
+      },
+      "primitive.space.2": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "primitive.space.3": {
+        "$type": "dimension",
+        "$value": "6px"
+      },
+      "primitive.space.4": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "primitive.space.5": {
+        "$type": "dimension",
+        "$value": "10px"
+      },
+      "primitive.space.6": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.space.8": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "primitive.space.10": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "primitive.space.12": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "primitive.space.16": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.space.20": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "primitive.space.24": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "primitive.space.32": {
+        "$type": "dimension",
+        "$value": "64px"
+      },
+      "primitive.space.40": {
+        "$type": "dimension",
+        "$value": "80px"
+      },
+      "primitive.space.48": {
+        "$type": "dimension",
+        "$value": "96px"
+      },
+      "primitive.space.64": {
+        "$type": "dimension",
+        "$value": "128px"
+      },
+      "primitive.radius.none": {
+        "$type": "dimension",
+        "$value": "0px"
+      },
+      "primitive.radius.xs": {
+        "$type": "dimension",
+        "$value": "2px"
+      },
+      "primitive.radius.sm": {
+        "$type": "dimension",
+        "$value": "4px"
+      },
+      "primitive.radius.md": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "primitive.radius.lg": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.radius.xl": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "primitive.radius.2xl": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "primitive.radius.3xl": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "primitive.radius.full": {
+        "$type": "dimension",
+        "$value": "9999px"
+      },
+      "primitive.size.icon-xs": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "primitive.size.icon-sm": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "primitive.size.icon-md": {
+        "$type": "dimension",
+        "$value": "20px"
+      },
+      "primitive.size.icon-lg": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "primitive.size.icon-xl": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.size.avatar-sm": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.size.avatar-md": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "primitive.size.avatar-lg": {
+        "$type": "dimension",
+        "$value": "56px"
+      },
+      "primitive.size.avatar-xl": {
+        "$type": "dimension",
+        "$value": "72px"
+      },
+      "primitive.size.button-sm": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "primitive.size.button-md": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "primitive.size.button-lg": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "primitive.size.sidebar": {
+        "$type": "dimension",
+        "$value": "64px"
+      },
+      "primitive.size.sidebar-expanded": {
+        "$type": "dimension",
+        "$value": "240px"
+      },
+      "primitive.size.topbar": {
+        "$type": "dimension",
+        "$value": "56px"
+      },
+      "primitive.size.card-min": {
+        "$type": "dimension",
+        "$value": "280px"
+      },
+      "primitive.size.target-min": {
+        "$type": "dimension",
+        "$value": "44px"
+      },
+      "primitive.opacity.0": {
+        "$type": "number",
+        "$value": 0
+      },
+      "primitive.opacity.5": {
+        "$type": "number",
+        "$value": 0.05
+      },
+      "primitive.opacity.10": {
+        "$type": "number",
+        "$value": 0.1
+      },
+      "primitive.opacity.20": {
+        "$type": "number",
+        "$value": 0.2
+      },
+      "primitive.opacity.30": {
+        "$type": "number",
+        "$value": 0.3
+      },
+      "primitive.opacity.40": {
+        "$type": "number",
+        "$value": 0.4
+      },
+      "primitive.opacity.50": {
+        "$type": "number",
+        "$value": 0.5
+      },
+      "primitive.opacity.60": {
+        "$type": "number",
+        "$value": 0.6
+      },
+      "primitive.opacity.70": {
+        "$type": "number",
+        "$value": 0.7
+      },
+      "primitive.opacity.80": {
+        "$type": "number",
+        "$value": 0.8
+      },
+      "primitive.opacity.90": {
+        "$type": "number",
+        "$value": 0.9
+      },
+      "primitive.opacity.100": {
+        "$type": "number",
+        "$value": 1
+      },
+      "primitive.font.family.sans": {
+        "$type": "fontFamily",
+        "$value": [
+          "Inter",
+          "system-ui",
+          "-apple-system",
+          "Segoe UI",
+          "sans-serif"
+        ]
+      },
+      "primitive.font.family.mono": {
+        "$type": "fontFamily",
+        "$value": [
+          "Roboto Mono",
+          "ui-monospace",
+          "SFMono-Regular",
+          "Menlo",
+          "monospace"
+        ]
+      },
+      "primitive.font.weight.regular": {
+        "$type": "number",
+        "$value": 400
+      },
+      "primitive.font.weight.medium": {
+        "$type": "number",
+        "$value": 500
+      },
+      "primitive.font.weight.semibold": {
+        "$type": "number",
+        "$value": 600
+      },
+      "primitive.font.weight.bold": {
+        "$type": "number",
+        "$value": 700
+      },
+      "primitive.duration.fast": {
+        "$type": "duration",
+        "$value": "120ms"
+      },
+      "primitive.duration.base": {
+        "$type": "duration",
+        "$value": "180ms"
+      },
+      "primitive.duration.slow": {
+        "$type": "duration",
+        "$value": "280ms"
+      },
+      "primitive.border.width.thin": {
+        "$type": "dimension",
+        "$value": "1px"
+      },
+      "primitive.border.width.focus": {
+        "$type": "dimension",
+        "$value": "2px"
+      },
+      "semantic.bg.app": {
+        "$type": "color",
+        "$value": "#0d0f17"
+      },
+      "semantic.bg.primary": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "semantic.bg.secondary": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "semantic.bg.tertiary": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.bg.elevated": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "semantic.bg.overlay": {
+        "$type": "color",
+        "$value": "#000000"
+      },
+      "semantic.bg.card": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "semantic.bg.card-hover": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.bg.hover": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.bg.active": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "semantic.bg.selected": {
+        "$type": "color",
+        "$value": "#401c80"
+      },
+      "semantic.bg.disabled": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "semantic.bg.sidebar": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "semantic.bg.popover": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "semantic.bg.tooltip": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.bg.input": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "semantic.bg.button-primary": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "semantic.bg.button-primary-hover": {
+        "$type": "color",
+        "$value": "#a178ff"
+      },
+      "semantic.bg.button-primary-active": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "semantic.bg.button-secondary": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.bg.button-secondary-hover": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "semantic.bg.button-destructive": {
+        "$type": "color",
+        "$value": "#f04545"
+      },
+      "semantic.bg.button-destructive-hover": {
+        "$type": "color",
+        "$value": "#fa7070"
+      },
+      "semantic.bg.nav-active": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.bg.scrollbar": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.bg.scrollbar-hover": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "semantic.bg.skeleton": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.bg.skeleton-pulse": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "semantic.bg.badge": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.bg.table-header": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "semantic.bg.table-row-hover": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.bg.table-row-selected": {
+        "$type": "color",
+        "$value": "#401c80"
+      },
+      "semantic.surface.default": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "semantic.surface.raised": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "semantic.surface.sunken": {
+        "$type": "color",
+        "$value": "#0d0f17"
+      },
+      "semantic.text.primary": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "semantic.text.secondary": {
+        "$type": "color",
+        "$value": "#ccd1db"
+      },
+      "semantic.text.tertiary": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "semantic.text.disabled": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "semantic.text.inverse": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "semantic.text.link": {
+        "$type": "color",
+        "$value": "#6196ff"
+      },
+      "semantic.text.accent": {
+        "$type": "color",
+        "$value": "#a178ff"
+      },
+      "semantic.text.on-primary": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.text.on-accent": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.text.placeholder": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "semantic.text.label": {
+        "$type": "color",
+        "$value": "#ccd1db"
+      },
+      "semantic.text.tooltip": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "semantic.text.nav-active": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "semantic.text.nav-default": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "semantic.text.badge": {
+        "$type": "color",
+        "$value": "#e3e5ed"
+      },
+      "semantic.text.success": {
+        "$type": "color",
+        "$value": "#4ac270"
+      },
+      "semantic.text.error": {
+        "$type": "color",
+        "$value": "#fa7070"
+      },
+      "semantic.text.warning": {
+        "$type": "color",
+        "$value": "#ffb02b"
+      },
+      "semantic.icon.primary": {
+        "$type": "color",
+        "$value": "#f2f2f7"
+      },
+      "semantic.icon.secondary": {
+        "$type": "color",
+        "$value": "#9ea6b5"
+      },
+      "semantic.icon.accent": {
+        "$type": "color",
+        "$value": "#a178ff"
+      },
+      "semantic.icon.disabled": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "semantic.icon.inverse": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "semantic.icon.success": {
+        "$type": "color",
+        "$value": "#4ac270"
+      },
+      "semantic.icon.error": {
+        "$type": "color",
+        "$value": "#fa7070"
+      },
+      "semantic.icon.warning": {
+        "$type": "color",
+        "$value": "#ffb02b"
+      },
+      "semantic.icon.info": {
+        "$type": "color",
+        "$value": "#21b8e8"
+      },
+      "semantic.icon.on-primary": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "semantic.border.default": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.border.subtle": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "semantic.border.strong": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "semantic.border.accent": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "semantic.border.focus": {
+        "$type": "color",
+        "$value": "#6196ff"
+      },
+      "semantic.border.focus-ring": {
+        "$type": "color",
+        "$value": "#6196ff"
+      },
+      "semantic.border.disabled": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.border.error": {
+        "$type": "color",
+        "$value": "#f04545"
+      },
+      "semantic.border.success": {
+        "$type": "color",
+        "$value": "#21a354"
+      },
+      "semantic.border.warning": {
+        "$type": "color",
+        "$value": "#f5940f"
+      },
+      "semantic.border.divider": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "semantic.border.table": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.border.input": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "semantic.border.input-hover": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "semantic.border.input-focus": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "semantic.action.primary": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "semantic.action.primary-hover": {
+        "$type": "color",
+        "$value": "#a178ff"
+      },
+      "semantic.action.primary-pressed": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "semantic.action.secondary": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.action.secondary-hover": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "semantic.action.destructive": {
+        "$type": "color",
+        "$value": "#f04545"
+      },
+      "semantic.action.success": {
+        "$type": "color",
+        "$value": "#21a354"
+      },
+      "semantic.action.disabled": {
+        "$type": "color",
+        "$value": "#383d4d"
+      },
+      "semantic.status.success": {
+        "$type": "color",
+        "$value": "#4ac270"
+      },
+      "semantic.status.warning": {
+        "$type": "color",
+        "$value": "#ffb02b"
+      },
+      "semantic.status.error": {
+        "$type": "color",
+        "$value": "#fa7070"
+      },
+      "semantic.status.info": {
+        "$type": "color",
+        "$value": "#21b8e8"
+      },
+      "semantic.status.success-bg": {
+        "$type": "color",
+        "$value": "#17452e"
+      },
+      "semantic.status.error-bg": {
+        "$type": "color",
+        "$value": "#802121"
+      },
+      "semantic.status.warning-bg": {
+        "$type": "color",
+        "$value": "#783814"
+      },
+      "semantic.status.info-bg": {
+        "$type": "color",
+        "$value": "#14425e"
+      },
+      "semantic.data.series-1": {
+        "$type": "color",
+        "$value": "#a178ff"
+      },
+      "semantic.data.series-2": {
+        "$type": "color",
+        "$value": "#6196ff"
+      },
+      "semantic.data.series-3": {
+        "$type": "color",
+        "$value": "#21b8e8"
+      },
+      "semantic.data.series-4": {
+        "$type": "color",
+        "$value": "#4ac270"
+      },
+      "semantic.data.series-5": {
+        "$type": "color",
+        "$value": "#ffb02b"
+      },
+      "semantic.data.series-6": {
+        "$type": "color",
+        "$value": "#fa7070"
+      },
+      "semantic.brand.primary": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "semantic.brand.primary-hover": {
+        "$type": "color",
+        "$value": "#a178ff"
+      },
+      "semantic.brand.accent": {
+        "$type": "color",
+        "$value": "#21b8e8"
+      },
+      "semantic.brand.purple": {
+        "$type": "color",
+        "$value": "#a178ff"
+      },
+      "semantic.brand.blue": {
+        "$type": "color",
+        "$value": "#6196ff"
+      },
+      "typography.display.xl": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 700,
+          "fontSize": "48px",
+          "lineHeight": "56px",
+          "letterSpacing": "-1.5px"
+        }
+      },
+      "typography.display.lg": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 700,
+          "fontSize": "36px",
+          "lineHeight": "44px",
+          "letterSpacing": "-1px"
+        }
+      },
+      "typography.display.md": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 600,
+          "fontSize": "30px",
+          "lineHeight": "38px",
+          "letterSpacing": "-0.5px"
+        }
+      },
+      "typography.heading.h1": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 600,
+          "fontSize": "24px",
+          "lineHeight": "32px",
+          "letterSpacing": "-0.3px"
+        }
+      },
+      "typography.heading.h2": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 600,
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "letterSpacing": "-0.2px"
+        }
+      },
+      "typography.heading.h3": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "18px",
+          "lineHeight": "26px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.heading.h4": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "16px",
+          "lineHeight": "24px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.body.lg": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 400,
+          "fontSize": "18px",
+          "lineHeight": "28px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.body.md": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 400,
+          "fontSize": "16px",
+          "lineHeight": "24px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.body.sm": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 400,
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.body.xs": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 400,
+          "fontSize": "12px",
+          "lineHeight": "18px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.label.lg": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "14px",
+          "lineHeight": "20px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.label.md": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "12px",
+          "lineHeight": "18px",
+          "letterSpacing": "0"
+        }
+      },
+      "typography.label.sm": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "11px",
+          "lineHeight": "16px",
+          "letterSpacing": "0.2px"
+        }
+      },
+      "typography.label.xs": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 500,
+          "fontSize": "10px",
+          "lineHeight": "14px",
+          "letterSpacing": "0.3px"
+        }
+      },
+      "typography.kpi.lg": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 700,
+          "fontSize": "36px",
+          "lineHeight": "44px",
+          "letterSpacing": "-1px"
+        }
+      },
+      "typography.kpi.md": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 700,
+          "fontSize": "28px",
+          "lineHeight": "36px",
+          "letterSpacing": "-0.5px"
+        }
+      },
+      "typography.kpi.sm": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 700,
+          "fontSize": "20px",
+          "lineHeight": "28px",
+          "letterSpacing": "-0.3px"
+        }
+      },
+      "typography.caption": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 400,
+          "fontSize": "12px",
+          "lineHeight": "16px",
+          "letterSpacing": "0.2px"
+        }
+      },
+      "typography.overline": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Inter",
+            "system-ui",
+            "-apple-system",
+            "Segoe UI",
+            "sans-serif"
+          ],
+          "fontWeight": 600,
+          "fontSize": "11px",
+          "lineHeight": "16px",
+          "letterSpacing": "1.5px",
+          "textTransform": "uppercase"
+        }
+      },
+      "typography.code": {
+        "$type": "typography",
+        "$value": {
+          "fontFamily": [
+            "Roboto Mono",
+            "ui-monospace",
+            "SFMono-Regular",
+            "Menlo",
+            "monospace"
+          ],
+          "fontWeight": 400,
+          "fontSize": "13px",
+          "lineHeight": "20px",
+          "letterSpacing": "0"
+        }
+      },
+      "elevation.sm": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#00000014",
+            "offsetX": "0",
+            "offsetY": "1px",
+            "blur": "3px",
+            "spread": "0"
+          },
+          {
+            "color": "#0000000a",
+            "offsetX": "0",
+            "offsetY": "1px",
+            "blur": "2px",
+            "spread": "-1px"
+          }
+        ]
+      },
+      "elevation.md": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#0000001a",
+            "offsetX": "0",
+            "offsetY": "4px",
+            "blur": "8px",
+            "spread": "-2px"
+          },
+          {
+            "color": "#0000000f",
+            "offsetX": "0",
+            "offsetY": "2px",
+            "blur": "4px",
+            "spread": "-2px"
+          }
+        ]
+      },
+      "elevation.lg": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#0000001f",
+            "offsetX": "0",
+            "offsetY": "12px",
+            "blur": "20px",
+            "spread": "-4px"
+          },
+          {
+            "color": "#0000000f",
+            "offsetX": "0",
+            "offsetY": "4px",
+            "blur": "8px",
+            "spread": "-4px"
+          }
+        ]
+      },
+      "elevation.xl": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#00000033",
+            "offsetX": "0",
+            "offsetY": "24px",
+            "blur": "40px",
+            "spread": "-8px"
+          },
+          {
+            "color": "#00000014",
+            "offsetX": "0",
+            "offsetY": "8px",
+            "blur": "16px",
+            "spread": "-6px"
+          }
+        ]
+      },
+      "elevation.glow-purple": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#8554f540",
+            "offsetX": "0",
+            "offsetY": "0",
+            "blur": "24px",
+            "spread": "0"
+          }
+        ]
+      },
+      "elevation.glow-blue": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#3d78f040",
+            "offsetX": "0",
+            "offsetY": "0",
+            "blur": "24px",
+            "spread": "0"
+          }
+        ]
+      },
+      "elevation.glass-border": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#ffffff14",
+            "offsetX": "0",
+            "offsetY": "1px",
+            "blur": "0",
+            "spread": "0",
+            "inset": true
+          }
+        ]
+      },
+      "focus.ring": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#3d78f066",
+            "offsetX": "0",
+            "offsetY": "0",
+            "blur": "0",
+            "spread": "3px"
+          }
+        ]
+      },
+      "focus.ring-error": {
+        "$type": "shadow",
+        "$value": [
+          {
+            "color": "#f0454566",
+            "offsetX": "0",
+            "offsetY": "0",
+            "blur": "0",
+            "spread": "3px"
+          }
+        ]
+      },
+      "backdrop.blur-sm": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "backdrop.blur-md": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "backdrop.blur-lg": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "component.button.bg": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "component.button.bg-hover": {
+        "$type": "color",
+        "$value": "#a178ff"
+      },
+      "component.button.bg-active": {
+        "$type": "color",
+        "$value": "#7038e3"
+      },
+      "component.button.bg-disabled": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "component.button.fg": {
+        "$type": "color",
+        "$value": "#ffffff"
+      },
+      "component.button.fg-disabled": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "component.button.border": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "component.button.danger-bg": {
+        "$type": "color",
+        "$value": "#f04545"
+      },
+      "component.button.focus-ring": {
+        "$type": "color",
+        "$value": "#6196ff"
+      },
+      "component.button.radius": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.button.height-sm": {
+        "$type": "dimension",
+        "$value": "32px"
+      },
+      "component.button.height-md": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "component.button.height-lg": {
+        "$type": "dimension",
+        "$value": "48px"
+      },
+      "component.button.pad-inline-sm": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "component.button.pad-inline-md": {
+        "$type": "dimension",
+        "$value": "16px"
+      },
+      "component.button.pad-inline-lg": {
+        "$type": "dimension",
+        "$value": "24px"
+      },
+      "component.button.gap": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.button.motion": {
+        "$type": "duration",
+        "$value": "120ms"
+      },
+      "component.input.bg": {
+        "$type": "color",
+        "$value": "#1a1c26"
+      },
+      "component.input.bg-disabled": {
+        "$type": "color",
+        "$value": "#262936"
+      },
+      "component.input.fg": {
+        "$type": "color",
+        "$value": "#fafafc"
+      },
+      "component.input.fg-placeholder": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "component.input.border": {
+        "$type": "color",
+        "$value": "#545c6b"
+      },
+      "component.input.border-hover": {
+        "$type": "color",
+        "$value": "#70788a"
+      },
+      "component.input.border-invalid": {
+        "$type": "color",
+        "$value": "#f04545"
+      },
+      "component.input.focus-ring": {
+        "$type": "color",
+        "$value": "#8554f5"
+      },
+      "component.input.radius": {
+        "$type": "dimension",
+        "$value": "8px"
+      },
+      "component.input.height": {
+        "$type": "dimension",
+        "$value": "40px"
+      },
+      "component.input.pad-inline": {
+        "$type": "dimension",
+        "$value": "12px"
+      },
+      "component.input.motion": {
+        "$type": "duration",
+        "$value": "120ms"
+      }
+    }
+  }
+}

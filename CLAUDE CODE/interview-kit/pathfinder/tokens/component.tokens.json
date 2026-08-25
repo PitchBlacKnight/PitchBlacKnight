@@ -1,0 +1,48 @@
+{
+  "$description": "Tier 3 — COMPONENT. Localised exceptions, not global rules. Each token references semantic (for colour, which re-themes) or primitive (for dimensions, which don't). A component token exists only where a component needs to diverge, or where a per-component change must be possible without disturbing everything else sharing the semantic.",
+  "$sourceNote": "Pathfinder's Figma file already ships bg/button-primary, bg/button-secondary, bg/button-destructive, border/input, border/input-focus and friends inside the PF3/Semantic collection — component-tier names living at the semantic tier. Rather than rename 105 variables and break every binding in the file, this tier points at them and the build reports them as mis-tiered. That is the honest state of the system: the names are right, the home is wrong.",
+
+  "component": {
+    "button": {
+      "bg":            { "$type": "color",     "$value": "{semantic.bg.button-primary}" },
+      "bg-hover":      { "$type": "color",     "$value": "{semantic.bg.button-primary-hover}" },
+      "bg-active":     { "$type": "color",     "$value": "{semantic.bg.button-primary-active}" },
+      "bg-disabled":   { "$type": "color",     "$value": "{semantic.bg.disabled}" },
+      "fg":            { "$type": "color",     "$value": "{semantic.text.on-primary}" },
+      "fg-disabled":   { "$type": "color",     "$value": "{semantic.text.disabled}" },
+      "border":        { "$type": "color",     "$value": "{semantic.border.strong}" },
+      "danger-bg":     { "$type": "color",     "$value": "{semantic.bg.button-destructive}" },
+      "focus-ring":    { "$type": "color",     "$value": "{semantic.border.focus-ring}" },
+      "radius":        { "$type": "dimension", "$value": "{primitive.radius.md}" },
+      "height-sm":     { "$type": "dimension", "$value": "{primitive.size.button-sm}" },
+      "height-md":     { "$type": "dimension", "$value": "{primitive.size.button-md}" },
+      "height-lg":     { "$type": "dimension", "$value": "{primitive.size.button-lg}" },
+      "pad-inline-sm": { "$type": "dimension", "$value": "{primitive.space.6}" },
+      "pad-inline-md": { "$type": "dimension", "$value": "{primitive.space.8}" },
+      "pad-inline-lg": { "$type": "dimension", "$value": "{primitive.space.12}" },
+      "gap":           { "$type": "dimension", "$value": "{primitive.space.4}" },
+      "motion":        { "$type": "duration",  "$value": "{primitive.duration.fast}" }
+    },
+
+    "input": {
+      "bg":             { "$type": "color",     "$value": "{semantic.bg.input}" },
+      "bg-disabled":    { "$type": "color",     "$value": "{semantic.bg.disabled}" },
+      "fg":             { "$type": "color",     "$value": "{semantic.text.primary}" },
+      "fg-placeholder": { "$type": "color",     "$value": "{semantic.text.placeholder}" },
+      "border":         { "$type": "color",     "$value": "{semantic.border.input}" },
+      "border-hover":   { "$type": "color",     "$value": "{semantic.border.input-hover}" },
+      "border-invalid": { "$type": "color",     "$value": "{semantic.border.error}" },
+      "focus-ring":     { "$type": "color",     "$value": "{semantic.border.input-focus}" },
+      "radius":         { "$type": "dimension", "$value": "{primitive.radius.md}" },
+      "height":         { "$type": "dimension", "$value": "{primitive.size.button-md}" },
+      "pad-inline":     { "$type": "dimension", "$value": "{primitive.space.6}" },
+      "motion":         { "$type": "duration",  "$value": "{primitive.duration.fast}" }
+    }
+  },
+
+  "$governance": {
+    "rule": "primitive → semantic → component. References point one way only. A component token that merely restates its semantic with a new name should not exist.",
+    "deprecation": "A token leaves the system the same way it enters it: marked $deprecated with a $replacedBy pointer, kept for one minor version, removed at the next major. Contribution paths are common; deprecation paths are what actually keep a system from accumulating three generations of names — this file has three of them (_Legacy/Tailwind, _Legacy/Global Tokens, _Legacy/Semantic Tokens, 452 variables) sitting alongside PF3.",
+    "focusRing": "component.button.focus-ring and component.input.focus-ring resolve to different colours — border/focus-ring (blue) and border/input-focus (purple). Two focus colours in one system is a defect, not a nuance. Recorded here rather than quietly unified, because unifying it is a design decision and not a build step."
+  }
+}

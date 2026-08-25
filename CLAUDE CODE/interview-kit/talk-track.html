@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Talk track — State Farm, point by point</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css?v=4">
+<style>
+  .jd{
+    font-family:var(--mono);font-size:12px;line-height:1.7;color:var(--ink-3);
+    border-left:2px solid var(--line-2);padding:var(--s2) 0 var(--s2) var(--s4);
+    margin-bottom:var(--s4);
+  }
+  .jd b{color:var(--ink-2);font-weight:400}
+  .asking{font-size:13.5px;color:var(--ink-2);line-height:1.6;margin-bottom:var(--s4)}
+  .asking strong{color:var(--ink);font-weight:500}
+  .trap{
+    margin-top:var(--s4);padding:var(--s3) var(--s4);border:1px solid rgba(217,164,65,.28);
+    background:rgba(217,164,65,.06);border-radius:var(--r-md);font-size:12.5px;color:var(--ink-2);line-height:1.6;
+  }
+  .trap b{font-family:var(--mono);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--warn);display:block;margin-bottom:5px}
+  .pt{display:flex;align-items:baseline;gap:var(--s4);margin-bottom:var(--s3)}
+  .pt .n{font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.1em}
+  .pt h3{font-size:17px;font-weight:500;letter-spacing:-.02em;line-height:1.25}
+</style>
+</head>
+<body>
+
+<div class="shell">
+
+  <aside class="rail">
+    <a class="brand" href="index.html">
+      <div class="mark">Talk Track</div>
+      <h1>State Farm</h1>
+      <div class="sub">10 points · practise out loud</div>
+    </a>
+    <nav class="nav" id="nav"></nav>
+    <div class="railfoot">
+      <div><kbd>R</kbd> &nbsp;practise mode</div>
+      <div><kbd>⌘</kbd><kbd>K</kbd> &nbsp;jump</div>
+      <div><kbd>J</kbd><kbd>K</kbd> &nbsp;next / prev</div>
+    </div>
+  </aside>
+
+  <div>
+  <header class="top">
+    <div class="who">
+      <strong>Talk track — point by point</strong>
+      <span> &nbsp;·&nbsp; every line of their JD, answered</span>
+    </div>
+    <nav class="swap">
+      <a href="index.html">Hub</a>
+      <a href="stephen.html">Stephen</a>
+      <a href="say.html">Say this</a>
+      <a href="state-farm.html">State Farm</a>
+      <a href="case-study.html">Case study</a>
+      <a href="phone.html">Voice</a>
+      <a href="methods.html">Methods</a>
+      <a href="questions.html">Questions</a>
+      <a href="talk-track.html" class="here">Talk track</a>
+      <a href="figma-demo.html">Figma</a>
+      <a href="goji-labs.html">Goji</a>
+      <a href="loom.html">Loom</a>
+      <a href="landscape.html">Landscape</a>
+    </nav>
+    <button class="btn" id="palBtn">⌘K</button>
+    <button class="btn btn--go" id="rehBtn">▶ &nbsp;Practise</button>
+  </header>
+
+  <main>
+
+    <section id="s0" class="hero">
+      <div class="kicker">00 — How to use this</div>
+      <h2 class="big">Ten points. <em>One answer each.</em> Say them out loud until they're yours.</h2>
+
+      <div class="oneliner">
+        Every "what we need them to do" line in their JD, in their order, with what they're
+        actually asking underneath it. Press <kbd style="font-family:var(--mono);font-size:14px">R</kbd> for practise mode — one point at a
+        time, timed, so you hear yourself before they do.
+        <span>The Loom run sheet is section 11</span>
+      </div>
+
+      <div class="grid g3" style="margin-top:var(--s6)">
+        <div class="card beat">
+          <div class="bh"><h3>Answer, then stop</h3><div class="t">~30s each</div></div>
+          <p>Every one of these can be answered in three sentences. The instinct under pressure is to keep talking past the answer — that's what makes a senior person sound junior.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>Land on a specific</h3><div class="t">always</div></div>
+          <p>Each answer ends on a named system, a number, or a decision you made. "I care about governance" is nothing. "Three naming generations with no deprecation path" is an answer.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>You meet every requirement</h3><div class="t">all 16</div></div>
+          <p>Plugins, web components, TypeScript, pipelines, versioning, Storybook, metrics, AI workflows. Your job isn't to qualify — it's to make the evidence visible fast.</p>
+        </div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 01 -->
+    <section id="s1">
+      <div class="shead"><div class="num">01</div><h2>Token &amp; component architecture</h2></div>
+      <div class="card">
+        <div class="jd"><b>Their words:</b> "Maintain and evolve the architecture of our design tokens and web component ecosystem in close partnership with design system engineers."</div>
+        <p class="asking"><strong>What they're asking:</strong> can you own the architecture, or do you just design inside someone else's?</p>
+        <div class="say">Primitives stay private, semantics are the public API. That one decision is what lets a system absorb change instead of being replaced by it — at Avant it carried Pathfinder from 2.0 to 3.0 without a redesign. Most recently I owned both layers at Verizon, driving parity across iOS, Android and web, which is where the architecture either holds or doesn't.</div>
+        <div class="trap"><b>Trap</b> Drifting into visual design. They have designers. Stay on layering, naming, and what breaks when you get it wrong.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 02 -->
+    <section id="s2">
+      <div class="shead"><div class="num">02</div><h2>Production-quality web components</h2></div>
+      <div class="card">
+        <div class="jd"><b>Their words:</b> "Build production-quality web components, patterns, and templates aligned with the design system's tokens, standards, and accessibility requirements."</div>
+        <p class="asking"><strong>What they're asking:</strong> do you ship code other teams depend on, or specs someone else implements?</p>
+        <div class="say">A component isn't done when it looks right — it's done when every state exists, every value resolves to a token, and the accessibility contract is built in rather than reviewed in. At BCBS that meant React-compatible coded components with theming hooks, handed over without a re-draw. Anatomy is fixed, variants change appearance and never structure, and incomplete state coverage is a defect, not a backlog item.</div>
+        <div class="trap"><b>Trap</b> Talking about components as visual artifacts. Talk anatomy, state coverage, and the contract a consumer relies on.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 03 -->
+    <section id="s3">
+      <div class="shead"><div class="num">03</div><h2>Figma plugins &amp; automation</h2></div>
+      <div class="card">
+        <div class="jd"><b>Their words:</b> "Serve as a Figma expert and develop or maintain plugins that automate designer workflows and improve alignment with the design system."</div>
+        <p class="asking"><strong>What they're asking:</strong> can you remove busywork, or only document it?</p>
+        <div class="say">The most recent one exports a file's variable collections to W3C DTCG token JSON — so the tokens can leave Figma and feed a build pipeline. Writing it taught me the interesting problem isn't the API, it's that Figma has one FLOAT type and the token spec distinguishes a dimension from a number. There's no way to know from the API whether 4 means 4px or a 4× multiplier. The real fix is upstream, in the naming convention — which is a design system problem wearing an engineering costume.</div>
+        <p class="asking" style="margin-top:var(--s4)"><strong>Then the strategic frame, which is what a senior hire sounds like:</strong> "the plugins worth building here aren't the flashy ones. They're the ones that keep Figma in sync with a source of truth that lives outside it — which is the migration your JD describes."</p>
+        <div class="trap"><b>Trap</b> Listing Figma features. Name one automation, what it replaced, and one thing that surprised you building it. The friction detail is what proves you wrote it.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 04 -->
+    <section id="s4">
+      <div class="shead"><div class="num">04</div><h2>Skill-based system management</h2></div>
+      <div class="card" style="border-color:rgba(232,106,51,.32)">
+        <div class="jd"><b>Their words:</b> "Advance a modular, skill-based approach to design system management, enabling more workflows and system rules to be automated."</div>
+        <p class="asking"><strong>What they're asking:</strong> this is the bullet they expect nobody to answer. <strong>Show, don't describe.</strong> Get the file on screen inside the first fifteen minutes.</p>
+        <div class="say">I'd rather show you than describe it. This is a skill file — an output contract, reference files for tokens, components and accessibility, and a forced self-check before it returns anything. Two rules make it useful: every generated value carries an inline comment naming the token it came from, so output is auditable rather than trusted; and it has to state its contrast, focus and target-size checks before it hands anything back. Constraints, not vibes.</div>
+        <div class="trap"><b>Trap</b> Describing it well enough that you never open it. The artifact is the answer — talking about it is strictly worse than showing it.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 05 -->
+    <section id="s5">
+      <div class="shead"><div class="num">05</div><h2>Platform-agnostic source of truth</h2></div>
+      <div class="card">
+        <div class="jd"><b>Their words:</b> "Help establish a platform-agnostic source of truth for the design system, reducing its dependency on Figma while preserving an excellent designer experience."</div>
+        <p class="asking"><strong>What they're asking:</strong> their hardest architectural question. The sequencing is where most people fumble it.</p>
+        <div class="say">Tokens live in a neutral format in Git — DTCG JSON, diffable, reviewable, versioned — and a transformation build carries them to CSS, iOS, Android, and the docs. Figma becomes a consumer rather than the origin. But the order matters: you don't start by taking anything away. You start by making the neutral source <em>generate</em> the Figma variables instead of replacing them. Designers keep working exactly as they do; the only thing that changes is that drift stops. And I'd hold you to your own clause — if the designer's day gets worse, the migration failed, however clean the architecture looks.</div>
+        <div class="trap"><b>Trap</b> Sounding anti-Figma. The "preserving an excellent designer experience" clause is in their JD because someone already fears this. Say it back to them.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 06 -->
+    <section id="s6">
+      <div class="shead"><div class="num">06</div><h2>How documentation must evolve</h2></div>
+      <div class="card" style="border-color:rgba(232,106,51,.32)">
+        <div class="jd"><b>Their words:</b> "Identify how the design system, its architecture, and its documentation need to evolve to support reusable skill files and AI-assisted workflows."</div>
+        <p class="asking"><strong>What they're asking:</strong> the most specific question in the JD, and the one most candidates will answer with a generality.</p>
+        <div class="say">Documentation has to split into two machine-readable layers, because they answer different questions. One encodes the rules — tokens, required states, accessibility floors — and it's what makes a generated component correct. The other encodes the inventory — what already exists, when to reach for it, what never to do with it — and it's what stops a model generating a fourth button alongside your three. Rules without an inventory produce well-formed reinvention. An inventory without rules produces correct selection and sloppy implementation. At your scale the inventory is the more valuable half, because your failure mode isn't malformed components — it's duplicated ones.</div>
+        <div class="trap"><b>Trap</b> "We'd write better documentation." Name the two layers and name a field. Specificity is the entire answer here.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 07 -->
+    <section id="s7">
+      <div class="shead"><div class="num">07</div><h2>Design intent → production code</h2></div>
+      <div class="card">
+        <div class="jd"><b>Their words:</b> "Improve the connection between design intent and production code so that designers and engineers can move from system-aligned designs to implementation with less manual translation."</div>
+        <p class="asking"><strong>What they're asking:</strong> your most direct resume hit. Don't rush it.</p>
+        <div class="say">Two halves. The glamorous one is that the Figma MCP server lets a tool read the actual frame — real variables, real auto-layout, real component names, not a screenshot. The unglamorous one is Code Connect: mapping each Figma component to the real component in the repo so Dev Mode shows an engineer the team's own code rather than a generated approximation. I led that alignment at Verizon across three platforms. The mapping is the half that makes any of it trustworthy, and it's the half people skip.</div>
+        <div class="trap"><b>Trap</b> Making it about speed. It's about trust — generated code nobody believes is worse than no generated code.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 08 -->
+    <section id="s8">
+      <div class="shead"><div class="num">08</div><h2>Finding friction &amp; adoption barriers</h2></div>
+      <div class="card">
+        <div class="jd"><b>Their words:</b> "Partner with product designers and engineers to identify workflow friction, adoption barriers, and opportunities for automation."</div>
+        <p class="asking"><strong>What they're asking:</strong> do you research your own users, or guess at them?</p>
+        <div class="say">I shadow people rather than interview them, because nobody describes their own workarounds — they've stopped seeing them. Fifteen minutes watching someone rebuild a quote history from their sent folder told me more than an hour of them explaining their process. Then I make the friction countable: at Avant the interface inventory found five primary blues, three button shapes and seven sizes in production. Numbers end an argument that opinions can't.</div>
+        <div class="trap"><b>Trap</b> "I collaborate closely." Everyone says that. Give the method and the number it produced.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 09 -->
+    <section id="s9">
+      <div class="shead"><div class="num">09</div><h2>Guidance &amp; reusable resources</h2></div>
+      <div class="card">
+        <div class="jd"><b>Their words:</b> "Create clear guidance and reusable resources that help teams use the system consistently and confidently."</div>
+        <p class="asking"><strong>What they're asking:</strong> can you write for people who aren't you? At their scale this is most of the job.</p>
+        <div class="say">Documentation is part of the product, not an afterthought. The proof I trust is the Avant marketing library — 350-plus managers and marketers shipping on-brand work with no designer in the loop. That worked because non-designers need harder rails and warmer documentation: the architecture is the same, the empathy is different. And it became the default path because it was faster than the old way, not because anyone was told to use it.</div>
+        <div class="trap"><b>Trap</b> Underselling this as soft. It's the difference between a system that ships and a system that gets used.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 10 -->
+    <section id="s10">
+      <div class="shead"><div class="num">10</div><h2>Governance &amp; technical direction</h2></div>
+      <div class="card">
+        <div class="jd"><b>Their words:</b> "Contribute to the governance and long-term technical direction of the design system."</div>
+        <p class="asking"><strong>What they're asking:</strong> are you senior? Answer with a concrete failure, not a philosophy.</p>
+        <div class="say">Governance is mostly deprecation, and almost nobody builds a path for it. I audited my own system's variable collection recently and found three generations of primitive naming coexisting — a lowercase semantic layer, an older PascalCase set, and some bare unnamespaced names from before either. Same values, three conventions, because each generation got added and none got retired. That's not sloppiness, that's what happens without a deprecation path. So governance to me is a contribution route, a version story, and an actual answer to how something leaves the system — not just how it enters.</div>
+        <div class="trap"><b>Trap</b> Abstractions about "stakeholder alignment." The three-naming-generations story is concrete, self-critical, and instantly credible. Use it.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- 11 LOOM -->
+    <section id="s11">
+      <div class="shead">
+        <div class="num">11</div><h2>The Loom — recruiter intro</h2>
+        <p>Angela will forward this, so it has to work for someone who skims. ~2:30, screen + cam. Broader than the hiring-manager version — but it still has to land <em>hybrid designer-engineer</em> in the first fifteen seconds.</p>
+      </div>
+
+      <div class="tp">
+        <div class="beat">
+          <div class="clockcol">0:00<span>20 sec</span></div>
+          <div>
+            <div class="onscreen">Camera only</div>
+            <div class="words">I'm Mikel Rosenthal. I've spent nineteen years in product design and the last seven building enterprise design systems — Verizon, GE Healthcare, Blue Cross Blue Shield. What I actually do sits between Figma and code: I own the token architecture, I build the components, and I write the tooling that keeps the two in sync.</div>
+            <div class="note">"Between Figma and code" is their own day-to-day language. Say it early so the match is obvious before she's finished forming an impression.</div>
+          </div>
+        </div>
+
+        <div class="beat">
+          <div class="clockcol">0:20<span>45 sec</span></div>
+          <div>
+            <div class="onscreen">Camera · or resume on screen</div>
+            <div class="words">Three things are probably most relevant. First, tokens at scale — primitive and semantic layers driving parity across iOS, Android and web at Verizon, and forty-plus regulated products on one semantic layer at GE Healthcare. Second, the tooling — Figma plugins to automate designer busywork, and token pipelines that carry one source out to every platform. Third, and this is the newer one: I build reusable skill files that encode a system's rules so AI generates on-system output instead of generic output.</div>
+            <div class="note">Three, not five. If she remembers one it'll be the third, which is exactly the one their JD lists as preferred.</div>
+          </div>
+        </div>
+
+        <div class="beat">
+          <div class="clockcol">1:05<span>50 sec</span></div>
+          <div>
+            <div class="onscreen">Share screen — the skill file, then one generation</div>
+            <div class="words">Here's what I mean by that. This is a skill file — it holds a system's tokens, component rules and accessibility standards as constraints. I ask for a button in plain language, and what comes back has every value annotated with the token it came from, all six states, and a focus ring I never asked for, because accessibility is a rule rather than a review note. And here's the part I like: the button in my own Figma file doesn't have a focus state. The token's defined, the input component uses it, the button never picked it up. So it just caught a real gap in my own system.</div>
+            <div class="note">Keep this to one generation. If it runs slow, keep narrating — the skill file on screen carries the point on its own.</div>
+          </div>
+        </div>
+
+        <div class="beat">
+          <div class="clockcol">1:55<span>35 sec</span></div>
+          <div>
+            <div class="onscreen">Stop sharing · back to camera</div>
+            <div class="words">The reason I'm interested in this one specifically is the platform-agnostic piece. Getting a system off a single tool as its source of truth, without making the designer's day worse, is a genuinely hard problem and it's the one I most want to be working on. Happy to go deeper on any of it — thanks for the look.</div>
+            <div class="note">End on their hardest bullet, not on yourself. It signals you read the JD properly rather than skimming for keywords.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:var(--s5)">
+        <span class="pill pill--warn">Different from the Goji Loom</span>
+        <ul class="tight">
+          <li>Goji asked for <strong>a design problem you solved, with work samples</strong> — that's the Pathfinder case study on the <a href="loom.html" style="color:var(--accent-2)">Loom page</a>. Don't send that one here.</li>
+          <li>This one is <strong>a capability intro for a recruiter</strong>. Broader, shorter, and it can show tooling on screen because that's the job.</li>
+          <li>Same rules either way: face bubble on, browser window not desktop, one take, trim the head and tail, and check the link opens for someone who isn't logged in.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+  </div>
+</div>
+
+<div class="reh" id="reh" aria-hidden="true">
+  <div class="reh-in">
+    <div class="dots" id="rehDots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="beatname" id="rehName"></div>
+    <div class="clock" id="rehClock">0:00</div>
+    <div class="target" id="rehTarget"></div>
+    <div class="script" id="rehScript"></div>
+    <div class="ctl">
+      <button class="btn" id="rehPrev">← Back</button>
+      <button class="btn btn--go" id="rehNext">Next →</button>
+      <button class="btn" id="rehReset">Reset</button>
+      <button class="btn" id="rehClose">Esc · Close</button>
+    </div>
+    <div class="hint">SPACE — next point &nbsp;·&nbsp; ESC — exit &nbsp;·&nbsp; full voice, standing up if you can</div>
+  </div>
+</div>
+
+<div class="pal" id="pal" aria-hidden="true">
+  <div class="pal-in">
+    <input id="palIn" placeholder="Jump to…" autocomplete="off" spellcheck="false">
+    <ul id="palList"></ul>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var KIT = {
+  company:"State Farm", role:"Design Systems Engineer", system:"Keystone", date:"",
+  pageTitle:"Talk track — State Farm, point by point"
+};
+
+var SECTIONS = [
+  {id:"s0",  n:"00", t:"How to use this"},
+  {id:"s1",  n:"01", t:"Token & component architecture"},
+  {id:"s2",  n:"02", t:"Production web components"},
+  {id:"s3",  n:"03", t:"Figma plugins & automation"},
+  {id:"s4",  n:"04", t:"Skill-based system management"},
+  {id:"s5",  n:"05", t:"Platform-agnostic source of truth"},
+  {id:"s6",  n:"06", t:"How documentation must evolve"},
+  {id:"s7",  n:"07", t:"Design intent → production code"},
+  {id:"s8",  n:"08", t:"Friction & adoption barriers"},
+  {id:"s9",  n:"09", t:"Guidance & reusable resources"},
+  {id:"s10", n:"10", t:"Governance & technical direction"},
+  {id:"s11", n:"11", t:"The Loom — recruiter intro"}
+];
+
+var BEATS = [
+  {name:"01 — Token & component architecture", sec:30, script:"Primitives stay private, semantics are the public API. That's what lets a system absorb change instead of being replaced — Pathfinder went 2.0 to 3.0 without a redesign. I owned both layers at Verizon across iOS, Android and web."},
+  {name:"02 — Production web components", sec:30, script:"A component is done when every state exists, every value resolves to a token, and the accessibility contract is built in rather than reviewed in. At BCBS that meant React-compatible coded components with theming hooks, handed over without a re-draw."},
+  {name:"03 — Figma plugins & automation", sec:35, script:"My most recent exports variable collections to W3C DTCG token JSON so tokens can leave Figma and feed a pipeline. What it taught me: Figma has one FLOAT type and the spec distinguishes dimension from number — so the real fix is upstream in the naming convention."},
+  {name:"04 — Skill-based system management", sec:35, script:"I'd rather show you. An output contract, reference files for tokens, components and accessibility, and a forced self-check. Every generated value is annotated with its source token, so output is auditable rather than trusted. Constraints, not vibes."},
+  {name:"05 — Platform-agnostic source of truth", sec:40, script:"Tokens live in DTCG JSON in Git; a build carries them to every platform. Figma becomes a consumer, not the origin. But order matters — you make the neutral source generate the Figma variables rather than replace them. Nothing is taken away; drift just stops."},
+  {name:"06 — How documentation must evolve", sec:40, script:"Two machine-readable layers. One encodes the rules, and makes a generated component correct. The other encodes the inventory, and stops a model generating a fourth button alongside your three. At your scale the inventory matters more, because your failure mode is duplication, not malformation."},
+  {name:"07 — Design intent to production code", sec:35, script:"The MCP reads the actual frame — real variables, not a screenshot. Code Connect maps each Figma component to the real one in the repo so Dev Mode shows the team's own code. I led that at Verizon. The mapping is the half that makes it trustworthy, and it's the half people skip."},
+  {name:"08 — Friction & adoption barriers", sec:30, script:"I shadow people rather than interview them — nobody describes their own workarounds, they've stopped seeing them. Then I make the friction countable. At Avant: five primary blues, three button shapes, seven sizes in production. Numbers end the argument."},
+  {name:"09 — Guidance & reusable resources", sec:30, script:"Documentation is part of the product. 350-plus managers shipping on-brand work with no designer in the loop. Non-designers need harder rails and warmer documentation — same architecture, different empathy. It became the default path because it was faster, not mandated."},
+  {name:"10 — Governance & technical direction", sec:35, script:"Governance is mostly deprecation, and almost nobody builds a path for it. I audited my own variable collection and found three generations of naming coexisting, because each got added and none got retired. Governance is an answer to how something leaves the system, not just how it enters."}
+];
+</script>
+<script src="kit.js?v=2"></script>
+</body>
+</html>

@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interview Command Center — Mikel Rosenthal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css?v=4">
+</head>
+<body>
+
+<div class="shell">
+
+  <!-- ── RAIL ────────────────────────────────────────────── -->
+  <aside class="rail">
+    <a class="brand" href="index.html">
+      <div class="mark">Command Center</div>
+      <h1>Mikel Rosenthal</h1>
+      <div class="sub" data-kit="role">Design Systems Lead</div>
+    </a>
+    <nav class="nav" id="nav"></nav>
+    <div class="railfoot">
+      <div><kbd>⌘</kbd><kbd>K</kbd> &nbsp;jump</div>
+      <div><kbd>R</kbd> &nbsp;rehearse</div>
+      <div><kbd>J</kbd><kbd>K</kbd> &nbsp;next / prev</div>
+    </div>
+  </aside>
+
+  <div>
+  <!-- ── TOPBAR ────────────────────────────────────────── -->
+  <header class="top">
+    <div class="who">
+      <strong data-kit="company">[COMPANY]</strong>
+      <span> &nbsp;·&nbsp; <span data-kit="system">Keystone</span> demo &nbsp;·&nbsp; <span data-kit="date">set your date</span></span>
+    </div>
+    <nav class="swap">
+      <a href="index.html">Hub</a>
+      <a href="stephen.html">Stephen</a>
+      <a href="say.html">Say this</a>
+      <a href="state-farm.html">State Farm</a>
+      <a href="case-study.html">Case study</a>
+      <a href="phone.html">Voice</a>
+      <a href="methods.html">Methods</a>
+      <a href="questions.html">Questions</a>
+      <a href="talk-track.html">Talk track</a>
+      <a href="figma-demo.html">Figma</a>
+      <a href="goji-labs.html" class="here">Goji</a>
+      <a href="loom.html">Loom</a>
+      <a href="landscape.html">Landscape</a>
+    </nav>
+    <button class="btn" id="palBtn">⌘K &nbsp;Jump</button>
+    <button class="btn btn--go" id="rehBtn">▶ &nbsp;Rehearse the arc</button>
+  </header>
+
+  <main>
+
+    <!-- ══ 00 AT A GLANCE ══════════════════════════════════ -->
+    <section id="s0" class="hero">
+      <div class="kicker">00 — At a glance</div>
+      <h2 class="big">Three beats. <em>Trust, reveal, meaning.</em> The structure carries you.</h2>
+
+      <div class="oneliner">
+        If they remember one sentence, make it this one: a real design system used to be
+        something only long engagements could afford — and that's no longer true. Every client
+        can have one that survives you leaving.
+        <span>The agency close · section 04</span>
+      </div>
+
+      <div class="stats">
+        <div class="stat"><b>19<i>yrs</i></b><span>UX/UI &amp; product design</span></div>
+        <div class="stat"><b>7<i>yrs</i></b><span>Design systems focus</span></div>
+        <div class="stat"><b>40<i>+</i></b><span>Regulated products unified on Edison</span></div>
+        <div class="stat"><b>350<i>+</i></b><span>Contributors enabled at Avant</span></div>
+        <div class="stat"><b>4</b><span>Systems built from zero</span></div>
+        <div class="stat"><b>3</b><span>Major design awards, 2020</span></div>
+      </div>
+
+      <div class="grid g3" style="margin-top:var(--s5)">
+        <div class="card beat">
+          <div class="bh"><h3>1 · Trust</h3><div class="t">~30s</div></div>
+          <p>Frame the foundation <em>before</em> anything runs. This is what tells the room you're in control.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>2 · Reveal</h3><div class="t">~90s</div></div>
+          <p>Type a deliberately plain prompt. Narrate while it generates. Never go quiet.</p>
+        </div>
+        <div class="card beat">
+          <div class="bh"><h3>3 · Meaning</h3><div class="t">~30s</div></div>
+          <p>Zoom out. Answer the two questions the room is silently asking.</p>
+        </div>
+      </div>
+
+      <div class="grid g2" style="margin-top:var(--s4)">
+        <div class="card" style="border-color:rgba(232,106,51,.32)">
+          <span class="pill pill--go">Two demos — know which one you're in</span>
+          <ul class="tight">
+            <li><strong>Demo A · the skill</strong> (section 03) — two minutes, always works, proves the model can be constrained by a system you authored. <em>Lead with this.</em></li>
+            <li><strong>Demo B · Claude Code + Figma MCP</strong> (section 04) — the file and the codebase talking to each other, both directions. Slower, more moving parts, and the more valuable half for an agency selling AI-accelerated prototyping. <em>Make sure you get here.</em></li>
+            <li>Same three beats carry both. If time collapses, run A and <em>describe</em> B — the agency close in section 04 works spoken, with nothing on screen.</li>
+          </ul>
+        </div>
+        <div class="card" style="border-color:rgba(217,164,65,.3)">
+          <span class="pill pill--warn">If it goes sideways</span>
+          <ul class="tight">
+            <li><strong>Generation is slow or stalls</strong> → keep talking through the token architecture; the wait is narration time, not dead air.</li>
+            <li><strong>Output is wrong or off-system</strong> → this is a gift. Say "watch this" and audit it out loud against the rules. Catching it <em>is</em> the demonstration.</li>
+            <li><strong>MCP won't authenticate</strong> → don't debug on camera. Say "the connection's dropped, let me show you what it produces" and go to <span style="font-family:var(--mono);font-size:12px">/fallback</span>. Fumbling a terminal live is the one thing that undoes the whole demo.</li>
+            <li><strong>Skill didn't load / no network</strong> → switch to Prompt 4, the audit prompt, or walk the saved output by hand.</li>
+            <li><strong>You lose your place</strong> → return to the three beats. Trust, reveal, meaning. Say the beat name out loud if you have to.</li>
+          </ul>
+        </div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 01 GOJI BRIEFING ════════════════════════════════ -->
+    <section id="sB">
+      <div class="shead">
+        <div class="num">01</div><h2>Goji Labs briefing</h2>
+        <p>Everything below is from their site and the posted role. Read it once the morning of — then talk about their work, not yours.</p>
+      </div>
+
+      <div class="grid g2">
+        <div class="card">
+          <span class="pill pill--go">Who they are</span>
+          <ul class="tight">
+            <li><strong>Strategy-led digital product agency</strong>, Los Angeles (800 Wilshire), operating since 2014.</li>
+            <li><strong>500+ products shipped · 25M+ users · clients who've raised $1B+.</strong></li>
+            <li>Named <strong>Most Reviewed UX Company</strong> by The Manifest, 2025.</li>
+            <li>Clients to know by name: <strong>KCRW, Root Insurance, WWF, Mitsubishi, k-ID, Katzkin, Valara, Intterra.</strong></li>
+            <li>Their line: <em>"We don't just talk about outcomes, we build them."</em></li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill pill--go">Four service lines</span>
+          <ul class="tight">
+            <li><strong>AI Product Development</strong> — this is a service they sell, not a curiosity. Your demo is inventory, not a novelty act.</li>
+            <li><strong>App &amp; Software Development</strong> — complex, scalable, regulated environments. <em>That's GE Healthcare and BCBS on your resume.</em></li>
+            <li><strong>UI/UX Design</strong> — they explicitly advertise <em>"AI-accelerated prototyping"</em> and <em>"design systems teams can sustain long-term."</em></li>
+            <li><strong>Product Strategy</strong> — rapid collaborative sprints.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill">Their stack — speak it</span>
+          <ul class="tight">
+            <li><strong>Front end:</strong> React, Next.js, iOS, Android — so generate <em>React</em> in the demo, not raw CSS.</li>
+            <li><strong>Design:</strong> Figma is the primary tool. Atomic design systems, handoff to dev.</li>
+            <li><strong>Back end / infra:</strong> Rails, Node, Redis, AWS, Kubernetes.</li>
+            <li><strong>Ops:</strong> GitHub, Linear, Notion. Mention Code Connect and Dev Mode — that's the bridge between their Figma and their GitHub.</li>
+          </ul>
+        </div>
+
+        <div class="card" style="border-color:rgba(232,106,51,.32)">
+          <span class="pill pill--go">The role, as posted</span>
+          <ul class="tight">
+            <li><strong>Full-time, remote North America</strong>, 4-hour overlap with LA time.</li>
+            <li>Facilitate workshops · UX research, interviews, usability tests, competitive analysis.</li>
+            <li>Wireframes, prototypes, and <strong>atomic design systems</strong> — use their word, "atomic."</li>
+            <li><strong>"Align design decisions with client business goals and KPIs."</strong> Have a KPI answer ready.</li>
+            <li>Manage handoff to development, support devs through build.</li>
+            <li><strong>A ~3-minute Loom is part of the application.</strong> See section 10 — it's a requirement, not a bonus.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:var(--s4)">
+        <span class="pill pill--warn">The one adjustment agency work demands</span>
+        <ul class="tight">
+          <li><strong>You're not building one system for ten years. You're standing up systems for many clients, fast.</strong> Every proof point you have is enterprise-scale and long-horizon — reframe each one as <em>"here's how quickly I can get a client to that."</em></li>
+          <li>The AI/MCP story is the bridge. At an agency the value isn't "AI helped me on my system," it's <strong>"AI lets me give every client a real system inside a project budget that never used to allow one."</strong> That is the single most valuable sentence you can say in this interview.</li>
+          <li>They serve regulated and high-stakes clients — Root Insurance, k-ID (child safety), Intterra (emergency response). Your GE Healthcare and BCBS accessibility work is directly on point. Say <em>"in regulated work, accessibility isn't a review note — it's the build."</em></li>
+        </ul>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 02 DEMO ARC ═════════════════════════════════════ -->
+    <section id="s1">
+      <div class="shead">
+        <div class="num">02</div><h2>The demo arc</h2>
+        <p>Same three beats every time, whatever component you run. Nothing here is read verbatim — the "SAY" blocks are the shape of the sentence, not a script.</p>
+      </div>
+
+      <div class="grid" style="gap:var(--s4)">
+
+        <div class="card beat">
+          <div class="bh"><h3>Beat one — Trust</h3><div class="t">~30s · before you touch anything</div></div>
+          <p>Set the frame first. The room's first silent question is <em>"is this real, or is it a party trick?"</em> — you answer it before the demo starts, not after.</p>
+          <div class="say">Everything you're about to see is grounded in a skill I built. It holds our tokens, our component rules, our accessibility standards. So Claude isn't guessing — it's working inside our system.</div>
+          <ul class="tight">
+            <li>Have the skill file visible on screen for two seconds. Don't read it — just let them see it exists.</li>
+            <li>Name the three things it contains: tokens, component rules, accessibility standards. Three is memorable.</li>
+            <li>Say <em>"I built"</em> — this is authorship, not a tool you found.</li>
+          </ul>
+        </div>
+
+        <div class="card beat">
+          <div class="bh"><h3>Beat two — Reveal</h3><div class="t">~90s · narrate the whole time</div></div>
+          <p>Type something deliberately plain. The plainer the prompt, the more impressive the constrained output. Then narrate as it generates — going quiet is the rookie mistake.</p>
+          <div class="say">Watch — it's reaching for our spacing scale, not inventing its own. And there, it just added a focus state. I didn't ask for that. Accessibility is baked into the skill, so it does it automatically.</div>
+          <ul class="tight">
+            <li><strong>Narration hook 1 — tokens.</strong> Point at a comment: "every value is annotated with the token it came from. That's a rule I wrote, so the output is auditable."</li>
+            <li><strong>Narration hook 2 — unrequested states.</strong> "I asked for a button. It gave me six states, because incomplete state coverage is a defect in our system."</li>
+            <li><strong>Narration hook 3 — accessibility.</strong> "Focus ring, 44-pixel target, contrast checked in both themes. Nobody asked. It's architecture, not a checklist."</li>
+            <li>Scroll slowly. Point with the cursor. Let them read one thing at a time.</li>
+          </ul>
+          <ul class="tight no">
+            <li>Don't read the code out loud. Point at three things and name why they're right.</li>
+            <li>Don't apologize for anything in the output. If something's off, audit it — that's a better beat than a clean run.</li>
+            <li>Don't go silent while it generates. Ever.</li>
+          </ul>
+        </div>
+
+        <div class="card beat">
+          <div class="bh"><h3>Beat three — Meaning</h3><div class="t">~30s · the close</div></div>
+          <p>Zoom all the way out. Answer the two things the room is quietly wondering: <em>is this real</em>, and <em>are you still the designer.</em></p>
+          <div class="say">So what used to be a static component in a library is now something the whole team can generate — on-system, on-brand, in seconds. But notice: every judgment call, what's right and what ships, that's still mine. The AI accelerates the craft. It doesn't own it.</div>
+          <ul class="tight">
+            <li>End on the judgment line. Then stop talking. Let the silence do the work.</li>
+            <li>If they ask a follow-up here, you've won the beat — the demo did its job.</li>
+          </ul>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 03 DEMO A — PROMPTS ═════════════════════════════ -->
+    <section id="s2">
+      <div class="shead">
+        <div class="num">03</div><h2>Demo A · the skill</h2>
+        <p>The two-minute version. Run these in order. Goji builds in React and Next.js — Prompt 1 asks for React on purpose, so what they see is in their stack.</p>
+      </div>
+
+      <div class="grid" style="gap:var(--s4)">
+
+        <div class="prompt">
+          <div class="ph"><span class="pill pill--go">Prompt 1 · the main event</span><span class="lbl"></span><button class="copy" data-copy="p1">Copy</button></div>
+          <div class="pb" id="p1">Build me a primary button with all its variants and states, as a React component.</div>
+          <div class="pf"><b>Why plain</b><span>The vaguer the ask, the louder the system speaks. Every specific it fills in — sizes, states, focus rings — came from the skill, not from you. "React" is the only word that isn't vague, and it's there because it's their stack.</span></div>
+        </div>
+
+        <div class="prompt">
+          <div class="ph"><span class="pill">Prompt 2 · the pairing</span><span class="lbl"></span><button class="copy" data-copy="p2">Copy</button></div>
+          <div class="pb" id="p2">Now add a text input that pairs with it. Include the error state.</div>
+          <div class="pf"><b>Narrate</b><span>Point at the error state: icon plus text, never color alone — and the field is wired with aria-invalid and aria-describedby. "That's a rule in the skill, not something I typed."</span></div>
+        </div>
+
+        <div class="prompt">
+          <div class="ph"><span class="pill">Prompt 3 · the theming proof</span><span class="lbl"></span><button class="copy" data-copy="p3">Copy</button></div>
+          <div class="pb" id="p3">Show me the same button in dark mode, and tell me which contrast pairs you verified.</div>
+          <div class="pf"><b>Narrate</b><span>This is the one that separates a demo from a system. The component isn't forked — light and dark resolve from the same semantic layer. Authored once, re-themed. Say that sentence.</span></div>
+        </div>
+
+        <div class="prompt" style="border-color:rgba(217,164,65,.3)">
+          <div class="ph"><span class="pill pill--warn">Prompt 4 · backup / save</span><span class="lbl"></span><button class="copy" data-copy="p4">Copy</button></div>
+          <div class="pb" id="p4">Audit this against our system and tell me exactly what's off:
+
+&lt;button style="background:#ff5722;padding:11px 19px;border-radius:5px;border:none;color:white;font-size:15px"&gt;
+  Submit
+&lt;/button&gt;</div>
+          <div class="pf"><b>Use when</b><span>Generation is slow, the room is skeptical, or someone asks "does it actually know the rules?" This runs fast and produces a specific, checkable list — raw hex instead of a token, off-scale padding, no focus state, no states at all. It's often the more convincing demo.</span></div>
+        </div>
+
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 04 DEMO B — CLAUDE CODE + FIGMA MCP ═════════════ -->
+    <section id="sM">
+      <div class="shead">
+        <div class="num">04</div><h2>Demo B · Claude Code + Figma MCP</h2>
+        <p>Demo A shows a model working inside a system. This shows the design file and the codebase <em>talking to each other</em>. For an agency selling AI-accelerated prototyping, this is the more valuable half — lead with A because it's faster, but make sure you get here.</p>
+      </div>
+
+      <div class="card" style="border-color:rgba(232,106,51,.32)">
+        <span class="pill pill--go">Say this first — the one-sentence explanation</span>
+        <div class="say" style="margin-top:var(--s4)">MCP is the Model Context Protocol — an open standard that lets a tool like Claude Code talk directly to another application. With Figma's MCP server connected, Claude Code isn't looking at a screenshot of a design. It's reading the actual frame: the real variables, the real auto-layout, the real component names. So the code it writes is bound to your tokens, not to a guess about your tokens.</div>
+        <ul class="tight">
+          <li>Assume nobody in the room can define MCP. Define it in one breath, then move — don't lecture.</li>
+          <li>The load-bearing phrase is <strong>"not a screenshot."</strong> That's the entire difference between this and every design-to-code tool they've been pitched before.</li>
+        </ul>
+      </div>
+
+      <div class="dir">
+        <div class="node"><b>Figma</b><span>variables · components · frames</span></div>
+        <div class="arrows">
+          <div>── design → code ──▶</div>
+          <div>◀── code → design ──</div>
+        </div>
+        <div class="node"><b>Codebase</b><span>React · Next.js · tokens</span></div>
+      </div>
+
+      <div class="grid g2">
+
+        <div class="card">
+          <span class="pill pill--go">Direction 1 · Design → Code</span>
+          <p style="font-size:13.5px;color:var(--ink-2);margin-top:var(--s3)">The one to run live. Paste a frame URL, get a component built against the real variables.</p>
+          <div class="term">
+            <div class="tt"><i></i><i></i><i></i><span>claude code</span></div>
+            <pre><b>&gt;</b> Implement this frame as a React component:
+  <em>https://figma.com/design/…?node-id=42-1180</em>
+
+<u>● get_design_context</u>  <em>reading layout + styles</em>
+<u>● get_variable_defs</u>   <em>18 variables resolved</em>
+<u>● get_code_connect_map</u> <em>3 components already mapped</em></pre>
+          </div>
+          <ul class="tight">
+            <li><strong>Narrate:</strong> "Watch the tool calls. It's reading eighteen real variables out of the file — it didn't eyeball the spacing, it <em>read</em> it."</li>
+            <li><strong>Then:</strong> "And Code Connect already told it which of these are existing components. So it's composing from what we have instead of reinventing it."</li>
+            <li>Pair this with the skill from Demo A and you've closed the loop: the file supplies the values, the skill supplies the rules.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="pill">Direction 2 · Code → Design</span>
+          <p style="font-size:13.5px;color:var(--ink-2);margin-top:var(--s3)">The direction people forget exists — and the one that gets the "wait, it does that?" reaction.</p>
+          <div class="term">
+            <div class="tt"><i></i><i></i><i></i><span>claude code</span></div>
+            <pre><b>&gt;</b> Take the tokens in src/styles/tokens.ts and
+  build them as Figma variables, then generate
+  the Button component with all its variants.
+
+<u>● use_figma</u>  <em>writing to canvas</em>
+<u>● create variable collection</u>  <em>light + dark modes</em>
+<u>● create component set</u>  <em>4 variants × 6 states</em></pre>
+          </div>
+          <ul class="tight">
+            <li><strong>Narrate:</strong> "When the code moves ahead of the file — and on a fast project it always does — the file catches up automatically instead of rotting."</li>
+            <li><strong>The punchline:</strong> "This is how a system survives an agency timeline. The documentation stops being a thing someone has to remember to update."</li>
+            <li>Also does FigJam diagrams and full library generation — mention, don't demo. One live write is enough.</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="card" style="margin-top:var(--s4);border-color:rgba(127,183,126,.3)">
+        <span class="pill pill--ok">Code Connect — your strongest single credential</span>
+        <p style="font-size:13.5px;color:var(--ink-2);margin-top:var(--s3)">Code Connect maps a Figma component to the real component in the repo, so Dev Mode shows an engineer <em>the team's actual code</em> — not a generated approximation of it. It's the piece that makes design-to-code trustworthy rather than impressive.</p>
+        <div class="say">I led design-to-code alignment through Figma Dev Mode and Code Connect at Verizon, across iOS, Android and web. So when I talk about MCP and generated components, I'm not describing something I read about — I've already done the unglamorous half, which is making the mapping between the file and the repo real.</div>
+        <ul class="tight">
+          <li>This sentence separates you from every candidate who watched a demo video. Say it once, deliberately, and don't oversell it.</li>
+          <li>It also answers "how do we adopt this without it becoming chaos" before they ask.</li>
+        </ul>
+      </div>
+
+      <div class="grid g2" style="margin-top:var(--s4)">
+        <div class="prompt">
+          <div class="ph"><span class="pill">Setup · one command</span><span class="lbl"></span><button class="copy" data-copy="m1">Copy</button></div>
+          <div class="pb" id="m1">claude mcp add --transport http figma https://mcp.figma.com/mcp</div>
+          <div class="pf"><b>Then</b><span>Type <span style="font-family:var(--mono)">/mcp</span> in Claude Code, pick figma, authenticate through the browser. Figma also ships a Claude Code plugin that bundles the MCP config with their Agent Skills — that's the smoother path if you want the skills too. Do all of this the night before, not on the call.</span></div>
+        </div>
+
+        <div class="prompt">
+          <div class="ph"><span class="pill pill--go">Live prompt · design → code</span><span class="lbl"></span><button class="copy" data-copy="m2">Copy</button></div>
+          <div class="pb" id="m2">Implement this frame as a React component using our design system skill. Use the Figma variables for every value — don't hardcode anything.
+
+[paste your Figma frame URL]</div>
+          <div class="pf"><b>Narrate</b><span>"Two sources of truth, one output. The file gives it the values, the skill gives it the rules. Neither one alone is enough."</span></div>
+        </div>
+
+        <div class="prompt">
+          <div class="ph"><span class="pill">Prompt · code → design</span><span class="lbl"></span><button class="copy" data-copy="m3">Copy</button></div>
+          <div class="pb" id="m3">Read the tokens in this repo and create them as Figma variables with light and dark modes. Then generate the Button component set with every variant and state bound to those variables.</div>
+          <div class="pf"><b>Use when</b><span>They ask "does it only go one way?" — which someone always does. Have a scratch Figma file open and ready to be written into. Never demo a write against a file that matters.</span></div>
+        </div>
+
+        <div class="prompt">
+          <div class="ph"><span class="pill">Prompt · the audit play</span><span class="lbl"></span><button class="copy" data-copy="m4">Copy</button></div>
+          <div class="pb" id="m4">Compare this Figma frame against the component in src/components/Button.tsx and list every place the design and the code have drifted apart.
+
+[paste your Figma frame URL]</div>
+          <div class="pf"><b>Why this lands</b><span>Design/code drift is the problem every agency has and nobody has time to fix. This reframes the whole toolchain from "faster mockups" to "the system stops silently rotting" — which is a much bigger sale.</span></div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:var(--s4);border-color:rgba(217,164,65,.32)">
+        <span class="pill pill--warn">Be honest about the limits — this is what makes it credible</span>
+        <ul class="tight">
+          <li><strong>It is not one click.</strong> The output is a strong first draft that a designer reviews. Say that before they suspect it.</li>
+          <li><strong>Quality tracks the quality of the file.</strong> Loose auto-layout, detached instances, hardcoded values in Figma — garbage in, garbage out.</li>
+          <li><strong>The line to land it:</strong> <em>"The MCP is only as good as the file it's reading. Which turns out to be the best argument for a real design system I've ever had — the tokens now have a second customer, and it's a customer that can't improvise."</em></li>
+          <li><strong>Generated code is a draft PR, never a merge.</strong> Same review bar as anything a person wrote.</li>
+        </ul>
+      </div>
+
+      <div class="card" style="margin-top:var(--s4)">
+        <span class="pill pill--go">The agency close — say this one</span>
+        <div class="say" style="margin-top:var(--s4)">Here's why this matters for an agency specifically. A real design system has always been something only long engagements could afford — you'd scope it, the client would cut it, and every project would rebuild the basics. This collapses that cost. I can stand up token architecture, generate the component set, wire Code Connect, and hand a client a system that survives us leaving — inside a normal project budget. That's not a faster mockup. That's a deliverable you couldn't previously sell.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 05 LIVE PREVIEW ═════════════════════════════════ -->
+    <section id="s3">
+      <div class="shead">
+        <div class="num">05</div><h2>Live preview</h2>
+        <p>What the skill produces, rendered. Point at this while you narrate — or use it as the fallback if generation fails. Press <kbd style="font-family:var(--mono)">Tab</kbd> inside the stage to show real focus rings.</p>
+      </div>
+
+      <div class="pv">
+        <div class="pvbar">
+          <span class="lbl">Keystone · rendered from the same tokens</span>
+          <button class="btn" id="pvToggle" style="min-height:30px;padding:5px 12px;font-size:11.5px">◐ &nbsp;Toggle theme</button>
+        </div>
+        <div class="stage" id="stage" data-t="dark">
+
+          <div>
+            <div class="cap">Button — variants</div>
+            <div class="row">
+              <button class="ks-button">Primary</button>
+              <button class="ks-button ks-button--secondary">Secondary</button>
+              <button class="ks-button ks-button--ghost">Ghost</button>
+              <button class="ks-button ks-button--danger">Delete</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="cap">Button — sizes &amp; states</div>
+            <div class="row">
+              <button class="ks-button ks-button--sm">Small</button>
+              <button class="ks-button">Medium</button>
+              <button class="ks-button ks-button--lg">Large</button>
+              <button class="ks-button" disabled>Disabled</button>
+              <button class="ks-button" aria-busy="true"><span class="spin"></span>Saving</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="cap">Input — default &amp; error</div>
+            <div class="row">
+              <div class="ks-field">
+                <label for="pvA">Work email</label>
+                <input class="ks-input" id="pvA" placeholder="you@company.com">
+                <div class="ks-help">We only use this to send your invite.</div>
+              </div>
+              <div class="ks-field">
+                <label for="pvB">Work email</label>
+                <input class="ks-input" id="pvB" value="not-an-email" aria-invalid="true" aria-describedby="pvBerr">
+                <div class="ks-err" id="pvBerr">⚠ Enter a valid email address.</div>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <div class="cap">Card</div>
+            <div class="row">
+              <div class="ks-card">
+                <div class="meta">Design Systems</div>
+                <h4>Token architecture</h4>
+                <p>Primitives stay private. Semantics are the API. One component, authored once, re-themed everywhere.</p>
+                <div><button class="ks-button ks-button--sm">Open spec</button></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="annot">
+        <div><b>space.5 / 24px</b> horizontal padding on the medium button — never 19, never 20</div>
+        <div><b>radius.md / 8px</b> every control, one radius token, no exceptions</div>
+        <div><b>color.action.bg</b> semantic, not the brand-500 primitive underneath it</div>
+        <div><b>focus.ring 2px + 2px offset</b> present in both themes, 3:1 against the surface behind it</div>
+        <div><b>duration.fast 120ms</b> one motion token, wrapped by prefers-reduced-motion</div>
+        <div><b>error = icon + text</b> never color alone, aria-invalid + aria-describedby wired</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 04 PROCESS ══════════════════════════════════════ -->
+    <section id="s4">
+      <div class="shead">
+        <div class="num">06</div><h2>Process spine</h2>
+        <p>When they ask "how do you actually work" — this is the answer, and every step has a receipt.</p>
+      </div>
+
+      <div class="card">
+        <div class="step">
+          <div class="no">01</div>
+          <div>
+            <h3>Audit — make the fragmentation countable</h3>
+            <p>Inventory every distinct screen state in production and cluster by pattern. You don't argue for a system, you show the count. Numbers end the debate that opinions can't.</p>
+            <div class="proof"><b>Avant</b> five primary blues, three button shapes, seven sizes, mixed type stacks → one token source of truth</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="no">02</div>
+          <div>
+            <h3>Foundations — token architecture first</h3>
+            <p>Primitives stay private, semantics are the public API. Color, space, type, radius, motion. Cross-platform parity is decided here or it isn't decided at all.</p>
+            <div class="proof"><b>Verizon</b> owned primitive + semantic tokens driving iOS / Android / web parity on a mature post-rebrand system</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="no">03</div>
+          <div>
+            <h3>Components — full state coverage, accessibility as architecture</h3>
+            <p>Anatomy fixed, variants change appearance not structure. Every state documented — including the unglamorous ones. In regulated work, accessibility isn't a review note, it's the build.</p>
+            <div class="proof"><b>GE Healthcare</b> 100% of components documented with accessibility behavior for regulated review · 4 theme targets from one semantic layer</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="no">04</div>
+          <div>
+            <h3>Governance — contribution, versioning, review</h3>
+            <p>A system without a contribution path becomes one person's bottleneck. Naming standards, changelogs, review process, and a clear answer to "how do I add something."</p>
+            <div class="proof"><b>Avant</b> owned Pathfinder end to end, 2.0 → 3.0, two and a half years, no redesign</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="no">05</div>
+          <div>
+            <h3>Adoption — enablement, not enforcement</h3>
+            <p>Adoption is cultural before it's technical. Training, warm documentation, one-on-one support, and making the system the fastest path rather than the mandated one.</p>
+            <div class="proof"><b>Avant marketing library</b> 350+ managers trained and shipping · brand reviews shifted from policing basics to discussing ideas</div>
+          </div>
+        </div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 05 FRAMING LINES ════════════════════════════════ -->
+    <section id="s5">
+      <div class="shead">
+        <div class="num">07</div><h2>Framing lines</h2>
+        <p>Six sentences worth having ready. Each one closes a topic rather than opening one.</p>
+      </div>
+
+      <div class="grid g2">
+        <div class="line"><q>AI accelerates the craft. It doesn't own the judgment.</q><div class="when">When the AI question turns skeptical — or when you close the demo.</div></div>
+        <div class="line"><q>A system nobody uses is a wiki page.</q><div class="when">When adoption comes up, or when someone describes a system that shipped and died.</div></div>
+        <div class="line"><q>Adoption isn't technical — it's cultural.</q><div class="when">When they ask how you drive uptake across teams that don't report to you.</div></div>
+        <div class="line"><q>When WCAG is a legal requirement, accessibility stops being a checklist and becomes architecture.</q><div class="when">Accessibility questions. Earned at GE Healthcare and BCBS — say where it came from.</div></div>
+        <div class="line"><q>Big systems are social systems. The hardest problems were never visual — they were alignment across dozens of teams.</q><div class="when">Leadership and scale questions. This is the line that reads as seniority.</div></div>
+        <div class="line"><q>Inconsistency reads as unreliability.</q><div class="when">When you need to make the business case for a system in one sentence.</div></div>
+        <div class="line"><q>It's not reading a screenshot. It's reading the actual variables.</q><div class="when">The single sentence that separates the Figma MCP from every design-to-code tool they've already been pitched.</div></div>
+        <div class="line"><q>The MCP is only as good as the file it's reading — which turns out to be the best argument for a real design system I've ever had.</q><div class="when">When someone pushes on the limits of AI tooling. Turns the objection into your thesis.</div></div>
+        <div class="line"><q>That's not a faster mockup. That's a deliverable you couldn't previously sell.</q><div class="when">The agency close. Say it slowly, then stop.</div></div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 06 TOUGH QUESTIONS ══════════════════════════════ -->
+    <section id="s6">
+      <div class="shead">
+        <div class="num">08</div><h2>Tough questions</h2>
+        <p>Answers, not scripts. The shape matters more than the words — each one lands on a concrete example.</p>
+      </div>
+
+      <details class="qa"><summary><span class="qtag">AI</span> "Isn't this just ChatGPT making a button? What's the design work?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p><strong>The design work is the constraint file.</strong> Without it you get a generic button — that's exactly the "everything looks like base input" problem. With it, the model is bounded by our tokens, our anatomy, our required states, our accessibility floor.</p>
+          <p>Someone had to decide the spacing scale is 4px-based, that there are three button sizes and not seven, that error state is icon-plus-text and never color alone. That's design. The generation is just the part you can see.</p>
+          <p>Then land it: <em>"I moved the judgment upstream. It used to happen once per component. Now it happens once, in the system, and applies to everything the team generates."</em></p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">AI</span> "Show me a time AI got it wrong." <span class="chev">+</span></summary>
+        <div class="body">
+          <div class="fill"><b>Fill this in by hand — a real one beats any placeholder</b>
+          Structure it in three moves: <strong>what it produced</strong> → <strong>how you caught it</strong> → <strong>what rule you added so it couldn't happen again.</strong> The third move is the whole answer. Anyone can catch a mistake; a systems person turns the catch into a rule.</div>
+          <p><strong>Candidates from your own work</strong> — pick whichever actually happened:</p>
+          <p>· It invented a token name that looked right but didn't exist in the library, and it read as plausible because the naming convention was consistent. Caught it in review; added the "annotate every value with its source token" rule so unbacked values became visible on sight.</p>
+          <p>· It produced a component that was visually correct and structurally wrong — right paddings, no focus-visible. Caught in an a11y pass; added the self-check block that forces it to state contrast, focus, and target size before returning code.</p>
+          <p>· It generated documentation that was confidently inaccurate about a component's behavior. That's the one worth naming out loud — <em>"generated docs are a draft, never a source of truth. Nothing merges without a human review, same as code."</em></p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">AI</span> "How do you keep AI output from becoming tech debt?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p>Three rules. <strong>One</strong> — generated code is a draft PR, never a merge. Same review bar as anything a person wrote. <strong>Two</strong> — the skill is versioned with the system, so when a token changes, the generator changes with it. A stale constraint file is worse than no constraint file. <strong>Three</strong> — every output is annotated with its source token, which makes drift auditable instead of invisible.</p>
+          <p>The failure mode isn't bad code. It's <em>plausible</em> code nobody checked.</p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">MCP</span> "What actually is MCP — and why should we care?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p><strong>One breath:</strong> "Model Context Protocol — an open standard that lets a tool like Claude Code talk directly to another application. With Figma's MCP server connected, Claude Code reads the actual frame: the real variables, the real auto-layout, the real component names. Not a screenshot."</p>
+          <p>Then the <em>why</em>, which is the part that matters: every design-to-code tool they've been pitched worked from an image and produced something that <em>looked</em> right and was structurally junk. This works from the data model. The values it writes are the values in the file, because it read them.</p>
+          <p><strong>Don't lecture.</strong> Define it, then immediately show it or move on. The moment you explain a protocol for ninety seconds you've become the person who likes tools more than outcomes.</p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">MCP</span> "Isn't this just fancy copy-paste from Figma? We've seen design-to-code before." <span class="chev">+</span></summary>
+        <div class="body">
+          <p>Concede the history first — it earns you the rest of the answer. "You're right to be skeptical. Every version of this before now produced code no engineer would accept, because it worked from pixels."</p>
+          <p>Then the three real differences. <strong>One</strong> — it reads variables, so values are bound rather than transcribed. <strong>Two</strong> — with Code Connect it knows which components already exist in the repo, so it composes instead of reinventing. <strong>Three</strong> — it goes both directions, so the Figma file can be regenerated from the code when the code moves ahead. That last one is the difference between a converter and a sync.</p>
+          <p>And the honest limit, offered before they find it: <em>"It's a strong first draft that a designer reviews. It's not one click, and I wouldn't trust anyone who told you it was."</em></p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">Agency</span> "How does any of this work when we have twenty clients and short timelines?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p><strong>This is the question the whole interview is really about. Have this cold.</strong></p>
+          <p>"A real design system has always been something only long engagements could afford. You'd scope it, the client would cut it, and every project would rebuild the basics from scratch. What's changed is the cost. I can stand up token architecture, generate the component set, wire Code Connect, and hand a client something that survives us leaving — inside a normal project budget."</p>
+          <p>Then make it concrete about <em>them</em>: the constraint at an agency isn't ambition, it's hours. Anything that moves system work from weeks to days doesn't just make design faster — it makes a deliverable sellable that previously wasn't. <em>"That's not a faster mockup. That's a line item you couldn't previously put on a proposal."</em></p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">Agency</span> "Your background is enterprise and long engagements. We move fast." <span class="chev">+</span></summary>
+        <div class="body">
+          <p>Don't defend the enterprise work — reframe it as the reason you're fast now. "Every hard lesson I have came from systems that had to survive forty product teams and a regulator. I know exactly which parts of that are load-bearing and which parts are ceremony. On a twelve-week engagement I'm not guessing what to skip."</p>
+          <p>Then the receipt: <strong>PBK Studio since 2021</strong> — client work across healthcare, fintech, and insurance, scoped and shipped independently. That's the agency-shaped proof, and it's already on your resume.</p>
+          <p>And the BCBS line: FIBER was <em>built from zero</em> as a contract engagement. Standing a system up from nothing on someone else's timeline is literally the job they're hiring for.</p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">Adoption</span> "How do you actually measure adoption?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p>Figma has no native analytics, so I triangulate. <strong>Audit tooling</strong> — Instance Finder and Design Lint to count detached instances and off-system values. <strong>Changelog and version tracking</strong> across releases. <strong>Direct signal</strong> — embedded feedback forms, Slack polls, and one-on-ones. <strong>Dev-side truth</strong> — Git, Dev Mode and Code Connect usage, which is where adoption is real rather than reported.</p>
+          <p>The qualitative metric I trust most: <em>what brand review meetings are about.</em> At Avant they shifted from policing the basics to arguing about ideas. That's adoption you can feel before you can chart it.</p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">Adoption</span> "What do you do with a team that won't adopt?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p>First I assume they're right. A team that resists is usually telling you the system doesn't cover their case, or the path to using it is slower than the workaround. Both are my bug, not theirs.</p>
+          <p>Then I make the system the fastest path rather than the mandated one. The Avant marketing library got 350+ people because it was quicker than the old way — not because anyone was told to use it. <em>"A system nobody uses is a wiki page."</em></p>
+          <p>Non-designers need harder rails and warmer documentation. Same architecture, different empathy.</p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">Career</span> "You've done a lot of contract work — why?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p>Straight answer: enterprise design systems are staffed that way. GE Healthcare, BCBS, TransUnion, Verizon all brought me in as a specialist to build or scale a system, and in every case the system outlasted the engagement — which is the point of building one properly.</p>
+          <p>And the counterweight is two and a half years full-time at Avant owning Pathfinder end to end, 2.0 through 3.0, plus the marketing library on the same foundation. That's the long-horizon ownership answer.</p>
+          <p>Don't be defensive. The pattern reads as <em>repeatedly hired to do the hardest version of this job.</em></p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">Eng</span> "How do you work with engineering / what about Storybook?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p>I spec with tokens and logic in mind so I'm speaking the same language as the dev team — naming conventions aligned, states enumerated, theming hooks explicit. At BCBS the FIBER components were React-compatible by design, so handoff wasn't a re-draw. At Verizon I led design-to-code alignment through Figma Dev Mode and Code Connect.</p>
+          <p>On Storybook — be honest and forward-leaning: <em>"I'm actively learning it, because the design-to-dev handoff is the highest-leverage thing in this role and Storybook is where that story ends."</em> Curiosity beats a bluff, and they'll catch a bluff.</p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">Fit</span> "Why Goji Labs?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p><strong>The honest, specific version:</strong> "Two things. First — you sell AI product development and AI-accelerated prototyping as actual service lines, not as a marketing sentence. I've been building that practice on my own for a while, and it's rare to find a place where it's already the business rather than something you have to justify."</p>
+          <p>"Second — you work across regulated and high-stakes clients. Root Insurance, k-ID, emergency response. My last seven years have been design systems in exactly those conditions: GE Healthcare's clinical products, Blue Cross Blue Shield's enrollment flows. In that world accessibility isn't a review note, it's whether the product works or doesn't. That's not a skill I'd be learning here."</p>
+          <p>Then the closing turn — make it about their constraint, not your enthusiasm: <em>"And the thing I actually want to work on is the agency version of this problem. Giving a client a real system inside a project budget, instead of scoping one and watching it get cut. I think that's newly possible and I'd like to be doing it somewhere it matters."</em></p>
+          <div class="fill"><b>Add one live observation the morning of</b>
+          Open two or three of their case studies and find one concrete thing — a pattern that repeats across their work, a product whose surface you'd ask about. One specific sentence about <em>their</em> work beats three paragraphs about yours. Don't fake it; if you didn't look, skip it.</div>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">Fit</span> "How do you tie design decisions to client KPIs?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p>This is verbatim in their job post, so it's coming. The trap is answering with metrics theater — don't recite a dashboard.</p>
+          <p><strong>The move:</strong> tie the design decision to the client's actual cost. Pathfinder is the cleanest example. "The KPI wasn't a design metric. Advisors were losing deals because they couldn't defend a recommendation in the room. So the design goal became: at any moment, can the advisor answer <em>where are we</em> and <em>why this</em>. Everything I designed was measured against that, and the business case for the system underneath it was that inconsistency reads as unreliability when you're presenting live revenue data to a client."</p>
+          <p>For system work specifically: rework rate, time-to-first-screen on a new project, how much of a build is composed from existing components versus rebuilt. And the qualitative one you actually trust — <em>what brand and design review meetings are about.</em> At Avant they shifted from policing basics to arguing about ideas.</p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">Self</span> "What's your weakness?" <span class="chev">+</span></summary>
+        <div class="body">
+          <p>Pick a real one with a correction attached. The honest version for you: <strong>early on I built documentation and governance before the system had earned enough adoption to need it</strong> — perfect rails nobody was driving on yet.</p>
+          <p>The correction: now I ship the smallest usable foundation, get real contributors on it, and let the governance grow out of actual contribution friction instead of anticipated friction. Avant's marketing library was built that way — enablement first, rules second.</p>
+        </div>
+      </details>
+
+      <details class="qa"><summary><span class="qtag">Close</span> "Do you have questions for us?" — always have three <span class="chev">+</span></summary>
+        <div class="body">
+          <p>· <strong>"When a project ends, what happens to the system you built for that client? Do any of them come back and extend it?"</strong> This is the agency-specific version, and it's a genuinely good question — it tells you whether they're building assets or deliverables, and it signals you're thinking past the engagement.</p>
+          <p>· <strong>"Do you carry anything across clients — a starter kit, shared foundations — or does every project start from zero?"</strong> If the answer is "every project starts from zero," you have just found the thing you'd fix first, and you should say so.</p>
+          <p>· <strong>"You advertise AI-accelerated prototyping. Where does that actually sit today — is it in the process, or is it a few people using it well?"</strong> Shows you read past the homepage, and their answer tells you exactly how much room this role has.</p>
+          <p>· <strong>"What would make you say, a year from now, that hiring for this role worked?"</strong> Gives you their success metric in their own words — echo it in the thank-you note.</p>
+        </div>
+      </details>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 07 PROOF ════════════════════════════════════════ -->
+    <section id="s7">
+      <div class="shead">
+        <div class="num">09</div><h2>Proof &amp; outcome lines</h2>
+        <p>Every number here is from your own case studies and resume. The "say it like this" line is the version that fits in conversation.</p>
+      </div>
+
+      <div class="grid g2">
+
+        <div class="pf-card">
+          <div class="co"><h3>Verizon — Senior Design System Designer II</h3><span class="yr">Dec 2025 – Jan 2026</span></div>
+          <div class="nums"><span class="num">iOS · Android · Web parity</span><span class="num">Primitive + semantic tokens</span><span class="num">Dev Mode + Code Connect</span><span class="num">AI-augmented contribution patterns</span></div>
+          <div class="sayit">"Most recently I was on Verizon's post-rebrand enterprise system, owning tokens and component architecture across iOS, Android and web — and I led design-to-code alignment through Figma Dev Mode and Code Connect. That's the part that makes AI-generated components trustworthy instead of just fast."</div>
+        </div>
+
+        <div class="pf-card">
+          <div class="co"><h3>Avant — Pathfinder Design System</h3><span class="yr">2021 – 2024</span></div>
+          <div class="nums"><span class="num">3 yrs owned end to end</span><span class="num">2.0 → 3.0, no redesign</span><span class="num">5-state lifecycle</span><span class="num">2 systems, 1 foundation</span></div>
+          <div class="sayit">"I built Pathfinder from the ground up — token architecture, component libraries, governance — and it carried the product from 2.0 to 3.0 without a redesign. That's the test of a system: it absorbs change instead of being replaced by it."</div>
+        </div>
+
+        <div class="pf-card">
+          <div class="co"><h3>Avant — Marketing Design Library</h3><span class="yr">2024</span></div>
+          <div class="nums"><span class="num">350+ trained</span><span class="num">20+ campaign variants, 1 template logic</span><span class="num">Shared token foundation</span></div>
+          <div class="sayit">"The second act was extending the same tokens into a self-serve marketing library — 350+ managers producing on-brand work without a designer in the loop. It became the default path, not the mandated one."</div>
+        </div>
+
+        <div class="pf-card">
+          <div class="co"><h3>GE Healthcare — Edison Design System</h3><span class="yr">2020 – 2021</span></div>
+          <div class="nums"><span class="num">40+ regulated products</span><span class="num">4 theme targets</span><span class="num">100% a11y-documented</span><span class="num">Red Dot · Fast Company · dmi:DVA</span></div>
+          <div class="sayit">"Edison unified 40+ regulated clinical products — light and dark across desktop and touch, resolved from one semantic layer so components never fork. The team's work earned the 2020 Red Dot for Interface Design."</div>
+        </div>
+
+        <div class="pf-card">
+          <div class="co"><h3>Blue Cross Blue Shield — FIBER</h3><span class="yr">2018 – 2019</span></div>
+          <div class="nums"><span class="num">BCBS's first unified system</span><span class="num">40+ screens</span><span class="num">Web + mobile, one foundation</span><span class="num">React-compatible</span></div>
+          <div class="sayit">"FIBER was BCBS's first unified design system — built from zero, token-driven, React-compatible, unifying 40+ screens across enrollment and member flows. In healthcare, accessibility isn't an enhancement; it's the product working or not."</div>
+        </div>
+
+        <div class="pf-card">
+          <div class="co"><h3>TransUnion — TUCM</h3><span class="yr">2018 – 2019</span></div>
+          <div class="nums"><span class="num">Global system</span><span class="num">TrueCredit rebrand</span><span class="num">Design-to-code workflows</span></div>
+          <div class="sayit">"Designed the global TUCM system and the TrueCredit consumer rebrand — responsive token-integrated libraries with universal style guidelines across customer-facing and internal apps."</div>
+        </div>
+
+      </div>
+
+      <div class="card" style="margin-top:var(--s4)">
+        <span class="pill">Opening statement · ~45 seconds</span>
+        <div class="say" style="margin-top:var(--s4)">I'm a product and design systems designer — 19 years in UX and product design, the last 7 almost entirely on design systems. At Avant I built Pathfinder from the ground up and owned it for two and a half years, product and marketing on one token foundation. Before that, GE Healthcare's Edison system across 40+ regulated clinical products, and Blue Cross Blue Shield's first unified system, built from zero. So my background is systems that have to hold up under real constraints — regulated, multi-team, long-lived. What's changed in the last year is speed: I build system rules as skills the AI works inside, and I use the Figma MCP server so Claude Code reads real variables out of a file instead of guessing. What interests me about <span data-kit="company">Goji Labs</span> is applying that to agency work — giving a client a system that survives the engagement, inside a budget that never used to allow one.</div>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 10 LOOM ═════════════════════════════════════════ -->
+    <section id="s8">
+      <div class="shead">
+        <div class="num">10</div><h2>Loom — required</h2>
+        <p>Goji asks for a ~3-minute Loom as part of the application. Read the brief carefully: <strong>how you solved a design problem, with actual work samples.</strong> That is a case study, not a tool demo.</p>
+      </div>
+
+      <div class="card" style="border-color:rgba(217,164,65,.35);margin-bottom:var(--s4)">
+        <span class="pill pill--warn">Do not get this wrong</span>
+        <ul class="tight">
+          <li>The instinct is to record the AI demo, because it's the shiniest thing you have. <strong>Don't.</strong> They asked for a design problem and work samples. Answer the question they asked.</li>
+          <li>Use <strong>Pathfinder</strong>. It's a real problem, real research, real work on screen, and a real outcome — it's the strongest thing in your portfolio for this brief.</li>
+          <li>Land the AI and systems angle in the last thirty seconds, as the <em>answer to the problem</em>, not as the subject. Then it reads as judgment instead of a party trick.</li>
+          <li>Screen recording with the face bubble on. They're hiring a person.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="grid" style="gap:var(--s5)">
+          <div>
+            <span class="pill pill--go">0:00 – 0:25 · The problem, concretely</span>
+            <div class="say">I'm Mikel Rosenthal. I want to walk you through one problem. At Avant, technology advisors were running six-figure enterprise deals out of their inbox — requirements in email threads, provider research in spreadsheets, quotes in attachments named final_v3_REAL. Nothing had a state. And the expensive part wasn't doing the work, it was re-finding it.</div>
+          </div>
+          <div>
+            <span class="pill">0:25 – 1:00 · How you found that out</span>
+            <div class="say">I shadowed advisors through live deals instead of interviewing them about deals — fifteen minutes watching someone reconstruct a quote history from their sent folder tells you more than an hour of them describing their process, because nobody describes their workarounds. They've stopped seeing them. And I ran a full interface inventory: five primary blues, three button shapes, seven sizes, in a tool where advisors present live revenue data to clients. Inconsistency reads as unreliability.</div>
+          </div>
+          <div>
+            <span class="pill">1:00 – 2:00 · The decision, on screen</span>
+            <div class="say">Everything followed from one decision about nouns. The platform was organized around tools — a fiber tool, a quote tool, each a destination you visited and left. I reorganized it around a single object: the Project. It has a client, a scope, an owner, and a state — and it moves through five of them in order. Evidence gathered in any state stays visible in every state that follows. So at any moment the advisor can answer "where are we" and "why this."</div>
+          </div>
+          <div>
+            <span class="pill">2:00 – 2:35 · The system underneath it</span>
+            <div class="say">None of that holds without the system. I built Pathfinder underneath it — token architecture, component libraries, governance — and it carried the product from 2.0 to 3.0 without a redesign. Then we extended the same tokens into a marketing library that 350+ people shipped from without a designer in the loop.</div>
+          </div>
+          <div>
+            <span class="pill">2:35 – 3:00 · Where you are now</span>
+            <div class="say">What I'd add to that today is speed. I build design system rules as skills that Claude works inside, and I use the Figma MCP server so Claude Code reads real variables out of a file rather than guessing at them. It means a client can get a real system inside a normal project budget — which used to be the thing that always got cut. Happy to show that live any time.</div>
+          </div>
+        </div>
+        <ul class="tight" style="margin-top:var(--s5)">
+          <li>Have the Pathfinder case study open and scroll it as you talk — the interface inventory diagram and the five-state rail are your two money shots.</li>
+          <li>Three minutes is short. Rehearse once against a timer; if you're at 3:40, cut the research section, not the decision section.</li>
+          <li>One take. Small stumbles read as real; a polished read reads as a script.</li>
+        </ul>
+      </div>
+      <hr class="rule">
+    </section>
+
+    <!-- ══ 09 SETUP ════════════════════════════════════════ -->
+    <section id="s9">
+      <div class="shead">
+        <div class="num">11</div><h2>Setup &amp; run of show</h2>
+        <p>Checkboxes save to this browser. Do the top block the night before — never the hour of. Two toolchains means twice as much that can break, so test both.</p>
+      </div>
+
+      <div class="grid g2">
+        <div>
+          <div class="lbl" style="margin-bottom:var(--s3)">Night before</div>
+          <div class="check" id="ck1">
+            <label><input type="checkbox"><span>Turn on <strong>Code execution</strong><span class="sm">claude.ai → Settings → Capabilities</span></span></label>
+            <label><input type="checkbox"><span>Upload the skill<span class="sm">Customize → Skills → + → Create skill → keystone-ds.zip → toggle on</span></span></label>
+            <label><input type="checkbox"><span>Rename the system + tokens to their real one<span class="sm">./rename.sh "TheirSystem" — then re-zip and re-upload</span></span></label>
+            <label><input type="checkbox"><span>Run Prompt 1 end to end, once<span class="sm">Zero surprises. If it hiccups tonight, you have time.</span></span></label>
+            <label><input type="checkbox"><span><strong>Connect the Figma MCP server to Claude Code</strong><span class="sm">claude mcp add --transport http figma https://mcp.figma.com/mcp &nbsp;→&nbsp; /mcp &nbsp;→&nbsp; authenticate</span></span></label>
+            <label><input type="checkbox"><span>Build a clean demo frame in Figma<span class="sm">Real variables, real auto-layout, named components. A sloppy file makes the tool look bad, not the file.</span></span></label>
+            <label><input type="checkbox"><span>Create a <strong>scratch</strong> Figma file for the code→design write<span class="sm">Never demo a write against a file that matters</span></span></label>
+            <label><input type="checkbox"><span>Run both MCP directions once, end to end<span class="sm">Design→code and code→design. Time them — you need to know how long the room waits.</span></span></label>
+            <label><input type="checkbox"><span>Screenshot good output from <em>both</em> demos into <code style="font-family:var(--mono);font-size:12px">/fallback</code><span class="sm">Your offline parachute</span></span></label>
+            <label><input type="checkbox"><span>Write your real "AI got it wrong" story into section 06<span class="sm">The placeholder will not survive a follow-up question</span></span></label>
+            <label><input type="checkbox"><span>Rewrite "Why us?" with their actual product<span class="sm">Name a specific surface and a specific observation</span></span></label>
+          </div>
+        </div>
+
+        <div>
+          <div class="lbl" style="margin-bottom:var(--s3)">Thirty minutes before</div>
+          <div class="check" id="ck2">
+            <label><input type="checkbox"><span>Fresh Claude chat, skill toggled on, nothing else open in it</span></label>
+            <label><input type="checkbox"><span>Claude Code terminal open, Figma MCP connected<span class="sm">Run /mcp once to confirm it's authenticated — tokens expire</span></span></label>
+            <label><input type="checkbox"><span>Demo frame URL and scratch file URL copied somewhere you can grab them<span class="sm">Do not hunt through Figma on a share</span></span></label>
+            <label><input type="checkbox"><span>Terminal font bumped up<span class="sm">Tool calls are the whole point of Demo B and nobody can read 11pt over Zoom</span></span></label>
+            <label><input type="checkbox"><span>Browser at <strong>125%</strong><span class="sm">They have to read generated code over a share — small type kills the demo</span></span></label>
+            <label><input type="checkbox"><span>This dashboard in a second window, section 01 on screen</span></label>
+            <label><input type="checkbox"><span>Notifications off · Do Not Disturb on · phone face down</span></label>
+            <label><input type="checkbox"><span>Close everything you're not sharing<span class="sm">Especially other tabs with other companies' names in them</span></span></label>
+            <label><input type="checkbox"><span>Water within reach. Test audio and camera.</span></label>
+            <label><input type="checkbox"><span>Run the rehearsal once, out loud<span class="sm">Press R. Full voice, not in your head.</span></span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:var(--s5)">
+        <span class="pill">Run of show</span>
+        <ul class="tight" style="margin-top:var(--s4)">
+          <li><strong>Before you share your screen</strong> — say what they're about to see and how long it takes. "About four minutes for both, and then I'd rather talk about what it means than watch it run."</li>
+          <li><strong>Share the window, not the desktop.</strong> Practice the share once so you're not hunting in the picker — and remember you'll be switching between a browser and a terminal.</li>
+          <li><strong>Beat one before you type anything.</strong> The frame is the demo's foundation, same as the tokens.</li>
+          <li><strong>Demo A, then Demo B.</strong> A always works and buys you credibility; spend it on B. If you're running long, cut B's code→design half, not the Code Connect line.</li>
+          <li><strong>Stop sharing before beat three.</strong> Deliver the close to their faces, not to a code editor.</li>
+          <li><strong>The last thing out of your mouth</strong> should be the agency close from section 04 — the deliverable they couldn't previously sell. That's the sentence you want them repeating to each other after you leave the call.</li>
+        </ul>
+      </div>
+    </section>
+
+  </main>
+  </div>
+</div>
+
+<!-- ── REHEARSAL ─────────────────────────────────────────── -->
+<div class="reh" id="reh" aria-hidden="true">
+  <div class="reh-in">
+    <div class="dots" id="rehDots"><i></i><i></i><i></i></div>
+    <div class="beatname" id="rehName">Beat one — Trust</div>
+    <div class="clock" id="rehClock">0:00</div>
+    <div class="target" id="rehTarget">target · 30 seconds</div>
+    <div class="script" id="rehScript"></div>
+    <div class="ctl">
+      <button class="btn" id="rehPrev">← Back</button>
+      <button class="btn btn--go" id="rehNext">Next beat →</button>
+      <button class="btn" id="rehReset">Reset</button>
+      <button class="btn" id="rehClose">Esc · Close</button>
+    </div>
+    <div class="hint">SPACE — next beat &nbsp;·&nbsp; ESC — exit &nbsp;·&nbsp; say it out loud, full voice</div>
+  </div>
+</div>
+
+<!-- ── PALETTE ───────────────────────────────────────────── -->
+<div class="pal" id="pal" aria-hidden="true">
+  <div class="pal-in">
+    <input id="palIn" placeholder="Jump to…" autocomplete="off" spellcheck="false">
+    <ul id="palList"></ul>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   CONFIG — edit these three lines and the whole page updates.
+   ═══════════════════════════════════════════════════════════ */
+var KIT = {
+  company: "Goji Labs",              // ← their name
+  role:    "Product Designer",       // ← the role as posted
+  system:  "Keystone",               // ← the demo system (agency: keep neutral)
+  date:    "set your date"           // ← "Tue Aug 11 · 2:00pm PT"
+};
+
+var SECTIONS = [
+  {id:"s0", n:"00", t:"At a glance"},
+  {id:"sB", n:"01", t:"Goji Labs briefing"},
+  {id:"s1", n:"02", t:"The demo arc"},
+  {id:"s2", n:"03", t:"Demo A · the skill"},
+  {id:"sM", n:"04", t:"Demo B · Claude Code + Figma MCP"},
+  {id:"s3", n:"05", t:"Live preview"},
+  {id:"s4", n:"06", t:"Process spine"},
+  {id:"s5", n:"07", t:"Framing lines"},
+  {id:"s6", n:"08", t:"Tough questions"},
+  {id:"s7", n:"09", t:"Proof & outcomes"},
+  {id:"s8", n:"10", t:"Loom — required"},
+  {id:"s9", n:"11", t:"Setup & run of show"}
+];
+
+var BEATS = [
+  {name:"Beat one — Trust",   sec:30, script:"Everything you're about to see is grounded in a skill I built. It holds our tokens, our component rules, our accessibility standards. So Claude isn't guessing — it's working inside our system."},
+  {name:"Beat two — Reveal",  sec:90, script:"Watch — it's reaching for our spacing scale, not inventing its own. And there, it just added a focus state. I didn't ask for that. Accessibility is baked into the skill, so it does it automatically."},
+  {name:"Beat three — Meaning", sec:30, script:"What used to be a static component is now something the whole team can generate — on-system, in seconds. But every judgment call, what's right and what ships, that's still mine. The AI accelerates the craft. It doesn't own it."}
+];
+</script>
+<script src="kit.js?v=2"></script>
+</body>
+</html>

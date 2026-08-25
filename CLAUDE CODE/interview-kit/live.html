@@ -1,0 +1,344 @@
+<title>Interview &mdash; State Farm</title>
+
+<style>
+:root{
+  --bg:#faf9f7; --panel:#ffffff; --line:#e4e0d9; --line-2:#cdc7bd;
+  --ink:#1a1917; --ink-2:#5c564e; --ink-3:#8a8279;
+  --accent:#c8552b; --accent-soft:rgba(200,85,43,.10);
+  --ok:#3f7d52; --ok-soft:rgba(63,125,82,.10);
+  --warn:#8a6a1f;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,monospace;
+  --ui:system-ui,-apple-system,"Segoe UI",sans-serif;
+  --say:Georgia,"Iowan Old Style","Times New Roman",serif;
+  --r:10px;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#121110; --panel:#1c1a18; --line:#2b2723; --line-2:#3d3833;
+    --ink:#f0ebe0; --ink-2:#b0a89d; --ink-3:#7d766d;
+    --accent:#e86a33; --accent-soft:rgba(232,106,51,.13);
+    --ok:#7fb77e; --ok-soft:rgba(127,183,126,.11);
+    --warn:#d9a441;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121110; --panel:#1c1a18; --line:#2b2723; --line-2:#3d3833;
+  --ink:#f0ebe0; --ink-2:#b0a89d; --ink-3:#7d766d;
+  --accent:#e86a33; --accent-soft:rgba(232,106,51,.13);
+  --ok:#7fb77e; --ok-soft:rgba(127,183,126,.11);
+  --warn:#d9a441;
+}
+:root[data-theme="light"]{
+  --bg:#faf9f7; --panel:#ffffff; --line:#e4e0d9; --line-2:#cdc7bd;
+  --ink:#1a1917; --ink-2:#5c564e; --ink-3:#8a8279;
+  --accent:#c8552b; --accent-soft:rgba(200,85,43,.10);
+  --ok:#3f7d52; --ok-soft:rgba(63,125,82,.10);
+  --warn:#8a6a1f;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);line-height:1.5;-webkit-text-size-adjust:100%}
+
+/* -- operating bar ------------------------------- */
+.bar{
+  position:sticky;top:0;z-index:20;background:var(--bg);
+  border-bottom:1px solid var(--line);padding:12px 20px;
+  display:flex;gap:10px;align-items:center;flex-wrap:wrap;
+}
+#q{
+  flex:1 1 220px;min-width:0;background:var(--panel);color:var(--ink);
+  border:1px solid var(--line-2);border-radius:var(--r);
+  padding:13px 15px;font-family:var(--ui);font-size:16px;outline:none;
+}
+#q::placeholder{color:var(--ink-3)}
+#q:focus-visible{border-color:var(--accent)}
+.count{font-family:var(--mono);font-size:11px;color:var(--ink-3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.tbtn{
+  font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;
+  background:none;border:1px solid var(--line-2);color:var(--ink-2);
+  border-radius:var(--r);padding:9px 12px;cursor:pointer;white-space:nowrap;
+}
+.tbtn:hover{border-color:var(--ink-3);color:var(--ink)}
+.tbtn[aria-selected="true"]{background:var(--accent-soft);border-color:var(--accent);color:var(--accent)}
+.tbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;width:100%}
+
+/* -- page ---------------------------------------- */
+.wrap{max-width:780px;margin:0 auto;padding:28px 20px 100px}
+.lede{margin-bottom:34px;padding-bottom:26px;border-bottom:1px solid var(--line)}
+.lede h1{font-size:clamp(24px,5vw,34px);font-weight:600;letter-spacing:-.02em;line-height:1.15;text-wrap:balance;margin-bottom:10px}
+.lede p{color:var(--ink-2);font-size:15px;max-width:60ch}
+
+.item{padding:26px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.ask{font-family:var(--mono);font-size:11.5px;line-height:1.7;color:var(--accent);margin-bottom:14px;letter-spacing:.01em}
+.ask i{color:var(--ink-3);font-style:normal}
+.answer{font-family:var(--say);font-size:20px;line-height:1.55;color:var(--ink)}
+@media(min-width:640px){.answer{font-size:22px}}
+.more{
+  margin-top:16px;padding-left:14px;border-left:2px solid var(--line-2);
+  font-size:13.5px;line-height:1.6;color:var(--ink-3);
+}
+.more b{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2);margin-bottom:4px}
+.stop{
+  display:block;margin-top:14px;font-family:var(--mono);font-size:9.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3);
+}
+mark{background:var(--accent-soft);color:var(--ink);border-radius:3px;padding:0 2px}
+
+/* beat / pick markers */
+.tag{
+  display:inline-block;font-family:var(--mono);font-size:9.5px;letter-spacing:.14em;
+  text-transform:uppercase;padding:4px 8px;border-radius:6px;margin-bottom:12px;
+  border:1px solid var(--ok);color:var(--ok);background:var(--ok-soft);
+}
+.tag.beat{border-color:var(--accent);color:var(--accent);background:var(--accent-soft)}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:26px}
+.fact{background:var(--panel);padding:16px}
+.fact b{display:block;font-size:24px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.fact span{display:block;font-size:12px;color:var(--ink-3);margin-top:3px;line-height:1.4}
+
+.none{color:var(--ink-3);font-family:var(--mono);font-size:13px;padding:50px 0;text-align:center}
+.foot{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;color:var(--ink-3);line-height:1.9}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="bar">
+  <input id="q" placeholder="Type a word he said&hellip;" autocomplete="off" spellcheck="false" aria-label="Search answers">
+  <span class="count" id="count"></span>
+  <div class="tabs" role="tablist">
+    <button class="tbtn" role="tab" data-tab="say" aria-selected="true">Say this</button>
+    <button class="tbtn" role="tab" data-tab="case" aria-selected="false">Case study</button>
+    <button class="tbtn" role="tab" data-tab="ask" aria-selected="false">Ask him</button>
+    <button class="tbtn" role="tab" data-tab="facts" aria-selected="false">Facts</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="lede" id="lede">
+    <h1>Say it, then stop talking.</h1>
+    <p>Every answer is one breath long, written the way you'd actually say it. Type a word he used. Stephen prefers concise over thorough &mdash; the reserve line under an answer is only if he follows up.</p>
+  </div>
+  <div id="list"></div>
+  <div class="none" id="none" hidden>Nothing matches. Try a plainer word.</div>
+  <div class="foot" id="foot"></div>
+</div>
+
+<script>
+var SAY=[
+{q:["Tell me about yourself","Walk me through your background"],t:"intro background overview yourself",
+ a:"I'm a design systems person who ended up half in code. Nineteen years in product design, the last seven almost entirely on systems \u2014 Verizon, GE Healthcare, Blue Cross. What I do all day sits between Figma and the codebase: the tokens, the components, and the tooling that keeps those two from drifting apart.",
+ stop:"Then stop. Let him pick the thread."},
+{q:["Why this role?","Why are you interested?"],t:"why role interested motivation fit apply",
+ a:"Honestly, the platform-agnostic piece. Getting a system off a single tool as its source of truth \u2014 without making the designers' day worse \u2014 is a genuinely hard problem, and it's the one I most want to be working on. Most places aren't there yet. You've written it into the job description."},
+{q:["Have you built systems or just worked in them?"],t:"built building consuming scratch zero four founded",
+ a:"Four from scratch. Blue Cross Blue Shield's first unified system, TransUnion's global one, Pathfinder at Avant, and the marketing library that came off it. And the building part is honestly the easy half \u2014 Pathfinder went 2.0 to 3.0 and never needed a redesign. That's the part I'm actually proud of.",
+ more:["Why that's the real test","A token layer that survives a major version has the architecture right. One that gets replaced didn't."]},
+{q:["How do you scale across teams?"],t:"scale scaling teams multiple products enterprise",
+ a:"The hard problems are never visual \u2014 they're alignment. Edison at GE unified forty-plus regulated products, and almost none of that work was design. It was getting teams to agree on names, and giving them a path to contribute that didn't route through me."},
+{q:["How do you structure tokens?","Talk me through your token architecture"],t:"tokens token architecture tiers primitive semantic component variables structure",
+ a:"Three tiers, and they only point one direction. Primitives are the raw scale and nothing touches them directly. Semantics carry the meaning \u2014 that's the public API, and the only layer that themes. Then component tokens, but only where one component actually needs to break from the rest.",
+ more:["If he pushes on the third tier","You need it the first time you want to change one button without touching everything that shares its background."]},
+{q:["Why not just two tiers?"],t:"two three tier component tokens why need",
+ a:"You don't, until you do. The moment you need a per-component exception and you don't have that layer, you either hardcode it or you change the semantic and break four other things. I've been on the wrong side of that.",
+ stop:"Short answer. Don't lecture."},
+{q:["How do you handle theming?","Light and dark?","Multi-brand?"],t:"theming theme light dark mode modes brand",
+ a:"One semantic layer, resolved differently. At GE we had four theme targets \u2014 light and dark across desktop and touch \u2014 and the components never forked. Same component; the layer underneath resolves to different values.",
+ more:["The failure mode","The second a dark version exists as a separate component, you've doubled your maintenance forever."]},
+{q:["How do you name things?","Naming conventions?"],t:"naming names convention api",
+ a:"With the engineers in the room, before I build anything. A semantic token is an interface \u2014 and interfaces get named by the people who call them. At Avant they pushed back on my first set because they read like design words instead of API names, and they were right."},
+{q:["How do you work with engineers?"],t:"engineers engineering developers partner collaborate handoff",
+ a:"I try to make handoff not be a thing that happens. I spec with states enumerated and theming hooks already there, so implementation isn't a re-draw. At Verizon I wired up Code Connect so when an engineer opens a component in Dev Mode they see our actual code, not a generated guess at it."},
+{q:["How do you get design into production code?"],t:"design code production translation dev mode connect implementation",
+ a:"Two halves, and people only ever do the fun one. The fun half is generating code from a design. The unglamorous half is Code Connect \u2014 actually mapping each component to the real thing in the repo. That's the half that makes anyone trust the output, and it's the half that gets skipped."},
+{q:["Tell me about a plugin you've built","Figma Plugin API experience?"],t:"plugin plugins figma api automation exporter dtcg built tooling",
+ a:"The one I keep coming back to pulls a file's variable collections out as DTCG token JSON, so the tokens can leave Figma and feed a build. The tricky part was keeping the aliases \u2014 flatten the semantic layer into resolved values and you get a file that's technically valid and architecturally dead.",
+ more:["The detail that proves you wrote it","Figma has one FLOAT type. The spec cares whether 4 means 4 pixels or a 4\u00d7 multiplier \u2014 and nothing in the API tells you which. So the real fix is upstream, in what you named the token. A design system problem wearing an engineering costume."]},
+{q:["What tools do you use for Figma to code?","Anima or Locofy?"],t:"figma code tools plugins anima locofy builder framelink mcp export",
+ a:"The plugin route \u2014 Anima, Locofy, Builder \u2014 is the wrong shape for a design system. They export a finished frame, so you get a one-off. I use the Figma MCP server inside Claude Code instead, because it reads the live file rather than a snapshot of it.",
+ more:["The number that makes the case","Without Code Connect wired up, reported styling inaccuracy runs around 85 to 90 percent \u2014 generic markup with hardcoded values. With it, the agent composes from your actual components."]},
+{q:["How do you go from Figma to an AI-maintained system?"],t:"pipeline figma ai maintained mcp code connect skill files layers",
+ a:"Three layers, and you need all three. The MCP reads the real file, so nothing's guessed. Code Connect maps each component to the thing in the repo, so it composes instead of inventing. And the skill files carry the rules \u2014 tokens, required states, the accessibility floor. Miss any one and you're back to output that looks right and isn't.",
+ stop:"That's the architecture answer. Stop there unless he wants the demo."},
+{q:["When do you decide to automate something?"],t:"automate automation when decide build tooling",
+ a:"Third time I do it by hand. Not the first \u2014 I don't know the shape of the problem yet. By the third repetition the tool basically designs itself, and it's the one people actually end up using."},
+{q:["Talk to me about accessibility","WCAG experience"],t:"accessibility a11y wcag inclusive contrast focus screen reader",
+ a:"I write it as something a script can check instead of something a person asserts. Contrast as a token pair with a ratio. A focus ring that's never allowed to be removed. Forty-four pixel targets. And nothing that signals state with colour alone.",
+ more:["Where it came from","GE Healthcare and Blue Cross \u2014 WCAG was a legal requirement, not a preference. That's when it stops being a checklist and becomes architecture."]},
+{q:["How do you keep things consistent across platforms?"],t:"consistency platforms cross-platform ios android web parity",
+ a:"You can't enforce it downstream, so it has to fall out of the source. One token file, and the build emits CSS, iOS and the docs from it. If somebody wants to be inconsistent they have to go out of their way."},
+{q:["What's AI's role in design systems?"],t:"ai role artificial intelligence generative llm workflows",
+ a:"It moves the judgment upstream, it doesn't remove it. Somebody still decides there are three button sizes and not seven, and that an error is never just a colour. That's the design work \u2014 it just happens once, in the system, instead of once per component.",
+ stop:"That's the whole answer. Don't add to it unless he asks."},
+{q:["Has AI actually made you faster?","Is it hype or does it work?"],t:"faster speed productivity 10x efficiency hype gain time",
+ a:"On the mechanical work, easily ten times. Audits, variant coverage, documentation, drift checks \u2014 the tedious high-volume stuff that used to eat days now takes an afternoon. On the decisions it's zero, and I wouldn't want it to be anything else.",
+ stop:"Say both halves. The second is what makes the first believable."},
+{q:["What are skill files?","How do you make a system AI-ready?"],t:"skill files ai-ready machine readable guidance rules encode",
+ a:"It's the system's rules written so a machine can't ignore them. Tokens, required states, the accessibility floor \u2014 plus a rule that every value it generates has to be annotated with the token it came from. That way the output is auditable instead of just trusted.",
+ more:["The part worth saying next","Two layers, really. The rules make a generated component correct. The inventory \u2014 what already exists \u2014 stops it building you a fourth button next to your three."]},
+{q:["How do you stop it becoming tech debt?"],t:"tech debt review generated trust risk quality merge",
+ a:"Generated code is a draft PR. Same review bar as anything a person wrote \u2014 nothing merges because a machine made it. The thing that actually worries me isn't bad output, it's plausible output nobody checked."},
+{q:["How do you keep documentation from going stale?"],t:"documentation docs stale rot drift generated provenance",
+ a:"You generate it from the same source as the code, or it rots. And I know that because mine did \u2014 I went back through my own system and the guide said forty-three tokens when the collection actually had sixty-two. Nobody noticed, including me."},
+{q:["How would you make us less dependent on Figma?"],t:"platform agnostic figma dependency source truth migration neutral git",
+ a:"Tokens live in a neutral file in Git, and a build carries them out to every platform. Figma becomes a consumer instead of the origin. But the order matters \u2014 you don't take anything away. You make the neutral source generate the Figma variables, so nothing changes for a designer except that drift stops.",
+ more:["Say this last","And I'd hold you to your own wording \u2014 if the designer's day gets worse, the migration failed, no matter how clean the architecture looks."]},
+{q:["How do you think about governance?"],t:"governance contribution deprecation versioning direction",
+ a:"Governance is mostly about how things leave, and almost everybody only builds how things get in. I only built the entrance too \u2014 and I can show you what that cost. Three generations of naming in my own file, all still resolving, because nothing ever got retired."},
+{q:["How do you measure adoption?"],t:"measure adoption metrics coverage detachment usage success",
+ a:"Coverage is depth, usage is breadth, and detachment tells you where the system doesn't fit. But a bare percentage is theatre. Eighty percent doesn't tell you which teams, or why the other twenty aren't \u2014 the number's only useful if it points at the next question.",
+ more:["The one I actually trust","What design review meetings are about. At Avant they went from policing the basics to arguing about ideas."]},
+{q:["What if a team won't adopt it?"],t:"adoption resist adopt barriers buy-in rollout",
+ a:"I assume they're right first. Usually it means the system doesn't cover their case, or using it is slower than the workaround \u2014 and both are my bug. The marketing library at Avant got three hundred and fifty people because it was faster than the old way, not because anyone was told to use it."},
+{q:["How would you manage the system day to day?"],t:"manage maintain operations triage audit release steward",
+ a:"Five things. Audit it so drift is a number instead of a feeling. Triage requests \u2014 the default answer to a new component is no. Deprecate on purpose. Cut releases the consumer can read. And measure adoption by team, because a single percentage tells you nothing.",
+ more:["The triage rule","I ask for three real usages before building anything. One is a one-off. Three is a pattern."]},
+{q:["Someone asks for a new component. What do you do?"],t:"new component request triage contribution backlog",
+ a:"Work down the ladder and stop at the first thing that fits. Does something already do this and they couldn't find it \u2014 that's discoverability, not a gap. Does it do it with a prop nobody documented. Can two components compose into it. Does one need a new variant. And only then: is it actually new.",
+ more:["Record the no","A no with a reason is a contribution. A no with silence is how people stop asking and start forking."]},
+{q:["What would you improve about your own work?"],t:"improve differently weakness self-critical mistakes",
+ a:"I went back through my own system recently and found four things. No deprecation path. No component token tier. My documentation was off by nineteen tokens. And the button has no focus state \u2014 the token's defined, the input uses it, the button just never picked it up. I owned that system for two and a half years and missed it.",
+ more:["How it got caught","A rules pass against my own accessibility standards found it in about four seconds. Which is the honest argument for encoding standards instead of writing them down."],
+ stop:"Unhurried. Smile. It only sounds defensive if you rush."},
+{q:["How much code do you actually write?"],t:"code coding technical javascript typescript engineer hands-on",
+ a:"Plugins, token pipelines, web components, the audit scripts around a system. I'm not applying as a front-end engineer and you're not hiring one \u2014 your description says hybrid. What I bring is that I can build the tooling and also make the call about what the tooling should enforce. Usually that's two people."},
+{q:["You've done a lot of contract work"],t:"contract contracts freelance tenure history hopping",
+ a:"That's how enterprise design systems get staffed \u2014 GE, Blue Cross, TransUnion, Verizon all brought me in as a specialist to build or scale a system. Every one outlasted my engagement, which is sort of the point. The counterweight is two and a half years full-time at Avant owning Pathfinder end to end.",
+ stop:"Don't get defensive. It reads as 'repeatedly hired to do the hard version.'"},
+{q:["What are you learning right now?"],t:"learning curious curiosity future headed next unknown",
+ a:"The spec answered that last October \u2014 resolvers, in the 2025.10 stable release. But it is only half-shipped: Style Dictionary has not implemented resolvers yet, and the spec covers composition, not runtime output. Authoring is settled, the pipeline is not \u2014 that is the part I am poking at.",
+ more:["If he asks where systems are headed","Toward two consumers instead of one \u2014 humans and machines. And the second can't improvise around bad documentation, which makes documentation quality load-bearing in a way it never was."]}
+];
+
+var CASE=[
+{tag:"01 \u00b7 Problem",q:["Open on the person, not the system"],t:"problem inbox state advisors",
+ a:"Advisors at Avant were running six-figure enterprise deals out of their inbox. Requirements in email threads, provider research in spreadsheets, quotes in attachments called final_v3_REAL. Nothing had a state. And the expensive part wasn't doing the work \u2014 it was re-finding it.",
+ stop:"Let the filename land. Then stop and let him react."},
+{tag:"02 \u00b7 Why it mattered",q:["Say \u201ctwo costs\u201d"],t:"why mattered cost thread unreliability blues audit",
+ a:"Two costs. The advisor lost time, but worse, lost the thread \u2014 and a recommendation you can't explain is one you can't sell. And on the interface: five primary blues, three button shapes, seven sizes, in a tool where advisors present live revenue data. Inconsistency reads as unreliability.",
+ stop:"Slow down on the numbers. Five, three, seven."},
+{tag:"03 \u00b7 Constraints",q:["Say \u201cthree constraints\u201d \u2014 then give three"],t:"constraints tradeoff team shipping audiences",
+ a:"Three constraints. One, I was the design team. Two, feature work couldn't stop, so the system went in underneath a moving product. Three, two audiences with opposite needs. So I shipped fewer options than people asked for \u2014 one button, three sizes, not seven.",
+ more:["Don't skip this","It's the beat most candidates cut, and it's where a real story separates from a rehearsed one."]},
+{tag:"04 \u00b7 Thinking",q:["Method, then the number it produced"],t:"thinking research shadow inventory countable workarounds",
+ a:"I shadowed advisors through live deals instead of interviewing them about deals. Nobody describes their own workarounds \u2014 they've stopped seeing them. Then I made the fragmentation countable. Numbers ended an argument that opinions couldn't."},
+{tag:"05 \u00b7 Decisions",q:["The strongest sentence you have"],t:"decision nouns project object five states alternative",
+ a:"Everything followed from one decision about nouns. The platform was organised around tools \u2014 destinations you visited and left. I reorganised it around a single object: the Project, carrying a state, moving through five in order. The alternative was improving each tool individually, which was faster and would have left the advisor just as lost.",
+ more:["Naming the alternative","That's what makes it a decision rather than a description. On a call the reasoning is the evidence."]},
+{tag:"06 \u00b7 Engineering",q:["Lead with them being right"],t:"engineering collaboration naming api pushback",
+ a:"Engineering pushed back on my first token names because they read as design words, not API names. They were right. A semantic token is an interface, and interfaces get named by the people who call them. So we settled the convention together, before I built the library.",
+ stop:"Highest-value beat for a hybrid role. Costs you nothing."},
+{tag:"07 \u00b7 Impact",q:["One number you trust, then the qualitative one"],t:"impact outcome redesign durability contributors",
+ a:"This was the fourth system I'd built from scratch. The number I trust most: it carried the product from 2.0 to 3.0 without a redesign, over two and a half years. Then the same foundation carried a marketing library 350-plus people shipped from. And the one I watch for \u2014 brand review stopped being about policing basics."},
+{tag:"08 \u00b7 What I'd improve",q:["Say \u201cfour things\u201d \u2014 be genuinely self-critical"],t:"improve four things deprecation tier focus documentation",
+ a:"Four things. No deprecation path, so three generations of naming coexist. No component token tier, so every exception is made by hand. The button has no focus state \u2014 the token's defined, the input uses it, the button never picked it up, and I missed it for three years. And my own documentation says forty-three semantic tokens when there are sixty-two.",
+ stop:"Fifty seconds. Unhurried. This is the answer that wins it."}
+];
+
+var ASK=[
+{tag:"Pick \u00b7 ask first",q:["Diagnostic"],t:"tokens live today path production css pipeline greenfield rescue",
+ a:"Where do the tokens live today, and what's the path from a Figma variable to production CSS?",
+ more:["Listen for","\u201cIt's manual\u201d \u2192 greenfield, you're building it. \u201cWe have a repo but it drifts\u201d \u2192 a rescue, and provenance is your pitch. \u201cStyle Dictionary in CI\u201d \u2192 they're mature and the real job is the AI layer."]},
+{tag:"Pick",q:["The unusual bullet"],t:"skill files running first attempt ahead",
+ a:"On the skill files \u2014 is anything running today, or is this the first attempt?",
+ more:["Listen for","\u201cFirst attempt\u201d \u2192 you're ahead of them, and you should say so. If they already have something running, switch to genuine questions about it rather than pitching yours."]},
+{tag:"Pick \u00b7 the human one",q:["The seam"],t:"role sit closest day to day seam uncomfortable team",
+ a:"This role sits between design and engineering. Who does it sit closest to day to day \u2014 and where has that seam been uncomfortable before?",
+ more:["Why it lands","Least performative question here. You're asking about friction, not org charts \u2014 which is what someone who's done the job asks."]},
+{tag:"Pick \u00b7 ask last",q:["Closing"],t:"year from now hire worked success metric",
+ a:"A year from now, what would make you say this hire clearly worked?",
+ more:["Then","Echo his exact phrasing back in the thank-you note. Highest-return sentence you can write afterwards."]},
+{tag:"If there's room",q:["Contribution culture"],t:"component doesn't exist request wait shadow",
+ a:"What happens right now when a product team needs a component that doesn't exist?",
+ more:["Listen for","\u201cThey file a request and wait\u201d \u2192 there's a bottleneck, probably the person you'd be joining. \u201cThey build it themselves\u201d \u2192 shadow components everywhere, which is your inventory pitch."]},
+{tag:"If there's room",q:["Why now"],t:"broke platform agnostic priority incident",
+ a:"What broke that made platform-agnostic a priority now?",
+ more:["Listen for","A vendor-risk answer is a very different mandate than \u201cour native teams can't consume our tokens.\u201d Only the second is yours to solve."]},
+{tag:"Only if you're steady",q:["The objection"],t:"pause concerns background hesitation objection",
+ a:"Is there anything about my background that gives you pause? I'd rather address it now than have it sit there.",
+ stop:"Only ask if you can hear the answer without getting defensive."},
+{tag:"Don't ask",q:["Skip these"],t:"dont avoid rate hours stack typical day",
+ a:"Tech stack. A typical day. Rate, hours or extension terms \u2014 that's Angela's conversation, not his. Raising it with the hiring manager makes the wrong thing the last thing he remembers."}
+];
+
+var FACTS=[
+ ["4","Systems built from scratch"],["19","Years in product design"],["7","Years on design systems"],
+ ["2.0\u21923.0","No redesign, 2.5 years"],["350+","Contributors enabled at Avant"],["40+","Regulated products on Edison"],
+ ["4","Theme targets, one semantic layer"],["5\u00b73\u00b77","Blues \u00b7 button shapes \u00b7 sizes"],["43 vs 62","Documented vs actual tokens"],
+ ["24","Button variants, Style\u00d7State\u00d7Theme"],["10\u00d7","On mechanical work. Zero on decisions."],["85\u201390%","Styling error without Code Connect"],
+ ["$70/hr","12-month contract, remote"],["3","Token tiers, one-way flow"]
+];
+
+var TABS={say:SAY,case:CASE,ask:ASK};
+var LEDE={
+ say:["Say it, then stop talking.","Every answer is one breath long, written the way you'd actually say it. Type a word he used. Stephen prefers concise over thorough \u2014 the reserve line under an answer is only if he follows up."],
+ case:["The case study, in eight beats.","He'll spend most of the time here. Lead with the short version and expand only if he asks. Count your lists out loud \u2014 \u201ctwo costs\u201d, \u201cthree constraints\u201d \u2014 so the shape carries without a screen."],
+ ask:["Four to ask. Two of them early.","Questions saved for the last five minutes read as a formality. Asked mid-conversation they read as genuine \u2014 and the answer should change what you say next."],
+ facts:["Numbers, if you need one.","Everything here is verifiable from your own case studies. If a number isn't on this list, don't quote it."]
+};
+
+var cur="say", list=document.getElementById('list'), none=document.getElementById('none'),
+    lede=document.getElementById('lede'), countEl=document.getElementById('count'),
+    input=document.getElementById('q'), foot=document.getElementById('foot');
+
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;')}
+function hl(s,q){if(!q)return esc(s);try{return esc(s).replace(new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>')}catch(e){return esc(s)}}
+
+function score(it,q){
+  if(!q)return 1;
+  var tags=(it.t||'').toLowerCase(), ques=it.q.join(' ').toLowerCase(),
+      body=(it.a+' '+(it.more?it.more.join(' '):'')).toLowerCase(), s=0,
+      w=new RegExp('\\b'+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&'),'i');
+  if(w.test(tags))s+=100; if(w.test(ques))s+=60;
+  if(tags.indexOf(q)>-1)s+=12; if(ques.indexOf(q)>-1)s+=8;
+  if(w.test(body))s+=6; if(body.indexOf(q)>-1)s+=1;
+  return s;
+}
+
+function render(){
+  var q=input.value.trim().toLowerCase();
+  lede.hidden=!!q;
+  if(cur==="facts"){
+    list.innerHTML='<div class="facts">'+FACTS.filter(function(f){
+      return !q||(f[0]+' '+f[1]).toLowerCase().indexOf(q)>-1;
+    }).map(function(f){return '<div class="fact"><b>'+hl(f[0],q)+'</b><span>'+hl(f[1],q)+'</span></div>'}).join('')+'</div>';
+    var n=list.querySelectorAll('.fact').length;
+    none.hidden=n>0; countEl.textContent=n+(q?' of '+FACTS.length:' facts');
+    if(!q){lede.hidden=false;lede.querySelector('h1').textContent=LEDE.facts[0];lede.querySelector('p').textContent=LEDE.facts[1];}
+    return;
+  }
+  var data=TABS[cur];
+  var ranked=data.map(function(it,i){return{it:it,s:score(it,q),i:i}})
+                 .filter(function(r){return r.s>0})
+                 .sort(function(a,b){return b.s-a.s||a.i-b.i});
+  list.innerHTML=ranked.map(function(r){
+    var it=r.it, h='<div class="item">';
+    if(it.tag) h+='<span class="tag'+(cur==="case"?' beat':'')+'">'+esc(it.tag)+'</span>';
+    h+='<div class="ask">'+it.q.map(function(x){return hl(x,q)}).join('<i> \u00b7 </i>')+'</div>';
+    h+='<div class="answer">'+hl(it.a,q)+'</div>';
+    if(it.more) h+='<div class="more"><b>'+esc(it.more[0])+'</b>'+hl(it.more[1],q)+'</div>';
+    if(it.stop) h+='<span class="stop">'+esc(it.stop)+'</span>';
+    return h+'</div>';
+  }).join('');
+  none.hidden=ranked.length>0;
+  countEl.textContent=q?ranked.length+' of '+data.length:data.length+(cur==="case"?' beats':cur==="ask"?' questions':' answers');
+  if(!q){lede.querySelector('h1').textContent=LEDE[cur][0];lede.querySelector('p').textContent=LEDE[cur][1];}
+}
+
+document.querySelectorAll('.tbtn').forEach(function(b){
+  b.addEventListener('click',function(){
+    document.querySelectorAll('.tbtn').forEach(function(x){x.setAttribute('aria-selected','false')});
+    b.setAttribute('aria-selected','true');
+    cur=b.dataset.tab; input.value=''; render(); window.scrollTo(0,0);
+  });
+});
+input.addEventListener('input',render);
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){input.value='';render();input.blur()}
+  else if(e.key==='/'&&document.activeElement!==input){e.preventDefault();input.focus()}
+});
+foot.textContent='State Farm \u00b7 Design Systems Engineer \u00b7 press / to search, Esc to clear';
+render();
+</script>

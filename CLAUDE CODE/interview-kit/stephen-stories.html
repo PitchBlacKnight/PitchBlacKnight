@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stories &amp; demos &mdash; the eight areas, spoken</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;700&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="kit.css?v=4">
+<style>
+  .story{font-family:var(--serif);font-size:17px;line-height:1.65;color:var(--ink);margin:var(--s4) 0}
+  .story em{color:var(--accent-2);font-style:normal}
+  .fill{
+    display:inline-block;background:rgba(217,164,65,.12);border:1px dashed rgba(217,164,65,.5);
+    border-radius:5px;padding:1px 8px;font-family:var(--mono);font-size:12.5px;color:var(--warn,#d9a441);
+  }
+  .demo{
+    background:var(--bg-2);border:1px solid rgba(127,183,126,.35);border-radius:var(--r-lg);
+    padding:var(--s4) var(--s5);margin:var(--s4) 0;
+  }
+  .demo b{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ok);display:block;margin-bottom:var(--s3)}
+  .demo code{font-family:var(--mono);font-size:12px;background:var(--panel);border:1px solid var(--line);border-radius:4px;padding:1px 6px;color:var(--accent-2)}
+  .demo p{font-size:13.5px;color:var(--ink-2);line-height:1.6;margin:4px 0}
+  .dont{
+    border-left:2px solid rgba(217,68,68,.55);padding-left:var(--s4);margin-top:var(--s4);
+    font-size:13px;color:var(--ink-3);line-height:1.6;
+  }
+  .dont b{color:#d97b7b;font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;display:block;margin-bottom:3px}
+  .askquote{font-family:var(--serif);font-style:italic;font-size:14.5px;line-height:1.6;color:var(--ink-3);border-left:2px solid var(--accent);padding-left:var(--s4);margin-bottom:var(--s4)}
+</style>
+</head>
+<body>
+
+<div class="shell">
+  <aside class="rail">
+    <a class="brand" href="index.html">
+      <div class="mark">Stories + Demos</div>
+      <h1>The eight, spoken</h1>
+      <div class="sub">fill the amber slots before the call</div>
+    </a>
+    <nav class="nav" id="nav"></nav>
+    <div class="railfoot">
+      <div><kbd>&#8984;</kbd><kbd>K</kbd> &nbsp;jump</div>
+      <div><kbd>J</kbd><kbd>K</kbd> &nbsp;next / prev</div>
+    </div>
+  </aside>
+
+  <div>
+  <header class="top">
+    <div class="who"><strong>Detailed stories, demo-ready</strong><span> &nbsp;&middot;&nbsp; demo the present &middot; cite the past &middot; never fake the middle</span></div>
+    <nav class="swap">
+      <a href="index.html">Hub</a>
+      <a href="stephen.html">Outline</a>
+      <a href="stephen-stories.html" class="here">Stories</a>
+      <a href="say.html">Say this</a>
+      
+    </nav>
+    <button class="btn" id="palBtn">&#8984;K</button>
+  </header>
+
+  <main>
+
+    <section id="s0" class="hero">
+      <div class="kicker">00 &mdash; How to use this page</div>
+      <h2 class="big">Your experience isn't dated. <em>It's pre-tooling.</em></h2>
+      <div class="oneliner">
+        The systems you built are old enough that the modern vocabulary didn't exist yet &mdash; which
+        means you did these things the hard way, by hand, before there was tooling for them. That is a
+        <strong>stronger</strong> position than someone who only knows the tools. The frame for every story:
+        <em>"we did X manually at [old job] &mdash; here's the same move automated in my current pipeline."</em>
+        <span>Amber slots are details only you know. Fill them out loud from memory &mdash; if a slot stays
+        empty, cut that sentence rather than inventing it. A vague true story survives follow-ups;
+        a specific invented one doesn't.</span>
+      </div>
+    </section>
+
+    <!-- 1 TOKENS -->
+    <section id="s1">
+      <div class="shead"><div class="num">01</div><h2>Design tokens + architecture</h2>
+      <p>His ask: defined, evolved, or operationalized &mdash; connected across Figma, libraries, production.</p></div>
+
+      <div class="card">
+        <div class="askquote">"&hellip;including any challenges you helped solve."</div>
+        <p class="story">"The architecture I run is three tiers with one-way references &mdash; primitives private,
+        semantics as the public API and the only layer that themes, component tokens only for real exceptions.
+        I learned that shape the slow way. At Blue Cross we built the first unified system with
+        <span class="fill">YOU FILL: what the 'tokens' actually were then &mdash; a Sass variables file? a style guide PDF? how many products consumed it?</span>
+        &mdash; no pipeline, so keeping design and code aligned was a human job, and it drifted.
+        Pathfinder at Avant is where the full three-tier architecture went in, and the proof it holds is that
+        2.0 to 3.0 never needed a redesign. The hardest connection problem was getting tokens <em>out</em> of
+        Figma without destroying them &mdash; flatten the aliases and you get a file that's technically valid
+        and architecturally dead. I ended up writing my own exporter to preserve the reference chains."</p>
+
+        <div class="demo"><b>Demo moment</b>
+          <p>Run <code>node build/build.mjs</code> in <code>interview-kit/pathfinder</code> while talking &mdash;
+          307 tokens &times; 2 modes, four outputs, one-way flow enforced, 0 violations. Then open
+          <code>tokens/semantic.tokens.json</code> and follow one alias chain out loud.</p>
+        </div>
+        <div class="dont"><b>Don't claim</b>They had "tokens" at BCBS-era jobs &mdash; the word barely existed.
+        Say what it actually was; the evolution IS the story.</div>
+      </div>
+    </section>
+
+    <!-- 2 WEB COMPONENTS -->
+    <section id="s2">
+      <div class="shead"><div class="num">02</div><h2>Web components + DS engineering</h2>
+      <p>His ask: partnering with senior engineers on reuse, scalability, governance, implementation.</p></div>
+
+      <div class="card">
+        <p class="story">"My best partnership story is being overruled. At Avant the engineers rejected my first
+        semantic token set &mdash; the names read like design words, not API names. Specifically
+        <span class="fill">YOU FILL: one real before/after name pair if you remember one, e.g. what a 'design word' name looked like vs what shipped</span>.
+        They were right: a semantic token is an interface, and interfaces get named by the people who call them.
+        Since then engineers are in the room before the library exists. My current components are custom elements
+        with shadow DOM, themed entirely through custom properties &mdash; the one styling channel that inherits
+        through the shadow boundary, so the token layer can theme an encapsulated component without breaking
+        encapsulation. On governance: I audited my own three-year-old system and found three generations of naming
+        all still resolving. I'd built the entrance and never the exit. Deprecation is now part of the initial
+        architecture, not a cleanup."</p>
+
+        <div class="demo"><b>Demo moment</b>
+          <p>Open <code>pathfinder/components/pf-button.js</code> &mdash; point at the <code>:host</code> custom-property
+          block. Then flip the mode on the docs page: same markup, both themes. If asked for depth: custom properties
+          pierce the boundary; <code>@property</code> registration doesn't work inside shadow DOM in any browser, so
+          definitions live in light DOM &mdash; that's a 2026-current detail almost nobody knows.</p>
+        </div>
+        <div class="dont"><b>Don't claim</b>Deep production web-component experience at the old enterprises &mdash;
+        that stack is recent for you. The honest line: "the architecture judgment is old, the element syntax is new,
+        and the second one is the easy part."</div>
+      </div>
+    </section>
+
+    <!-- 3 FIGMA -->
+    <section id="s3">
+      <div class="shead"><div class="num">03</div><h2>Advanced Figma</h2>
+      <p>His ask: beyond designing components &mdash; variables, slots, properties, modes, automation, and what belongs in the system.</p></div>
+
+      <div class="card">
+        <p class="story">"The deeper work is writing against the file instead of in it. I keep variables as
+        multi-collection alias chains mirroring the tiers, modes switch at the semantic collection only, and I wrote
+        a Plugin API exporter because the REST variables endpoint is Enterprise-only &mdash; a plugin is the only
+        portable way to get the full alias graph out. On what belongs in the system: the default answer to a new
+        component is no, then the ladder &mdash; does it exist, is it an undocumented prop, can two things compose,
+        does one need a variant, and only then is it new. And I keep current: slots went GA in June, so content
+        flexibility finally has a real home &mdash; variants for state, properties for configuration, slots for
+        content shape. Teams spent years abusing variants to fake that third thing."</p>
+
+        <div class="demo"><b>Demo moment</b>
+          <p>In your V.3 file: show one alias chip (not a hex), flip a mode, show scoping on one variable. Then run
+          the exporter and show the JSON with references intact. If slots come up, build one live: right-click a
+          nested frame &rarr; <em>Convert to slot</em> (&#8984;&#8679;S), toggle "only allow preferred instances."</p>
+        </div>
+        <div class="dont"><b>Don't claim</b>Don't say "13 MCP tools" or quote exact tool counts &mdash; docs and
+        server disagree. Don't call variable scoping enforcement &mdash; it's a picker filter the Plugin API ignores.</div>
+      </div>
+    </section>
+
+    <!-- 4 TOOL-AGNOSTIC -->
+    <section id="s4">
+      <div class="shead"><div class="num">04</div><h2>Tool-agnostic systems</h2>
+      <p>His ask: Figma not necessarily the source of truth; tooling can evolve without breaking the connection.</p></div>
+
+      <div class="card">
+        <p class="story">"Tokens live in a neutral DTCG file in Git and a build carries them everywhere &mdash; CSS,
+        Swift, the docs, the skill file, and eventually the Figma variables themselves, generated back. Figma becomes
+        a consumer instead of the origin. The migration order is the part people get wrong: you take nothing away.
+        Extract first, generate second &mdash; a designer's day doesn't change, the origin does, and drift stops being
+        possible instead of being policed. I hold this opinion partly because I've watched tools die under systems:
+        <span class="fill">YOU FILL: one real tool your old teams depended on that's gone or irrelevant now &mdash; Zeplin? InVision? Abstract? Sketch libraries? what did losing it cost?</span>.
+        The honest edge: the spec answered modes last October &mdash; resolvers in DTCG 2025.10 &mdash; but Style
+        Dictionary hasn't implemented them yet. Authoring is settled; the pipeline isn't."</p>
+
+        <div class="demo"><b>Demo moment</b>
+          <p>The build fan-out IS this answer: one source directory on screen, four outputs in <code>dist/</code>.
+          Open <code>pathfinder.tokens.json</code> and <code>pathfinder.css</code> side by side &mdash; same truth,
+          two consumers. InVision's death is the era-spanning proof: every team that treated a tool as the system
+          lost the system.</p>
+        </div>
+        <div class="dont"><b>Don't claim</b>"W3C standard." It's DTCG 2025.10, a stable Community Group spec &mdash;
+        deliberately not a W3C Standard. Precision here reads as expertise.</div>
+      </div>
+    </section>
+
+    <!-- 5 DOCS -->
+    <section id="s5">
+      <div class="shead"><div class="num">05</div><h2>Documentation as truth</h2>
+      <p>His ask: docs aligned with the actual architecture, not drifting from production.</p></div>
+
+      <div class="card">
+        <p class="story">"I answer this one with a confession. My own guide said 43 tokens; the collection had 62.
+        Nobody noticed &mdash; including me, and I owned it. And I'd seen the same rot at scale before:
+        <span class="fill">YOU FILL: one real memory of documentation drift at BCBS/GE/TransUnion &mdash; a wiki nobody trusted? a PDF style guide two versions behind? what did people use instead?</span>.
+        The fix isn't discipline, it's removing the possibility: docs generate from the same source as the code, every
+        artifact carries a hash of what built it, and a staleness check fails CI when they diverge. Docs stopped being
+        a description of the system and became an output of it. Descriptions drift; outputs can't."</p>
+
+        <div class="demo"><b>Demo moment</b>
+          <p>The two-state gate, live: <code>node build/metadata.mjs --check</code> passes &rarr; hand-edit one line of
+          <code>dist/pathfinder.css</code> &rarr; check fails with exit 1 &rarr; rebuild &rarr; passes.
+          <em>"The doc can't be wrong, because a wrong doc fails the build."</em> (Fix the ks-&rarr;pf paths first &mdash;
+          drill-day blocker 1.)</p>
+        </div>
+        <div class="dont"><b>Don't claim</b>That the 43/62 numbers were at an employer &mdash; they're from your own
+        system's self-audit. That's what makes the story safe under any follow-up: it's yours.</div>
+      </div>
+    </section>
+
+    <!-- 6 DESIGN-TO-CODE -->
+    <section id="s6">
+      <div class="shead"><div class="num">06</div><h2>Design-to-code</h2>
+      <p>His ask: token pipelines, reusable components, automation, closing the design/shipped gap.</p></div>
+
+      <div class="card">
+        <p class="story">"Design-to-code has two halves and people only do the fun one. Generating code from a design
+        is the fun half. The unglamorous half is mapping components to the real ones in the repo &mdash; that's what
+        makes anyone trust the output, and it's the half that gets skipped. At Verizon I worked with Code Connect so
+        Dev Mode showed our actual code instead of generated guesses &mdash;
+        <span class="fill">YOU FILL: your real scope at Verizon &mdash; which components, roughly when, who owned the repo side?</span>.
+        I evaluated the export plugins &mdash; Anima, Locofy, Builder &mdash; and they're the wrong shape for systems
+        work: they export a finished frame, so you get a one-off. I use the Figma MCP server in Claude Code instead
+        because it reads the live file &mdash; real variable names, not hexes inferred from a screenshot."</p>
+
+        <div class="demo"><b>Demo moment</b>
+          <p>MCP live from YOUR pro-team file (never the INTERVIEW team &mdash; 6 calls/month trap):
+          select a frame first, then <code>get_variable_defs</code> &mdash; real token names come back. Narrate:
+          <em>"it's reading the file, not looking at a picture of it."</em></p>
+        </div>
+        <div class="dont"><b>Don't claim</b>You can't demo Code Connect itself &mdash; Org/Enterprise only, you're on
+        Pro. Say exactly that if asked; it's a plan gate, not a skill gap. Show the template-file format in the editor
+        instead.</div>
+      </div>
+    </section>
+
+    <!-- 7 AI -->
+    <section id="s7">
+      <div class="shead"><div class="num">07</div><h2>AI + design systems</h2>
+      <p>His ask: hands-on only &mdash; implemented, not opinions about AI.</p></div>
+
+      <div class="card">
+        <p class="story">"Claude Code is my daily environment, and the design system work runs through three pieces.
+        Skill files as an output contract &mdash; tokens, required states, the accessibility floor travel with every
+        generation, plus a rule that every generated value is annotated with the token it came from, so output is
+        auditable instead of trusted. Generated docs behind a staleness gate. And audit scripts &mdash; drift, variant
+        coverage, contrast as token-pair ratios. I ran my own audit against my own production file and it found 47
+        things, including real contrast failures. I didn't clean it up first &mdash; a build that reports its own
+        failures is worth more than a green checkmark. The honest numbers: 10x on mechanical work, zero on decisions,
+        and I wouldn't want it otherwise. Generated code is a draft PR &mdash; the risk isn't bad output, it's
+        plausible output nobody checked."</p>
+
+        <div class="demo"><b>Demo moment &mdash; the centerpiece</b>
+          <p>The governed-generation loop from drill 3.2: fresh session, skill file + tokens only, "build a landing
+          concept &mdash; every value annotated with its token." Then audit one value live back to the token file.
+          For a visual finale, the <code>pathfinder-2.0/stage</code> rig assembles token-pure components on screen
+          in about a second per request.</p>
+        </div>
+        <div class="dont"><b>Don't claim</b>Codex experience if you don't have it &mdash; he listed it, but "I
+        standardized on Claude Code because the skill-file system is the governance layer" is a stronger answer than
+        pretending breadth.</div>
+      </div>
+    </section>
+
+    <!-- 8 POV -->
+    <section id="s8">
+      <div class="shead"><div class="num">08</div><h2>Where this is going</h2>
+      <p>His ask: your point of view, and what you'd prioritize modernizing a large system today.</p></div>
+
+      <div class="card">
+        <p class="story">"The system becomes a machine-readable contract. Fifteen years of design systems were
+        documentation for humans; now every artifact has a second consumer that does exactly what the system says.
+        Prose rules can't be followed by a machine; structured rules can't be ignored by one. That moves judgment
+        upstream &mdash; decisions happen once, in the system, instead of once per component. Modernizing a large
+        system today, in order: audit so drift is a number; neutral token source generating every platform including
+        Figma; map components to the repo before generating anything; encode rules and inventory as machine-readable
+        files &mdash; the inventory is what stops a model generating a fourth button next to your three; and govern
+        the exits. The industry number that frames all of it: only 40% of teams have automated token pipelines.
+        The format war is over. The automation isn't. At enterprise scale AI's failure mode isn't malformed output
+        &mdash; it's duplication. The system's job is to make generating a duplicate harder than finding the
+        original."</p>
+
+        <div class="demo"><b>No demo &mdash; on purpose</b>
+          <p>Seven sections of evidence, then one of conviction. Eye contact, no screen. Stop on the duplication line.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+  </div>
+</div>
+
+<script src="kit.js?v=4"></script>
+</body>
+</html>

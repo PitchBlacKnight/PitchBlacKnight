@@ -1,0 +1,130 @@
+<style>
+  :root{
+    --bg:#fff; --panel:#f7f6f3; --line:#d9d5cc; --ink:#1a1917; --muted:#5c564e; --accent:#c8552b;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{ --bg:#1a1917; --panel:#232120; --line:#2a2724; --ink:#f0ebe0; --muted:#9a938a; --accent:#e86a33; }
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font:13px/1.5 -apple-system,BlinkMacSystemFont,'Inter','Segoe UI',sans-serif;
+    background:var(--bg);color:var(--ink);display:flex;flex-direction:column;height:100vh;
+  }
+  header{padding:14px 16px;border-bottom:1px solid var(--line)}
+  h1{font-size:13px;font-weight:600;letter-spacing:-.01em}
+  header p{font-size:11.5px;color:var(--muted);margin-top:3px}
+  .stats{display:flex;gap:14px;padding:10px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
+  .stat{font-size:11px;color:var(--muted)}
+  .stat b{color:var(--ink);font-weight:600;font-variant-numeric:tabular-nums}
+  .warn{margin:10px 16px 0;padding:9px 11px;border:1px solid var(--line);border-left:2px solid var(--accent);
+        border-radius:4px;font-size:11.5px;color:var(--muted);background:var(--panel)}
+  .warn b{color:var(--ink);display:block;margin-bottom:3px;font-size:11px}
+  textarea{
+    flex:1;margin:12px 16px;padding:12px;border:1px solid var(--line);border-radius:6px;resize:none;
+    font:11.5px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;background:var(--panel);color:var(--ink);
+    white-space:pre;overflow:auto;
+  }
+  textarea:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  footer{display:flex;gap:8px;padding:12px 16px;border-top:1px solid var(--line)}
+  button{
+    font:600 12px/1 -apple-system,BlinkMacSystemFont,sans-serif;padding:0 14px;height:32px;
+    border-radius:6px;border:1px solid var(--line);background:var(--bg);color:var(--ink);cursor:pointer;
+  }
+  button:hover{background:var(--panel)}
+  button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+  button.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+  button.primary:hover{filter:brightness(1.08)}
+  button.ghost{margin-left:auto}
+</style>
+
+<header>
+  <h1>Tokens Out</h1>
+  <p>Local variable collections → W3C DTCG token JSON</p>
+</header>
+
+<div class="stats" id="stats">
+  <span class="stat">Reading variables…</span>
+</div>
+
+<div class="warn" id="warn" hidden></div>
+
+<textarea id="out" spellcheck="false" readonly></textarea>
+
+<footer>
+  <button class="primary" id="copy">Copy JSON</button>
+  <button id="download">Download</button>
+  <button id="refresh">Re-read</button>
+  <button class="ghost" id="close">Close</button>
+</footer>
+
+<script>
+  var payload = { json: '', fileName: 'tokens' };
+
+  onmessage = function (e) {
+    var msg = e.data.pluginMessage;
+    if (!msg) return;
+
+    if (msg.type === 'error') {
+      document.getElementById('stats').innerHTML = '<span class="stat">' + msg.message + '</span>';
+      document.getElementById('out').value = '';
+      return;
+    }
+
+    if (msg.type === 'result') {
+      payload = { json: msg.json, fileName: msg.fileName };
+      document.getElementById('out').value = msg.json;
+
+      var r = msg.report;
+      document.getElementById('stats').innerHTML =
+        '<span class="stat"><b>' + r.collections + '</b> collections</span>' +
+        '<span class="stat"><b>' + r.variables + '</b> tokens</span>' +
+        '<span class="stat"><b>' + r.aliases + '</b> aliases resolved</span>' +
+        '<span class="stat"><b>' + r.skipped.length + '</b> skipped</span>';
+
+      var notes = [];
+      if (r.multiMode.length) {
+        notes.push('<b>Multi-mode collections nested by mode</b>' +
+          r.multiMode.join(', ') + ' — DTCG has no native mode concept, so modes become groups. ' +
+          'That is a choice, not a standard.');
+      }
+      if (r.collisions && r.collisions.length) {
+        notes.push('<b>Name collisions kept as _token</b>' +
+          r.collisions.slice(0, 6).join(' · ') +
+          ' — a name is used as both a token and a group. Fix upstream in the naming convention.');
+      }
+      if (r.skipped.length) {
+        notes.push('<b>Skipped ' + r.skipped.length + '</b>' + r.skipped.slice(0, 6).join(' · '));
+      }
+      var warn = document.getElementById('warn');
+      warn.innerHTML = notes.join('<br><br>');
+      warn.hidden = notes.length === 0;
+    }
+  };
+
+  document.getElementById('copy').onclick = function () {
+    var ta = document.getElementById('out');
+    ta.removeAttribute('readonly');
+    ta.select();
+    document.execCommand('copy');
+    ta.setAttribute('readonly', '');
+    window.getSelection().removeAllRanges();
+    parent.postMessage({ pluginMessage: { type: 'notify', message: 'Token JSON copied' } }, '*');
+  };
+
+  document.getElementById('download').onclick = function () {
+    var blob = new Blob([payload.json], { type: 'application/json' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = payload.fileName + '.tokens.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  };
+
+  document.getElementById('refresh').onclick = function () {
+    parent.postMessage({ pluginMessage: { type: 'export' } }, '*');
+  };
+
+  document.getElementById('close').onclick = function () {
+    parent.postMessage({ pluginMessage: { type: 'close' } }, '*');
+  };
+</script>
