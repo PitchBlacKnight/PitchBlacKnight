@@ -155,9 +155,9 @@
       <thead><tr><th scope="col">Assumption</th><th scope="col">Impact if wrong</th><th scope="col">Confidence</th><th scope="col">Cost to learn</th></tr></thead>
       <tbody>
         <tr><td>Completion visibility reassures the owner without making the watcher feel monitored</td><td class="lvl hi">High</td><td class="lvl">Low</td><td class="lvl">Low, diary study</td></tr>
-        <tr><td>Guided care increases a first-time caregiver's confidence at the moment of care</td><td class="lvl hi">High</td><td class="lvl">Medium</td><td class="lvl">Low, moderated task</td></tr>
-        <tr><td>Snooze reduces anxiety rather than licensing drift</td><td class="lvl hi">High</td><td class="lvl">Low</td><td class="lvl">Medium, longitudinal</td></tr>
-        <tr><td>Always-Know cards stay useful without becoming invisible wallpaper</td><td class="lvl">Medium</td><td class="lvl">Low</td><td class="lvl">Medium</td></tr>
+        <tr><td>Owner-sent invites work; the copy-paste moment doesn't overload someone who is packing</td><td class="lvl hi">High</td><td class="lvl">Low</td><td class="lvl">Low, moderated task</td></tr>
+        <tr><td>Amber "waiting" reads as calm, not as ignored</td><td class="lvl">Medium</td><td class="lvl">Medium</td><td class="lvl">Low</td></tr>
+        <tr><td>A five-minute undo window is long enough to feel safe, short enough to keep the record honest</td><td class="lvl">Medium</td><td class="lvl">Low</td><td class="lvl">Medium</td></tr>
       </tbody>
     </table>
     </div>
@@ -173,17 +173,15 @@
     <p class="lede">Senior product work is often subtraction. Alignment is a product artifact: a workshop's value is the decision it produces, not the sticky notes it consumes. The most useful decision is usually what we are <em>not</em> building.</p>
 
     <div class="nb">
-      <h3>Not building · PetWatch, verbatim from the repo</h3>
+      <h3>Not building · from the PetWatch PRD, written inside the four hours</h3>
       <ul>
-        <li><b>Not yet</b><span>Auth, registration, password reset. Acknowledged in one line.</span></li>
-        <li><b>Not yet</b><span>Multi-pet management. One pet: Hex. The scenario is the scope.</span></li>
-        <li><b>Not yet</b><span>Multi-watcher interface. The domain model supports it; the UI shows one "already done" moment and stops there.</span></li>
-        <li><b>Not yet</b><span>Real notifications, backend, sync. The event log models sync; nothing implements it.</span></li>
-        <li><b>Never</b><span>Gamification. No points, streaks, or confetti. Completion should feel like relief, not a score.</span></li>
-        <li><b>Never</b><span>A MISSED state. Past-due is DUE with elapsed time. Verdicts belong to the owner, not the system.</span></li>
-        <li><b>Never</b><span>AI-generated medical content. Doses, techniques, and escalation thresholds come from the owner and the vet, attributed, verbatim. AI never speaks at the moment of care.</span></li>
+        <li><b>Not yet</b><span>Inviting unregistered users. An explicit constraint in the brief, and the biggest risk in the product. The least-damaging version is designed instead of quietly overridden.</span></li>
+        <li><b>Never</b><span>Payments, marketplace, sitter vetting. This is trusted people, not hired strangers. Not Rover. Different product, different trust model.</span></li>
+        <li><b>Never</b><span>In-app messaging. These two people already text each other. Rebuilding messaging is expensive and loses to iMessage.</span></li>
+        <li><b>Not yet</b><span>Arbitrary recurrence. Real routines are daily or weekly; days-of-week covers the cases we can name. Revisit only with evidence.</span></li>
+        <li><b>Never</b><span>Red toward the watcher. Overdue is amber, in words. You don't shout at a volunteer doing you a favor.</span></li>
       </ul>
-      <p class="src">Source: NOT-BUILDING.md, a standing scope guardrail read by humans and agents alike. Its rule 2: "Do not add features to demonstrate capability. Restraint is a scored criterion."</p>
+      <p class="src">Source: the PRD scope table. Its explicit non-goal, verbatim: "We are not building a marketplace, and no v1 decision should be made 'so it's easier to add payments later.'"</p>
     </div>
 
     <p class="quiet">Each entry carries a why, and the "not yet" rows carry what would change our mind. Scope is a decision, not a backlog accident.</p>
@@ -205,10 +203,10 @@
       <figcaption><strong>Pathfinder, the hierarchy that testing broke.</strong> Original decision: provider identity and fit evidence share visual weight. Observed behavior: advisors scanned past the evidence and chose by brand recognition. Revision: the row hierarchy was rebuilt until the score and differentiator outweighed the logo. The correct response to being wrong was not to defend the hierarchy. It was to change it.</figcaption>
     </figure>
 
-    <div class="chain" aria-label="PetWatch snooze consequence chain">
-      <div class="hot"><b>Interface decision</b><p>PetWatch needs snooze. "Can't right now" should be a legitimate answer, not a failure.</p></div>
-      <div><b>Implementation asks</b><p>Fine. What state is the Care Moment in now? What happens when snooze expires? What if two watchers act? Whose timezone owns the event?</p></div>
-      <div><b>Product model</b><p>One small button revealed a full state model: upcoming, soon, due, snoozed, in progress, needs help, completed. That model, not the screens, became the source of truth, as an append-only event log with derived status and its own tests.</p></div>
+    <div class="chain" aria-label="PetWatch completion consequence chain">
+      <div class="hot"><b>Interface decision</b><p>Completing a task should be one tap, optimistic, with undo. A watcher mid-walk shouldn't fight a workflow.</p></div>
+      <div><b>Implementation asks</b><p>Fine. What if two watchers tap the same task? Can you undo after the owner already saw it done? How long is the undo window, and who owns the record after it closes?</p></div>
+      <div><b>Product model</b><p>One small checkmark produced the double-completion guard, a five-minute undo rule, and the activity log as the record both people trust. The medication tasks are why the guard exists: the failure mode is a double-dosed animal.</p></div>
       <div class="hot"><b>The point</b><p>This is why implementation should meet design early. The question surfaced while the product was still cheap to change.</p></div>
     </div>
   </div>
@@ -223,26 +221,25 @@
       <p>An edge case is often a product decision we haven't made yet. AI can enumerate possibilities cheaply, which is genuinely useful. Judgment decides which are consequential, which can wait, and which should never happen.</p>
     </div>
 
-    <div class="flow" aria-label="Care Moment state model">
-      <span class="step">Upcoming</span><span class="arr">→</span>
-      <span class="step">Soon</span><span class="arr">→</span>
-      <span class="step hot">Due</span><span class="arr">⇄</span>
-      <span class="step">Snoozed</span><span class="arr">→</span>
-      <span class="step">In progress</span><span class="arr">⇄</span>
-      <span class="step">Needs help</span><span class="arr">→</span>
-      <span class="step hot">Completed</span>
+    <div class="flow" aria-label="Invite lifecycle state machine">
+      <span class="step">Invited</span><span class="arr">→</span>
+      <span class="step">Link sent</span><span class="arr">→</span>
+      <span class="step hot">Accepted</span><span class="arr">→</span>
+      <span class="step hot">Watching</span><span class="arr">⇄</span>
+      <span class="step">Revoked</span><span class="arr">·</span>
+      <span class="step">Expired</span>
     </div>
 
-    <div class="orbit" aria-label="Edge cases orbiting the state model">
-      <span>two watchers act at once</span>
-      <span>offline at the moment of care</span>
-      <span>whose timezone owns 7:15</span>
-      <span>stale client state</span>
-      <span>notification never arrives</span>
+    <div class="orbit" aria-label="Edge cases orbiting the state machine">
+      <span>invite link opened in the wrong account</span>
+      <span>two watchers tap the same task</span>
+      <span>undo after the owner saw it done</span>
       <span>access revoked mid-stay</span>
-      <span>duplicate completion</span>
+      <span>expired link, anxious owner</span>
+      <span>notification never arrives</span>
+      <span>duplicate completion on medication</span>
     </div>
-    <p class="quiet">Each of these is answered, deferred, or explicitly ruled out in the PetWatch domain model. The timezone one has a rule worth quoting: the schedule belongs to the animal, so care moments anchor to the household's time, never the viewer's.</p>
+    <p class="quiet">Each of these is answered, deferred, or explicitly ruled out in the exercise. The first one is the kind a tired human misses at 4pm and QA finds in week six, which is exactly why the list gets written during design.</p>
   </div>
 </section>
 
@@ -315,7 +312,7 @@
         </ul>
       </div>
     </div>
-    <p class="quiet">This is an observed change in working economics, not a manifesto. And the honest ledger cuts both ways: the AI is sometimes confidently wrong, and it matters. In PetWatch it proposed a ticking countdown, a MISSED state, and compliance-toned copy. All three were rejected, and the rejections are documented in the case study.</p>
+    <p class="quiet">This is an observed change in working economics, not a manifesto. And the honest ledger cuts both ways: the AI is sometimes confidently wrong, and it matters. In PetWatch its first pass at overdue styling was red and urgent, a standard pattern produced with total confidence, and wrong for a product whose user is a volunteer doing a favor. The amber correction, and the rest of the misses, are in the AI log.</p>
   </div>
 </section>
 
