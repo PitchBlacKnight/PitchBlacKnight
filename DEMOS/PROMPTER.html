@@ -384,5 +384,20 @@ b { color: var(--gold); font-weight: 800; }
   </div>
 </section>
 
+<script>
+/* Some viewers block default #anchor navigation. Scroll directly instead,
+   with a brief highlight so the landing card is unmissable mid-interview. */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  var el = document.getElementById(a.getAttribute('href').slice(1));
+  if (!el) return;
+  e.preventDefault();
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  el.style.transition = 'box-shadow .3s';
+  el.style.boxShadow = '0 0 0 3px #85adff';
+  setTimeout(function () { el.style.boxShadow = ''; }, 1400);
+});
+</script>
 </body>
 </html>
