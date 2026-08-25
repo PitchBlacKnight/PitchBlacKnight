@@ -136,45 +136,47 @@
     <p class="eyebrow"><span class="no">01</span> Product judgment · PetWatch</p>
     <h2 id="pw-h">What looked like a scheduling problem became a trust problem.</h2>
     <div class="text">
-      <p>The brief described a pet-care scheduling app. A real scenario changed the framing. Hex is my cat. He takes prescribed insulin twice a day, and when I travel, a friend cares for him. My friend can remember "insulin at 7:15." What they actually need is harder to hand over: enough of my knowledge, and enough confidence, to act without me in the room.</p>
-      <p>So the product splits knowledge in two. <strong>Care Moments</strong> are time-sensitive: they become due, get done, and resolve for both people at once. <strong>Always-Know</strong> is ambient: Hex bolts through open doors, and that fact has no schedule. It matters continuously, so it never interrupts.</p>
+      <p>The brief described user stories for a pet-care scheduler: owners write routines, watchers read them. Four hours to respond. The hole was in what the stories never said: <strong>nobody could ever mark anything done</strong>. And once completion exists, the stakes appear. Two of the sample tasks are medication, so the failure mode is a double-dosed animal. That turned a calendar into a trust product.</p>
+      <p>The four hours went to closing that loop: <strong>completion both people can see</strong>, an invite flow that refuses gracefully instead of faking a signup, and a waiting state in <strong>amber, never red</strong>, because the watcher is a volunteer doing a favor.</p>
     </div>
 
-    <div class="pw-stage" role="img" aria-label="Three PetWatch interface cards: a due Care Moment with a snooze option, an Always-Know card about Hex bolting through doors, and a quiet completion screen">
+    <div class="pw-stage" role="img" aria-label="Three PetWatch interface cards from the four-hour prototype: a waiting morning-walk task, the graceful invite refusal, and a completion entry visible to the owner">
       <div class="pw-card">
-        <div class="meta"><span class="when">Today · 7:15 PM</span><span class="state">Due</span></div>
-        <h4>Insulin, after dinner</h4>
-        <p>Guided, one step at a time. Written by Mikel with his vet, not generated.</p>
-        <div class="stop">"If he hasn't touched his food, stop here and text Mikel."</div>
-        <div class="acts"><span class="go">Start</span><span class="hold">Can't right now</span></div>
+        <div class="meta"><span class="when">47 min ago · Kenji</span><span class="state">Waiting</span></div>
+        <h4>Morning walk</h4>
+        <p>Left out of the building, 20 minutes. He pulls toward the park, that is fine, let him.</p>
+        <div class="acts"><span class="go">✓ I did this</span><span class="hold">Undo</span></div>
       </div>
       <div class="pw-card">
-        <div class="meta"><span class="when">Always</span><span class="state always">Always-Know</span></div>
-        <h4>Hex is a runner</h4>
-        <p>He is extremely sneaky around exterior doors. Check behind you on the way in and out. No due time. This card never interrupts, and it never goes away.</p>
+        <div class="meta"><span class="when">Invite a watcher</span><span class="state always">No account yet</span></div>
+        <h4>Your friend isn't on PetWatch.</h4>
+        <p>No fake signup flow. The owner gets a pre-written text to send themselves. The product refuses gracefully and hands over a rope.</p>
       </div>
       <div class="pw-card done">
-        <div class="meta"><span class="when">7:41 PM</span><span class="state">Completed</span></div>
-        <h4>All taken care of.</h4>
-        <p>Mikel can see that it's done. No confetti, no streak. Relief, twice: I handled it. Someone handled it.</p>
+        <div class="meta"><span class="when">7:05 AM · Activity</span><span class="state">Done</span></div>
+        <h4>Breakfast, logged.</h4>
+        <p>Priya sees it from another city. The completion gap was the hole in the brief; this quiet line is the fix.</p>
       </div>
     </div>
-    <p class="quiet" style="font-family: var(--code); font-size: 13px;">Recreated from the working prototype, in its own design system. Snooze means "I saw this, don't let me forget," not failure. Past-due is just "due, 20 minutes ago." There is no MISSED state, and no red anywhere in the product. Both are decisions.</p>
+    <p class="quiet" style="font-family: var(--code); font-size: 13px;">Recreated moments from the four-hour prototype. Waiting is amber, never red. Completion is optimistic with undo, and a guard blocks double-completion on medication tasks. All twenty screens are dispositioned in the submission: prototyped, specified, or deferred, each with a reason.</p>
 
-    <div class="flow pw-states" aria-label="Care Moment state model">
-      <span class="step">Upcoming</span><span class="arr">→</span>
-      <span class="step">Soon</span><span class="arr">→</span>
-      <span class="step hot">Due</span><span class="arr">⇄</span>
-      <span class="step">Snoozed</span><span class="arr">→</span>
-      <span class="step">In progress</span><span class="arr">⇄</span>
-      <span class="step">Needs help</span><span class="arr">→</span>
-      <span class="step hot">Completed</span>
+    <div class="flow pw-states" aria-label="Invite lifecycle state machine">
+      <span class="step">Invited</span><span class="arr">→</span>
+      <span class="step">Link sent</span><span class="arr">→</span>
+      <span class="step hot">Accepted</span><span class="arr">→</span>
+      <span class="step hot">Watching</span><span class="arr">⇄</span>
+      <span class="step">Revoked</span><span class="arr">·</span>
+      <span class="step">Expired</span>
+    </div>
+
+    <div class="text" style="margin-top: 28px;">
+      <p><strong>After the handoff, the review kept going.</strong> Going back through the submission with fresh eyes: the brief says owner and watcher are per-pet relationships, and a stray owner field in my data model broke my own rule. The retention metric punished an episodic product for working. The emergency vet number got cut by association with "vet records." And one screen carries five oranges that never reconcile. The original stays public and unedited; the findings became talking points, not quiet patches.</p>
     </div>
 
     <div class="cta-row">
-      <a class="cta" href="https://petwatch-reconsidered.vercel.app">See the reasoning</a>
-      <a class="cta ghost" href="https://petwatch-reconsidered.vercel.app/prototype.html">Try the prototype</a>
-      <a class="cta ghost" href="https://petwatch-exercise.vercel.app">The timed original, untouched ↗</a>
+      <a class="cta" href="https://petwatch-exercise.vercel.app">Open the exercise</a>
+      <a class="cta ghost" href="https://claude.ai/code/artifact/d36ef11c-53b5-4e60-9e7b-7be2fde568ce">Flows &amp; maps ↗</a>
+      <a class="cta ghost" href="https://claude.ai/code/artifact/b755a7b9-2041-4f2b-a851-c5ea2d6c51a1">Written artifacts ↗</a>
     </div>
   </div>
 </section>
@@ -350,9 +352,7 @@
       <div class="ev-group">
         <h3>Product</h3>
         <div class="ev-list">
-          <a href="https://petwatch-reconsidered.vercel.app"><span class="t">PetWatch, reconsidered <span class="d">The second pass: Hex, Care Moments, Always-Know, and what I still don't know.</span></span><span class="where">case study ↗</span></a>
-          <a href="https://petwatch-reconsidered.vercel.app/prototype.html"><span class="t">The working prototype <span class="d">Controllable clock, snooze, guided care, help, the owner's view. Backed by a tested domain model.</span></span><span class="where">demo ↗</span></a>
-          <a href="https://petwatch-exercise.vercel.app"><span class="t">The timed original <span class="d">Four hours, unedited, still public. The reconsidered version exists because this one taught me something.</span></span><span class="where">exercise ↗</span></a>
+          <a href="https://petwatch-exercise.vercel.app"><span class="t">The PetWatch exercise <span class="d">The four-hour submission: overview, prototype, maps, direction, documents. Public and unedited.</span></span><span class="where">exercise ↗</span></a>
           <a href="https://claude.ai/code/artifact/d36ef11c-53b5-4e60-9e7b-7be2fde568ce"><span class="t">Flows, maps, screen inventory <span class="d">Swim lanes, invite lifecycle, all twenty screens dispositioned.</span></span><span class="where">artifact ↗</span></a>
           <a href="https://claude.ai/code/artifact/b755a7b9-2041-4f2b-a851-c5ea2d6c51a1"><span class="t">Written artifacts <span class="d">PRD, backlog, research plan, ways of working.</span></span><span class="where">artifact ↗</span></a>
           <a href="https://claude.ai/code/artifact/e6850c0e-18bf-4f9d-800d-65c7fb17a3d7"><span class="t">The v1 prototype <span class="d">The original interactive prototype from the timed exercise.</span></span><span class="where">artifact ↗</span></a>
