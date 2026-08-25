@@ -1,282 +1,410 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
-<meta name="referrer" content="no-referrer">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Demo Index — Mikel Rosenthal</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<title>Mikel Rosenthal · Product Design Practice</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="pbk.css">
 <style>
-:root{
-  --neon:#34d59a; --neon-muted:#285d49; --alert:#ff3621;
-  --white:#ffffff; --ash:#797d86; --pewter:#94979e; --cloud:#c9cbcf;
-  --graphite-light:#303236; --graphite:#242628; --graphite-deep:#151617; --depth:#0a0a0b; --black:#000000;
-  --sans:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
-  --r-card:4px; --r-pill:9999px;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--black);color:var(--white);font-family:var(--sans);font-weight:400;font-size:16px;letter-spacing:-0.43px;line-height:1.5;-webkit-font-smoothing:antialiased}
-::selection{background:var(--neon);color:var(--black)}
-a{color:inherit}
+  /* hero */
+  .hero { padding-top: clamp(48px, 7vw, 96px); }
+  .hero .lede { margin-top: 28px; }
+  .hero .support { margin-top: 20px; max-width: 62ch; color: var(--ink-3); font-size: 15.5px; }
 
-.wrap{max-width:1200px;margin:0 auto;padding:96px 24px 128px}
+  .sheet-strip {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px;
+    margin-top: clamp(40px, 6vw, 72px);
+  }
+  .sheet-strip a { display: block; text-decoration: none; }
+  .sheet-strip .cell img {
+    width: 100%; height: clamp(110px, 13vw, 190px); object-fit: cover; object-position: top left;
+    border-radius: 4px; border: 1px solid var(--line);
+    filter: saturate(0.92);
+  }
+  .sheet-strip .cell span {
+    display: block; font-family: var(--code); font-size: 10.5px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--ink-3); padding-top: 8px;
+  }
+  @media (max-width: 820px) {
+    .sheet-strip { grid-template-columns: repeat(2, 1fr); }
+    .sheet-strip .cell:last-child { display: none; }
+  }
 
-.hero{position:relative;padding-top:24px}
-.datastream{position:absolute;top:-40px;left:0;right:0;width:100%;height:180px;z-index:0;pointer-events:none}
-.hero>*{position:relative;z-index:1}
-.kicker{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em;color:var(--ash);text-transform:uppercase;margin-bottom:20px}
-.kicker::before{content:"●";color:var(--neon);margin-right:8px}
-.hero h1{font-weight:500;font-size:clamp(40px,6.5vw,72px);line-height:1.02;letter-spacing:-0.042em;max-width:20ch}
-.hero h1 em{font-style:normal;color:var(--ash)}
-.hero p{margin-top:24px;max-width:62ch;color:var(--ash);font-size:16px}
-.hero .note{margin-top:20px;font-family:var(--mono);font-size:12px;letter-spacing:-0.7px;color:var(--pewter)}
-.hero .note b{color:var(--neon);font-weight:400}
+  /* petwatch ui fragments */
+  .pw-stage {
+    background: linear-gradient(160deg, #e6d8c1 0%, #d2bc9e 55%, #c3a886 100%);
+    border-radius: 10px; padding: clamp(24px, 4vw, 56px);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(16px, 2.5vw, 28px); align-items: start;
+    margin: clamp(28px, 4vw, 48px) 0 12px;
+  }
+  .pw-card {
+    background: #1c2130; color: #f4efe6; border-radius: 14px;
+    padding: 20px 20px 18px; box-shadow: 0 2px 6px rgba(28,33,48,.12), 0 18px 48px rgba(28,33,48,.22);
+    font-size: 15px;
+  }
+  .pw-card .meta { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+  .pw-card .when { font-family: var(--code); font-size: 12px; color: #8b92a5; letter-spacing: 0.06em; }
+  .pw-card .state {
+    font-family: var(--code); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 3px 9px; border-radius: 999px; background: rgba(240,169,58,.2); color: #f5c063;
+  }
+  .pw-card .state.always { background: rgba(244,239,230,.1); color: #b9bfcc; }
+  .pw-card h4 { font-family: var(--serif); font-weight: 500; font-size: 19px; line-height: 1.25; margin: 0 0 6px; }
+  .pw-card p { color: #b9bfcc; font-size: 14px; line-height: 1.55; margin: 0; }
+  .pw-card .acts { display: flex; gap: 8px; margin-top: 14px; }
+  .pw-card .acts span {
+    font-size: 13px; font-weight: 700; padding: 8px 14px; border-radius: 999px;
+  }
+  .pw-card .acts .go { background: #f0a93a; color: #241a06; }
+  .pw-card .acts .hold { border: 1px solid #414a61; color: #b9bfcc; }
+  .pw-card.done { text-align: center; padding: 30px 22px; }
+  .pw-card.done h4 { font-size: 22px; font-style: italic; }
+  .pw-card .stop {
+    margin-top: 12px; padding: 10px 12px; border-left: 2px solid #f0a93a;
+    background: rgba(240,169,58,.08); border-radius: 0 8px 8px 0;
+    font-size: 13.5px; color: #f4efe6;
+  }
+  .pw-states { margin-top: 20px; }
 
-/* route strip */
-.route{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin:64px 0 32px}
-.route a{background:var(--depth);border:1px solid var(--graphite-light);border-radius:var(--r-card);padding:20px;text-decoration:none;transition:border-color .2s ease}
-.route a:hover{border-color:var(--neon)}
-.route b{display:block;font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--neon);text-transform:uppercase}
-.route span{display:block;font-size:13px;letter-spacing:-0.4px;color:var(--ash);margin-top:8px;line-height:1.5}
+  /* pipeline */
+  .pipe { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: clamp(24px, 4vw, 40px) 0; }
 
-.sect{margin-top:112px}
-.sect>.label{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--ash);margin-bottom:28px}
-.sect>.label b{color:var(--neon);font-weight:500}
-
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px}
-
-.card{display:block;position:relative;background:var(--graphite-deep);border:1px solid var(--graphite-light);border-radius:var(--r-card);padding:24px;text-decoration:none;transition:border-color .2s ease,background .2s ease}
-.card:hover{border-color:rgba(52,213,154,.55);background:var(--graphite)}
-.card--wide{grid-column:1/-1}
-.card .meta{display:flex;flex-wrap:wrap;gap:8px 20px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--pewter);text-transform:uppercase;margin-bottom:14px}
-.card .meta span:first-child{color:var(--neon)}
-.card h2{font-size:24px;font-weight:500;letter-spacing:-0.24px;line-height:1.25}
-.card p{margin-top:12px;font-size:14px;letter-spacing:-0.5px;color:var(--ash)}
-.card p.dim{color:var(--pewter);font-size:13px}
-.card .go{display:inline-block;margin-top:16px;font-family:var(--mono);font-size:12px;letter-spacing:-0.5px;color:var(--white)}
-.card .go::before{content:"$ ";color:var(--neon)}
-.card:hover .go{color:var(--neon)}
-
-.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.pill{font-family:var(--mono);font-size:11px;padding:6px 14px;border-radius:var(--r-pill);border:1px solid var(--graphite-light);color:var(--ash);text-decoration:none;transition:border-color .2s ease,color .2s ease}
-a.pill:hover{border-color:var(--cloud);color:var(--white)}
-.pill--ok{border-color:var(--neon-muted);color:var(--neon)}
-.pill--go{background:var(--white);border-color:var(--white);color:var(--graphite-deep);font-weight:500}
-a.pill--go:hover,.card:hover .pill--go{border-color:var(--neon);background:var(--neon);color:var(--black)}
-.pill--warn{border-color:var(--graphite-light);color:var(--pewter)}
-.pill--blue{border-color:var(--neon-muted);color:var(--neon)}
-
-.proof{margin-top:14px;padding:14px 16px;background:var(--depth);border:1px solid var(--graphite-light);border-left:2px solid var(--neon);border-radius:var(--r-card);font-size:13px;letter-spacing:-0.4px;color:var(--cloud)}
-.proof b{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--neon);text-transform:uppercase;display:block;margin-bottom:4px;font-weight:500}
-.proof b::before{content:"// "}
-
-.stretch::after{content:"";position:absolute;inset:0}
-.card .tags a,.card a.go{position:relative}
-.card a.go{text-decoration:none}
-.card:has(.stretch:hover){border-color:rgba(52,213,154,.55);background:var(--graphite)}
-
-.footer{margin-top:128px;border-top:1px solid var(--graphite-light);padding-top:32px;display:flex;flex-wrap:wrap;gap:24px;justify-content:space-between;align-items:flex-start}
-.footer p{font-size:13px;letter-spacing:-0.4px;color:var(--pewter);max-width:56ch}
-.footer .links{display:flex;flex-direction:column;gap:8px;font-family:var(--mono);font-size:13px}
-.footer .links a{color:var(--ash);text-decoration:none}
-.footer .links a::before{content:"↗ ";color:var(--neon)}
-.footer .links a:hover{color:var(--white)}
+  /* loop stages */
+  .loop-stages { border-top: 1px solid var(--line); margin-top: clamp(28px, 4vw, 44px); }
+  .loop-stages a {
+    display: grid; grid-template-columns: 150px 1fr auto; gap: 18px; align-items: baseline;
+    padding: 15px 4px; border-bottom: 1px solid var(--line); text-decoration: none;
+  }
+  .loop-stages a:hover { background: var(--card); }
+  .loop-stages .st { font-family: var(--code); font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold); }
+  .loop-stages .art { font-size: 15px; color: var(--ink-2); }
+  .loop-stages .where { font-family: var(--code); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--ink-3); }
+  @media (max-width: 700px) {
+    .loop-stages a { grid-template-columns: 1fr; gap: 2px; }
+  }
 </style>
 </head>
 <body>
 
-<div class="wrap">
+<header class="site-head">
+  <a class="brand" href="./"><strong>Mikel Rosenthal</strong> · PBK practice</a>
+  <nav class="site-nav" aria-label="Site">
+    <a href="#petwatch">Product</a>
+    <a href="#pathfinder">Systems</a>
+    <a href="#engineering">Engineering</a>
+    <a href="#craft">Craft</a>
+    <a href="process.html">Process</a>
+    <a href="#evidence">Evidence</a>
+    <a href="https://mikelrosenthal.com">Portfolio ↗</a>
+  </nav>
+</header>
 
-  <div class="hero">
-    <svg class="datastream" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="58" width="1.5" height="122" fill="#34d59a" opacity="0.26"/><rect x="4.615484910085797" y="129" width="1.5" height="51" fill="#285d49" opacity="0.33"/><rect x="14.250675091519952" y="42" width="1.5" height="138" fill="#34d59a" opacity="0.37"/><rect x="23.619115479290485" y="106" width="1.5" height="74" fill="#285d49" opacity="0.48"/><rect x="34.909152548760176" y="73" width="1.5" height="107" fill="#34d59a" opacity="0.10"/><rect x="45.69093962572515" y="106" width="1.5" height="74" fill="#34d59a" opacity="0.26"/><rect x="56.89216778241098" y="59" width="1.5" height="121" fill="#34d59a" opacity="0.13"/><rect x="63.34838169440627" y="104" width="1.5" height="76" fill="#34d59a" opacity="0.38"/><rect x="69.02748983353376" y="44" width="1.5" height="136" fill="#34d59a" opacity="0.52"/><rect x="73.12182837165892" y="53" width="1.5" height="127" fill="#34d59a" opacity="0.48"/><rect x="79.79488817043602" y="41" width="1.5" height="139" fill="#34d59a" opacity="0.52"/><rect x="88.46356423199177" y="88" width="1.5" height="92" fill="#34d59a" opacity="0.22"/><rect x="101.09053698554635" y="24" width="1.5" height="156" fill="#34d59a" opacity="0.09"/><rect x="114.05514478497207" y="166" width="1.5" height="14" fill="#34d59a" opacity="0.15"/><rect x="123.76485699228942" y="97" width="1.5" height="83" fill="#285d49" opacity="0.53"/><rect x="133.2632070221007" y="164" width="1.5" height="16" fill="#34d59a" opacity="0.22"/><rect x="145.68379472196102" y="75" width="1.5" height="105" fill="#34d59a" opacity="0.37"/><rect x="151.49371746368706" y="139" width="1.5" height="41" fill="#34d59a" opacity="0.48"/><rect x="160.063539320603" y="134" width="1.5" height="46" fill="#34d59a" opacity="0.45"/><rect x="167.19465770572424" y="22" width="1.5" height="158" fill="#34d59a" opacity="0.49"/><rect x="173.82867684587836" y="139" width="1.5" height="41" fill="#34d59a" opacity="0.11"/><rect x="185.25714746676385" y="66" width="1.5" height="114" fill="#34d59a" opacity="0.38"/><rect x="190.74378206394613" y="24" width="1.5" height="156" fill="#34d59a" opacity="0.13"/><rect x="198.56500513479114" y="131" width="1.5" height="49" fill="#34d59a" opacity="0.18"/><rect x="211.06844774633646" y="56" width="1.5" height="124" fill="#34d59a" opacity="0.39"/><rect x="216.4427458140999" y="21" width="1.5" height="159" fill="#34d59a" opacity="0.19"/><rect x="227.4857514668256" y="63" width="1.5" height="117" fill="#285d49" opacity="0.11"/><rect x="238.7520168721676" y="135" width="1.5" height="45" fill="#34d59a" opacity="0.21"/><rect x="251.0541598983109" y="28" width="1.5" height="152" fill="#34d59a" opacity="0.38"/><rect x="263.3864709865302" y="70" width="1.5" height="110" fill="#285d49" opacity="0.32"/><rect x="274.9328706096858" y="102" width="1.5" height="78" fill="#34d59a" opacity="0.31"/><rect x="279.9150766916573" y="50" width="1.5" height="130" fill="#34d59a" opacity="0.43"/><rect x="290.63059136271477" y="44" width="1.5" height="136" fill="#34d59a" opacity="0.44"/><rect x="301.12386642582715" y="150" width="1.5" height="30" fill="#34d59a" opacity="0.48"/><rect x="309.5277569089085" y="162" width="1.5" height="18" fill="#34d59a" opacity="0.25"/><rect x="322.2061220780015" y="139" width="1.5" height="41" fill="#34d59a" opacity="0.34"/><rect x="333.42218328639865" y="48" width="1.5" height="132" fill="#34d59a" opacity="0.41"/><rect x="340.35099803470075" y="77" width="1.5" height="103" fill="#34d59a" opacity="0.36"/><rect x="352.84815961681306" y="150" width="1.5" height="30" fill="#34d59a" opacity="0.21"/><rect x="360.4805817268789" y="41" width="1.5" height="139" fill="#34d59a" opacity="0.22"/><rect x="370.91897740215063" y="102" width="1.5" height="78" fill="#34d59a" opacity="0.19"/><rect x="375.88539167679846" y="167" width="1.5" height="13" fill="#34d59a" opacity="0.30"/><rect x="387.44289732165635" y="32" width="1.5" height="148" fill="#285d49" opacity="0.42"/><rect x="393.50831304490566" y="121" width="1.5" height="59" fill="#285d49" opacity="0.39"/><rect x="404.0625535286963" y="114" width="1.5" height="66" fill="#34d59a" opacity="0.52"/><rect x="411.62697067670524" y="63" width="1.5" height="117" fill="#34d59a" opacity="0.48"/><rect x="421.16779544763267" y="142" width="1.5" height="38" fill="#34d59a" opacity="0.28"/><rect x="428.68453964963555" y="157" width="1.5" height="23" fill="#34d59a" opacity="0.33"/><rect x="433.33196707069874" y="149" width="1.5" height="31" fill="#34d59a" opacity="0.09"/><rect x="445.01899331994355" y="90" width="1.5" height="90" fill="#34d59a" opacity="0.13"/><rect x="457.0216237548739" y="167" width="1.5" height="13" fill="#34d59a" opacity="0.48"/><rect x="464.24078886955976" y="98" width="1.5" height="82" fill="#34d59a" opacity="0.42"/><rect x="471.32968651875854" y="149" width="1.5" height="31" fill="#34d59a" opacity="0.31"/><rect x="483.00899035297334" y="85" width="1.5" height="95" fill="#34d59a" opacity="0.18"/><rect x="494.4820338394493" y="55" width="1.5" height="125" fill="#34d59a" opacity="0.26"/><rect x="502.955829244107" y="85" width="1.5" height="95" fill="#34d59a" opacity="0.09"/><rect x="514.8675309494138" y="107" width="1.5" height="73" fill="#34d59a" opacity="0.41"/><rect x="526.5097024831921" y="161" width="1.5" height="19" fill="#34d59a" opacity="0.48"/><rect x="535.3414966333658" y="30" width="1.5" height="150" fill="#34d59a" opacity="0.55"/><rect x="543.3666080236435" y="20" width="1.5" height="160" fill="#34d59a" opacity="0.53"/><rect x="548.55260752514" y="78" width="1.5" height="102" fill="#34d59a" opacity="0.19"/><rect x="559.3600178789347" y="129" width="1.5" height="51" fill="#34d59a" opacity="0.50"/><rect x="567.0432399045676" y="168" width="1.5" height="12" fill="#34d59a" opacity="0.20"/><rect x="575.4791886694729" y="35" width="1.5" height="145" fill="#34d59a" opacity="0.37"/><rect x="579.8732489943504" y="54" width="1.5" height="126" fill="#34d59a" opacity="0.19"/><rect x="586.7859096694738" y="110" width="1.5" height="70" fill="#34d59a" opacity="0.45"/><rect x="595.5171857569367" y="122" width="1.5" height="58" fill="#34d59a" opacity="0.09"/><rect x="607.9796883538365" y="61" width="1.5" height="119" fill="#285d49" opacity="0.36"/><rect x="615.7849511913955" y="127" width="1.5" height="53" fill="#34d59a" opacity="0.37"/><rect x="624.3613734450191" y="112" width="1.5" height="68" fill="#34d59a" opacity="0.55"/><rect x="628.5158881302923" y="24" width="1.5" height="156" fill="#34d59a" opacity="0.43"/><rect x="636.945215459913" y="146" width="1.5" height="34" fill="#34d59a" opacity="0.09"/><rect x="643.7963105365634" y="69" width="1.5" height="111" fill="#34d59a" opacity="0.29"/><rect x="655.4693647567183" y="42" width="1.5" height="138" fill="#34d59a" opacity="0.15"/><rect x="663.4504703003913" y="63" width="1.5" height="117" fill="#34d59a" opacity="0.34"/><rect x="673.0548070818186" y="30" width="1.5" height="150" fill="#34d59a" opacity="0.13"/><rect x="680.5549615360796" y="84" width="1.5" height="96" fill="#34d59a" opacity="0.33"/><rect x="692.2627366166562" y="29" width="1.5" height="151" fill="#34d59a" opacity="0.48"/><rect x="697.7265623789281" y="58" width="1.5" height="122" fill="#34d59a" opacity="0.10"/><rect x="710.3003665246069" y="46" width="1.5" height="134" fill="#34d59a" opacity="0.24"/><rect x="716.9335142821074" y="90" width="1.5" height="90" fill="#34d59a" opacity="0.36"/><rect x="724.1251769978553" y="140" width="1.5" height="40" fill="#34d59a" opacity="0.26"/><rect x="734.5802388135344" y="69" width="1.5" height="111" fill="#34d59a" opacity="0.32"/><rect x="744.1976008042693" y="111" width="1.5" height="69" fill="#34d59a" opacity="0.06"/><rect x="748.6154919527471" y="35" width="1.5" height="145" fill="#34d59a" opacity="0.39"/><rect x="760.6321463342756" y="104" width="1.5" height="76" fill="#34d59a" opacity="0.47"/><rect x="766.4139558877796" y="119" width="1.5" height="61" fill="#285d49" opacity="0.13"/><rect x="776.4969581477344" y="33" width="1.5" height="147" fill="#34d59a" opacity="0.32"/><rect x="784.181268312037" y="59" width="1.5" height="121" fill="#34d59a" opacity="0.33"/><rect x="789.0118150208145" y="72" width="1.5" height="108" fill="#34d59a" opacity="0.48"/><rect x="798.6324892211705" y="65" width="1.5" height="115" fill="#34d59a" opacity="0.36"/><rect x="806.3945654928684" y="124" width="1.5" height="56" fill="#34d59a" opacity="0.46"/><rect x="812.6940052099526" y="73" width="1.5" height="107" fill="#285d49" opacity="0.13"/><rect x="817.1060009133071" y="44" width="1.5" height="136" fill="#34d59a" opacity="0.26"/><rect x="823.9788712691516" y="60" width="1.5" height="120" fill="#34d59a" opacity="0.26"/><rect x="835.2431659884751" y="37" width="1.5" height="143" fill="#285d49" opacity="0.39"/><rect x="847.785590082407" y="71" width="1.5" height="109" fill="#34d59a" opacity="0.46"/><rect x="857.8311068285257" y="32" width="1.5" height="148" fill="#34d59a" opacity="0.08"/><rect x="864.3703288231045" y="128" width="1.5" height="52" fill="#34d59a" opacity="0.11"/><rect x="875.7630564942956" y="114" width="1.5" height="66" fill="#285d49" opacity="0.15"/><rect x="886.2425734512508" y="148" width="1.5" height="32" fill="#34d59a" opacity="0.44"/><rect x="891.1390580441803" y="82" width="1.5" height="98" fill="#34d59a" opacity="0.15"/><rect x="900.2342205103487" y="34" width="1.5" height="146" fill="#34d59a" opacity="0.50"/><rect x="911.7530250810087" y="71" width="1.5" height="109" fill="#34d59a" opacity="0.08"/><rect x="916.0921064242721" y="76" width="1.5" height="104" fill="#34d59a" opacity="0.28"/><rect x="920.4782397989184" y="143" width="1.5" height="37" fill="#285d49" opacity="0.37"/><rect x="930.3439742941409" y="43" width="1.5" height="137" fill="#34d59a" opacity="0.47"/><rect x="943.3012885302305" y="56" width="1.5" height="124" fill="#34d59a" opacity="0.53"/><rect x="956.1878781951964" y="64" width="1.5" height="116" fill="#34d59a" opacity="0.51"/><rect x="961.7544347923249" y="84" width="1.5" height="96" fill="#34d59a" opacity="0.47"/><rect x="973.1550249736756" y="51" width="1.5" height="129" fill="#34d59a" opacity="0.20"/><rect x="982.4964298345149" y="75" width="1.5" height="105" fill="#34d59a" opacity="0.53"/><rect x="992.2960535436869" y="31" width="1.5" height="149" fill="#34d59a" opacity="0.13"/><rect x="1000.7917606849223" y="161" width="1.5" height="19" fill="#34d59a" opacity="0.21"/><rect x="1009.6407516840845" y="46" width="1.5" height="134" fill="#34d59a" opacity="0.18"/><rect x="1017.6383356973529" y="155" width="1.5" height="25" fill="#34d59a" opacity="0.52"/><rect x="1025.681210335344" y="75" width="1.5" height="105" fill="#34d59a" opacity="0.32"/><rect x="1036.2936075981706" y="143" width="1.5" height="37" fill="#34d59a" opacity="0.09"/><rect x="1047.628415396437" y="126" width="1.5" height="54" fill="#34d59a" opacity="0.46"/><rect x="1053.9491340331733" y="69" width="1.5" height="111" fill="#34d59a" opacity="0.46"/><rect x="1063.192277021706" y="44" width="1.5" height="136" fill="#285d49" opacity="0.13"/><rect x="1073.3035756144673" y="72" width="1.5" height="108" fill="#34d59a" opacity="0.50"/><rect x="1082.63509641774" y="78" width="1.5" height="102" fill="#34d59a" opacity="0.25"/><rect x="1086.7841314673424" y="98" width="1.5" height="82" fill="#34d59a" opacity="0.09"/><rect x="1093.8484701402485" y="145" width="1.5" height="35" fill="#34d59a" opacity="0.15"/><rect x="1103.1664122771472" y="134" width="1.5" height="46" fill="#34d59a" opacity="0.44"/><rect x="1108.2036318909377" y="131" width="1.5" height="49" fill="#285d49" opacity="0.20"/><rect x="1115.3427508361638" y="153" width="1.5" height="27" fill="#34d59a" opacity="0.10"/><rect x="1123.9252318143845" y="79" width="1.5" height="101" fill="#34d59a" opacity="0.22"/><rect x="1132.9889500904828" y="85" width="1.5" height="95" fill="#34d59a" opacity="0.19"/><rect x="1139.738553294912" y="89" width="1.5" height="91" fill="#34d59a" opacity="0.50"/><rect x="1151.8794686868787" y="97" width="1.5" height="83" fill="#34d59a" opacity="0.29"/><rect x="1162.5401672534645" y="93" width="1.5" height="87" fill="#34d59a" opacity="0.09"/><rect x="1174.6010440196842" y="158" width="1.5" height="22" fill="#34d59a" opacity="0.50"/><rect x="1179.8420239444822" y="90" width="1.5" height="90" fill="#34d59a" opacity="0.14"/><rect x="1190.4147527776659" y="58" width="1.5" height="122" fill="#34d59a" opacity="0.27"/></svg>
-    <div class="kicker">Demo Index · Mikel Rosenthal</div>
-    <h1>Everything built, <em>one door in.</em></h1>
-    <p>A single review hub for the live demos: an end-to-end product exercise, a token-pure design system with a component playground, an agent-operated build pipeline, and the process documentation behind all of it. Every card links to something that runs.</p>
-    <p class="note"><b>●</b> Private by design. Every page here is noindexed, deploys to its own isolated project, and is safe to send as a link.</p>
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap">
+    <p class="eyebrow">Mikel Rosenthal · Product Design · Systems · Design Engineering</p>
+    <h1 id="hero-h">The distance between an idea and the real thing got shorter.</h1>
+    <p class="lede">That doesn't mean I want to make more things. <strong>It means I can spend more cycles deciding which thing is right.</strong></p>
+    <p class="support">My career has moved through visual design, complex product systems, design systems, and now AI-assisted development. The tools changed dramatically. The responsibility didn't: understand the problem, make the decision legible, build enough to learn, and improve the thing that matters.</p>
+    <div class="cta-row">
+      <a class="cta" href="process.html">See how I work</a>
+      <a class="cta ghost" href="#evidence">Working evidence</a>
+      <a class="cta ghost" href="https://mikelrosenthal.com">Portfolio ↗</a>
+    </div>
+
+    <div class="sheet-strip" aria-label="Evidence contact sheet">
+      <a class="cell" href="#pathfinder"><img src="assets/pathfinder-audit.jpg" alt="Pathfinder audit board showing fragmented components collected from across the product"><span>Frame · the audit</span></a>
+      <a class="cell" href="#pathfinder"><img src="assets/pf2-styletile-23.jpg" alt="Pathfinder style tile exploration"><span>Explore · style tiles</span></a>
+      <a class="cell" href="#pathfinder"><img src="assets/pathfinder-tokens.jpg" alt="Pathfinder token architecture diagram"><span>Systematize · tokens</span></a>
+      <a class="cell" href="#pathfinder"><img src="assets/pathfinder-config.jpg" alt="Pathfinder configuration screen, provider comparison rebuilt around fit evidence"><span>Learn · the correction</span></a>
+      <a class="cell" href="#craft"><img src="assets/prism-desktop.jpg" alt="PRISM desktop interface"><span>Craft · the finish</span></a>
+    </div>
+    <p class="quiet" style="margin-top:14px; font-family: var(--code); font-size: 12px;">Private by design. Every page here is noindexed and deploys to its own isolated project. The previous version of this hub is kept at <a href="v1/">/v1</a>.</p>
   </div>
+</section>
 
-  <div class="route">
-    <a href="#product"><b>01 · Product</b><span>PetWatch. Scope a product from a brief to a tested prototype, with the paper trail.</span></a>
-    <a href="#systems"><b>02 · Systems</b><span>Pathfinder 2.0. 866 tokens, a component library, and recipes assembled from them.</span></a>
-    <a href="#agentic"><b>03 · Agentic AI</b><span>Skills, a Figma plugin, and a stage where components appear as you talk.</span></a>
-    <a href="#process"><b>04 · Process</b><span>The full workflow from brief to handoff, and the interview kit behind it.</span></a>
+<!-- ============ CHAPTER 01 — PETWATCH ============ -->
+<section id="petwatch" aria-labelledby="pw-h">
+  <div class="wrap">
+    <p class="eyebrow"><span class="no">01</span> Product judgment · PetWatch</p>
+    <h2 id="pw-h">What looked like a scheduling problem became a trust problem.</h2>
+    <div class="text">
+      <p>The brief described a pet-care scheduling app. A real scenario changed the framing. Hex is my cat. He takes prescribed insulin twice a day, and when I travel, a friend cares for him. My friend can remember "insulin at 7:15." What they actually need is harder to hand over: enough of my knowledge, and enough confidence, to act without me in the room.</p>
+      <p>So the product splits knowledge in two. <strong>Care Moments</strong> are time-sensitive: they become due, get done, and resolve for both people at once. <strong>Always-Know</strong> is ambient: Hex bolts through open doors, and that fact has no schedule. It matters continuously, so it never interrupts.</p>
+    </div>
+
+    <div class="pw-stage" role="img" aria-label="Three PetWatch interface cards: a due Care Moment with a snooze option, an Always-Know card about Hex bolting through doors, and a quiet completion screen">
+      <div class="pw-card">
+        <div class="meta"><span class="when">Today · 7:15 PM</span><span class="state">Due</span></div>
+        <h4>Insulin, after dinner</h4>
+        <p>Guided, one step at a time. Written by Mikel with his vet, not generated.</p>
+        <div class="stop">"If he hasn't touched his food, stop here and text Mikel."</div>
+        <div class="acts"><span class="go">Start</span><span class="hold">Can't right now</span></div>
+      </div>
+      <div class="pw-card">
+        <div class="meta"><span class="when">Always</span><span class="state always">Always-Know</span></div>
+        <h4>Hex is a runner</h4>
+        <p>He is extremely sneaky around exterior doors. Check behind you on the way in and out. No due time. This card never interrupts, and it never goes away.</p>
+      </div>
+      <div class="pw-card done">
+        <div class="meta"><span class="when">7:41 PM</span><span class="state">Completed</span></div>
+        <h4>All taken care of.</h4>
+        <p>Mikel can see that it's done. No confetti, no streak. Relief, twice: I handled it. Someone handled it.</p>
+      </div>
+    </div>
+    <p class="quiet" style="font-family: var(--code); font-size: 13px;">Recreated from the working prototype, in its own design system. Snooze means "I saw this, don't let me forget," not failure. Past-due is just "due, 20 minutes ago." There is no MISSED state, and no red anywhere in the product. Both are decisions.</p>
+
+    <div class="flow pw-states" aria-label="Care Moment state model">
+      <span class="step">Upcoming</span><span class="arr">→</span>
+      <span class="step">Soon</span><span class="arr">→</span>
+      <span class="step hot">Due</span><span class="arr">⇄</span>
+      <span class="step">Snoozed</span><span class="arr">→</span>
+      <span class="step">In progress</span><span class="arr">⇄</span>
+      <span class="step">Needs help</span><span class="arr">→</span>
+      <span class="step hot">Completed</span>
+    </div>
+
+    <div class="cta-row">
+      <a class="cta" href="https://petwatch-reconsidered.vercel.app">See the reasoning</a>
+      <a class="cta ghost" href="https://petwatch-reconsidered.vercel.app/prototype.html">Try the prototype</a>
+      <a class="cta ghost" href="https://petwatch-exercise.vercel.app">The timed original, untouched ↗</a>
+    </div>
   </div>
+</section>
 
-  <!-- 01 PRODUCT -->
-  <div class="sect" id="product">
-    <div class="label"><b>01</b> · Product thinking — PetWatch</div>
-    <div class="grid">
+<!-- ============ CHAPTER 02 — PATHFINDER ============ -->
+<section id="pathfinder" aria-labelledby="pf-h">
+  <div class="wrap">
+    <p class="eyebrow"><span class="no">02</span> Systems thinking · Pathfinder</p>
+    <h2 id="pf-h">The problem was trust, not tidiness.</h2>
+    <div class="text">
+      <p>Independently reasonable decisions had accumulated across a large product. Different teams solved similar problems differently, and at scale those local decisions stopped adding up to one coherent product. The purpose of the system was never a cleaner Figma file. It was fewer repeated decisions, and more shared language.</p>
+    </div>
 
-      <div class="card card--wide">
-        <div class="meta"><span>PetWatch</span><span>Product designer exercise</span><span>Brief to prototype, end to end</span></div>
-        <h2>The full product arc, on one page</h2>
-        <p>A care-handoff product for pet sitters, taken from a written brief to a working prototype: research plan, PRD, flows and screen inventory, visual direction, backlog, release plan, and a validation plan. The AI usage log is part of the exercise, it shows exactly where the tools accelerated the work and where judgment stayed human.</p>
-        <div class="proof"><b>What this demonstrates</b>Product scoping, speed without skipping rigor, and writing that engineers and stakeholders can act on.</div>
-        <div class="tags">
-          <a class="pill pill--go stretch" href="https://petwatch-exercise.vercel.app">Open the exercise hub →</a>
-          <span class="pill">Research → PRD → flows → prototype → release</span>
-          <span class="pill pill--ok">AI usage documented</span>
+    <figure>
+      <img src="assets/pathfinder-audit.jpg" alt="Pathfinder audit board: components, colors, and type collected from across the product and grouped to expose the fragmentation">
+      <figcaption><strong>The audit.</strong> Making the fragmentation visible: multiple primary blues, mixed typography, repeated local solutions to the same problem. This board is the argument for the system.</figcaption>
+    </figure>
+
+    <div class="two-up">
+      <figure>
+        <img src="assets/pf2-styletile-04.jpg" alt="Pathfinder style tile exploration, direction A">
+        <figcaption><strong>Exploration.</strong> Style tiles ran wide before anything was standardized. The system came after the taste, not instead of it.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/pf2-styletile-23.jpg" alt="Pathfinder style tile exploration, direction B">
+        <figcaption><strong>Exploration.</strong> Directions that lost still earned their keep: each one retired a question.</figcaption>
+      </figure>
+    </div>
+
+    <figure>
+      <img src="assets/pathfinder-config.jpg" alt="Pathfinder configuration screen: provider comparison rows where fit score and differentiators outweigh the provider logo">
+      <figcaption><strong>The correction.</strong> The first Configuration table gave the fit score and the provider logo equal visual weight, so advisors scanned past the evidence and made a brand-recognition decision, precisely what the screen existed to prevent. The row hierarchy was rebuilt until the score and the differentiator outweighed the logo. The design met behavior, and the design moved.</figcaption>
+    </figure>
+
+    <div class="two-up">
+      <figure>
+        <img src="assets/pathfinder-tokens.jpg" alt="Pathfinder token architecture: primitive, semantic, and component token layers">
+        <figcaption><strong>The system.</strong> Decisions that survived testing became tokens, so nobody has to make them twice.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/pathfinder-dark.jpg" alt="Pathfinder interface in dark theme, generated from the same token foundation as light">
+        <figcaption><strong>Two themes, one foundation.</strong> The dark theme is the token architecture proving itself: no screen was redesigned to produce it.</figcaption>
+      </figure>
+    </div>
+
+    <div class="stat-row" aria-label="Pathfinder outcomes">
+      <div class="stat"><b>350+</b><span>contributors enabled</span></div>
+      <div class="stat"><b>2.5 yrs</b><span>owned end to end</span></div>
+      <div class="stat"><b>5 → 1</b><span>primary blues, one shared language</span></div>
+      <div class="stat"><b>2</b><span>themes from one foundation</span></div>
+    </div>
+
+    <div class="cta-row">
+      <a class="cta" href="pathfinder/">Pathfinder 2.0, running</a>
+      <a class="cta ghost" href="https://mikelrosenthal.com">The full case study ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHAPTER 03 — DESIGN ENGINEERING ============ -->
+<section id="engineering" aria-labelledby="eng-h">
+  <div class="wrap">
+    <p class="eyebrow"><span class="no">03</span> Design engineering</p>
+    <h2 id="eng-h">A system written clearly enough for people can become legible to agents.</h2>
+    <div class="text">
+      <p>I've spent years taking design decisions out of one person's head and making them usable by someone else: another designer, an engineer, a PM. That produced tokens, components, documentation, governance. AI adds one more consumer, the agent, and the same rigor that made a system teachable to people is what makes it operable by a machine. The point is not the volume of demos below. It's that structured intent survives translation.</p>
+    </div>
+
+    <div class="pipe" aria-label="Token to interface pipeline">
+      <span class="step">Tokens</span><span class="arr">→</span>
+      <span class="step">Rules</span><span class="arr">→</span>
+      <span class="step">Components</span><span class="arr">→</span>
+      <span class="step">Metadata</span><span class="arr">→</span>
+      <span class="step hot">Agent</span><span class="arr">→</span>
+      <span class="step hot">Working interface</span>
+    </div>
+
+    <div class="ev-group" style="border-top:none; padding-top:0;">
+      <h3>Running now</h3>
+      <div class="ev-list">
+        <a href="pathfinder/stage/"><span class="t">The live stage <span class="d">Talk to the agent, components appear on screen. The system is the API.</span></span><span class="where">demo</span></a>
+        <a href="pathfinder/playground/"><span class="t">Component playground <span class="d">The Figma component model, in code: variants, props, slots, variable modes.</span></span><span class="where">demo</span></a>
+        <a href="pathfinder/recipes/desktop.html"><span class="t">Assemble a desktop <span class="d">A full working screen composed only from system pieces. 866 tokens, zero dependencies, no build step.</span></span><span class="where">demo</span></a>
+        <a href="https://pbk-guide.vercel.app/pathfinder/docs/"><span class="t">Keystone, the token pipeline <span class="d">Tokens to docs to Swift to agent skill, one source of truth, enforced.</span></span><span class="where">docs ↗</span></a>
+        <a href="https://pbk-guide.vercel.app/figma-demo"><span class="t">Figma variables → W3C DTCG <span class="d">A working plugin that exports variables as standard design tokens.</span></span><span class="where">plugin ↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CRAFT ============ -->
+<section id="craft" aria-labelledby="craft-h">
+  <div class="wrap">
+    <p class="eyebrow"><span class="no">04</span> Craft</p>
+    <h2 id="craft-h">Systems shouldn't flatten taste.</h2>
+    <p class="lede">The system handles repetition so the moments that matter can receive more attention.</p>
+
+    <figure class="gallery-row">
+      <img src="assets/board-pathfinder.jpg" alt="Pathfinder final presentation board, the finished system at full fidelity">
+      <figcaption><strong>Pathfinder.</strong> The finished system at presentation fidelity. A design system's last job is to make the product feel inevitable, not uniform.</figcaption>
+    </figure>
+
+    <div class="two-up">
+      <figure>
+        <img src="assets/prism-desktop.jpg" alt="PRISM desktop interface, dense psychometric data made readable">
+        <figcaption><strong>PRISM.</strong> Psychometric data is dense and personal. The craft problem was making it readable without making it clinical.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/truecredit-hero.jpg" alt="TrueCredit interface, consumer credit made legible">
+        <figcaption><strong>TrueCredit.</strong> A credit score is a number people are afraid of. The interface's job was to lower the temperature.</figcaption>
+      </figure>
+    </div>
+
+    <figure class="gallery-row">
+      <img src="assets/spacelab-final-board.jpg" alt="Spacelab brand and packaging final board">
+      <figcaption><strong>Spacelab.</strong> Brand, naming, and packaging, end to end. Different medium, same discipline: explore wide, decide narrow, finish hard.</figcaption>
+    </figure>
+
+    <div class="two-up">
+      <figure>
+        <img src="assets/spacelab-tin.jpg" alt="Spacelab packaging detail, printed tin">
+        <figcaption><strong>Detail.</strong> The tin, in production. Craft has to survive manufacturing, not just the mockup.</figcaption>
+      </figure>
+      <figure>
+        <img src="assets/avant-charts-bar.jpg" alt="Avant data visualization system, bar chart specifications">
+        <figcaption><strong>Avant.</strong> Chart specifications from the design system. Even the data visualization got a grammar, so every team's charts read as one product.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE LOOP ============ -->
+<section id="loop" aria-labelledby="loop-h">
+  <div class="wrap">
+    <p class="eyebrow"><span class="no">05</span> The loop</p>
+    <h2 id="loop-h">Every project runs the same heartbeat.</h2>
+    <div class="text">
+      <p>Question, decision, artifact, consequence, learning. AI made the artifact-to-consequence leg dramatically cheaper, which is exactly why the deciding legs matter more. Seven stages describe where the artifacts occur. Each one below is a real artifact, not an illustration.</p>
+    </div>
+
+    <div class="flow" aria-label="The core loop">
+      <span class="step hot">Question</span><span class="arr">→</span>
+      <span class="step hot">Decision</span><span class="arr">→</span>
+      <span class="step">Artifact</span><span class="arr">→</span>
+      <span class="step">Consequence</span><span class="arr">→</span>
+      <span class="step hot">Learning</span><span class="arr">↺</span>
+    </div>
+
+    <div class="loop-stages">
+      <a href="#pathfinder"><span class="st">Frame</span><span class="art">The Pathfinder audit board</span><span class="where">above</span></a>
+      <a href="https://claude.ai/code/artifact/d36ef11c-53b5-4e60-9e7b-7be2fde568ce"><span class="st">Map</span><span class="art">PetWatch flows, state machines, and the full screen surface</span><span class="where">artifact ↗</span></a>
+      <a href="#pathfinder"><span class="st">Explore</span><span class="art">Pathfinder style tiles, the directions that lost included</span><span class="where">above</span></a>
+      <a href="#craft"><span class="st">Craft</span><span class="art">The finished boards: Pathfinder, PRISM, TrueCredit, Spacelab</span><span class="where">above</span></a>
+      <a href="pathfinder/"><span class="st">Systematize</span><span class="art">866 tokens driving every Pathfinder demo on this page</span><span class="where">demo</span></a>
+      <a href="pathfinder/stage/"><span class="st">Build</span><span class="art">The live stage, working software as part of the thinking</span><span class="where">demo</span></a>
+      <a href="#pathfinder"><span class="st">Learn</span><span class="art">The provider-hierarchy correction: tested, wrong, rebuilt</span><span class="where">above</span></a>
+    </div>
+
+    <div class="cta-row">
+      <a class="cta" href="process.html">See the seams</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ EVIDENCE INDEX ============ -->
+<section id="evidence" aria-labelledby="ev-h">
+  <div class="wrap">
+    <p class="eyebrow"><span class="no">06</span> Working evidence</p>
+    <h2 id="ev-h">Everything above, plus the receipts.</h2>
+    <p class="lede">Every link runs. Nothing here is a mockup of a thing, it is the thing.</p>
+
+    <div style="margin-top: clamp(32px, 5vw, 56px);">
+      <div class="ev-group">
+        <h3>Product</h3>
+        <div class="ev-list">
+          <a href="https://petwatch-reconsidered.vercel.app"><span class="t">PetWatch, reconsidered <span class="d">The second pass: Hex, Care Moments, Always-Know, and what I still don't know.</span></span><span class="where">case study ↗</span></a>
+          <a href="https://petwatch-reconsidered.vercel.app/prototype.html"><span class="t">The working prototype <span class="d">Controllable clock, snooze, guided care, help, the owner's view. Backed by a tested domain model.</span></span><span class="where">demo ↗</span></a>
+          <a href="https://petwatch-exercise.vercel.app"><span class="t">The timed original <span class="d">Four hours, unedited, still public. The reconsidered version exists because this one taught me something.</span></span><span class="where">exercise ↗</span></a>
+          <a href="https://claude.ai/code/artifact/d36ef11c-53b5-4e60-9e7b-7be2fde568ce"><span class="t">Flows, maps, screen inventory <span class="d">Swim lanes, invite lifecycle, all twenty screens dispositioned.</span></span><span class="where">artifact ↗</span></a>
+          <a href="https://claude.ai/code/artifact/b755a7b9-2041-4f2b-a851-c5ea2d6c51a1"><span class="t">Written artifacts <span class="d">PRD, backlog, research plan, ways of working.</span></span><span class="where">artifact ↗</span></a>
+          <a href="https://claude.ai/code/artifact/e6850c0e-18bf-4f9d-800d-65c7fb17a3d7"><span class="t">The v1 prototype <span class="d">The original interactive prototype from the timed exercise.</span></span><span class="where">artifact ↗</span></a>
         </div>
       </div>
 
-      <div class="card">
-        <div class="meta"><span>Prototype</span><span>Interactive</span></div>
-        <h2>Interactive prototype</h2>
-        <p>The clickable PetWatch prototype, usable in the browser. Start here if you only open one link.</p>
-        <a class="go stretch" href="https://claude.ai/code/artifact/e6850c0e-18bf-4f9d-800d-65c7fb17a3d7">open prototype</a>
-      </div>
-
-      <div class="card">
-        <div class="meta"><span>Structure</span><span>Flows + maps</span></div>
-        <h2>Flows, maps, screen inventory</h2>
-        <p>The connective tissue: user flows, journey maps, and the complete screen inventory the prototype was built against.</p>
-        <a class="go stretch" href="https://claude.ai/code/artifact/d36ef11c-53b5-4e60-9e7b-7be2fde568ce">open flows and maps</a>
-      </div>
-
-      <div class="card">
-        <div class="meta"><span>Writing</span><span>PRD + plans</span></div>
-        <h2>Written artifacts</h2>
-        <p>Product definition, research plan, release plan, validation plan, and ways of working, collected in one place.</p>
-        <a class="go stretch" href="https://claude.ai/code/artifact/b755a7b9-2041-4f2b-a851-c5ea2d6c51a1">open written artifacts</a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- 02 SYSTEMS -->
-  <div class="sect" id="systems">
-    <div class="label"><b>02</b> · Systems craft — Pathfinder 2.0</div>
-    <div class="grid">
-
-      <div class="card card--wide">
-        <div class="meta"><span>Pathfinder 2.0</span><span>866 tokens</span><span>Zero dependencies</span><span>No build step</span></div>
-        <h2>A design system rebuilt as a live framework</h2>
-        <p>The AVANT partner portal design system, extracted 1:1 from its published spec site into a token-pure component library: buttons, badges, data tables, modals, cards, stat tiles, forms, tabs, toasts, and a responsive app shell. Components consume <span style="font-family:var(--mono);font-size:13px;color:var(--neon)">var(--pf*)</span> exclusively, so retheming is a token-file swap. Fonts are vendored, it renders identically with the network off.</p>
-        <div class="proof"><b>What this demonstrates</b>Tokens as the API, spec-site fidelity, and a system built so that both humans and agents can assemble from it.</div>
-        <div class="tags">
-          <a class="pill pill--go stretch" href="pathfinder/">Open the system overview →</a>
-          <a class="pill" href="pathfinder/playground/">Playground: the Figma component model, running</a>
+      <div class="ev-group">
+        <h3>Systems</h3>
+        <div class="ev-list">
+          <a href="pathfinder/"><span class="t">Pathfinder 2.0 <span class="d">The design system rebuilt as a live framework.</span></span><span class="where">demo</span></a>
+          <a href="pathfinder/playground/"><span class="t">Component playground <span class="d">Variants, props, slots, and variable modes, inspectable.</span></span><span class="where">demo</span></a>
+          <a href="pathfinder/recipes/desktop.html"><span class="t">Assemble a desktop <span class="d">Sidenav, topbar, stat tiles, table, modal, all system pieces.</span></span><span class="where">demo</span></a>
+          <a href="pathfinder/recipes/orders-page.html"><span class="t">Orders page <span class="d">A working screen: filters, sorting, toasts.</span></span><span class="where">demo</span></a>
+          <a href="pathfinder/recipes/data-table.html"><span class="t">Component recipes <span class="d">Data table, modal, form, detail, empty state.</span></span><span class="where">demos</span></a>
         </div>
       </div>
 
-      <div class="card">
-        <div class="meta"><span>Recipe</span><span>Full assembly</span></div>
-        <h2>Assemble a desktop</h2>
-        <p>The flagship recipe: a complete dashboard assembled entirely from library components. Nothing on the page is bespoke.</p>
-        <a class="go stretch" href="pathfinder/recipes/desktop.html">open the desktop build</a>
-      </div>
-
-      <div class="card">
-        <div class="meta"><span>Recipe</span><span>Working page</span></div>
-        <h2>Orders page</h2>
-        <p>A realistic working screen: sortable data table, filters, states, and the always-a-cancel-path rule applied.</p>
-        <a class="go stretch" href="pathfinder/recipes/orders-page.html">open the orders page</a>
-      </div>
-
-      <div class="card">
-        <div class="meta"><span>Recipes</span><span>Components</span></div>
-        <h2>Component recipes</h2>
-        <p>Reference builds one component family at a time.</p>
-        <div class="tags">
-          <a class="pill" href="pathfinder/recipes/data-table.html">Data table</a>
-          <a class="pill" href="pathfinder/recipes/modal.html">Modals</a>
-          <a class="pill" href="pathfinder/recipes/form.html">Form</a>
-          <a class="pill" href="pathfinder/recipes/detail.html">Detail</a>
-          <a class="pill" href="pathfinder/recipes/empty-state.html">Empty state</a>
+      <div class="ev-group">
+        <h3>Agentic workflow</h3>
+        <div class="ev-list">
+          <a href="pathfinder/stage/"><span class="t">The live stage <span class="d">The agent assembles interfaces from the system while you watch.</span></span><span class="where">demo</span></a>
+          <a href="https://pbk-guide.vercel.app/pathfinder/docs/"><span class="t">Keystone docs <span class="d">The token pipeline, enforced end to end.</span></span><span class="where">docs ↗</span></a>
+          <a href="https://pbk-guide.vercel.app/figma-demo"><span class="t">Tokens Out plugin <span class="d">Figma variables to W3C DTCG standard tokens.</span></span><span class="where">plugin ↗</span></a>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <!-- 03 AGENTIC -->
-  <div class="sect" id="agentic">
-    <div class="label"><b>03</b> · Agentic AI — systems that agents operate</div>
-    <div class="grid">
-
-      <div class="card card--wide">
-        <div class="meta"><span>The stage</span><span>Live demo surface</span><span>~1s from prompt to pixels</span></div>
-        <h2>Talk to the agent, components appear on screen</h2>
-        <p>The centerpiece of the live demo: a browser canvas that hot-swaps whatever the agent writes onto the screen within a second, no refresh, no build step. A skill file teaches the agent the tokens, the component anatomy, and the spec-site rules (max 7 table columns, mono for data, always a cancel path), so what appears is on-system by construction, not by luck.</p>
-        <div class="proof"><b>What this demonstrates</b>That a design system rigorous enough to be written down as rules becomes a system an agent can build with, correctly, in real time.</div>
-        <p class="dim">This deployed copy shows the last assembled build. The live hot-swap runs locally during a demo, see the interview kit for the 6 to 8 minute run-of-show.</p>
-        <div class="tags"><a class="pill pill--go stretch" href="pathfinder/stage/">Open the stage →</a><span class="pill pill--ok">Runs offline, vendored fonts</span></div>
-      </div>
-
-      <div class="card">
-        <div class="meta"><span>Keystone</span><span>Agent-operated pipeline</span></div>
-        <h2>The token pipeline, enforced</h2>
-        <p>Three-tier DTCG tokens with one-way flow enforced by the build, accessible web components, and machine-readable component metadata generated from the same source. Metadata records carry a source checksum, edit a component and the build reports it stale and exits non-zero.</p>
-        <p class="dim">Paired with three agent skills: a producer that encodes the rules, a composer that builds screens from the metadata, and a steward that audits drift.</p>
-        <a class="go stretch" href="https://pbk-guide.vercel.app/pathfinder/docs/">open the docs</a>
-      </div>
-
-      <div class="card">
-        <div class="meta"><span>Figma plugin</span><span>Tokens Out</span></div>
-        <h2>Figma variables → W3C DTCG</h2>
-        <p>A real Figma plugin built with the Plugin API. It reads every local variable collection and emits standards-compliant DTCG JSON, the platform-agnostic format a Style Dictionary pipeline consumes. A source-of-truth migration, in miniature.</p>
-        <a class="go stretch" href="https://pbk-guide.vercel.app/figma-demo">see the plugin demo</a>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- 04 PROCESS -->
-  <div class="sect" id="process">
-    <div class="label"><b>04</b> · Process — how the work gets run</div>
-    <div class="grid">
-
-      <div class="card card--wide">
-        <div class="meta"><span>The process</span><span>Brief to handoff</span><span>Seven stages, seams shown</span></div>
-        <h2>What happens when you hand me a brief</h2>
-        <p>The full workflow, stage by stage: intake, risk-ranked research, the alignment workshop, definition, the artifact, the pressure-test, and a handoff package the team can run without me. Every stage states plainly what I do, what the AI carries, and what the team gets, with receipts linking to the artifacts above.</p>
-        <div class="proof"><b>What this demonstrates</b>That the AI acceleration is a described, repeatable method with the judgment kept human, not a trick that happened once.</div>
-        <div class="tags"><a class="pill pill--go stretch" href="process.html">Read the process →</a></div>
-      </div>
-
-      <div class="card card--wide">
-        <div class="meta"><span>Interview kit</span><span>Command centers</span><span>Methods · case study · talk tracks</span></div>
-        <h2>The process, written down</h2>
-        <p>How I run a design system engagement in six named moves, a full case study walked beat by beat, ten methods each with the question that summons it and the artifact it produces, and the run-of-show for the live demo above. Built as its own set of pages because preparation is a design problem too.</p>
-        <div class="proof"><b>What this demonstrates</b>That the demos are not one-offs. There is a repeatable method underneath, and it is documented well enough for someone else to run.</div>
-        <div class="tags">
-          <a class="pill pill--go stretch" href="https://pbk-guide.vercel.app">Open the kit →</a>
-          <a class="pill" href="https://pbk-guide.vercel.app/methods">Methods</a>
-          <a class="pill" href="https://pbk-guide.vercel.app/case-study">Case study</a>
+      <div class="ev-group">
+        <h3>Method</h3>
+        <div class="ev-list">
+          <a href="process.html"><span class="t">The process, seams shown <span class="d">What happens when you hand me a brief.</span></span><span class="where">here</span></a>
+          <a href="https://pbk-guide.vercel.app"><span class="t">Interview kit <span class="d">Methods, case study, talk tracks.</span></span><span class="where">site ↗</span></a>
+          <a href="https://claude.ai/code/artifact/66494373-3140-460f-aa4b-e706d86040e4"><span class="t">How AI was used <span class="d">The honest log, including where it was confidently wrong.</span></span><span class="where">artifact ↗</span></a>
+          <a href="https://claude.ai/code/artifact/998c80a5-4b42-45ad-8785-01e1df083bd7"><span class="t">Knowledge, daily <span class="d">The standing learning system behind the practice.</span></span><span class="where">artifact ↗</span></a>
+          <a href="v1/"><span class="t">This hub, version 1 <span class="d">The previous dashboard, preserved as shipped.</span></span><span class="where">archive</span></a>
         </div>
       </div>
-
-      <div class="card">
-        <div class="meta"><span>Transparency</span><span>AI usage</span></div>
-        <h2>How AI was used</h2>
-        <p>A straight accounting of where AI accelerated the PetWatch exercise and where the decisions stayed human. Written for reviewers who will ask.</p>
-        <a class="go stretch" href="https://claude.ai/code/artifact/66494373-3140-460f-aa4b-e706d86040e4">read the log</a>
-      </div>
-
-      <div class="card">
-        <div class="meta"><span>Habit</span><span>Daily learning</span></div>
-        <h2>Knowledge, daily</h2>
-        <p>A self-built daily learning system: curriculum, claim coverage tracking, and a dashboard, running on a schedule. The tools get pointed at my own gaps too.</p>
-        <a class="go stretch" href="https://claude.ai/code/artifact/998c80a5-4b42-45ad-8785-01e1df083bd7">open the dashboard</a>
-      </div>
-
     </div>
   </div>
+</section>
 
-  <div class="footer">
-    <p>Kept separate on purpose: this hub and every demo on it deploy to their own isolated projects. The portfolio and studio sites below live on separate infrastructure and are linked as reference only.</p>
-    <div class="links">
-      <a href="https://mikelrosenthal.com">mikelrosenthal.com — portfolio</a>
-      <a href="https://pitchblacknight.com">pitchblacknight.com — studio</a>
-    </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap cols">
+    <p>Kept separate on purpose: this hub and every demo on it deploy to their own isolated projects, noindexed, safe to send as a link. The portfolio and studio live on separate infrastructure.</p>
+    <p>
+      <a href="https://mikelrosenthal.com">mikelrosenthal.com</a> · portfolio<br>
+      <a href="https://pitchblacknight.com">pitchblacknight.com</a> · studio<br>
+      <a href="v1/">/v1</a> · the previous version of this hub
+    </p>
   </div>
-
-</div>
+</footer>
 
 </body>
 </html>

@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Process — Mikel Rosenthal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --neon:#34d59a; --neon-muted:#285d49; --alert:#ff3621;
+  --white:#ffffff; --ash:#797d86; --pewter:#94979e; --cloud:#c9cbcf;
+  --graphite-light:#303236; --graphite:#242628; --graphite-deep:#151617; --depth:#0a0a0b; --black:#000000;
+  --sans:'Inter',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  --mono:'Geist Mono',ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  --r-card:4px; --r-pill:9999px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--white);font-family:var(--sans);font-weight:400;font-size:16px;letter-spacing:-0.43px;line-height:1.5;-webkit-font-smoothing:antialiased}
+::selection{background:var(--neon);color:var(--black)}
+a{color:inherit}
+.wrap{max-width:880px;margin:0 auto;padding:96px 24px 128px}
+
+.crumb{font-family:var(--mono);font-size:12px;margin-bottom:40px}
+.crumb a{color:var(--ash);text-decoration:none}
+.crumb a:hover{color:var(--white)}
+.crumb a::before{content:"cd ../ ";color:var(--neon)}
+
+.hero{position:relative}
+.datastream{position:absolute;top:-56px;left:0;right:0;width:100%;height:180px;z-index:0;pointer-events:none;opacity:.7}
+.hero>*{position:relative;z-index:1}
+.kicker{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em;color:var(--ash);text-transform:uppercase;margin-bottom:20px}
+.kicker::before{content:"●";color:var(--neon);margin-right:8px}
+.hero h1{font-weight:500;font-size:clamp(32px,4.6vw,48px);line-height:1.13;letter-spacing:-0.028em;max-width:24ch}
+.hero h1 em{font-style:normal;color:var(--ash)}
+.hero p{margin-top:24px;max-width:62ch;color:var(--ash);font-size:16px}
+
+.thesis{margin:56px 0;padding:24px;background:var(--graphite-deep);border:1px solid var(--graphite-light);border-left:2px solid var(--neon);border-radius:var(--r-card)}
+.thesis p{font-size:16px;color:var(--cloud);max-width:64ch}
+.thesis p b{font-weight:500;color:var(--white)}
+.thesis .small{margin-top:12px;font-family:var(--mono);font-size:12px;letter-spacing:-0.5px;color:var(--pewter)}
+
+.stage{margin-top:96px}
+.stage .num{font-family:var(--mono);font-size:12px;font-weight:500;letter-spacing:.08em;color:var(--neon);text-transform:uppercase}
+.stage .num::before{content:"// "}
+.stage h2{font-size:28px;font-weight:500;letter-spacing:-0.5px;line-height:1.25;margin-top:8px}
+.stage>p{margin-top:12px;color:var(--ash);font-size:15px;letter-spacing:-0.4px;max-width:66ch}
+.stage>p b{font-weight:500;color:var(--white)}
+
+.split{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:24px}
+.split div{background:var(--graphite-deep);border:1px solid var(--graphite-light);border-radius:var(--r-card);padding:20px}
+.split b{display:block;font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.split .me b{color:var(--neon)}
+.split .ai b{color:var(--white)}
+.split .team b{color:var(--ash)}
+.split .me b::before{content:"▸ "}
+.split .ai b::before{content:"▸ ";color:var(--neon)}
+.split .team b::before{content:"▸ ";color:var(--neon)}
+.split p{font-size:13px;letter-spacing:-0.4px;color:var(--ash);line-height:1.55}
+
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;align-items:center}
+.pill{font-family:var(--mono);font-size:11px;padding:6px 14px;border-radius:var(--r-pill);border:1px solid var(--graphite-light);color:var(--ash);text-decoration:none;transition:border-color .2s ease,color .2s ease}
+a.pill:hover{border-color:var(--neon);color:var(--neon)}
+.pill--label{border-color:transparent;color:var(--pewter);padding-left:0;text-transform:uppercase;letter-spacing:.08em}
+
+.footer{margin-top:128px;border-top:1px solid var(--graphite-light);padding-top:32px}
+.footer p{font-size:14px;letter-spacing:-0.4px;color:var(--ash);max-width:62ch}
+.footer a{font-family:var(--mono);font-size:12px;color:var(--ash);text-decoration:none}
+.footer a:hover{color:var(--white)}
+.footer a::before{content:"cd ../ ";color:var(--neon)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="crumb"><a href="/v1/">demo-index</a></div>
+
+  <div class="hero">
+    <svg class="datastream" viewBox="0 0 1200 180" preserveAspectRatio="none" aria-hidden="true"><rect x="0" y="58" width="1.5" height="122" fill="#34d59a" opacity="0.26"/><rect x="4.615484910085797" y="129" width="1.5" height="51" fill="#285d49" opacity="0.33"/><rect x="14.250675091519952" y="42" width="1.5" height="138" fill="#34d59a" opacity="0.37"/><rect x="23.619115479290485" y="106" width="1.5" height="74" fill="#285d49" opacity="0.48"/><rect x="34.909152548760176" y="73" width="1.5" height="107" fill="#34d59a" opacity="0.10"/><rect x="45.69093962572515" y="106" width="1.5" height="74" fill="#34d59a" opacity="0.26"/><rect x="56.89216778241098" y="59" width="1.5" height="121" fill="#34d59a" opacity="0.13"/><rect x="63.34838169440627" y="104" width="1.5" height="76" fill="#34d59a" opacity="0.38"/><rect x="69.02748983353376" y="44" width="1.5" height="136" fill="#34d59a" opacity="0.52"/><rect x="73.12182837165892" y="53" width="1.5" height="127" fill="#34d59a" opacity="0.48"/><rect x="79.79488817043602" y="41" width="1.5" height="139" fill="#34d59a" opacity="0.52"/><rect x="88.46356423199177" y="88" width="1.5" height="92" fill="#34d59a" opacity="0.22"/><rect x="101.09053698554635" y="24" width="1.5" height="156" fill="#34d59a" opacity="0.09"/><rect x="114.05514478497207" y="166" width="1.5" height="14" fill="#34d59a" opacity="0.15"/><rect x="123.76485699228942" y="97" width="1.5" height="83" fill="#285d49" opacity="0.53"/><rect x="133.2632070221007" y="164" width="1.5" height="16" fill="#34d59a" opacity="0.22"/><rect x="145.68379472196102" y="75" width="1.5" height="105" fill="#34d59a" opacity="0.37"/><rect x="151.49371746368706" y="139" width="1.5" height="41" fill="#34d59a" opacity="0.48"/><rect x="160.063539320603" y="134" width="1.5" height="46" fill="#34d59a" opacity="0.45"/><rect x="167.19465770572424" y="22" width="1.5" height="158" fill="#34d59a" opacity="0.49"/><rect x="173.82867684587836" y="139" width="1.5" height="41" fill="#34d59a" opacity="0.11"/><rect x="185.25714746676385" y="66" width="1.5" height="114" fill="#34d59a" opacity="0.38"/><rect x="190.74378206394613" y="24" width="1.5" height="156" fill="#34d59a" opacity="0.13"/><rect x="198.56500513479114" y="131" width="1.5" height="49" fill="#34d59a" opacity="0.18"/><rect x="211.06844774633646" y="56" width="1.5" height="124" fill="#34d59a" opacity="0.39"/><rect x="216.4427458140999" y="21" width="1.5" height="159" fill="#34d59a" opacity="0.19"/><rect x="227.4857514668256" y="63" width="1.5" height="117" fill="#285d49" opacity="0.11"/><rect x="238.7520168721676" y="135" width="1.5" height="45" fill="#34d59a" opacity="0.21"/><rect x="251.0541598983109" y="28" width="1.5" height="152" fill="#34d59a" opacity="0.38"/><rect x="263.3864709865302" y="70" width="1.5" height="110" fill="#285d49" opacity="0.32"/><rect x="274.9328706096858" y="102" width="1.5" height="78" fill="#34d59a" opacity="0.31"/><rect x="279.9150766916573" y="50" width="1.5" height="130" fill="#34d59a" opacity="0.43"/><rect x="290.63059136271477" y="44" width="1.5" height="136" fill="#34d59a" opacity="0.44"/><rect x="301.12386642582715" y="150" width="1.5" height="30" fill="#34d59a" opacity="0.48"/><rect x="309.5277569089085" y="162" width="1.5" height="18" fill="#34d59a" opacity="0.25"/><rect x="322.2061220780015" y="139" width="1.5" height="41" fill="#34d59a" opacity="0.34"/><rect x="333.42218328639865" y="48" width="1.5" height="132" fill="#34d59a" opacity="0.41"/><rect x="340.35099803470075" y="77" width="1.5" height="103" fill="#34d59a" opacity="0.36"/><rect x="352.84815961681306" y="150" width="1.5" height="30" fill="#34d59a" opacity="0.21"/><rect x="360.4805817268789" y="41" width="1.5" height="139" fill="#34d59a" opacity="0.22"/><rect x="370.91897740215063" y="102" width="1.5" height="78" fill="#34d59a" opacity="0.19"/><rect x="375.88539167679846" y="167" width="1.5" height="13" fill="#34d59a" opacity="0.30"/><rect x="387.44289732165635" y="32" width="1.5" height="148" fill="#285d49" opacity="0.42"/><rect x="393.50831304490566" y="121" width="1.5" height="59" fill="#285d49" opacity="0.39"/><rect x="404.0625535286963" y="114" width="1.5" height="66" fill="#34d59a" opacity="0.52"/><rect x="411.62697067670524" y="63" width="1.5" height="117" fill="#34d59a" opacity="0.48"/><rect x="421.16779544763267" y="142" width="1.5" height="38" fill="#34d59a" opacity="0.28"/><rect x="428.68453964963555" y="157" width="1.5" height="23" fill="#34d59a" opacity="0.33"/><rect x="433.33196707069874" y="149" width="1.5" height="31" fill="#34d59a" opacity="0.09"/><rect x="445.01899331994355" y="90" width="1.5" height="90" fill="#34d59a" opacity="0.13"/><rect x="457.0216237548739" y="167" width="1.5" height="13" fill="#34d59a" opacity="0.48"/><rect x="464.24078886955976" y="98" width="1.5" height="82" fill="#34d59a" opacity="0.42"/><rect x="471.32968651875854" y="149" width="1.5" height="31" fill="#34d59a" opacity="0.31"/><rect x="483.00899035297334" y="85" width="1.5" height="95" fill="#34d59a" opacity="0.18"/><rect x="494.4820338394493" y="55" width="1.5" height="125" fill="#34d59a" opacity="0.26"/><rect x="502.955829244107" y="85" width="1.5" height="95" fill="#34d59a" opacity="0.09"/><rect x="514.8675309494138" y="107" width="1.5" height="73" fill="#34d59a" opacity="0.41"/><rect x="526.5097024831921" y="161" width="1.5" height="19" fill="#34d59a" opacity="0.48"/><rect x="535.3414966333658" y="30" width="1.5" height="150" fill="#34d59a" opacity="0.55"/><rect x="543.3666080236435" y="20" width="1.5" height="160" fill="#34d59a" opacity="0.53"/><rect x="548.55260752514" y="78" width="1.5" height="102" fill="#34d59a" opacity="0.19"/><rect x="559.3600178789347" y="129" width="1.5" height="51" fill="#34d59a" opacity="0.50"/><rect x="567.0432399045676" y="168" width="1.5" height="12" fill="#34d59a" opacity="0.20"/><rect x="575.4791886694729" y="35" width="1.5" height="145" fill="#34d59a" opacity="0.37"/><rect x="579.8732489943504" y="54" width="1.5" height="126" fill="#34d59a" opacity="0.19"/><rect x="586.7859096694738" y="110" width="1.5" height="70" fill="#34d59a" opacity="0.45"/><rect x="595.5171857569367" y="122" width="1.5" height="58" fill="#34d59a" opacity="0.09"/><rect x="607.9796883538365" y="61" width="1.5" height="119" fill="#285d49" opacity="0.36"/><rect x="615.7849511913955" y="127" width="1.5" height="53" fill="#34d59a" opacity="0.37"/><rect x="624.3613734450191" y="112" width="1.5" height="68" fill="#34d59a" opacity="0.55"/><rect x="628.5158881302923" y="24" width="1.5" height="156" fill="#34d59a" opacity="0.43"/><rect x="636.945215459913" y="146" width="1.5" height="34" fill="#34d59a" opacity="0.09"/><rect x="643.7963105365634" y="69" width="1.5" height="111" fill="#34d59a" opacity="0.29"/><rect x="655.4693647567183" y="42" width="1.5" height="138" fill="#34d59a" opacity="0.15"/><rect x="663.4504703003913" y="63" width="1.5" height="117" fill="#34d59a" opacity="0.34"/><rect x="673.0548070818186" y="30" width="1.5" height="150" fill="#34d59a" opacity="0.13"/><rect x="680.5549615360796" y="84" width="1.5" height="96" fill="#34d59a" opacity="0.33"/><rect x="692.2627366166562" y="29" width="1.5" height="151" fill="#34d59a" opacity="0.48"/><rect x="697.7265623789281" y="58" width="1.5" height="122" fill="#34d59a" opacity="0.10"/><rect x="710.3003665246069" y="46" width="1.5" height="134" fill="#34d59a" opacity="0.24"/><rect x="716.9335142821074" y="90" width="1.5" height="90" fill="#34d59a" opacity="0.36"/><rect x="724.1251769978553" y="140" width="1.5" height="40" fill="#34d59a" opacity="0.26"/><rect x="734.5802388135344" y="69" width="1.5" height="111" fill="#34d59a" opacity="0.32"/><rect x="744.1976008042693" y="111" width="1.5" height="69" fill="#34d59a" opacity="0.06"/><rect x="748.6154919527471" y="35" width="1.5" height="145" fill="#34d59a" opacity="0.39"/><rect x="760.6321463342756" y="104" width="1.5" height="76" fill="#34d59a" opacity="0.47"/><rect x="766.4139558877796" y="119" width="1.5" height="61" fill="#285d49" opacity="0.13"/><rect x="776.4969581477344" y="33" width="1.5" height="147" fill="#34d59a" opacity="0.32"/><rect x="784.181268312037" y="59" width="1.5" height="121" fill="#34d59a" opacity="0.33"/><rect x="789.0118150208145" y="72" width="1.5" height="108" fill="#34d59a" opacity="0.48"/><rect x="798.6324892211705" y="65" width="1.5" height="115" fill="#34d59a" opacity="0.36"/><rect x="806.3945654928684" y="124" width="1.5" height="56" fill="#34d59a" opacity="0.46"/><rect x="812.6940052099526" y="73" width="1.5" height="107" fill="#285d49" opacity="0.13"/><rect x="817.1060009133071" y="44" width="1.5" height="136" fill="#34d59a" opacity="0.26"/><rect x="823.9788712691516" y="60" width="1.5" height="120" fill="#34d59a" opacity="0.26"/><rect x="835.2431659884751" y="37" width="1.5" height="143" fill="#285d49" opacity="0.39"/><rect x="847.785590082407" y="71" width="1.5" height="109" fill="#34d59a" opacity="0.46"/><rect x="857.8311068285257" y="32" width="1.5" height="148" fill="#34d59a" opacity="0.08"/><rect x="864.3703288231045" y="128" width="1.5" height="52" fill="#34d59a" opacity="0.11"/><rect x="875.7630564942956" y="114" width="1.5" height="66" fill="#285d49" opacity="0.15"/><rect x="886.2425734512508" y="148" width="1.5" height="32" fill="#34d59a" opacity="0.44"/><rect x="891.1390580441803" y="82" width="1.5" height="98" fill="#34d59a" opacity="0.15"/><rect x="900.2342205103487" y="34" width="1.5" height="146" fill="#34d59a" opacity="0.50"/><rect x="911.7530250810087" y="71" width="1.5" height="109" fill="#34d59a" opacity="0.08"/><rect x="916.0921064242721" y="76" width="1.5" height="104" fill="#34d59a" opacity="0.28"/><rect x="920.4782397989184" y="143" width="1.5" height="37" fill="#285d49" opacity="0.37"/><rect x="930.3439742941409" y="43" width="1.5" height="137" fill="#34d59a" opacity="0.47"/><rect x="943.3012885302305" y="56" width="1.5" height="124" fill="#34d59a" opacity="0.53"/><rect x="956.1878781951964" y="64" width="1.5" height="116" fill="#34d59a" opacity="0.51"/><rect x="961.7544347923249" y="84" width="1.5" height="96" fill="#34d59a" opacity="0.47"/><rect x="973.1550249736756" y="51" width="1.5" height="129" fill="#34d59a" opacity="0.20"/><rect x="982.4964298345149" y="75" width="1.5" height="105" fill="#34d59a" opacity="0.53"/><rect x="992.2960535436869" y="31" width="1.5" height="149" fill="#34d59a" opacity="0.13"/><rect x="1000.7917606849223" y="161" width="1.5" height="19" fill="#34d59a" opacity="0.21"/><rect x="1009.6407516840845" y="46" width="1.5" height="134" fill="#34d59a" opacity="0.18"/><rect x="1017.6383356973529" y="155" width="1.5" height="25" fill="#34d59a" opacity="0.52"/><rect x="1025.681210335344" y="75" width="1.5" height="105" fill="#34d59a" opacity="0.32"/><rect x="1036.2936075981706" y="143" width="1.5" height="37" fill="#34d59a" opacity="0.09"/><rect x="1047.628415396437" y="126" width="1.5" height="54" fill="#34d59a" opacity="0.46"/><rect x="1053.9491340331733" y="69" width="1.5" height="111" fill="#34d59a" opacity="0.46"/><rect x="1063.192277021706" y="44" width="1.5" height="136" fill="#285d49" opacity="0.13"/><rect x="1073.3035756144673" y="72" width="1.5" height="108" fill="#34d59a" opacity="0.50"/><rect x="1082.63509641774" y="78" width="1.5" height="102" fill="#34d59a" opacity="0.25"/><rect x="1086.7841314673424" y="98" width="1.5" height="82" fill="#34d59a" opacity="0.09"/><rect x="1093.8484701402485" y="145" width="1.5" height="35" fill="#34d59a" opacity="0.15"/><rect x="1103.1664122771472" y="134" width="1.5" height="46" fill="#34d59a" opacity="0.44"/><rect x="1108.2036318909377" y="131" width="1.5" height="49" fill="#285d49" opacity="0.20"/><rect x="1115.3427508361638" y="153" width="1.5" height="27" fill="#34d59a" opacity="0.10"/><rect x="1123.9252318143845" y="79" width="1.5" height="101" fill="#34d59a" opacity="0.22"/><rect x="1132.9889500904828" y="85" width="1.5" height="95" fill="#34d59a" opacity="0.19"/><rect x="1139.738553294912" y="89" width="1.5" height="91" fill="#34d59a" opacity="0.50"/><rect x="1151.8794686868787" y="97" width="1.5" height="83" fill="#34d59a" opacity="0.29"/><rect x="1162.5401672534645" y="93" width="1.5" height="87" fill="#34d59a" opacity="0.09"/><rect x="1174.6010440196842" y="158" width="1.5" height="22" fill="#34d59a" opacity="0.50"/><rect x="1179.8420239444822" y="90" width="1.5" height="90" fill="#34d59a" opacity="0.14"/><rect x="1190.4147527776659" y="58" width="1.5" height="122" fill="#34d59a" opacity="0.27"/></svg>
+    <div class="kicker">Process · Brief to handoff</div>
+    <h1>What happens when you hand me a brief, <em>with the seams shown.</em></h1>
+    <p>This is the workflow behind every demo on the index, written the way I would explain it in a room. AI carries the background hours. I keep the judgment. Every stage below says exactly which is which, because a process that hides that split is marketing.</p>
+  </div>
+
+  <div class="thesis">
+    <p><b>The division of labor, plainly:</b> the judgment calls are mine, the production speed is the machine's, and neither of us ships alone. What AI has actually taken over is the detailed, time-consuming background work: ingestion, first drafts, enumeration, consistency, audit. What that buys is not less design. It is more time spent on the craft: the problem's shape, the scope cuts, the taste, the user on the other end.</p>
+    <p class="small">Everything here is demonstrated, not claimed. The receipts under each stage link to real artifacts.</p>
+  </div>
+
+  <!-- 01 -->
+  <div class="stage">
+    <div class="num">Stage 01 · Day one</div>
+    <h2>Intake: everything goes in the room</h2>
+    <p>The brief lands and the first hours are ingestion, not sketching. Existing project documents, prior research, analytics, support tickets, the old designs, meeting notes, the stakeholder emails nobody rereads. All of it goes into a working repository the AI and I share for the life of the project. From then on, nothing gets summarized from memory. It gets pulled from source.</p>
+    <div class="split">
+      <div class="me"><b>Me</b><p>Read the brief closely, twice. My first deliverable is usually a list of questions, and the most valuable thing I find is an absence: the thing the documents assume but never say. Absences don't pattern-match, so finding the hole is still the designer's job.</p></div>
+      <div class="ai"><b>The AI</b><p>Reads everything, in full, in minutes. Builds the synthesis: what the documents agree on, where they contradict each other, what's missing, who decided what and when. The kind of archaeology that used to eat the first week.</p></div>
+      <div class="team"><b>The team gets</b><p>A one-page intake summary by end of day one: what we know, what we assume, what we disagree about, what I need from whom. Alignment starts before anyone has drawn anything.</p></div>
+    </div>
+    <div class="tags"><span class="pill pill--label">Receipts</span><a class="pill" href="https://petwatch-exercise.vercel.app">PetWatch: a full brief metabolized inside a four-hour box →</a></div>
+  </div>
+
+  <!-- 02 -->
+  <div class="stage">
+    <div class="num">Stage 02 · Week one</div>
+    <h2>Research: assumptions ranked by risk, rules written first</h2>
+    <p>I don't research everything. I rank the assumptions by how much of the product collapses if each one is false, weighted by how sure we are, and I spend the research budget at the top of that list. And I write the decision rule <b>before</b> the research runs, so I can't rationalize the result afterwards.</p>
+    <div class="split">
+      <div class="me"><b>Me</b><p>Pick the riskiest assumption. Talk to the humans myself, both sides of the exchange when there are two sides. Set the decision rule in advance: if 4 of 6 react this way, we build variant one. Research that can't change the plan is theater.</p></div>
+      <div class="ai"><b>The AI</b><p>Desk research and competitive scans in hours instead of days. Drafts the interview guide from my questions. Synthesizes transcripts against the assumption list the same afternoon. Enumerates the edge cases early, which moves QA thinking into the design phase where it belongs.</p></div>
+      <div class="team"><b>The team gets</b><p>A validation plan they can read in ten minutes: the ranked assumptions, the method for each, the pre-committed decision rules. When the findings land, the decision was already agreed. Nobody argues with a rule they helped write.</p></div>
+    </div>
+    <div class="tags"><span class="pill pill--label">Receipts</span><a class="pill" href="https://claude.ai/code/artifact/ef00d8a8-e0d9-492e-8fed-8e9f7d793bbb">PetWatch validation plan, decision rules included →</a></div>
+  </div>
+
+  <!-- 03 -->
+  <div class="stage">
+    <div class="num">Stage 03 · The room</div>
+    <h2>Alignment: one workshop, one page, one metric</h2>
+    <p>Before anything is designed, a 90-minute kickoff with product, engineering, and QA in the same room. I facilitate, I don't present. Everyone writes the problem in one sentence, silently, and then we read them out loud. The sentences always disagree, and it is much cheaper to discover that in a room than in cycle four.</p>
+    <div class="split">
+      <div class="me"><b>Me</b><p>Run the room. Get the one metric agreed, the v1 cut line drawn, the riskiest assumption named and owned. If I've found a hole in the brief, this is where I raise it: face to face, with the person whose stories they were. Not in a document three weeks later.</p></div>
+      <div class="ai"><b>The AI</b><p>Preps the pre-read from the intake synthesis, and turns the session's raw notes into the source-of-truth page before the room has cooled. The AI doesn't attend the meeting. It makes the meeting cheap to run and impossible to lose.</p></div>
+      <div class="team"><b>The team gets</b><p>One page, linked from the tracker, that is the project's single source of truth. If a decision isn't on it, it didn't happen. Every later argument gets settled by pointing at it or amending it in public.</p></div>
+    </div>
+    <div class="tags"><span class="pill pill--label">Receipts</span><a class="pill" href="https://claude.ai/code/artifact/dc0aab8a-f072-4205-8ec9-3fd9d0e5160c">Ways of working: the week-zero agenda in full →</a></div>
+  </div>
+
+  <!-- 04 -->
+  <div class="stage">
+    <div class="num">Stage 04 · Definition</div>
+    <h2>Definition: the PRD, the flows, and the Not-Building table</h2>
+    <p>I outline and dictate the decisions; the AI writes the first prose draft; I rewrite until it's mine. What makes a definition good isn't the features it lists. It's the cuts. The most load-bearing artifact in my PRDs is the Not-Building table: what we are deliberately not doing, written down, with the trigger that would change our mind.</p>
+    <div class="split">
+      <div class="me"><b>Me</b><p>Every scope cut. Models are additive by disposition; deciding what not to build is where design actually happens. I also own the stories' blind spots, because an internally consistent document can still describe a product with a hole in the middle.</p></div>
+      <div class="ai"><b>The AI</b><p>First drafts of PRD, flows, screen inventory, and backlog from my outlines. Then the unglamorous work that prevents drift: keeping IDs, ticket numbers, and cross-references aligned across every document, continuously, for the life of the project.</p></div>
+      <div class="team"><b>The team gets</b><p>A definition set that agrees with itself. Engineers can trace a ticket to a screen to a flow to a requirement without hitting a contradiction, which is precisely the failure mode of documents maintained by hand.</p></div>
+    </div>
+    <div class="tags"><span class="pill pill--label">Receipts</span><a class="pill" href="https://claude.ai/code/artifact/bd2e3d01-e854-4cb5-8603-8cd3ba6b166e">PetWatch product definition →</a><a class="pill" href="https://claude.ai/code/artifact/d36ef11c-53b5-4e60-9e7b-7be2fde568ce">Flows, maps, screen inventory →</a></div>
+  </div>
+
+  <!-- 05 -->
+  <div class="stage">
+    <div class="num">Stage 05 · The artifact</div>
+    <h2>Design and build: a prototype beats an opinion</h2>
+    <p>This is the stage AI has changed most. A working prototype used to be a luxury purchased at the end; now it exists in days, sometimes hours, and it becomes the thing that resolves arguments. I make the interaction decisions: the state model, the mechanics, what happens on undo. The AI builds the front end from those decisions at production speed. And then taste does the part no model can: the calm palette, the refusal of red for an overdue task done by a volunteer, the texture that makes it feel like a product instead of a template.</p>
+    <div class="split">
+      <div class="me"><b>Me</b><p>Interaction decisions, system rules, and taste. When the AI confidently produces the standard pattern and the standard pattern is wrong for this product, catching that is my job, and the reasoning becomes a design note on the artifact itself.</p></div>
+      <div class="ai"><b>The AI</b><p>The full front end from my decisions, in a fraction of the hours. On system work: a token-pure component library where every component consumes the tokens exclusively, so a retheme is a file swap and an agent can assemble screens that are on-system by construction.</p></div>
+      <div class="team"><b>The team gets</b><p>Something that runs, early enough to change. Stakeholders react to the real thing instead of imagining from mockups, and the disagreements surface while they're still cheap.</p></div>
+    </div>
+    <div class="tags"><span class="pill pill--label">Receipts</span><a class="pill" href="https://claude.ai/code/artifact/e6850c0e-18bf-4f9d-800d-65c7fb17a3d7">PetWatch prototype →</a><a class="pill" href="/pathfinder/">Pathfinder 2.0, 866 tokens →</a><a class="pill" href="/pathfinder/stage/">The live stage →</a></div>
+  </div>
+
+  <!-- 06 -->
+  <div class="stage">
+    <div class="num">Stage 06 · Pressure</div>
+    <h2>Pressure-test: QA thinking, moved into the design phase</h2>
+    <p>Before anything is called done, the artifact gets swept. Edge-case enumeration is the one place a model is genuinely better than a designer working alone, not merely faster. The invite link opened while logged into the wrong account is exactly the case a tired human misses at 4pm and QA finds in week six. I'd rather find it now.</p>
+    <div class="split">
+      <div class="me"><b>Me</b><p>Curate the list. Decide which cases are real, which are designed for, which go on the backlog with a name and an owner. An uncurated edge-case list is noise with confidence.</p></div>
+      <div class="ai"><b>The AI</b><p>Enumerates the edge cases: invite states, timezone traps, revocation mid-session. Runs the mechanical audits, contrast and accessibility included, and re-runs them on every change for free.</p></div>
+      <div class="team"><b>The team gets</b><p>Acceptance criteria I co-wrote with QA before the build, and a desk check against staging mid-cycle, not mockups at the end. The gap between what was intended and what exists is where products quietly get worse.</p></div>
+    </div>
+    <div class="tags"><span class="pill pill--label">Receipts</span><a class="pill" href="https://petwatch-exercise.vercel.app">Edge-case sweep in the exercise →</a></div>
+  </div>
+
+  <!-- 07 -->
+  <div class="stage">
+    <div class="num">Stage 07 · Handoff</div>
+    <h2>Handoff: the test is whether they need me in the room</h2>
+    <p>Handoff is not a file dump and a farewell deck. It's a package built so the team can keep making correct decisions without me. The rules of the system are written down as rules, and that's the point: a system rigorous enough to be written down is a system both the next designer and the team's own AI tooling can operate.</p>
+    <div class="split">
+      <div class="me"><b>Me</b><p>Write the decision log: what we chose, what we rejected, and the trigger that would reopen each call. Walk the team through it live, then get out of the way. If the docs only make sense with me narrating, the handoff failed.</p></div>
+      <div class="ai"><b>The AI</b><p>Generates the documentation from the same source as the artifact, so the docs cannot drift from the truth. Emits the tokens in standard formats a build pipeline consumes. Packages the component metadata, checksummed, so staleness is detected by the build, not by a person noticing.</p></div>
+      <div class="team"><b>The team gets</b><p>The source-of-truth page, the decision log, machine-readable tokens and specs, generated docs, the skill file that teaches their agents the system's rules, and the honest AI-usage log. Engineering inherits a system, not a folder of pictures.</p></div>
+    </div>
+    <div class="tags"><span class="pill pill--label">Receipts</span><a class="pill" href="https://pbk-guide.vercel.app/pathfinder/docs/">Docs generated from source →</a><a class="pill" href="https://pbk-guide.vercel.app/figma-demo">Tokens out of Figma, standards-compliant →</a><a class="pill" href="https://claude.ai/code/artifact/66494373-3140-460f-aa4b-e706d86040e4">The honest AI log →</a></div>
+  </div>
+
+  <div class="footer">
+    <p>One more thing, because a process that only lists successes is marketing: the AI is sometimes confidently wrong, and it matters. The first pass is occasionally the standard pattern when this product needed a different one. The workflow works because a designer is standing where the judgment goes. That's the job now, and I think it's a better job than the one it replaced.</p>
+    <p style="margin-top:16px"><a href="/v1/">demo-index</a></p>
+  </div>
+
+</div>
+</body>
+</html>
