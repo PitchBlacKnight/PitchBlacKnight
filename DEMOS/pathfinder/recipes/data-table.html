@@ -1,0 +1,99 @@
+<!-- RECIPE: Data Table — sortable columns, row selection, status badges,
+     filter, pagination. Variants: add "striped" / "compact" to .pf-table-wrap.
+     Behaviors are wired by data attributes; pathfinder.js handles the rest. -->
+<div class="pf-table-wrap">
+  <div class="pf-table-toolbar">
+    <span class="title">Projects</span>
+    <select class="pf-select" style="width:160px" data-filter-table="#projects-table">
+      <option value="all">All statuses</option>
+      <option value="complete">Complete</option>
+      <option value="progress">In Progress</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+    <button class="pf-btn pf-btn-primary">+ New Project</button>
+  </div>
+  <table class="pf-table" id="projects-table">
+    <thead>
+      <tr>
+        <th style="width:36px"><input type="checkbox" data-select-all aria-label="Select all"></th>
+        <th data-sort>ID</th>
+        <th data-sort>Client</th>
+        <th data-sort>Started</th>
+        <th data-sort>Value</th>
+        <th data-sort>Status</th>
+        <th>Assigned</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-status="complete">
+        <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+        <td class="mono">PF-001</td>
+        <td class="primary">8×8</td>
+        <td class="mono">07/28/2021</td>
+        <td class="mono">$47,439</td>
+        <td><span class="pf-badge pf-badge-active">✓ Complete</span></td>
+        <td><span class="pf-avatar c1">JD</span></td>
+        <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+      </tr>
+      <tr data-status="progress">
+        <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+        <td class="mono">PF-002</td>
+        <td class="primary">Fuze</td>
+        <td class="mono">08/18/2021</td>
+        <td class="mono">$12,763</td>
+        <td><span class="pf-badge pf-badge-info">▶ In Progress</span></td>
+        <td><span class="pf-avatar c2">BG</span></td>
+        <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+      </tr>
+      <tr data-status="cancelled">
+        <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+        <td class="mono">PF-003</td>
+        <td class="primary">Vistro</td>
+        <td class="mono">08/22/2021</td>
+        <td class="mono">$4,334</td>
+        <td><span class="pf-badge pf-badge-critical">✕ Cancelled</span></td>
+        <td><span class="pf-avatar c3">DS</span></td>
+        <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+      </tr>
+      <tr data-status="complete">
+        <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+        <td class="mono">PF-004</td>
+        <td class="primary">TierPoint</td>
+        <td class="mono">10/18/2021</td>
+        <td class="mono">$31,574</td>
+        <td><span class="pf-badge pf-badge-active">✓ Complete</span></td>
+        <td><span class="pf-avatar c1">JD</span></td>
+        <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+      </tr>
+      <tr data-status="progress">
+        <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+        <td class="mono">PF-005</td>
+        <td class="primary">Rackspace</td>
+        <td class="mono">11/02/2021</td>
+        <td class="mono">$8,200</td>
+        <td><span class="pf-badge pf-badge-info">▶ In Progress</span></td>
+        <td><span class="pf-avatar c2">BG</span></td>
+        <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+      </tr>
+      <tr data-status="complete">
+        <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+        <td class="mono">PF-006</td>
+        <td class="primary">Equinex</td>
+        <td class="mono">11/15/2021</td>
+        <td class="mono">$22,900</td>
+        <td><span class="pf-badge pf-badge-active">✓ Complete</span></td>
+        <td><span class="pf-avatar c4">DS</span></td>
+        <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="pf-table-footer">
+    <span>Showing 6 of 6 projects</span>
+    <div class="pages">
+      <button class="pf-page" aria-current="page">1</button>
+      <button class="pf-page">2</button>
+      <button class="pf-page">3</button>
+    </div>
+  </div>
+</div>

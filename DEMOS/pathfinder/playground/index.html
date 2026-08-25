@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Pathfinder Playground — the Figma component model, running</title>
+<script>
+  var PF_V = Date.now();
+  document.write(
+    '<link rel="stylesheet" href="../css/pathfinder.fonts.css?v=' + PF_V + '">' +
+    '<link rel="stylesheet" href="../tokens/pathfinder.tokens.css?v=' + PF_V + '">' +
+    '<link rel="stylesheet" href="../css/pathfinder.css?v=' + PF_V + '">'
+  );
+</script>
+<style>
+  /* ── Playground chrome. Every visual value is a token reference. ── */
+  html, body { height: 100%; }
+  body {
+    margin: 0; background: var(--pfBackgroundColor); color: var(--pfTextColor);
+    font-family: var(--pfFontFamily);
+    transition: background var(--pfContent_TransitionDuration_M) var(--pfContent_Easing_Standard);
+  }
+  .pg { display: grid; grid-template-columns: minmax(0,1fr) 340px; height: 100vh; }
+
+  /* preview side */
+  .pg-view { display: flex; flex-direction: column; min-width: 0; }
+  .pg-head {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 22px; border-bottom: 1px solid var(--pfShell_BorderColor);
+    background: var(--pfPageHeader_Background);
+  }
+  .pg-head h1 { font-family: var(--pfFontHeaderFamily); font-size: var(--pfFontHeader5Size, 16px); margin: 0; letter-spacing: .02em; }
+  .pg-head .sub { font-family: var(--pfFontMonoFamily); font-size: var(--pfFontSmallSize); color: var(--pfContent_LabelColor); }
+  .pg-stagearea {
+    flex: 1; display: flex; align-items: center; justify-content: center; padding: 40px;
+    background-image: radial-gradient(color-mix(in srgb, var(--pfContent_LabelColor) 14%, transparent) 1px, transparent 1px);
+    background-size: 22px 22px; overflow: auto;
+  }
+  #pg-preview { min-width: 280px; max-width: 460px; }
+  #pg-preview > * { animation: pg-in var(--pfContent_TransitionDuration_M) var(--pfContent_Easing_Decelerate); }
+  @keyframes pg-in { from { opacity: 0; transform: translateY(6px) } to { opacity: 1; transform: none } }
+  .pg-reduced #pg-preview > *, .pg-reduced * { animation: none !important; transition: none !important; }
+
+  /* code + tokens readout */
+  .pg-out {
+    border-top: 1px solid var(--pfShell_BorderColor); background: var(--pfPageHeader_Background);
+    display: grid; grid-template-columns: 1fr 240px; max-height: 270px;
+  }
+  .pg-code { padding: 16px 22px; overflow: auto; }
+  .pg-out h3 {
+    margin: 0 0 10px; font-family: var(--pfFontMonoFamily); font-size: 10px;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--pfContent_LabelColor); font-weight: 700;
+  }
+  pre {
+    margin: 0; font-family: var(--pfFontMonoFamily); font-size: 12px; line-height: 1.7;
+    color: var(--pfContent_ForegroundTextColor); white-space: pre-wrap; word-break: break-all;
+  }
+  pre .tag { color: var(--pfHighlightColor); }
+  pre .attr { color: var(--pfInformativeTextColor); }
+  pre .val { color: var(--pfPositiveTextColor); }
+  .pg-tokens { padding: 16px 18px; border-left: 1px solid var(--pfShell_BorderColor); overflow: auto; }
+  .pg-tokens li {
+    list-style: none; font-family: var(--pfFontMonoFamily); font-size: 10.5px;
+    color: var(--pfContent_LabelColor); padding: 3px 0; display: flex; align-items: center; gap: 8px;
+  }
+  .pg-tokens ul { margin: 0; padding: 0; }
+  .pg-tokens .sw { width: 10px; height: 10px; border-radius: 3px; border: 1px solid var(--pfShell_BorderColor); flex: none; }
+
+  /* properties panel — deliberately shaped like Figma's */
+  .pg-panel {
+    border-left: 1px solid var(--pfShell_BorderColor); background: var(--pfShell_Navigation_Background);
+    overflow-y: auto; padding-bottom: 40px;
+  }
+  .pg-sec { padding: 14px 16px 6px; border-bottom: 1px solid var(--pfShell_BorderColor); padding-bottom: 16px; }
+  .pg-sec h2 {
+    margin: 0 0 12px; font-family: var(--pfFontMonoFamily); font-size: 10px; font-weight: 700;
+    letter-spacing: .18em; text-transform: uppercase; color: var(--pfContent_LabelColor);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .pg-sec h2 .fig { font-size: 9px; letter-spacing: .1em; color: var(--pfHighlightColor); font-weight: 400; }
+  .pg-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+  .pg-row > label:first-child { font-size: var(--pfFontSmallSize); color: var(--pfContent_LabelColor); flex: none; width: 88px; }
+  .pg-chips { display: flex; flex-wrap: wrap; gap: 6px; flex: 1; justify-content: flex-end; }
+  .pg-chip {
+    font-family: var(--pfFontMonoFamily); font-size: 10.5px; letter-spacing: .04em;
+    background: var(--pfButton_Background); color: var(--pfButton_TextColor);
+    border: 1px solid var(--pfButton_BorderColor); border-radius: var(--pfButton_BorderCornerRadius, 8px);
+    padding: 5px 10px; cursor: pointer;
+    transition: all var(--pfContent_TransitionDuration_S) var(--pfContent_Easing_Standard);
+  }
+  .pg-chip:hover { border-color: var(--pfButton_Hover_BorderColor); }
+  .pg-chip[aria-pressed="true"] {
+    background: var(--pfContent_Selected_Background); color: var(--pfContent_Selected_TextColor);
+    border-color: var(--pfSelectedColor);
+  }
+  .pg-chip:focus-visible, .pf-toggle input:focus-visible + .track { outline: 2px solid var(--pfContent_FocusColor); outline-offset: 2px; }
+  .pg-warn {
+    display: none; font-family: var(--pfFontMonoFamily); font-size: 10px; line-height: 1.5;
+    color: var(--pfCriticalTextColor); background: var(--pfWarningBackground);
+    border: 1px solid var(--pfWarningBorderColor); border-radius: 6px; padding: 7px 10px; margin-top: 8px;
+  }
+  .pg-warn.on { display: block; }
+  .pg-slotlist { display: flex; flex-direction: column; gap: 6px; margin-top: 4px; }
+  .pg-slotitem {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--pfList_Background); border: 1px dashed var(--pfField_BorderColor);
+    border-radius: 6px; padding: 6px 10px; font-family: var(--pfFontMonoFamily); font-size: 11px;
+    color: var(--pfContent_ForegroundTextColor);
+  }
+  .pg-slotitem button { background: none; border: 0; color: var(--pfNegativeTextColor); cursor: pointer; font-size: 13px; }
+  .pg-note { font-size: 11px; color: var(--pfContent_LabelColor); line-height: 1.55; margin: 8px 0 0; }
+  .pf-input.pg-text { width: 100%; }
+  @media (max-width: 900px) { .pg { grid-template-columns: 1fr; } .pg-panel { border-left: 0; border-top: 1px solid var(--pfShell_BorderColor); } .pg-out { grid-template-columns: 1fr; } .pg-tokens { border-left: 0; border-top: 1px solid var(--pfShell_BorderColor); } }
+</style>
+</head>
+<body>
+<div class="pg">
+
+  <div class="pg-view">
+    <div class="pg-head">
+      <h1>PATHFINDER PLAYGROUND</h1>
+      <span class="sub">the Figma component model &middot; running in production code</span>
+      <span style="flex:1"></span>
+      <span class="pf-badge pf-badge-info" id="pg-count">&nbsp;</span>
+    </div>
+    <div class="pg-stagearea"><div id="pg-preview" aria-live="polite"></div></div>
+    <div class="pg-out">
+      <div class="pg-code">
+        <h3>Generated markup <button class="pf-btn pf-btn-sm pf-btn-lite" id="pg-copy" style="float:right;margin-top:-6px">Copy</button></h3>
+        <pre id="pg-markup"></pre>
+      </div>
+      <div class="pg-tokens">
+        <h3>Tokens resolving now</h3>
+        <ul id="pg-toklist"></ul>
+      </div>
+    </div>
+  </div>
+
+  <aside class="pg-panel" aria-label="Component properties">
+
+    <div class="pg-sec">
+      <h2>Component <span class="fig">the canvas selection</span></h2>
+      <div class="pg-chips" style="justify-content:flex-start">
+        <button class="pg-chip" data-comp="button" aria-pressed="true">Button</button>
+        <button class="pg-chip" data-comp="stat" aria-pressed="false">Stat Card</button>
+        <button class="pg-chip" data-comp="chart" aria-pressed="false">Metric Chart</button>
+        <button class="pg-chip" data-comp="donut" aria-pressed="false">Donut</button>
+      </div>
+    </div>
+
+    <div class="pg-sec" id="sec-variant">
+      <h2>Variant properties <span class="fig">variant props</span></h2>
+      <div class="pg-row" data-for="button"><label>Variant</label>
+        <div class="pg-chips" data-prop="variant">
+          <button class="pg-chip" data-v="primary" aria-pressed="true">Primary</button>
+          <button class="pg-chip" data-v="ghost" aria-pressed="false">Ghost</button>
+          <button class="pg-chip" data-v="lite" aria-pressed="false">Lite</button>
+          <button class="pg-chip" data-v="danger" aria-pressed="false">Danger</button>
+          <button class="pg-chip" data-v="success" aria-pressed="false">Success</button>
+        </div>
+      </div>
+      <div class="pg-row" data-for="button"><label>Size</label>
+        <div class="pg-chips" data-prop="size">
+          <button class="pg-chip" data-v="sm" aria-pressed="false">Compact</button>
+          <button class="pg-chip" data-v="" aria-pressed="true">Default</button>
+          <button class="pg-chip" data-v="lg" aria-pressed="false">Large</button>
+        </div>
+      </div>
+      <div class="pg-row" data-for="donut"><label>Style</label>
+        <div class="pg-chips" data-prop="dtype">
+          <button class="pg-chip" data-v="donut" aria-pressed="true">Donut</button>
+          <button class="pg-chip" data-v="ring" aria-pressed="false">Ring</button>
+          <button class="pg-chip" data-v="gauge" aria-pressed="false">Gauge</button>
+        </div>
+      </div>
+      <div class="pg-row" data-for="donut"><label>Thickness</label>
+        <div class="pg-chips" data-prop="dthick">
+          <button class="pg-chip" data-v="14" aria-pressed="false">Thin</button>
+          <button class="pg-chip" data-v="26" aria-pressed="true">Medium</button>
+          <button class="pg-chip" data-v="40" aria-pressed="false">Thick</button>
+        </div>
+      </div>
+      <div class="pg-row" data-for="chart"><label>Type</label>
+        <div class="pg-chips" data-prop="ctype">
+          <button class="pg-chip" data-v="bars" aria-pressed="true">Bars</button>
+          <button class="pg-chip" data-v="meter" aria-pressed="false">Meter</button>
+          <button class="pg-chip" data-v="compare" aria-pressed="false">Compare</button>
+        </div>
+      </div>
+      <div class="pg-row" data-for="stat"><label>Trend</label>
+        <div class="pg-chips" data-prop="trend">
+          <button class="pg-chip" data-v="up" aria-pressed="true">Up</button>
+          <button class="pg-chip" data-v="down" aria-pressed="false">Down</button>
+        </div>
+      </div>
+      <p class="pg-note">A variant changes appearance, never structure. The class is the variant.</p>
+    </div>
+
+    <div class="pg-sec">
+      <h2>Boolean properties <span class="fig">boolean props</span></h2>
+      <div class="pg-row" data-for="button">
+        <label class="pf-toggle"><input type="checkbox" id="b-icon" checked><span class="track"></span><span class="pf-toggle-label">Leading icon</span></label>
+      </div>
+      <div class="pg-row" data-for="button">
+        <label class="pf-toggle"><input type="checkbox" id="b-disabled"><span class="track"></span><span class="pf-toggle-label">Disabled</span></label>
+      </div>
+      <div class="pg-row" data-for="stat">
+        <label class="pf-toggle"><input type="checkbox" id="b-delta" checked><span class="track"></span><span class="pf-toggle-label">Show delta</span></label>
+      </div>
+      <div class="pg-row" data-for="chart">
+        <label class="pf-toggle"><input type="checkbox" id="b-values" checked><span class="track"></span><span class="pf-toggle-label">Show values</span></label>
+      </div>
+      <div class="pg-row" data-for="donut">
+        <label class="pf-toggle"><input type="checkbox" id="b-legend" checked><span class="track"></span><span class="pf-toggle-label">Show legend</span></label>
+      </div>
+      <div class="pg-row" data-for="chart">
+        <label class="pf-toggle"><input type="checkbox" id="b-tone" checked><span class="track"></span><span class="pf-toggle-label">Tone by threshold</span></label>
+      </div>
+    </div>
+
+    <div class="pg-sec" data-for="button">
+      <h2>Text property <span class="fig">text props</span></h2>
+      <input class="pf-input pg-text" id="t-label" value="Create order" maxlength="24" aria-label="Button label">
+    </div>
+
+    <div class="pg-sec" data-for="button">
+      <h2>Instance swap <span class="fig">swap props</span></h2>
+      <div class="pg-chips" style="justify-content:flex-start" data-prop="icon">
+        <button class="pg-chip" data-v="＋" aria-pressed="true">＋</button>
+        <button class="pg-chip" data-v="▶" aria-pressed="false">▶</button>
+        <button class="pg-chip" data-v="✓" aria-pressed="false">✓</button>
+        <button class="pg-chip" data-v="→" aria-pressed="false">→</button>
+      </div>
+      <p class="pg-note">Exactly one instance, position locked — that's the difference from a slot.</p>
+    </div>
+
+    <div class="pg-sec" data-for="donut">
+      <h2>Instance swap <span class="fig">swap props</span></h2>
+      <div class="pg-chips" style="justify-content:flex-start" data-prop="dcentre">
+        <button class="pg-chip" data-v="value" aria-pressed="true">Value</button>
+        <button class="pg-chip" data-v="delta" aria-pressed="false">Trend</button>
+        <button class="pg-chip" data-v="label" aria-pressed="false">Label</button>
+        <button class="pg-chip" data-v="none" aria-pressed="false">Empty</button>
+      </div>
+      <p class="pg-note">The centre is one swappable instance. Position is locked by the ring geometry &mdash; a slot here would let a consumer break the shape.</p>
+    </div>
+
+    <div class="pg-sec" data-for="chart">
+      <h2>Instance swap <span class="fig">swap props</span></h2>
+      <div class="pg-chips" style="justify-content:flex-start" data-prop="accessory">
+        <button class="pg-chip" data-v="badge" aria-pressed="true">Badge</button>
+        <button class="pg-chip" data-v="delta" aria-pressed="false">Trend delta</button>
+        <button class="pg-chip" data-v="team" aria-pressed="false">Avatar group</button>
+        <button class="pg-chip" data-v="none" aria-pressed="false">None</button>
+      </div>
+      <p class="pg-note">The header accessory is one swappable instance — badge, delta, or owner group — position locked, exactly one at a time.</p>
+    </div>
+
+    <div class="pg-sec" data-for="stat">
+      <h2>Slot <span class="fig">GA June 2026</span></h2>
+      <div class="pg-chips" style="justify-content:flex-start">
+        <button class="pg-chip" data-slot="badge">+ Badge</button>
+        <button class="pg-chip" data-slot="progress">+ Progress</button>
+        <button class="pg-chip" data-slot="team">+ Avatar group</button>
+        <button class="pg-chip" data-slot="raw" id="pg-rawchip">+ Free text</button>
+      </div>
+      <div class="pg-slotlist" id="pg-slotlist"></div>
+      <div class="pg-warn" id="pg-slotwarn"></div>
+      <div class="pg-row" style="margin-top:12px">
+        <label class="pf-toggle"><input type="checkbox" id="b-preferred" checked><span class="track"></span><span class="pf-toggle-label">Only allow preferred instances</span></label>
+      </div>
+      <p class="pg-note">Consumers add, resize, and rearrange here without detaching. Max 3 layers — the violation reports as <span style="color:var(--pfCriticalTextColor)">ABOVE_MAX</span>, same as <span style="font-family:var(--pfFontMonoFamily)">slotNode.limitViolations</span> in the Plugin API.</p>
+    </div>
+
+    <div class="pg-sec">
+      <h2>Modes <span class="fig">variable modes</span></h2>
+      <div class="pg-row"><label>Theme</label>
+        <div class="pg-chips" data-prop="theme">
+          <button class="pg-chip" data-v="" aria-pressed="true">Dark</button>
+          <button class="pg-chip" data-v="light" aria-pressed="false">Light</button>
+        </div>
+      </div>
+      <div class="pg-row">
+        <label class="pf-toggle"><input type="checkbox" id="b-motion"><span class="track"></span><span class="pf-toggle-label">Reduced motion</span></label>
+      </div>
+      <p class="pg-note">The mode re-resolves the semantic layer — ~90 overrides, not 866. The component markup does not change. Watch the panel: it can't tell you what changed, because nothing did.</p>
+    </div>
+
+  </aside>
+</div>
+
+<script src="../js/pathfinder.js"></script>
+<script>
+(function () {
+  var S = {
+    comp: 'button',
+    button: { variant: 'primary', size: '', icon: '＋', hasIcon: true, disabled: false, label: 'Create order' },
+    stat: { trend: 'up', delta: true, slots: ['badge'] },
+    chart: { type: 'bars', accessory: 'badge', values: true, tone: true },
+    donut: { type: 'donut', thick: 26, centre: 'value', legend: true },
+    preferredOnly: true, theme: '', reduced: false
+  };
+  var VCLASS = { primary: 'pf-btn-primary', ghost: 'pf-btn-ghost', lite: 'pf-btn-lite', danger: 'pf-btn-danger', success: 'pf-btn-success' };
+  var VTOK = {
+    primary: [['--pfButton_Emphasized_Background','bg'],['--pfButton_Emphasized_TextColor','text'],['--pfButton_Emphasized_Hover_Background','hover']],
+    ghost:   [['--pfButton_Ghost_TextColor','text'],['--pfButton_Ghost_BorderColor','border'],['--pfButton_Ghost_Hover_Background','hover']],
+    lite:    [['--pfButton_Lite_TextColor','text'],['--pfButton_Lite_Hover_Background','hover'],['--pfButton_Lite_Hover_BorderColor','border']],
+    danger:  [['--pfButton_Negative_Background','bg'],['--pfButton_Negative_TextColor','text'],['--pfButton_Negative_Hover_Background','hover']],
+    success: [['--pfButton_Success_Background','bg'],['--pfButton_Success_TextColor','text'],['--pfButton_Success_Hover_Background','hover']]
+  };
+  var SLOTS = {
+    badge:    { name: 'pf-badge · info', html: '<span class="pf-badge pf-badge-info">▶ IN FLIGHT</span>' },
+    progress: { name: 'pf-progress · positive', html: '<div class="pf-progress positive" style="margin-top:4px;width:200px"><div class="bar" style="width:64%"></div></div>' },
+    team:     { name: 'pf-avatar-group', html: '<span class="pf-avatar-group"><span class="pf-avatar c1">JD</span><span class="pf-avatar c3">DS</span><span class="pf-avatar c6">+4</span></span>' },
+    raw:      { name: 'free text (non-preferred)', html: '<span style="font-size:12px;color:var(--pfContent_LabelColor)">Ad-hoc annotation text</span>' }
+  };
+  var $ = function (q) { return document.querySelector(q); };
+  var $$ = function (q) { return [].slice.call(document.querySelectorAll(q)); };
+
+  function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+  function hl(src) {
+    return esc(src)
+      .replace(/([a-z-]+)="([^"]*)"/g, '<span class="attr">$1</span>="<span class="val">$2</span>"')
+      .replace(/&lt;(\/?)([a-z-]+)/g, '&lt;$1<span class="tag">$2</span>');
+  }
+
+  function buttonHTML() {
+    var b = S.button, cls = 'pf-btn ' + VCLASS[b.variant] + (b.size ? ' pf-btn-' + b.size : '');
+    return '<button class="' + cls + '"' + (b.disabled ? ' disabled' : '') + '>' +
+      (b.hasIcon ? b.icon + ' ' : '') + b.label + '</button>';
+  }
+  var METRICS = [
+    ['Product adoption', 82], ['Support satisfaction', 91],
+    ['Invoice timeliness', 54], ['Churn risk', 37]
+  ];
+  function toneFor(v, on) {
+    if (!on) return '';
+    return v >= 75 ? ' positive' : v >= 50 ? '' : v >= 35 ? ' critical' : ' negative';
+  }
+  function accessoryHTML(k) {
+    if (k === 'badge') return '<span class="pf-badge pf-badge-info">Q3</span>';
+    if (k === 'delta') return '<span class="pf-stat-delta up" style="font-size:12px">↑ +6.2% vs Q2</span>';
+    if (k === 'team') return '<span class="pf-avatar-group"><span class="pf-avatar c1">JD</span><span class="pf-avatar c3">DS</span></span>';
+    return '';
+  }
+  function chartHTML() {
+    var c = S.chart, out = '<div class="pf-card" style="width:380px">\n' +
+      '  <div class="pf-row" style="justify-content:space-between;margin-bottom:16px">\n' +
+      '    <span class="pf-overline">Account health</span>\n' +
+      (accessoryHTML(c.accessory) ? '    ' + accessoryHTML(c.accessory) + '\n' : '') +
+      '  </div>\n';
+    if (c.type === 'meter') {
+      out += '  <span class="pf-stat-value" style="font-size:34px">78%</span>\n' +
+        (c.values ? '  <span class="pf-stat-delta up">↑ composite of 4 metrics</span>\n' : '') +
+        '  <div class="pf-progress positive" style="margin-top:12px"><div class="bar" style="width:78%"></div></div>\n';
+    } else if (c.type === 'compare') {
+      out += '  <div style="display:flex;flex-direction:column;gap:10px">\n';
+      [['This quarter', 78, ' positive'], ['Last quarter', 71, ''], ['Target', 85, '']].forEach(function (m) {
+        out += '    <div><div class="pf-row" style="justify-content:space-between;margin-bottom:4px"><span style="font-size:13px">' + m[0] + '</span>' +
+          (c.values ? '<span class="mono" style="font-size:12px">' + m[1] + '%</span>' : '') + '</div>' +
+          '<div class="pf-progress' + (S.chart.tone ? m[2] : '') + '"><div class="bar" style="width:' + m[1] + '%"></div></div></div>\n';
+      });
+      out += '  </div>\n';
+    } else {
+      out += '  <div style="display:flex;flex-direction:column;gap:10px">\n';
+      METRICS.forEach(function (m) {
+        out += '    <div><div class="pf-row" style="justify-content:space-between;margin-bottom:4px"><span style="font-size:13px">' + m[0] + '</span>' +
+          (c.values ? '<span class="mono" style="font-size:12px">' + m[1] + '%</span>' : '') + '</div>' +
+          '<div class="pf-progress' + toneFor(m[1], c.tone) + '"><div class="bar" style="width:' + m[1] + '%"></div></div></div>\n';
+      });
+      out += '  </div>\n';
+    }
+    return out + '</div>';
+  }
+  var SEG = [
+    ['Complete', 44, '--pfPositiveElementColor'],
+    ['In progress', 38, '--pfInformativeElementColor'],
+    ['Awaiting approval', 12, '--pfCriticalElementColor'],
+    ['Cancelled', 6, '--pfNegativeElementColor']
+  ];
+  function centreHTML(k) {
+    if (k === 'value') return '<span class="pf-stat-value" style="font-size:30px">312</span><span style="font-size:11px;color:var(--pfContent_LabelColor)">orders</span>';
+    if (k === 'delta') return '<span class="pf-stat-delta up" style="font-size:13px">↑ +9%</span>';
+    if (k === 'label') return '<span class="pf-overline" style="font-size:10px">Q3 MIX</span>';
+    return '';
+  }
+  function donutHTML() {
+    var d = S.donut, size = 190;
+    // radial-gradient percentages resolve against the ray length, not the
+    // diameter — so the hole radius must be absolute: half the box minus thickness.
+    var hole = (size / 2 - d.thick) + 'px';
+    var grad, legend = '';
+    if (d.type === 'donut') {
+      var acc = 0, stops = SEG.map(function (g) {
+        var from = acc; acc += g[1];
+        return 'var(' + g[2] + ') ' + from + '% ' + acc + '%';
+      }).join(', ');
+      grad = 'conic-gradient(' + stops + ')';
+      legend = SEG.map(function (g) {
+        return '    <li style="display:flex;align-items:center;gap:8px;font-size:12px;padding:3px 0">' +
+          '<span style="width:10px;height:10px;border-radius:3px;background:var(' + g[2] + ')"></span>' +
+          '<span style="color:var(--pfContent_LabelColor)">' + g[0] + '</span>' +
+          '<span class="mono" style="margin-left:auto">' + g[1] + '%</span></li>';
+      }).join('\n');
+    } else if (d.type === 'ring') {
+      grad = 'conic-gradient(var(--pfProgress_Value_PositiveBackground) 0 78%, var(--pfProgress_Background) 78% 100%)';
+    } else {
+      grad = 'conic-gradient(from 270deg, var(--pfProgress_Value_PositiveBackground) 0 39%, var(--pfProgress_Background) 39% 50%, transparent 50% 100%)';
+    }
+    var wrapH = d.type === 'gauge' ? Math.round(size / 2) + 12 : size;
+    var out = '<div class="pf-card" style="width:320px">\n' +
+      '  <div class="pf-row" style="justify-content:space-between;margin-bottom:16px">\n' +
+      '    <span class="pf-overline">Order mix</span>\n' +
+      '    <span class="pf-badge pf-badge-info">312 open</span>\n' +
+      '  </div>\n' +
+      '  <div style="display:flex;justify-content:center">\n' +
+      '    <div style="position:relative;width:' + size + 'px;height:' + wrapH + 'px;overflow:hidden">\n' +
+      '      <div style="width:' + size + 'px;height:' + size + 'px;border-radius:50%;background:' + grad + ';' +
+      '-webkit-mask:radial-gradient(farthest-side,transparent ' + hole + ',#000 ' + hole + ');' +
+      'mask:radial-gradient(farthest-side,transparent ' + hole + ',#000 ' + hole + ')"></div>\n' +
+      (centreHTML(d.centre) ?
+      '      <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;' +
+      (d.type === 'gauge' ? 'top:22%;' : '') + 'color:var(--pfTitleColor);pointer-events:none">' + centreHTML(d.centre) + '</div>\n' : '') +
+      '    </div>\n  </div>\n';
+    if (d.legend && legend) out += '  <ul style="list-style:none;margin:16px 0 0;padding:0">\n' + legend + '\n  </ul>\n';
+    return out + '</div>';
+  }
+  function statHTML() {
+    var s = S.stat, out = '<div class="pf-card pf-stat">\n' +
+      '  <span class="pf-stat-label">Pipeline MRR</span>\n' +
+      '  <span class="pf-stat-value">$4.1M</span>\n';
+    if (s.delta) out += '  <span class="pf-stat-delta ' + s.trend + '">' + (s.trend === 'up' ? '↑ +14% vs last quarter' : '↓ −3.1% vs last quarter') + '</span>\n';
+    if (s.slots.length) {
+      out += '  <div data-slot style="display:flex;flex-direction:column;gap:8px;margin-top:12px;align-items:flex-start">\n';
+      s.slots.forEach(function (k) { out += '    ' + SLOTS[k].html + '\n'; });
+      out += '  </div>\n';
+    }
+    return out + '</div>';
+  }
+
+  function tokensFor() {
+    var list = [];
+    if (S.comp === 'button') {
+      list = VTOK[S.button.variant].slice();
+      list.push(['--pfElement_Height','height']);
+      if (S.button.size === 'sm') list[list.length-1] = ['--pfElement_Compact_Height','height'];
+      if (S.button.disabled) list.push(['--pfContent_DisabledOpacity','opacity']);
+      list.push(['--pfContent_FocusColor','focus ring']);
+    } else if (S.comp === 'donut') {
+      list = [['--pfTile_Background','card']];
+      if (S.donut.type === 'donut') {
+        list.push(['--pfPositiveElementColor','complete'],['--pfInformativeElementColor','in progress'],
+                  ['--pfCriticalElementColor','awaiting'],['--pfNegativeElementColor','cancelled']);
+      } else {
+        list.push(['--pfProgress_Value_PositiveBackground','fill'],['--pfProgress_Background','track']);
+      }
+      if (S.donut.centre === 'delta') list.push(['--pfPositiveTextColor','centre']);
+      if (S.donut.centre !== 'none') list.push(['--pfContent_LabelColor','centre label']);
+    } else if (S.comp === 'chart') {
+      list = [['--pfTile_Background','bg'],['--pfContent_LabelColor','labels'],['--pfProgress_Background','track']];
+      if (S.chart.tone) {
+        list.push(['--pfProgress_Value_PositiveBackground','≥75'],['--pfProgress_Value_Background','50–74'],
+                  ['--pfProgress_Value_CriticalBackground','35–49'],['--pfProgress_Value_NegativeBackground','<35']);
+      } else { list.push(['--pfProgress_Value_Background','all bars']); }
+      if (S.chart.accessory === 'badge') list.push(['--pfInformationBackground','accessory']);
+      if (S.chart.accessory === 'delta') list.push(['--pfPositiveTextColor','accessory']);
+      if (S.chart.accessory === 'team') list.push(['--pfAvatar_1_Background','accessory']);
+    } else {
+      list = [['--pfTile_Background','bg'],['--pfTile_BorderColor','border'],['--pfContent_LabelColor','label']];
+      if (S.stat.delta) list.push(S.stat.trend === 'up' ? ['--pfPositiveTextColor','delta'] : ['--pfNegativeTextColor','delta']);
+      S.stat.slots.forEach(function (k) {
+        if (k === 'badge') list.push(['--pfInformationBackground','slot · badge']);
+        if (k === 'progress') list.push(['--pfProgress_Value_PositiveBackground','slot · bar']);
+        if (k === 'team') list.push(['--pfAvatar_1_Background','slot · avatar']);
+      });
+    }
+    return list;
+  }
+
+  function render() {
+    var html = S.comp === 'button' ? buttonHTML() : S.comp === 'chart' ? chartHTML() : S.comp === 'donut' ? donutHTML() : statHTML();
+    $('#pg-preview').innerHTML = html;
+    $('#pg-markup').innerHTML = hl(html);
+    var cs = getComputedStyle(document.documentElement);
+    $('#pg-toklist').innerHTML = tokensFor().map(function (t) {
+      var v = cs.getPropertyValue(t[0]).trim();
+      var swatch = /^#|rgb|hsl/.test(v) ? '<span class="sw" style="background:' + v + '"></span>' : '<span class="sw"></span>';
+      return '<li>' + swatch + t[0].replace('--pf','') + ' <span style="opacity:.55">· ' + t[1] + '</span></li>';
+    }).join('');
+    $$('.pg-sec [data-for], .pg-row[data-for], .pg-sec[data-for]').forEach(function (el) {
+      el.style.display = el.getAttribute('data-for') === S.comp ? '' : 'none';
+    });
+    var n = tokensFor().length;
+    $('#pg-count').textContent = n + ' tokens · 0 hex';
+    renderSlots();
+  }
+
+  function renderSlots() {
+    var wrap = $('#pg-slotlist'), warn = $('#pg-slotwarn');
+    wrap.innerHTML = S.stat.slots.map(function (k, i) {
+      return '<div class="pg-slotitem"><span>' + SLOTS[k].name + '</span><button data-rm="' + i + '" aria-label="Remove">✕</button></div>';
+    }).join('');
+    if (S.stat.slots.length >= 3) { warn.textContent = 'limitViolations: ABOVE_MAX — this slot allows a maximum of 3 layers.'; warn.className = 'pg-warn on'; }
+    else { warn.className = 'pg-warn'; }
+    $('#pg-rawchip').style.opacity = S.preferredOnly ? .35 : 1;
+    $('#pg-rawchip').title = S.preferredOnly ? 'Blocked: only preferred instances are allowed in this slot' : '';
+  }
+
+  /* wiring */
+  $$('.pg-chip[data-comp]').forEach(function (c) {
+    c.addEventListener('click', function () {
+      S.comp = c.getAttribute('data-comp');
+      $$('.pg-chip[data-comp]').forEach(function (x) { x.setAttribute('aria-pressed', x === c); });
+      render();
+    });
+  });
+  $$('[data-prop]').forEach(function (group) {
+    var prop = group.getAttribute('data-prop');
+    group.addEventListener('click', function (e) {
+      var chip = e.target.closest('.pg-chip'); if (!chip) return;
+      $$('.pg-chip', group).forEach ? null : null;
+      [].forEach.call(group.querySelectorAll('.pg-chip'), function (x) { x.setAttribute('aria-pressed', x === chip); });
+      var v = chip.getAttribute('data-v');
+      if (prop === 'theme') {
+        if (v) { document.documentElement.dataset.theme = v; } else { delete document.documentElement.dataset.theme; }
+      } else if (prop === 'trend') { S.stat.trend = v; }
+      else if (prop === 'dtype') { S.donut.type = v; }
+      else if (prop === 'dthick') { S.donut.thick = +v; }
+      else if (prop === 'dcentre') { S.donut.centre = v; }
+      else if (prop === 'ctype') { S.chart.type = v; }
+      else if (prop === 'accessory') { S.chart.accessory = v; }
+      else { S.button[prop === 'variant' ? 'variant' : prop === 'size' ? 'size' : 'icon'] = v; }
+      render();
+    });
+  });
+  $('#b-icon').addEventListener('change', function () { S.button.hasIcon = this.checked; render(); });
+  $('#b-disabled').addEventListener('change', function () { S.button.disabled = this.checked; render(); });
+  $('#b-delta').addEventListener('change', function () { S.stat.delta = this.checked; render(); });
+  $('#b-values').addEventListener('change', function () { S.chart.values = this.checked; render(); });
+  $('#b-legend').addEventListener('change', function () { S.donut.legend = this.checked; render(); });
+  $('#b-tone').addEventListener('change', function () { S.chart.tone = this.checked; render(); });
+  $('#t-label').addEventListener('input', function () { S.button.label = this.value || 'Label'; render(); });
+  $('#b-preferred').addEventListener('change', function () { S.preferredOnly = this.checked; renderSlots(); });
+  $('#b-motion').addEventListener('change', function () { document.body.classList.toggle('pg-reduced', this.checked); });
+  $$('.pg-chip[data-slot]').forEach(function (c) {
+    c.addEventListener('click', function () {
+      var k = c.getAttribute('data-slot');
+      if (k === 'raw' && S.preferredOnly) {
+        var w = $('#pg-slotwarn');
+        w.textContent = 'Blocked: HAS_NON_PREFERRED — "free text" is not a preferred instance for this slot.';
+        w.className = 'pg-warn on'; return;
+      }
+      S.stat.slots.push(k); render();
+    });
+  });
+  document.addEventListener('click', function (e) {
+    var rm = e.target.getAttribute && e.target.getAttribute('data-rm');
+    if (rm !== null && rm !== undefined) { S.stat.slots.splice(+rm, 1); render(); }
+  });
+  $('#pg-copy').addEventListener('click', function () {
+    navigator.clipboard.writeText(S.comp === 'button' ? buttonHTML() : S.comp === 'chart' ? chartHTML() : S.comp === 'donut' ? donutHTML() : statHTML());
+    this.textContent = 'Copied'; var b = this; setTimeout(function () { b.textContent = 'Copy'; }, 1200);
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

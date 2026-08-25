@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PetWatch - Marmalade, Combined Direction</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#080B14;color:#F2F5FA;font-family:'Alexandria',sans-serif;font-weight:300;
+  min-height:100vh;padding:48px 24px 90px;-webkit-font-smoothing:antialiased}
+.head{text-align:center;margin-bottom:40px}
+.head .k{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.22em;color:#4D8DFF;text-transform:uppercase}
+.head h1{font-size:28px;font-weight:500;letter-spacing:-.03em;margin-top:10px}
+.head p{color:#A7B2C6;font-size:13px;margin-top:8px;max-width:62ch;margin-inline:auto}
+.row{display:flex;gap:56px;justify-content:center;align-items:flex-start;flex-wrap:wrap}
+
+.dev{width:350px;height:730px;background:#0B0A09;border-radius:48px;padding:10px;
+  box-shadow:0 32px 70px -18px rgba(0,0,0,.7);text-align:left;flex:none}
+.scr{height:100%;border-radius:38px;overflow:hidden;position:relative;display:flex;flex-direction:column;
+  background:#F07A28;color:#241D14}
+img{display:block}
+.paws{position:absolute;top:0;left:0;right:0;height:210px;opacity:.13;font-size:24px;line-height:2.4;
+  letter-spacing:24px;padding:14px;color:#fff;pointer-events:none;overflow:hidden}
+
+.hero{position:relative;padding:20px 20px 10px;color:#fff}
+.bar{display:flex;justify-content:space-between;font-size:11px;font-weight:600;margin-bottom:14px}
+.hi{font-size:12px;font-weight:500;color:#5C2604}
+.hero h1{font-size:24px;font-weight:600;letter-spacing:-.02em;line-height:1.15;margin-top:2px}
+.av{position:absolute;right:20px;top:42px;width:40px;height:40px;border-radius:50%;
+  background:#2E6A4F;color:#fff;display:grid;place-items:center;font-size:15px;font-weight:600;
+  border:2px solid rgba(255,255,255,.6)}
+
+.sheet{flex:1;background:#FBF6EE;border-radius:28px 28px 0 0;margin-top:14px;padding:18px 16px 0;
+  position:relative;display:flex;flex-direction:column;min-height:0}
+.chips{display:flex;gap:8px;margin-bottom:12px}
+.chip{display:flex;align-items:center;gap:7px;background:#fff;border-radius:99px;padding:6px 14px 6px 6px;
+  font-size:12px;box-shadow:0 2px 8px rgba(90,60,20,.08)}
+.chip img{width:26px;height:26px;border-radius:50%;object-fit:cover}
+.chip.on{background:#241D14;color:#fff;font-weight:500}
+
+/* B's stat tiles in A's clothes */
+.stats{display:flex;gap:8px;margin-bottom:12px}
+.st{flex:1;background:#fff;border-radius:14px;padding:9px 12px;box-shadow:0 3px 10px rgba(90,60,20,.07)}
+.st .k{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:#8A7A64}
+.st b{font-size:16px;font-weight:700}
+.st b small{font-size:10px;font-weight:400;color:#8A7A64}
+.st.warn{background:#FCEEDC}
+.st.warn b{color:#B95E04}
+
+/* the deck's look, demoted to ONE up-next card carrying real data.
+   The card background reproduces the photo's own vertical backdrop
+   profile - wall above, shadow line, floor below - so the studio floor
+   runs edge to edge and the photo stops reading as a pasted rectangle.
+   The left edge of the image is feathered to kill any residual seam. */
+.up{position:relative;border-radius:24px;overflow:hidden;min-height:196px;
+  box-shadow:0 16px 30px rgba(20,60,90,.22);margin-bottom:12px;color:#fff;
+  background:linear-gradient(180deg,#0075CA 0%,#007BCE 25%,#0182D3 50%,#1B8AD7 75%,#2890DA 100%);}
+.up .pop{position:absolute;right:0;top:0;bottom:0;width:46%}
+.up .pop img{width:100%;height:100%;object-fit:cover;object-position:52% 12%;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 20px);
+  mask-image:linear-gradient(90deg,transparent 0,#000 20px);}
+.up .body{position:relative;z-index:2;padding:15px;max-width:58%}
+.up .k{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.16em;color:#3E6B62}
+.up b{font-size:18px;font-weight:700;display:block;margin:6px 0 3px;letter-spacing:-.01em}
+.up p{font-size:11px;line-height:1.5;color:#2C4B44}
+.up .meta{display:flex;gap:6px;margin-top:10px}
+.up .pill{background:rgba(255,255,255,.85);border-radius:99px;padding:4px 10px;font-size:10px;font-weight:600}
+.up .pill.med{background:#241D14;color:#fff}
+.up .cta{display:inline-block;background:#F07A28;color:#fff;font-size:11.5px;font-weight:600;
+  border-radius:99px;padding:8px 14px;margin-top:12px;box-shadow:0 6px 14px rgba(90,50,10,.25)}
+
+.sec{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:#8A7A64;margin:2px 0 8px}
+.task{position:relative;background:#fff;border-radius:16px;padding:11px 12px;display:flex;gap:11px;
+  align-items:center;box-shadow:0 4px 12px rgba(90,60,20,.07);margin-bottom:9px}
+.task.late{background:#FCEEDC}
+.tick{width:42px;height:42px;border-radius:50%;border:2.5px dashed #F07A28;flex:none;background:#fff}
+.tick.done{border:0;background:#2E6A4F;display:grid;place-items:center;color:#fff;font-size:15px}
+.task .tx{flex:1;min-width:0}
+.task b{font-size:13px;font-weight:600;display:block}
+.task span{font-size:10.5px;color:#8A7A64}
+.task .peek{width:34px;height:34px;border-radius:50%;object-fit:cover;flex:none}
+.late .ago{color:#B95E04;font-weight:600}
+
+.nav{margin:auto -16px 0;background:#241D14;border-radius:24px 24px 0 0;display:flex;
+  justify-content:space-around;padding:12px 26px 24px}
+.nav i{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font-style:normal;
+  font-size:16px;color:#8A7A64}
+.nav i.on{background:#F07A28;color:#fff}
+
+/* annotations */
+.ann{max-width:360px;padding-top:8px}
+.ann h2{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:#4D8DFF;margin-bottom:14px;font-weight:400}
+.n{border-left:2px solid rgba(255,255,255,.14);padding:2px 0 2px 14px;margin-bottom:14px}
+.n b{font-size:12.5px;font-weight:500;color:#F2F5FA;display:block;margin-bottom:3px}
+.n p{font-size:12px;color:#A7B2C6;line-height:1.6}
+.n .p{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:#7FB77E}
+.n .p.mid{color:#D9A441}
+</style>
+</head>
+<body>
+
+<div class="head">
+  <div class="k">PetWatch · chosen direction</div>
+  <h1>Marmalade, with B's data on board</h1>
+  <p>Option A's warmth and depth, Option B's information. The browsing deck is demoted to a
+  single "Up next" card - the cutout photography stays, but every element on screen now
+  answers a question instead of decorating one.</p>
+</div>
+
+<div class="row">
+  <div class="dev"><div class="scr">
+    <div class="paws">🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾 🐾</div>
+    <div class="hero">
+      <div class="bar"><span>9:41</span><span>▮▮▮</span></div>
+      <div class="hi">Good morning, Priya</div>
+      <h1>1 task is waiting,<br>5 more today</h1>
+      <div class="av">P</div>
+    </div>
+    <div class="sheet">
+      <div class="chips">
+        <div class="chip on" style="padding:6px 14px">All</div>
+        <div class="chip"><img src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=100&q=70" alt="">Kenji</div>
+        <div class="chip"><img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=100&q=70" alt="">Biscuit</div>
+      </div>
+
+      <div class="stats">
+        <div class="st"><div class="k">Done</div><b>2<small> / 7</small></b></div>
+        <div class="st warn"><div class="k">Waiting</div><b>1</b></div>
+        <div class="st"><div class="k">Next</div><b>6<small> pm</small></b></div>
+      </div>
+
+      <div class="up">
+        <div class="pop"><img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=500&q=75" alt="Biscuit"></div>
+        <div class="body">
+          <div class="k">TONIGHT · 7:15 PM</div>
+          <b>Biscuit's insulin</b>
+          <p>2 units, scruff of the neck - after food, never before.</p>
+          <div class="meta"><span class="pill med">MEDS</span><span class="pill">After dinner</span></div>
+          <span class="cta">Full instructions</span>
+        </div>
+      </div>
+
+      <div class="sec">Now</div>
+      <div class="task late">
+        <div class="tick"></div>
+        <div class="tx"><b>Morning walk · Kenji</b>
+        <span><span class="ago">47 min ago</span> · left out of the building, 20 min</span></div>
+        <img class="peek" src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=200&q=70" alt="">
+      </div>
+
+      <div class="sec">Done</div>
+      <div class="task">
+        <div class="tick done">✓</div>
+        <div class="tx"><b>Breakfast · Kenji</b><span>Sam · 7:12 am</span></div>
+        <img class="peek" src="https://images.unsplash.com/photo-1517849845537-4d257902454a?w=200&q=70" alt="">
+      </div>
+
+      <div class="nav"><i class="on">⌂</i><i>🐾</i><i>♡</i><i>◔</i></div>
+    </div>
+  </div></div>
+
+  <div class="ann">
+    <h2>What survived, what changed, and why</h2>
+    <div class="n"><span class="p">HIGH DISCOVERABILITY</span>
+      <b>Hero headline is the status</b>
+      <p>"1 task is waiting" - the watcher's only question, answered before any interaction.
+      White kept for large text only; small text on orange goes dark for AA contrast.</p></div>
+    <div class="n"><span class="p">HIGH</span>
+      <b>Stat tiles - B's contribution</b>
+      <p>Done / Waiting / Next-at-a-glance. Glanceable state for the owner checking in from
+      the airport; the amber tile is the only urgency signal, and it's quiet.</p></div>
+    <div class="n"><span class="p mid">CONVERTED</span>
+      <b>The deck became one card</b>
+      <p>Stacked decks are a browsing pattern - right for choosing a pet to adopt, wrong for
+      executing care. Kept the cutout photography and tinted card; gave it a time, a task,
+      the instruction that matters, and one CTA. Beauty now carries data.</p></div>
+    <div class="n"><span class="p">HIGH</span>
+      <b>Dashed tick → solid green</b>
+      <p>Dashed circle reads "awaiting you"; green check with attribution ("Sam · 7:12 am")
+      is the trust record. Same one-tap optimistic completion + undo as the prototype.</p></div>
+    <div class="n"><span class="p">HIGH</span>
+      <b>Photo chips</b>
+      <p>Faces scan faster than names. Cutout-friendly studio photos mean these stay crisp
+      at 26px and at full-card size from the same asset.</p></div>
+  </div>
+</div>
+
+<nav class="pnav" aria-label="Submission sections">
+  <a href="index.html">Overview</a>
+  <a href="prototype/index.html">Prototype</a>
+  <a href="maps.html">Maps</a>
+  <span class="here">Direction</span>
+</nav>
+<style>
+.pnav{
+  position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:999;
+  display:flex;gap:2px;background:rgba(23,22,20,.92);backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.18);border-radius:99px;padding:5px;
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+.pnav a,.pnav .here{padding:8px 14px;border-radius:99px;text-decoration:none;color:#A7B2C6;white-space:nowrap}
+.pnav a:hover{background:rgba(255,255,255,.08);color:#F2F5FA}
+.pnav .here{background:rgba(77,141,255,.15);color:#4D8DFF}
+</style>
+</body>
+</html>

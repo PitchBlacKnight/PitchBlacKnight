@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PetWatch: The Stay</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+/* ----- notebook shell ----- */
+* { box-sizing: border-box; margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  min-height: 100vh;
+}
+.skip {
+  position: absolute; left: -999px; top: 8px; z-index: 99;
+  background: var(--ink); color: var(--paper-2); padding: 8px 14px; border-radius: var(--r1);
+}
+.skip:focus { left: 8px; }
+
+.topbar {
+  display: flex; align-items: baseline; gap: var(--s4); flex-wrap: wrap;
+  padding: var(--s4) var(--s5);
+  border-bottom: 1px solid var(--line);
+}
+.topbar .wordmark { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--ink-2); }
+.topbar .wordmark strong { color: var(--ink); font-weight: 500; }
+.topbar a { color: var(--ember-ink); font-size: 13px; text-decoration-thickness: 1px; text-underline-offset: 3px; margin-left: auto; }
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(250px, 330px) minmax(auto, 460px) minmax(250px, 360px);
+  justify-content: center;
+  gap: var(--s6);
+  padding: var(--s6) var(--s5) var(--s8);
+  max-width: 1400px; margin: 0 auto;
+}
+.rail h2 {
+  font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: var(--s3);
+}
+.rail p.lede { font-size: 14px; color: var(--ink-2); margin-bottom: var(--s4); }
+.rail p.lede strong { color: var(--ink); font-weight: 600; }
+
+/* the clock is the evaluator's instrument */
+.clockbox {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r3);
+  padding: var(--s4); margin-bottom: var(--s5); box-shadow: var(--shadow-soft);
+}
+.clockbox .now {
+  font-family: var(--serif); font-size: 34px; font-weight: 380; letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.clockbox .nowlabel { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: .12em; text-transform: uppercase; }
+.clockrow { display: flex; gap: var(--s2); margin-top: var(--s3); flex-wrap: wrap; }
+.clockrow button {
+  font: 500 13px var(--sans); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 13px; cursor: pointer;
+  transition: background .15s var(--ease);
+}
+.clockrow button:hover { background: var(--paper-3); }
+.clockrow button.primary { background: var(--ink); color: var(--paper-2); border-color: var(--ink); }
+.clocknote { font-size: 12.5px; color: var(--ink-3); margin-top: var(--s3); font-style: italic; font-family: var(--serif); }
+
+.trylist { list-style: none; display: grid; gap: var(--s2); }
+.trylist button {
+  width: 100%; text-align: left; cursor: pointer;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r2);
+  padding: 10px 14px; font: inherit; color: var(--ink);
+  transition: border-color .15s var(--ease), background .15s var(--ease);
+}
+.trylist button:hover { border-color: var(--line-2); background: var(--paper-2); }
+.trylist .t { font-weight: 600; font-size: 13.5px; display: block; }
+.trylist .d { font-size: 12.5px; color: var(--ink-2); }
+
+.ownerline { margin-top: var(--s5); padding-top: var(--s4); border-top: 1px dashed var(--line-2); }
+.switch {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  background: none; border: none; font: inherit; padding: 4px 0; color: var(--ink);
+}
+.switch .track {
+  width: 38px; height: 22px; border-radius: 999px; background: var(--line-2);
+  position: relative; flex: none; transition: background .18s var(--ease);
+}
+.switch .track::after {
+  content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px;
+  border-radius: 50%; background: var(--card); transition: transform .18s var(--ease);
+  box-shadow: 0 1px 2px rgba(38,32,25,.25);
+}
+.switch[aria-pressed="true"] .track { background: var(--moss); }
+.switch[aria-pressed="true"] .track::after { transform: translateX(16px); }
+.switch .sl { font-weight: 600; font-size: 13.5px; }
+.ownerline .fine { font-size: 12.5px; color: var(--ink-3); margin-top: var(--s2); }
+
+/* design notes rail */
+.notes { list-style: none; display: grid; gap: var(--s2); counter-reset: note; }
+.notes > li { position: relative; }
+.notes button {
+  width: 100%; text-align: left; cursor: pointer; font: inherit; color: inherit;
+  background: none; border: 1px solid transparent; border-left: 2px solid var(--line-2);
+  border-radius: 0 var(--r2) var(--r2) 0; padding: 8px 12px 8px 14px;
+  transition: background .15s var(--ease), border-color .15s var(--ease);
+}
+.notes button:hover, .notes button[aria-expanded="true"] { background: var(--paper-2); border-left-color: var(--ember); }
+.notes .nt { font-weight: 600; font-size: 13.5px; display: block; }
+.notes .nt::before {
+  counter-increment: note; content: counter(note, decimal-leading-zero) '  ';
+  font-family: var(--mono); font-weight: 500; font-size: 11px; color: var(--ember-ink);
+}
+.notes .nb { font-size: 13px; color: var(--ink-2); margin-top: 3px; display: none; }
+.notes button[aria-expanded="true"] .nb { display: block; }
+
+/* ----- the phone: product layer ----- */
+.phone-wrap { display: flex; flex-direction: column; align-items: center; gap: var(--s3); }
+.phone {
+  width: 384px; height: 780px; flex: none;
+  background: #FBF7EE;
+  border-radius: 44px;
+  border: 1px solid var(--line-2);
+  box-shadow: 0 2px 6px rgba(38,32,25,.08), 0 24px 64px rgba(38,32,25,.16);
+  overflow: hidden; position: relative;
+  display: flex; flex-direction: column;
+}
+.phone-caption { font-size: 12.5px; color: var(--ink-3); text-align: center; max-width: 360px; }
+
+.statusbar {
+  flex: none; display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 26px 6px; font-family: var(--mono); font-size: 12px; color: var(--ink-2);
+}
+.screen { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 4px 20px 96px; scrollbar-width: thin; }
+
+/* spotlight from design notes */
+[data-note] { transition: box-shadow .2s var(--ease); }
+.spot { box-shadow: 0 0 0 2px var(--ember), 0 0 0 6px var(--ember-wash) !important; border-radius: var(--r2); }
+
+/* home */
+.greet { font-family: var(--serif); font-weight: 340; font-size: 27px; letter-spacing: -0.01em; margin: 10px 2px 2px; }
+.greet-sub { color: var(--ink-2); font-size: 13.5px; margin: 0 2px 14px; }
+
+.pethead {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r3);
+  padding: 12px 14px; margin-bottom: 14px;
+}
+.pethead .avatar { flex: none; border-radius: 50%; object-fit: cover; }
+.pethead .pname { font-weight: 700; font-size: 16px; }
+.pethead .pmeta { font-size: 12.5px; color: var(--ink-2); }
+.chip-runner {
+  margin-left: auto; flex: none; cursor: pointer; border: none; font: inherit;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: .1em;
+  color: var(--amber-ink); background: var(--amber-wash);
+  padding: 5px 10px; border-radius: 999px;
+}
+
+.sec-label {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-3); margin: 18px 4px 8px;
+  display: flex; align-items: baseline; gap: 8px;
+}
+.sec-label .rule { flex: 1; border-top: 1px solid var(--line); transform: translateY(-3px); }
+
+.next-card {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r4);
+  padding: 18px; box-shadow: var(--shadow-soft);
+}
+.next-card.is-due { border-color: var(--ember); box-shadow: 0 0 0 1px var(--ember), var(--shadow-soft); }
+.next-card .when { font-family: var(--mono); font-size: 11.5px; color: var(--ember-ink); letter-spacing: .06em; }
+.next-card.is-quiet .when { color: var(--ink-3); }
+.next-card h3 { font-family: var(--serif); font-weight: 420; font-size: 22px; letter-spacing: -0.01em; margin: 6px 0 4px; }
+.next-card .cnote { font-size: 13.5px; color: var(--ink-2); }
+.next-card .actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+
+.btn {
+  font: 600 14px var(--sans); cursor: pointer; border-radius: 999px; padding: 11px 18px;
+  border: 1px solid var(--line-2); background: var(--paper-2); color: var(--ink);
+  transition: transform .12s var(--ease), background .15s var(--ease);
+}
+.btn:active { transform: scale(.98); }
+.btn-primary { background: var(--moss); border-color: var(--moss); color: #F6FBF7; }
+.btn-primary:hover { background: var(--moss-ink); }
+.btn-ghost { background: transparent; }
+.btn-quiet { border: none; background: none; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; padding: 11px 8px; font-weight: 500; }
+
+.mlist { list-style: none; display: grid; gap: 8px; }
+.mrow {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r3);
+  padding: 12px 14px;
+}
+.mrow .tt { font-weight: 600; font-size: 14.5px; }
+.mrow .ts { font-size: 12.5px; color: var(--ink-2); }
+.mrow .ts .by { color: var(--moss-ink); font-weight: 600; }
+.mrow .spacer { margin-left: auto; }
+.checkbtn {
+  flex: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+  border: 1.5px solid var(--line-2); background: var(--paper-2); color: var(--ink-3);
+  display: grid; place-items: center; font-size: 16px;
+  transition: background .15s var(--ease), border-color .15s var(--ease);
+}
+.checkbtn:hover { border-color: var(--moss); color: var(--moss-ink); }
+.checkbtn.is-done { background: var(--moss-wash); border-color: var(--moss-wash); color: var(--moss-ink); }
+.mrow.is-done .tt { color: var(--ink-2); font-weight: 500; }
+
+/* Know Hex */
+.know {
+  background: var(--paper-3); border: 1px solid var(--line); border-radius: var(--r3);
+  padding: 6px 14px 12px; margin-top: 8px;
+}
+.know summary {
+  cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 8px;
+  padding: 8px 0; font-weight: 700; font-size: 14.5px;
+}
+.know summary::-webkit-details-marker { display: none; }
+.know summary .hint { font-weight: 400; font-size: 12.5px; color: var(--ink-3); margin-left: auto; }
+.know-item { display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); }
+.know-item .k {
+  flex: none; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .1em;
+  color: var(--amber-ink); background: var(--amber-wash);
+  border-radius: 999px; padding: 3px 8px; height: fit-content; margin-top: 2px;
+}
+.know-item .k.calm { color: var(--slate); background: #e6e9ee; }
+.know-item .v { font-size: 13.5px; color: var(--ink-2); }
+.know-item .v strong { color: var(--ink); }
+
+/* sheets */
+.scrim {
+  position: absolute; inset: 0; background: rgba(38, 32, 25, 0.32);
+  display: flex; align-items: flex-end; z-index: 5;
+  animation: fade .2s var(--ease);
+}
+@keyframes fade { from { opacity: 0; } }
+.sheet {
+  background: var(--card); width: 100%; border-radius: 28px 28px 0 0;
+  padding: 22px 22px 28px; box-shadow: var(--shadow-sheet);
+  animation: rise .25s var(--ease);
+  max-height: 86%; overflow-y: auto;
+}
+@keyframes rise { from { transform: translateY(24px); opacity: 0; } }
+.sheet .grab { width: 36px; height: 4px; border-radius: 2px; background: var(--line-2); margin: 0 auto 16px; }
+.sheet h3 { font-family: var(--serif); font-weight: 420; font-size: 23px; letter-spacing: -0.01em; margin-bottom: 6px; }
+.sheet .sub { color: var(--ink-2); font-size: 14px; }
+.sheet .actions { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+.snoozerow { display: flex; gap: 8px; }
+.snoozerow .btn { flex: 1; }
+.sheet .microlabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin: 16px 0 6px; }
+
+/* guided care */
+.guided { display: flex; flex-direction: column; min-height: 100%; }
+.guided .ghead { display: flex; align-items: center; gap: 10px; padding: 8px 0 2px; }
+.guided .ghead .back { border: none; background: none; cursor: pointer; font: 500 13.5px var(--sans); color: var(--ink-2); padding: 8px 6px; }
+.guided .gcrumb { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: .1em; margin-left: auto; }
+.guided h2 { font-family: var(--serif); font-weight: 380; font-size: 26px; letter-spacing: -0.015em; margin: 10px 2px 4px; }
+.guided .reassure { font-size: 14px; color: var(--ink-2); margin: 0 2px 16px; }
+.stepcard {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r4);
+  padding: 20px; box-shadow: var(--shadow-soft);
+}
+.stepcard .src {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--slate); background: #e6e9ee; border-radius: 999px; padding: 4px 10px;
+  display: inline-block; margin-bottom: 12px;
+}
+.stepcard .body { font-size: 16.5px; line-height: 1.6; }
+.stepcard .body strong { font-weight: 700; }
+.stepcard .stopnote {
+  margin-top: 12px; padding: 10px 12px; border-radius: var(--r2);
+  background: var(--amber-wash); color: var(--amber-ink); font-size: 13.5px; font-weight: 500;
+}
+.guided .gactions { display: grid; gap: 8px; margin-top: 16px; }
+.guided .gfoot { margin-top: auto; padding: 18px 2px 8px; text-align: center; }
+.dots { display: flex; gap: 6px; justify-content: center; margin: 14px 0 2px; }
+.dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--line-2); }
+.dots i.on { background: var(--moss); }
+
+/* completion */
+.relief { text-align: center; padding-top: 120px; }
+.relief .ring {
+  width: 74px; height: 74px; border-radius: 50%; margin: 0 auto 22px;
+  background: var(--moss-wash); color: var(--moss-ink);
+  display: grid; place-items: center; font-size: 30px;
+}
+.relief h2 { font-family: var(--serif); font-weight: 380; font-size: 28px; letter-spacing: -0.015em; }
+.relief .what { margin-top: 14px; font-size: 15px; }
+.relief .meta { color: var(--ink-2); font-size: 13.5px; margin-top: 2px; }
+.relief .owner-sees { color: var(--ink-3); font-size: 13px; margin-top: 22px; font-style: italic; font-family: var(--serif); }
+
+/* owner view */
+.ownerband {
+  background: var(--slate); color: #EDF0F4; border-radius: var(--r3);
+  padding: 10px 14px; font-size: 12.5px; display: flex; gap: 8px; align-items: baseline;
+  margin: 10px 0 14px; font-family: var(--mono);
+}
+.allgood { font-family: var(--serif); font-weight: 360; font-size: 30px; letter-spacing: -0.015em; margin: 6px 2px 4px; }
+.o-sub { color: var(--ink-2); font-size: 13.5px; margin: 0 2px 16px; }
+.orow { display: flex; align-items: baseline; gap: 10px; padding: 11px 2px; border-bottom: 1px solid var(--line); }
+.orow .st { margin-left: auto; font-size: 13px; color: var(--ink-2); }
+.orow .st.done { color: var(--moss-ink); font-weight: 600; }
+.lastcare { margin-top: 18px; font-size: 13.5px; color: var(--ink-2); }
+.o-fine { margin-top: 26px; font-size: 12.5px; color: var(--ink-3); border-top: 1px dashed var(--line-2); padding-top: 12px; }
+
+/* toast + banner */
+.toast {
+  position: absolute; left: 16px; right: 16px; bottom: 18px; z-index: 8;
+  background: var(--ink); color: var(--paper-2); border-radius: var(--r3);
+  padding: 12px 16px; font-size: 13.5px; display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 10px 30px rgba(38,32,25,.35);
+  animation: rise .22s var(--ease);
+}
+.toast button {
+  margin-left: auto; border: none; background: none; cursor: pointer;
+  color: #F3C79B; font: 600 13.5px var(--sans); padding: 4px 6px;
+}
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 1100px) {
+  .stage { grid-template-columns: 1fr; max-width: 620px; }
+  .rail-left { order: 1; }
+  .phone-wrap { order: 2; }
+  .rail-right { order: 3; }
+  .phone { width: min(384px, 94vw); }
+}
+
+/* ----- brand skin: navy phone on a tan ground, gold accent ----- */
+body { background: var(--ground) fixed; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 900'%3E%3Cg fill='none' stroke='%23a88f6c' stroke-width='1.2' opacity='.55'%3E%3Cpath d='M-40 120c180-90 320 40 420-60s260-70 360 20 220 140 420 60'/%3E%3Cpath d='M900 880c60-140 260-180 360-120s140 60 220-20'/%3E%3Cpath d='M-60 700c120-40 200-160 330-120s150 120 270 60'/%3E%3C/g%3E%3C/svg%3E"), var(--ground); background-attachment: fixed; background-size: cover; }
+.greet, .next-card h3, .sheet h3, .guided h2, .relief h2, .allgood, .clockbox .now { font-family: var(--serif); font-weight: 500; }
+.rail h2, .clockbox .nowlabel, .sec-label, .next-card .when, .sheet .microlabel, .guided .gcrumb, .stepcard .src, .know-item .k, .chip-runner, .topbar .wordmark { letter-spacing: 0.12em; font-weight: 700; }
+.topbar { border-color: var(--line); }
+.phone { background: #1c2130; border-color: #30374b; border-radius: 44px; }
+.screen { scrollbar-color: #414a61 transparent; }
+.clockbox, .trylist button { border-color: #30374b; }
+.clockrow button { background: transparent; color: var(--ink); border-color: var(--line-2); }
+.clockrow button:hover { background: var(--paper-2); }
+.clockrow button.primary { background: var(--ember); color: #1c2130; border-color: var(--ember); }
+.switch .track { background: var(--line-2); }
+.switch[aria-pressed="true"] .track { background: var(--ember); }
+.notes button { border-left-color: var(--line-2); }
+.notes button:hover, .notes button[aria-expanded="true"] { background: rgba(28,33,48,.08); border-left-color: var(--ember); }
+.pethead { background: var(--card); border-color: var(--line); }
+.pethead .avatar { border-radius: 40% 40% 14px 14px; width: 50px; height: 58px; }
+.chip-runner { background: transparent; color: var(--ember); border: 1px solid var(--ember); }
+.next-card { background: var(--card); border-color: var(--line); box-shadow: none; }
+.next-card.is-due { border-color: var(--ember); box-shadow: 0 0 0 1px var(--ember); }
+.btn { background: transparent; color: var(--ink); border-color: var(--line-2); }
+.btn-primary, .btn-primary:hover { background: var(--ember); border-color: var(--ember); color: #1c2130; }
+.btn-quiet { color: var(--ink-2); }
+.mrow { background: var(--card); border-color: var(--line); }
+.checkbtn { background: transparent; border-color: var(--line-2); color: var(--ink-3); }
+.checkbtn:hover { border-color: var(--ember); color: var(--ember); }
+.checkbtn.is-done { background: var(--ember-wash); border-color: transparent; color: var(--ember); }
+.know { background: var(--paper-3); border-color: var(--line); }
+.know-item .k, .stepcard .src { background: rgba(255,255,255,.1); color: var(--ink); }
+.know-item .k:not(.calm) { background: var(--ember-wash); color: var(--ember); }
+.scrim { background: rgba(0,0,0,.55); }
+.sheet { background: #1c2130; border-top: 1px solid #30374b; }
+.sheet .grab { background: var(--line-2); }
+.stepcard { background: var(--card); border-color: var(--line); box-shadow: none; }
+.stepcard .stopnote { background: var(--amber-wash); color: var(--amber-ink); }
+.dots i { background: var(--line-2); }
+.dots i.on { background: var(--ember); }
+.relief .ring { background: var(--ember-wash); color: var(--ember); }
+.ownerband { background: var(--ember); color: #1c2130; }
+.orow { border-color: var(--line); }
+.o-fine { border-color: var(--line-2); }
+.toast { background: #f4efe6; color: #1c2130; }
+.toast button { color: #7a4d08; }
+.phone-caption, .ownerline .fine, .clocknote { color: var(--ink-3); }
+
+</style>
+</head>
+<body>
+<a class="skip" href="#phone">Skip to the prototype</a>
+
+<header class="topbar">
+  <h1 class="wordmark"><strong>PETWATCH</strong> · RECONSIDERED · WORKING PROTOTYPE</h1>
+  <a href="__CASESTUDY_URL__">Read the case study</a>
+</header>
+
+<main class="stage">
+  <aside class="rail rail-left" aria-label="The stay: scenario and time controls">
+    <h2>The stay</h2>
+    <p class="lede">Thursday evening. <strong>Mikel</strong> flew out this morning. <strong>Sam</strong> is house-sitting
+      for <strong>Hex</strong>, a black cat who takes prescribed insulin at 7:15. Sam has done this exactly once,
+      with Mikel standing next to them.</p>
+
+    <div class="clockbox" role="group" aria-label="Demo clock">
+      <div class="nowlabel">Household clock</div>
+      <div class="now" id="clock-display">5:45 PM</div>
+      <div class="clockrow">
+        <button type="button" data-tick="5">+5 min</button>
+        <button type="button" data-tick="15">+15 min</button>
+        <button type="button" class="primary" id="jump-next">Jump to what’s next</button>
+        <button type="button" id="reset-day">Reset</button>
+      </div>
+      <p class="clocknote">Time is the main character here, so the clock is yours. Advance it and watch the product respond.</p>
+    </div>
+
+    <h2>Try these</h2>
+    <ul class="trylist">
+      <li><button type="button" data-try="dinner">
+        <span class="t">A one-tap moment</span>
+        <span class="d">Jump to 6:00. Dinner needs one thumb, not a workflow.</span>
+      </button></li>
+      <li><button type="button" data-try="already">
+        <span class="t">The double-completion guard</span>
+        <span class="d">Tap breakfast in Done, Mikel handled it before the airport.</span>
+      </button></li>
+      <li><button type="button" data-try="insulin">
+        <span class="t">Insulin, interrupted</span>
+        <span class="d">Jump to 7:15. Snooze it, life happens, then start guided care.</span>
+      </button></li>
+      <li><button type="button" data-try="help">
+        <span class="t">Something isn’t right</span>
+        <span class="d">Inside guided care, asking for help is a correct action.</span>
+      </button></li>
+    </ul>
+
+    <div class="ownerline">
+      <button type="button" class="switch" id="owner-toggle" aria-pressed="false">
+        <span class="track" aria-hidden="true"></span>
+        <span class="sl">See what Mikel sees</span>
+      </button>
+      <p class="fine">Outcomes only. Mikel never sees snoozes, steps, or hesitation, that’s the line between reassurance and surveillance.</p>
+    </div>
+  </aside>
+
+  <div class="phone-wrap">
+    <div class="phone" id="phone" aria-label="PetWatch app prototype">
+      <div class="statusbar"><span id="sb-time">5:45</span><span>PetWatch</span></div>
+      <div class="screen" id="screen" tabindex="-1"></div>
+      <div id="overlay"></div>
+      <div id="toast-slot"></div>
+      <div id="live" class="visually-hidden" role="status" aria-live="polite"></div>
+    </div>
+    <p class="phone-caption">Front-end only; state resets on reload. Every care instruction shown is fictional and attributed to the owner or vet, PetWatch never writes care advice.</p>
+  </div>
+
+  <aside class="rail rail-right" aria-label="Design notes">
+    <h2>Design notes</h2>
+    <p class="lede">Decisions behind what’s on screen. Select one to spotlight it on the device.</p>
+    <ul class="notes" id="notes">
+      <li><button type="button" data-spot="[data-note='time']" aria-expanded="false">
+        <span class="nt">Calm time, not a bomb timer</span>
+        <span class="nb">No ticking mm:ss. Coarse language at distance (“at 7:15”), precise only in the final minutes. A countdown manufactures the anxiety this product exists to remove, and a per-second live region is an accessibility hazard.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='snooze']" aria-expanded="false">
+        <span class="nt">Snooze is agency, not failure</span>
+        <span class="nb">“I saw this, I can’t do it this second, don’t let me forget.” The system visibly holds the open loop so the person doesn’t have to (Zeigarnik). No snooze limits are invented, past a threshold the answer is the owner, not a rule we made up.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='runner']" aria-expanded="false">
+        <span class="nt">RUNNER never interrupts</span>
+        <span class="nb">Ambient knowledge stays quietly present, a chip on every screen, expanded at session boundaries, because repeated interruptions train ignoring (alarm fatigue) while quiet persistence trains familiarity.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='source']" aria-expanded="false">
+        <span class="nt">The app never writes care advice</span>
+        <span class="nb">Every consequential instruction carries its source, Mikel, or Dr. Alvarez. PetWatch organizes and times trusted knowledge; it does not generate veterinary guidance. That boundary is structural, not editorial.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='depth']" aria-expanded="false">
+        <span class="nt">Depth is owner-authored</span>
+        <span class="nb">Water is one tap; insulin gets guided care. Mikel marked which moments deserve walking through, the person who knows Hex decides, not an algorithm inferring “consequence × unfamiliarity.”</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='stop']" aria-expanded="false">
+        <span class="nt">A stop point inside the steps</span>
+        <span class="nb">Step two is a checkpoint Mikel wrote: if Hex hasn’t eaten, stop and text. Guided care builds in permission to not proceed, stopping is a designed outcome, not an error state.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='help']" aria-expanded="false">
+        <span class="nt">Help is a success path</span>
+        <span class="nb">“Something isn’t right” is present in every consequential flow, opens trusted contacts, and never resets progress. Resuming care resolves it, the state model treats asking as part of caring, not as abandoning the task.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='relief']" aria-expanded="false">
+        <span class="nt">Completion is quiet relief</span>
+        <span class="nb">No confetti, points, or streaks. The peak-end moment is closure: it’s done, it’s timestamped, Mikel can see it. One event answers two anxieties, “I handled it” and “someone handled it.”</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='ownergran']" aria-expanded="false">
+        <span class="nt">The surveillance line</span>
+        <span class="nb">Mikel sees outcomes and the last-care line, never snooze counts, step timings, or a live feed. Granularity, not visibility, is what turns reassurance into surveillance. Sam is told exactly what Mikel can see.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='nored']" aria-expanded="false">
+        <span class="nt">No red in the watcher’s path</span>
+        <span class="nb">Overdue is “due 20 min ago” in warm amber, not an alarm. There is no MISSED state, a verdict named MISSED belongs to the owner’s preferences, not to a nervous friend at 7:35. This survives from the first attempt; it was right.</span>
+      </button></li>
+    </ul>
+  </aside>
+</main>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

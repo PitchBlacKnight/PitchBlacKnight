@@ -1,0 +1,138 @@
+<!-- RECIPE: Orders page — shell with Orders active, order-focused stat row,
+     striped orders table with filter, sort, selection, pagination, live toasts. -->
+<div class="pf-shell">
+
+  <nav class="pf-sidenav">
+    <div class="brand">PATHFINDER<span class="sub">AVANT PARTNER PORTAL</span></div>
+    <a class="pf-nav-item">⊞ Dashboard</a>
+    <a class="pf-nav-item">◎ Partners</a>
+    <a class="pf-nav-item" aria-current="page">▣ Orders</a>
+    <a class="pf-nav-item">◈ Analytics</a>
+    <div class="pf-nav-group pf-overline">System</div>
+    <a class="pf-nav-item">◑ Notifications</a>
+    <a class="pf-nav-item">⚙ Settings</a>
+  </nav>
+
+  <header class="pf-topbar">
+    <h4 style="font-size:18px">Orders</h4>
+    <span class="pf-badge pf-badge-info">312 open</span>
+    <span class="spacer"></span>
+    <input class="pf-input" style="width:220px" placeholder="Search orders…">
+    <button class="pf-btn pf-btn-ghost" data-toast="Export queued|312 orders → CSV, link arrives by email|info">Export</button>
+    <button class="pf-btn pf-btn-primary" data-toast="New order|Draft PF-317 created|positive">+ New Order</button>
+    <span class="pf-avatar c2">MR</span>
+  </header>
+
+  <main class="pf-main">
+    <div class="pf-stack" style="gap:24px">
+
+      <div class="pf-grid cols-4">
+        <div class="pf-card pf-stat">
+          <span class="pf-stat-label">Open Orders</span>
+          <span class="pf-stat-value">312</span>
+          <span class="pf-stat-delta down">↓ −3.1% vs last quarter</span>
+        </div>
+        <div class="pf-card pf-stat">
+          <span class="pf-stat-label">In Progress</span>
+          <span class="pf-stat-value">147</span>
+          <span class="pf-stat-delta up">↑ +9 this week</span>
+        </div>
+        <div class="pf-card pf-stat">
+          <span class="pf-stat-label">Awaiting Approval</span>
+          <span class="pf-stat-value">28</span>
+          <span class="pf-stat-delta down">↓ 4 overdue</span>
+        </div>
+        <div class="pf-card pf-stat">
+          <span class="pf-stat-label">Booked This Month</span>
+          <span class="pf-stat-value">$612K</span>
+          <span class="pf-stat-delta up">↑ +11% vs July</span>
+        </div>
+      </div>
+
+      <div class="pf-table-wrap striped">
+        <div class="pf-table-toolbar">
+          <span class="title">All Orders</span>
+          <select class="pf-select" style="width:160px" data-filter-table="#orders-table">
+            <option value="all">All statuses</option>
+            <option value="complete">Complete</option>
+            <option value="progress">In Progress</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+        <table class="pf-table" id="orders-table">
+          <thead>
+            <tr>
+              <th style="width:36px"><input type="checkbox" data-select-all aria-label="Select all"></th>
+              <th data-sort>ID</th>
+              <th data-sort>Client</th>
+              <th data-sort>Placed</th>
+              <th data-sort>Value</th>
+              <th data-sort>Status</th>
+              <th>Assigned</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-status="progress">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-311</td><td class="primary">8×8</td>
+              <td class="mono">07/29/2026</td><td class="mono">$38,150</td>
+              <td><span class="pf-badge pf-badge-info">▶ In Progress</span></td>
+              <td><span class="pf-avatar c1">JD</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+            <tr data-status="progress">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-309</td><td class="primary">Fuze</td>
+              <td class="mono">07/25/2026</td><td class="mono">$12,763</td>
+              <td><span class="pf-badge pf-badge-info">▶ In Progress</span></td>
+              <td><span class="pf-avatar c2">BG</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+            <tr data-status="complete">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-304</td><td class="primary">TierPoint</td>
+              <td class="mono">07/18/2026</td><td class="mono">$31,574</td>
+              <td><span class="pf-badge pf-badge-active">✓ Complete</span></td>
+              <td><span class="pf-avatar c1">JD</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+            <tr data-status="complete">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-301</td><td class="primary">Rackspace</td>
+              <td class="mono">07/12/2026</td><td class="mono">$54,900</td>
+              <td><span class="pf-badge pf-badge-active">✓ Complete</span></td>
+              <td><span class="pf-avatar c3">DS</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+            <tr data-status="cancelled">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-297</td><td class="primary">Vistro</td>
+              <td class="mono">07/03/2026</td><td class="mono">$4,334</td>
+              <td><span class="pf-badge pf-badge-critical">✕ Cancelled</span></td>
+              <td><span class="pf-avatar c3">DS</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+            <tr data-status="complete">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-292</td><td class="primary">Equinix</td>
+              <td class="mono">06/28/2026</td><td class="mono">$22,900</td>
+              <td><span class="pf-badge pf-badge-active">✓ Complete</span></td>
+              <td><span class="pf-avatar c4">ER</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pf-table-footer">
+          <span>Showing 6 of 312 orders</span>
+          <div class="pages">
+            <button class="pf-page" aria-current="page">1</button>
+            <button class="pf-page">2</button>
+            <button class="pf-page">3</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>

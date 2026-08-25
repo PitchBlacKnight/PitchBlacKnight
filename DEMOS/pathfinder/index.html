@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Pathfinder 2.0</title>
+<script>
+  var PF_V = Date.now();
+  document.write(
+    '<link rel="stylesheet" href="css/pathfinder.fonts.css?v=' + PF_V + '">' +
+    '<link rel="stylesheet" href="tokens/pathfinder.tokens.css?v=' + PF_V + '">' +
+    '<link rel="stylesheet" href="css/pathfinder.css?v=' + PF_V + '">'
+  );
+</script>
+<style>
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    background: var(--pfBackgroundColor); color: var(--pfTextColor); font-family: var(--pfFontFamily);
+  }
+  .lx { width: 100%; max-width: 720px; padding: 40px 24px; }
+  .lx h1 { font-family: var(--pfFontHeaderFamily); font-size: 44px; margin: 0 0 6px; letter-spacing: -.01em; }
+  .lx h1 span { color: var(--pfHighlightColor); }
+  .lx .sub { color: var(--pfContent_LabelColor); font-size: 15px; margin: 0 0 32px; }
+  .lx a.card {
+    display: block; text-decoration: none; color: inherit; margin-bottom: 14px;
+    background: var(--pfTile_Background); border: 1px solid var(--pfTile_BorderColor);
+    border-radius: var(--pfElement_BorderCornerRadius, 12px); padding: 20px 22px;
+    transition: all var(--pfContent_TransitionDuration_S) var(--pfContent_Easing_Standard);
+  }
+  .lx a.card:hover { border-color: var(--pfSelectedColor); background: var(--pfTile_Hover_Background); }
+  .lx a.card:focus-visible { outline: 2px solid var(--pfContent_FocusColor); outline-offset: 2px; }
+  .lx .card h2 { font-family: var(--pfFontHeaderFamily); font-size: 19px; margin: 0 0 4px; }
+  .lx .card p { margin: 0; font-size: 13.5px; color: var(--pfContent_LabelColor); line-height: 1.55; }
+  .lx .card .go { float: right; color: var(--pfHighlightColor); font-family: var(--pfFontMonoFamily); font-size: 12px; }
+  .lx footer {
+    margin-top: 28px; padding-top: 18px; border-top: 1px solid var(--pfShell_BorderColor);
+    font-family: var(--pfFontMonoFamily); font-size: 11px; color: var(--pfContent_LabelColor); line-height: 1.9;
+  }
+</style>
+</head>
+<body>
+<div class="lx">
+  <h1>Pathfinder <span>2.0</span></h1>
+  <p class="sub">AVANT Partner Portal design system &middot; agentic demo rig</p>
+
+  <a class="card" href="stage/">
+    <span class="go">open &rarr;</span>
+    <h2>Live Stage</h2>
+    <p>The demo surface. Ask Claude for a component and it assembles here within a second. Theme toggle bottom-right.</p>
+  </a>
+
+  <a class="card" href="playground/">
+    <span class="go">open &rarr;</span>
+    <h2>Component Playground</h2>
+    <p>Figma's component model running in production code &mdash; variants, boolean / text / instance-swap properties, slots with limit violations, and variable modes.</p>
+  </a>
+
+  <footer>
+    STAGE &nbsp;localhost:4173/stage/<br>
+    PLAYGROUND &nbsp;localhost:4173/playground/<br>
+    AUDIT &nbsp;./audit.sh
+  </footer>
+</div>
+</body>
+</html>

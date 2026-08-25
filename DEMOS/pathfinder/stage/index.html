@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pathfinder 2.0 — Live Stage</title>
+<!-- Fonts are vendored in ../fonts so the demo renders with the network off.
+     No external requests: the stage is fully self-contained. -->
+<link rel="preload" href="../fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../fonts/barlow-condensed-700.woff2" as="font" type="font/woff2" crossorigin>
+<script>
+  // Cache-bust the local library so the stage always runs current code. Without
+  // this a browser can keep serving a stale pathfinder.js after an edit, which
+  // produces "phantom" bugs that don't exist in the source. document.write is
+  // deliberate: it runs during parse, so the stylesheets still block render.
+  var PF_V = Date.now();
+  document.write(
+    '<link rel="stylesheet" href="../css/pathfinder.fonts.css?v=' + PF_V + '">' +
+    '<link rel="stylesheet" href="../tokens/pathfinder.tokens.css?v=' + PF_V + '">' +
+    '<link rel="stylesheet" href="../css/pathfinder.css?v=' + PF_V + '">'
+  );
+</script>
+<style>
+  /* Stage chrome only — everything inside #stage is pure Pathfinder */
+  #pf-bg {
+    position: fixed; inset: 0; z-index: 0;
+    background: url("assets/bg-network.jpg") center / cover no-repeat;
+    opacity: 0.2;
+    pointer-events: none;
+  }
+  #stage { position: relative; z-index: 1; }
+  /* Let the network texture read through full-bleed assemblies. Surfaces that
+     carry data (cards, tables, modals) keep their own token backgrounds. */
+  #stage .pf-shell,
+  #stage .pf-main { background: transparent; }
+  #stage .pf-sidenav,
+  #stage .pf-topbar {
+    background: color-mix(in srgb, var(--pfShellColor) 78%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  /* Bottom-left: topbars own the top-right, toasts own the bottom-right. */
+  #pf-live-chip {
+    position: fixed; bottom: 14px; left: 14px; z-index: 500;
+    display: flex; align-items: center; gap: 8px;
+    padding: 6px 14px; border-radius: 999px;
+    background: rgba(3, 10, 20, 0.85);
+    border: 1px solid var(--pfInformationBorderColor);
+    backdrop-filter: blur(8px);
+    font-family: var(--pfFontMonoFamily);
+    font-size: 11px; letter-spacing: 0.14em; font-weight: 600;
+    color: var(--pfInformativeTextColor);
+    pointer-events: none;
+  }
+  #pf-live-chip .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--pfPositiveElementColor);
+    box-shadow: 0 0 8px var(--pfPositiveElementColor);
+    animation: pf-beat 2s infinite;
+  }
+  #pf-live-chip.pulse { animation: pf-flash 0.9s var(--pfContent_Easing_Standard); }
+  /* Toasts normally own the bottom-right; on the stage the theme chip does,
+     so toasts stack just above it. */
+  .pf-toast-region { bottom: 64px; }
+  #pf-theme-chip {
+    position: fixed; bottom: 14px; right: 14px; z-index: 500;
+    display: flex; align-items: center; gap: 8px;
+    font-family: var(--pfFontMonoFamily);
+    font-size: 11px; letter-spacing: 0.14em; font-weight: 600;
+    line-height: inherit;
+    color: var(--pfHighlightColor);
+    background: rgba(3, 10, 20, 0.85);
+    border: 1px solid var(--pfButton_Ghost_BorderColor);
+    backdrop-filter: blur(8px);
+    border-radius: 999px; padding: 6px 14px; cursor: pointer;
+  }
+  #pf-theme-chip:hover { background: var(--pfButton_Ghost_Hover_Background); }
+  :root[data-theme="light"] #pf-bg {
+    background: linear-gradient(180deg, #eef2f7, #dde5ee);
+  }
+  :root[data-theme="light"] #pf-live-chip,
+  :root[data-theme="light"] #pf-theme-chip {
+    background: rgba(255, 255, 255, 0.88);
+  }
+  @keyframes pf-beat { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+  @keyframes pf-flash {
+    0% { box-shadow: 0 0 0 0 rgba(39, 189, 250, 0.6); }
+    100% { box-shadow: 0 0 0 16px rgba(39, 189, 250, 0); }
+  }
+  #stage.pf-swap > * { animation: pf-enter 0.45s var(--pfContent_Easing_Decelerate); }
+  @keyframes pf-enter {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div id="pf-bg" aria-hidden="true"></div>
+<div id="pf-live-chip"><span class="dot"></span>PATHFINDER LIVE</div>
+<button id="pf-theme-chip" type="button" aria-label="Toggle light and dark theme">◐ THEME</button>
+<div id="stage"></div>
+<script>
+  (function () {
+    var s = document.createElement("script");
+    s.src = "../js/pathfinder.js?v=" + PF_V;
+    s.onload = function () { Pathfinder.live("#stage", "app.html", 800); };
+    var saved = localStorage.getItem("pf-theme");
+    if (saved) document.documentElement.dataset.theme = saved;
+    document.getElementById("pf-theme-chip").addEventListener("click", function () {
+      var el = document.documentElement;
+      var next = el.dataset.theme === "light" ? "" : "light";
+      if (next) { el.dataset.theme = next; } else { delete el.dataset.theme; }
+      localStorage.setItem("pf-theme", next);
+    });
+    document.body.appendChild(s);
+  })();
+</script>
+</body>
+</html>

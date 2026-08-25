@@ -1,0 +1,173 @@
+<!-- RECIPE: "Assemble a desktop" — full partner-portal dashboard.
+     Composes: app shell (sidenav + topbar) + stat tiles + data table + modal + toast.
+     Responsive: sidenav collapses under 1024px, tiles stack under 600px. -->
+<div class="pf-shell">
+
+  <nav class="pf-sidenav">
+    <div class="brand">PATHFINDER<span class="sub">AVANT PARTNER PORTAL</span></div>
+    <a class="pf-nav-item" aria-current="page">⊞ Dashboard</a>
+    <a class="pf-nav-item">◎ Partners</a>
+    <a class="pf-nav-item">▣ Orders</a>
+    <a class="pf-nav-item">◈ Analytics</a>
+    <div class="pf-nav-group pf-overline">System</div>
+    <a class="pf-nav-item">◑ Notifications</a>
+    <a class="pf-nav-item">⚙ Settings</a>
+  </nav>
+
+  <header class="pf-topbar">
+    <h4 style="font-size:18px">Dashboard</h4>
+    <span class="pf-badge pf-badge-info">v2.1</span>
+    <span class="spacer"></span>
+    <input class="pf-input" style="width:220px" placeholder="Search partners…">
+    <button class="pf-btn pf-btn-primary" data-modal-open="new-partner">+ New Partner</button>
+    <span class="pf-avatar c2">MR</span>
+  </header>
+
+  <main class="pf-main">
+    <div class="pf-stack" style="gap:24px">
+
+      <!-- Stat tiles -->
+      <div class="pf-grid cols-4">
+        <div class="pf-card pf-stat">
+          <span class="pf-stat-label">Active Partners</span>
+          <span class="pf-stat-value">1,284</span>
+          <span class="pf-stat-delta up">↑ +6.2% vs last quarter</span>
+        </div>
+        <div class="pf-card pf-stat">
+          <span class="pf-stat-label">Pipeline MRR</span>
+          <span class="pf-stat-value">$4.1M</span>
+          <span class="pf-stat-delta up">↑ +14% vs last quarter</span>
+        </div>
+        <div class="pf-card pf-stat">
+          <span class="pf-stat-label">Open Orders</span>
+          <span class="pf-stat-value">312</span>
+          <span class="pf-stat-delta down">↓ −3.1% vs last quarter</span>
+        </div>
+        <div class="pf-card pf-stat">
+          <span class="pf-stat-label">Avg. Deal Size</span>
+          <span class="pf-stat-value">$21.4K</span>
+          <span class="pf-stat-delta up">↑ +2.8% vs last quarter</span>
+        </div>
+      </div>
+
+      <!-- Data table -->
+      <div class="pf-table-wrap">
+        <div class="pf-table-toolbar">
+          <span class="title">Recent Partner Orders</span>
+          <select class="pf-select" style="width:160px" data-filter-table="#orders-table">
+            <option value="all">All statuses</option>
+            <option value="complete">Complete</option>
+            <option value="progress">In Progress</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+          <button class="pf-btn pf-btn-ghost">Export</button>
+        </div>
+        <table class="pf-table" id="orders-table">
+          <thead>
+            <tr>
+              <th style="width:36px"><input type="checkbox" data-select-all aria-label="Select all"></th>
+              <th data-sort>ID</th>
+              <th data-sort>Client</th>
+              <th data-sort>Started</th>
+              <th data-sort>Value</th>
+              <th data-sort>Status</th>
+              <th>Assigned</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-status="complete">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-001</td><td class="primary">8×8</td>
+              <td class="mono">07/28/2021</td><td class="mono">$47,439</td>
+              <td><span class="pf-badge pf-badge-active">✓ Complete</span></td>
+              <td><span class="pf-avatar c1">JD</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+            <tr data-status="progress">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-002</td><td class="primary">Fuze</td>
+              <td class="mono">08/18/2021</td><td class="mono">$12,763</td>
+              <td><span class="pf-badge pf-badge-info">▶ In Progress</span></td>
+              <td><span class="pf-avatar c2">BG</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+            <tr data-status="cancelled">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-003</td><td class="primary">Vistro</td>
+              <td class="mono">08/22/2021</td><td class="mono">$4,334</td>
+              <td><span class="pf-badge pf-badge-critical">✕ Cancelled</span></td>
+              <td><span class="pf-avatar c3">DS</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+            <tr data-status="complete">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-004</td><td class="primary">TierPoint</td>
+              <td class="mono">10/18/2021</td><td class="mono">$31,574</td>
+              <td><span class="pf-badge pf-badge-active">✓ Complete</span></td>
+              <td><span class="pf-avatar c1">JD</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+            <tr data-status="progress">
+              <td><input type="checkbox" data-select-row aria-label="Select row"></td>
+              <td class="mono">PF-005</td><td class="primary">Rackspace</td>
+              <td class="mono">11/02/2021</td><td class="mono">$8,200</td>
+              <td><span class="pf-badge pf-badge-info">▶ In Progress</span></td>
+              <td><span class="pf-avatar c2">BG</span></td>
+              <td><button class="pf-btn pf-btn-sm pf-btn-ghost">View →</button></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="pf-table-footer">
+          <span>Showing 5 of 312 orders</span>
+          <div class="pages">
+            <button class="pf-page" aria-current="page">1</button>
+            <button class="pf-page">2</button>
+            <button class="pf-page">3</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- New Partner modal -->
+<div class="pf-modal-overlay" id="new-partner" style="display:none" role="dialog" aria-modal="true" aria-labelledby="new-partner-title">
+  <div class="pf-modal">
+    <div class="pf-modal-header">
+      <span class="title" id="new-partner-title">New Partner</span>
+      <button class="pf-modal-close" data-modal-close aria-label="Close">✕</button>
+    </div>
+    <div class="pf-modal-body">
+      <div class="pf-stack">
+        <div class="pf-field">
+          <label class="pf-label" for="np-name">Partner name <span class="req">*</span></label>
+          <input class="pf-input" id="np-name" placeholder="e.g. Acme Corp">
+        </div>
+        <div class="pf-grid cols-2">
+          <div class="pf-field">
+            <label class="pf-label" for="np-tier">Tier</label>
+            <select class="pf-select" id="np-tier">
+              <option>Silver</option><option>Gold</option><option>Platinum</option>
+            </select>
+          </div>
+          <div class="pf-field">
+            <label class="pf-label" for="np-region">Region</label>
+            <select class="pf-select" id="np-region">
+              <option>AMER</option><option>EMEA</option><option>APAC</option>
+            </select>
+          </div>
+        </div>
+        <div class="pf-field">
+          <label class="pf-label" for="np-contact">Primary contact email</label>
+          <input class="pf-input" id="np-contact" type="email" placeholder="name@partner.com">
+        </div>
+      </div>
+    </div>
+    <div class="pf-modal-footer">
+      <button class="pf-btn" data-modal-close>Cancel</button>
+      <button class="pf-btn pf-btn-primary" data-modal-close data-toast="Partner created|They'll appear in the table on next sync.|positive">Create Partner</button>
+    </div>
+  </div>
+</div>

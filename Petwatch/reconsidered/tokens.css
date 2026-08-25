@@ -1,0 +1,84 @@
+/* PetWatch Reconsidered, the design system is this file.
+   One palette, two surfaces:
+   - the ground: warm tan, navy ink, for the case study and the prototype shell
+   - the object: deep navy, ivory ink, for the phone, cards, and sheets
+   Gold is the single accent on both. No red exists in this file; that is a
+   product decision, not an omission. Colors are painted explicitly everywhere. */
+
+:root {
+  /* the ground (tan) */
+  --paper: #d4bfa3;
+  --paper-2: #e2d3bb;
+  --paper-3: #c6ad8e;
+  --card: #1c2130;            /* objects on the ground are navy */
+  --ground: linear-gradient(160deg, #e6d8c1 0%, #d2bc9e 55%, #c3a886 100%);
+
+  /* ink on the ground */
+  --ink: #1c2130;
+  --ink-2: #3d4354;
+  --ink-3: #5e6374;
+  --line: #b9a586;
+  --line-2: #a38f70;
+
+  /* the accent: gold */
+  --ember: #f0a93a;
+  --ember-ink: #7a4d08;        /* gold dark enough for small text on tan (AA) */
+  --ember-wash: rgba(240, 169, 58, 0.18);
+
+  /* affirmative and attention share the accent family; no second hue */
+  --moss: #f0a93a;
+  --moss-ink: #7a4d08;
+  --moss-wash: rgba(240, 169, 58, 0.18);
+  --amber-ink: #7a4d08;
+  --amber-wash: rgba(240, 169, 58, 0.2);
+
+  --slate: #2a3040;
+
+  /* type */
+  --serif: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+  --sans: 'Manrope', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mono: 'Manrope', -apple-system, sans-serif;
+  --code: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+
+  /* scale */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 72px; --s9: 112px;
+  --r1: 8px; --r2: 14px; --r3: 20px; --r4: 28px;
+
+  --shadow-soft: 0 2px 6px rgba(28, 33, 48, 0.12), 0 18px 48px rgba(28, 33, 48, 0.18);
+  --shadow-sheet: 0 -8px 40px rgba(0, 0, 0, 0.35);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* inside a navy object, the ink tokens flip to ivory */
+.dark, .phone, .sheet, .clockbox, .trylist button, .vignette, .toast {
+  --ink: #f4efe6;
+  --ink-2: #b9bfcc;
+  --ink-3: #8b92a5;
+  --line: #30374b;
+  --line-2: #414a61;
+  --card: #262c3e;
+  --paper-2: #2d3447;
+  --paper-3: #222837;
+  --ember-ink: #f0a93a;
+  --moss-ink: #f0a93a;
+  --amber-ink: #f5c063;
+  --slate: #f4efe6;
+  color: var(--ink);
+}
+
+/* focus is part of the system, not per-component */
+:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

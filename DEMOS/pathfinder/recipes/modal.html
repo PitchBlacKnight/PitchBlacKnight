@@ -1,0 +1,57 @@
+<!-- RECIPE: Modal — variants: default | confirmation | danger | fullscreen,
+     sizes: sm | (md default) | lg. Overlay click + Escape dismiss. Focus is
+     moved in and restored on close by pathfinder.js.
+     Open with: <button data-modal-open="demo-modal">…</button> -->
+
+<button class="pf-btn pf-btn-primary" data-modal-open="demo-modal">Open Modal</button>
+<button class="pf-btn pf-btn-danger" data-modal-open="danger-modal">Delete Partner</button>
+
+<!-- Default modal (md, 560px) -->
+<div class="pf-modal-overlay" id="demo-modal" style="display:none" role="dialog" aria-modal="true" aria-labelledby="demo-modal-title">
+  <div class="pf-modal">
+    <div class="pf-modal-header">
+      <span class="title" id="demo-modal-title">Edit Partner</span>
+      <button class="pf-modal-close" data-modal-close aria-label="Close">✕</button>
+    </div>
+    <div class="pf-modal-body">
+      <div class="pf-stack">
+        <div class="pf-field">
+          <label class="pf-label" for="m-name">Partner name <span class="req">*</span></label>
+          <input class="pf-input" id="m-name" value="Acme Corp">
+        </div>
+        <div class="pf-field">
+          <label class="pf-label" for="m-tier">Tier</label>
+          <select class="pf-select" id="m-tier">
+            <option>Gold</option><option>Silver</option><option>Platinum</option>
+          </select>
+        </div>
+        <div class="pf-field">
+          <label class="pf-label" for="m-notes">Notes</label>
+          <textarea class="pf-textarea" id="m-notes" placeholder="Internal notes…"></textarea>
+        </div>
+      </div>
+    </div>
+    <div class="pf-modal-footer">
+      <button class="pf-btn" data-modal-close>Cancel</button>
+      <button class="pf-btn pf-btn-primary" data-modal-close data-toast="Partner saved|Acme Corp was updated.|positive">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Danger modal (sm) — destructive confirmation; overlay click disabled -->
+<div class="pf-modal-overlay" id="danger-modal" style="display:none" data-static role="dialog" aria-modal="true" aria-labelledby="danger-modal-title">
+  <div class="pf-modal sm danger">
+    <div class="pf-modal-header">
+      <span class="title" id="danger-modal-title">Delete Partner?</span>
+      <button class="pf-modal-close" data-modal-close aria-label="Close">✕</button>
+    </div>
+    <div class="pf-modal-body">
+      This will permanently remove <strong style="color:var(--pfContent_ForegroundTextColor)">Acme Corp</strong>
+      and all associated orders. This action cannot be undone.
+    </div>
+    <div class="pf-modal-footer">
+      <button class="pf-btn" data-modal-close>Cancel</button>
+      <button class="pf-btn pf-btn-danger" data-modal-close data-toast="Partner deleted|Acme Corp was removed.|negative">Delete</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,81 @@
+<!-- RECIPE: Form pattern — labels, required markers, validation states, help
+     text, selects, textarea, toggles, footer actions. Exercises .pf-field,
+     .pf-label, .pf-input, .pf-select, .pf-textarea, .pf-help, .pf-toggle. -->
+<div style="padding:40px;max-width:860px;margin:0 auto;">
+  <div class="pf-stack" style="gap:6px;margin-bottom:28px;">
+    <span class="pf-overline">PARTNERS · ONBOARDING</span>
+    <h3>New Partner Application</h3>
+    <p style="color:var(--pfContent_LabelColor);margin:0;">
+      Required fields are marked. Validation runs on submit.
+    </p>
+  </div>
+
+  <div class="pf-card">
+    <div class="pf-stack" style="gap:20px;">
+
+      <div class="pf-grid cols-2">
+        <div class="pf-field">
+          <label class="pf-label" for="f-name">Partner name <span class="req">*</span></label>
+          <input class="pf-input" id="f-name" value="Rackspace Technology">
+          <span class="pf-help">Legal entity name as it appears on the contract.</span>
+        </div>
+        <div class="pf-field invalid">
+          <label class="pf-label" for="f-ein">Tax ID / EIN <span class="req">*</span></label>
+          <input class="pf-input" id="f-ein" value="12-345" aria-invalid="true">
+          <span class="pf-help">Must be 9 digits in the format 00-0000000.</span>
+        </div>
+      </div>
+
+      <div class="pf-grid cols-3">
+        <div class="pf-field">
+          <label class="pf-label" for="f-tier">Tier</label>
+          <select class="pf-select" id="f-tier">
+            <option>Platinum</option><option selected>Gold</option><option>Silver</option>
+          </select>
+        </div>
+        <div class="pf-field">
+          <label class="pf-label" for="f-region">Region</label>
+          <select class="pf-select" id="f-region">
+            <option>AMER</option><option>EMEA</option><option>APAC</option>
+          </select>
+        </div>
+        <div class="pf-field">
+          <label class="pf-label" for="f-start">Contract start</label>
+          <input class="pf-input" id="f-start" type="date" value="2026-09-01">
+        </div>
+      </div>
+
+      <div class="pf-field">
+        <label class="pf-label" for="f-notes">Account notes</label>
+        <textarea class="pf-textarea" id="f-notes" placeholder="Context the account team should know…">Migrating from a legacy reseller agreement. Primary contact prefers email over calls.</textarea>
+        <span class="pf-help">Visible to the partner team only.</span>
+      </div>
+
+      <div class="pf-stack" style="gap:12px;">
+        <span class="pf-overline">Notifications</span>
+        <label class="pf-toggle">
+          <input type="checkbox" checked>
+          <span class="track"></span>
+          <span class="pf-toggle-label">Email me when an order changes status</span>
+        </label>
+        <label class="pf-toggle">
+          <input type="checkbox">
+          <span class="track"></span>
+          <span class="pf-toggle-label">Weekly pipeline digest</span>
+        </label>
+        <label class="pf-toggle">
+          <input type="checkbox" checked>
+          <span class="track"></span>
+          <span class="pf-toggle-label">Alert on churn-risk threshold breach</span>
+        </label>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="pf-row" style="justify-content:flex-end;margin-top:20px;">
+    <button class="pf-btn">Cancel</button>
+    <button class="pf-btn pf-btn-ghost">Save Draft</button>
+    <button class="pf-btn pf-btn-primary" data-toast="Application submitted|Rackspace Technology is now pending review.|positive">Submit Application</button>
+  </div>
+</div>

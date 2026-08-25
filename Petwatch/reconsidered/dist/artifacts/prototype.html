@@ -1,0 +1,1473 @@
+<title>PetWatch: The Stay</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* PetWatch Reconsidered, the design system is this file.
+   One palette, two surfaces:
+   - the ground: warm tan, navy ink, for the case study and the prototype shell
+   - the object: deep navy, ivory ink, for the phone, cards, and sheets
+   Gold is the single accent on both. No red exists in this file; that is a
+   product decision, not an omission. Colors are painted explicitly everywhere. */
+
+:root {
+  /* the ground (tan) */
+  --paper: #d4bfa3;
+  --paper-2: #e2d3bb;
+  --paper-3: #c6ad8e;
+  --card: #1c2130;            /* objects on the ground are navy */
+  --ground: linear-gradient(160deg, #e6d8c1 0%, #d2bc9e 55%, #c3a886 100%);
+
+  /* ink on the ground */
+  --ink: #1c2130;
+  --ink-2: #3d4354;
+  --ink-3: #5e6374;
+  --line: #b9a586;
+  --line-2: #a38f70;
+
+  /* the accent: gold */
+  --ember: #f0a93a;
+  --ember-ink: #7a4d08;        /* gold dark enough for small text on tan (AA) */
+  --ember-wash: rgba(240, 169, 58, 0.18);
+
+  /* affirmative and attention share the accent family; no second hue */
+  --moss: #f0a93a;
+  --moss-ink: #7a4d08;
+  --moss-wash: rgba(240, 169, 58, 0.18);
+  --amber-ink: #7a4d08;
+  --amber-wash: rgba(240, 169, 58, 0.2);
+
+  --slate: #2a3040;
+
+  /* type */
+  --serif: 'Playfair Display', 'Iowan Old Style', Georgia, serif;
+  --sans: 'Manrope', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --mono: 'Manrope', -apple-system, sans-serif;
+  --code: 'IBM Plex Mono', 'SF Mono', Menlo, monospace;
+
+  /* scale */
+  --s1: 4px; --s2: 8px; --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 72px; --s9: 112px;
+  --r1: 8px; --r2: 14px; --r3: 20px; --r4: 28px;
+
+  --shadow-soft: 0 2px 6px rgba(28, 33, 48, 0.12), 0 18px 48px rgba(28, 33, 48, 0.18);
+  --shadow-sheet: 0 -8px 40px rgba(0, 0, 0, 0.35);
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* inside a navy object, the ink tokens flip to ivory */
+.dark, .phone, .sheet, .clockbox, .trylist button, .vignette, .toast {
+  --ink: #f4efe6;
+  --ink-2: #b9bfcc;
+  --ink-3: #8b92a5;
+  --line: #30374b;
+  --line-2: #414a61;
+  --card: #262c3e;
+  --paper-2: #2d3447;
+  --paper-3: #222837;
+  --ember-ink: #f0a93a;
+  --moss-ink: #f0a93a;
+  --amber-ink: #f5c063;
+  --slate: #f4efe6;
+  color: var(--ink);
+}
+
+/* focus is part of the system, not per-component */
+:focus-visible {
+  outline: 2px solid var(--ember);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+</style>
+<style>
+/* ----- notebook shell ----- */
+* { box-sizing: border-box; margin: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  min-height: 100vh;
+}
+.skip {
+  position: absolute; left: -999px; top: 8px; z-index: 99;
+  background: var(--ink); color: var(--paper-2); padding: 8px 14px; border-radius: var(--r1);
+}
+.skip:focus { left: 8px; }
+
+.topbar {
+  display: flex; align-items: baseline; gap: var(--s4); flex-wrap: wrap;
+  padding: var(--s4) var(--s5);
+  border-bottom: 1px solid var(--line);
+}
+.topbar .wordmark { font-family: var(--mono); font-size: 12px; letter-spacing: 0.14em; color: var(--ink-2); }
+.topbar .wordmark strong { color: var(--ink); font-weight: 500; }
+.topbar a { color: var(--ember-ink); font-size: 13px; text-decoration-thickness: 1px; text-underline-offset: 3px; margin-left: auto; }
+
+.stage {
+  display: grid;
+  grid-template-columns: minmax(250px, 330px) minmax(auto, 460px) minmax(250px, 360px);
+  justify-content: center;
+  gap: var(--s6);
+  padding: var(--s6) var(--s5) var(--s8);
+  max-width: 1400px; margin: 0 auto;
+}
+.rail h2 {
+  font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink-3); margin-bottom: var(--s3);
+}
+.rail p.lede { font-size: 14px; color: var(--ink-2); margin-bottom: var(--s4); }
+.rail p.lede strong { color: var(--ink); font-weight: 600; }
+
+/* the clock is the evaluator's instrument */
+.clockbox {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r3);
+  padding: var(--s4); margin-bottom: var(--s5); box-shadow: var(--shadow-soft);
+}
+.clockbox .now {
+  font-family: var(--serif); font-size: 34px; font-weight: 380; letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums; line-height: 1.1;
+}
+.clockbox .nowlabel { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: .12em; text-transform: uppercase; }
+.clockrow { display: flex; gap: var(--s2); margin-top: var(--s3); flex-wrap: wrap; }
+.clockrow button {
+  font: 500 13px var(--sans); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line-2); border-radius: 999px; padding: 6px 13px; cursor: pointer;
+  transition: background .15s var(--ease);
+}
+.clockrow button:hover { background: var(--paper-3); }
+.clockrow button.primary { background: var(--ink); color: var(--paper-2); border-color: var(--ink); }
+.clocknote { font-size: 12.5px; color: var(--ink-3); margin-top: var(--s3); font-style: italic; font-family: var(--serif); }
+
+.trylist { list-style: none; display: grid; gap: var(--s2); }
+.trylist button {
+  width: 100%; text-align: left; cursor: pointer;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r2);
+  padding: 10px 14px; font: inherit; color: var(--ink);
+  transition: border-color .15s var(--ease), background .15s var(--ease);
+}
+.trylist button:hover { border-color: var(--line-2); background: var(--paper-2); }
+.trylist .t { font-weight: 600; font-size: 13.5px; display: block; }
+.trylist .d { font-size: 12.5px; color: var(--ink-2); }
+
+.ownerline { margin-top: var(--s5); padding-top: var(--s4); border-top: 1px dashed var(--line-2); }
+.switch {
+  display: flex; align-items: center; gap: 10px; cursor: pointer;
+  background: none; border: none; font: inherit; padding: 4px 0; color: var(--ink);
+}
+.switch .track {
+  width: 38px; height: 22px; border-radius: 999px; background: var(--line-2);
+  position: relative; flex: none; transition: background .18s var(--ease);
+}
+.switch .track::after {
+  content: ''; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px;
+  border-radius: 50%; background: var(--card); transition: transform .18s var(--ease);
+  box-shadow: 0 1px 2px rgba(38,32,25,.25);
+}
+.switch[aria-pressed="true"] .track { background: var(--moss); }
+.switch[aria-pressed="true"] .track::after { transform: translateX(16px); }
+.switch .sl { font-weight: 600; font-size: 13.5px; }
+.ownerline .fine { font-size: 12.5px; color: var(--ink-3); margin-top: var(--s2); }
+
+/* design notes rail */
+.notes { list-style: none; display: grid; gap: var(--s2); counter-reset: note; }
+.notes > li { position: relative; }
+.notes button {
+  width: 100%; text-align: left; cursor: pointer; font: inherit; color: inherit;
+  background: none; border: 1px solid transparent; border-left: 2px solid var(--line-2);
+  border-radius: 0 var(--r2) var(--r2) 0; padding: 8px 12px 8px 14px;
+  transition: background .15s var(--ease), border-color .15s var(--ease);
+}
+.notes button:hover, .notes button[aria-expanded="true"] { background: var(--paper-2); border-left-color: var(--ember); }
+.notes .nt { font-weight: 600; font-size: 13.5px; display: block; }
+.notes .nt::before {
+  counter-increment: note; content: counter(note, decimal-leading-zero) '  ';
+  font-family: var(--mono); font-weight: 500; font-size: 11px; color: var(--ember-ink);
+}
+.notes .nb { font-size: 13px; color: var(--ink-2); margin-top: 3px; display: none; }
+.notes button[aria-expanded="true"] .nb { display: block; }
+
+/* ----- the phone: product layer ----- */
+.phone-wrap { display: flex; flex-direction: column; align-items: center; gap: var(--s3); }
+.phone {
+  width: 384px; height: 780px; flex: none;
+  background: #FBF7EE;
+  border-radius: 44px;
+  border: 1px solid var(--line-2);
+  box-shadow: 0 2px 6px rgba(38,32,25,.08), 0 24px 64px rgba(38,32,25,.16);
+  overflow: hidden; position: relative;
+  display: flex; flex-direction: column;
+}
+.phone-caption { font-size: 12.5px; color: var(--ink-3); text-align: center; max-width: 360px; }
+
+.statusbar {
+  flex: none; display: flex; justify-content: space-between; align-items: center;
+  padding: 14px 26px 6px; font-family: var(--mono); font-size: 12px; color: var(--ink-2);
+}
+.screen { flex: 1; overflow-y: auto; overscroll-behavior: contain; padding: 4px 20px 96px; scrollbar-width: thin; }
+
+/* spotlight from design notes */
+[data-note] { transition: box-shadow .2s var(--ease); }
+.spot { box-shadow: 0 0 0 2px var(--ember), 0 0 0 6px var(--ember-wash) !important; border-radius: var(--r2); }
+
+/* home */
+.greet { font-family: var(--serif); font-weight: 340; font-size: 27px; letter-spacing: -0.01em; margin: 10px 2px 2px; }
+.greet-sub { color: var(--ink-2); font-size: 13.5px; margin: 0 2px 14px; }
+
+.pethead {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r3);
+  padding: 12px 14px; margin-bottom: 14px;
+}
+.pethead .avatar { flex: none; border-radius: 50%; object-fit: cover; }
+.pethead .pname { font-weight: 700; font-size: 16px; }
+.pethead .pmeta { font-size: 12.5px; color: var(--ink-2); }
+.chip-runner {
+  margin-left: auto; flex: none; cursor: pointer; border: none; font: inherit;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: .1em;
+  color: var(--amber-ink); background: var(--amber-wash);
+  padding: 5px 10px; border-radius: 999px;
+}
+
+.sec-label {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 500; letter-spacing: .16em;
+  text-transform: uppercase; color: var(--ink-3); margin: 18px 4px 8px;
+  display: flex; align-items: baseline; gap: 8px;
+}
+.sec-label .rule { flex: 1; border-top: 1px solid var(--line); transform: translateY(-3px); }
+
+.next-card {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r4);
+  padding: 18px; box-shadow: var(--shadow-soft);
+}
+.next-card.is-due { border-color: var(--ember); box-shadow: 0 0 0 1px var(--ember), var(--shadow-soft); }
+.next-card .when { font-family: var(--mono); font-size: 11.5px; color: var(--ember-ink); letter-spacing: .06em; }
+.next-card.is-quiet .when { color: var(--ink-3); }
+.next-card h3 { font-family: var(--serif); font-weight: 420; font-size: 22px; letter-spacing: -0.01em; margin: 6px 0 4px; }
+.next-card .cnote { font-size: 13.5px; color: var(--ink-2); }
+.next-card .actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; }
+
+.btn {
+  font: 600 14px var(--sans); cursor: pointer; border-radius: 999px; padding: 11px 18px;
+  border: 1px solid var(--line-2); background: var(--paper-2); color: var(--ink);
+  transition: transform .12s var(--ease), background .15s var(--ease);
+}
+.btn:active { transform: scale(.98); }
+.btn-primary { background: var(--moss); border-color: var(--moss); color: #F6FBF7; }
+.btn-primary:hover { background: var(--moss-ink); }
+.btn-ghost { background: transparent; }
+.btn-quiet { border: none; background: none; color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; padding: 11px 8px; font-weight: 500; }
+
+.mlist { list-style: none; display: grid; gap: 8px; }
+.mrow {
+  display: flex; align-items: center; gap: 12px;
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r3);
+  padding: 12px 14px;
+}
+.mrow .tt { font-weight: 600; font-size: 14.5px; }
+.mrow .ts { font-size: 12.5px; color: var(--ink-2); }
+.mrow .ts .by { color: var(--moss-ink); font-weight: 600; }
+.mrow .spacer { margin-left: auto; }
+.checkbtn {
+  flex: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+  border: 1.5px solid var(--line-2); background: var(--paper-2); color: var(--ink-3);
+  display: grid; place-items: center; font-size: 16px;
+  transition: background .15s var(--ease), border-color .15s var(--ease);
+}
+.checkbtn:hover { border-color: var(--moss); color: var(--moss-ink); }
+.checkbtn.is-done { background: var(--moss-wash); border-color: var(--moss-wash); color: var(--moss-ink); }
+.mrow.is-done .tt { color: var(--ink-2); font-weight: 500; }
+
+/* Know Hex */
+.know {
+  background: var(--paper-3); border: 1px solid var(--line); border-radius: var(--r3);
+  padding: 6px 14px 12px; margin-top: 8px;
+}
+.know summary {
+  cursor: pointer; list-style: none; display: flex; align-items: baseline; gap: 8px;
+  padding: 8px 0; font-weight: 700; font-size: 14.5px;
+}
+.know summary::-webkit-details-marker { display: none; }
+.know summary .hint { font-weight: 400; font-size: 12.5px; color: var(--ink-3); margin-left: auto; }
+.know-item { display: flex; gap: 10px; padding: 9px 0; border-top: 1px solid var(--line); }
+.know-item .k {
+  flex: none; font-family: var(--mono); font-size: 10px; font-weight: 500; letter-spacing: .1em;
+  color: var(--amber-ink); background: var(--amber-wash);
+  border-radius: 999px; padding: 3px 8px; height: fit-content; margin-top: 2px;
+}
+.know-item .k.calm { color: var(--slate); background: #e6e9ee; }
+.know-item .v { font-size: 13.5px; color: var(--ink-2); }
+.know-item .v strong { color: var(--ink); }
+
+/* sheets */
+.scrim {
+  position: absolute; inset: 0; background: rgba(38, 32, 25, 0.32);
+  display: flex; align-items: flex-end; z-index: 5;
+  animation: fade .2s var(--ease);
+}
+@keyframes fade { from { opacity: 0; } }
+.sheet {
+  background: var(--card); width: 100%; border-radius: 28px 28px 0 0;
+  padding: 22px 22px 28px; box-shadow: var(--shadow-sheet);
+  animation: rise .25s var(--ease);
+  max-height: 86%; overflow-y: auto;
+}
+@keyframes rise { from { transform: translateY(24px); opacity: 0; } }
+.sheet .grab { width: 36px; height: 4px; border-radius: 2px; background: var(--line-2); margin: 0 auto 16px; }
+.sheet h3 { font-family: var(--serif); font-weight: 420; font-size: 23px; letter-spacing: -0.01em; margin-bottom: 6px; }
+.sheet .sub { color: var(--ink-2); font-size: 14px; }
+.sheet .actions { display: flex; flex-direction: column; gap: 8px; margin-top: 18px; }
+.snoozerow { display: flex; gap: 8px; }
+.snoozerow .btn { flex: 1; }
+.sheet .microlabel { font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin: 16px 0 6px; }
+
+/* guided care */
+.guided { display: flex; flex-direction: column; min-height: 100%; }
+.guided .ghead { display: flex; align-items: center; gap: 10px; padding: 8px 0 2px; }
+.guided .ghead .back { border: none; background: none; cursor: pointer; font: 500 13.5px var(--sans); color: var(--ink-2); padding: 8px 6px; }
+.guided .gcrumb { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: .1em; margin-left: auto; }
+.guided h2 { font-family: var(--serif); font-weight: 380; font-size: 26px; letter-spacing: -0.015em; margin: 10px 2px 4px; }
+.guided .reassure { font-size: 14px; color: var(--ink-2); margin: 0 2px 16px; }
+.stepcard {
+  background: var(--card); border: 1px solid var(--line); border-radius: var(--r4);
+  padding: 20px; box-shadow: var(--shadow-soft);
+}
+.stepcard .src {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--slate); background: #e6e9ee; border-radius: 999px; padding: 4px 10px;
+  display: inline-block; margin-bottom: 12px;
+}
+.stepcard .body { font-size: 16.5px; line-height: 1.6; }
+.stepcard .body strong { font-weight: 700; }
+.stepcard .stopnote {
+  margin-top: 12px; padding: 10px 12px; border-radius: var(--r2);
+  background: var(--amber-wash); color: var(--amber-ink); font-size: 13.5px; font-weight: 500;
+}
+.guided .gactions { display: grid; gap: 8px; margin-top: 16px; }
+.guided .gfoot { margin-top: auto; padding: 18px 2px 8px; text-align: center; }
+.dots { display: flex; gap: 6px; justify-content: center; margin: 14px 0 2px; }
+.dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--line-2); }
+.dots i.on { background: var(--moss); }
+
+/* completion */
+.relief { text-align: center; padding-top: 120px; }
+.relief .ring {
+  width: 74px; height: 74px; border-radius: 50%; margin: 0 auto 22px;
+  background: var(--moss-wash); color: var(--moss-ink);
+  display: grid; place-items: center; font-size: 30px;
+}
+.relief h2 { font-family: var(--serif); font-weight: 380; font-size: 28px; letter-spacing: -0.015em; }
+.relief .what { margin-top: 14px; font-size: 15px; }
+.relief .meta { color: var(--ink-2); font-size: 13.5px; margin-top: 2px; }
+.relief .owner-sees { color: var(--ink-3); font-size: 13px; margin-top: 22px; font-style: italic; font-family: var(--serif); }
+
+/* owner view */
+.ownerband {
+  background: var(--slate); color: #EDF0F4; border-radius: var(--r3);
+  padding: 10px 14px; font-size: 12.5px; display: flex; gap: 8px; align-items: baseline;
+  margin: 10px 0 14px; font-family: var(--mono);
+}
+.allgood { font-family: var(--serif); font-weight: 360; font-size: 30px; letter-spacing: -0.015em; margin: 6px 2px 4px; }
+.o-sub { color: var(--ink-2); font-size: 13.5px; margin: 0 2px 16px; }
+.orow { display: flex; align-items: baseline; gap: 10px; padding: 11px 2px; border-bottom: 1px solid var(--line); }
+.orow .st { margin-left: auto; font-size: 13px; color: var(--ink-2); }
+.orow .st.done { color: var(--moss-ink); font-weight: 600; }
+.lastcare { margin-top: 18px; font-size: 13.5px; color: var(--ink-2); }
+.o-fine { margin-top: 26px; font-size: 12.5px; color: var(--ink-3); border-top: 1px dashed var(--line-2); padding-top: 12px; }
+
+/* toast + banner */
+.toast {
+  position: absolute; left: 16px; right: 16px; bottom: 18px; z-index: 8;
+  background: var(--ink); color: var(--paper-2); border-radius: var(--r3);
+  padding: 12px 16px; font-size: 13.5px; display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 10px 30px rgba(38,32,25,.35);
+  animation: rise .22s var(--ease);
+}
+.toast button {
+  margin-left: auto; border: none; background: none; cursor: pointer;
+  color: #F3C79B; font: 600 13.5px var(--sans); padding: 4px 6px;
+}
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+@media (max-width: 1100px) {
+  .stage { grid-template-columns: 1fr; max-width: 620px; }
+  .rail-left { order: 1; }
+  .phone-wrap { order: 2; }
+  .rail-right { order: 3; }
+  .phone { width: min(384px, 94vw); }
+}
+
+/* ----- brand skin: navy phone on a tan ground, gold accent ----- */
+body { background: var(--ground) fixed; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 900'%3E%3Cg fill='none' stroke='%23a88f6c' stroke-width='1.2' opacity='.55'%3E%3Cpath d='M-40 120c180-90 320 40 420-60s260-70 360 20 220 140 420 60'/%3E%3Cpath d='M900 880c60-140 260-180 360-120s140 60 220-20'/%3E%3Cpath d='M-60 700c120-40 200-160 330-120s150 120 270 60'/%3E%3C/g%3E%3C/svg%3E"), var(--ground); background-attachment: fixed; background-size: cover; }
+.greet, .next-card h3, .sheet h3, .guided h2, .relief h2, .allgood, .clockbox .now { font-family: var(--serif); font-weight: 500; }
+.rail h2, .clockbox .nowlabel, .sec-label, .next-card .when, .sheet .microlabel, .guided .gcrumb, .stepcard .src, .know-item .k, .chip-runner, .topbar .wordmark { letter-spacing: 0.12em; font-weight: 700; }
+.topbar { border-color: var(--line); }
+.phone { background: #1c2130; border-color: #30374b; border-radius: 44px; }
+.screen { scrollbar-color: #414a61 transparent; }
+.clockbox, .trylist button { border-color: #30374b; }
+.clockrow button { background: transparent; color: var(--ink); border-color: var(--line-2); }
+.clockrow button:hover { background: var(--paper-2); }
+.clockrow button.primary { background: var(--ember); color: #1c2130; border-color: var(--ember); }
+.switch .track { background: var(--line-2); }
+.switch[aria-pressed="true"] .track { background: var(--ember); }
+.notes button { border-left-color: var(--line-2); }
+.notes button:hover, .notes button[aria-expanded="true"] { background: rgba(28,33,48,.08); border-left-color: var(--ember); }
+.pethead { background: var(--card); border-color: var(--line); }
+.pethead .avatar { border-radius: 40% 40% 14px 14px; width: 50px; height: 58px; }
+.chip-runner { background: transparent; color: var(--ember); border: 1px solid var(--ember); }
+.next-card { background: var(--card); border-color: var(--line); box-shadow: none; }
+.next-card.is-due { border-color: var(--ember); box-shadow: 0 0 0 1px var(--ember); }
+.btn { background: transparent; color: var(--ink); border-color: var(--line-2); }
+.btn-primary, .btn-primary:hover { background: var(--ember); border-color: var(--ember); color: #1c2130; }
+.btn-quiet { color: var(--ink-2); }
+.mrow { background: var(--card); border-color: var(--line); }
+.checkbtn { background: transparent; border-color: var(--line-2); color: var(--ink-3); }
+.checkbtn:hover { border-color: var(--ember); color: var(--ember); }
+.checkbtn.is-done { background: var(--ember-wash); border-color: transparent; color: var(--ember); }
+.know { background: var(--paper-3); border-color: var(--line); }
+.know-item .k, .stepcard .src { background: rgba(255,255,255,.1); color: var(--ink); }
+.know-item .k:not(.calm) { background: var(--ember-wash); color: var(--ember); }
+.scrim { background: rgba(0,0,0,.55); }
+.sheet { background: #1c2130; border-top: 1px solid #30374b; }
+.sheet .grab { background: var(--line-2); }
+.stepcard { background: var(--card); border-color: var(--line); box-shadow: none; }
+.stepcard .stopnote { background: var(--amber-wash); color: var(--amber-ink); }
+.dots i { background: var(--line-2); }
+.dots i.on { background: var(--ember); }
+.relief .ring { background: var(--ember-wash); color: var(--ember); }
+.ownerband { background: var(--ember); color: #1c2130; }
+.orow { border-color: var(--line); }
+.o-fine { border-color: var(--line-2); }
+.toast { background: #f4efe6; color: #1c2130; }
+.toast button { color: #7a4d08; }
+.phone-caption, .ownerline .fine, .clocknote { color: var(--ink-3); }
+
+</style>
+
+<a class="skip" href="#phone">Skip to the prototype</a>
+
+<header class="topbar">
+  <h1 class="wordmark"><strong>PETWATCH</strong> · RECONSIDERED · WORKING PROTOTYPE</h1>
+  <a href="https://claude.ai/code/artifact/106c879c-d64e-4c59-86b9-ed1e271babed">Read the case study</a>
+</header>
+
+<main class="stage">
+  <aside class="rail rail-left" aria-label="The stay: scenario and time controls">
+    <h2>The stay</h2>
+    <p class="lede">Thursday evening. <strong>Mikel</strong> flew out this morning. <strong>Sam</strong> is house-sitting
+      for <strong>Hex</strong>, a black cat who takes prescribed insulin at 7:15. Sam has done this exactly once,
+      with Mikel standing next to them.</p>
+
+    <div class="clockbox" role="group" aria-label="Demo clock">
+      <div class="nowlabel">Household clock</div>
+      <div class="now" id="clock-display">5:45 PM</div>
+      <div class="clockrow">
+        <button type="button" data-tick="5">+5 min</button>
+        <button type="button" data-tick="15">+15 min</button>
+        <button type="button" class="primary" id="jump-next">Jump to what’s next</button>
+        <button type="button" id="reset-day">Reset</button>
+      </div>
+      <p class="clocknote">Time is the main character here, so the clock is yours. Advance it and watch the product respond.</p>
+    </div>
+
+    <h2>Try these</h2>
+    <ul class="trylist">
+      <li><button type="button" data-try="dinner">
+        <span class="t">A one-tap moment</span>
+        <span class="d">Jump to 6:00. Dinner needs one thumb, not a workflow.</span>
+      </button></li>
+      <li><button type="button" data-try="already">
+        <span class="t">The double-completion guard</span>
+        <span class="d">Tap breakfast in Done, Mikel handled it before the airport.</span>
+      </button></li>
+      <li><button type="button" data-try="insulin">
+        <span class="t">Insulin, interrupted</span>
+        <span class="d">Jump to 7:15. Snooze it, life happens, then start guided care.</span>
+      </button></li>
+      <li><button type="button" data-try="help">
+        <span class="t">Something isn’t right</span>
+        <span class="d">Inside guided care, asking for help is a correct action.</span>
+      </button></li>
+    </ul>
+
+    <div class="ownerline">
+      <button type="button" class="switch" id="owner-toggle" aria-pressed="false">
+        <span class="track" aria-hidden="true"></span>
+        <span class="sl">See what Mikel sees</span>
+      </button>
+      <p class="fine">Outcomes only. Mikel never sees snoozes, steps, or hesitation, that’s the line between reassurance and surveillance.</p>
+    </div>
+  </aside>
+
+  <div class="phone-wrap">
+    <div class="phone" id="phone" aria-label="PetWatch app prototype">
+      <div class="statusbar"><span id="sb-time">5:45</span><span>PetWatch</span></div>
+      <div class="screen" id="screen" tabindex="-1"></div>
+      <div id="overlay"></div>
+      <div id="toast-slot"></div>
+      <div id="live" class="visually-hidden" role="status" aria-live="polite"></div>
+    </div>
+    <p class="phone-caption">Front-end only; state resets on reload. Every care instruction shown is fictional and attributed to the owner or vet, PetWatch never writes care advice.</p>
+  </div>
+
+  <aside class="rail rail-right" aria-label="Design notes">
+    <h2>Design notes</h2>
+    <p class="lede">Decisions behind what’s on screen. Select one to spotlight it on the device.</p>
+    <ul class="notes" id="notes">
+      <li><button type="button" data-spot="[data-note='time']" aria-expanded="false">
+        <span class="nt">Calm time, not a bomb timer</span>
+        <span class="nb">No ticking mm:ss. Coarse language at distance (“at 7:15”), precise only in the final minutes. A countdown manufactures the anxiety this product exists to remove, and a per-second live region is an accessibility hazard.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='snooze']" aria-expanded="false">
+        <span class="nt">Snooze is agency, not failure</span>
+        <span class="nb">“I saw this, I can’t do it this second, don’t let me forget.” The system visibly holds the open loop so the person doesn’t have to (Zeigarnik). No snooze limits are invented, past a threshold the answer is the owner, not a rule we made up.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='runner']" aria-expanded="false">
+        <span class="nt">RUNNER never interrupts</span>
+        <span class="nb">Ambient knowledge stays quietly present, a chip on every screen, expanded at session boundaries, because repeated interruptions train ignoring (alarm fatigue) while quiet persistence trains familiarity.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='source']" aria-expanded="false">
+        <span class="nt">The app never writes care advice</span>
+        <span class="nb">Every consequential instruction carries its source, Mikel, or Dr. Alvarez. PetWatch organizes and times trusted knowledge; it does not generate veterinary guidance. That boundary is structural, not editorial.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='depth']" aria-expanded="false">
+        <span class="nt">Depth is owner-authored</span>
+        <span class="nb">Water is one tap; insulin gets guided care. Mikel marked which moments deserve walking through, the person who knows Hex decides, not an algorithm inferring “consequence × unfamiliarity.”</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='stop']" aria-expanded="false">
+        <span class="nt">A stop point inside the steps</span>
+        <span class="nb">Step two is a checkpoint Mikel wrote: if Hex hasn’t eaten, stop and text. Guided care builds in permission to not proceed, stopping is a designed outcome, not an error state.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='help']" aria-expanded="false">
+        <span class="nt">Help is a success path</span>
+        <span class="nb">“Something isn’t right” is present in every consequential flow, opens trusted contacts, and never resets progress. Resuming care resolves it, the state model treats asking as part of caring, not as abandoning the task.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='relief']" aria-expanded="false">
+        <span class="nt">Completion is quiet relief</span>
+        <span class="nb">No confetti, points, or streaks. The peak-end moment is closure: it’s done, it’s timestamped, Mikel can see it. One event answers two anxieties, “I handled it” and “someone handled it.”</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='ownergran']" aria-expanded="false">
+        <span class="nt">The surveillance line</span>
+        <span class="nb">Mikel sees outcomes and the last-care line, never snooze counts, step timings, or a live feed. Granularity, not visibility, is what turns reassurance into surveillance. Sam is told exactly what Mikel can see.</span>
+      </button></li>
+      <li><button type="button" data-spot="[data-note='nored']" aria-expanded="false">
+        <span class="nt">No red in the watcher’s path</span>
+        <span class="nb">Overdue is “due 20 min ago” in warm amber, not an alarm. There is no MISSED state, a verdict named MISSED belongs to the owner’s preferences, not to a nervous friend at 7:35. This survives from the first attempt; it was right.</span>
+      </button></li>
+    </ul>
+  </aside>
+</main>
+
+<script type="module">
+// PetWatch Reconsidered, care moment domain core.
+//
+// Source of truth is an append-only event log per care moment. Status is
+// derived from (moment, log, now), never stored. This one primitive carries
+// attribution, the double-completion guard, the owner's summary view, and a
+// future multi-watcher merge story without any sync infrastructure.
+//
+// Time: the demo passes plain ms timestamps, but every timestamp is understood
+// to be anchored to the pet's household clock, not the viewer's. The owner
+// crossing timezones must never move 7:15pm insulin. (Case study, ch. 6.)
+//
+// No DOM access in this file. Presentation state never enters the log.
+
+/** @typedef {'upcoming'|'soon'|'due'|'snoozed'|'in_progress'|'needs_help'|'completed'} Status */
+
+/**
+ * @typedef {Object} CareMoment
+ * @property {string} id
+ * @property {string} title
+ * @property {number} dueAt        ms, household clock
+ * @property {'quick'|'guided'} depth   owner-authored, never inferred
+ * @property {{src: string, body: string, stop?: string}[]} [steps]  guided only; owner/vet supplied
+ * @property {string} [source]     attribution line, e.g. "From Mikel and Dr. Alvarez"
+ * @property {string} [note]       owner context, e.g. the treat
+ */
+
+/**
+ * @typedef {Object} CareEvent
+ * @property {'snoozed'|'started'|'step_done'|'help_requested'|'help_resolved'|'completed'|'noted_already_done'} type
+ * @property {number} at   ms, household clock
+ * @property {string} by   person name/id
+ * @property {number} [until]  snoozed only
+ * @property {number} [step]   step_done only (index)
+ */
+
+const SOON_WINDOW_MS = 15 * 60 * 1000;
+
+/** Latest event of a given type, or null. @param {CareEvent[]} log */
+const last = (log, type) => {
+  for (let i = log.length - 1; i >= 0; i--) if (log[i].type === type) return log[i];
+  return null;
+};
+
+/** @param {CareEvent[]} log @returns {CareEvent|null} */
+const completion = (log) => last(log, 'completed');
+
+/** Active snooze target, or null. Latest snooze wins. @param {CareEvent[]} log */
+function snoozedUntil(log, now) {
+  const s = last(log, 'snoozed');
+  return s && s.until != null && s.until > now ? s.until : null;
+}
+
+/**
+ * Derive status. Order of precedence encodes the product's judgments:
+ * completion is final; asking for help suspends the flow without erasing
+ * progress; an expired snooze is simply DUE again; past-due is DUE with
+ * elapsed time, never a MISSED verdict.
+ * @param {CareMoment} moment @param {CareEvent[]} log @param {number} now
+ * @returns {Status}
+ */
+function deriveStatus(moment, log, now) {
+  if (completion(log)) return 'completed';
+  const help = last(log, 'help_requested');
+  const helpResolved = last(log, 'help_resolved');
+  const started = last(log, 'started');
+  // Resuming care supersedes an open help flag: picking the flow back up is
+  // itself the resolution. (Surfaced by the reducer tests, case study, ch. 6.)
+  const helpOpen =
+    help && (!helpResolved || helpResolved.at < help.at) && (!started || started.at < help.at);
+  if (helpOpen) return 'needs_help';
+  if (started) return 'in_progress';
+  if (snoozedUntil(log, now)) return 'snoozed';
+  if (now >= moment.dueAt) return 'due';
+  if (now >= moment.dueAt - SOON_WINDOW_MS) return 'soon';
+  return 'upcoming';
+}
+
+/** Transitions the log will accept from each derived status. */
+const ALLOWED = {
+  upcoming: ['started'], // starting early is allowed; snoozing the far future is noise
+  soon: ['started', 'snoozed'],
+  due: ['started', 'snoozed', 'help_requested'],
+  snoozed: ['started', 'snoozed', 'help_requested'],
+  in_progress: ['step_done', 'help_requested', 'completed'],
+  needs_help: ['help_resolved', 'started', 'completed'],
+  completed: [],
+};
+
+/**
+ * Append an event, validating the transition against derived status.
+ * Returns a NEW log. Throws on an illegal transition so tests state the
+ * product rules explicitly.
+ * @param {CareMoment} moment @param {CareEvent[]} log @param {CareEvent} event
+ * @returns {CareEvent[]}
+ */
+function append(moment, log, event) {
+  const status = deriveStatus(moment, log, event.at);
+  const ok = ALLOWED[status] || [];
+  if (!ok.includes(event.type)) {
+    throw new Error(`illegal transition: ${event.type} while ${status} (${moment.id})`);
+  }
+  return [...log, event];
+}
+
+/**
+ * The double-completion guard. A second completion attempt never appends a
+ * second `completed`; it records `noted_already_done` and returns the prior
+ * completion so the interface can say "Already done. Mikel, 7:05 AM."
+ * @param {CareMoment} moment @param {CareEvent[]} log
+ * @param {{by:string, at:number}} attempt
+ * @returns {{log: CareEvent[], alreadyDone: CareEvent|null}}
+ */
+function attemptComplete(moment, log, { by, at }) {
+  const prior = completion(log);
+  const noted = /** @type {CareEvent} */ ({ type: 'noted_already_done', by, at });
+  if (prior) {
+    return { log: [...log, noted], alreadyDone: prior };
+  }
+  const status = deriveStatus(moment, log, at);
+  const started = /** @type {CareEvent} */ ({ type: 'started', by, at });
+  const completed = /** @type {CareEvent} */ ({ type: 'completed', by, at });
+  // A quick task can complete in one tap without a `started` event.
+  const next =
+    status === 'in_progress' || status === 'needs_help'
+      ? append(moment, log, completed)
+      : [...log, started, completed];
+  return { log: next, alreadyDone: null };
+}
+
+/**
+ * Calm time language. Coarse at distance, precise only inside the final
+ * minutes. Never a ticking mm:ss. (Case study, ch. 4.)
+ * @param {CareMoment} moment @param {CareEvent[]} log @param {number} now
+ * @param {(ms:number)=>string} fmtClock  e.g. 7:15 PM, injected by the shell
+ */
+function timePhrase(moment, log, now, fmtClock) {
+  const status = deriveStatus(moment, log, now);
+  if (status === 'completed') {
+    const c = completion(log);
+    return `Done at ${fmtClock(c.at)}`;
+  }
+  if (status === 'snoozed') return `I’ll remind you at ${fmtClock(snoozedUntil(log, now))}`;
+  const diff = moment.dueAt - now;
+  const min = Math.round(Math.abs(diff) / 60000);
+  if (status === 'due') return min < 1 ? 'Now' : `Due ${min} min ago`;
+  if (min <= 15) return `In about ${Math.max(1, min)} minutes`;
+  if (min <= 90) return `At ${fmtClock(moment.dueAt)}, in about ${Math.round(min / 5) * 5} minutes`;
+  return `At ${fmtClock(moment.dueAt)}`;
+}
+
+/**
+ * The owner's surface: outcomes, not behavior. Completed / upcoming counts
+ * and the last care line. Snoozes, step timings, and help taps are absent by
+ * design, that is the surveillance line. (Case study, ch. 5 and 7.)
+ * @param {{moment: CareMoment, log: CareEvent[]}[]} entries @param {number} now
+ */
+function ownerSummary(entries, now) {
+  const done = [];
+  let open = 0;
+  for (const { moment, log } of entries) {
+    const c = completion(log);
+    if (c) done.push({ title: moment.title, at: c.at, by: c.by });
+    else open++;
+  }
+  done.sort((a, b) => a.at - b.at);
+  const lastCare = done.length ? done[done.length - 1] : null;
+  return { done, open, lastCare, allGood: entries.length > 0 && open === 0 };
+}
+
+// PetWatch Reconsidered, prototype presentation layer.
+// Domain rules live in ../domain/caremoment.js and never touch the DOM.
+// Presentation state (which sheet is open, toast timers, guided step index)
+// lives here and never enters the event log.
+
+/* ----- fixtures: one stay, one cat, one nervous friend ----- */
+const MIN = 60000;
+const HOUR = 60 * MIN;
+const at = (h, m = 0) => h * HOUR + m * MIN;
+
+const WATCHER = 'Sam';
+const OWNER = 'Mikel';
+
+/** @type {import('../domain/caremoment.js').CareMoment[]} */
+const MOMENTS = [
+  {
+    id: 'breakfast',
+    title: 'Breakfast',
+    dueAt: at(7, 0),
+    depth: 'quick',
+    note: 'Half a scoop, the small bowl. He will yell for more. Hold firm.',
+  },
+  {
+    id: 'insulin-am',
+    title: 'Hex’s morning insulin',
+    dueAt: at(7, 15),
+    depth: 'guided',
+    note: 'After breakfast, never before.',
+  },
+  {
+    id: 'dinner',
+    title: 'Dinner',
+    dueAt: at(18, 0),
+    depth: 'quick',
+    note: 'Same half scoop. Insulin comes after, he needs food first.',
+  },
+  {
+    id: 'water',
+    title: 'Refresh water',
+    dueAt: at(18, 30),
+    depth: 'quick',
+    note: 'Rinse the bowl, cold water. He won’t drink day-old.',
+  },
+  {
+    id: 'insulin-pm',
+    title: 'Hex’s evening insulin',
+    dueAt: at(19, 15),
+    depth: 'guided',
+    note: 'The routine Mikel showed you on Sunday.',
+    source: 'From Mikel and Dr. Alvarez, Larchmont Veterinary',
+    steps: [
+      {
+        src: 'From Mikel',
+        body: 'Get a <strong>Churu treat</strong> from the fridge door and open it. Hex comes to the sound, let him start on it on the counter.',
+      },
+      {
+        src: 'From Mikel and Dr. Alvarez',
+        body: 'Check his dinner bowl. <strong>Insulin goes after he’s eaten.</strong>',
+        stop: 'If he hasn’t touched his food, stop here and text Mikel. That’s the plan, not a failure.',
+      },
+      {
+        src: 'From Dr. Alvarez',
+        body: 'The pen is in the <strong>red pouch</strong>, top shelf of the fridge. The dose is already set on the dial, <strong>don’t change it</strong>.',
+      },
+      {
+        src: 'From Mikel',
+        body: 'While he’s on the treat, follow the <strong>injection card in the pouch</strong>, the same steps Mikel walked you through on Sunday.',
+      },
+      {
+        src: 'From Mikel',
+        body: 'Cap back on, pouch back in the fridge. Give him the rest of the treat. <strong>That’s it.</strong>',
+      },
+    ],
+  },
+];
+
+const KNOW = [
+  {
+    k: 'RUNNER',
+    tone: 'warm',
+    v: '<strong>Watch exterior doors.</strong> Hex is quick and quiet when he sees a gap, check where he is before you open the front door.',
+  },
+  {
+    k: 'HIDES',
+    tone: 'calm',
+    v: 'If you can’t find him: <strong>under the bed, left side</strong>, behind the storage box. He’s not lost.',
+  },
+  {
+    k: 'YES',
+    tone: 'calm',
+    v: '<strong>Churu treats, fridge door.</strong> His yes to anything, including the parts of the evening he likes less.',
+  },
+  {
+    k: 'DOORS',
+    tone: 'calm',
+    v: 'The <strong>balcony door stays shut</strong>. He’s allowed everywhere else.',
+  },
+];
+
+const CONTACTS = [
+  { name: 'Mikel', detail: 'He’d rather get a text than a surprise', action: 'Text' },
+  { name: 'Dr. Alvarez, Larchmont Veterinary', detail: 'Open until 8:00 PM', action: 'Call' },
+  { name: 'VEG on Sepulveda', detail: '24-hour emergency', action: 'Call' },
+];
+
+/* ----- state ----- */
+const logs = new Map(MOMENTS.map((m) => [m.id, []]));
+const START = at(17, 45);
+let now = START;
+
+// Mikel handled the morning before his flight; the guard demo depends on it.
+function seedMorning() {
+  logs.set('breakfast', attemptComplete(byId('breakfast'), [], { by: OWNER, at: at(7, 5) }).log);
+  logs.set('insulin-am', attemptComplete(byId('insulin-am'), [], { by: OWNER, at: at(7, 12) }).log);
+}
+const byId = (id) => MOMENTS.find((m) => m.id === id);
+const statusOf = (m) => deriveStatus(m, logs.get(m.id), now);
+
+const ui = {
+  owner: false,
+  view: 'home', // home | guided | relief
+  guidedId: null,
+  guidedStep: 0,
+  sheet: null, // {type:'due'|'know'|'help'|'already', ...}
+  knowOpen: true, // first open of the session: Know Hex starts expanded
+  reliefOf: null,
+  toast: null,
+};
+let prevStatus = new Map();
+let toastTimer = null;
+
+/* ----- helpers ----- */
+const $ = (sel, root = document) => root.querySelector(sel);
+const esc = (s) => s; // fixture strings are trusted markup written in this file
+
+function fmtClock(ms) {
+  const mins = Math.round(ms / MIN) % (24 * 60);
+  let h = Math.floor(mins / 60);
+  const m = mins % 60;
+  const half = h >= 12 ? 'PM' : 'AM';
+  h = h % 12 || 12;
+  return `${h}:${String(m).padStart(2, '0')} ${half}`;
+}
+const fmtShort = (ms) => fmtClock(ms).replace(/ (AM|PM)/, '');
+
+function announce(text) {
+  $('#live').textContent = text;
+}
+
+function toast(text, undoFn) {
+  ui.toast = { text, undoFn };
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    ui.toast = null;
+    render();
+  }, 6000);
+  render();
+}
+
+function hexAvatar(size) {
+  return `<img class="avatar" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBAUEBAYFBQUGBgYHCQ4JCQgICRINDQoOFRIWFhUSFBQXGiEcFxgfGRQUHScdHyIjJSUlFhwpLCgkKyEkJST/2wBDAQYGBgkICREJCREkGBQYJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCQkJCT/wAARCADIAMgDASIAAhEBAxEB/8QAHQAAAQQDAQEAAAAAAAAAAAAABAMFBgcAAggBCf/EAEAQAAIBAwIEBAMFBwIFBAMAAAECAwAEEQUhBhIxQRMiUWEHFHEyQoGRoQgVIzNSscFi4RYkU3KCFyZj0TSS8f/EABoBAAMBAQEBAAAAAAAAAAAAAAABAgMEBQb/xAAlEQACAgICAgMAAgMAAAAAAAAAAQIRAyEEEjFBEyJRFGEjMkL/2gAMAwEAAhEDEQA/ALsX5kuytIeQLnrtmlYbgp5dyo2wd96KMMbsxD8pO+CK1azUgcrLnrXzx7Ng11z+GpY4FeQrIYecSMxJ+w24A+lOF3ZiSFcHYjH40NLD/EWRR5uXoO5piVMRawsrmMeLaREnJyRgg/hQU3CljJMUi54XIBypDD2xneq0+Mfx1TgKVdH0m1juNckjDSh25o7bPQNj7Te1U5b/ALR3xEgu1ujewSpnLQtAvKa6MfHnJdjCeSCdHT3/AA3PbyE29zHkHOeUxkVuo1uz5X8Myqud884x3qAfDb9pTSOLbqLS+IIU0jUHIWOQtmCYntk/ZP1q5+SF5CP5eBscYHSonBwdSRcZqS0yNLxDdvOVnsgoJz9rHQfpRlpxJYzqJGWa0dtyky45T9aPmQHxIZUSViyhM4/Gm7S9OXXFMiQQwIkjo3KxzsSBgHaoVMptoek1/TmlUJcxSo2AzIc8p9TSM1sjhpOYnlJzjckevvTfdcHyryi3mVu2SuMflQL6VrmlnEZkC9QY3yB+FOiYtJjvJavanPOW779aivHelQ3uhRXbRr4ttdAo+M49acl1zUYOdLyFnYgEZXlz+NI6jc/vjQbm3ij8OVXWURuRuoznB7mmrsuUl1HXWuGtO1PSLRZ7WCUCMYyAcbVXWsfBfRb1ue3g8IsfMQSMD2qzLfUbW9022to7iJZY1GUYYPTpSvyfIzTNG7mReU4bYD6Ud2vAsaTj9iiJfgDmd/lrwBAPLzrneojrPwY1y3ZzFAlwo3HJXUUEb8wUrjlBwAO3oc1o1lGcggb9ParWeSKeGDOLNQ+H2oWrkXOmzJg4OFNNN/wde2jAxpKqn+rtXbkmm20nOHjQnPQr1o+74O0e+tQtxp1vJlRkcg3rVcto5suCMT5/3Ol3tuTnDfShD8zHu6PiuxeLfgRw/cLzWySWsjZOAen4VVWs/AnVLRybWaKdew6GuiHJT8mT47e0Upb6pc2rLJb3M0LKcho3Kmpvw78XOM9LIW34guioOQsp5x+tCavwBqemaxNpktixnQc2FGdiM5qUfCj4ZNq2qTS6tpyGxjXDeICG5u3KR0q3kjVkrE26om/CfxT4340RtPu47aaxI5ZbqTyCMZHT1O3QVlSG84PiiiW3tPJEBhUwMAfhWVyyyWdMMfVFkRXevxE/w7S9QD7cWGLD6A5/Sk04jurCd2vrd3UZyvJychJwAPUYqQfu23bLCJM8vlIGDQk+l3UcqSw3V1yuBzQuwZF98EGuJNG9S/RK24v08xI3M6Qk7lxzMPfbtWvE3F+kcPcO3+vfNRTxWcLTBFbqQNl/E0fLwzYXduviwQiQ4bnjHJ/aqa/aXtrfh3gUWsLP4up3SRAZBHKvmP8AitMcVKSRjKVbOY9X1S84o1691m+fnubyZpnPuT0/DpW3gYBXO9bW1usKhmXJ60tKyluZVwK9f+kcq3tgEtsBuMZG9dLfs6/FaXiK0PB+tXJOpW0WbKeQ5M8Q6oT/AFL/AG+lc3sQxrbTtUveHtWtdY02Vobu0kEsbr2I7fQ9KjJjU40xqXV2j6DfLDmiyoDAZP4U38BzFtMkBADGV2z6gsaa+DeLm4w0XT9atJont7qH+IndGwcge4PaieCJHtrdIWyykZV8f1b4NeS04umd0laJSSQ32jtWwQScyOcqRjBr0rlWLKAT2G9bRDmIDDegwsEj0i2t0aFQPD+6vZaEk4fsHk5JIg+ckFRykH6inaUHmIK9P7VmN9xQFtkdn4Mts88Mkqlt+zYoR+G9Vsf/AMe45wemHIP61LQM45TtjasjWdF5ZGEvo2MH8adiUmiETTa9AjJPHK6jH2kz+q15FxCVcfNWiM6bAo2Ovsam0gU9AM96Fn063uBiVAzb4BUHNK0aKbI0ur2VyykzmDDA4kH9z6VIF1WG4MEVne2zBgVdlIJTA2IqPHSbV9ZuNPng5AIBMrx+VjvjHpSNzwhEjOYLhkdDgh0BP5inQ5fckHECyCSNt2UKN8daYJz/AAy4jXJ9RSPy/EVoCsN806D7pbm/RqGm1LU4iUvLAgn73IVH6UzSEuq6sjvxB01LbUINWWJDJDaiQ82AWA6j8qcNMe3hsop7ZAbedBIrjbOa24lvbXiGwihuF8JJI2t5NwSh7N+dCaRYQ6bodvpJvPG8BeRZeikVfocWmFSziZ1wRsRgfjWUDJdQW5yWMiqftLvmsoQpFpwM7+EXUK3LkqO1HLIDKI9uUjv3oaJlW48ythFwWIpJrgRjAb6E9q57olx7G6yBWNuQSAdjXNn7UWsjVeL9K0KMll022M0uDtzyHb9B+tdHQBWkL+IDnGK5I+Id4NW434q1NsgC6MKZ6gIAv+K6eIk52RnVIgUkGTgdKHnhYDanFsFRjrQs4YAnbFemco2DOckbCtZMdwMGjVwQRjtQ3h8xKn8KYmXT+zFxBJ+87vhlr4wll+atUYcwZh9sAH2329K6A/dGpWqp8vPGOQYUKShGK4h0HVrzhvXbLWbA4urKUSJ6HHUH2IyK7o4E420zjbh621awl5hKuHU/ajcdVI7b1w8nHvsb4pOqPF1jXrJR48TzqB3hDH/9lO/5UpFxvHz8t3aGNh0wSM/mKeIsvMAVG3QjvWlzbRsCJEDjOMMMj9a4rRo4K6NIuL9IlUFrhYie0vl/XpRVnrGmX0/gwX1tJKRnkVwSR9KbX0HSptpI0TPTwzgg02XnC2nopnjmki8M55yobB277HvVE/GkS91ZW+7yivGbkibq3YY9aiTWGs+FzwXqyxkFcMSucfWlItX12zXllshKgHULzf2NIXW15JNHFlEZvK+NwepPvXnOObZgWG1Rm44smnjHPF8rMjAjnUhW/EjY0vecaaDZ6VNqWpTraRQDMjyDl/I98+1JJt0iujStml7I8fFEKv1ls3X32atknJuZAZELHfHNvXOPxJ+PN9xVeNFoAfTbCLKJcHaeQHqR/SDTb8F9c1KXj+zje8uZjcMecu5fIwc5zXbHiy62yVyFF0kdXWBDSHEXiMcAgdSKSnbdkMjqM7DPQUppQaOcSPuAevTND3kK+Mzb7nc1zI3q5CJ0qz1BXWW2glYZ+4MkU23/AAJp8vK0JngY5/ltsKcBKYXRkO4PQ96d+aZmIRlSN8McjP4U7IyKnoqvUuC7ixkPg6ggOMhZRjP5VlSviu3MtzGyDm5U/wA1lUmaQgmrCXj4ggTljg542wWME3Pj6ZO1eHXrqGT/AJ3TZCvUkoQRTwtkqY5VmjO+6nalo4rgjHz0jHph1Bz+FYNJkbQ12nElhGq+JCXIOSVXBH1Fcm8Zt/7l4lt0Uj/npnUHrgtkfoa7CktQ7kXNlayY++F5SffauTeK9R0viDj7iW50oYtzcciA/eIAViPbINdXESTdGWRv2Ruys0aAO2NxnetbnSUkyy7DG4rDMdPnktZ/K8Zxg+najrW6hL4bzD0Br0DEjVxp5iHkyHXqD3puYhScnG1TyWWzFvJ4S4du7HNQ+806WWVm8PlHqBsfWmQwB5CoBC9Rt71NPhh8Qbz4eaq10jtNZTjFxa832gOjD/VTNZW1ubMwXiry5yrg+Zfceo9RUf1RWsZ/JJzp2Oe1DimqZPato7K4L+PXCPFOoxWUd41pdsn8q4HLk9Tg9Ks97y2mQlXjYMuQQa+apcmYSIxRuxzUj0ri3imxiMdjrOoxptlEmOBjcVzS4a/5NFnt3I79ZrVkYjlV8jH17UFrLE8PXjLhSsbE7b5BFct/D/4lcTWl5DNcX097CVWQxTPnI+yd+xG9Xza8ZR6xplw0sbJBexFUfOQhGP8ANYz4sltGy5EWqZPYna40iBiwYyxo3pjYUOLXJ2dSQcebb8jTVpvF+i2+mQWk14ElgVU8ykYI2oHivj/TtCsmmtCt/cEfw4YjsfcnsKw+KT9FQyJJ7DuKeJdO4P0WfUdXnCxIDyxthjK3ZVB6muPfiF8QtR471Rri5VLSyVibfT4hhIx2LerV78QuM9e4l1lrvV7h2lTIihH8qDPZR6+9RGC2kkHOQWJ3zXfgwdFb8mGXL20hUK+Mk1bn7PGm3UnEN3qtvyK1nDyBn6Bn/wBqqRVkaVYVUsx7d668+F/w2OicEWdjcp4GplxeTXCDzKzb8hPpjbFXnydYkYo2yUtqWuwJzzaZHdFd+a3OdvwNJtxnZIeS+0+6t26ZZTgfXapC1razjxigQ4CggYOPqKEmiLLyRSsUO2H83968y0dqtjQutW13ZyXttCJkjzmJXAc47gHrS0XGOnXGlwXlrzOrDEiuCrRjuGHY0NqtjaQW8k09haSYIyyqYzjON8UwX2iabIG8L972qzr9qBvFRs/Xenpj23tEr1lEVYuViVdcqx71lQuTh7XLCBYrTWZJkQ5RZwdvpuayqii1JRVMedJ+Ovw61PAi4jtYGP3bkNF/cYqY6ZxDourqrafrFhd5/wClcI5/vVW6t+zT8PtSlIhs7ixJ7wTEY/A5qL6l+yPaxuzaPxPeQNvyrJGG7eowa3/jx9M43kZ0csPO4Phqy5HauGbzT5NH+ImqWUSAoupTROoPTznGKsK44G46+DltJr+ocZXs2l2aFhDBcODI33VKkkYzVX2vE375WbXp5wurNeNK6Y/mBjnOfUGtMePrdE9rewz4kQraapbXIPK0seHHoR602WVxGwB5gMik9cvLrU4NT1jVLjnuJRyonYb4G1Rq01J4wEC8xFdKWjNvZOZLyG1hjVSZXLfcI2FO0HNboZ4o43HKG8GXzHPrj++KrmHWFjmXnibY9VO49xUqbWo72KHxJhJL0APlI/HtTSJbsE128s76B3hthazDcxK2wPqpqIvDJdBmXcj7VSm4t4Z7nluudYpRyiTHmRu2fWmqGxltbq4h/mhO6jcj1qkSNkGmTTBk5cMhzUh0iCWGQRog8UESJkbn1X3om35pbkzJEB5fOO6+px6d6lun6Db6lYhrxGEa5KzW7AlfRh3I9u1MRo9gdPs4tW06CQR85kaMr/L6ZHuoNTKDWZ9I0m3It1axuucqxb+VNjmK/wDbnp7GgYNf0qxgiiM4vFAKyCRfMOx5vUEfjTZruoafdaP8tpknhIXEnIWyrY6FfT3oET3QeItP1S55vEQcybK7dGB6/rUgms7BF5JIhGW/hjIyGz3Brm+Di99JvImaGN2gLAb7HIqd8MfHJZomsdXtkeI/ZkP1/v1pir8JLxL8MdO1oSfKsEuB5mjbqcd6hd7wnc2kYSGBW8AESDGwwf8A+Va9hxDZcSxLJaHy8o8N1xlWxurGs+a068SaK+Q2l2q8szgdR05vcGigUmisvhhwfFq3GCXWp2r/ACdowkZFGzFTkD6ZxXV2hzK1tPyk+eQnDLgjO5Hviq24V8bhuSSO0WyvlmOZGYZLd8CpXDxvZ2IaS50W8gRu9uvOAfpXnclPt/R1Y9olNyA0RXk5EXbOOo9qbiMOGU7ZyB7UPHx/od1yKXnhR9vEkhIXPofT8aOjn065KtBdQS8+yhZBlvYVxtHXjdLY26/Gz6HeMFHMq8wP4im3TiZrOzYgA45SAc9KftTgU6Neq4Ks4IRT16Uy8Mw5sbVTuRI6lh271Ml9TbDNKTYldwjzHO3rWU96jBHnygHNZWas6eylsdJA5ugcKwPrSsuE52kiUKoJJB3G1aMMyKQmCo/zUQ+LPFFtw5wZq91LcyWzvEyRtGnM3MRgYFeykeHZyv8AtA/EzUuJuKbrSIbi4h0y0PhiDxQyuR32/saquzvXtSRnyk5oe5kaa4kkZmcsxJZupz60bplnaXDE3l2bdB/SvMTW6ikqMnLdks4Zn0ziSzutL1NnhmZS0Nwp+yRuAR3FRBo5ra5kgIHOhKmpHpy6DasfAllMhXGW2pysNJ0fVJuriZsElu309aaBsZdNtkuRGJbUySZxsP0oi4054pnVUeNwAQjHBA7Y9anv7ts7GAC2hhaVRktuGH0FMN6tuZ0EhVjyl8HOc+m9MQnw/Cl2ws9VlaGOXZGcc0Z9iexoCXRJ9M1eRYpfHRN0aNwXHoCO4qYaFZR6hbqbfV4IY2yGglUDB/HrQet8OafC7XM+LeUdCJB5vcDrQAPDb6fNFHcEXEF4uecAbE9j9KDmkktFM0ciCZtvDzgEevWgtSsLuK3Z4JeZX8o5djW2l/DvW9RsJL5YshcYDEksSccox3pXQCNzxR4yEXEFszpsH5cN9MjrTMNZCO3KAoLFsKThT6gU6alokOh3jWV7atLcrguJNgpPbFSLh74Y/wDHVpeSaVYzK1lCZpXiGQoH9z7VPb2h0Vxf3plm5s5yN8UlEzEBgSK31jTJdJv5LWXcodj6j1pOA5SrTEWT8NeKptKu7VXmIh8QB1G5cb7fnV/31ql9aQa4gQq6/LlVGQyk9T9K5N0Nyl/ERvvjBOP1rpz4eakmq8PmyEjIvmGFww5yRzDeqREv0i3Ger6lwc+n39jccgbmXboR0wR+HWrI+DnxGl44tf3ZKyrNbAlgBzM+e/0xUO+KHDjXPAckphKXVjIJFIGfJzYK5H1BqHfBfX4OCtXl1C5uUtxMvhtI7YwOuMd6zyY1JUy8c62dVz6FauV57GzcHryZQ/70y3XBulu7g2F3ChI80ThgffHUU/aBxRp2u2UcsF9BOSvMRzDvTqYY3AkVAfQrmvLni6ujsjlZCYtDexZDb35lC+ULdRsCc7Y5voajq6RxporzTadqSXVs8zSCNShC+2DVo3MAdubLA9cZ2prvLGCZGWSOL3JXGaxtLybxbZXNzxnxLphzqekySAHPMYyMfltWVLrjS4lGIZZcY2VJzgfgayncDVLJ6JSQEkDJIcAYIPcZrlf9qrjeaXU4OHLeaUIq+JMVfCn2wK6W4rnvbXQ7w2al5xExXwyAwPbGa+e3FdxqN1xDeyao8r3ZlbnMp82fevUxq2eXJ0MxUk5xW0asWANbAbVtHkPW5m0F2wYuowCT0qS2141vCJWyJk2CgdfoaZ7NHyPB5VB6liBTv8tcRxIrNFIGzy8p3+uaAHLTtaN04IhZuU5y5/PFN+u3ySShhO3Md+QkAUPJby2278xRvvHoCaEmQeIockjpkb7UAGWl5JIoikfEWc83UD6inqO3kHJKpZwu45hlfz6iock5tZvKWXB9NiKcEucoXt5nwT15yAPbFAic2upTWjxSrA3LzZdOQSKce3p9KsvhDiq1sLyPULeymitpAPGjVQ8TY79crVF2WvajE8RkDlVYYlRtx/ip1pt3aS/xrYskkx5GiyUD9zt0/KhqwZnxj4cup+M7zWLUBtP1FfmYJicL9kZT/uHpTXwVqfE8OpW+m8N31zZvqTpazLA+DKuc5I7ADO9WJpbJfWE2nTQHULNyA1o55mjONj6g+9P/AMO34G4IupZv3XqcOtMpC/NLzFR/SjED86iX0joVv0c/fFTSrnT9YZp4m/hkwyORtzdvzFRHT4EuWZC4U4yCatX4l8LcTcd8W3OoGygsoJGLJzzDAXtnHeoFecK3vDWqeDdcksa4DzR7oCe2e+M0sd9VZb2JJZvFyzMp8PqGHbHWrO+Fer3NhqkqcpNtI/OOZe49D9KrnTr9DcHS7iReQsQrv0z/AL1KbPUn0KJish5QmGCHoQetaolq0dNc1rreiNaSRoEmieBlz5VZxjPv23qktN+EWoa3p+pz28OX0uf5edHXcH29uh/GhYPjzHBp72y2TeKIcJLnq47kVJvgT8TLniT4hxaU7PDa6nayC5tmbyvKi+Rx/qwMe9LI9WTBNeSc8JcB3em8L20BuHsyy4LqgypPTIPWm3VPgt8RYZTcaDx+tsy7hUDwk/XBI/SrYS/i0y9OlsyKjMGgBIKhgfMvse/406yyAufKjA79cYrjbb2zrjvSKCnsv2g+FVtiOItP1kTMQqShGOwzuSB/egrr42fFzh9yNa4HtLqMbEwKw/VSau3iGXltrB8FStwV656qaYLi4zzcxyaxySintHVjxWrTKxi/aj08MI9a4P1SyY/a8Mhh+RANZU11C0srxSLi2gkzseZAays/8T9GqjkXsJ+OtxrScPznTLySyPIWZ1QNkem+4riO8ea4upZJ5GklZiWY75NTn4p/FnU/iDrMskc9zBp6kiKAyHcepxUB5iOhr04RpHlye9GRjmYL/mnGztUCStJCXCDOebbNNyK0jYAyacIbO8e1ZYllfmYZVB6VZAtbR+M4WMgAfaGelOCxvHyMHfw/9O2KBh0LUHX+U6N252C/3p60/grU5ITLJmIrjDSOOX3oFYBd3rLEA0yMzZB7kj3FNBvWU4VcZ75p81PQ47c/xdRjl7fwm5gD6ZplurIxSbBnUd13oA2Mc8qeIUMnuvWhxIUyQG5fTFKR6hLHlIhyDptsa2lvpHh5JF58b82aYCtnNDGT4vOQ3Qq2Km2hPYMsZS7nAJ3Ug+UZHeq4W5JIUgBRTjYap+73EkQcgfa5XxmgC/LG5LwvLCVjaMhFkySzoe5XG+9Sa04gaS0Wx1mOER83KA4IHsVc9AfeqS0XjaNgsfmjUjzcr4z7ZPT8KeBr/iIEa/ubYsShWVg8ePrTsVFnX3CdreHxtJuwy5w0LuFKkHpn0qG6p8K7qKO+F7cyxwBTOpl+y59Pp70bw1xJDBJzxq7O4CK0cnOhPrg+lPl/remLA0WqXbiN0wFd+hJ3IA6k0C2c66tp/wC69SilCM8QfbOxOD1p1u/mpi6QhwJtnZxgYNWDrfw+07V1S4s9SSR2YBVAJ79xXvE/Brabp8UqyfMGKPzchwo36Y7fjSodlV31pBZ5KyrIwxkA7fStNJu7izv4r7T55ba5gYPHJGxDKR3BoDU54WmdIg0fKxGCc/rUq+Fo0aPiGBtZeI22ckSNgZ/zmgdl2/Cv4jx8Uzz6brUjy61c3HzJkkxyzeUDC9OU4G/rV4QXtvHbxedXLnl32qto/hrwRfXEeo2GrJZgcrgAefPXKkdalWgQxRWEw8RrpUnZUlOObl98d6xzKo2a4P8AcN4ikPyJIGBHcRN17Zx/mmK7lw7YO1HcQ3GdLugOcYUN09GBpou5MAnPbNebN7PVx+AS4mypFZQdxL5WOaypLOOR0rdACdx+NJg4rYPjpXsnhhkcAkkUKRjuRT9Y+HatiOGJum8j9D9KjaTyZCK3KD6HFFwkQTK7upA3xzdaBEyg4jvYEWPmjSPcExxAH8+tIySfPsGW5ZnGcLJIST9M03WGpm7n5WVUhUYALCnCQq6t/AmBjGFK9KYwF7lmLwzRMMHYFR/ehX0mYRGWPlYMehP2R60rIk13bukTnHU8wz+p6Una2VwiEy39tbop3y/MfyFIBvktEtyrTThAehTekrqW1QYjmkmGOpFPJh0maQCbUppgDjligIH6ml7+04ftoxme6KY+wkSg/mSaBENlKs3kGBWm9SqGy0O1iS5vrO4iiO6rLP8AxZR6hFAwPcnFIScVWNpMG0jh/TrdVPle5Q3Dn68xx+lMQ0WE06SDw1LA9VCc2aktnE7SK8GmyRTYwDIjlW/DGKR/9T+KFTkivYLdP6YbWJB+i1qeN+KrlTK9w8qDqxt1IH44oGTTRZr2zhKXEFyx2CukDeX/AE7DGKSuLVNWupHEs/PCP4h8EkgdN16imHTuN7W3eGe7+YnuE3Dxv4QQ+6jY1Jk4w1u8t5bmys+WKbyrcXK+GG/8j1piHrh3Wf3TpoK2l/cMkvLEFjIOexO1Sy5SO/0pvFiKvKhVlIyFPXtVUz61xHc2c0dxdGU83kCMdyO/MOtEaAdalnhW5uilv9qYmTcn/wCqExNEb4n4KuvnZZrKIyISSxAwM+2ajE+k31qrNJbyBV6tjYfWr1vLq1hUzpPBIhOESQDJPtn0qOXerQ6zJLaLaoI28kkh2zv7UmhoD+H2q6tcSaZpkd3IMucEtjkUdTmujOE4k060utPW7e5CnxVlzkyK3Q/4rnTQZILC9XwYFBMrQFwceQfa/Per60mZTrCLaxlbMWSjmAIIHUdfrWWSPaLRril1mh51OUS6ZdKZX3iYY/CmyacvbRtscop/Si5SGikjDjDAgGmK3n8TS4T3CAH8Nq8ySPXiD3cx5HAODisoWaTBesoQ2conONqVtHt1kJuY5ZBjYI3Lv7mkyK8xtXrnhhDzwlspbKo9CxNbLNbE+aAr/wBrZ/vQYynuK95vY0AOcFuXYS215AHHRZDyH9dqcVTiK2BmNtcy5H2wDImPqNqjYcGjrPUZLJuaCe5iP/xSlP7UAEzarcHadXB6kHb9K8e/8ZAuRjrgUZPxRq9uyiK/lKkffKy/qRSZ4q1hlbF/yn1WJFP6CgAVbK+u3zbW1xKx7JGT/inuz0K9sIlvNQgsrebOIUvJFjCf62XOT7DFN8N3q2oqhudSumSSTkUeIRzHucDsKa9RuTeXckpOR9lc9lGwpgPVxHozSNNqms/OTMfMLSN2J/8AJsCkJdS4bhx8poVxMR1a6uyQf/FQP70wMMsPepNw1wRNqtk+r6ldx6TokbcrXswJMjD7kSDeRvYbepoEKw8VWoxFY6NHau5AAt0RmJ9AWUmpH/wPrN1ZC+4m1eXQ7BsMtveXCieUf6Y9gB7tihtQ4l0rghDa8K6c1vqJXDX93iS5iB7/ANMbH0X7Pc5qNaZBfaxfPdgS312xJQytzefqXYnoFG5J26UMZJbvWeHuEWNnp2j2M1025uZj8y8Y7ZJAUMfQDagbnjea+C2wspbqUABRMSx/Adh9KbhNYaRL4NiF1fV5W5TdMOaGNj/01P22/wBR29BRtx81oCx2lqsc+p3/AJZpj5pGB6qn9Kdi3VsHtQA3y3upTSmXneFZNuXmOFo7SYrqW1uR47KZUAUsdgc9qalE91ffJRzI/m5WeMZB9ce1YlyWZGeUjkGBj67UAShrAz28KT3RnurfmZ19B6UI+ofJQsYk5GPm5v6fc17p8j3R55MoZSfMvR8djTRxE9whWMYVWGGAGM0hkr4QjF1JHHK2TI2QffNX1pjzae0STussQiCeUdMdM4qjPhreI3gCe3WVosIy43YHofwq9eHUmhKyi2aS1RuZUL8vN6jPXIpqN6JcqabDi6zOyxOmSfKp2yPY0z2Om6nLaiKOxnYqzKcIR941J455GVm02ysrbJziTzMPz6UNcvqF1n5vVXIz9mJcfh7Vl/Cvyzo/ntLSGN+Fb4sTdSwWa/8AyPk/kKyiJI9OVy0sksuP+o+ayqXDxoyfOyvwcfOq4yDvSXI3cEZrcI2Rjelobd7iTlLqvux2FUSD8m2TmtSMUaLPnyPFLYOBjpSclmYTiSQfQdaVgClQa03U7UU0HIM7ketaNygnAOO2aYCTSHpXqtnrXoQOcDrXos5yCQhIHegA+xvW55JWcKsMDCNR6kYGPzzTcTtWKrLt09RUo0XSE02WGW9SNr6QeJFbzDKW6DfxpR9NwvfvQB5p/DEGm6OvEGv+S2ZuW1sc4lvG67/0xjuep7VtdcSXmpM2t6iUItx8vp1rGvLDA2Pup0AUb+5xmmriPW5db1AzF5GhjHJEHO/L6n3J3P8AtSNyJbp7TT4EZyihERRuzscnHuSRQBmnadda3fGNGyxzJLNK3ljX7zufSjtY1pLe0/cukMUsV/my4w90/csey56L+e9e6vcro9o2g2cikgg30yH+dIPuA/0L+pyfSmzR9Pk1jVLawh2e4kWMH0yev4CgCUcM6enD3D8vF+oRKzMxt9OicbSyfecj0FN9xNPp+nfvS6dm1PVQxiY7GKHoWHoW6D0ANOXGV8ut8SWPD1q3Jp+nlLOJVOw6c7f7+1MvFd8uo38UsYAiSIRxqOiqCQo/LFAI10iJLe6sZA7BpT5t9tzgUisMiM7svKkTFGz617b3UGImkbBjQKMDoQc1tcX3jtgEiMsXOe5NADtorSzFEjLDvjtmn230ka5NyTry4PXGzN7ULpClLYr4alm3DEbKKs3g+yjttPt0dIp1uGDeXcqf8UivCAfh98Mbqzvn1O6YrbopVYwpJPoatU3KWcYayglOBllwTnA/vXurC7sdJR9K87tgBWxgexpmSbipshtRS35sFlTfFbwpeTCdvwFXV3evh442RH3Uqp2oG8N1dDm/5p3X7QVSM+9E6feaql7Jpz6mTDD/ABDL/SevKBTla6jNLmSG9kdeblYhs4rX6fplU/wiUkN7ISq2V2e38o1lTCw4pbU9Uh0+2llKKT4kqndu+3pWVr8cPbM+8/w4tWQ+tKCd8cowM9+9DsNx060ou564rzzuFPEcdGI+lbPdFgAwyfXvWvkHU5rcxQnzvMuT9wdaBo1W5I22KmkmIJPal3QEARoMHvSLoUO9AGucHat47iWJsq7CtDR2nRQxn5u5jEsMW/hnbxG7L9PX2pMSH3RIXtfDvJtPS8vGTxbaAjZF/wCrJ7egPXr0oDV5/BSQx3XzEt2xa4lzksevKD6Z/OkZNXur55TJLyJMQZETYPjsfb2rHu2M7PFZwlOgGMlRUlobBG7b8jflTxpcp0u1uNYORdEmC09VcjzSf+I6e59qVs/EuJQ7usYG4QjINOt8tlqdzHZTRTIIUCr4AB83U5+pocqGo2QhySe5z3qS8BclpeX+qyHHyFo8iH/Wdh/mhbzQTEwIDJGSQruhAatrQNZ8PamAd5mSMn1GaakiXFoC0eZjqwuJDl8SSE+/KaBMhZQGPQbZojTG5bxc/eVl/NTQ3KD1qhGvOfxoqzimvJkt4Iy0jHAAoTGGxUq4fv7HQo1uDiS5J2P9NJugSJTofA2svytcSCIeGDylt/pU20O5j4eIhEgZtucP0z6ioM/xFafCk52yrLtihhxIl45MkhXJzv0pWVR0Lo+pTXWnssZMxdumMtStvoesI17dRWFzPPN/LQKcAAYHWq34e47uOHrMS2mFeQDdXzn6ijp/jFxFO3luCi4xgGuvFgU1bZzTnKLpIk+k8E8QNHNDd2Uqq7GQo7Bedu/Mc5xUhm4Wlh0xYLeWzt0mUgkSgBB/91UV5x7q9/L4kt04bOQVJFBR6/qE9t8v8xIUycrzGun4I2Yuc2Xdw3pmgcLc5u9W09rhvtFTnlHpWVRZ8RiTJI2WO+TmsrX4Yy2Zq1qylHiZMhxjFajyn096ysryT0D3ruDXgDDvWVlIBRZGUYFYZC32t6ysoA0Y57URLdcyRxKMIg6ep7msrKTGjzxhjsKVSXosTNkjpWVlDKCIBdRSAv5TzDC96e7Til7ISw/JWx5yeZ8EPv71lZUNFRYt++4Lh4kaCYwoRsz5+tE3NpY32nyraqVBcMEJ61lZWMteDeO/JFZNLeCfKggqe1N88MkMhBBrKytoSZzzikJpGWbcUbHEhiweuaysqm7JiamN1Ploi3SaSXGevbpWVlSUTTR0drFVOSV7dcUSBLg4BNZWV6HEk6o5s6oVSOdgGxgUVBHIpzWVldfbZgh30/RtQvmxbwO5/qxsPxrKysqJZpIlI//Z" width="${size}" height="${size}"
+    alt="Hex, a black cat with green eyes">`;
+}
+
+/* ----- clock ----- */
+function setClock(next) {
+  const before = new Map(MOMENTS.map((m) => [m.id, statusOf(m)]));
+  now = next;
+  $('#clock-display').textContent = fmtClock(now);
+  $('#sb-time').textContent = fmtShort(now);
+  // a moment newly arriving at DUE presents itself once, calmly
+  for (const m of MOMENTS) {
+    const was = before.get(m.id);
+    const is = statusOf(m);
+    if (is === 'due' && was !== 'due' && ui.view === 'home' && !ui.owner) {
+      ui.sheet = { type: 'due', id: m.id };
+      announce(`It’s time for ${m.title}.`);
+    } else if (is === 'soon' && was === 'upcoming') {
+      announce(`${m.title} is coming up in about 15 minutes.`);
+    }
+  }
+  render();
+}
+
+function nextTarget() {
+  let best = null;
+  for (const m of MOMENTS) {
+    const s = statusOf(m);
+    if (s === 'completed') continue;
+    const t = snoozedUntil(logs.get(m.id), now) ?? m.dueAt;
+    if (t > now && (best === null || t < best)) best = t;
+  }
+  return best;
+}
+
+/* ----- actions ----- */
+function doSnooze(id, minutes) {
+  const m = byId(id);
+  const until = now + minutes * MIN;
+  logs.set(m.id, append(m, logs.get(m.id), { type: 'snoozed', at: now, by: WATCHER, until }));
+  ui.sheet = null;
+  announce(`Snoozed. I’ll remind you at ${fmtClock(until)}.`);
+  toast(`No problem. I’ll remind you again at ${fmtClock(until)}.`);
+}
+
+function doQuickComplete(id) {
+  const m = byId(id);
+  const before = logs.get(m.id);
+  const r = attemptComplete(m, before, { by: WATCHER, at: now });
+  logs.set(m.id, r.log);
+  if (r.alreadyDone) {
+    ui.sheet = { type: 'already', id, prior: r.alreadyDone };
+    render();
+    return;
+  }
+  ui.sheet = null;
+  announce(`${m.title} done.`);
+  toast(`${m.title}, done at ${fmtClock(now)}.`, () => {
+    logs.set(m.id, before);
+    announce(`${m.title} restored.`);
+  });
+}
+
+function startGuided(id) {
+  const m = byId(id);
+  logs.set(m.id, append(m, logs.get(m.id), { type: 'started', at: now, by: WATCHER }));
+  ui.view = 'guided';
+  ui.guidedId = id;
+  ui.guidedStep = -1; // -1 = the reassurance intro
+  ui.sheet = null;
+  render();
+  $('#screen').focus();
+}
+
+function guidedNext() {
+  const m = byId(ui.guidedId);
+  if (ui.guidedStep >= 0) {
+    logs.set(
+      m.id,
+      append(m, logs.get(m.id), { type: 'step_done', step: ui.guidedStep, at: now, by: WATCHER }),
+    );
+  }
+  if (ui.guidedStep < m.steps.length - 1) {
+    ui.guidedStep += 1;
+    render();
+  } else {
+    const r = attemptComplete(m, logs.get(m.id), { by: WATCHER, at: now });
+    logs.set(m.id, r.log);
+    ui.view = 'relief';
+    ui.reliefOf = m.id;
+    announce(`${m.title} completed. Mikel can see that it’s done.`);
+    render();
+  }
+}
+
+function openHelp(from) {
+  const id = ui.guidedId ?? ui.sheet?.id;
+  if (id) {
+    const m = byId(id);
+    try {
+      logs.set(m.id, append(m, logs.get(m.id), { type: 'help_requested', at: now, by: WATCHER }));
+    } catch {
+      /* already in a state where help is implicit (e.g. soon), the sheet still opens */
+    }
+  }
+  ui.sheet = { type: 'help', from, id };
+  render();
+}
+
+function closeHelp() {
+  const { from, id } = ui.sheet;
+  if (id) {
+    const m = byId(id);
+    if (deriveStatus(m, logs.get(m.id), now) === 'needs_help') {
+      logs.set(m.id, append(m, logs.get(m.id), { type: 'help_resolved', at: now, by: WATCHER }));
+    }
+  }
+  ui.sheet = from === 'due' && id ? { type: 'due', id } : null;
+  render();
+}
+
+/* ----- renderers ----- */
+let openSheetKey = null;
+function render() {
+  const screen = $('#screen');
+  if (ui.owner) screen.innerHTML = renderOwner();
+  else if (ui.view === 'guided') screen.innerHTML = renderGuided();
+  else if (ui.view === 'relief') screen.innerHTML = renderRelief();
+  else screen.innerHTML = renderHome();
+  const sheetOpen = !!ui.sheet && !ui.owner;
+  $('#overlay').innerHTML = sheetOpen ? renderSheet() : '';
+  // Sheets are modal within the phone: the screen behind the scrim goes
+  // inert, and focus moves into a newly opened (or swapped) sheet.
+  screen.toggleAttribute('inert', sheetOpen);
+  const key = sheetOpen ? `${ui.sheet.type}:${ui.sheet.id ?? ''}` : null;
+  if (key && key !== openSheetKey) $('#overlay .sheet button')?.focus();
+  openSheetKey = key;
+  $('#toast-slot').innerHTML = ui.toast
+    ? `<div class="toast">${ui.toast.text}${ui.toast.undoFn ? '<button type="button" data-act="undo">Undo</button>' : ''}</div>`
+    : '';
+}
+
+function greeting() {
+  const h = Math.floor(now / HOUR) % 24;
+  return h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening';
+}
+
+function renderHome() {
+  const open = MOMENTS.filter((m) => statusOf(m) !== 'completed').sort((a, b) => a.dueAt - b.dueAt);
+  const done = MOMENTS.filter((m) => statusOf(m) === 'completed').sort(
+    (a, b) =>
+      logs.get(a.id).find((e) => e.type === 'completed').at -
+      logs.get(b.id).find((e) => e.type === 'completed').at,
+  );
+  const next = open.find((m) => statusOf(m) === 'due') || open[0];
+  const later = open.filter((m) => m !== next);
+
+  return `
+    <h2 class="greet">${greeting()}, ${WATCHER}.</h2>
+    <p class="greet-sub">Day 1 of 5 with Hex · Mikel is traveling</p>
+
+    <div class="pethead" data-note="runner">
+      ${hexAvatar(46)}
+      <div>
+        <div class="pname">Hexadecimal</div>
+        <div class="pmeta">“Hex” · black cat · 4</div>
+      </div>
+      <button type="button" class="chip-runner" data-act="know" aria-label="Runner, Hex bolts through open doors. Open Know Hex.">⚡ RUNNER</button>
+    </div>
+
+    ${next ? renderNextCard(next) : ''}
+
+    ${
+      later.length
+        ? `
+      <h3 class="sec-label">Later today <span class="rule"></span></h3>
+      <ul class="mlist">${later.map((m) => renderRow(m)).join('')}</ul>`
+        : ''
+    }
+
+    ${
+      done.length
+        ? `
+      <h3 class="sec-label">Done <span class="rule"></span></h3>
+      <ul class="mlist">${done.map((m) => renderRow(m)).join('')}</ul>`
+        : ''
+    }
+
+    <h3 class="sec-label">Know Hex <span class="rule"></span></h3>
+    <details class="know" ${ui.knowOpen ? 'open' : ''} data-note="runner">
+      <summary>The things Mikel knows without thinking <span class="hint">always here</span></summary>
+      ${KNOW.map(
+        (k) => `
+        <div class="know-item">
+          <span class="k ${k.tone === 'calm' ? 'calm' : ''}">${k.k}</span>
+          <span class="v">${k.v}</span>
+        </div>`,
+      ).join('')}
+      <div class="know-item">
+        <span class="k calm">HELP</span>
+        <span class="v">Unsure about anything? <strong>Text Mikel.</strong> He’d rather get ten texts than one surprise.</span>
+      </div>
+    </details>`;
+}
+
+function renderNextCard(m) {
+  const s = statusOf(m);
+  const phrase = timePhrase(m, logs.get(m.id), now, fmtClock);
+  const quiet = s === 'upcoming';
+  const actions =
+    s === 'due'
+      ? m.depth === 'guided'
+        ? `<button type="button" class="btn btn-primary" data-act="start" data-id="${m.id}">Start care</button>
+           <button type="button" class="btn" data-act="due-sheet" data-id="${m.id}">Snooze…</button>`
+        : `<button type="button" class="btn btn-primary" data-act="complete" data-id="${m.id}">Mark done</button>
+           <button type="button" class="btn" data-act="due-sheet" data-id="${m.id}">Snooze…</button>`
+      : s === 'snoozed'
+        ? `<button type="button" class="btn" data-act="${m.depth === 'guided' ? 'start' : 'complete'}" data-id="${m.id}">Do it now</button>`
+        : '';
+  return `
+    <div class="next-card ${s === 'due' ? 'is-due' : ''} ${quiet ? 'is-quiet' : ''}" data-note="time">
+      <div class="when">${s === 'due' ? 'NOW · ' : ''}${phrase}</div>
+      <h3>${m.title}</h3>
+      <div class="cnote">${m.note}</div>
+      ${actions ? `<div class="actions" data-note="snooze">${actions}</div>` : ''}
+    </div>`;
+}
+
+function renderRow(m) {
+  const s = statusOf(m);
+  if (s === 'completed') {
+    const c = logs.get(m.id).find((e) => e.type === 'completed');
+    return `<li class="mrow is-done">
+      <button type="button" class="checkbtn is-done" data-act="complete" data-id="${m.id}" aria-label="${m.title}, already done by ${c.by}">✓</button>
+      <div><div class="tt">${m.title}</div>
+      <div class="ts">${fmtClock(c.at)} · <span class="by">${c.by}</span></div></div>
+    </li>`;
+  }
+  return `<li class="mrow">
+    <button type="button" class="checkbtn" data-act="${m.depth === 'guided' ? 'start' : 'complete'}" data-id="${m.id}" aria-label="Mark ${m.title} done">✓</button>
+    <div><div class="tt">${m.title}</div>
+    <div class="ts">${timePhrase(m, logs.get(m.id), now, fmtClock)}</div></div>
+  </li>`;
+}
+
+function renderSheet() {
+  const s = ui.sheet;
+  if (s.type === 'due') {
+    const m = byId(s.id);
+    const guided = m.depth === 'guided';
+    return `<div class="scrim" data-act="dismiss-scrim">
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h" data-stop>
+        <div class="grab"></div>
+        <h3 id="sheet-h">It’s time for ${m.title}.</h3>
+        <p class="sub">${m.note}</p>
+        ${m.source ? `<p class="sub" style="margin-top:8px" data-note="source"><em>${m.source}</em></p>` : ''}
+        <div class="actions">
+          <button type="button" class="btn btn-primary" data-act="${guided ? 'start' : 'complete'}" data-id="${m.id}">${guided ? 'Start care' : 'Mark done'}</button>
+          <div class="microlabel" data-note="snooze">Can’t right now? I’ll hold it.</div>
+          <div class="snoozerow">
+            <button type="button" class="btn" data-act="snooze" data-id="${m.id}" data-min="5">5 min</button>
+            <button type="button" class="btn" data-act="snooze" data-id="${m.id}" data-min="10">10 min</button>
+            <button type="button" class="btn" data-act="snooze" data-id="${m.id}" data-min="15">15 min</button>
+          </div>
+          ${guided ? `<button type="button" class="btn-quiet" data-act="help" data-from="due">Something isn’t right</button>` : ''}
+        </div>
+      </div></div>`;
+  }
+  if (s.type === 'know') {
+    return `<div class="scrim" data-act="dismiss-scrim">
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h" data-stop>
+        <div class="grab"></div>
+        <h3 id="sheet-h">Know Hex</h3>
+        <p class="sub">The things Mikel knows without thinking. Always one tap away, never an interruption.</p>
+        <div style="margin-top:14px">
+        ${KNOW.map(
+          (k) => `
+          <div class="know-item">
+            <span class="k ${k.tone === 'calm' ? 'calm' : ''}">${k.k}</span>
+            <span class="v">${k.v}</span>
+          </div>`,
+        ).join('')}
+        </div>
+        <div class="actions"><button type="button" class="btn" data-act="dismiss">Got it</button></div>
+      </div></div>`;
+  }
+  if (s.type === 'help') {
+    return `<div class="scrim">
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h" data-stop data-note="help">
+        <div class="grab"></div>
+        <h3 id="sheet-h">Asking is the right move.</h3>
+        <p class="sub">If Hex seems off, don’t guess. Nothing here resets, your progress is exactly where you left it.</p>
+        <div style="margin-top:14px">
+          ${CONTACTS.map(
+            (c) => `
+            <div class="know-item">
+              <span class="k calm">${c.action.toUpperCase()}</span>
+              <span class="v"><strong>${c.name}</strong><br>${c.detail}</span>
+            </div>`,
+          ).join('')}
+        </div>
+        <div class="actions">
+          <button type="button" class="btn btn-primary" data-act="fake-text">Text Mikel</button>
+          <button type="button" class="btn" data-act="close-help">Back to ${ui.view === 'guided' ? 'care' : 'the moment'}</button>
+        </div>
+      </div></div>`;
+  }
+  if (s.type === 'already') {
+    const m = byId(s.id);
+    return `<div class="scrim" data-act="dismiss-scrim">
+      <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-h" data-stop>
+        <div class="grab"></div>
+        <h3 id="sheet-h">Already done.</h3>
+        <p class="sub"><strong>${m.title}</strong>, ${s.prior.by} took care of it at ${fmtClock(s.prior.at)}. Nothing was recorded twice; ${m.title.toLowerCase().includes('insulin') ? 'the guard exists so a pet is never medicated twice.' : 'the record stays single and attributed.'}</p>
+        <div class="actions"><button type="button" class="btn" data-act="dismiss">Good to know</button></div>
+      </div></div>`;
+  }
+  return '';
+}
+
+function renderGuided() {
+  const m = byId(ui.guidedId);
+  const total = m.steps.length;
+  const i = ui.guidedStep;
+  const intro = i === -1;
+  const step = intro ? null : m.steps[i];
+  return `<div class="guided">
+    <div class="ghead">
+      <button type="button" class="back" data-act="exit-guided">← Not now</button>
+      <span class="gcrumb">${intro ? 'GUIDED CARE' : `STEP ${i + 1} OF ${total}`}</span>
+    </div>
+    <h2>${m.title}</h2>
+    <p class="reassure">${intro ? 'You’ve got this. Hex knows the routine even when it’s new to you.' : ''}</p>
+    ${
+      intro
+        ? `<div class="stepcard" data-note="source">
+          <span class="src">${m.source}</span>
+          <div class="body">Five short steps, one at a time. These are Mikel’s and the vet’s words, PetWatch doesn’t write care instructions.</div>
+        </div>`
+        : `<div class="stepcard" ${step.stop ? `data-note="stop"` : `data-note="source"`}>
+          <span class="src">${step.src}</span>
+          <div class="body">${step.body}</div>
+          ${step.stop ? `<div class="stopnote">${step.stop}</div>` : ''}
+        </div>`
+    }
+    <div class="dots" aria-hidden="true">${Array.from({ length: total }, (_, d) => `<i class="${!intro && d <= i ? 'on' : ''}"></i>`).join('')}</div>
+    <div class="gactions">
+      <button type="button" class="btn btn-primary" data-act="guided-next">
+        ${intro ? 'Begin' : i === total - 1 ? 'Done, Hex is all set' : 'Done, next'}
+      </button>
+    </div>
+    <div class="gfoot" data-note="help">
+      <button type="button" class="btn-quiet" data-act="help" data-from="guided">Something isn’t right</button>
+    </div>
+  </div>`;
+}
+
+function renderRelief() {
+  const m = byId(ui.reliefOf);
+  const c = logs.get(m.id).find((e) => e.type === 'completed');
+  return `<div class="relief" data-note="relief">
+    <div class="ring" aria-hidden="true">✓</div>
+    <h2>All taken care of.</h2>
+    <div class="what"><strong>${m.title}</strong></div>
+    <div class="meta">${fmtClock(c.at)} · Completed by ${c.by}</div>
+    <p class="owner-sees">Mikel can see that it’s done.</p>
+    <div style="margin-top:30px">
+      <button type="button" class="btn" data-act="go-home">Back to the evening</button>
+    </div>
+  </div>`;
+}
+
+function renderOwner() {
+  const entries = MOMENTS.map((m) => ({ moment: m, log: logs.get(m.id) }));
+  const s = ownerSummary(entries, now);
+  return `
+    <div class="ownerband" data-note="ownergran">MIKEL’S VIEW · 1:45 AM in Lisbon · Hex’s schedule stays on the household clock</div>
+    <h2 class="allgood">${s.allGood ? 'Hex is all good.' : s.open === 1 ? 'One thing left today.' : `${s.open} things left today.`}</h2>
+    <p class="o-sub">Sam has it covered. You’ll see each moment here as it’s done.</p>
+    <div>
+      ${MOMENTS.map((m) => {
+        const c = logs.get(m.id).find((e) => e.type === 'completed');
+        return `<div class="orow">
+          <span class="tt">${m.title}</span>
+          <span class="st ${c ? 'done' : ''}">${c ? `Completed ${fmtClock(c.at)} · ${c.by}` : `at ${fmtClock(m.dueAt)}`}</span>
+        </div>`;
+      }).join('')}
+    </div>
+    ${s.lastCare ? `<p class="lastcare">Last care: <strong>${s.lastCare.title}</strong> at ${fmtClock(s.lastCare.at)} by ${s.lastCare.by}</p>` : ''}
+    <p class="o-fine" data-note="ownergran">This view shows outcomes only. Snoozes, steps, and timing between them belong to Sam, and Sam knows exactly what you can see.</p>`;
+}
+
+/* ----- events ----- */
+document.addEventListener('click', (e) => {
+  const target = /** @type {HTMLElement} */ (e.target);
+  const t = /** @type {HTMLElement|null} */ (
+    target.closest('[data-act], [data-tick], [data-try], [data-spot]')
+  );
+  if (!t) return;
+
+  if (t.dataset.tick) return setClock(now + Number(t.dataset.tick) * MIN);
+  if (t.dataset.try) return runScript(t.dataset.try);
+  if (t.dataset.spot) return toggleNote(t);
+
+  const act = t.dataset.act;
+  const id = t.dataset.id;
+  switch (act) {
+    case 'complete':
+      doQuickComplete(id);
+      break;
+    case 'start':
+      startGuided(id);
+      break;
+    case 'snooze':
+      doSnooze(id, Number(t.dataset.min));
+      break;
+    case 'due-sheet':
+      ui.sheet = { type: 'due', id };
+      render();
+      break;
+    case 'know':
+      ui.sheet = { type: 'know' };
+      render();
+      break;
+    case 'help':
+      openHelp(t.dataset.from);
+      break;
+    case 'close-help':
+      closeHelp();
+      break;
+    case 'fake-text':
+      ui.sheet = null;
+      toast('Message to Mikel drafted, the prototype stops here on purpose.');
+      break;
+    case 'guided-next':
+      guidedNext();
+      break;
+    case 'exit-guided':
+      // leaving guided keeps progress; the moment stays in progress on home
+      ui.view = 'home';
+      ui.guidedId = null;
+      render();
+      break;
+    case 'go-home':
+      ui.view = 'home';
+      ui.knowOpen = false;
+      render();
+      break;
+    case 'dismiss':
+      ui.sheet = null;
+      render();
+      break;
+    case 'dismiss-scrim':
+      if (e.target === t) {
+        ui.sheet = null;
+        render();
+      }
+      break;
+    case 'undo':
+      if (ui.toast?.undoFn) ui.toast.undoFn();
+      ui.toast = null;
+      clearTimeout(toastTimer);
+      render();
+      break;
+  }
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && ui.sheet) {
+    if (ui.sheet.type === 'help') closeHelp();
+    else {
+      ui.sheet = null;
+      render();
+    }
+  }
+});
+
+$('#jump-next').addEventListener('click', () => {
+  const t = nextTarget();
+  setClock(t ?? now + 15 * MIN);
+});
+$('#reset-day').addEventListener('click', () => {
+  MOMENTS.forEach((m) => logs.set(m.id, []));
+  seedMorning();
+  Object.assign(ui, {
+    view: 'home',
+    sheet: null,
+    guidedId: null,
+    reliefOf: null,
+    toast: null,
+    knowOpen: true,
+  });
+  setClock(START);
+});
+$('#owner-toggle').addEventListener('click', (e) => {
+  ui.owner = !ui.owner;
+  e.currentTarget.setAttribute('aria-pressed', String(ui.owner));
+  ui.sheet = null;
+  render();
+});
+
+/* scripted demo moments */
+function runScript(name) {
+  if (ui.owner) {
+    ui.owner = false;
+    $('#owner-toggle').setAttribute('aria-pressed', 'false');
+  }
+  ui.view = 'home';
+  ui.sheet = null;
+  ui.knowOpen = false;
+  if (name === 'dinner') {
+    if (statusOf(byId('dinner')) === 'completed') $('#reset-day').click();
+    setClock(at(18, 0));
+  } else if (name === 'already') {
+    render();
+    doQuickComplete('breakfast');
+  } else if (name === 'insulin') {
+    if (statusOf(byId('insulin-pm')) === 'completed') $('#reset-day').click();
+    settleEvening();
+    setClock(Math.max(now, at(19, 15)));
+  } else if (name === 'help') {
+    if (statusOf(byId('insulin-pm')) === 'completed') $('#reset-day').click();
+    settleEvening();
+    if (now < at(19, 15)) setClock(at(19, 15));
+    startGuided('insulin-pm');
+    ui.guidedStep = 0;
+    render();
+  }
+}
+
+// Jumping straight to 7:15 shouldn't leave the story littered with overdue
+// chores: Sam handled dinner and water on time before the insulin moment.
+function settleEvening() {
+  const settled = [
+    { id: 'dinner', doneAt: at(18, 5) },
+    { id: 'water', doneAt: at(18, 32) },
+  ];
+  for (const { id, doneAt } of settled) {
+    if (statusOf(byId(id)) !== 'completed') {
+      logs.set(id, attemptComplete(byId(id), logs.get(id), { by: WATCHER, at: doneAt }).log);
+    }
+  }
+}
+
+/* design-note spotlights */
+let spotTimer = null;
+function toggleNote(btn) {
+  const open = btn.getAttribute('aria-expanded') === 'true';
+  document
+    .querySelectorAll('.notes [aria-expanded="true"]')
+    .forEach((b) => b.setAttribute('aria-expanded', 'false'));
+  document.querySelectorAll('.spot').forEach((el) => el.classList.remove('spot'));
+  clearTimeout(spotTimer);
+  if (!open) {
+    btn.setAttribute('aria-expanded', 'true');
+    const targets = document.querySelectorAll(btn.dataset.spot);
+    targets.forEach((el) => el.classList.add('spot'));
+    spotTimer = setTimeout(
+      () => document.querySelectorAll('.spot').forEach((el) => el.classList.remove('spot')),
+      4000,
+    );
+  }
+}
+
+/* ----- go ----- */
+seedMorning();
+setClock(START);
+
+</script>

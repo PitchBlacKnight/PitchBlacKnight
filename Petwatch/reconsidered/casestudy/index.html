@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PetWatch, Reconsidered</title>
+<meta name="description" content="A product design exercise, done twice. The second time asks a harder question: what should I have made?">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../tokens.css">
+<style>
+* { box-sizing: border-box; margin: 0; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--sans); font-size: 16.5px; line-height: 1.66;
+}
+.skip { position: absolute; left: -999px; top: 8px; z-index: 99; background: var(--ink); color: var(--paper-2); padding: 8px 14px; border-radius: var(--r1); }
+.skip:focus { left: 8px; }
+a { color: var(--ember-ink); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--ink); }
+
+.mono { font-family: var(--mono); }
+.eyebrow {
+  font-family: var(--mono); font-weight: 500; font-size: 11.5px;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--ember-ink);
+}
+
+/* ————— layout: a wide page with a live margin ————— */
+.page { max-width: 1060px; margin: 0 auto; padding: 0 var(--s5); }
+.chapter {
+  display: grid; grid-template-columns: minmax(0, 620px) minmax(220px, 300px);
+  gap: var(--s7); justify-content: center;
+  padding: var(--s8) 0 var(--s7);
+  border-top: 1px solid var(--line);
+}
+.chapter:first-of-type { border-top: none; }
+.body-col { min-width: 0; }
+.margin-col { padding-top: 58px; }
+
+h2.ch-title {
+  font-family: var(--serif); font-weight: 350; font-size: clamp(30px, 4.5vw, 42px);
+  letter-spacing: -0.02em; line-height: 1.12; margin: 10px 0 26px;
+}
+.ch-num { display: block; }
+.body-col p { margin-bottom: 18px; max-width: 60ch; }
+.body-col p strong { font-weight: 650; }
+.body-col em { font-family: var(--serif); }
+.pull {
+  font-family: var(--serif); font-size: 24px; font-weight: 380; letter-spacing: -0.012em;
+  line-height: 1.35; margin: 30px 0; padding-left: 20px;
+  border-left: 3px solid var(--ember);
+}
+.body-col ul.plain { margin: 0 0 18px; padding-left: 20px; max-width: 60ch; }
+.body-col ul.plain li { margin-bottom: 8px; }
+
+/* margin notes: real decision records, never decoration */
+.mnote {
+  border-left: 2px solid var(--line-2); padding: 2px 0 2px 16px; margin-bottom: 26px;
+  font-size: 13.5px; color: var(--ink-2); line-height: 1.55;
+}
+.mnote .tag {
+  display: block; font-family: var(--mono); font-weight: 500; font-size: 10.5px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 6px;
+}
+.mnote.brief { border-left-color: var(--slate); background: none; }
+.mnote.brief q { font-family: var(--serif); font-style: italic; font-size: 14.5px; color: var(--ink); quotes: '“' '”'; }
+.mnote .strike { text-decoration: line-through; text-decoration-thickness: 1.5px; color: var(--ink-3); }
+.mnote.ai { border-left-color: var(--ember); }
+
+/* hero */
+.hero { padding: var(--s8) 0 var(--s7); text-align: left; display: grid; grid-template-columns: minmax(0, 620px) minmax(220px, 300px); gap: var(--s7); justify-content: center; }
+.hero h1 {
+  font-family: var(--serif); font-weight: 330; font-size: clamp(44px, 7vw, 74px);
+  letter-spacing: -0.028em; line-height: 1.04; margin: 18px 0 22px;
+}
+.hero .dek { font-size: 19px; color: var(--ink-2); max-width: 54ch; line-height: 1.6; }
+.hero .dek strong { color: var(--ink); font-weight: 600; }
+.hero-links { margin-top: 30px; display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-links a.button {
+  display: inline-block; text-decoration: none; font-weight: 600; font-size: 14.5px;
+  padding: 12px 22px; border-radius: 999px;
+}
+.hero-links a.primary { background: var(--ink); color: var(--paper-2); }
+.hero-links a.primary:hover { background: #3a3226; }
+.hero-links a.secondary { border: 1px solid var(--line-2); color: var(--ink); }
+.hero-links a.secondary:hover { background: var(--paper-2); }
+.hero-cat img { width: 100%; height: auto; display: block; border-radius: var(--r3); }
+figure.diagram.door { max-width: 300px; }
+figure.diagram.door svg { border-radius: var(--r3); }
+.hero-cat figcaption { font-size: 12.5px; color: var(--ink-3); margin-top: 10px; font-style: italic; font-family: var(--serif); }
+
+/* table of contents */
+.toc { display: flex; flex-wrap: wrap; gap: 6px 22px; padding: var(--s5) 0; border-top: 1px solid var(--line); max-width: 1060px; margin: 0 auto; }
+.toc a { font-family: var(--mono); font-size: 12px; letter-spacing: 0.04em; color: var(--ink-2); text-decoration: none; }
+.toc a:hover { color: var(--ember-ink); }
+.toc a b { color: var(--ember-ink); font-weight: 500; }
+
+/* product vignettes: real components, not pictures of them */
+.vignette {
+  background: #FBF7EE; border: 1px solid var(--line); border-radius: var(--r4);
+  padding: 22px; margin: 26px 0; box-shadow: var(--shadow-soft);
+  max-width: 400px; font-size: 15px;
+}
+.vignette .vcap {
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--ink-3); margin: -6px 0 14px;
+}
+.v-card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 16px; }
+.v-when { font-family: var(--mono); font-size: 11px; color: var(--ember-ink); letter-spacing: 0.06em; }
+.v-when.quiet { color: var(--ink-3); }
+.v-title { font-family: var(--serif); font-weight: 420; font-size: 20px; letter-spacing: -0.01em; margin: 5px 0 3px; }
+.v-note { font-size: 13px; color: var(--ink-2); }
+.v-actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+.v-btn { font: 600 13px var(--sans); border-radius: 999px; padding: 9px 15px; border: 1px solid var(--line-2); background: var(--paper-2); color: var(--ink); }
+.v-btn.go { background: var(--moss); border-color: var(--moss); color: #F6FBF7; }
+.v-micro { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3); margin: 12px 0 6px; }
+.v-src { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--slate); background: #e6e9ee; border-radius: 999px; padding: 3px 9px; display: inline-block; margin-bottom: 10px; }
+.v-stop { margin-top: 10px; padding: 9px 11px; border-radius: 8px; background: var(--amber-wash); color: var(--amber-ink); font-size: 12.5px; font-weight: 500; }
+.v-relief { text-align: center; padding: 10px 0 4px; }
+.v-relief .ring { width: 52px; height: 52px; border-radius: 50%; margin: 0 auto 12px; background: var(--moss-wash); color: var(--moss-ink); display: grid; place-items: center; font-size: 22px; }
+.v-relief h4 { font-family: var(--serif); font-weight: 380; font-size: 21px; }
+.v-relief .m1 { font-size: 13.5px; margin-top: 8px; font-weight: 600; }
+.v-relief .m2 { font-size: 12.5px; color: var(--ink-2); }
+.v-relief .m3 { font-size: 12px; color: var(--ink-3); font-style: italic; font-family: var(--serif); margin-top: 12px; }
+
+/* state diagram */
+figure.diagram { margin: 30px 0; }
+figure.diagram svg { width: 100%; height: auto; display: block; }
+figure.diagram figcaption { font-size: 13px; color: var(--ink-2); margin-top: 12px; max-width: 60ch; }
+
+/* event log block */
+.logblock {
+  font-family: var(--mono); font-size: 12.5px; line-height: 1.75;
+  background: #2E2921; color: #E9E1D2; border-radius: var(--r3);
+  padding: 18px 20px; margin: 26px 0; overflow-x: auto;
+}
+.logblock .c { color: #9C917B; }
+.logblock .k { color: #E8A268; }
+.logblock .who { color: #9CC26F; }
+
+/* research question cards */
+.rq { border-top: 1px solid var(--line); padding: 16px 0; max-width: 62ch; }
+.rq .q { font-weight: 650; }
+.rq .how { font-size: 14px; color: var(--ink-2); margin-top: 4px; }
+.rq .how b { color: var(--ink-2); font-weight: 600; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; margin-right: 6px; }
+
+/* AI usage table */
+.aitable { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 14px; }
+.aitable th {
+  text-align: left; font-family: var(--mono); font-weight: 500; font-size: 10.5px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-3);
+  padding: 0 14px 10px 0; border-bottom: 1px solid var(--line-2);
+}
+.aitable td { vertical-align: top; padding: 12px 14px 12px 0; border-bottom: 1px solid var(--line); line-height: 1.5; }
+.aitable td:first-child { font-weight: 600; white-space: nowrap; }
+.table-scroll { overflow-x: auto; }
+
+/* footer */
+footer { border-top: 1px solid var(--line); margin-top: var(--s7); padding: var(--s6) 0 var(--s8); }
+footer .cols { display: flex; gap: var(--s7); flex-wrap: wrap; max-width: 1060px; margin: 0 auto; padding: 0 var(--s5); }
+footer h3 { font-family: var(--mono); font-weight: 500; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+footer p, footer li { font-size: 13.5px; color: var(--ink-2); max-width: 44ch; }
+footer ul { list-style: none; }
+footer li { margin-bottom: 6px; }
+
+@media (max-width: 900px) {
+  .chapter, .hero { grid-template-columns: 1fr; gap: var(--s4); }
+  .margin-col { padding-top: 0; }
+  .mnote { margin-bottom: 18px; }
+  .hero-cat { max-width: 420px; }
+}
+
+/* ----- brand skin: navy objects on a tan ground, gold accent ----- */
+body { background: var(--ground) fixed; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1400 900'%3E%3Cg fill='none' stroke='%23a88f6c' stroke-width='1.2' opacity='.55'%3E%3Cpath d='M-40 120c180-90 320 40 420-60s260-70 360 20 220 140 420 60'/%3E%3Cpath d='M900 880c60-140 260-180 360-120s140 60 220-20'/%3E%3Cpath d='M-60 700c120-40 200-160 330-120s150 120 270 60'/%3E%3C/g%3E%3C/svg%3E"), var(--ground); background-attachment: fixed; background-size: cover; }
+.hero h1, h2.ch-title, .pull, .v-title, .v-relief h4 { font-family: var(--serif); font-weight: 500; }
+.hero h1 { letter-spacing: -0.01em; }
+.eyebrow, .mnote .tag, .toc a, .vignette .vcap, .aitable th, .rq .how b, .v-when, .v-micro, .v-src { letter-spacing: 0.12em; font-weight: 700; }
+.hero-links a.button { border-radius: 999px; }
+.hero-links a.primary { background: var(--card); color: #f4efe6; }
+.hero-links a.secondary { border-color: var(--ink); }
+.hero-cat img { border-radius: 180px 180px 28px 28px; box-shadow: var(--shadow-soft); }
+.hero-cat figcaption, .mnote, .rq .how { color: var(--ink-2); }
+.pull { border-left-color: var(--ember); }
+.mnote { border-left-color: var(--line-2); }
+.mnote.ai, .mnote.brief { border-left-color: var(--ember); }
+.vignette { background: #1c2130; border-color: #30374b; }
+.v-btn { border-color: var(--line-2); background: transparent; color: var(--ink); }
+.v-btn.go { background: var(--ember); border-color: var(--ember); color: #1c2130; }
+.v-src { background: rgba(255,255,255,.1); color: #f4efe6; }
+.v-stop { background: var(--amber-wash); color: var(--amber-ink); }
+.v-relief .ring { background: var(--ember-wash); color: var(--ember); }
+figure.diagram { background: #1c2130; border-radius: var(--r3); padding: 20px; color: #f4efe6; }
+figure.diagram figcaption { color: #b9bfcc; }
+figure.diagram .n { fill: #262c3e; stroke: #414a61; }
+figure.diagram .n-hot { stroke: #f0a93a; }
+figure.diagram .n-done { fill: rgba(240,169,58,.18); stroke: #f0a93a; }
+figure.diagram .lbl { fill: #f4efe6; font-family: 'Manrope', sans-serif; font-weight: 700; }
+figure.diagram .edge { stroke: #b9bfcc; }
+figure.diagram .elbl { fill: #b9bfcc; }
+figure.diagram #arr path { fill: #b9bfcc; }
+figure.diagram.door { padding: 0; background: none; }
+.logblock { font-family: var(--code); background: #1c2130; border: 1px solid #30374b; }
+.aitable td, .aitable th, .rq { border-color: var(--line); }
+footer { border-color: var(--line); }
+
+</style>
+</head>
+<body>
+<a class="skip" href="#ch1">Skip to the writing</a>
+
+<main class="page">
+  <header class="hero">
+    <div>
+      <span class="eyebrow">A product design exercise, done twice · Goji Labs · 2026</span>
+      <h1>PetWatch,<br>reconsidered.</h1>
+      <p class="dek">The timed version of this exercise showed how much I could make.
+      This version asks the harder question: <strong>what should I have made?</strong>
+      It was built outside the original four-hour timebox, on purpose, and it says so,
+      because reconsidering your own shipped answer is part of product judgment.</p>
+      <div class="hero-links">
+        <a class="button primary" href="__PROTOTYPE_URL__">Use the working prototype</a>
+        <a class="button secondary" href="https://petwatch-exercise.vercel.app">The timed original, untouched</a>
+      </div>
+    </div>
+    <figure class="hero-cat">
+      <img src="../assets/hex-hero.jpg" width="700" height="709" alt="Hexadecimal, a black cat, lying against a brick and wood wall, looking up and to one side">
+      <figcaption>Hexadecimal. “Hex.” Four years old, insulin twice a day, faster than you think.</figcaption>
+    </figure>
+  </header>
+
+  <nav class="toc" aria-label="Chapters">
+    <a href="#ch1"><b>01</b> I did this twice</a>
+    <a href="#ch2"><b>02</b> Hex</a>
+    <a href="#ch3"><b>03</b> Two kinds of knowing</a>
+    <a href="#ch4"><b>04</b> When life interrupts</a>
+    <a href="#ch5"><b>05</b> The weight of the moment</a>
+    <a href="#ch6"><b>06</b> Where the interface ends</a>
+    <a href="#ch7"><b>07</b> What I still don’t know</a>
+  </nav>
+
+  <!-- ————————————————— 01 ————————————————— -->
+  <section class="chapter" id="ch1">
+    <div class="body-col">
+      <span class="eyebrow">Chapter 01</span>
+      <h2 class="ch-title">I did this twice.</h2>
+      <p>The first version of this exercise was a timed, four-hour take-home for Goji Labs.
+      I finished it inside the constraint and I stand behind it: it read the brief closely,
+      found a real gap, and shipped a working prototype. It is linked above, unedited.</p>
+      <p>It kept bothering me anyway. Reading it back the next day, two things stood out.
+      The changes I made in the final stretch of the timebox were the least screened
+      thinking in the submission: real decisions, shipped with the thinnest explanations,
+      because the clock ran out before the reasoning could be written down. An
+      unexplained decision reads as a guess even when it isn’t, and those closing calls
+      deserved better reasons than the last twenty minutes could give them. And the
+      whole submission leaned toward demonstrating how much I could produce: five
+      documents, four pages, the same six insights fanned out across all of them.
+      Volume standing in for judgment.</p>
+      <p>The first attempt did find something true. The brief’s user stories let an owner
+      write a schedule and a watcher read it, and nothing was ever marked <em>done</em>.
+      I called it the completion gap: as specified, PetWatch was a schedule viewer, not a
+      trust instrument. That insight survives here fully intact.</p>
+      <p class="pull">The first attempt answered the owner’s question: did someone handle it?
+      It never asked the watcher’s question: can I handle this?</p>
+      <p>That second question is what this version is about. Everything below was built
+      outside the original timebox, deliberately, with current tools, and this document
+      never pretends otherwise. If a constraint taught me what I could make in four hours,
+      removing it let me find out what I actually think.</p>
+    </div>
+    <aside class="margin-col">
+      <div class="mnote"><span class="tag">Ground rule</span>
+      The timed original stays public and untouched. A redo that hides its first draft
+      isn’t reconsidering, it’s covering.</div>
+      <div class="mnote"><span class="tag">What survived from v1</span>
+      Attributed completion. The double-dosing guard. One account, owner and watcher as
+      per-pet relationships. No red anywhere in the watcher’s path. Those were right the
+      first time; under this version’s scenario they become load-bearing.</div>
+    </aside>
+  </section>
+
+  <!-- ————————————————— 02 ————————————————— -->
+  <section class="chapter" id="ch2">
+    <div class="body-col">
+      <span class="eyebrow">Chapter 02</span>
+      <h2 class="ch-title">Hex.</h2>
+      <p>Hexadecimal is a black cat. Hex, to everyone. His owner Mikel is traveling for
+      five days, and a trusted friend, Sam, is house-sitting. Hex takes prescribed insulin
+      at 7:15, morning and evening. Sam has given that injection exactly once, on Sunday,
+      with Mikel standing at their elbow.</p>
+      <p>Sam’s problem at 7:15 PM on Thursday is not <em>“I might forget.”</em> A phone
+      alarm solves forgetting. Sam’s problem is: <strong>this is my friend’s animal, I’ve
+      done this once, I don’t want to hurt him, and I want to know I’m doing it right.</strong></p>
+      <p>Mikel, meanwhile, owns a hundred small pieces of practical knowledge that make
+      Hex’s routine easy. The one that matters at 7:15: Hex will do anything for a
+      particular lickable treat, and while he’s occupied with it, the injection is a
+      non-event. That single sentence is worth more to Sam at 7:15 than a page of
+      instructions.</p>
+      <p class="pull">A schedule transfers information. This product needs to transfer the
+      owner’s context and confidence, at the moment they’re useful.</p>
+      <p>I want to be precise about the claim, because the imprecise version is unsafe.
+      An app cannot transfer the <em>skill</em> of injecting insulin, and a first-ever
+      injection performed by a novice from phone instructions is a scenario no responsible
+      product invites. PetWatch assumes the procedure was demonstrated in person, by the
+      owner or the vet, at least once. What the product does is support <strong>recall,
+      timing, and calm</strong>: the demonstrated routine, re-presented one step at a time,
+      in the owner’s and vet’s own words, exactly when it’s needed. PetWatch organizes
+      trusted knowledge. It never generates care advice. That boundary is structural in
+      everything that follows.</p>
+      <p>This is also where the business problem lives, wearing its product costume.
+      PetWatch only works if an owner trusts it enough to route a friend’s care of their
+      animal through it, and if the friend closes the stay feeling capable rather than
+      surveilled. Confidence on one side and reassurance on the other is the retention
+      loop. Every design decision below is downstream of those two feelings.</p>
+    </div>
+    <aside class="margin-col">
+      <div class="mnote brief"><span class="tag">From the brief</span>
+      <q>The system supports creating daily or weekly routines covering feeding, walks,
+      medication, and playtime.</q><br><br>
+      Every verb in the user stories is owner-side logistics: add, schedule, invite,
+      revoke. Nothing in the brief speaks in the watcher’s voice. That silence is the
+      design opportunity.</div>
+      <div class="mnote"><span class="tag">Decision 01</span>
+      Narrow the thesis from “transfers competence” to “transfers context and confidence,
+      assuming in-person demonstration.” Changes the guided-care copy, the safety posture,
+      and this chapter. The stronger-sounding claim was the wrong one.</div>
+      <div class="mnote"><span class="tag">Obvious once said</span>
+      Instructions answer “what do I do.” Context answers “how does this go well.”
+      At 7:15, the second question is the one Sam is actually asking, which is why
+      one sentence about a treat outweighs a page of steps.</div>
+      <div class="mnote"><span class="tag">Psych note</span>
+      The spine here is self-determination theory: competence (guided care), autonomy
+      (snooze, stop points), relatedness (one completion event answering two people).
+      One framework carried through beats ten frameworks cited.</div>
+    </aside>
+  </section>
+
+  <!-- ————————————————— 03 ————————————————— -->
+  <section class="chapter" id="ch3">
+    <div class="body-col">
+      <span class="eyebrow">Chapter 03</span>
+      <h2 class="ch-title">Two kinds of knowing.</h2>
+      <p>My first instinct, both times, was to model everything as scheduled tasks.
+      Then I remembered the door.</p>
+      <p>Hex is a runner. He is quick and quiet around exterior doors, and he goes for
+      the gap the second it opens. Mikel knows this the way you know your own phone
+      number. Sam might remember it on day one and forget it by Thursday, and it does
+      not belong to 7:15 AM, or 2:00 PM, or any slot a scheduler could hold. It matters
+      <em>continuously</em>.</p>
+      <p class="pull">Some knowledge has a time. Some knowledge has a door.</p>
+      <p>A scheduler can only hold the first kind, and that is exactly how the second kind
+      gets lost: not deleted, just never given anywhere to live. Once the split is said
+      out loud, the product structure stops being a choice and starts being a
+      transcription. PetWatch carries two classes of knowledge, and they behave
+      differently:</p>
+      <ul class="plain">
+        <li><strong>Care Moments</strong> are temporal: things requiring action at a time.
+        Medication, meals, water, walks. They have states, they become due, they complete,
+        and completion is attributed.</li>
+        <li><strong>Always-Know</strong> is ambient: persistent situational knowledge.
+        RUNNER. Where he hides. Which door stays shut. What his yes is. It never becomes
+        due, never completes, and, critically, never interrupts.</li>
+      </ul>
+      <figure class="diagram door">
+        <svg viewBox="0 0 300 340" role="img" aria-label="Illustration: Hex, a black cat, sitting and watching a door that stands slightly open">
+        <rect x="0" y="0" width="300" height="340" rx="18" fill="#EFE6D4"/>
+        <!-- the door, open a cat's width -->
+        <rect x="170" y="26" width="112" height="266" rx="3" fill="#E4D4B8"/>
+        <rect x="178" y="34" width="96" height="258" fill="#F3E0BE"/>
+        <rect x="178" y="34" width="40" height="258" fill="#F0A860"/>
+        <rect x="218" y="34" width="26" height="258" fill="#F7C98F"/>
+        <rect x="244" y="34" width="30" height="258" fill="#E8CE9F"/>
+        <rect x="244" y="34" width="4" height="258" fill="#C8A46F"/>
+        <circle cx="252" cy="168" r="3.2" fill="#8A6A3C"/>
+        <rect x="164" y="292" width="124" height="4" fill="#DCCBA8"/>
+        <!-- Hex, sitting, watching the gap -->
+        <path d="M126 147 L118 124 L138 139 Z" fill="#26211B"/>
+        <path d="M150 147 L157 124 L138 139 Z" fill="#26211B"/>
+        <path d="M122 128 L128 135 L124 139 Z" fill="#C4703A" opacity=".5"/>
+        <circle cx="138" cy="161" r="20" fill="#26211B"/>
+        <ellipse cx="122" cy="215" rx="23" ry="52" transform="rotate(16 122 215)" fill="#26211B"/>
+        <ellipse cx="100" cy="252" rx="35" ry="39" fill="#26211B"/>
+        <rect x="128" y="232" width="11" height="60" rx="5" fill="#26211B"/>
+        <path d="M74 286 C 46 284, 38 258, 54 249 C 63 244, 70 253, 63 260 C 56 267, 62 277, 80 281 Z" fill="#26211B"/>
+        <ellipse cx="147" cy="158" rx="2.6" ry="3.4" fill="#9CC26F" transform="rotate(8 147 158)"/>
+        <ellipse cx="110" cy="294" rx="58" ry="7" fill="#26211B" opacity="0.10"/>
+      </svg>
+        <figcaption>The thing a scheduler has nowhere to put: Hex, and a door that is open the width of a cat. RUNNER has no time of day, which is exactly why it needed its own kind of memory.</figcaption>
+      </figure>
+      <p>The tempting move is to make RUNNER loud: a banner, a recurring notification, an
+      alert when a walk is scheduled. Every one of those trains ignoring. Interruption
+      habituates; quiet persistence builds familiarity. So RUNNER lives as a small chip on
+      Hex’s header on every screen, the Know Hex panel sits one tap away at all times, and
+      the panel arrives expanded at session boundaries: first open of the day, the start
+      of any guided care, and once in a walkthrough before the stay begins. The design
+      accepts what it can’t know: without sensors, no app knows when Sam approaches the
+      door. Familiarity is the mechanism, not interception, and whether familiarity
+      actually forms by Thursday is a research question, not a claim.</p>
+      <p>One more thing belongs in this chapter, because the brief calls PetWatch an
+      AI-enabled product and this is the only place I think AI belongs in it. The
+      product’s real failure mode is an empty care profile: owners will not do data
+      entry, and every screen above is worthless if Mikel never wrote anything down. So
+      the one AI feature I would build is owner-side capture: Mikel talks about Hex for
+      three minutes, the way he’d brief a friend at the door, and AI drafts the Care
+      Moments and Always-Know cards for him to review, correct, and approve. AI
+      structures; the owner authorizes; nothing AI-touched ever reaches Sam unreviewed.
+      And the deliberate negative: no assistant speaks to the watcher at 7:15. The moment
+      of care runs on the owner’s words or not at all.</p>
+    </div>
+    <aside class="margin-col">
+      <div class="mnote"><span class="tag">Crossed out</span>
+      <span class="strike">The watcher’s problem is remembering.</span><br>
+      The watcher’s problem is believing they’ll do it right. Remembering is the easy
+      third of it.</div>
+      <div class="mnote"><span class="tag">Decision 02</span>
+      Always-Know is rediscoverable in one tap, re-surfaced only at session boundaries,
+      and never a notification. Persistent awareness, not persistent interruption.</div>
+      <div class="mnote"><span class="tag">Restraint</span>
+      No spaced-repetition schedule pretending to be science. No printable door signs.
+      No sensors. The chip, the panel, the boundaries. Enough.</div>
+    </aside>
+  </section>
+
+  <!-- ————————————————— 04 ————————————————— -->
+  <section class="chapter" id="ch4">
+    <div class="body-col">
+      <span class="eyebrow">Chapter 04</span>
+      <h2 class="ch-title">When life interrupts.</h2>
+      <p>A care moment becomes due while Sam is in the shower, on a call, cooking, or
+      finally relaxing. A system that treats that as deviance is modeling a task queue,
+      not a person. So when 7:15 arrives, the product asks for one of two honest answers:
+      <em>start</em>, or <em>not this second</em>.</p>
+      <p>Snooze is the load-bearing interaction, and it is not failure. People don’t miss
+      care moments because they don’t care; they miss them because they were holding
+      something else. Snooze is the interface admitting that. It means:
+      <strong>I saw this. I can’t do it right now. Don’t let me forget.</strong> The
+      system takes the open loop and visibly holds it, which is precisely what an anxious
+      brain cannot stop doing for itself. Sam keeps agency; Mikel’s moment never silently
+      disappears; both people get something from the same tap.</p>
+      <div class="vignette">
+        <div class="vcap">The due sheet, verbatim from the prototype</div>
+        <div class="v-card">
+          <div class="v-title" style="font-size:19px">It’s time for Hex’s evening insulin.</div>
+          <div class="v-note">The routine Mikel showed you on Sunday.</div>
+          <div class="v-actions"><span class="v-btn go">Start care</span></div>
+          <div class="v-micro">Can’t right now? I’ll hold it.</div>
+          <div class="v-actions"><span class="v-btn">5 min</span><span class="v-btn">10 min</span><span class="v-btn">15 min</span></div>
+        </div>
+      </div>
+      <p>Two things I explicitly rejected here. First, the ticking countdown. My own
+      working notes for this redo asked for one: <span class="mono" style="font-size:13px">“Hex’s
+      insulin is in 04:32.”</span> I built the time model and tested the pattern against
+      the product’s one non-negotiable feeling, and it failed for a reason that fits in
+      six words: <strong>a countdown counts down to stress.</strong> It manufactures
+      exactly the anxiety the product exists to remove, and it’s an
+      assistive-technology hazard besides. Time in PetWatch is coarse at a distance
+      (“at 7:15, in about 90 minutes”), gently precise when close (“in about 5 minutes”),
+      and plain when it matters (“Now”). State changes are announced once; nothing ticks.</p>
+      <p>Second, the MISSED state. Past-due in the watcher’s interface is simply
+      <em>due, 20 minutes ago</em>, in warm amber, in words. A state named MISSED is a
+      verdict, and verdicts belong to the owner’s escalation preferences, not to a
+      nervous friend at 7:35. What happens past a threshold is Mikel’s call to configure,
+      and the default is the only escalation that requires no medical knowledge at all:
+      contact the owner. No snooze limits are invented for the same reason. The medically
+      correct window for insulin is not a product manager’s decision, so the product
+      refuses to fake one.</p>
+      <figure class="diagram">
+        <svg viewBox="0 0 720 250" role="img" aria-label="Care moment state model: upcoming to soon to due; due cycles with snoozed; due leads to in progress, which can reach needs help and returns; in progress leads to completed">
+          <defs>
+            <marker id="arr" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M0 0 L8 4 L0 8 Z" fill="#59503F"/>
+            </marker>
+          </defs>
+          <style>
+            .n { fill: #FFFDF8; stroke: #CFC1A5; rx: 10; }
+            .n-hot { stroke: #C75C12; stroke-width: 1.5; }
+            .n-done { fill: #E2ECE5; stroke: #2F6B50; }
+            .lbl { font: 500 12px 'IBM Plex Mono', monospace; fill: #262019; text-anchor: middle; letter-spacing: .08em; }
+            .edge { stroke: #59503F; stroke-width: 1.2; fill: none; marker-end: url(#arr); }
+            .elbl { font: italic 11.5px 'Fraunces', serif; fill: #59503F; text-anchor: middle; }
+          </style>
+          <rect class="n" x="16" y="96" width="92" height="36" rx="10"/><text class="lbl" x="62" y="118">UPCOMING</text>
+          <rect class="n" x="148" y="96" width="70" height="36" rx="10"/><text class="lbl" x="183" y="118">SOON</text>
+          <rect class="n n-hot" x="266" y="96" width="64" height="36" rx="10"/><text class="lbl" x="298" y="118">DUE</text>
+          <rect class="n" x="252" y="196" width="92" height="36" rx="10"/><text class="lbl" x="298" y="218">SNOOZED</text>
+          <rect class="n" x="392" y="96" width="112" height="36" rx="10"/><text class="lbl" x="448" y="118">IN PROGRESS</text>
+          <rect class="n" x="398" y="16" width="102" height="36" rx="10"/><text class="lbl" x="449" y="38">NEEDS HELP</text>
+          <rect class="n n-done" x="562" y="96" width="104" height="36" rx="10"/><text class="lbl" x="614" y="118">COMPLETED</text>
+          <path class="edge" d="M108 114 L146 114"/><text class="elbl" x="127" y="106">clock</text>
+          <path class="edge" d="M218 114 L264 114"/><text class="elbl" x="241" y="106">clock</text>
+          <path class="edge" d="M283 132 C 276 158, 276 172, 283 194"/><text class="elbl" x="243" y="166">snooze</text>
+          <path class="edge" d="M313 194 C 320 172, 320 158, 313 132"/><text class="elbl" x="352" y="166">expires</text>
+          <path class="edge" d="M330 114 L390 114"/><text class="elbl" x="360" y="106">start</text>
+          <path class="edge" d="M436 96 C 428 76, 424 64, 428 54"/><text class="elbl" x="398" y="72">help</text>
+          <path class="edge" d="M470 54 C 474 64, 470 76, 462 96"/><text class="elbl" x="497" y="72">resume</text>
+          <path class="edge" d="M504 114 L560 114"/><text class="elbl" x="532" y="106">finish</text>
+        </svg>
+        <figcaption>Status is derived, never stored. There is no MISSED node on purpose;
+        past-due is DUE with elapsed time. NEEDS HELP is deliberately not terminal, and
+        resuming care is itself the resolution (chapter 06 explains how the code taught
+        me that).</figcaption>
+      </figure>
+    </div>
+    <aside class="margin-col">
+      <div class="mnote"><span class="tag">Decision 03</span>
+      Kill the countdown I asked myself for. When a pattern you specified fails the
+      product’s core feeling, the spec loses. Coarse time at distance, precision only
+      near the moment.</div>
+      <div class="mnote"><span class="tag">Psych note</span>
+      Snooze works because of the Zeigarnik effect: open loops occupy the mind until
+      something trustworthy visibly holds them. The confirmation copy, “I’ll remind you
+      again at 7:25,” is the product accepting custody of the loop.</div>
+      <div class="mnote"><span class="tag">Not invented</span>
+      Snooze limits for medication. The honest maximum is owner-configured, and the
+      default escalation is “contact Mikel,” which needs no veterinary judgment.</div>
+    </aside>
+  </section>
+
+  <!-- ————————————————— 05 ————————————————— -->
+  <section class="chapter" id="ch5">
+    <div class="body-col">
+      <span class="eyebrow">Chapter 05</span>
+      <h2 class="ch-title">The weight of the moment.</h2>
+      <p>Refreshing a water bowl and injecting insulin are both “tasks,” and giving them
+      the same interface is a category error in either direction. Water gets one tap.
+      Insulin gets guided care: a focused mode that presents Mikel’s and the vet’s
+      instructions one meaningful step at a time, starting with the treat, because the
+      treat is what makes everything after it easy.</p>
+      <p>Who decides which moments are heavy? Mikel does. Depth is owner-authored, marked
+      when a moment is created, because the person who knows Hex and knows Sam is
+      standing right there. I considered inferring it, consequence times unfamiliarity as
+      a formula, and rejected it: it’s a sound design principle and a dishonest algorithm.
+      Principles guide people; they shouldn’t cosplay as math.</p>
+      <div class="vignette">
+        <div class="vcap">Guided care, step 2 of 5</div>
+        <div class="v-card">
+          <span class="v-src">From Mikel and Dr. Alvarez</span>
+          <div style="font-size:15.5px; line-height:1.55">Check his dinner bowl. <strong>Insulin goes after he’s eaten.</strong></div>
+          <div class="v-stop">If he hasn’t touched his food, stop here and text Mikel. That’s the plan, not a failure.</div>
+        </div>
+      </div>
+      <p>Notice what step two is: a stop point, written by the owner, inside the flow.
+      Guided care builds in permission to not proceed. And beneath every step, always,
+      the same quiet exit: <em>Something isn’t right.</em> It opens Mikel, the vet, and
+      the emergency clinic, it never resets progress, and its headline says the only
+      thing an anxious person needs to hear: <strong>asking is the right move.</strong>
+      In the state model, asking for help and then finishing is a success path, because
+      in real caregiving, it is.</p>
+      <p>Then it’s done, and the product gets quiet on purpose. No confetti, no streak,
+      no points. This is not Duolingo for cat insulin, and the reasoning is simpler than
+      restraint for its own sake: relief is quiet by definition. Celebration would ask
+      Sam to perform a second feeling on top of the one they already have. The
+      completion screen is designed as the emotional peak of the whole product precisely
+      by being still:</p>
+      <div class="vignette">
+        <div class="vcap">Completion</div>
+        <div class="v-relief">
+          <div class="ring" aria-hidden="true">✓</div>
+          <h4>All taken care of.</h4>
+          <div class="m1">Hex’s evening insulin</div>
+          <div class="m2">7:19 PM · Completed by Sam</div>
+          <div class="m3">Mikel can see that it’s done.</div>
+        </div>
+      </div>
+      <p>That last italic line is the whole product in one sentence. One completion event
+      answers two different anxieties: Sam’s <em>I handled it</em> and Mikel’s <em>someone
+      handled it</em>. Mikel’s view, three timezones away, says “Hex is all good,” lists
+      outcomes, and shows the last care line. What it never shows: snoozes, step timings,
+      hesitation, or anything resembling a live feed. Granularity, not visibility, is
+      what turns reassurance into surveillance: a summary says it went fine, while a
+      feed asks you to keep checking. Same data, opposite feelings. So the granularity
+      is capped structurally, and Sam is told exactly what Mikel can see. Whether that boundary
+      actually produces trust on both sides is the most important open question in
+      chapter 07, and I’m treating it as a hypothesis, not a fact.</p>
+    </div>
+    <aside class="margin-col">
+      <div class="mnote"><span class="tag">Obvious once said</span>
+      Every home already runs two interfaces: the sticky note on the counter and the
+      sit-down demonstration. One tap and guided care aren’t inventions; they’re the
+      product agreeing with the kitchen.</div>
+      <div class="mnote"><span class="tag">Decision 04</span>
+      Interaction depth matches consequence, and the owner sets it. One tap for water,
+      guided care for insulin, no inferred scoring.</div>
+      <div class="mnote"><span class="tag">Psych note</span>
+      “You’ve got this. Hex knows the routine” is self-efficacy scaffolding in Bandura’s
+      terms: verbal persuasion layered on Sunday’s mastery experience. And the quiet
+      ending is the peak-end rule played in reverse: make the last feeling relief, not
+      stimulation.</div>
+      <div class="mnote"><span class="tag">Decision 05</span>
+      The owner sees outcomes, never behavior. The surveillance line is drawn in the
+      data model, not in a settings toggle.</div>
+    </aside>
+  </section>
+
+  <!-- ————————————————— 06 ————————————————— -->
+  <section class="chapter" id="ch6">
+    <div class="body-col">
+      <span class="eyebrow">Chapter 06</span>
+      <h2 class="ch-title">Where the interface ends.</h2>
+      <p>This time I wrote the domain model before any interface existed: a care moment,
+      an append-only event log, and a clock you can hand it. Status is never stored; it’s
+      derived from the log and the time. Fourteen unit tests state the product rules from
+      the last four chapters in executable form, and building that first, before pixels,
+      is the cheapest place I know to be wrong.</p>
+      <div class="logblock" aria-label="The event log for one evening’s insulin moment"><span class="c">// insulin-pm, Thursday, as lived</span>
+{ type: <span class="k">'snoozed'</span>,   at: 7:15 PM, by: <span class="who">Sam</span>, until: 7:25 PM }
+{ type: <span class="k">'started'</span>,   at: 7:25 PM, by: <span class="who">Sam</span> }
+{ type: <span class="k">'step_done'</span>, at: 7:26 PM, by: <span class="who">Sam</span>, step: 0 }
+{ type: <span class="k">'help_requested'</span>, at: 7:27 PM, by: <span class="who">Sam</span> }
+{ type: <span class="k">'started'</span>,   at: 7:29 PM, by: <span class="who">Sam</span> }  <span class="c">// resuming is the resolution</span>
+{ type: <span class="k">'completed'</span>, at: 7:31 PM, by: <span class="who">Sam</span> }
+<span class="c">// derived status: COMPLETED · owner sees: "Insulin, 7:31 PM, Sam"</span></div>
+      <p>The log is one primitive doing four jobs. It gives attribution for free. It makes
+      the double-completion guard trivial: a second “done” never writes a second
+      completion, it surfaces <em>“Already done. Mikel, 7:05 AM,”</em> which for
+      medication is the difference between a UI nicety and a double-dosed cat. It
+      produces Mikel’s outcomes-only view by simple projection, and the granularity cap
+      from chapter 05 falls out of which event types the projection reads. And if two
+      watchers ever exist, an append-only log merges; a status column fights. The domain
+      supports multiple watchers today, and the interface deliberately doesn’t show it,
+      because Hex has one sitter and speculative UI is how scope dies.</p>
+      <p>Implementation talked back twice, which is exactly why it happened this early.
+      First: my initial state derivation trapped a moment in NEEDS HELP even after Sam
+      picked the routine back up. A failing test asked the product question directly,
+      does resuming care resolve the help state?, and the answer, yes, resuming is the
+      resolution, is now both a line of code and a line in chapter 05. Second: the clock.
+      Whose timezone owns a care moment sounds like an argument until you notice that
+      Hex never boards a plane. The schedule belongs to the animal, so it runs on the
+      animal’s clock: care moments anchor to the household’s time, never the viewer’s,
+      and Mikel crossing three timezones cannot move 7:15 insulin. His view says so in
+      its header. That one is cheap to state now and brutal to retrofit later, which is why
+      it’s decided now.</p>
+      <p>Everything else stays deliberately unbuilt: no backend, no push notifications,
+      no sync engine, no auth, and the full list lives in a NOT-BUILDING file in the
+      repository, which agents and humans both read before touching code. The prototype
+      runs on the one piece of infrastructure an evaluator actually needs: a controllable
+      clock. Time is the product’s main character, so the demo hands you time itself,
+      and the whole system, due, snooze, guided care, help, completion, both views, can
+      be experienced in about three minutes. Built to be walked through live in a
+      sixty-minute panel.</p>
+    </div>
+    <aside class="margin-col">
+      <div class="mnote"><span class="tag">Decision 06</span>
+      Append-only event log as source of truth; status derived, never stored. One
+      primitive carries attribution, the dosing guard, the owner view, and a future
+      multi-watcher story.</div>
+      <div class="mnote"><span class="tag">Decision 07</span>
+      Time belongs to the pet’s household. The traveling owner’s clock is a display
+      concern, never the schedule’s anchor.</div>
+      <div class="mnote"><span class="tag">Found by a failing test</span>
+      Help-then-resume was undefined until the reducer forced the question. The state
+      machine surfaced a product decision in the first hour, while it cost nothing to
+      change. That is what “design colliding with engineering early” means in practice.</div>
+    </aside>
+  </section>
+
+  <!-- ————————————————— 07 ————————————————— -->
+  <section class="chapter" id="ch7">
+    <div class="body-col">
+      <span class="eyebrow">Chapter 07</span>
+      <h2 class="ch-title">What I still don’t know.</h2>
+      <p>These are the questions I refuse to “solve” at a desk. Each names a belief this
+      design is currently running on, and what would change my mind.</p>
+      <div class="rq"><div class="q">Does outcome visibility reassure Mikel without making Sam feel watched?</div>
+      <div class="how"><b>Method</b> Paired sessions with real owner/watcher pairs during real stays; interview both sides separately. If watchers report performing for the log, the granularity cap moves again, or the owner view goes digest-only.</div></div>
+      <div class="rq"><div class="q">Does snooze reduce anxiety, or license drift on consequential moments?</div>
+      <div class="how"><b>Method</b> Diary study across stays; compare snooze patterns on quick vs guided moments. If guided moments accumulate long snooze chains, the owner-configured threshold arrives sooner and louder.</div></div>
+      <div class="rq"><div class="q">Does anyone reopen Know Hex after day one, and does RUNNER survive to the moment at the door?</div>
+      <div class="how"><b>Method</b> The most falsifiable claim in the product. Instrument panel opens by stay-day; exit interview: “what do you remember about doors?” If ambient knowledge decays by Thursday, session-boundary re-surfacing gets stronger, not louder.</div></div>
+      <div class="rq"><div class="q">Does guided care comfort first-timers without insulting experienced sitters?</div>
+      <div class="how"><b>Method</b> Test with both populations; watch for skipping behavior. The likely fix is a watcher-side “I know this routine” compression, but I won’t build it until condescension is observed rather than imagined.</div></div>
+      <div class="rq"><div class="q">Will owners actually author care knowledge, and does voice capture change that?</div>
+      <div class="how"><b>Method</b> Time-to-first-complete-profile with and without AI capture. If owners still abandon, the product thesis itself is at risk, and better UI on empty screens won’t save it.</div></div>
+      <div class="rq"><div class="q">When something feels wrong, do people press “Something isn’t right,” or bypass the app and text the owner directly?</div>
+      <div class="how"><b>Method</b> Observe real escalations. Bypassing might be fine; the product’s job is care, not traffic. But if the help surface goes unused, its contacts should follow people to where they actually ask.</div></div>
+
+      <h2 class="ch-title" style="font-size:30px; margin-top:56px">What AI actually changed.</h2>
+      <p>I used AI agents throughout, and the honest summary is not “it built things fast,”
+      although it did. It’s that <strong>the distance between having a thought and testing
+      it collapsed</strong>, which changed where my time went. Less of it producing, more
+      of it choosing. The pattern that mattered most: sweep wide with cheap agents, reach
+      conclusions in minutes instead of afternoons, and spend the recovered time asking
+      whether the conclusion is actually right.</p>
+      <div class="table-scroll">
+      <table class="aitable">
+        <thead><tr><th scope="col">Where</th><th scope="col">What the sweep did</th><th scope="col">What it surfaced, and what I decided</th></tr></thead>
+        <tbody>
+          <tr><td>Repo research</td>
+          <td>One research agent read the entire v1 submission, every page, document, build script, and the prototype’s code, in minutes.</td>
+          <td>Found every blockage I’d have needed an afternoon to admit: the same six insights fanned across eight artifacts; a “two directions compared” page whose second direction never existed; the public share build stale by a whole section. The sweep found them; deciding they meant “v1 optimized for volume” was mine.</td></tr>
+          <tr><td>Brief pattern pass</td>
+          <td>Classified every user story in the original brief by voice and verb.</td>
+          <td>Every verb is owner-side logistics; no story speaks as the watcher. Pattern recognition made the silence visible fast; the reframe, that the silence is the product, is a judgment call no sweep makes.</td></tr>
+          <tr><td>Psychology check</td>
+          <td>Rapid recall of candidate frameworks: SDT, prospective memory, Zeigarnik, alarm fatigue, peak-end, monitoring transparency.</td>
+          <td>Tested each against actual screens and kept the ones that held weight. The speed let me discard four frameworks in the time citing them all would have taken.</td></tr>
+          <tr><td>Implementation spikes</td>
+          <td>State machine and its tests written before any UI existed.</td>
+          <td>Two product blockages surfaced inside the first hour, help-then-resume and household-clock ownership, while both were one-line decisions instead of migration projects.</td></tr>
+          <tr><td>Production</td>
+          <td>Cheaper models handled repo sweeps and QA passes; the most capable one was reserved for judgment: this writing, the decisions, the review.</td>
+          <td>Model-mixing is just the budget version of the whole argument: spend capability where judgment lives, spend volume where it doesn’t.</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p>And where AI was wrong, because that log matters more than the wins: my own
+      AI-assisted working notes specified a ticking countdown, and it took deliberately
+      testing the pattern against the calm thesis to kill it. Early drafts included a
+      MISSED state, plausible, statistically likely, and a verdict the product has no
+      right to issue. Generated copy kept drifting toward compliance language, “verify,”
+      “confirm,” the same drift v1 logged two weeks ago, and it got rewritten to human
+      speech every time. The failure mode is consistent: AI produces the statistically
+      likely design, and the statistically likely design is confidently generic. The job
+      it cannot do is the one this exercise scores: distinguishing plausible from
+      appropriate.</p>
+      <p class="pull">Faster building didn’t make me make more. It bought more chances to
+      ask “is this actually right?” while the answer was still cheap.</p>
+      <p>Order of work, for the record: domain model first, the watcher’s evening second,
+      the owner’s glance third, this document last. Deliberately absent, beyond the
+      NOT-BUILDING list: auth, pet management, invitations, calendars, notifications,
+      backends. The brief asks for them; a hiring panel doesn’t need to watch me draw a
+      login screen, and Hex doesn’t need one either.</p>
+    </div>
+    <aside class="margin-col">
+      <div class="mnote ai"><span class="tag">AI disclosure</span>
+      Built with Claude (Fable 5 for judgment and writing; smaller models for research
+      sweeps and QA). Every design decision, rejection, and sentence of care content was
+      human-reviewed; all medical-adjacent copy is fictional and owner/vet-attributed by
+      design.</div>
+      <div class="mnote"><span class="tag">The loop, felt</span>
+      Think → make → experience → question → refine. The state machine questioned me
+      twice before lunch. That’s the loop working, not a slogan about it.</div>
+      <div class="mnote"><span class="tag">Restraint, counted</span>
+      Rejected: countdown, MISSED state, snooze limits, watcher-facing AI, multi-watcher
+      UI, calendar views, gamification, a design-system site, a second visual direction.
+      Kept: one cat, one evening, one syringe, done properly.</div>
+    </aside>
+  </section>
+</main>
+
+<footer>
+  <div class="cols">
+    <div>
+      <h3>The artifacts</h3>
+      <ul>
+        <li><a href="__PROTOTYPE_URL__">The working prototype</a> · due, snooze, guided care, help, completion, both views, on a clock you control</li>
+        <li><a href="https://petwatch-exercise.vercel.app">The timed four-hour original</a> · untouched, on purpose</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Craft notes</h3>
+      <ul>
+        <li>Type: Fraunces, Public Sans, IBM Plex Mono</li>
+        <li>No framework. One token file. An event-log domain core with 14 passing tests.</li>
+        <li>WCAG 2.2 AA target: semantic structure, full keyboard operation, visible focus, reduced-motion support, no meaning carried by color alone.</li>
+      </ul>
+    </div>
+    <div>
+      <h3>Provenance</h3>
+      <p>Mikel Rosenthal, 2026. A reconsideration of a Goji Labs product design exercise,
+      made outside the original timebox and honest about it. Hex is real in every way
+      that matters.</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

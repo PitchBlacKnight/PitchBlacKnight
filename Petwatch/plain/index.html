@@ -1,0 +1,409 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PetWatch - Product Designer Exercise · Mikel Rosenthal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* Deep navy ground, luminous blue accent. Surfaces are translucent white
+     over the ground rather than opaque panels, so depth comes from light
+     rather than from borders. */
+  --bg:#080B14; --bg-2:#0D1220;
+  --surf:rgba(255,255,255,.035); --surf-2:rgba(255,255,255,.06);
+  --line:rgba(255,255,255,.08); --line-2:rgba(255,255,255,.15);
+  --ink:#F2F5FA; --ink-2:#A7B2C6; --ink-3:#6D7A90;
+  --accent:#4D8DFF; --accent-2:#93B9FF; --accent-soft:rgba(77,141,255,.13);
+  --violet:#8B7CF6; --cyan:#3DD9C4;
+  --s1:4px;--s2:8px;--s3:12px;--s4:16px;--s5:24px;--s6:32px;--s7:48px;--s8:72px;--s9:104px;
+  --r-sm:8px;--r-md:14px;--r-lg:20px;--r-xl:28px;
+  --sans:'Alexandria',system-ui,-apple-system,sans-serif;
+  --mono:ui-monospace,'SF Mono',Menlo,monospace;
+  --ease:cubic-bezier(.22,.61,.36,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:300;
+  -webkit-font-smoothing:antialiased;line-height:1.65;letter-spacing:-.005em;
+}
+/* Soft aurora wash - two overlapping fields, no hard edges */
+body::before{
+  content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(1100px 600px at 78% -12%, rgba(77,141,255,.20), transparent 62%),
+    radial-gradient(800px 500px at 8% 8%, rgba(139,124,246,.12), transparent 60%),
+    radial-gradient(700px 700px at 50% 108%, rgba(61,217,196,.07), transparent 60%);
+}
+::selection{background:var(--accent);color:#fff}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:4px}
+
+.page{max-width:1000px;margin:0 auto;padding:var(--s9) var(--s5) 140px}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:9px;font-size:11px;font-weight:400;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--accent-2);
+  background:var(--accent-soft);border:1px solid rgba(77,141,255,.22);
+  border-radius:99px;padding:6px 14px;
+}
+
+/* ── Masthead ─────────────────────────────────────────── */
+.mast{margin-bottom:var(--s9)}
+.mast h1{
+  font-size:clamp(40px,6vw,64px);font-weight:500;letter-spacing:-.045em;
+  line-height:1.02;max-width:17ch;margin-top:var(--s5);
+  background:linear-gradient(165deg,#FFFFFF 30%,#9FB6D9 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.mast .who{margin-top:var(--s5);font-size:15px;color:var(--ink-2)}
+.mast .who b{font-weight:500;color:var(--ink)}
+.mast .meta{display:flex;gap:var(--s2);margin-top:var(--s5);flex-wrap:wrap}
+.mast .meta span{
+  font-size:11.5px;color:var(--ink-2);background:var(--surf);
+  border:1px solid var(--line);border-radius:99px;padding:6px 13px;
+}
+
+/* ── Thesis ───────────────────────────────────────────── */
+.thesis{
+  margin:var(--s8) 0;padding:var(--s7);border-radius:var(--r-xl);
+  background:linear-gradient(150deg,rgba(77,141,255,.11),rgba(139,124,246,.05) 55%,transparent);
+  border:1px solid rgba(77,141,255,.20);position:relative;overflow:hidden;
+}
+.thesis::before{
+  content:"";position:absolute;left:0;top:0;bottom:0;width:3px;
+  background:linear-gradient(180deg,var(--accent),var(--violet));
+}
+.thesis p{
+  font-size:clamp(20px,2.4vw,27px);line-height:1.42;font-weight:300;
+  letter-spacing:-.025em;color:var(--ink);max-width:38ch;
+}
+.thesis .attr{
+  font-size:10.5px;color:var(--ink-3);margin-top:var(--s5);
+  letter-spacing:.16em;text-transform:uppercase;
+}
+
+/* ── Sections ─────────────────────────────────────────── */
+section{margin-top:var(--s9)}
+.shead{display:flex;align-items:center;gap:var(--s4);margin-bottom:var(--s4)}
+.shead .num{
+  font-size:11px;color:var(--accent);letter-spacing:.1em;font-weight:500;
+  border:1px solid rgba(77,141,255,.3);border-radius:8px;padding:3px 9px;
+}
+.shead h2{font-size:clamp(24px,3vw,32px);font-weight:500;letter-spacing:-.035em;line-height:1.15}
+section>p{color:var(--ink-2);font-size:15px;max-width:68ch;margin-bottom:var(--s3)}
+section>p b{color:var(--ink);font-weight:500}
+
+/* ── Doc cards ────────────────────────────────────────── */
+.docs{display:grid;grid-template-columns:1fr 1fr;gap:var(--s3);margin-top:var(--s6)}
+@media(max-width:760px){.docs{grid-template-columns:1fr}}
+.doc{
+  display:block;background:var(--surf);border:1px solid var(--line);
+  border-radius:var(--r-lg);padding:var(--s6);text-decoration:none;position:relative;
+  transition:transform .3s var(--ease),background .3s var(--ease),border-color .3s var(--ease);
+  overflow:hidden;
+}
+.doc::after{
+  content:"";position:absolute;inset:0;opacity:0;pointer-events:none;
+  background:radial-gradient(420px 220px at 82% 0%, rgba(77,141,255,.16), transparent 70%);
+  transition:opacity .35s var(--ease);
+}
+.doc:hover{background:var(--surf-2);border-color:var(--line-2);transform:translateY(-3px)}
+.doc:hover::after{opacity:1}
+.doc .tag{
+  position:relative;z-index:1;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);display:flex;justify-content:space-between;gap:var(--s3);
+}
+.doc .tag .fmt{color:var(--accent)}
+.doc h3{
+  position:relative;z-index:1;font-size:19px;font-weight:500;letter-spacing:-.03em;
+  margin:var(--s4) 0 var(--s3);line-height:1.25;
+}
+.doc p{position:relative;z-index:1;font-size:13.5px;color:var(--ink-2);line-height:1.62}
+.doc .read{
+  position:relative;z-index:1;margin-top:var(--s5);font-size:12px;color:var(--ink-3);
+  display:inline-flex;align-items:center;gap:6px;transition:color .25s var(--ease),gap .25s var(--ease);
+}
+.doc:hover .read{color:var(--accent-2);gap:11px}
+
+.doc--hero{
+  grid-column:1/-1;
+  background:linear-gradient(140deg,rgba(77,141,255,.14),rgba(139,124,246,.07) 60%,var(--surf));
+  border-color:rgba(77,141,255,.3);padding:var(--s7);
+}
+.doc--hero h3{font-size:26px;letter-spacing:-.035em}
+.doc--hero p{font-size:14.5px;max-width:62ch}
+.doc--hero:hover{border-color:rgba(77,141,255,.55)}
+
+/* ── Decisions ────────────────────────────────────────── */
+.decisions{margin-top:var(--s6);display:flex;flex-direction:column;gap:var(--s2)}
+.drow{
+  display:grid;grid-template-columns:250px 1fr;gap:var(--s6);padding:var(--s5) var(--s6);
+  background:var(--surf);border:1px solid var(--line);border-radius:var(--r-md);
+  transition:background .25s var(--ease),border-color .25s var(--ease);
+}
+.drow:hover{background:var(--surf-2);border-color:var(--line-2)}
+@media(max-width:760px){.drow{grid-template-columns:1fr;gap:var(--s3)}}
+.drow .d-what{font-size:14.5px;font-weight:500;color:var(--ink);letter-spacing:-.02em;line-height:1.35}
+.drow .d-what .lbl{
+  display:inline-block;font-size:9px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--accent-2);background:var(--accent-soft);border-radius:6px;
+  padding:3px 8px;font-weight:500;margin-bottom:10px;
+}
+.drow .d-why{font-size:13.5px;color:var(--ink-2);line-height:1.65}
+.drow .d-why a{
+  color:var(--accent-2);text-decoration:none;
+  border-bottom:1px solid rgba(147,185,255,.3);transition:border-color .2s var(--ease);
+}
+.drow .d-why a:hover{border-color:var(--accent-2)}
+
+/* ── Timeline ─────────────────────────────────────────── */
+.hours{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--s2);margin-top:var(--s6)}
+@media(max-width:760px){.hours{grid-template-columns:1fr 1fr}}
+.hour{
+  background:var(--surf);border:1px solid var(--line);border-radius:var(--r-md);
+  padding:var(--s5);position:relative;
+}
+.hour .h{
+  font-size:10px;color:var(--accent);letter-spacing:.14em;text-transform:uppercase;font-weight:500;
+}
+.hour p{font-size:13px;color:var(--ink-2);margin-top:var(--s3);line-height:1.6}
+
+/* ── Footer ───────────────────────────────────────────── */
+.foot{
+  margin-top:var(--s9);padding-top:var(--s5);border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:var(--s4);flex-wrap:wrap;
+  font-size:12.5px;color:var(--ink-3);
+}
+.foot a{color:var(--ink-2)}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="mast">
+    <div class="eyebrow">Goji Labs · Product Designer Exercise</div>
+    <h1>PetWatch - from user stories to a product worth trusting</h1>
+    <div class="who">Mikel Rosenthal · <b>Product Design</b></div>
+    <div class="meta">
+      <span>4-hour exercise</span>
+      <span>5 documents · flows &amp; maps · 1 working prototype</span>
+      <span>AI-assisted, seams shown</span>
+    </div>
+  </header>
+
+  <div class="thesis">
+    <p>As written, the app lets an owner write out a pet's care schedule and lets
+    a sitter read it. But no one can ever mark anything as done. Add that one
+    ability - a checkbox, and a note of who did it and when - and the app changes
+    from a list of chores into the thing both people actually want: a way to know
+    the pet is okay.</p>
+    <div class="attr">The whole idea, in one paragraph</div>
+  </div>
+
+  <!-- ══ 01 · Start here ══════════════════════════════════ -->
+  <section>
+    <div class="shead"><span class="num">01</span><h2>Start here</h2></div>
+    <p>The quickest way to judge this work is to try it. The prototype actually
+    works - you can check tasks off, undo them, and see what happens when two
+    people try to do the same task twice. My reasoning sits next to every screen,
+    so you can see why things are the way they are.</p>
+
+    <div class="docs">
+      <a class="doc doc--hero" href="prototype/index.html">
+        <div class="tag"><span>Interactive prototype</span><span class="fmt">HTML · works offline</span></div>
+        <h3>PetWatch, clickable</h3>
+        <p>You're signed in as Priya. She owns a dog, and she's also pet-sitting a
+        neighbor's cat - from one account, with no mode to switch. (The brief
+        calls sitters "watchers" - same role, I use the everyday word.) The brief says
+        "owner" and "sitter" describe your relationship to each pet, not what kind
+        of user you are, and the prototype shows that working instead of just
+        claiming it. Guided demos on the left, my reasoning on the right.</p>
+        <div class="read">Open the prototype →</div>
+      </a>
+      <a class="doc" href="maps.html" style="grid-column:1/-1">
+        <div class="tag"><span>Systems view</span><span class="fmt">Flows · invite paths · all 20 screens</span></div>
+        <h3>Flows, maps &amp; the full screen surface</h3>
+        <p>The prototype shows four screens in depth; this page shows the whole
+        product at a glance. One pet-sitting trip drawn from both people's side,
+        every path an invitation can take (including the weird ones, like expired
+        links), how the data fits together, and all twenty screens of the app -
+        each labeled honestly: built, written up, or saved for later.</p>
+        <div class="read">Open the maps →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ 02 · The documents ═══════════════════════════════ -->
+  <section>
+    <div class="shead"><span class="num">02</span><h2>The documents</h2></div>
+    <p>These are working documents, written the way they'd actually live in your
+    tools - the product definition as a Notion page, the build plan as Linear
+    tickets. Each one says plainly what I know, what I'm guessing, and how I'd
+    find out.</p>
+
+    <div class="docs">
+      <a class="doc" href="artifacts/prd.md">
+        <div class="tag"><span>Product definition</span><span class="fmt">Notion-shaped</span></div>
+        <h3>Product definition - the missing piece, and the plan</h3>
+        <p>What the user stories leave out and why it matters, the case for adding
+        task check-offs - including the best argument against my own idea - what's
+        in and out of version one with reasons, how the data fits together, and a
+        long list of tricky situations worked out in advance.</p>
+        <div class="read">artifacts/prd.md →</div>
+      </a>
+      <a class="doc" href="artifacts/backlog.md">
+        <div class="tag"><span>Delivery plan</span><span class="fmt">Linear-shaped</span></div>
+        <h3>Build plan - riskiest ideas first</h3>
+        <p>Three releases, 36 tickets, with estimates. Release one is deliberately
+        thin: just enough for one real owner to hand one real pet to one real
+        sitter, so we learn whether the idea works before polishing it. Also the
+        list of things I'm choosing not to build, and what would change my mind.</p>
+        <div class="read">artifacts/backlog.md →</div>
+      </a>
+      <a class="doc" href="artifacts/research-plan.md">
+        <div class="tag"><span>Validation</span><span class="fmt">Research plan</span></div>
+        <h3>How I'd find out I'm wrong</h3>
+        <p>Five assumptions, ranked by how much damage each would do if false. The
+        big idea is also the one I'm least sure of, so it gets tested first - by
+        interviewing both people from real pet-sitting arrangements, with my
+        pass/fail rule written down before I hear any answers. Includes the plan B
+        if sitters feel spied on.</p>
+        <div class="read">artifacts/research-plan.md →</div>
+      </a>
+      <a class="doc" href="artifacts/ways-of-working.md">
+        <div class="tag"><span>Collaboration</span><span class="fmt">Team playbook</span></div>
+        <h3>Working with this team to launch</h3>
+        <p>Written for your actual team and tools - Slack, Linear, Notion, Figma,
+        Claude. How I'd kick the project off, the weekly rhythm, why I involve QA
+        before designs are final instead of after, and the one meeting I'd fight
+        to keep: a midweek look at what's actually been built.</p>
+        <div class="read">artifacts/ways-of-working.md →</div>
+      </a>
+      <a class="doc" href="artifacts/ai-log.md">
+        <div class="tag"><span>Method</span><span class="fmt">Honest log</span></div>
+        <h3>How AI was used - including where it was wrong</h3>
+        <p>Exactly what I used AI for and what I didn't, three specific times it
+        gave me a confident answer that was wrong for this product, and why that
+        matters for an agency: the speed is real, but someone still has to know
+        what good looks like.</p>
+        <div class="read">artifacts/ai-log.md →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ══ 03 · Decisions ═══════════════════════════════════ -->
+  <section>
+    <div class="shead"><span class="num">03</span><h2>The big decisions, and where each is explained</h2></div>
+    <p>Any design is really a stack of judgment calls. These are the six that
+    matter most here, each with a link to the full reasoning.</p>
+
+    <div class="decisions">
+      <div class="drow">
+        <div class="d-what"><span class="lbl">Added</span>Letting people mark tasks done</div>
+        <div class="d-why">In the original stories, the owner writes the schedule and the sitter
+        reads it - but nobody can ever say "done, 7:12am, it was me." Without that, the owner
+        never stops wondering, and with two sitters and a pet on medication, it's genuinely
+        unsafe: nobody knows the pill was already given. One small addition changes what the
+        product is. <a href="artifacts/prd.md">Full argument in the product definition</a></div>
+      </div>
+      <div class="drow">
+        <div class="d-what"><span class="lbl">Worried about</span>Check-offs could feel like being watched</div>
+        <div class="d-why">The sitter is doing a favor. If checking tasks off feels like a boss
+        monitoring an employee, it could sour the friendship the product depends on. So the
+        wording treats it as the sitter's own record, never the owner's inspection - and it's
+        the first thing I'd test with real people, with a plan B ready if I'm wrong.
+        <a href="artifacts/research-plan.md">How I'd test it</a></div>
+      </div>
+      <div class="drow">
+        <div class="d-what"><span class="lbl">Followed, with a note</span>Only existing users can be invited</div>
+        <div class="d-why">The brief requires this, so version one honors it. But your mom, your
+        neighbor - the people most likely to watch your pet - aren't on this app yet, so the rule
+        stops the product right where it's needed most. Rather than argue, I designed the
+        friendliest possible "not yet" message and set up a counter, so in a month we'll know
+        exactly how often this rule costs us a user.
+        <a href="artifacts/prd.md">The full reasoning</a></div>
+      </div>
+      <div class="drow">
+        <div class="d-what"><span class="lbl">Left out</span>Chat, payments, star ratings, complex schedules</div>
+        <div class="d-why">These two people already text each other, and nobody rates their
+        sister. Every cut has a written reason, plus the specific evidence that would make me
+        reverse it. Deciding what not to build is most of the job.
+        <a href="artifacts/backlog.md">The not-building list</a></div>
+      </div>
+      <div class="drow">
+        <div class="d-what"><span class="lbl">Built the cheap way</span>Store the rule, not a year of reminders</div>
+        <div class="d-why">"Breakfast at 7am, daily" is saved once as a rule, and today's list is
+        worked out on the spot when someone opens the app. The obvious alternative - filling a
+        database with every future breakfast - means nightly cleanup jobs and bugs where the
+        schedule and reality disagree. Weeks of engineering saved by a design choice.
+        <a href="artifacts/prd.md">How the data works</a></div>
+      </div>
+      <div class="drow">
+        <div class="d-what"><span class="lbl">Kept calm</span>No alarm-red anywhere the sitter looks</div>
+        <div class="d-why">A late walk moves to the top of the list and turns a warm amber. It
+        never turns red, because you don't shout at someone doing you a favor. You can see this
+        on the prototype's Today screen.
+        <a href="prototype/index.html">See it live</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 04 · The four hours ══════════════════════════════ -->
+  <section>
+    <div class="shead"><span class="num">04</span><h2>How the four hours were spent</h2></div>
+    <div class="hours">
+      <div class="hour"><div class="h">Hour 1</div>
+        <p>Reading and re-reading the brief. That's where the missing piece showed
+        up. Decided what makes version one and what doesn't. The one hour no tool
+        can speed up.</p></div>
+      <div class="hour"><div class="h">Hour 2</div>
+        <p>The written documents - I outlined and dictated, AI drafted, and then I
+        rewrote everything that came back sounding generic or wrong.</p></div>
+      <div class="hour"><div class="h">Hour 3 – 3.5</div>
+        <p>Built the prototype and kept poking at it - checking tasks off, undoing
+        them, trying to break the double-feeding guard - until it all behaved.</p></div>
+      <div class="hour"><div class="h">Hour 4</div>
+        <p>This page, the AI log, and an honesty pass over everything: writing down
+        what I didn't get to, because that list matters as much as the rest.</p></div>
+    </div>
+    <p style="margin-top:var(--s5)">And what's deliberately <b>not</b> here, said
+    plainly: no real users have seen this yet (the research plan is how I'd fix
+    that), most screens exist as sketches rather than finished designs, and
+    there's no design-system documentation. Each gap is named, with when I'd
+    close it, at
+    <a href="artifacts/backlog.md" style="color:var(--accent-2)">the end of the build plan</a>.</p>
+  </section>
+
+  <footer class="foot">
+    <span>Mikel Rosenthal · PetWatch exercise for Goji Labs</span>
+    <span>Prototype + docs are self-contained · no build step · open anything directly</span>
+  </footer>
+
+</div>
+
+<nav class="pnav" aria-label="Submission sections">
+  <span class="here">Overview</span>
+  <a href="prototype/index.html">Prototype</a>
+  <a href="maps.html">Maps</a>
+  <a href="design-options.html">Direction</a>
+</nav>
+<style>
+.pnav{
+  position:fixed;bottom:16px;left:50%;transform:translateX(-50%);z-index:999;
+  display:flex;gap:2px;background:rgba(23,22,20,.92);backdrop-filter:blur(12px);
+  border:1px solid var(--line-2);border-radius:99px;padding:5px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  box-shadow:0 10px 30px rgba(0,0,0,.5);
+}
+.pnav a,.pnav .here{padding:8px 14px;border-radius:99px;text-decoration:none;color:var(--ink-2);white-space:nowrap}
+.pnav a:hover{background:rgba(255,255,255,.08);color:var(--ink)}
+.pnav .here{background:var(--accent-soft);color:var(--accent-2)}
+.pnav{background:rgba(8,11,20,.86)}
+</style>
+</body>
+</html>
