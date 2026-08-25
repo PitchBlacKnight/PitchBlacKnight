@@ -135,3 +135,33 @@ they are the strongest stories.
 - **"One door in" that opened into five houses.** The hub linked across five domains
   and asked the busiest reader in the room to assemble the story. v2 makes the argument
   on one page first and demotes the link farm to an evidence index at the bottom.
+
+---
+
+## Visual QA findings in the timed original (Aug 2026 audit)
+
+Kept unfixed on purpose: "the timed original stays public and untouched" is a
+public claim in the case study, and these are exactly the evidence for moving
+QA upstream. Name them before the panel does.
+
+1. **Five unreconciled oranges.** Prototype screen: header #DD6512, hero card
+   #E9B62F, button #8F4E22, amber tiles #9A4E03. The Direction pane adds a
+   fifth, #F07A28, for the same role. Line: "Four hours buys a direction, not
+   a reconciled palette. The second pass runs on one accent in one token file."
+2. **Hero math is wrong.** "2/7 done" + "1 waiting" + "5 more today" = 8.
+   Direction pane, hero screen. Best possible argument for QA-upstream.
+3. **Next tile says 6pm, hero card shows the 7:15 task**, contradicting the
+   screen's own annotation ("the big card holds the most urgent thing,
+   otherwise next up").
+4. **"The the PRD"** doubled word, in the ways-of-working QA section.
+5. **"Marmalade" never explained** — direction codename that reads as a
+   mystery third pet.
+6. **AA claim vs reality.** Note says small text on orange "goes dark for AA";
+   the white status bar on #F07A28 is ~2.8:1, a fail.
+7. **Dead tokens.** --kenji and --biscuit defined, never used; --biscuit holds
+   Marcus's avatar color, not Biscuit's.
+8. **Broken annotation target.** The overdue state, the philosophy's favorite
+   moment, has a data-note with no matching note entry.
+9. **Hardcoded red-brick #A03A2B** on the owner's "Remove access" confirm,
+   off-token, next to three "never red" notes. Defensible (owner-side,
+   destructive action), but say it before they do.
