@@ -46,6 +46,11 @@ body {
 .t-words { background: #6ecbe8; }
 .t-walk { background: var(--ink); }
 .banner.s-walk { background: var(--ink); }
+.pstep { display: grid; grid-template-columns: 44px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); align-items: start; }
+.pstep:first-of-type { border-top: none; }
+.pstep .n { font-family: 'IBM Plex Mono', monospace; font-size: 20px; font-weight: 500; color: var(--gold); padding-top: 2px; }
+.pstep b.nm { display: block; color: var(--ink); font-size: 18px; }
+.pstep span { color: var(--ink-2); font-size: 16px; }
 .stop { display: grid; grid-template-columns: 200px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); font-size: 16.5px; align-items: start; }
 .stop:first-of-type { border-top: none; }
 .stop b.do { color: var(--green); font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: .04em; padding-top: 3px; }
@@ -220,6 +225,19 @@ b { color: var(--gold); font-weight: 800; }
   <p><span class="lbl">The universal reset</span><span class="line">"Actually, you know what, let me just show you."</span> <em style="color:var(--ink-3); font-size:15px">Then click anything in the prototype.</em></p>
   <p><span class="lbl">The whole story in one line</span><span class="line">"I found the hole in the brief, closed it in four hours, and kept auditing after I hit send."</span></p>
   <p><span class="lbl">Buys ten seconds</span><span class="line">"That's a good question. Honestly…"</span></p>
+</div>
+
+<!-- ================= PROCESS ================= -->
+<div class="card" id="process" style="border-left-color: var(--gold); border-width: 1px 1px 1px 8px;">
+  <span class="tag" style="color:var(--gold)">They ask: "What is your process?"</span>
+  <h3>Six steps, say them slow</h3>
+  <div class="pstep"><span class="n">1</span><div><b class="nm">Read everything, find the hole.</b><span>"Day one is ingestion, not sketching. The brief tells you what was asked. It doesn't tell you <b>what's missing</b>, and that's still a designer's job."</span></div></div>
+  <div class="pstep"><span class="n">2</span><div><b class="nm">Rank what could kill it.</b><span>"Assumptions ranked by <b>cost of being wrong</b>, and the decision rules written before the research runs, so I can't rationalize after."</span></div></div>
+  <div class="pstep"><span class="n">3</span><div><b class="nm">Get one page of truth.</b><span>"One room, early. We leave with <b>one metric, the cut line, and an owner</b> for every open question. If a decision isn't on that page, it didn't happen."</span></div></div>
+  <div class="pstep"><span class="n">4</span><div><b class="nm">Build the real thing fast.</b><span>"<b>A prototype beats an opinion.</b> Working software is part of the thinking now, and I spend my hours on the scope cuts and the taste."</span></div></div>
+  <div class="pstep"><span class="n">5</span><div><b class="nm">Pressure-test during design.</b><span>"Edge cases become <b>acceptance criteria before build</b>, not bugs in week six."</span></div></div>
+  <div class="pstep"><span class="n">6</span><div><b class="nm">Hand off a system, not files.</b><span>"Decision log, state machines, tokens. The test: <b>do they still need me in the room? They shouldn't.</b>"</span></div></div>
+  <p class="last" style="margin-top:14px">"And it's the same loop every time: <b>question, decision, artifact, consequence, learning</b>. AI made the middle of that loop cheap. The deciding is still mine."</p>
 </div>
 
 <!-- ================= INTRO ================= -->
