@@ -9,220 +9,344 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
 <style>
-/* The hour companion for the Goji panel. Dock at ~1/3 screen width, right side.
-   Read any paragraph word for word; gold words are where the eye re-lands.
-   Blue = they ask. Green = rescue. Minute marks keep the 25 minutes honest. */
+/* Big-type panel companion. Dock at ~1/3 screen, right side.
+   THE FINDER at the top: when they ask something, tap the chip with their
+   words on it and you land on the answer. Every answer names the screen to
+   SHOW while you talk. Read any paragraph word for word; gold is where the
+   eye re-lands. */
 :root {
   --bg: #12151d; --card: #1b202c; --line: #2b3145;
-  --ink: #e9e6de; --ink-2: #aeb4c4; --ink-3: #7f879b;
-  --gold: #f5c063; --gold-d: #f0a93a; --blue: #7fa9ff; --green: #57d0b8;
+  --ink: #edeae2; --ink-2: #b9bfcc; --ink-3: #858da1;
+  --gold: #f5c063; --gold-d: #f0a93a; --blue: #85adff; --green: #57d0b8;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
   background: var(--bg); color: var(--ink-2);
   font-family: 'Manrope', -apple-system, sans-serif;
-  font-size: 15px; line-height: 1.7;
-  max-width: 470px; margin: 0 auto; padding: 0 18px 80px;
+  font-size: 17.5px; line-height: 1.68;
+  max-width: 560px; margin: 0 auto; padding: 0 20px 90px;
 }
-.kick { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-3); }
-h1 { font-size: 18px; font-weight: 800; color: var(--ink); margin: 4px 0 2px; }
-.note { font-size: 12.5px; color: var(--ink-3); }
+.kick { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font-size: 22px; font-weight: 800; color: var(--ink); margin: 6px 0 4px; }
+.note { font-size: 14px; color: var(--ink-3); }
 
-nav.jump { position: sticky; top: 0; background: var(--bg); padding: 12px 0 10px; display: flex; gap: 6px; flex-wrap: wrap; border-bottom: 1px solid var(--line); z-index: 5; }
-nav.jump a { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 4px 10px; }
+nav.jump { position: sticky; top: 0; background: var(--bg); padding: 12px 0; display: flex; gap: 7px; flex-wrap: wrap; border-bottom: 1px solid var(--line); z-index: 5; }
+nav.jump a { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-weight: 500; }
+nav.jump a.hot { color: var(--blue); border-color: var(--blue); }
 nav.jump a:hover { color: var(--gold); border-color: var(--gold-d); }
 
-section { margin-top: 30px; }
-.sec { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--gold-d); border-bottom: 1px solid var(--line); padding-bottom: 6px; margin-bottom: 12px; }
+section { margin-top: 40px; }
+.sec { font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-d); border-bottom: 1px solid var(--line); padding-bottom: 8px; margin-bottom: 16px; }
 
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 15px 17px; margin-bottom: 10px; }
-.card h3 { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 8px; }
-.card h3 .st { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); font-weight: 500; margin-left: 6px; }
-.min { float: right; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .08em; color: var(--green); }
-.pull-up { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .06em; color: var(--blue); display: block; margin-bottom: 8px; }
-.pull-up::before { content: "▸ SCREEN: "; color: var(--ink-3); }
-p + p { margin-top: 10px; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; margin-bottom: 14px; }
+.card h3 { font-size: 17px; font-weight: 800; color: var(--ink); margin-bottom: 10px; }
+.min { float: right; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .06em; color: var(--green); }
+.show { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 13px; line-height: 1.5; color: #9fe8d9; background: rgba(87,208,184,.08); border: 1px solid rgba(87,208,184,.3); border-radius: 8px; padding: 8px 12px; margin: 0 0 12px; }
+.show::before { content: "SHOW → "; color: var(--green); font-weight: 500; }
+p + p { margin-top: 12px; }
 b { color: var(--gold); font-weight: 800; }
 .last { color: var(--ink); font-weight: 600; }
 .last b { color: var(--ink); }
 
-.rescue { background: rgba(87,208,184,.08); border: 1px solid rgba(87,208,184,.4); border-radius: 10px; padding: 15px 17px; }
+.rescue { background: rgba(87,208,184,.08); border: 1px solid rgba(87,208,184,.4); border-radius: 12px; padding: 20px 22px; }
 .rescue .kick { color: var(--green); }
-.rescue p { margin-top: 8px; }
-.rescue .lbl { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3); }
-.rescue .line { color: var(--ink); font-weight: 700; }
+.rescue p { margin-top: 12px; font-size: 17px; }
+.rescue .lbl { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 2px; }
+.rescue .line { color: var(--ink); font-weight: 800; }
 
-.q { border-left: 3px solid var(--blue); border-radius: 0 10px 10px 0; background: var(--card); padding: 13px 16px; margin-bottom: 10px; }
-.q .ask { color: var(--blue); font-weight: 800; font-size: 13.5px; margin-bottom: 7px; }
-.q p { font-size: 14px; }
+/* THE FINDER */
+.finder { background: var(--card); border: 2px solid var(--blue); border-radius: 14px; padding: 18px 18px 14px; }
+.finder .kick { color: var(--blue); }
+.finder .grp { font-family: 'IBM Plex Mono', monospace; font-size: 10.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); margin: 14px 0 6px; }
+.finder .grp:first-of-type { margin-top: 10px; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chips a {
+  font-size: 15.5px; font-weight: 800; color: var(--ink); text-decoration: none;
+  background: #232a3a; border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 14px; display: inline-block;
+}
+.chips a:hover { border-color: var(--blue); color: var(--blue); }
 
-.bak { border-left: 3px solid var(--gold-d); border-radius: 0 10px 10px 0; background: var(--card); padding: 13px 16px; margin-bottom: 10px; }
-.bak .trig { color: var(--gold); font-weight: 800; font-size: 13px; margin-bottom: 7px; }
-.bak p { font-size: 14px; }
+/* Q cards: the question is HUGE so it matches what you just heard */
+.q { border: 1px solid var(--line); border-left: 6px solid var(--blue); border-radius: 12px; background: var(--card); padding: 18px 22px; margin-bottom: 16px; scroll-margin-top: 70px; }
+.q .ask { color: var(--blue); font-weight: 800; font-size: 20px; line-height: 1.3; margin-bottom: 10px; }
+.q p { font-size: 17px; }
 
-.map { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
-.map div { padding: 9px 12px; font-size: 12.5px; border-bottom: 1px solid var(--line); }
-.map div:nth-child(odd) { background: var(--card); color: var(--blue); font-weight: 700; }
-.map div:nth-child(even) { color: var(--ink); font-weight: 600; }
-.map div:nth-last-child(-n+2) { border-bottom: none; }
-.map .h { font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; font-weight: 500 !important; color: var(--ink-3) !important; }
+.bak { border: 1px solid var(--line); border-left: 6px solid var(--gold-d); border-radius: 12px; background: var(--card); padding: 18px 22px; margin-bottom: 16px; scroll-margin-top: 70px; }
+.bak .trig { color: var(--gold); font-weight: 800; font-size: 19px; line-height: 1.3; margin-bottom: 10px; }
+.bak p { font-size: 16.5px; }
+
+.up { display: block; text-align: right; margin: -6px 0 0; }
+.up a { font-family: 'IBM Plex Mono', monospace; font-size: 11.5px; color: var(--ink-3); text-decoration: none; }
+.up a:hover { color: var(--blue); }
 </style>
 </head>
 <body>
 
 <nav class="jump">
-  <a href="#intro">Intro</a><a href="#present">Present 25</a><a href="#qa">Their Q&amp;A</a><a href="#backups">Backups</a><a href="#ask">Ask them</a>
+  <a class="hot" href="#finder">⚡ Finder</a>
+  <a href="#intro">Intro</a>
+  <a href="#present">Present</a>
+  <a href="#backups">Backups</a>
+  <a href="#ask">Ask them</a>
 </nav>
 
-<p class="kick" style="margin-top:14px">Goji panel · 60 minutes · 3-5 people</p>
+<p class="kick" style="margin-top:16px">Goji panel · 60 min · intros 5 · present 25 · their Q&amp;A 15 · yours 15</p>
 <h1>PetWatch, live on stage</h1>
-<p class="note">Agenda: intros 5 · presentation 25 · their Q&amp;A 15 · your Q&amp;A 15. Names that may be in the room: David Barlev (CEO), Adam Sumner (CTO), April Rotelli (Head of Product), Dylan Stephenson &amp; Phil Davies (Lead Product Designers).</p>
+<p class="note">Tabs open before you start: <b style="color:var(--ink)">exercise</b> · <b style="color:var(--ink)">reconsidered + prototype</b> · <b style="color:var(--ink)">pbk-demos</b> · <b style="color:var(--ink)">portfolio</b>. Names possibly in the room: David Barlev (CEO), Adam Sumner (CTO), April Rotelli (Head of Product), Dylan Stephenson &amp; Phil Davies (Lead PDs).</p>
 
 <!-- ============ RESCUE ============ -->
-<section>
+<section style="margin-top:22px">
   <div class="rescue">
-    <span class="kick">If you lose the thread, read one of these out loud</span>
-    <p><span class="lbl">The universal reset</span><span class="line">"Actually, let me show you rather than tell you."</span> <em style="color:var(--ink-3)">Then open the prototype and click something.</em></p>
-    <p><span class="lbl">The whole story in one line</span><span class="line">"The short version is: the four hours proved speed, and the second pass proved judgment."</span></p>
-    <p><span class="lbl">Buys ten seconds, sounds senior</span><span class="line">"That's a good question. The honest answer is…"</span></p>
+    <span class="kick">Lost the thread? Read one of these out loud</span>
+    <p><span class="lbl">The universal reset</span><span class="line">"Actually, let me show you rather than tell you."</span> <em style="color:var(--ink-3); font-size:14px">Then click anything in the prototype.</em></p>
+    <p><span class="lbl">The whole story in one line</span><span class="line">"The four hours proved speed. The second pass proved judgment."</span></p>
+    <p><span class="lbl">Buys ten seconds</span><span class="line">"Good question. The honest answer is…"</span></p>
   </div>
-  <div class="map" style="margin-top:10px">
-    <div class="h">They say</div><div class="h">You say</div>
-    <div>"A business problem wearing a product costume"</div><div>"A scheduling brief hiding a trust problem"</div>
-    <div>"Strategy that survives contact with your audience"</div><div>"A decision that survives contact with 350 contributors"</div>
-    <div>"Proof, not promises"</div><div>"Every link on my hub runs. Receipts, not slides."</div>
-    <div>"Think like product teams, not just designers"</div><div>"The state model was a product decision, not a UI one"</div>
+</section>
+
+<!-- ============ THE FINDER ============ -->
+<section id="finder" style="margin-top:18px">
+  <div class="finder">
+    <span class="kick">⚡ They just asked… tap their words</span>
+    <p class="grp">About the product</p>
+    <div class="chips">
+      <a href="#q-weekly">"Where's the weekly view?"</a>
+      <a href="#q-invite">"The invite flow?"</a>
+      <a href="#q-validate">"How would you validate?"</a>
+      <a href="#q-first">"What ships first?"</a>
+      <a href="#q-metrics">"Your metrics?"</a>
+    </div>
+    <p class="grp">About the team</p>
+    <div class="chips">
+      <a href="#q-pm">"Working with PMs?"</a>
+      <a href="#q-eng">"Handoff to engineers?"</a>
+      <a href="#q-qa">"Working with QA?"</a>
+    </div>
+    <p class="grp">About AI</p>
+    <div class="chips">
+      <a href="#q-lazy">"AI making you lazy?"</a>
+      <a href="#q-yours">"What's actually yours?"</a>
+      <a href="#q-red">"The red styling?"</a>
+    </div>
+    <p class="grp">About the two versions / flaws</p>
+    <div class="chips">
+      <a href="#q-redo">"Why redo it?"</a>
+      <a href="#q-flaws">"Flaws in v1?"</a>
+    </div>
+    <p class="grp">Other projects</p>
+    <div class="chips">
+      <a href="#b-system">Design systems</a>
+      <a href="#b-marketing">Marketing</a>
+      <a href="#b-health">Healthcare</a>
+      <a href="#b-data">Data / trust</a>
+      <a href="#b-brand">Brand</a>
+    </div>
   </div>
 </section>
 
 <!-- ============ INTRO ============ -->
 <section id="intro">
-  <p class="sec">Intros · 5 min · Tell me about yourself</p>
+  <p class="sec">Intros · 5 min</p>
   <div class="card">
     <p>"The short version: <b>I make complicated systems understandable</b>, and I've been doing it for 23 years.</p>
-    <p>The long version has a pattern. Google, GE Healthcare, Blue Cross, TransUnion, Avant. Different industries, but every team had the same problem: <b>a complex product that had outgrown the decisions inside it</b>. On every one of those teams I ended up owning the design system, because the interesting problem was never the screen. It was <b>how a good decision survives contact with three hundred other people</b>. At Avant that was Pathfinder: two and a half years, end to end, <b>350-plus contributors working in one shared language</b>.</p>
-    <p>Then the ground shifted. AI started changing the economics of my discipline, and I decided I'd rather be <b>early and hands-on</b> than fluent in it secondhand. So today I don't just design systems, <b>I build them</b>: a design system that runs as live code, an agent that assembles working interfaces from it, and this exercise, where the prototype has a <b>tested domain model</b> behind it. All of it is real, and <b>you'll see it in the next twenty-five minutes</b>.</p>
+    <p>Google, GE Healthcare, Blue Cross, TransUnion, Avant. Different industries, same problem every time: <b>a complex product that had outgrown the decisions inside it</b>. On every one of those teams I ended up owning the design system, because the interesting problem was never the screen. It was <b>how a good decision survives contact with three hundred other people</b>. At Avant that was Pathfinder: <b>two and a half years, end to end, 350-plus contributors</b> in one shared language.</p>
+    <p>Then the ground shifted. AI started changing the economics of my discipline, and I decided I'd rather be <b>early and hands-on</b> than fluent in it secondhand. So now I don't just design systems, <b>I build them</b>, and everything you'll see in the next twenty-five minutes <b>actually runs</b>.</p>
     <p class="last"><b>Production got cheap. Deciding didn't. That's my job description.</b>"</p>
   </div>
 </section>
 
 <!-- ============ PRESENTATION ============ -->
 <section id="present">
-  <p class="sec">Presentation · 25 min · seven beats</p>
+  <p class="sec">Present · 25 min · 7 beats</p>
 
   <div class="card">
-    <h3>Beat 1 · What the brief asked <span class="min">0-3</span></h3>
-    <span class="pull-up">petwatch-exercise.vercel.app, Overview tab</span>
-    <p>"The brief describes a care app: pets, routines, invites. And it makes one <b>genuinely elegant modeling decision</b>: owner and watcher aren't global roles, they're <b>a relationship to a particular pet</b>. I kept that at the center of the data model.</p>
-    <p>The exercise says it's intentionally vague and asks for assumptions out loud, so that's how I worked: <b>every assumption is labeled in the submission</b>, and I'll flag the two places where I deliberately pushed back on a user story as we go."</p>
+    <h3>1 · What the brief asked <span class="min">0-3</span></h3>
+    <span class="show">Exercise · Overview tab</span>
+    <p>"The brief describes pets, routines, invites. And one <b>genuinely elegant modeling decision</b>: owner and watcher aren't global roles, they're <b>a relationship to a particular pet</b>. I kept that at the center of the data model.</p>
+    <p>The exercise says it's intentionally vague and asks for assumptions out loud, so <b>every assumption is labeled</b>, and I'll flag the two places I deliberately pushed back on a user story."</p>
   </div>
 
   <div class="card">
-    <h3>Beat 2 · How I spent the four hours <span class="min">3-7</span></h3>
-    <span class="pull-up">Exercise tabs: Documents, Maps</span>
-    <p>"Structure first. Hour one was <b>ingestion and the hole-hunt</b>, not sketching. Then a PRD with a <b>Not-Building table</b>, a backlog with IDs a TPM could drop into Linear, a <b>research plan with decision rules written before the studies run</b>, flows and a screen inventory where all twenty screens are marked <b>prototyped, specified, or deferred</b>, and a working prototype.</p>
-    <p class="last">"The deferred column is on purpose. You asked how I prioritize work I don't do, and <b>that column is the answer: every cut is written down, with a reason.</b>"</p>
+    <h3>2 · How I spent four hours <span class="min">3-7</span></h3>
+    <span class="show">Exercise · Documents tab, then Maps tab: the 20-screen inventory</span>
+    <p>"Hour one was <b>ingestion and the hole-hunt</b>, not sketching. Then a PRD with a <b>Not-Building table</b>, a backlog with IDs a TPM can drop straight into Linear, a <b>research plan with decision rules written before the studies run</b>, and this screen inventory: all twenty screens marked <b>prototyped, specified, or deferred</b>.</p>
+    <p class="last">"You asked how I prioritize work I don't do. <b>The deferred column is the answer: every cut is written down, with a reason.</b>"</p>
   </div>
 
   <div class="card">
-    <h3>Beat 3 · The hole <span class="min">7-10</span></h3>
-    <p>"Here's what day one found. The stories describe a schedule that gets <b>written by an owner and read by a watcher</b>. Nobody can ever <b>mark anything done</b>. The routine is internally consistent, nothing flags it, and that's exactly why finding it is still a designer's job: <b>absences don't pattern-match</b>.</p>
-    <p>And once completion exists, the stakes appear: two of the sample tasks are medication. Without completion state, <b>the failure mode is a double-dosed animal</b>. That turned this from a calendar into a <b>trust product</b>."</p>
+    <h3>3 · The hole <span class="min">7-10</span></h3>
+    <span class="show">Exercise · Prototype tab: the task list, tap a checkmark, then the Activity log</span>
+    <p>"Here's what day one found. The stories describe a schedule that gets <b>written by an owner and read by a watcher</b>. Nobody can ever <b>mark anything done</b>. This checkmark, this activity log, <b>none of it exists in the brief</b>. The routine is internally consistent, nothing flags it, and that's why finding it is still a designer's job: <b>absences don't pattern-match</b>.</p>
+    <p>And once completion exists, the stakes appear: two sample tasks are medication. Without completion state, <b>the failure mode is a double-dosed animal</b>. That turns a calendar into a <b>trust product</b>."</p>
   </div>
 
   <div class="card">
-    <h3>Beat 4 · The second pass, live <span class="min">10-16</span></h3>
-    <span class="pull-up">petwatch-reconsidered.vercel.app/prototype.html · use the clock</span>
-    <p>"After I submitted the timed version, the problem kept bothering me, so I did it twice. Hex is <b>my actual cat</b>, insulin twice a day. My friend can remember '7:15.' That doesn't mean they <b>feel able to do it</b>. <b>A schedule transfers information. This has to transfer confidence.</b></p>
-    <p>Two kinds of knowing: <b>Care Moments</b> become due and resolve for both people at once. <b>Always-Know</b>, like 'Hex bolts through doors,' has no schedule, so it <b>never interrupts and never goes away</b>. Watch the clock: snooze means <b>'I saw this, don't let me forget,'</b> not failure. Guided care carries the owner's own words, including the stop point: <b>'if he hasn't eaten, stop and text Mikel.'</b> And completion is quiet. Relief, twice over: <b>I handled it. Someone handled it.</b>"</p>
-    <p class="last">"The refusals are deliberate: <b>no countdown, no MISSED state, no red, no confetti, and no AI speaking at the moment of care.</b> Every one is a decision, not an omission."</p>
+    <h3>4 · The second pass, live <span class="min">10-16</span></h3>
+    <span class="show">Reconsidered prototype · advance the clock, snooze the insulin, open guided care, finish</span>
+    <p>"The problem kept bothering me after I submitted, so I did it twice. Hex is <b>my actual cat</b>, insulin twice a day. My friend can remember '7:15.' That doesn't mean they <b>feel able to do it</b>. <b>A schedule transfers information. This has to transfer confidence.</b></p>
+    <p>Two kinds of knowing: <b>Care Moments</b> become due and resolve for both people at once. <b>Always-Know</b>, the RUNNER card, has no schedule, so it <b>never interrupts and never goes away</b>. Snooze means <b>'I saw this, don't let me forget,'</b> not failure. Guided care carries the owner's own words, including the stop point: <b>'if he hasn't eaten, stop and text Mikel.'</b> And completion is quiet. <b>I handled it. Someone handled it.</b></p>
+    <p class="last">"The refusals are deliberate: <b>no countdown, no MISSED state, no red, no confetti, no AI speaking at the moment of care</b>. Decisions, not omissions."</p>
   </div>
 
   <div class="card">
-    <h3>Beat 5 · The team through launch <span class="min">16-20</span></h3>
-    <span class="pull-up">Reconsidered, chapter 6: Where the interface ends</span>
-    <p>"Now the part you actually asked about: how this works with <b>your</b> team. Snooze looks like a button, but implementation immediately asks: what state is the moment in now? What if <b>two watchers act at once</b>? Whose <b>timezone</b> owns 7:15? So the deliverable to engineering isn't screens, it's a <b>state model backed by an event log with passing tests</b>. The rule that came out of a failing test: the schedule belongs to the animal, so moments anchor to <b>the household's time, never the viewer's</b>.</p>
-    <p>For QA, edge cases get enumerated <b>during design, not week six</b>: offline at the moment of care, stale client, revoked access, duplicate completion. Each becomes an <b>acceptance criterion before the build starts</b>. For product, there's <b>one page of truth</b> and a decision log in Notion; the backlog IDs are Linear-ready; tokens and specs live in Figma; and the AI work is logged in Claude, <b>failures included</b>."</p>
+    <h3>5 · Your team, through launch <span class="min">16-20</span></h3>
+    <span class="show">Reconsidered · chapter 6, the state diagram</span>
+    <p>"Snooze looks like a button, but implementation immediately asks: what state is the moment in now? What if <b>two watchers act at once</b>? Whose <b>timezone</b> owns 7:15? So engineering gets a <b>state model backed by an event log with passing tests</b>, not a folder of screens. The rule a failing test produced: the schedule belongs to the animal, <b>the household's time, never the viewer's</b>.</p>
+    <p>QA gets edge cases enumerated <b>during design, not week six</b>, each one an acceptance criterion before build. Product gets <b>one page of truth</b> and a decision log in Notion. The backlog is Linear-ready. Tokens live in Figma. The AI work is logged in Claude, <b>failures included</b>."</p>
   </div>
 
   <div class="card">
-    <h3>Beat 6 · The two pushbacks I owe you <span class="min">20-22</span></h3>
-    <p>"Two places I deliberately deviated from the stories, flagged as assumptions. First, the <b>weekly view</b>. For the watcher I reframed it: a caregiver's real frame is <b>the stay</b>, day one of five, not a calendar week. The owner authoring a routine still needs week-shaped editing, so that view <b>lives with the owner</b>, and it's in the deferred column, not deleted. Second, the <b>registered-users-only invite</b>. Rather than fake a flow the constraint forbids, the product <b>refuses gracefully</b> and hands the owner a pre-written message to send. Honest about the constraint, and honest in the submission that this <b>puts work on the busiest person</b>, which is the first thing I'd test."</p>
+    <h3>6 · Two pushbacks I owe you <span class="min">20-22</span></h3>
+    <span class="show">Exercise · Maps tab: invite lifecycle state machine</span>
+    <p>"Two deliberate deviations, flagged as assumptions. The <b>weekly view</b>: a caregiver's real frame is <b>the stay</b>, day one of five, not a calendar week. The owner authoring a routine still needs weekly editing, so it lives with the owner, <b>deferred, not deleted</b>. And the <b>registered-users-only invite</b>: rather than fake a flow the constraint forbids, the product <b>refuses gracefully</b> and hands the owner a pre-written message. Honest about the constraint, and honest that it <b>puts work on the busiest person</b>, which is the first thing I'd test."</p>
   </div>
 
   <div class="card">
-    <h3>Beat 7 · AI, honestly, and the close <span class="min">22-25</span></h3>
-    <p>"You encouraged AI use, so here's the honest ledger. It compressed ingestion, first drafts, edge-case enumeration, and the build itself; that's <b>how a four-hour window produced this much</b>. And it was <b>confidently wrong</b> three times: it proposed a ticking countdown, a MISSED state, and compliance-toned copy. Standard patterns, wrong product. All three rejections are documented.</p>
-    <p class="last">"So the workflow works because a designer stands <b>exactly where the judgment goes</b>. <b>Production got cheap. Deciding didn't.</b> Happy to take questions."</p>
+    <h3>7 · AI honestly, and the close <span class="min">22-25</span></h3>
+    <p>"You encouraged AI use, so here's the ledger. It compressed ingestion, drafts, edge-case enumeration, and the build itself: <b>that's how four hours produced this much</b>. And it was <b>confidently wrong</b> three times: a ticking countdown, a MISSED state, compliance-toned copy. Standard patterns, wrong product. All three rejections are documented.</p>
+    <p class="last">"The workflow works because a designer stands <b>exactly where the judgment goes</b>. <b>Production got cheap. Deciding didn't.</b> Questions."</p>
   </div>
 </section>
 
-<!-- ============ THEIR QA ============ -->
+<!-- ============ THE QUESTIONS ============ -->
 <section id="qa">
-  <p class="sec">Their Q&amp;A · 15 min</p>
+  <p class="sec">Their questions · use the ⚡ finder above</p>
 
-  <div class="q"><p class="ask">"Why didn't you build the weekly view we asked for?"</p>
-    <p>"I built the need, not the artifact. The watcher's real question is <b>'what's next, and can I handle it'</b>, which the stay view answers better than a week grid. The owner's authoring flow <b>still needs weekly editing</b>, so it's specified and deferred, not deleted. If watcher research showed people planning their own weeks around tasks, <b>that would change my mind</b>, and that trigger is written in the submission."</p>
+  <div class="q" id="q-weekly">
+    <p class="ask">"Where's the weekly view we asked for?"</p>
+    <span class="show">Exercise · Maps: screen inventory row for Weekly, marked deferred · or Reconsidered prototype: "Day 1 of 5" header</span>
+    <p>"I built the need, not the artifact. The watcher's real question is <b>'what's next, and can I handle it,'</b> and the stay, day one of five, answers that better than a week grid. The owner authoring a routine <b>still needs weekly editing</b>, so it's specified and deferred, not deleted. If research showed watchers planning their weeks around tasks, <b>that would change my mind</b>, and that trigger is written down."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
-  <div class="q"><p class="ask">"How would you validate this before we build it?"</p>
-    <p>"The research plan ranks assumptions by <b>cost of being wrong</b>, and the decision rules are written <b>before the study runs</b> so I can't rationalize afterward. Top of the list: does completion visibility <b>reassure the owner without making the watcher feel monitored</b>? Four of six watchers react fine, we ship the itemized view; three or more don't, we ship passive. <span class="last"><b>I do the interviews myself. You don't delegate listening.</b></span>"</p>
+
+  <div class="q" id="q-invite">
+    <p class="ask">"Walk us through the invite flow."</p>
+    <span class="show">Exercise · Prototype: Invite a watcher → Invitation sent → "You're watching Kenji" → Remove access?</span>
+    <p>"The constraint says invitees must already have accounts. Rather than fake onboarding, the product <b>refuses gracefully</b>: it tells the owner honestly and hands them a <b>pre-written message to send themselves</b>. Revoke is first-class, because the brief promises owners <b>visibility and control over access</b>. The lifecycle is mapped as a state machine: invited, accepted, revoked, expired. And I'll volunteer the weak spot: this puts work on <b>an anxious owner who's packing</b>, so it's the first flow I'd test."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
-  <div class="q"><p class="ask">"What ships first? Walk us through the release."</p>
-    <p>"Release one is the <b>smallest thing that completes the trust loop</b>: one pet, one watcher, care moments with completion, and the activity view. The gate is <b>five real handoffs</b> with real pets. Invites-at-scale, multi-watcher UI, notifications infrastructure, all sequenced behind it, and the <b>Not-Building table</b> says why each one waits."</p>
+
+  <div class="q" id="q-validate">
+    <p class="ask">"How would you validate before building?"</p>
+    <span class="show">Exercise · Documents: research plan, the decision rules</span>
+    <p>"Assumptions ranked by <b>cost of being wrong</b>, and the decision rules written <b>before the study runs</b> so I can't rationalize afterward. Top of the list: does completion visibility <b>reassure the owner without making the watcher feel monitored</b>? Four of six watchers react fine, we ship itemized; three or more don't, we ship passive.</p>
+    <p class="last"><b>"I do the interviews myself. You don't delegate listening."</b></p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
-  <div class="q"><p class="ask">"How do you work with PMs? Who decides?"</p>
-    <p>"The PM owns the why and the priority; I own <b>making the decision legible</b>. My favorite artifact is the <b>one page of truth</b> from the alignment session: one metric, the v1 cut line, the riskiest assumption, an owner for each. If a decision isn't on that page, it didn't happen. <span class="last">Strategy first is how you work too; <b>that page is what a strategy sprint should leave behind.</b></span>"</p>
+
+  <div class="q" id="q-first">
+    <p class="ask">"What ships first?"</p>
+    <span class="show">Exercise · Maps: the 20 screens, point at the prototyped column</span>
+    <p>"The smallest thing that <b>completes the trust loop</b>: one pet, one watcher, care moments with completion, the activity view. The gate is <b>five real handoffs with real pets</b>. Invites at scale, multi-watcher UI, notification infrastructure all wait behind it, and the <b>Not-Building table says why each one waits</b>."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
-  <div class="q"><p class="ask">"How do you hand off to engineers?"</p>
-    <p>"As a system, not a folder of pictures: the <b>state model and event log</b>, tokens in standard formats, and a decision log that says what we chose, what we rejected, and <b>what would reopen each call</b>. <span class="last"><b>The test of my handoff is whether they still need me in the room. They shouldn't.</b></span>"</p>
+
+  <div class="q" id="q-metrics">
+    <p class="ask">"Where did your metrics come from?"</p>
+    <span class="show">Exercise · Documents: PRD metrics table, point right at it</span>
+    <p>"Honestly? <b>Nowhere yet</b>, and that's the flaw in this table. The 60 percent should have been labeled <b>working hypotheses</b>, replaced after the first five real handoffs. And my retention number punishes the product for working: a 90-day window on an <b>episodic product</b> reads a happy twice-a-year traveler as churn. I'd measure <b>'used again on the next trip'</b> instead. Same rigor as my decision rules, applied to the numbers."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
-  <div class="q"><p class="ask">"Doesn't AI make designers lazy?"</p>
+
+  <div class="q" id="q-pm">
+    <p class="ask">"How do you work with PMs?"</p>
+    <p>"The PM owns the why and the priority; I own <b>making the decision legible</b>. The artifact I care most about is the <b>one page of truth</b> from alignment: one metric, the v1 cut line, the riskiest assumption, an owner for each. <b>If a decision isn't on that page, it didn't happen.</b> Strategy before the build is how you work too; <b>that page is what a strategy sprint should leave behind</b>."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
+  </div>
+
+  <div class="q" id="q-eng">
+    <p class="ask">"How do you hand off to engineers?"</p>
+    <span class="show">Reconsidered · chapter 6: the event log and tests</span>
+    <p>"As a system, not a folder of pictures. The <b>state model and event log</b>, tokens in standard formats, and a decision log that says what we chose, what we rejected, and <b>what would reopen each call</b>.</p>
+    <p class="last"><b>"The test of my handoff is whether they still need me in the room. They shouldn't."</b></p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
+  </div>
+
+  <div class="q" id="q-qa">
+    <p class="ask">"How do you work with QA?"</p>
+    <span class="show">Reconsidered · chapter 6 state diagram, the orbiting edge cases</span>
+    <p>"Edge cases get enumerated <b>during design</b>: two watchers at once, offline at the moment of care, stale client, revoked access mid-stay, duplicate completion. Each becomes an <b>acceptance criterion before the build starts</b>. <b>An edge case is usually a product decision we haven't made yet</b>, and I'd rather make it on purpose than discover it in week six."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
+  </div>
+
+  <div class="q" id="q-lazy">
+    <p class="ask">"Doesn't AI make designers lazy?"</p>
     <p>"It makes lazy designers faster and <b>rigorous designers more rigorous</b>. The edge-case sweep moved QA thinking into the design phase. <b>That's more rigor, not less.</b>"</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
-  <div class="q"><p class="ask">"How do we know what's yours?"</p>
-    <p>"I keep an <b>AI-usage log</b> on every project, and the <b>failures are in it</b>. <span class="last">Ask me about the red overdue styling.</span>"</p>
+
+  <div class="q" id="q-yours">
+    <p class="ask">"How do we know what's actually yours?"</p>
+    <p>"I keep an <b>AI-usage log</b> on every project, and the <b>failures are in it</b>.</p>
+    <p class="last"><b>"Ask me about the red overdue styling."</b> <em style="color:var(--ink-3); font-size:14px">(sets up the next one)</em></p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
-  <div class="q"><p class="ask">"Tell me about the red styling." (they will)</p>
-    <p>"First pass at overdue was <b>red and urgent</b>. Confidently produced, standard pattern, <b>wrong product</b>: it shouts at a volunteer doing you a favor. Amber is the correction. <span class="last">That's the job: <b>standing exactly where the judgment goes</b>.</span>"</p>
+
+  <div class="q" id="q-red">
+    <p class="ask">"Tell me about the red styling."</p>
+    <span class="show">Reconsidered prototype: point at the amber past-due task, no red anywhere on screen</span>
+    <p>"First pass at overdue was <b>red and urgent</b>. Confidently produced, standard pattern, <b>wrong product</b>: it shouts at a volunteer doing you a favor. Amber is the correction, and in the second pass the whole product <b>refuses red entirely</b>.</p>
+    <p class="last">"That's the job now: <b>standing exactly where the judgment goes</b>."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
-  <div class="q"><p class="ask">"Why redo it? Isn't that outside the timebox?"</p>
-    <p>"The timed version answered <b>'did someone handle it?'</b> It never answered <b>'can I handle this?'</b>, and that's the real product. The original is <b>still public, untouched</b>, and the second version says on its face that it broke the timebox and why. <span class="last"><b>Reconsidering your own shipped answer is part of product judgment.</b></span>"</p>
+
+  <div class="q" id="q-redo">
+    <p class="ask">"Why redo it? Isn't that outside the timebox?"</p>
+    <p>"The timed version answered <b>'did someone handle it?'</b> It never answered <b>'can I handle this?'</b>, and that's the real product. The original is <b>still public, untouched</b>, four hours, unedited, and the second version says on its face that it broke the timebox and why.</p>
+    <p class="last"><b>"Reconsidering your own shipped answer is part of product judgment."</b></p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
-  <div class="q"><p class="ask">If they dig into v1 flaws (own each fast)</p>
-    <p><b>Ownership stored twice:</b> "Yes, and the brief itself says roles are per-pet. My Membership table was the right instinct; the stray owner field betrayed it. I'd derive ownership. The event log is that lesson, systematized."</p>
-    <p><b>Privacy fallback vs. safety:</b> "My passive fallback protected the relationship by destroying the double-dosing guarantee. Fix: a third variant, itemized for anything safety-flagged. <b>A fallback needs the same scrutiny as the primary.</b>"</p>
-    <p><b>The 60% metric:</b> "Honestly, nowhere yet. Should have been labeled <b>working hypotheses</b>, replaced after five real handoffs."</p>
+
+  <div class="q" id="q-flaws">
+    <p class="ask">"What's wrong with your v1?" (own each fast)</p>
+    <span class="show">Exercise · Maps: the object map, point at the two ownership edges</span>
+    <p><b>Ownership stored twice:</b> "This map has two edges saying who owns the pet, and the brief itself says roles are per-pet. My Membership table was the right instinct; the stray owner field betrayed it. <b>I'd derive ownership.</b> The event log is that lesson, systematized."</p>
+    <p><b>Privacy fallback vs. safety:</b> "My passive fallback protected the relationship by <b>destroying the double-dosing guarantee</b>. Fix: a third variant, itemized for safety-flagged tasks. <b>A fallback needs the same scrutiny as the primary.</b>"</p>
     <p><b>Missing emergency vet field:</b> "Cut by association with 'vet records.' <b>Needs don't arrive in categories.</b> Always-Know is partly that lesson."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
 </section>
 
 <!-- ============ BACKUPS ============ -->
 <section id="backups">
-  <p class="sec">Backup stories · when they ask about specifics</p>
+  <p class="sec">Other projects · when they pivot</p>
 
-  <div class="bak"><p class="trig">"Tell us about a design system at scale" → Pathfinder</p>
-    <p>"Avant, two and a half years, end to end. Separate teams had layered <b>five primary blues and three button shapes</b> into production; the problem was <b>trust, not tidiness</b>. I made the fragmentation countable with an audit, which doubled as the funding argument. The system now carries <b>350-plus contributors</b>, and version 2 to 3 shipped <b>on the same foundations, no rebuild</b>.</p>
-    <p class="last">"Best moment of learning: the Configuration table gave the <b>fit score and the provider logo equal weight</b>, and advisors chose by brand recognition, exactly what the screen existed to prevent. Testing broke my hierarchy, so <b>the hierarchy changed</b>. Same loop as PetWatch's amber."</p>
+  <div class="bak" id="b-system">
+    <p class="trig">"Tell us about a design system at scale" → Pathfinder</p>
+    <span class="show">mikelrosenthal.com · Pathfinder case file: the audit board, then the config screen</span>
+    <p>"Avant, <b>two and a half years, end to end</b>. Separate teams had layered <b>five primary blues and three button shapes</b> into production; the problem was <b>trust, not tidiness</b>. The audit made the fragmentation countable, which made the system fundable. It now carries <b>350-plus contributors</b>, and 2.0 to 3.0 shipped <b>on the same foundations, no rebuild</b>.</p>
+    <p class="last">"Best learning: the Configuration table gave the <b>fit score and the provider logo equal weight</b>, and advisors chose by brand recognition. Testing broke my hierarchy, so <b>the hierarchy changed</b>. Same loop as PetWatch's amber."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
 
-  <div class="bak"><p class="trig">"What about non-designers / marketing?" → Avant Marketing Library</p>
-    <p>"After Pathfinder, marketing was the next bottleneck. Same architecture, different user: <b>350-plus marketers</b> who need <b>harder rails and warmer documentation</b> than designers do. One template logic produced <b>174-plus campaign variants</b>, and the flagship 40-page industry report got distilled back into templates, so <b>the next report started at eighty percent instead of zero</b>.</p>
-    <p class="last">"<b>A marketing library is a design system with a different user. The architecture is the same; the empathy is different.</b> That's also my answer for PetWatch: the watcher is the different user."</p>
+  <div class="bak" id="b-marketing">
+    <p class="trig">"Non-designers? Marketing?" → Avant Marketing Library</p>
+    <p>"Same architecture, different user: <b>350-plus marketers</b> who need <b>harder rails and warmer documentation</b> than designers. One template logic produced <b>174-plus campaign variants</b>, and the flagship 40-page report got distilled back into templates, so <b>the next report started at eighty percent instead of zero</b>.</p>
+    <p class="last">"<b>A marketing library is a design system with a different user. Same architecture, different empathy.</b> On PetWatch, the watcher is the different user."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
 
-  <div class="bak"><p class="trig">"Regulated / healthcare?" → FIBER and Edison</p>
-    <p>"Blue Cross FIBER was their <b>first unified system</b>: forty-plus enrollment screens, web and mobile from one foundation, and <b>accessibility baked into the foundation layer</b>, because in healthcare accessibility decides whether the product works at all. I presented the guide personally: <b>not a spec dump, an argument</b>.</p>
-    <p class="last">"GE Edison unified <b>forty-plus regulated products</b> across four theme targets and won a <b>Red Dot and a Fast Company award</b> in 2020. The lesson I carry: <b>big systems are social systems</b>. The hardest problems were alignment, not visuals. The kit was half the job; <b>adoption was the product</b>."</p>
+  <div class="bak" id="b-health">
+    <p class="trig">"Regulated? Healthcare?" → FIBER and Edison</p>
+    <p>"Blue Cross FIBER was their <b>first unified system</b>: forty-plus enrollment screens, web and mobile from one foundation, <b>accessibility baked into the foundation layer</b>, because in healthcare accessibility decides whether the product works at all.</p>
+    <p class="last">"GE Edison unified <b>forty-plus regulated products</b> and won a <b>Red Dot and a Fast Company award</b>. The lesson: <b>big systems are social systems</b>. The kit was half the job; <b>adoption was the product</b>."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
 
-  <div class="bak"><p class="trig">"Data-heavy / consumer trust?" → PRISM and TrueCredit</p>
-    <p>"PRISM is psychometric data: the brief was to let a manager <b>act on it in thirty seconds</b> without making anyone feel reduced to a chart. I treated <b>visualization as component anatomy</b>: define the grammar and the data speaks.</p>
-    <p class="last">"TrueCredit is the same emotion PetWatch has: <b>a number people are afraid of</b>. An 890-point score made legible at a glance, five full visual directions before choosing. <b>People flinch at credit data. Plain hierarchy is what lets them believe it.</b> Swap 'credit score' for 'insulin at 7:15' and it's the same design problem: lower the temperature."</p>
+  <div class="bak" id="b-data">
+    <p class="trig">"Data-heavy? Consumer trust?" → PRISM and TrueCredit</p>
+    <p>"PRISM: psychometric data a manager can <b>act on in thirty seconds</b> without anyone feeling reduced to a chart. <b>Visualization treated as component anatomy</b>: define the grammar and the data speaks.</p>
+    <p class="last">"TrueCredit is PetWatch's emotion: <b>a number people are afraid of</b>. An 890-point score made legible at a glance. <b>People flinch at credit data; plain hierarchy lets them believe it.</b> Swap 'credit score' for 'insulin at 7:15' and it's the same job: lower the temperature."</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
 
-  <div class="bak"><p class="trig">"Brand / visual range?" → Spacelab and Maven Wave</p>
-    <p>"Spacelab: naming through packaging, <b>twenty-plus names each dressed in real typography before the vote</b>, a 38-page deck, four package formats in production. Maven Wave: <b>four complete brand directions</b>, and the deck opened by teaching the client <b>how to judge a logo</b> before showing one; that identity carried them to a Google Cloud premier partnership and an acquisition.</p>
+  <div class="bak" id="b-brand">
+    <p class="trig">"Brand? Visual range?" → Spacelab and Maven Wave</p>
+    <p>"Spacelab: naming through packaging, <b>twenty-plus names each dressed in real typography before the vote</b>, four package formats in production. Maven Wave: <b>four complete brand directions</b>, and the deck opened by teaching the client <b>how to judge a logo</b> before showing one. That identity carried them to a Google Cloud premier partnership and an acquisition.</p>
     <p class="last">"Same discipline as product: <b>explore wide, decide narrow, finish hard.</b>"</p>
+    <span class="up"><a href="#finder">↑ finder</a></span>
   </div>
 </section>
 
@@ -230,26 +354,24 @@ b { color: var(--gold); font-weight: 800; }
 <section id="ask">
   <p class="sec">Your Q&amp;A · 15 min · pick 4-5 by who's in the room</p>
   <div class="card">
-    <h3>Product philosophy <span class="st">for April / the PDs</span></h3>
-    <p>1 · "Your site says a product problem is <b>a business problem wearing a product costume</b>. If PetWatch were a real client, what's the business problem you'd see under it?"</p>
+    <h3>Product philosophy · April / the PDs</h3>
+    <p>1 · "Your site says a product problem is <b>a business problem wearing a product costume</b>. If PetWatch were a real client, what business problem would you see under it?"</p>
     <p>2 · "How does a <b>strategy sprint</b> end here? What does 'validated' concretely mean before build starts?"</p>
-    <p>3 · "What does the split between <b>craft time and client-strategy time</b> look like for a lead designer at Goji?"</p>
+    <p>3 · "How do lead designers split <b>craft time versus client-strategy time</b> at Goji?"</p>
   </div>
   <div class="card">
-    <h3>AI practice <span class="st">for Adam / David</span></h3>
-    <p>4 · "Your AI work is mostly framed as <b>things you build for clients</b>. How has AI changed <b>Goji's own loop</b>, the way your designers and engineers work day to day? I'm asking because that shift is the whole reason I rebuilt my practice."</p>
-    <p>5 · "Where do you draw the line on <b>AI in client-facing deliverables</b>? What do you disclose, and what do you require of the team?"</p>
+    <h3>AI practice · Adam / David</h3>
+    <p>4 · "Your AI work is mostly framed as <b>things you build for clients</b>. How has AI changed <b>Goji's own loop</b>, day to day? I ask because that shift is the whole reason I rebuilt my practice."</p>
+    <p>5 · "Where's the line on <b>AI in client-facing deliverables</b>? What do you disclose, and what do you require of the team?"</p>
   </div>
   <div class="card">
-    <h3>The seat and the team</h3>
-    <p>6 · "The team spans <b>fourteen-plus countries</b>. Where does design critique actually live day to day: Slack, Figma, Linear? Who sees work when it's still ugly?"</p>
+    <h3>The seat</h3>
+    <p>6 · "The team spans <b>fourteen-plus countries</b>. Where does critique actually live, Slack, Figma, Linear? <b>Who sees work while it's still ugly?</b>"</p>
     <p>7 · "What would my <b>first ninety days</b> look like? Which project would I land on?"</p>
     <p>8 · "'Proof, not promises': which recent launch is the team <b>proudest of</b>, and what number moved?"</p>
-    <p class="last">Closer: "A year in, what would make you say this hire was a <b>clear win</b>?"</p>
+    <p class="last">Closer: <b>"A year in, what would make you say this hire was a clear win?"</b></p>
   </div>
 </section>
-
-<p class="note" style="margin-top:24px">Screens ready in tabs before you start: petwatch-exercise.vercel.app · petwatch-reconsidered.vercel.app (+ /prototype.html) · pbk-demos.vercel.app · mikelrosenthal.com</p>
 
 </body>
 </html>
