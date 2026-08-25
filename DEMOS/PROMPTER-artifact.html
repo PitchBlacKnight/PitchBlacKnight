@@ -43,6 +43,14 @@ body {
 .t-qa { background: var(--blue); }
 .t-bak { background: var(--orange); }
 .t-ask { background: var(--purple); }
+.t-words { background: #6ecbe8; }
+.banner.s-words { background: #6ecbe8; }
+.w { display: grid; grid-template-columns: 150px 1fr; gap: 14px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 16px; }
+.w:first-of-type { border-top: none; }
+.w b { color: #8fd8ef; font-weight: 800; }
+.w span { color: var(--ink-2); }
+.w span i { color: var(--ink); font-style: normal; font-weight: 600; }
+@media (max-width: 600px) { .w { grid-template-columns: 1fr; gap: 2px; } }
 #nomatch { display: none; padding: 10px 0; font-size: 16px; color: var(--ink-3); }
 
 /* ---- landing ---- */
@@ -142,6 +150,7 @@ b { color: var(--gold); font-weight: 800; }
     <a class="t-qa" href="#s-qa">Q&amp;A</a>
     <a class="t-bak" href="#s-bak">Projects</a>
     <a class="t-ask" href="#s-ask">Ask</a>
+    <a class="t-words" href="#s-words">Words</a>
   </div>
 </div>
 <div class="wide"><p id="nomatch">Nothing matches. Clear the box and use the colored buttons.</p></div>
@@ -441,6 +450,58 @@ b { color: var(--gold); font-weight: 800; }
   <p>7 · "What would my <b>first ninety days</b> look like? What project would I land on?"</p>
   <p>8 · "You say <b>proof, not promises</b>. Which recent launch is the team proudest of, and what number moved?"</p>
   <p class="last">Closer: <b>"A year from now, what would make you say this hire was a clear win?"</b></p>
+</div>
+
+<!-- ================= WORDS ================= -->
+<div class="banner s-words" id="s-words">Words <small>know these cold · search works here too</small></div>
+
+<div class="card" style="border-left-color:#6ecbe8">
+  <span class="tag" style="color:#6ecbe8">Words</span>
+  <h3>Acronyms</h3>
+  <div class="w"><b>PRD</b><span>Product Requirements Document. The what and the why in one place. <i>Yours has the Not-Building table in it.</i></span></div>
+  <div class="w"><b>AC</b><span>Acceptance criteria. The testable sentence that defines "done" before anyone builds. <i>You write these with QA during design.</i></span></div>
+  <div class="w"><b>TPM</b><span>Technical Product Manager. Goji's delivery-focused PMs. <i>Your backlog IDs are for them, straight into Linear.</i></span></div>
+  <div class="w"><b>WCAG 2.2 AA</b><span>The accessibility standard: contrast, keyboard, focus states. <i>Your honest line: built-to-standard is not the same as tested-against-standard.</i></span></div>
+  <div class="w"><b>DTCG</b><span>Design Tokens Community Group, the W3C standard JSON format for design tokens, so any tool can read them. <i>Your Figma plugin exports it.</i></span></div>
+  <div class="w"><b>MCP</b><span>Model Context Protocol. The plumbing that lets an AI read live tools and data. <i>Yours: Claude reads real variables out of a Figma file instead of guessing.</i></span></div>
+  <div class="w"><b>RRULE</b><span>The calendar standard for complex repeats, "every other Tuesday." <i>You cut it: real routines are daily or weekly. Revisit with evidence.</i></span></div>
+  <div class="w"><b>CRUD</b><span>Create, read, update, delete. The basic data operations. <i>The pet-management stories are plain CRUD, and that's fine.</i></span></div>
+  <div class="w"><b>IA</b><span>Information architecture. What lives where, and what it's called.</span></div>
+  <div class="w"><b>SPA</b><span>Single-page app. One page that swaps views without reloading. <i>Your exercise hub is one.</i></span></div>
+</div>
+
+<div class="card" style="border-left-color:#6ecbe8">
+  <span class="tag" style="color:#6ecbe8">Words</span>
+  <h3>Product and process words</h3>
+  <div class="w"><b>Greenfield</b><span>No existing product, no legacy. Starting clean. <i>Their brief uses this word about PetWatch.</i></span></div>
+  <div class="w"><b>Timebox</b><span>A fixed time budget that beats scope. Four hours meant deciding what not to do.</span></div>
+  <div class="w"><b>Dispositioned</b><span>Every screen given a verdict: prototyped, specified, or deferred, with a reason. <i>Your word for the 20-screen inventory. If it lands oddly, say "every screen has a status and a reason."</i></span></div>
+  <div class="w"><b>Deferred</b><span>Cut on purpose, written down, with a trigger that would bring it back. Not forgotten, parked.</span></div>
+  <div class="w"><b>Riskiest assumption</b><span>The belief that kills the product if it turns out false. Research goes there first.</span></div>
+  <div class="w"><b>Decision rule</b><span>The pass-fail line written before the study runs, so you can't rationalize after. <i>"Four of six watchers fine with it, we ship itemized."</i></span></div>
+  <div class="w"><b>North star</b><span>The one metric the whole team steers by. One, not five.</span></div>
+  <div class="w"><b>Persona</b><span>A sketch of a real user type. <i>Yours: Priya, anxious, packing, short on time.</i></span></div>
+  <div class="w"><b>Swim lanes</b><span>A flow diagram split into rows by who acts: owner lane, watcher lane, system lane. <i>In your maps page.</i></span></div>
+  <div class="w"><b>Object map</b><span>The nouns of the product and how they connect: User, Pet, Membership, Task. <i>Where your ownership-stored-twice finding lives.</i></span></div>
+  <div class="w"><b>State machine</b><span>All the states something can be in, and the only allowed moves between them. <i>Your invite lifecycle: invited, sent, accepted, watching, revoked, expired.</i></span></div>
+  <div class="w"><b>Edge case</b><span>Rare but real situation. <i>Your line: usually a product decision we haven't made yet.</i></span></div>
+  <div class="w"><b>Optimistic UI</b><span>The interface says "done" instantly and syncs in the background; undo covers mistakes. <i>Your one-tap completion.</i></span></div>
+  <div class="w"><b>Derived state</b><span>A fact computed from the record, never stored in a second place where it can disagree. <i>Why you'd derive ownership from Membership.</i></span></div>
+  <div class="w"><b>Strategy sprint</b><span>Goji's term: a short, collaborative push to set direction and surface insight before anything gets built. <i>Your "one page of truth" is what one should leave behind.</i></span></div>
+</div>
+
+<div class="card" style="border-left-color:#6ecbe8">
+  <span class="tag" style="color:#6ecbe8">Words</span>
+  <h3>System and AI words</h3>
+  <div class="w"><b>Design tokens</b><span>Named design values, color, spacing, type, stored once and used everywhere, so a decision is made one time.</span></div>
+  <div class="w"><b>Token tiers</b><span>Primitives (raw values) → semantic (what it means: "surface", "warning") → component (per-part exceptions). <i>Pathfinder's architecture.</i></span></div>
+  <div class="w"><b>Figma variables</b><span>Figma's native tokens, with modes for light and dark. <i>Your plugin turns them into standard DTCG files.</i></span></div>
+  <div class="w"><b>Token pipeline</b><span>The automated path from Figma variables to standard tokens to code, so design and build can't drift apart.</span></div>
+  <div class="w"><b>Agent / agentic</b><span>AI that takes actions with tools, files, and code, instead of just chatting. <i>Your live stage: talk to the agent, components appear.</i></span></div>
+  <div class="w"><b>Skill file</b><span>Packaged instructions an AI tool inherits, the system's rules made machine-readable. <i>Part of your handoff: their AI tooling gets the rules on day one.</i></span></div>
+  <div class="w"><b>Hot-swap</b><span>The page updates itself the moment the agent rebuilds it, no refresh. <i>How the live stage works.</i></span></div>
+  <div class="w"><b>Noindex</b><span>A header that tells search engines to stay out. <i>Why every demo is "private by design, safe to send as a link."</i></span></div>
+  <div class="w"><b>Claude Code</b><span>The agentic coding tool you build with. <i>If asked what it is: "Claude, working directly in my files and terminal."</i></span></div>
 </div>
 
 <script>
