@@ -1,0 +1,488 @@
+<title>Goji Interview HQ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;800&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* INTERVIEW HQ. One page, everything. Open this file in Chrome, full window
+   or right half of the screen. The search box finds any answer by one word.
+   All speech blocks read aloud naturally. Gold = where your eye re-lands. */
+:root {
+  --bg: #12151d; --card: #1c212e; --line: #303850;
+  --ink: #f0ede5; --ink-2: #c2c8d6; --ink-3: #8a92a6;
+  --gold: #f5c063; --green: #57d0b8; --blue: #85adff; --orange: #ff9e6b; --purple: #b9a7ff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--ink-2);
+  font-family: 'Manrope', -apple-system, sans-serif;
+  font-size: 19px; line-height: 1.7;
+  padding: 0 clamp(16px, 3vw, 40px) 140px;
+}
+.wide { max-width: 1120px; margin: 0 auto; }
+.read { max-width: 780px; margin: 0 auto; }
+
+/* ---- top bar ---- */
+.topbar { position: sticky; top: 0; z-index: 10; background: var(--bg); border-bottom: 2px solid var(--line); }
+.topbar .wide { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; padding: 12px 0; }
+.searchwrap { position: relative; flex: 1; min-width: 260px; }
+#search {
+  width: 100%; font-family: 'Manrope', sans-serif; font-size: 18px; font-weight: 600;
+  color: var(--ink); background: var(--card); border: 2px solid var(--blue);
+  border-radius: 12px; padding: 12px 44px 12px 16px; outline: none;
+}
+#search::placeholder { color: var(--ink-3); font-weight: 500; }
+#search:focus { border-color: var(--gold); }
+#clear { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); font-size: 20px; font-weight: 800; color: var(--ink-3); background: none; border: none; cursor: pointer; padding: 6px 10px; display: none; }
+#clear:hover { color: var(--ink); }
+.tabs { display: flex; gap: 7px; flex-wrap: wrap; }
+.tabs a { font-size: 15px; font-weight: 800; text-decoration: none; border-radius: 10px; padding: 9px 14px; color: var(--bg); }
+.t-home { background: var(--ink); }
+.t-intro { background: var(--gold); }
+.t-present { background: var(--green); }
+.t-qa { background: var(--blue); }
+.t-bak { background: var(--orange); }
+.t-ask { background: var(--purple); }
+#nomatch { display: none; padding: 10px 0; font-size: 16px; color: var(--ink-3); }
+
+/* ---- landing ---- */
+.hero { padding: 40px 0 8px; }
+.kick { font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+h1 { font-size: clamp(30px, 4vw, 44px); font-weight: 800; color: var(--ink); line-height: 1.15; margin: 8px 0 10px; }
+.thesis { font-size: clamp(19px, 2vw, 23px); color: var(--ink-2); max-width: 46ch; }
+.thesis b { color: var(--gold); }
+
+.agenda { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; margin: 26px 0; }
+.agenda div { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.agenda b { display: block; font-size: 26px; color: var(--ink); }
+.agenda span { font-size: 15px; color: var(--ink-3); }
+.agenda .a1 b { color: var(--gold); } .agenda .a2 b { color: var(--green); }
+.agenda .a3 b { color: var(--blue); } .agenda .a4 b { color: var(--purple); }
+
+.launch { margin: 10px 0 6px; }
+.launch h2, .h2 { font-size: 22px; font-weight: 800; color: var(--ink); margin: 30px 0 14px; }
+.links { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; }
+.links a { display: block; text-decoration: none; background: var(--card); border: 1px solid var(--line); border-left: 6px solid var(--green); border-radius: 12px; padding: 14px 16px; }
+.links a:hover { border-color: var(--gold); }
+.links b { display: block; font-size: 17px; color: var(--ink); }
+.links span { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: var(--ink-3); word-break: break-all; }
+.links a.doc { border-left-color: var(--purple); }
+
+.evalmap { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin-top: 6px; }
+.evalmap .row { display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); }
+.evalmap .row:last-child { border-bottom: none; }
+.evalmap .row div { padding: 13px 18px; font-size: 16.5px; }
+.evalmap .row div:first-child { background: var(--card); color: var(--blue); font-weight: 700; }
+.evalmap .row div:last-child { color: var(--ink); font-weight: 600; }
+.evalmap .hd div { font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-3) !important; font-weight: 500 !important; background: var(--bg) !important; }
+@media (max-width: 700px) { .evalmap .row { grid-template-columns: 1fr; } }
+
+.who { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.who span { background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: 15px; color: var(--ink-2); }
+.who b { color: var(--ink); }
+
+/* ---- content sections ---- */
+.banner {
+  display: flex; align-items: baseline; gap: 12px;
+  margin: 54px auto 18px; padding: 14px 18px; border-radius: 12px;
+  font-size: 21px; font-weight: 800; color: var(--bg);
+  scroll-margin-top: 90px; max-width: 780px;
+}
+.banner small { font-size: 14px; font-weight: 600; opacity: .75; }
+.banner.s-intro { background: var(--gold); }
+.banner.s-present { background: var(--green); }
+.banner.s-qa { background: var(--blue); }
+.banner.s-bak { background: var(--orange); }
+.banner.s-ask { background: var(--purple); }
+
+.card, .q, .bak {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 22px 24px; margin: 0 auto 18px; scroll-margin-top: 90px; position: relative;
+  max-width: 780px;
+}
+.card { border-left: 8px solid var(--green); }
+.card.c-intro { border-left-color: var(--gold); }
+.card.c-ask { border-left-color: var(--purple); }
+.q { border-left: 8px solid var(--blue); }
+.bak { border-left: 8px solid var(--orange); }
+
+.tag { position: absolute; top: 14px; right: 16px; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
+.q .tag { color: var(--blue); } .bak .tag { color: var(--orange); }
+.card .tag { color: var(--green); } .card.c-intro .tag { color: var(--gold); } .card.c-ask .tag { color: var(--purple); }
+
+.card h3 { font-size: 21px; font-weight: 800; color: var(--ink); margin-bottom: 12px; padding-right: 90px; }
+.q .ask { color: var(--blue); font-weight: 800; font-size: 23px; line-height: 1.3; margin-bottom: 12px; padding-right: 80px; }
+.bak .trig { color: var(--orange); font-weight: 800; font-size: 21px; line-height: 1.3; margin-bottom: 12px; padding-right: 80px; }
+.min { font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: var(--green); margin-left: 8px; }
+
+.show { display: block; font-family: 'IBM Plex Mono', monospace; font-size: 14px; line-height: 1.55; color: #a5ecdd; background: rgba(87,208,184,.09); border: 1px solid rgba(87,208,184,.32); border-radius: 9px; padding: 10px 14px; margin: 0 0 14px; }
+.show::before { content: "SHOW → "; color: var(--green); font-weight: 500; }
+p + p { margin-top: 14px; }
+b { color: var(--gold); font-weight: 800; }
+.last { color: var(--ink); font-weight: 600; }
+.last b { color: var(--ink); }
+
+.rescue { background: rgba(87,208,184,.09); border: 2px solid rgba(87,208,184,.5); border-radius: 14px; padding: 22px 24px; margin: 26px auto 0; max-width: 780px; }
+.rescue .rk { font-size: 17px; font-weight: 800; color: var(--green); text-transform: uppercase; letter-spacing: .06em; }
+.rescue p { margin-top: 14px; }
+.rescue .lbl { display: block; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-3); margin-bottom: 2px; }
+.rescue .line { color: var(--ink); font-weight: 800; }
+</style>
+
+
+<div class="topbar"><div class="wide">
+  <div class="searchwrap">
+    <input id="search" type="text" placeholder="Type a word they said… weekly, lazy, metrics, red, PM…" autocomplete="off">
+    <button id="clear" aria-label="Clear search">✕</button>
+  </div>
+  <div class="tabs">
+    <a class="t-home" href="#top">HQ</a>
+    <a class="t-intro" href="#s-intro">Intro</a>
+    <a class="t-present" href="#s-present">Present</a>
+    <a class="t-qa" href="#s-qa">Q&amp;A</a>
+    <a class="t-bak" href="#s-bak">Projects</a>
+    <a class="t-ask" href="#s-ask">Ask</a>
+  </div>
+</div>
+<div class="wide"><p id="nomatch">Nothing matches. Clear the box and use the colored buttons.</p></div>
+</div>
+
+<!-- ================= LANDING ================= -->
+<div class="wide hero" id="top">
+  <p class="kick">Goji Labs · Product Designer panel · 60 minutes</p>
+  <h1>PetWatch, live on stage.</h1>
+  <p class="thesis">The whole story in one line: <b>four hours closed the trust loop, and the review kept going after I hit send.</b> Everything below is in the order the hour runs.</p>
+
+  <div class="agenda">
+    <div class="a1"><b>5 min</b><span>Introductions · your opener is ready below</span></div>
+    <div class="a2"><b>25 min</b><span>Presentation · 7 beats with screen cues</span></div>
+    <div class="a3"><b>15 min</b><span>Their questions · search any word they say</span></div>
+    <div class="a4"><b>15 min</b><span>Your questions · pick 4-5 by who showed up</span></div>
+  </div>
+
+  <div class="launch">
+    <h2>Open these tabs before you start</h2>
+    <div class="links">
+      <a href="https://petwatch-exercise.vercel.app"><b>The exercise · four hours, unedited</b><span>petwatch-exercise.vercel.app</span></a>
+      <a href="https://pbk-demos.vercel.app/petwatch/maps.html"><b>Flows, maps, screen inventory</b><span>pbk-demos.vercel.app/petwatch/maps</span></a>
+      <a href="https://pbk-demos.vercel.app/petwatch/artifacts.html"><b>PRD, backlog, research plan</b><span>…/petwatch/artifacts</span></a>
+      <a href="https://pbk-demos.vercel.app"><b>The practice hub</b><span>pbk-demos.vercel.app</span></a>
+      <a href="https://pbk-demos.vercel.app/process"><b>Process, seams shown</b><span>…/process</span></a>
+      <a href="https://mikelrosenthal.com"><b>Portfolio · Pathfinder case file</b><span>mikelrosenthal.com</span></a>
+    </div>
+    <h2>Prep docs · yours only, never share these</h2>
+    <div class="links">
+      <a class="doc" href="PREP-DASHBOARD.html"><b>Compare the two versions</b><span>PREP-DASHBOARD.html</span></a>
+      <a class="doc" href="MISTAKES-TALK-TRACK.md"><b>Every v1 mistake, with evidence</b><span>MISTAKES-TALK-TRACK.md</span></a>
+      <a class="doc" href="TALK-TRACK.md"><b>The original process talk track</b><span>TALK-TRACK.md</span></a>
+    </div>
+  </div>
+
+  <h2 class="h2">What they said they're judging, and where you answer it</h2>
+  <div class="evalmap">
+    <div class="row hd"><div>Their words, from the exercise</div><div>Your answer, on this page</div></div>
+    <div class="row"><div>"Determine the right product to build"</div><div>Beat 3, the hole · Beat 4, closing the loop live</div></div>
+    <div class="row"><div>"How you'll structure your work"</div><div>Beat 2, the four hours · every document has a home</div></div>
+    <div class="row"><div>"Interact with the team through launch"</div><div>Beat 5 · engineers, QA, PM, their exact tools</div></div>
+    <div class="row"><div>"How you prioritize, including work not completed"</div><div>Beat 2, the deferred column · Beat 6, the pushbacks</div></div>
+    <div class="row"><div>"Share how you used AI"</div><div>Beat 7, the honest ledger, failures and findings first</div></div>
+  </div>
+
+  <h2 class="h2">Who might be in the room</h2>
+  <div class="who">
+    <span><b>David Barlev</b> · CEO</span>
+    <span><b>Adam Sumner</b> · CTO</span>
+    <span><b>April Rotelli</b> · Head of Product</span>
+    <span><b>Dylan Stephenson</b> · Lead PD</span>
+    <span><b>Phil Davies</b> · Lead PD</span>
+  </div>
+</div>
+
+<div class="rescue">
+  <span class="rk">Lost? Read one of these out loud</span>
+  <p><span class="lbl">The universal reset</span><span class="line">"Actually, you know what, let me just show you."</span> <em style="color:var(--ink-3); font-size:15px">Then click anything in the prototype.</em></p>
+  <p><span class="lbl">The whole story in one line</span><span class="line">"I found the hole in the brief, closed it in four hours, and kept auditing after I hit send."</span></p>
+  <p><span class="lbl">Buys ten seconds</span><span class="line">"That's a good question. Honestly…"</span></p>
+</div>
+
+<!-- ================= INTRO ================= -->
+<div class="banner s-intro" id="s-intro">Intro <small>5 min · tell me about yourself</small></div>
+
+<div class="card c-intro">
+  <span class="tag">Intro</span>
+  <h3>Read it straight through</h3>
+  <p>"So, the short version: <b>I make complicated things understandable</b>. That's been the whole career. 23 years of it.</p>
+  <p>The industries kept changing on me. Google, GE Healthcare, Blue Cross, TransUnion, Avant. But the problem never did. Every time, it was <b>a complex product that had outgrown the decisions inside it</b>. And every time, I ended up owning the design system. Because the interesting problem was never the screen. It was <b>how a good decision survives contact with three hundred other people</b>. At Avant, that was Pathfinder. <b>Two and a half years, end to end, 350-plus contributors</b> in one shared language.</p>
+  <p>Then the ground shifted. AI started changing the economics of what I do, and I decided I'd rather be <b>early and hands-on</b> than learn it secondhand. So now I don't just design systems, <b>I build them</b>. And everything you're about to see <b>actually runs</b>.</p>
+  <p class="last"><b>Production got cheap. Deciding didn't. That's basically my job description.</b>"</p>
+</div>
+
+<!-- ================= PRESENT ================= -->
+<div class="banner s-present" id="s-present">Present <small>25 min · 7 beats</small></div>
+
+<div class="card">
+  <span class="tag">Present</span>
+  <h3>1 · What the brief asked <span class="min">0-3</span></h3>
+  <span class="show">Demo 1 · Overview tab</span>
+  <p>"So the brief describes a care app. Pets, routines, invites. And there's one <b>really smart modeling decision</b> in there: owner and watcher aren't roles, they're <b>a relationship to a particular pet</b>. I kept that at the center of everything.</p>
+  <p>The brief also says it's intentionally vague, and it asks for assumptions out loud. So that's how I worked. <b>Every assumption is labeled.</b> And there are two places where I pushed back on a user story on purpose. I'll flag both."</p>
+</div>
+
+<div class="card">
+  <span class="tag">Present</span>
+  <h3>2 · How I spent the four hours <span class="min">3-7</span></h3>
+  <span class="show">Demo 1 · Documents tab, then Maps tab: the 20-screen inventory</span>
+  <p>"Hour one, I didn't sketch anything. I read everything and <b>hunted for what was missing</b>. Then a PRD with a <b>Not-Building table</b>. A backlog your TPMs could drop straight into Linear. A research plan where the <b>decision rules got written before the studies run</b>. And this inventory: twenty screens, each one marked <b>prototyped, specified, or deferred</b>.</p>
+  <p class="last">"You asked how I prioritize work I don't do. <b>That deferred column is the answer. Every cut is written down, with a reason.</b>"</p>
+</div>
+
+<div class="card">
+  <span class="tag">Present</span>
+  <h3>3 · The hole <span class="min">7-10</span></h3>
+  <span class="show">Demo 1 · Prototype tab: tap a checkmark, then the Activity log</span>
+  <p>"Here's what day one found. The stories describe a schedule that gets <b>written by an owner and read by a watcher</b>. And that's it. Nobody can ever <b>mark anything done</b>. This checkmark, this activity log… <b>none of it exists in the brief</b>. And the stories are internally consistent, so nothing flags it. That's why finding it is still a designer's job. <b>Absences don't pattern-match.</b></p>
+  <p>And once completion exists, the stakes show up. Two of the sample tasks are medication. No completion state, and the failure mode is <b>a double-dosed animal</b>. That's when this stopped being a calendar and became <b>a trust product</b>."</p>
+</div>
+
+<div class="card">
+  <span class="tag">Present</span>
+  <h3>4 · The prototype, live <span class="min">10-16</span></h3>
+  <span class="show">The exercise · Prototype tab: complete the walk, undo it, try the invite, show the activity log</span>
+  <p>"Let me just use it. Completing a task is <b>one tap, optimistic, with undo</b>, because a watcher mid-walk shouldn't fight a workflow. And watch the medication task: there's a <b>double-completion guard</b>, because two well-meaning people is the scary scenario. The failure mode there is <b>a double-dosed animal</b>, so that guard is the most important interaction in the product.</p>
+  <p>The invite flow: the brief says invitees already have accounts. So instead of faking a signup, the app <b>tells the truth</b> and hands Priya a <b>pre-written text to send herself</b>. And revoke is first-class, because the brief promises owners <b>visibility and control</b>.</p>
+  <p>Two small things I want you to notice. Waiting is <b>amber, never red</b>. Red shouts, and you'd be shouting at a volunteer doing you a favor. And the activity log is the quiet hero: <b>Priya sees the walk happened from another city</b>. That log is the answer to the hole in the brief.</p>
+  <p class="last">"Everything on this screen exists to answer one question for two different people: <b>did someone handle it?</b> The owner needs to know it happened. The watcher needs credit for it happening."</p>
+</div>
+
+<div class="card">
+  <span class="tag">Present</span>
+  <h3>5 · Your team, through launch <span class="min">16-20</span></h3>
+  <span class="show">The exercise · Maps tab: the invite lifecycle state machine, then the 20-screen inventory</span>
+  <p>"Now, how this works with your team. That one-tap completion looks simple, right? But the second you build it, it starts asking questions. What if <b>two watchers tap the same task</b>? Can you <b>undo after the owner saw it done</b>? So engineering doesn't get a folder of screens from me. They get the <b>state machines</b>, this invite lifecycle, the guard rules, and a screen inventory where all twenty screens are <b>dispositioned with reasons</b>.</p>
+  <p>QA gets the edge cases <b>during design</b>, not week six. The invite link opened in the wrong account, that's the one a tired human misses at 4pm. Each one becomes an <b>acceptance criterion before build</b>. Product gets <b>one page of truth</b> and a decision log in Notion. The backlog is Linear-ready. Specs live in Figma. And the AI work is logged in Claude, <b>failures included</b>."</p>
+</div>
+
+<div class="card">
+  <span class="tag">Present</span>
+  <h3>6 · What I added, and what I refused <span class="min">20-22</span></h3>
+  <span class="show">The exercise · Overview tab: "What the brief leaves open, on purpose"</span>
+  <p>"Two judgment calls I owe you, both flagged as assumptions in the submission. First, <b>I added something you didn't ask for</b>: completion. The stories never mention it, and I decided the product doesn't work without it, so it went into scope and I defended it in the PRD. Second, <b>I refused things that were easy to add</b>: payments and sitter vetting, because this is trusted people, not Rover. In-app messaging, because these two people already text. That's the Not-Building table. <b>Models are very good at adding. The job is often subtraction.</b>"</p>
+</div>
+
+<div class="card">
+  <span class="tag">Present</span>
+  <h3>7 · AI honestly, the findings, and the close <span class="min">22-25</span></h3>
+  <p>"You encouraged AI use, so here's the honest ledger. It compressed the reading, the first drafts, the edge-case lists, and the build itself. <b>That's how four hours produced this much.</b> And it was also <b>confidently wrong</b>: its first overdue styling came back red and urgent. Standard pattern, wrong product. The amber correction, and the rest of the misses, are <b>in the AI log</b>.</p>
+  <p>One more thing, because I think it matters most. <b>The review didn't stop when I hit send.</b> I went back through my own submission with fresh eyes and found real flaws: a stray owner field that breaks the brief's own per-pet rule, a retention metric that punishes an episodic product for working, an emergency vet number I cut by category. <b>The original stays public and unedited.</b> The findings became talking points, not quiet patches.</p>
+  <p class="last">"That's the practice: a designer standing <b>exactly where the judgment goes</b>, including on their own work. <b>Production got cheap. Deciding didn't.</b> That's the talk. Questions?"</p>
+</div>
+
+<!-- ================= THEIR QA ================= -->
+<div class="banner s-qa" id="s-qa">Their Q&amp;A <small>15 min · search a word they said</small></div>
+
+<div class="q" id="q-scope">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"We didn't ask for completion. Why add it?"</p>
+  <span class="show">The exercise · Prototype: tap a checkmark, then the Activity log</span>
+  <p>"Because the product doesn't work without it. The stories describe a schedule that gets written and read, and <b>nobody can ever mark anything done</b>. Two of the sample tasks are medication, so without completion, the failure mode is <b>a double-dosed animal</b>. Adding to a brief is a risk, so I did it the accountable way: <b>it's in the PRD as a defended decision</b>, with the reasoning. If I'm wrong, there's a paragraph you can argue with."</p>
+</div>
+
+<div class="q" id="q-invite">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"Walk us through the invite flow."</p>
+  <span class="show">Demo 1 · Prototype: Invite a watcher → Invitation sent → "You're watching Kenji" → Remove access?</span>
+  <p>"The constraint says invitees already have accounts. So instead of faking onboarding, the app <b>tells the truth</b>: your friend needs an account first, and here's a <b>pre-written message to send them</b>. Revoke is first-class, because the brief promises owners <b>visibility and control</b>. The whole lifecycle is a state machine: invited, accepted, revoked, expired.</p>
+  <p class="last">"And I'll volunteer the weak spot: this puts work on <b>an anxious owner who's busy packing</b>. First flow I'd test."</p>
+</div>
+
+<div class="q" id="q-validate">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"How would you validate before building?"</p>
+  <span class="show">Demo 1 · Documents: research plan, the decision rules</span>
+  <p>"Assumptions get ranked by <b>what it costs to be wrong</b>. And the decision rules get written <b>before the study runs</b>, so I can't rationalize afterward. Top of the list: does completion visibility <b>reassure the owner without making the watcher feel watched</b>? Four of six watchers fine with it, we ship itemized. Three or more not, we ship passive.</p>
+  <p class="last"><b>"And I do the interviews myself. You don't delegate listening."</b></p>
+</div>
+
+<div class="q" id="q-first">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"What ships first?"</p>
+  <span class="show">Demo 1 · Maps: the 20 screens, point at the prototyped column</span>
+  <p>"The smallest thing that <b>completes the trust loop</b>. One pet, one watcher, care moments with completion, the activity view. The gate is <b>five real handoffs</b>, real people, real pets. Everything else waits in line behind that, and the <b>Not-Building table says why</b>."</p>
+</div>
+
+<div class="q" id="q-metrics">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"Where did your metrics come from?"</p>
+  <span class="show">Demo 1 · Documents: PRD metrics table, point right at it</span>
+  <p>"Honestly? <b>Nowhere.</b> That's the flaw in this table. The 60 percent looks measured and it isn't. It should've said <b>working hypotheses</b>, replace after five real handoffs. And the retention number actually <b>punishes the product for working</b>: a 90-day window on a product people use twice a year reads a happy customer as churn. I'd measure <b>'used again on the next trip'</b> instead."</p>
+</div>
+
+<div class="q" id="q-pm">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"How do you work with PMs?"</p>
+  <p>"The PM owns the why and the priority. I own <b>making the decision legible</b>. The artifact I care most about is the <b>one page of truth</b> from alignment: one metric, the v1 cut line, the riskiest assumption, an owner for each. <b>If a decision isn't on that page, it didn't happen.</b> Strategy before the build is how you all work too. <b>That page is what a strategy sprint should leave behind.</b>"</p>
+</div>
+
+<div class="q" id="q-eng">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"How do you hand off to engineers?"</p>
+  <span class="show">The exercise · Maps: object map and invite lifecycle</span>
+  <p>"As a system, not a folder of pictures. The <b>state machines, the object map</b>, the dispositioned screen inventory, and a decision log: what we chose, what we rejected, and <b>what would reopen each call</b>.</p>
+  <p class="last">"The test is simple: <b>do they still need me in the room? They shouldn't.</b>"</p>
+</div>
+
+<div class="q" id="q-qa">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"How do you work with QA?"</p>
+  <span class="show">The exercise · the edge-case sweep in the pressure-test receipts</span>
+  <p>"The edge cases get listed <b>during design</b>, not discovered in week six. The invite link opened in the wrong account. Two watchers tapping the same task. Undo after the owner saw it done. Revoked access mid-stay. Each becomes an <b>acceptance criterion before build</b>. An edge case is usually just <b>a product decision we haven't made yet</b>. I'd rather make it on purpose."</p>
+</div>
+
+<div class="q" id="q-lazy">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"Doesn't AI make designers lazy?"</p>
+  <p>"It makes lazy designers faster, and <b>rigorous designers more rigorous</b>. The edge-case sweep moved QA thinking <b>into the design phase</b>. That's more rigor, not less."</p>
+</div>
+
+<div class="q" id="q-yours">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"How do we know what's actually yours?"</p>
+  <p>"I keep an <b>AI-usage log</b> on every project. And the <b>failures are in it</b>.</p>
+  <p class="last"><b>"Actually… ask me about the red overdue styling."</b> <em style="color:var(--ink-3); font-size:15px">(sets up the next one)</em></p>
+</div>
+
+<div class="q" id="q-red">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"Tell me about the red styling."</p>
+  <span class="show">The exercise · Prototype: point at the amber waiting state</span>
+  <p>"Yeah. First pass at the overdue state came back <b>red and urgent</b>. Totally confident, totally standard… and wrong for this product. Red shouts. And you'd be <b>shouting at a volunteer doing you a favor</b>. Amber is the correction, and it's <b>in the AI log</b> with the rest of the misses.</p>
+  <p class="last">"That's the job now. <b>Standing exactly where the judgment goes.</b>"</p>
+</div>
+
+<div class="q" id="q-next">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"What would you change? What comes next?"</p>
+  <p>"Two answers. Near-term: <b>run the research plan</b>. The decision rules are already written, and the top question is whether completion visibility <b>reassures the owner without making the watcher feel watched</b>.</p>
+  <p>And the honest one: <b>I already went back and audited my own submission</b>, and I'd change real things. I'd derive ownership from the Membership table instead of storing it twice. I'd relabel the metrics as working hypotheses. I'd carve the emergency vet number out of the 'vet records' cut. The original stays public and unedited, <b>the findings became talking points, not quiet patches</b>.</p>
+  <p class="last">"On a real project, that's what the weeks after launch look like: <b>ship on time, then let the evidence reopen decisions</b>."</p>
+</div>
+
+<div class="q" id="q-flaws">
+  <span class="tag">Their Q&amp;A</span>
+  <p class="ask">"What's wrong with your v1?" (own each fast)</p>
+  <span class="show">Demo 1 · Maps: the object map, point at the two ownership edges</span>
+  <p><b>Ownership stored twice:</b> "See these two edges? Both say who owns the pet. And the brief itself says roles are per-pet. My Membership table was the right instinct… the stray owner field betrayed it. I'd <b>derive ownership</b>. If I built it again, I'd derive it, and that's the fix I'd defend."</p>
+  <p><b>Privacy fallback vs. safety:</b> "My passive fallback protected the relationship by quietly <b>destroying the double-dosing guarantee</b>. The fix is a third variant, itemized for anything safety-flagged. <b>A fallback needs the same scrutiny as the primary.</b>"</p>
+  <p><b>Missing emergency vet number:</b> "Cut by association. I excluded 'vet records,' and the emergency number went with it. <b>Needs don't arrive in categories.</b> Now when I cut a category, I ask which single field inside it was doing the real work."</p>
+  <p><b>The visual seams (say it before they see it):</b> "And the craft has seams. Count the oranges on this screen: <b>five</b>, and none of them reconcile. The hero stats say two done of seven, one waiting, five more… <b>that's eight</b>. Four hours buys a direction, not a reconciled system. The fix is one accent, one token file, and it's why QA moved upstream in my process. I left it all exactly as I shipped it. <b>An honest baseline is worth more than a quietly polished one.</b>"</p>
+</div>
+
+<!-- ================= BACKUPS ================= -->
+<div class="banner s-bak" id="s-bak">Other projects <small>when they pivot</small></div>
+
+<div class="bak" id="b-system">
+  <span class="tag">Projects</span>
+  <p class="trig">"A design system at scale" → Pathfinder</p>
+  <span class="show">mikelrosenthal.com · Pathfinder case file: the audit board, then the config screen</span>
+  <p>"Avant. <b>Two and a half years, end to end.</b> When I got there, separate teams had layered <b>five primary blues and three button shapes</b> into production. The problem wasn't tidiness, it was <b>trust</b>: advisors present live revenue numbers out of this tool, and inconsistency reads as unreliability. The audit made the fragmentation <b>countable</b>, and countable made it fundable. It carries <b>350-plus contributors</b> now, and 2.0 to 3.0 shipped on the same foundations. <b>No rebuild.</b></p>
+  <p class="last">"Best learning: the Configuration table gave the <b>fit score and the provider logo equal weight</b>, and advisors just… picked the logo they recognized. Exactly what the screen existed to prevent. Testing broke my hierarchy, so <b>the hierarchy changed</b>. Same loop as PetWatch's amber."</p>
+</div>
+
+<div class="bak" id="b-marketing">
+  <span class="tag">Projects</span>
+  <p class="trig">"Non-designers? Marketing?" → Avant Marketing Library</p>
+  <p>"Same architecture, different user. <b>350-plus marketers</b>, who need <b>harder rails and warmer documentation</b> than designers. One template logic produced <b>174-plus campaign variants</b>, and the flagship 40-page report got distilled back into templates, so <b>the next report started at eighty percent instead of zero</b>.</p>
+  <p class="last">"<b>A marketing library is a design system with a different user. Same architecture, different empathy.</b> On PetWatch, the watcher is the different user."</p>
+</div>
+
+<div class="bak" id="b-health">
+  <span class="tag">Projects</span>
+  <p class="trig">"Regulated? Healthcare?" → FIBER and Edison</p>
+  <p>"Blue Cross FIBER was their <b>first unified system</b>: forty-plus enrollment screens, web and mobile, one foundation. <b>Accessibility baked into the foundation layer</b>, because in healthcare, accessibility decides whether the product <b>works at all</b>.</p>
+  <p class="last">"GE's Edison: <b>forty-plus regulated products</b>, a <b>Red Dot and a Fast Company award</b>. The lesson from both: <b>big systems are social systems</b>. The kit was half the job. <b>Adoption was the product.</b>"</p>
+</div>
+
+<div class="bak" id="b-data">
+  <span class="tag">Projects</span>
+  <p class="trig">"Data-heavy? Consumer trust?" → PRISM and TrueCredit</p>
+  <p>"PRISM is psychometric data: let a manager <b>act on it in thirty seconds</b> without anyone feeling reduced to a chart. I treated visualization like <b>component anatomy</b>: define the grammar, and the data speaks.</p>
+  <p class="last">"TrueCredit is PetWatch's emotion: <b>a number people are afraid of</b>. An 890-point score, legible at a glance. People flinch at credit data, and <b>plain hierarchy lets them believe it</b>. Swap 'credit score' for 'insulin at 7:15': same job. <b>Lower the temperature.</b>"</p>
+</div>
+
+<div class="bak" id="b-brand">
+  <span class="tag">Projects</span>
+  <p class="trig">"Brand? Visual range?" → Spacelab and Maven Wave</p>
+  <p>"Spacelab: naming through packaging. <b>Twenty-plus name candidates, each dressed in real typography before the vote</b>, because you can't judge a name naked. Four package formats in production. Maven Wave: <b>four complete brand directions</b>, and the deck opened by teaching the client <b>how to judge a logo</b> before showing one. That identity carried them to a Google Cloud premier partnership and an acquisition.</p>
+  <p class="last">"Same discipline as product: <b>explore wide, decide narrow, finish hard.</b>"</p>
+</div>
+
+<!-- ================= ASK THEM ================= -->
+<div class="banner s-ask" id="s-ask">Ask them <small>15 min · pick 4-5 by who's in the room</small></div>
+
+<div class="card c-ask">
+  <span class="tag">Ask them</span>
+  <h3>Product philosophy · April / the PDs</h3>
+  <p>1 · "Your site has a line I really like: a product problem is <b>a business problem wearing a product costume</b>. If PetWatch walked in as a real client… what's the business problem you'd see under it?"</p>
+  <p>2 · "How does a <b>strategy sprint</b> actually end here? What does 'validated' mean, concretely, before build starts?"</p>
+  <p>3 · "For your lead designers, what's the real split between <b>craft time and client-strategy time</b>?"</p>
+</div>
+
+<div class="card c-ask">
+  <span class="tag">Ask them</span>
+  <h3>AI practice · Adam / David</h3>
+  <p>4 · "Most of your AI work is framed as <b>things you build for clients</b>. How has AI changed <b>Goji's own loop</b>, day to day? I ask because that shift is the whole reason I rebuilt my practice."</p>
+  <p>5 · "Where's the line on <b>AI in client-facing deliverables</b>? What gets disclosed, and what do you require of the team?"</p>
+</div>
+
+<div class="card c-ask">
+  <span class="tag">Ask them</span>
+  <h3>The seat</h3>
+  <p>6 · "The team spans <b>fourteen-plus countries</b>. Where does critique actually live: Slack, Figma, Linear? <b>Who sees work while it's still ugly?</b>"</p>
+  <p>7 · "What would my <b>first ninety days</b> look like? What project would I land on?"</p>
+  <p>8 · "You say <b>proof, not promises</b>. Which recent launch is the team proudest of, and what number moved?"</p>
+  <p class="last">Closer: <b>"A year from now, what would make you say this hire was a clear win?"</b></p>
+</div>
+
+<script>
+/* Anchor jumps that work everywhere, with a landing flash. */
+document.addEventListener('click', function (e) {
+  var a = e.target.closest('a[href^="#"]');
+  if (!a) return;
+  var el = document.getElementById(a.getAttribute('href').slice(1));
+  if (!el) return;
+  e.preventDefault();
+  el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  el.style.transition = 'box-shadow .3s';
+  el.style.boxShadow = '0 0 0 4px #85adff';
+  setTimeout(function () { el.style.boxShadow = ''; }, 1400);
+});
+
+/* Live search: type a word, only matching cards remain. Esc or ✕ clears. */
+(function () {
+  var input = document.getElementById('search');
+  var clear = document.getElementById('clear');
+  var nomatch = document.getElementById('nomatch');
+  var cards = Array.prototype.slice.call(document.querySelectorAll('.card, .q, .bak, .rescue'));
+  var hideAlso = Array.prototype.slice.call(document.querySelectorAll('.banner, .hero'));
+
+  function apply() {
+    var v = input.value.trim().toLowerCase();
+    clear.style.display = v ? 'block' : 'none';
+    var any = false;
+    cards.forEach(function (c) {
+      var hit = !v || c.textContent.toLowerCase().indexOf(v) !== -1;
+      c.style.display = hit ? '' : 'none';
+      if (hit) any = true;
+    });
+    hideAlso.forEach(function (b) { b.style.display = v ? 'none' : ''; });
+    nomatch.style.display = (v && !any) ? 'block' : 'none';
+    if (v) window.scrollTo({ top: 0 });
+  }
+
+  input.addEventListener('input', apply);
+  clear.addEventListener('click', function () { input.value = ''; apply(); input.focus(); });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { input.value = ''; apply(); }
+  });
+})();
+</script>
