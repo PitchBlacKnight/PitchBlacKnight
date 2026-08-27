@@ -1,15 +1,44 @@
 {
+  "rewrites": [
+    {
+      "source": "/guide/:page([a-z0-9-]+)",
+      "destination": "/guide/:page.html"
+    }
+  ],
   "redirects": [
-    { "source": "/guide", "destination": "/guide/", "permanent": true },
-    { "source": "/guide/keystone", "destination": "/guide/keystone/docs/", "permanent": false },
-    { "source": "/guide/keystone/docs", "destination": "/guide/keystone/docs/", "permanent": true }
+    {
+      "source": "/guide",
+      "destination": "/guide/",
+      "permanent": true
+    },
+    {
+      "source": "/guide/keystone",
+      "destination": "/guide/pathfinder/docs/",
+      "permanent": false
+    },
+    {
+      "source": "/guide/keystone/docs/",
+      "destination": "/guide/pathfinder/docs/",
+      "permanent": false
+    },
+    {
+      "source": "/guide/pathfinder",
+      "destination": "/guide/pathfinder/docs/",
+      "permanent": false
+    }
   ],
   "headers": [
     {
       "source": "/guide/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive, nosnippet, noimageindex" },
-        { "key": "Referrer-Policy", "value": "no-referrer" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow, noarchive, nosnippet, noimageindex"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
+        }
       ]
     }
   ]

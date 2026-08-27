@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>MK Prompter · Xfinity Walkthrough</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700;800&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#0C051F; --panel:#171033; --line:rgba(138,99,255,.25);
+    --text:#EFEAFE; --dim:#8E82BC; --pink:#FF5FD2; --green:#4ADE96; --amber:#F3C57F;
+    --purple:#8A63FF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{background:var(--bg);color:var(--text);font-family:'Figtree',system-ui,sans-serif;line-height:1.6;font-size:19px}
+  .top{
+    position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;
+    padding:12px 22px;background:rgba(12,5,31,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+  }
+  .top h1{font-family:'Bricolage Grotesque',sans-serif;font-size:17px;font-weight:800;letter-spacing:-.01em}
+  .top h1 span{color:var(--pink)}
+  .prog{font-family:'Spline Sans Mono',monospace;font-size:13px;color:var(--dim)}
+  .prog b{color:var(--text)}
+  .spacer{flex:1}
+  #timer{font-family:'Spline Sans Mono',monospace;font-size:14px;color:var(--dim);background:none;border:1px solid var(--line);border-radius:999px;padding:5px 14px;cursor:pointer}
+  #timer.running{color:var(--green);border-color:rgba(74,222,150,.4)}
+  #lostBtn{font-weight:800;font-size:14px;background:var(--pink);color:#20041a;border:0;border-radius:999px;padding:7px 16px;cursor:pointer}
+  .keys{font-family:'Spline Sans Mono',monospace;font-size:11px;color:var(--dim)}
+  .wrap{max-width:780px;margin:0 auto;padding:26px 22px 50vh}
+
+  .howto{border:1px dashed var(--line);border-radius:14px;padding:14px 18px;font-size:14.5px;color:var(--dim);margin-bottom:26px}
+  .howto b{color:var(--text)}
+  .howto .k{color:var(--pink)}
+
+  .sect{font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--pink);margin:34px 0 10px;padding-top:10px;border-top:1px solid var(--line)}
+  .sect small{color:var(--dim);letter-spacing:.04em;text-transform:none;margin-left:10px}
+
+  .beat{
+    border:1px solid transparent;border-radius:16px;padding:16px 18px;margin-bottom:10px;cursor:pointer;
+    transition:background .15s,border-color .15s,opacity .15s;
+  }
+  .beat:hover{border-color:var(--line)}
+  .beat.now{background:var(--panel);border-color:var(--purple);box-shadow:0 0 0 1px var(--purple), 0 14px 40px -18px rgba(97,56,245,.6)}
+  body.focusmode .beat:not(.now){opacity:.32}
+  .do{
+    display:inline-flex;align-items:center;gap:7px;font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.06em;
+    color:#0d2b1c;background:var(--green);border-radius:999px;padding:3px 12px;font-weight:600;margin-bottom:8px;
+  }
+  .ask{
+    display:inline-flex;align-items:center;gap:7px;font-family:'Spline Sans Mono',monospace;font-size:12px;letter-spacing:.06em;
+    color:#2b1d04;background:var(--amber);border-radius:999px;padding:3px 12px;font-weight:600;margin-bottom:8px;
+  }
+  nav.jump{position:sticky;top:53px;z-index:19;display:flex;gap:4px;padding:8px 22px;background:rgba(12,5,31,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);overflow-x:auto}
+  nav.jump a{font-family:'Spline Sans Mono',monospace;font-size:11.5px;letter-spacing:.05em;color:var(--dim);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:4px 12px;white-space:nowrap}
+  nav.jump a:hover{color:var(--text);border-color:var(--purple)}
+  .say{font-size:19px}
+  .say .k{color:var(--pink);font-weight:800}
+  .say .g{color:var(--green);font-weight:800}
+  .say em{color:var(--amber);font-style:normal;font-weight:700}
+  .say .soft{color:var(--dim);font-size:16px}
+  .beat .why{margin-top:8px;font-size:14px;color:var(--dim)}
+  .beat .why b{color:var(--amber);font-weight:700}
+
+  /* lost overlay */
+  #lost{position:fixed;inset:0;z-index:50;background:rgba(6,2,18,.94);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;padding:24px}
+  #lost.on{display:flex}
+  .lost-card{max-width:640px;background:var(--panel);border:1px solid var(--purple);border-radius:20px;padding:28px}
+  .lost-card h2{font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800;margin-bottom:6px;color:var(--pink)}
+  .lost-card p{margin-bottom:14px;font-size:17px}
+  .lost-card .line{background:rgba(255,95,210,.08);border-left:3px solid var(--pink);padding:10px 14px;border-radius:0 10px 10px 0;margin-bottom:10px;font-size:17px}
+  .lost-card .line b{color:var(--pink)}
+  .lost-card .cur{margin-top:16px;font-size:14px;color:var(--dim)}
+  .lost-card .cur b{color:var(--green)}
+  .lost-card button{margin-top:16px;background:var(--purple);color:#fff;border:0;border-radius:999px;padding:9px 20px;font-weight:800;font-size:14px;cursor:pointer;font-family:inherit}
+</style>
+</head>
+<body class="focusmode">
+
+<div class="top">
+  <h1>MK <span>·</span> Xfinity walkthrough</h1>
+  <span class="prog" id="prog"><b>1</b> / 16</span>
+  <div class="spacer"></div>
+  <span class="keys">↓ next · ↑ back · L lost</span>
+  <button id="timer" title="Click to start/pause">00:00</button>
+  <button id="lostBtn">LOST?</button>
+</div>
+
+<nav class="jump">
+  <a href="#s-about">About me</a>
+  <a href="#s-walk">Walkthrough</a>
+  <a href="#s-backup">Other work</a>
+  <a href="#s-process">Process Qs</a>
+  <a href="#s-askben">Ask Ben</a>
+</nav>
+
+<div class="wrap">
+  <div class="howto">
+    <b>Before they join:</b> open the shared page in the window you'll share, this one off to the side. Click the first beat.
+    Press <span class="k">↓</span> after each beat — the lit card is always <b>where you are</b>. Don't read the sentences —
+    hit the <span class="k">pink words</span> and say the rest your way. Green pills = <b>what to click on screen</b>.
+    If you blank, hit <span class="k">L</span>.
+  </div>
+
+  <div class="sect" id="s-about">Tell me about yourself <small>~90 sec · this usually comes first — before any screenshare</small></div>
+
+  <div class="beat now">
+    <div class="ask">"Tell me about yourself"</div>
+    <div class="do">SHARE · mikelrosenthal.com — slow-scroll the featured five while you talk</div>
+    <div class="say">I'm a <span class="k">Chicago-based designer</span>, about <span class="k">23 years</span> in, and my background is a little unusual. My degree is in <span class="k">Electronic Arts and Design</span> with a minor in <span class="k">Mass Media and Communications</span>, and I came up through <span class="k">film and mass media</span> — then worked across <span class="k">almost every facet of design</span>: branding, marketing, digital product, UX, and ultimately <span class="k">design systems</span>. It really started with <span class="k">Photoshop 1.0 in high school</span> — and ever since, I've had this instinct to chase <span class="k">what the newest technology lets us do creatively</span>.</div>
+    <div class="why">Same opener as Stefan's, plus the film/media root — that's the Ben detail. Anchor: <b>23 years · film &amp; media · breadth · systems · craft.</b></div>
+  </div>
+
+  <div class="beat">
+    <div class="say">As my career evolved, that curiosity became <span class="k">product thinking and systems</span> — I created the <span class="k">FIBER design system at Blue Cross Blue Shield</span>, and worked on <span class="k">enterprise systems at GE Healthcare</span>. That taught me to think beyond one good screen and ask: how does this stay <span class="k">consistent, scalable, easier for the next team</span>? But the visual side was never a "side" for me — coming up through film and media, <span class="k">branding and visual craft are blended into everything I do</span>: <span class="k">typography, motion, experimentation</span>. I <span class="k">live in Figma</span> — variables, tokens, variant sets — deep enough that I <span class="k">built my own Figma plugin</span> for pushing tokens out to code.</div>
+    <div class="why">The Ben tilt: end on <b>typography · motion · experimentation → Figma depth</b>, and let it breathe. For Stefan this beat ended on systems; for Ben it ends on craft.</div>
+  </div>
+
+  <div class="beat">
+    <div class="say">Why here: this role sits <span class="k">right at that intersection</span> — product thinking, technology, systems, and <span class="k">elevated creative execution</span> — and honestly I don't see those as <span class="k">separate disciplines</span> anymore; the strongest experiences happen when they work together. Comcast's <span class="k">scale</span> makes it interesting — small improvements reach <span class="k">a tremendous number of people</span>. And the part of DXD most people run from — design that carries <span class="k">sales and marketing messaging</span> — is the part I like, because <span class="k">honest selling converts better</span>. I'll show you exactly what I mean in the prototype.</div>
+    <div class="why">Merges your proven "Why Comcast" with the Ben bridge — it hands you straight into the walkthrough. NPS tie for later: <b>the automatic outage credit is "turns detractors into promoters."</b></div>
+  </div>
+
+  <div class="sect" id="s-walk">Open the walkthrough <small>~1 min · shared page on Prototype tab, don't touch anything yet</small></div>
+
+  <div class="beat">
+    <div class="say">Thanks for the time. Instead of talking about process in the abstract, I <span class="k">rebuilt the Xfinity app</span> as a working concept — so I'll just <span class="k">show you how I think</span>. Everything you'll see is <span class="k">clickable, live</span>, built by me.</div>
+    <div class="why">If they ask how long: <b>"a focused sprint — map first, pixels last."</b></div>
+  </div>
+
+  <div class="beat">
+    <div class="say">Starting point: the app has <span class="k">4.3 stars, 1.4 million ratings</span>. So capability is <em>not</em> the problem. The pattern in user feedback is <span class="k">findability</span> — everything exists, it's just <span class="k">spread across five tabs</span> and a floating assistant. My whole thesis is one line: <span class="k">feature-complete, experience-scattered</span>.</div>
+  </div>
+
+  <div class="sect">Prototype <small>~4 min · stay on the Prototype tab</small></div>
+
+  <div class="beat">
+    <div class="do">POINT AT · the gauge on Home</div>
+    <div class="say">The number-one reason anyone opens an ISP app: <span class="k">"is my internet down?"</span> So I made that the <span class="k">first pixel</span> — a live status gauge. Today that answer costs about four taps. Here it costs <span class="k">zero</span>.</div>
+  </div>
+
+  <div class="beat">
+    <div class="do">FLIP · "Simulate an outage" under the phone</div>
+    <div class="say">Watch the whole screen <span class="k">reorganize around the outage</span>. Today the outage story is scattered over <span class="k">four surfaces</span> — banner, a separate map, SMS opt-in, and you ask a chatbot for your credit. </div>
+  </div>
+
+  <div class="beat">
+    <div class="do">TAP · the outage banner</div>
+    <div class="say">Here it's <span class="k">one screen</span>: live repair <span class="k">timeline</span>, the <span class="k">map</span>, text updates — and the part I care most about: <span class="k">"credit already applied."</span> You don't ask. It just shows up on your bill. That's the single <span class="k">biggest trust move</span> in the whole concept. <span class="soft">(flip the outage back off)</span></div>
+  </div>
+
+  <div class="beat">
+    <div class="do">SWITCH · "Viewing as" → Viewer</div>
+    <div class="say">The app has <span class="k">five roles</span>, and today tabs literally <span class="k">disappear</span> for lower roles — it looks broken. My rule: <span class="k">roles inform, they never vanish</span>. Everyone sees the same map; locked things are <span class="k">dimmed and say who holds the key</span>. <span class="soft">(yes — the viewer is the cat. Every account has one member like that.)</span> <span class="soft">(switch back to Primary)</span></div>
+  </div>
+
+  <div class="beat">
+    <div class="do">TAP · WiFi tab → Devices → Pause something</div>
+    <div class="say">Structural change number one: today WiFi and smart home are <span class="k">two separate tabs</span> with two device lists. To a person, a camera is just <span class="k">another thing on the network</span>. So <span class="k">WiFi absorbs Home</span> — one device model, pause anything, one less tab.</div>
+  </div>
+
+  <div class="beat">
+    <div class="do">TAP · Plan tab → Faster speeds</div>
+    <div class="say">Structural change two: <span class="k">service and sales, separated</span>. Offers live in one labeled <span class="k">"Explore"</span> card — opt-in, never disguised as support. And the speed picker shows the <span class="k">full new price right here</span>, taxes in — not at the end of a checkout funnel.</div>
+  </div>
+
+  <div class="beat">
+    <div class="do">TAP · the ✦ button → "Internet feels slow"</div>
+    <div class="say">Last piece: the Assistant is a <span class="k">layer, not a place</span>. It answers, then <span class="k">deep-links you to the actual screen</span> — watch it land on Devices. It never becomes a parallel app.</div>
+  </div>
+
+  <div class="sect">The thinking <small>~4 min · now walk the tabs left to right</small></div>
+
+  <div class="beat">
+    <div class="do">CLICK · Flows tab</div>
+    <div class="say">Here's the same argument in numbers. The <span class="k">five jobs</span> people actually open this app for — before and after. Across all five: <span class="k">22 taps down to 10</span>, and the most common one drops to <span class="k">zero</span>. And below — my favorite chart — <span class="k">the same outage, twice</span>. Same repair time, same night. The green line <span class="k">ends higher than it started</span>, purely because of the credit being automatic. A bad night becomes proof the company <span class="k">has it handled</span>.</div>
+  </div>
+
+  <div class="beat">
+    <div class="do">CLICK · Screen map tab</div>
+    <div class="say">This is the whole IA as a <span class="k">constellation</span>. Solid lines mean <span class="k">ownership</span> — every feature has exactly <span class="k">one address</span>. Dashed lines are the only other thing allowed: <span class="k">deep-links</span>. The Assistant sits in the middle because it <span class="k">reaches everything but owns nothing</span>. Scroll down: today's map with all the <span class="k">duplication flagged in magenta</span> — billing lives in three places, the outage in four.</div>
+  </div>
+
+  <div class="beat">
+    <div class="do">CLICK · Current-app audit tab</div>
+    <div class="say">The audit, from Comcast's own support docs. Bars: <span class="k">surfaces per job</span>, before and after — everything collapses to <span class="k">one owner</span>. And the line I'd put on a wall: <span class="k">"Everything is there. Finding it is the work."</span> Then — this part matters to me — I <span class="k">turned the same audit on my own design</span>, found <span class="k">six real issues</span>, and fixed all six. A redesign that only critiques its predecessor isn't credible.</div>
+    <div class="why">If pressed for an example: <b>"my speed picker was reachable by every role — my own role rules said it shouldn't be. Caught it, gated it."</b></div>
+  </div>
+
+  <div class="beat">
+    <div class="do">CLICK · Redesign spec tab</div>
+    <div class="say">Five <span class="k">principles</span>, thirty-ish numbered <span class="k">requirements</span>, and a <span class="k">traceability matrix</span> connecting them — because a requirement that serves no principle is <span class="k">scope creep</span>, and a principle with no requirements is <span class="k">a poster</span>.</div>
+  </div>
+
+  <div class="beat">
+    <div class="do">CLICK · Roadmap tab</div>
+    <div class="say">And how it <span class="k">stays simple</span>: a <span class="k">placement algorithm</span> — four questions every future feature has to pass, and if it fails all four it becomes an <span class="k">Assistant answer, not a new screen</span>. A rollout that ships <span class="k">cheap trust first</span> — copy and consolidation — before the hard plumbing like automatic credits. And <span class="k">four metrics</span> so we'd know it worked, not just feel it.</div>
+  </div>
+
+  <div class="sect">Close <small>~1 min · back to Prototype tab, healthy Home screen</small></div>
+
+  <div class="beat">
+    <div class="say">So that's the shape of how I work: <span class="k">map it</span> honestly, <span class="k">measure the friction</span>, <span class="k">prototype the answer</span>, then leave behind <span class="k">rules that keep it simple</span> after I'm gone. Happy to go deeper on any layer — the flows, the system thinking, or the pixels.</div>
+  </div>
+
+  <div class="sect" id="s-backup">Backup pocket <small>only if they want more — don't volunteer all of it</small></div>
+
+  <div class="beat">
+    <div class="say"><span class="g">Bridge line:</span> "This isn't a one-off — I work this way on <span class="k">every problem</span>. Two quick examples if useful…" <span class="soft">Then pick ONE below based on who's in the room — product person → PetWatch, systems person → Pathfinder.</span></div>
+  </div>
+
+  <div class="beat">
+    <div class="do">HAVE READY · petwatch-exercise.vercel.app</div>
+    <div class="say"><span class="k">PetWatch</span> — a full <span class="k">end-to-end product exercise</span>: research plan, <span class="k">PRD</span>, journey maps, and a <span class="k">working prototype</span> — same pattern as today: map first, then pixels. I also kept an <span class="k">AI log</span> — exactly where I used AI and where I didn't — because I'd rather show that than have you wonder.</div>
+  </div>
+
+  <div class="beat">
+    <div class="do">HAVE READY · Pathfinder 2.0 (via my demo hub)</div>
+    <div class="say"><span class="k">Pathfinder</span> — the <span class="k">design-systems</span> side of me: a <span class="k">token architecture</span>, component <span class="k">recipes</span>, a live <span class="k">playground</span>, and a <span class="k">Figma library mapping</span> so design and code stay one system. Directly relevant here — remember the <span class="k">role-gating</span> problem from the audit? That's a <span class="k">design-system conversation</span>, and this is how I run those.</div>
+    <div class="why">Xfinity tie-in if asked: <b>"the placement algorithm on the Roadmap page is governance — same muscle as token governance in Pathfinder."</b></div>
+  </div>
+
+  <div class="beat">
+    <div class="say"><span class="g">Offer, don't dump:</span> "I keep all of this on a <span class="k">private demo hub</span> — happy to <span class="k">send links after</span> so you can click through on your own time." <span class="soft">(Better than eating meeting time — and it earns a follow-up email.)</span></div>
+  </div>
+
+  <div class="sect" id="s-process">Process questions — likely asks <small>keyword answers · every one can point back at the shared page</small></div>
+
+  <div class="beat">
+    <div class="ask">"Walk me through your process"</div>
+    <div class="say">Five words: <span class="k">Map, Frame, Prototype, Test, Systemize</span>. Map the territory before touching pixels — for Xfinity that was the <span class="k">screen map and audit</span>. Frame it as <span class="k">principles</span> — one question per tab, one address per feature. Prototype <span class="k">real and clickable</span>, because stakeholders react to things they can touch. Test — and when there's no lab, <span class="k">audit yourself</span>. Then systemize: the <span class="k">placement algorithm</span> so the thinking outlives the project. The shared page <em>is</em> my process, in order.</div>
+  </div>
+
+  <div class="beat">
+    <div class="ask">"What does elevated craft mean to you?"</div>
+    <div class="say">Craft is <span class="k">decisions you can defend</span> — nothing on the screen by accident. A real <span class="k">type scale</span>, a <span class="k">spacing rhythm</span>, color as <span class="k">tokens</span> not picks, <span class="k">motion with restraint</span>. In the prototype: the gauge's glow is the <em>status</em>, not decoration; numbers are <span class="k">tabular</span> so money doesn't jiggle; the hairlines catch light on one edge like a physical surface; the background moves so slowly you feel it more than see it. Craft is <span class="k">the last ten percent users can't name but always feel</span>.</div>
+    <div class="why">This is Ben's question. Slow down here. Point at actual pixels while you talk.</div>
+  </div>
+
+  <div class="beat">
+    <div class="ask">"How do you research without a lab?"</div>
+    <div class="say">Evidence is everywhere before the first interview: this whole project was mapped from <span class="k">Comcast's own support docs</span>, the App Store listing, and <span class="k">review sentiment</span>. Support docs tell you what the company thinks the product is; reviews tell you what users experience — <span class="k">the gap between those two is the design brief</span>. Then with real users I keep it lightweight: <span class="k">task-based tests</span> on the five core jobs, and the Roadmap metrics decide who was right.</div>
+  </div>
+
+  <div class="beat">
+    <div class="ask">"How do you work with PM / Sales / Marketing?"</div>
+    <div class="say">I'm the <span class="k">user's advocate who takes revenue seriously</span> — those aren't opposites. My rule from the prototype: <span class="k">service and sales, separated</span> — but sales gets a <em>better</em> home, not a hidden one: labeled, opt-in, <span class="k">full price up front</span>. Honest offers convert better and refund less. With PMs I bring <span class="k">artifacts, not opinions</span> — a tap-count table ends a debate faster than a meeting.</div>
+  </div>
+
+  <div class="beat">
+    <div class="ask">"How deep are you in Figma?"</div>
+    <div class="say"><span class="k">Lives-and-breathes deep</span>: <span class="k">variables and tokens</span> for theming, proper <span class="k">variant sets</span>, library governance so files stay one system. Pathfinder is that in public — tokens, recipes, a <span class="k">Figma library mapped to code</span>. And when the workflow had a gap I <span class="k">built a plugin</span> to close it — pushing tokens out to development.</div>
+  </div>
+
+  <div class="beat">
+    <div class="ask">"Do you use AI? How?"</div>
+    <div class="say">Yes — <span class="k">like a team I direct</span>, not a vending machine. It accelerates the <span class="k">production</span>; the <span class="k">taste, judgment, and structure are mine</span> — the IA, the principles, what got cut. And I keep an <span class="k">AI log</span> on my exercises showing exactly where it helped, because I'd rather show you than have you wonder. The result: <span class="k">studio-of-one output at team speed</span> — which is what a fast-paced team actually buys.</div>
+  </div>
+
+  <div class="beat">
+    <div class="ask">"Fast pace, multiple projects?"</div>
+    <div class="say">That's been both halves of my career: <span class="k">enterprise programs</span> at BCBS and GE — many teams, hard deadlines — and <span class="k">studio life</span> with parallel clients and no one to hand off to. My defenses: <span class="k">timeboxes</span>, working <span class="k">map-first</span> so effort lands where it matters, and <span class="k">prototyping in the medium</span> so there's no throwaway deliverable stage. This entire Xfinity package was <span class="k">one focused sprint</span>.</div>
+  </div>
+
+  <div class="beat">
+    <div class="ask">"How do you take critique?"</div>
+    <div class="say">As <span class="k">data</span>. I ran <span class="k">my own audit against my own design</span> — found six real issues, fixed all six, published the list. If I'll do that to myself unprompted, you can imagine crit is easy. The only thing I push back on is feedback with <span class="k">no user in it</span> — and even then, I'd rather <span class="k">test it than argue it</span>.</div>
+  </div>
+
+  <div class="sect" id="s-askben">My questions for Ben <small>ask 2, keep the rest in pocket · he expects these</small></div>
+
+  <div class="beat">
+    <div class="ask">Q1 · the craft bar</div>
+    <div class="say">"What's a piece of work — shipped or in flight — that best represents the <span class="k">craft bar</span> you want DXD known for? I'm trying to calibrate what <span class="k">'elevated'</span> means <em>here</em>, at Comcast scale."</div>
+    <div class="why">Flatters his mandate, gets him showing <b>his</b> work — people love this question.</div>
+  </div>
+
+  <div class="beat">
+    <div class="ask">Q2 · team makeup</div>
+    <div class="say">"DXD is a new team — what's the <span class="k">mix today</span> across product design, visual, motion, and research, and where do you see the <span class="k">next hire tilting</span>? I want to understand where I'd add the most."</div>
+  </div>
+
+  <div class="beat">
+    <div class="ask">Q3 · cross-functional reality</div>
+    <div class="say">"When Sales, Marketing, and Brand partner with the team — do they come in <span class="k">upstream during discovery</span>, or closer to review? And what's the <span class="k">sprint cadence</span> like when a campaign deadline hits the design process?"</div>
+    <div class="why">Spares if needed: <b>"what does success look like for this role in six months?"</b> · <b>"how does user research feed the loop today?"</b></div>
+  </div>
+
+  <div class="beat">
+    <div class="say"><span class="g">Q&A safety nets.</span> Buying time: <em>"Good question — let me show you rather than tell you"</em> → click the relevant tab. Don't know: <em>"I'd want data before I answer that — here's the metric I'd check"</em> → Roadmap. Pushback on a choice: <em>"Fair — that's exactly the kind of call I'd want to test. Here's what I'd measure."</em></div>
+  </div>
+</div>
+
+<div id="lost" role="dialog" aria-label="Recovery lines">
+  <div class="lost-card">
+    <h2>Breathe. You're fine.</h2>
+    <p>Say one of these while you find your spot — they work anywhere in the talk:</p>
+    <div class="line"><b>"The short version:</b> every feature already exists — this whole redesign is about <b>where things live</b>."</div>
+    <div class="line"><b>"Let me show you my favorite part"</b> → flip the outage switch. It always lands.</div>
+    <div class="line"><b>"Zoom out for a second:</b> five tabs became four, four outage surfaces became one, 22 taps became 10."</div>
+    <div class="cur">You are on beat <b id="lostCur">1</b>. Close this, glance at the lit card, hit the pink words.</div>
+    <button onclick="closeLost()">Back to it (Esc)</button>
+  </div>
+</div>
+
+<script>
+  var beats=[].slice.call(document.querySelectorAll('.beat')), cur=0;
+  var prog=document.getElementById('prog'), lostCur=document.getElementById('lostCur');
+  function setCur(i){
+    if(i<0||i>=beats.length)return;
+    beats[cur].classList.remove('now'); cur=i; beats[cur].classList.add('now');
+    prog.innerHTML='<b>'+(cur+1)+'</b> / '+beats.length; lostCur.textContent=cur+1;
+    beats[cur].scrollIntoView({block:'center',behavior:'smooth'});
+  }
+  beats.forEach(function(b,i){b.addEventListener('click',function(){setCur(i)})});
+  prog.innerHTML='<b>1</b> / '+beats.length;
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'||e.key===' '||e.key==='j'){e.preventDefault();setCur(cur+1)}
+    else if(e.key==='ArrowUp'||e.key==='k'){e.preventDefault();setCur(cur-1)}
+    else if(e.key==='l'||e.key==='L'||e.key==='?'){toggleLost()}
+    else if(e.key==='Escape'){closeLost()}
+  });
+  var lost=document.getElementById('lost');
+  function toggleLost(){lost.classList.toggle('on')}
+  function closeLost(){lost.classList.remove('on')}
+  document.getElementById('lostBtn').addEventListener('click',toggleLost);
+
+  var t0=null,acc=0,tick=null,tbtn=document.getElementById('timer');
+  function fmt(s){s=Math.floor(s/1000);return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')}
+  tbtn.addEventListener('click',function(){
+    if(tick){acc+=Date.now()-t0;clearInterval(tick);tick=null;tbtn.classList.remove('running')}
+    else{t0=Date.now();tbtn.classList.add('running');tick=setInterval(function(){tbtn.textContent=fmt(acc+Date.now()-t0)},500)}
+  });
+</script>
+</body>
+</html>

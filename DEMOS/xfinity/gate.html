@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Xfinity Reimagined · Private review</title>
+<meta property="og:title" content="Xfinity Reimagined">
+<meta property="og:description" content="A working redesign concept by Mikel Rosenthal — live prototype, flows, audit & roadmap. Private review.">
+<meta property="og:image" content="https://xfinity-reimagined.vercel.app/og.jpg">
+<meta property="og:image:width" content="2400">
+<meta property="og:image:height" content="1260">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://xfinity-reimagined.vercel.app">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xfinity-reimagined.vercel.app/og.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    min-height:100vh;display:grid;place-items:center;padding:24px;
+    font-family:'Figtree',system-ui,sans-serif;color:#F2EFFC;
+    background:
+      radial-gradient(900px 500px at 85% -10%, rgba(229,70,196,.28), transparent 60%),
+      radial-gradient(800px 600px at -10% 30%, rgba(97,56,245,.45), transparent 60%),
+      linear-gradient(160deg,#2A1178 0%,#12062E 55%,#1B0B4B 100%);
+  }
+  .card{
+    width:100%;max-width:420px;text-align:center;
+    background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.03));
+    border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:38px 32px;
+    backdrop-filter:blur(18px);box-shadow:0 30px 70px -30px rgba(5,0,25,.9);
+  }
+  .mark{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:20px;letter-spacing:-.02em;margin-bottom:6px}
+  .mark span{color:#FF5FD2}
+  p.sub{color:#B4A6E4;font-size:14px;margin-bottom:24px}
+  label{display:block;text-align:left;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#8677BF;margin-bottom:8px}
+  input{
+    width:100%;background:rgba(255,255,255,.06);border:1.5px solid rgba(138,99,255,.4);border-radius:14px;
+    color:#F2EFFC;font-family:inherit;font-size:17px;padding:13px 16px;outline:none;
+  }
+  input:focus{border-color:#FF5FD2}
+  button{
+    width:100%;margin-top:14px;border:1px solid rgba(255,255,255,.22);border-radius:999px;
+    background:linear-gradient(92deg,#6138F5,#8A3FF0);color:#fff;font-family:inherit;font-weight:700;
+    font-size:15px;padding:13px 0;cursor:pointer;box-shadow:0 12px 28px -10px rgba(97,56,245,.7);
+  }
+  button:active{transform:scale(.98)}
+  .err{display:none;margin-top:14px;font-size:13.5px;font-weight:600;color:#FF7A93}
+  .err.on{display:block}
+  footer{margin-top:22px;font-size:11.5px;color:#8677BF}
+  .bg-orbits{
+    position:fixed;right:-300px;top:-260px;width:1100px;height:1100px;z-index:0;pointer-events:none;
+    opacity:.28;
+    -webkit-mask-image:radial-gradient(closest-side,#000 40%,transparent 73%);
+    mask-image:radial-gradient(closest-side,#000 40%,transparent 73%);
+  }
+  .bg-orbits img{display:block;width:100%;height:100%;mix-blend-mode:screen}
+  .card{position:relative;z-index:1}
+  @media (prefers-reduced-motion:reduce){.bg-orbits{display:none}}
+</style>
+</head>
+<body>
+  <div class="bg-orbits" aria-hidden="true"><img src="/orbits.gif" alt=""></div>
+  <form class="card" id="f">
+    <div class="mark">xfinity <span>⌁</span> reimagined</div>
+    <p class="sub">This is a private design review. Enter the password from Mikel's email to continue.</p>
+    <label for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="off" autofocus>
+    <button type="submit">View the concept</button>
+    <div class="err" id="err">That password isn't right — check the invite and try again.</div>
+    <footer>Unofficial redesign concept · not affiliated with Comcast</footer>
+  </form>
+<script>
+  var params = new URLSearchParams(location.search);
+  // If we bounced back here while a key cookie exists, the password was wrong.
+  if (document.cookie.indexOf('dxd_key=') !== -1 && params.get('to')) {
+    document.getElementById('err').classList.add('on');
+  }
+  document.getElementById('f').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var v = document.getElementById('pw').value.trim();
+    document.cookie = 'dxd_key=' + encodeURIComponent(v) + '; path=/; max-age=' + (60 * 60 * 24 * 30) + '; secure; samesite=lax';
+    location.href = params.get('to') || '/';
+  });
+</script>
+</body>
+</html>

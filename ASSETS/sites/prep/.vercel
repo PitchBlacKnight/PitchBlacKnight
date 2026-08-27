@@ -1,0 +1,12 @@
+TRIPWIRE — DO NOT DELETE
+
+This is a FILE, not a directory, on purpose. The Vercel CLI cannot create its
+`.vercel/` link directory while a regular file occupies that name, so
+`vercel link` / `vercel --prod` / `vercel deploy` will FAIL here.
+
+That is intended. This folder is RETIRED. See RETIRED.md.
+
+The interview kit now lives at:
+  source: ~/PitchBlacKnight/CLAUDE CODE/interview-kit
+  url:    https://guide.mikelrosenthal.com
+  deploy: ~/PitchBlacKnight/ASSETS/deploy-sites.sh guide

@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PitchBlacKnight — Fluxus Artist · Polymath</title>
+  <meta name="description" content="Mikel Rosenthal is a polymath and Fluxus artist working across music, performance, visual art, design, and voice." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@0,400;0,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: var(--black); color: var(--white); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+
+    :root {
+      --black: #060606;
+      --near-black: #0d0d0d;
+      --surface: #111111;
+      --white: #f0f0f0;
+      --muted: #555566;
+      --muted-blue: #7b8db8;
+      --orange: #e8512a;
+      --border: rgba(255,255,255,0.07);
+      --font-sans: 'Schibsted Grotesk', system-ui, sans-serif;
+      --font-serif: 'Alexandria', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    /* LOADER */
+    #loader {
+      position: fixed; inset: 0; background: var(--black); z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+    .loader-bar { width: 200px; height: 1px; background: rgba(255,255,255,0.1); overflow: hidden; }
+    .loader-fill { height: 100%; background: var(--orange); width: 0; animation: loadprogress 0.8s ease forwards; }
+    @keyframes loadprogress { to { width: 100%; } }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem; background: rgba(6,6,6,0.93);
+      backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-serif); font-size: 0.8rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); text-decoration: none;
+    }
+    .nav-logo .logo-mark { width: 22px; height: 22px; flex-shrink: 0; }
+    .nav-logo strong { font-weight: 700; }
+    .nav-logo span { font-weight: 300; }
+    .nav-links {
+      display: flex; align-items: center; gap: 1.8rem; list-style: none;
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .nav-links a { color: var(--muted); text-decoration: none; transition: color .2s; padding: 0.3rem 0.5rem; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--white); border: 1px solid rgba(255,255,255,0.3); }
+    .nav-resume { color: var(--orange) !important; display: flex; align-items: center; gap: 0.3rem; }
+    .nav-resume::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); display: inline-block; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.3rem; }
+    .hamburger span { width: 22px; height: 1px; background: var(--white); transition: all 0.3s; display: block; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; background: rgba(6,6,6,0.97);
+      z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-mono); font-size: 1.1rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); transition: color 0.2s;
+    }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--white); }
+    .mobile-menu .nav-resume { color: var(--orange) !important; }
+    .mobile-close {
+      position: absolute; top: 1.5rem; right: 2rem; font-family: var(--font-mono);
+      font-size: 1.2rem; color: var(--muted); cursor: pointer;
+    }
+
+    /* HERO */
+    #hero {
+      position: relative; width: 100%; height: 100vh; min-height: 600px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); z-index: 1; }
+    .hero-content {
+      position: relative; z-index: 2; display: flex; flex-direction: column;
+      align-items: center; gap: 0.4rem; text-align: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.32em;
+      text-transform: uppercase; color: rgba(255,255,255,0.38);
+    }
+    .hero-sub {
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 0.5rem;
+    }
+    .hero-form { width: clamp(300px, 38vw, 480px); opacity: 0.93; display: block; }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    }
+    .hero-scroll-label {
+      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.28em;
+      text-transform: uppercase; color: rgba(255,255,255,0.25);
+    }
+    .hero-scroll-line { width: 1px; height: 48px; background: rgba(255,255,255,0.2); }
+
+    /* SECTION COMMON */
+    section { padding: 7rem 2.5rem; }
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 3rem;
+    }
+    .c-orange { color: var(--orange); }
+    .c-blue { color: var(--muted-blue); }
+    .c-white { color: var(--white); }
+
+    /* ABOUT */
+    #about {
+      background: var(--black); min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; position: relative; overflow: hidden;
+    }
+    .about-glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 40% 60%, rgba(180,80,30,0.18) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .about-inner { position: relative; z-index: 1; }
+    .about-statement { display: flex; flex-direction: column; gap: 0; }
+    .about-statement p {
+      font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3.5rem); line-height: 1.15;
+    }
+
+    /* WORK */
+    #work { background: var(--near-black); }
+    .work-headline {
+      font-family: var(--font-serif); font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 700; line-height: 1; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .work-desc {
+      font-family: var(--font-sans); font-size: 0.9rem; color: var(--muted);
+      max-width: 480px; margin-bottom: 3rem; line-height: 1.7;
+    }
+    .work-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--black); margin-bottom: 2rem;
+    }
+    .work-cell { aspect-ratio: 1/1; overflow: hidden; background: var(--near-black); }
+    .work-cell img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .4s ease, filter .4s ease; filter: grayscale(20%);
+    }
+    .work-cell:hover img { transform: scale(1.04); filter: grayscale(0%); }
+    .view-portfolio-btn {
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--orange); display: inline-block;
+      transition: text-decoration 0.2s;
+    }
+    .view-portfolio-btn:hover { text-decoration: underline; }
+
+    /* WEB DESIGN CATALOG */
+    .catalog-header {
+      margin: 5rem 0 0;
+      padding: 2.5rem 0 2rem;
+      border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem;
+    }
+    .catalog-eyebrow {
+      font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem;
+    }
+    .catalog-title {
+      font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1; text-transform: uppercase; color: var(--white);
+    }
+    .catalog-desc {
+      font-family: var(--font-sans); font-size: 0.82rem; color: var(--muted);
+      line-height: 1.7; max-width: 380px; margin-top: 1rem;
+    }
+    .catalog-count {
+      font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); text-align: right;
+      white-space: nowrap;
+    }
+    .catalog-count span {
+      display: block; font-family: var(--font-serif); font-size: 2.5rem;
+      font-weight: 700; color: var(--white); letter-spacing: -0.02em; line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .web-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: var(--border); margin-bottom: 2.5rem;
+    }
+    .wpc { background: var(--black); display: flex; flex-direction: column; text-decoration: none; transition: opacity 0.2s; }
+    .wpc:hover { opacity: 0.88; }
+    .wpc-thumb {
+      aspect-ratio: 16/9; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.4rem;
+    }
+    .wpc-thumb::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .wpc-eyebrow {
+      position: relative; z-index: 1;
+      font-family: var(--font-mono); font-size: 0.45rem; letter-spacing: 0.22em;
+      text-transform: uppercase; margin-bottom: 0.4rem; opacity: 0.7;
+    }
+    .wpc-hero {
+      position: relative; z-index: 1;
+      font-family: var(--font-serif); font-size: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 700; line-height: 1.15; color: #fff;
+    }
+    .wpc-meta {
+      padding: 0.9rem 1.4rem; display: flex; justify-content: space-between;
+      align-items: center; border-top: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .wpc-name {
+      font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--white);
+    }
+    .wpc-tag {
+      font-family: var(--font-mono); font-size: 0.48rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .wpc-arrow {
+      font-family: var(--font-mono); font-size: 0.7rem; color: var(--orange);
+      opacity: 0.7; transition: opacity 0.2s; flex-shrink: 0;
+    }
+    .wpc:hover .wpc-arrow { opacity: 1; }
+    @media (max-width: 600px) { .web-grid { grid-template-columns: 1fr; } }
+
+    /* MUSIC */
+    #music { background: var(--black); position: relative; overflow: hidden; }
+    #music::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 80%, rgba(232,81,42,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .music-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: end; margin-bottom: 5rem;
+    }
+    .music-headline {
+      font-family: var(--font-serif); font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 700; line-height: 1; text-transform: uppercase;
+    }
+    .music-bio {
+      font-family: var(--font-sans); font-size: 0.88rem; color: var(--muted);
+      line-height: 1.8; max-width: 420px; padding-bottom: 0.5rem;
+    }
+    .music-tracks { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+    .music-track-entry {
+      display: grid; grid-template-columns: 3rem 1fr auto;
+      align-items: center; gap: 1.5rem; padding: 1.4rem 1.8rem;
+      background: var(--black); transition: background 0.2s;
+    }
+    .music-track-entry:hover { background: rgba(255,255,255,0.02); }
+    .music-track-entry.active { background: rgba(232,81,42,0.05); }
+    .mte-num {
+      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em;
+      color: var(--muted); text-align: right; line-height: 1;
+    }
+    .mte-num .mte-bar-wrap { display: none; height: 18px; align-items: flex-end; gap: 1.5px; justify-content: flex-end; }
+    .music-track-entry.active .mte-num .mte-bar-wrap { display: flex; }
+    .music-track-entry.active .mte-num .num-label { display: none; }
+    .mte-bar {
+      width: 2px; background: var(--orange); border-radius: 1px; opacity: 0.8;
+      animation: mte-wave 0.9s ease-in-out infinite;
+    }
+    .mte-bar:nth-child(1) { --mh: 8px; animation-delay: 0s; }
+    .mte-bar:nth-child(2) { --mh: 14px; animation-delay: 0.15s; }
+    .mte-bar:nth-child(3) { --mh: 10px; animation-delay: 0.07s; }
+    .mte-bar:nth-child(4) { --mh: 16px; animation-delay: 0.22s; }
+    .mte-bar:nth-child(5) { --mh: 6px; animation-delay: 0.1s; }
+    @keyframes mte-wave { 0%,100%{height:2px} 50%{height:var(--mh,10px)} }
+    .active.paused .mte-bar { animation-play-state: paused; }
+    .mte-info { display: flex; flex-direction: column; gap: 0.25rem; }
+    .mte-title {
+      font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700;
+      color: var(--white); line-height: 1;
+    }
+    .music-track-entry.active .mte-title { color: var(--orange); }
+    .mte-tag {
+      font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .mte-progress-wrap {
+      width: 100%; height: 1px; background: var(--border); margin-top: 0.5rem;
+      position: relative; display: none;
+    }
+    .music-track-entry.active .mte-progress-wrap { display: block; }
+    .mte-progress-fill {
+      height: 100%; background: var(--orange); width: 0%; transition: width 0.25s linear;
+    }
+    .mte-right { display: flex; align-items: center; gap: 1.2rem; }
+    .mte-duration {
+      font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted);
+      min-width: 2.8rem; text-align: right;
+    }
+    .mte-play-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15); background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s; flex-shrink: 0;
+    }
+    .mte-play-btn:hover { border-color: var(--orange); background: rgba(232,81,42,0.1); }
+    .music-track-entry.active .mte-play-btn { border-color: var(--orange); background: rgba(232,81,42,0.15); }
+    .mte-play-btn svg { fill: var(--white); }
+    .music-track-entry.active .mte-play-btn svg { fill: var(--orange); }
+    .hidden-audio { display: none; }
+    @media (max-width: 768px) {
+      .music-intro { grid-template-columns: 1fr; gap: 1.5rem; }
+      .music-track-entry { grid-template-columns: 2rem 1fr auto; gap: 1rem; padding: 1.2rem 1rem; }
+    }
+
+    /* DAILY WISDOM */
+    #wisdom { background: var(--black); }
+    .wisdom-quote {
+      border-left: 3px solid var(--orange); padding-left: 2rem; margin-bottom: 4rem;
+      max-width: 780px;
+    }
+    .wisdom-quote p {
+      font-family: var(--font-serif); font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 300; color: var(--white); line-height: 1.5; margin-bottom: 0.8rem;
+    }
+    .wisdom-quote cite { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--muted); font-style: normal; }
+    .poem-block { max-width: 600px; }
+    .poem-stanza { margin-bottom: 2rem; }
+    .poem-line { font-family: var(--font-serif); font-size: 1rem; color: rgba(255,255,255,0.7); line-height: 1.8; font-weight: 300; }
+
+    /* CONTACT */
+    #contact { background: var(--near-black); }
+    .contact-headline {
+      font-family: var(--font-serif); font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700; text-transform: uppercase; line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .contact-sub { font-family: var(--font-sans); font-size: 0.9rem; color: var(--muted); max-width: 520px; margin-bottom: 3rem; line-height: 1.7; }
+    .form-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    .form-row { display: flex; gap: 0.75rem; align-items: stretch; margin-bottom: 1rem; max-width: 500px; }
+    .form-row select {
+      flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--white);
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; padding: 0.75rem 1rem;
+      appearance: none; cursor: pointer; outline: none; transition: border-color 0.2s;
+    }
+    .form-row select:focus { border-color: var(--orange); }
+    .form-row button {
+      background: var(--orange); color: var(--white); padding: 0.75rem 1.5rem;
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: opacity 0.2s; white-space: nowrap;
+    }
+    .form-row button:hover { opacity: 0.85; }
+    .form-phone { font-family: var(--font-sans); font-size: 0.8rem; color: var(--muted); margin-bottom: 3rem; }
+    .form-phone a { color: var(--white); transition: color 0.2s; }
+    .form-phone a:hover { color: var(--orange); }
+    .social-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .social-tag {
+      border: 1px solid var(--border); padding: 0.4rem 0.9rem;
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); transition: border-color 0.2s, color 0.2s;
+    }
+    .social-tag:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* FOOTER */
+    footer { background: #08111a; padding: 5rem 2.5rem 2rem; position: relative; overflow: hidden; }
+    .footer-glow {
+      position: absolute; width: 500px; height: 400px; top: 50%; left: 45%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse 55% 45% at 45% 55%, rgba(235,225,190,0.85) 0%, rgba(210,195,150,0.3) 40%, transparent 70%);
+      filter: blur(2px); pointer-events: none; z-index: 0;
+    }
+    .footer-inner { position: relative; z-index: 1; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; max-width: 400px; }
+    .footer-col-title { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+    .footer-col a { display: block; font-family: var(--font-sans); font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 0.6rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bar {
+      border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-copy { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); }
+    .footer-logo { display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-serif); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .footer-logo strong { font-weight: 700; }
+    .footer-logo span { font-weight: 300; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 5rem 1.5rem; }
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+      .music-layout { grid-template-columns: 1fr; }
+      .music-player { min-height: 260px; }
+      .hero-form { width: clamp(260px, 80vw, 360px); }
+      .about-statement p { font-size: clamp(1.6rem, 5.5vw, 2.5rem); }
+      .contact-headline { font-size: clamp(2rem, 8vw, 3rem); }
+      .form-row { flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .footer-bar { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+      .social-tags { gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-inner">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="white" opacity="0.4"/>
+        <path d="M12 4C8.5 4 6 7 6 12s2.5 8 6 8c1.5 0 2.8-1.2 2.8-2.7 0-.7-.3-1.4-.7-1.9-.4-.5-.6-1.1-.6-1.6 0-1.5 1.2-2.7 2.7-2.7.5 0 1 .1 1.4.4C17.6 9.8 16.5 4 12 4z" fill="white" opacity="0.9"/>
+      </svg>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="#hero" class="nav-logo">
+      <svg class="logo-mark" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="white" opacity="0.4"/>
+        <path d="M12 4C8.5 4 6 7 6 12s2.5 8 6 8c1.5 0 2.8-1.2 2.8-2.7 0-.7-.3-1.4-.7-1.9-.4-.5-.6-1.1-.6-1.6 0-1.5 1.2-2.7 2.7-2.7.5 0 1 .1 1.4.4C17.6 9.8 16.5 4 12 4z" fill="white" opacity="0.9"/>
+      </svg>
+      <span>Pitch</span><strong>Black</strong><span>Night</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about" data-section="about">About</a></li>
+      <li><a href="#wisdom" data-section="wisdom">Daily</a></li>
+      <li><a href="#work" data-section="work">Work</a></li>
+      <li><a href="#music" data-section="music">Music</a></li>
+      <li><a href="#mixes" data-section="mixes">Mixes</a></li>
+      <li><a href="#contact" data-section="contact">Contact</a></li>
+      <li><a href="/home" style="color:var(--orange);font-family:var(--font-mono);letter-spacing:0.08em;">240 ↗</a></li>
+      <li><a href="resume.pdf" class="nav-resume" target="_blank">Resume</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <span class="mobile-close" id="mobile-close">✕</span>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#wisdom" class="mobile-link">Daily</a>
+    <a href="#work" class="mobile-link">Work</a>
+    <a href="#music" class="mobile-link">Music</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+    <a href="/home" class="mobile-link" style="color:var(--orange);">240 ↗</a>
+    <a href="resume.pdf" class="mobile-link nav-resume" target="_blank">Resume</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <video class="hero-video" autoplay muted loop playsinline>
+      <source src="video/dark-eye.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">PitchBlackNight</p>
+      <img class="hero-form" src="images/hero/hero-object.png" alt="Sculptural form" />
+    </div>
+    <div class="hero-scroll">
+      <span class="hero-scroll-label">Scroll to Explore</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-glow"></div>
+    <div class="about-inner">
+      <p class="section-label">01 — About</p>
+      <div class="about-statement">
+        <p style="font-weight:700; color:var(--white);">Designer. Musician. Voice artist.</p>
+        <p style="font-weight:400; color:var(--muted-blue);">Thirty years of working across disciplines</p>
+        <p style="font-weight:400; color:var(--muted-blue);">because each one kept teaching me</p>
+        <p style="color:var(--orange); margin:0.5rem 0;">—</p>
+        <p style="font-weight:400; color:var(--orange);">something the others couldn't.</p>
+        <p style="font-weight:400; color:rgba(255,255,255,0.6);">Still learning. Still making.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <p class="section-label">02 — Work</p>
+    <h2 class="work-headline">THINGS<br><span class="c-orange">I'VE</span> <span class="c-blue">MADE.</span></h2>
+    <p class="work-desc">Design, music, voice, and web — work across thirty years and a lot of disciplines. Some of it is client work. Some of it is just something I needed to make.</p>
+    <div class="work-grid">
+      <div class="work-cell"><img src="images/work/0293cd1657f159440c57bf76a0be4d8adc52a396.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/0832c6f237ffa5e5e0f26cb6c0edafdad43cc36a.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/0a80b7fe8d1f65b169504729dd6d7926b49b2785.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/0c71886984d1fe0af61a0fccc3f0ef0b4e590501.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/10ea0744295aa6d36cb76d04921fdafa008627f9.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/11b27bbe199fef2b646764fee7b5614df2d3e131.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/1756fda6a895cf1fa5bfc010a641bbe55883d10d.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/19ba9f6f064cc0718f7599da3a0eaa0c49eceaae.png" alt="Work" loading="lazy" /></div>
+    </div>
+    <div class="catalog-header">
+      <div>
+        <p class="catalog-eyebrow">Web Design</p>
+        <h3 class="catalog-title">The Catalog</h3>
+        <p class="catalog-desc">Websites built for people with something real to offer. The goal is always the same: make it clear, make it work, and get out of the way.</p>
+      </div>
+      <div class="catalog-count">
+        <span>04</span>
+        Projects
+      </div>
+    </div>
+    <div class="web-grid">
+
+      <!-- Bert Gillette — Real Estate -->
+      <a href="https://pitchblacknight.com/bert" target="_blank" class="wpc">
+        <div class="wpc-thumb" style="background-image:url(images/portfolio/thumb-bert.jpg);background-size:cover;background-position:center top;">
+          <span class="wpc-eyebrow" style="color:#C7B63D;">Real Estate · Denver</span>
+          <p class="wpc-hero">The art of finding<br><em>where</em> you belong.</p>
+        </div>
+        <div class="wpc-meta">
+          <div>
+            <p class="wpc-name">Bert Gillette — Milehimodern</p>
+            <p class="wpc-tag">Real Estate · Brand Site</p>
+          </div>
+          <span class="wpc-arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- For David — Multimedia Letter -->
+      <a href="https://pitchblacknight.com/david" target="_blank" class="wpc">
+        <div class="wpc-thumb" style="background-image:url(images/portfolio/thumb-david.jpg);background-size:cover;background-position:center top;">
+          <span class="wpc-eyebrow" style="color:#e8a020;">Multimedia · Personal</span>
+          <p class="wpc-hero" style="color:#f2f0eb;">For David.<br><span style="font-weight:300;font-size:0.7em;color:#7ecfce;">A remix. A letter. An audience of one.</span></p>
+        </div>
+        <div class="wpc-meta">
+          <div>
+            <p class="wpc-name">For David — PitchBlacKnight</p>
+            <p class="wpc-tag">Multimedia Art · Letter</p>
+          </div>
+          <span class="wpc-arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- Serenity Lounge Day Spa -->
+      <a href="https://pitchblacknight.com/serenity_lounge/" target="_blank" class="wpc">
+        <div class="wpc-thumb" style="background-image:url(images/portfolio/thumb-serenity.jpg);background-size:cover;background-position:center top;">
+          <span class="wpc-eyebrow" style="color:#C8882A;">Wellness · Highland, IN</span>
+          <p class="wpc-hero" style="color:#F8F2E9;">A sanctuary<br>of stillness.</p>
+        </div>
+        <div class="wpc-meta">
+          <div>
+            <p class="wpc-name">Serenity Lounge Day Spa</p>
+            <p class="wpc-tag">Wellness · Booking Site</p>
+          </div>
+          <span class="wpc-arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- Lindsey Bingaman — Executive Coaching -->
+      <a href="https://www.lindseybingaman.com/" target="_blank" class="wpc">
+        <div class="wpc-thumb" style="background-image:url(images/portfolio/thumb-lindsey.jpg);background-size:cover;background-position:center top;">
+          <span class="wpc-eyebrow" style="color:#00BFA5;">Executive Coaching</span>
+          <p class="wpc-hero">Results through<br>relationship.</p>
+        </div>
+        <div class="wpc-meta">
+          <div>
+            <p class="wpc-name">Lindsey Bingaman</p>
+            <p class="wpc-tag">Executive Coaching · B2B</p>
+          </div>
+          <span class="wpc-arrow">↗</span>
+        </div>
+      </a>
+
+    </div>
+    <a href="#" class="view-portfolio-btn">View Full Portfolio →</a>
+  </section>
+
+  <!-- MUSIC -->
+  <section id="music">
+    <p class="section-label">03 — Music</p>
+    <div class="music-intro">
+      <h2 class="music-headline">MADE<br><span class="c-orange">FROM</span><br>SCRATCH.</h2>
+      <p class="music-bio">Original recordings — some produced, some improvised, all done in a single take. These aren't demos. They're just what came out when I sat down and didn't overthink it.</p>
+    </div>
+    <!-- ── FEATURED TRACKS — edit slug/title/tag below ── -->
+    <div class="music-tracks" id="music-tracks">
+
+      <div class="music-track-entry" data-slug="hollow-heart">
+        <div class="mte-num">
+          <span class="num-label">01</span>
+          <div class="mte-bar-wrap">
+            <div class="mte-bar"></div><div class="mte-bar"></div>
+            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
+          </div>
+        </div>
+        <div class="mte-info">
+          <p class="mte-title">Hollow Heart</p>
+          <p class="mte-tag">Original · PitchBlacKnight</p>
+          <div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div>
+        </div>
+        <div class="mte-right">
+          <span class="mte-duration">—:——</span>
+          <button class="mte-play-btn" aria-label="Play Hollow Heart">
+            <svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="music-track-entry" data-slug="black-kat">
+        <div class="mte-num">
+          <span class="num-label">02</span>
+          <div class="mte-bar-wrap">
+            <div class="mte-bar"></div><div class="mte-bar"></div>
+            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
+          </div>
+        </div>
+        <div class="mte-info">
+          <p class="mte-title">Black Kat</p>
+          <p class="mte-tag">Original · PitchBlacKnight</p>
+          <div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div>
+        </div>
+        <div class="mte-right">
+          <span class="mte-duration">—:——</span>
+          <button class="mte-play-btn" aria-label="Play Black Kat">
+            <svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="music-track-entry" data-slug="sounded-like-the-truth">
+        <div class="mte-num">
+          <span class="num-label">03</span>
+          <div class="mte-bar-wrap">
+            <div class="mte-bar"></div><div class="mte-bar"></div>
+            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
+          </div>
+        </div>
+        <div class="mte-info">
+          <p class="mte-title">Sounded Like the Truth</p>
+          <p class="mte-tag">Original · PitchBlacKnight</p>
+          <div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div>
+        </div>
+        <div class="mte-right">
+          <span class="mte-duration">—:——</span>
+          <button class="mte-play-btn" aria-label="Play Sounded Like the Truth">
+            <svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <audio id="audio-player" class="hidden-audio"></audio>
+  </section>
+
+  <!-- MIXES -->
+  <section id="mixes">
+    <p class="section-label">04 — Mixes</p>
+    <div class="music-intro">
+      <h2 class="music-headline">MIX<br><span class="c-orange">TAPE</span><br>2013–15.</h2>
+      <p class="music-bio">Ten episodes recorded live. No edits, no overdubs — just the room, the records, and whatever the night called for. Each one a document of a specific session.</p>
+    </div>
+    <div class="music-tracks" id="mixes-tracks">
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-01-koolaide-kids.m4a">
+        <div class="mte-num"><span class="num-label">01</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Koolaide Kids</p><p class="mte-tag">Episode 01 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Koolaide Kids"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-02-gritty-kitty.m4a">
+        <div class="mte-num"><span class="num-label">02</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Gritty Kitty</p><p class="mte-tag">Episode 02 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Gritty Kitty"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-03-beat-brulee.m4a">
+        <div class="mte-num"><span class="num-label">03</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Beat Brûlée</p><p class="mte-tag">Episode 03 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Beat Brulee"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-04-december-deleece.m4a">
+        <div class="mte-num"><span class="num-label">04</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">December Deleece</p><p class="mte-tag">Episode 04 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play December Deleece"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-05-march-tart.m4a">
+        <div class="mte-num"><span class="num-label">05</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">March Tart</p><p class="mte-tag">Episode 05 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play March Tart"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-06-thursday-night-li.m4a">
+        <div class="mte-num"><span class="num-label">06</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Thursday Night Li</p><p class="mte-tag">Episode 06 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Thursday Night Li"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-07-nevermind-november.m4a">
+        <div class="mte-num"><span class="num-label">07</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Nevermind November</p><p class="mte-tag">Episode 07 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Nevermind November"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-08-adrift.m4a">
+        <div class="mte-num"><span class="num-label">08</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Adrift</p><p class="mte-tag">Episode 08 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Adrift"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-09-just-in-time.m4a">
+        <div class="mte-num"><span class="num-label">09</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Just In Time</p><p class="mte-tag">Episode 09 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Just In Time"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-10-well-alright.m4a">
+        <div class="mte-num"><span class="num-label">10</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Well Alright</p><p class="mte-tag">Episode 10 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Well Alright"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+    </div>
+    <audio id="mixes-player" class="hidden-audio"></audio>
+  </section>
+
+  <!-- DAILY WISDOM -->
+  <section id="wisdom">
+    <p class="section-label">05 — Daily Wisdom</p>
+    <div class="poem-block">
+      <div class="poem-stanza">
+        <p class="poem-line">Most of what I know</p>
+        <p class="poem-line">I learned by doing it wrong first.</p>
+        <p class="poem-line">The rest came from watching</p>
+        <p class="poem-line">what other people needed.</p>
+      </div>
+      <div class="poem-stanza">
+        <p class="poem-line">Good work doesn't announce itself.</p>
+        <p class="poem-line">It just makes the thing easier to use,</p>
+        <p class="poem-line">easier to hear,</p>
+        <p class="poem-line">easier to feel.</p>
+      </div>
+      <div class="poem-stanza">
+        <p class="poem-line">I'm still figuring things out.</p>
+        <p class="poem-line">I think that might be the whole point.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">06 — Contact</p>
+    <h2 class="contact-headline"><span class="c-orange">Let's work</span><br>together.</h2>
+    <p class="contact-sub">If you're building something and could use a hand with design, music, voice, or web — I'd love to hear about it. No project is too small to talk about.</p>
+    <p class="form-label">I Need You For</p>
+    <div class="form-row">
+      <select id="ability-select">
+        <option value="">Select an Ability</option>
+        <option value="ux">UI/UX Design</option>
+        <option value="brand">Brand Identity</option>
+        <option value="voice">Voice Performance</option>
+        <option value="music">Music Production</option>
+        <option value="art">Fine Art Commission</option>
+        <option value="web">Website Design</option>
+      </select>
+      <button id="reach-out-btn">⚡ Reach Out</button>
+    </div>
+    <p class="form-phone">or call <a href="tel:+17734908523">+1 (773) 490-8523</a></p>
+    <div class="social-tags">
+      <a href="#" class="social-tag">LinkedIn ↗</a>
+      <a href="#" class="social-tag">Instagram ↗</a>
+      <a href="#" class="social-tag">Pinterest ↗</a>
+      <a href="#" class="social-tag">Spotify ↗</a>
+      <a href="#" class="social-tag">SoundCloud ↗</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-glow"></div>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <p class="footer-col-title">Navigate</p>
+          <a href="#about">About</a>
+          <a href="#wisdom">Daily</a>
+          <a href="#work">Work</a>
+          <a href="#music">Music</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Connect</p>
+          <a href="#">LinkedIn</a>
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+          <a href="#">Spotify</a>
+          <a href="#">SoundCloud</a>
+        </div>
+      </div>
+      <div class="footer-bar">
+        <span class="footer-copy">© 2026 PitchBlacknight. All rights reserved.</span>
+        <div class="footer-logo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="white" opacity="0.4"/>
+            <path d="M12 4C8.5 4 6 7 6 12s2.5 8 6 8c1.5 0 2.8-1.2 2.8-2.7 0-.7-.3-1.4-.7-1.9-.4-.5-.6-1.1-.6-1.6 0-1.5 1.2-2.7 2.7-2.7.5 0 1 .1 1.4.4C17.6 9.8 16.5 4 12 4z" fill="white" opacity="0.9"/>
+          </svg>
+          <span>Pitch</span><strong>Black</strong><span>Night</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ── LOADER ──────────────────────────────────────────────
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 800);
+  });
+
+  // ── HAMBURGER MENU ───────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileClose = document.getElementById('mobile-close');
+  hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('.mobile-link').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // ── SCROLLSPY ────────────────────────────────────────────
+  const sections = ['about','work','music','mixes','wisdom','contact'];
+  const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.dataset.section === id);
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // ── MUSIC PLAYER ─────────────────────────────────────────
+  (function initMusicPlayer() {
+    const audio = document.getElementById('audio-player');
+    const entries = document.querySelectorAll('.music-track-entry');
+    let activeEntry = null;
+    const PAUSE_SVG = '<svg width="10" height="14" viewBox="0 0 10 14"><rect x="0" y="0" width="3" height="14"/><rect x="7" y="0" width="3" height="14"/></svg>';
+    const PLAY_SVG  = '<svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>';
+
+    function fmtTime(s) {
+      if (!isFinite(s)) return '—:——';
+      const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+      return `${m}:${String(sec).padStart(2,'0')}`;
+    }
+
+    function deactivate(entry) {
+      if (!entry) return;
+      entry.classList.remove('active');
+      entry.querySelector('.mte-play-btn').innerHTML = PLAY_SVG;
+      entry.querySelector('.mte-progress-fill').style.width = '0%';
+    }
+
+    function activate(entry) {
+      entry.classList.add('active');
+      entry.querySelector('.mte-play-btn').innerHTML = PAUSE_SVG;
+    }
+
+    entries.forEach(entry => {
+      const slug = entry.dataset.slug;
+      const btn  = entry.querySelector('.mte-play-btn');
+      const dur  = entry.querySelector('.mte-duration');
+
+      // Pre-load duration without playing
+      const probe = new Audio(`https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/${slug}.mp3`);
+      probe.addEventListener('loadedmetadata', () => {
+        dur.textContent = fmtTime(probe.duration);
+      });
+
+      btn.addEventListener('click', () => {
+        const isThisActive = activeEntry === entry;
+        const isPlaying = !audio.paused;
+
+        if (isThisActive) {
+          // Toggle play/pause on the active track
+          if (isPlaying) {
+            audio.pause();
+            entry.classList.add('paused');
+            btn.innerHTML = PLAY_SVG;
+          } else {
+            audio.play();
+            entry.classList.remove('paused');
+            btn.innerHTML = PAUSE_SVG;
+          }
+        } else {
+          // Switch to a new track
+          deactivate(activeEntry);
+          activeEntry = entry;
+          audio.src = `https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/${slug}.mp3`;
+          audio.play().then(() => {
+            activate(entry);
+            entry.classList.remove('paused');
+          }).catch(() => {});
+        }
+      });
+    });
+
+    // Update progress bar
+    audio.addEventListener('timeupdate', () => {
+      if (!activeEntry || !audio.duration) return;
+      const pct = (audio.currentTime / audio.duration) * 100;
+      activeEntry.querySelector('.mte-progress-fill').style.width = pct + '%';
+      activeEntry.querySelector('.mte-duration').textContent =
+        fmtTime(audio.currentTime) + ' / ' + fmtTime(audio.duration);
+    });
+
+    audio.addEventListener('ended', () => {
+      if (activeEntry) {
+        deactivate(activeEntry);
+        activeEntry = null;
+      }
+    });
+  })();
+
+  // ── MIXES PLAYER ─────────────────────────────────────────
+  (function initMixesPlayer() {
+    const audio = document.getElementById('mixes-player');
+    const musicAudio = document.getElementById('audio-player');
+    const entries = document.querySelectorAll('#mixes-tracks .music-track-entry');
+    let activeEntry = null;
+    const PAUSE_SVG = '<svg width="10" height="14" viewBox="0 0 10 14"><rect x="0" y="0" width="3" height="14"/><rect x="7" y="0" width="3" height="14"/></svg>';
+    const PLAY_SVG  = '<svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>';
+
+    function fmtTime(s) {
+      if (!isFinite(s)) return '—:——';
+      const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+      return `${m}:${String(sec).padStart(2,'0')}`;
+    }
+    function deactivate(entry) {
+      if (!entry) return;
+      entry.classList.remove('active');
+      entry.querySelector('.mte-play-btn').innerHTML = PLAY_SVG;
+      entry.querySelector('.mte-progress-fill').style.width = '0%';
+    }
+    function activate(entry) {
+      entry.classList.add('active');
+      entry.querySelector('.mte-play-btn').innerHTML = PAUSE_SVG;
+    }
+
+    entries.forEach(entry => {
+      const src = entry.dataset.src;
+      const dur = entry.querySelector('.mte-duration');
+      const probe = new Audio(src);
+      probe.addEventListener('loadedmetadata', () => { dur.textContent = fmtTime(probe.duration); });
+
+      entry.querySelector('.mte-play-btn').addEventListener('click', () => {
+        const isThisActive = activeEntry === entry;
+        const isPlaying = !audio.paused;
+        if (isThisActive) {
+          if (isPlaying) { audio.pause(); entry.classList.add('paused'); entry.querySelector('.mte-play-btn').innerHTML = PLAY_SVG; }
+          else { audio.play(); entry.classList.remove('paused'); entry.querySelector('.mte-play-btn').innerHTML = PAUSE_SVG; }
+        } else {
+          musicAudio.pause(); // stop featured track if playing
+          deactivate(activeEntry);
+          activeEntry = entry;
+          audio.src = src;
+          audio.play().then(() => { activate(entry); entry.classList.remove('paused'); }).catch(() => {});
+        }
+      });
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (!activeEntry || !audio.duration) return;
+      const pct = (audio.currentTime / audio.duration) * 100;
+      activeEntry.querySelector('.mte-progress-fill').style.width = pct + '%';
+      activeEntry.querySelector('.mte-duration').textContent = fmtTime(audio.currentTime) + ' / ' + fmtTime(audio.duration);
+    });
+    audio.addEventListener('ended', () => { if (activeEntry) { deactivate(activeEntry); activeEntry = null; } });
+  })();
+
+  // ── CONTACT REACH OUT ────────────────────────────────────
+  document.getElementById('reach-out-btn').addEventListener('click', () => {
+    const ability = document.getElementById('ability-select').value;
+    const subject = ability ? `Inquiry: ${ability}` : 'Project Inquiry';
+    window.location.href = `mailto:contact@pitchblacknight.com?subject=${encodeURIComponent(subject)}`;
+  });
+
+  </script>
+</body>
+</html>

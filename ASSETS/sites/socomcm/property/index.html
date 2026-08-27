@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Property — Modernist South Suburbs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+:root {
+  --bg: #111008;
+  --panel: #1C1910;
+  --panel-2: #251F12;
+  --border: #3A3220;
+  --orange: #E8622A;
+  --teal: #3DB8A4;
+  --mustard: #F0C040;
+  --cream: #F5EDD6;
+  --text: #D4CAB4;
+  --text-dim: #7A7060;
+  --residential: #E8622A;
+  --institutional: #3DB8A4;
+  --office: #9B7FD4;
+  --municipal: #F0C040;
+  --font-head: "Space Grotesk", sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-head);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ── */
+#header {
+  flex: 0 0 auto;
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  z-index: 100;
+  position: relative;
+  flex-shrink: 0;
+}
+#header::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 50%, var(--mustard) 100%);
+}
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.logo-mark { width: 32px; height: 32px; position: relative; flex-shrink: 0; }
+.logo-mark svg { width: 100%; height: 100%; }
+.header-title { font-size: 16px; font-weight: 700; letter-spacing: 0.04em; color: var(--cream); }
+.header-title span { color: var(--orange); }
+.header-nav { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.nav-link {
+  font-family: var(--font-head);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.10em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  transition: all 0.15s;
+}
+.nav-link:hover {
+  color: var(--cream);
+  background: var(--panel-2);
+  border-color: var(--border);
+}
+.nav-link.active {
+  color: var(--orange);
+  border-color: var(--border);
+  background: var(--panel-2);
+}
+.nav-btn {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: border-color 0.15s, color 0.15s;
+}
+.nav-btn:hover { border-color: var(--orange); color: var(--cream); }
+
+/* ── NOT FOUND ── */
+#not-found {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 60px 24px;
+  text-align: center;
+}
+#not-found h2 { font-size: 24px; color: var(--cream); }
+#not-found p { color: var(--text-dim); max-width: 400px; }
+
+/* ── CONTENT ── */
+#content {
+  flex: 1;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 24px 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* ── BREADCRUMB ── */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+.breadcrumb a { color: var(--text-dim); text-decoration: none; }
+.breadcrumb a:hover { color: var(--orange); }
+.breadcrumb span { color: var(--text-dim); }
+
+/* ── HERO ── */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  align-items: start;
+}
+@media (max-width: 800px) { .hero { grid-template-columns: 1fr; } }
+
+.hero-photo {
+  position: relative;
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  cursor: pointer;
+}
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s;
+}
+.hero-photo:hover img { transform: scale(1.02); }
+.hero-photo .no-photo {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-dim);
+}
+.no-photo-initial {
+  font-size: 72px;
+  font-weight: 700;
+  font-family: var(--font-mono);
+  color: var(--border);
+  line-height: 1;
+}
+.photo-count-badge {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: rgba(17,16,8,0.85);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--text-dim);
+  backdrop-filter: blur(4px);
+}
+
+/* ── DETAIL PANEL ── */
+.detail-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.property-address {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.2;
+}
+.property-city {
+  font-size: 15px;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1px solid;
+}
+.badge-residential { color: var(--residential); border-color: var(--residential); background: rgba(232,98,42,0.1); }
+.badge-institutional { color: var(--institutional); border-color: var(--institutional); background: rgba(61,184,164,0.1); }
+.badge-office, .badge-commercial { color: var(--office); border-color: var(--office); background: rgba(155,127,212,0.1); }
+.badge-municipal { color: var(--municipal); border-color: var(--municipal); background: rgba(240,192,64,0.1); }
+.badge-historic { color: var(--mustard); border-color: var(--mustard); background: rgba(240,192,64,0.1); }
+
+.fact-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+.fact-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  border-bottom: 1px solid var(--border);
+}
+.fact-row:last-child { border-bottom: none; }
+.fact-label {
+  padding: 10px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: var(--panel-2);
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+}
+.fact-value {
+  padding: 10px 14px;
+  font-size: 14px;
+  color: var(--text);
+  background: var(--panel);
+  display: flex;
+  align-items: center;
+}
+.fact-value.empty { color: var(--text-dim); font-style: italic; }
+
+.research-flags {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.flag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.flag-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.flag-yes .flag-dot { background: var(--teal); }
+.flag-no .flag-dot { background: var(--border); }
+.flag-yes { color: var(--text); }
+.flag-no { color: var(--text-dim); }
+
+/* ── SECTIONS ── */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.section-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+.section-body {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+}
+.section-body.empty { color: var(--text-dim); font-style: italic; }
+
+/* ── PHOTO STRIP ── */
+.photo-strip {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.photo-thumb {
+  flex: 0 0 140px;
+  height: 100px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: border-color 0.15s;
+}
+.photo-thumb:hover { border-color: var(--orange); }
+.photo-thumb.active { border-color: var(--orange); }
+.photo-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* ── MAP ── */
+#mini-map {
+  height: 280px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+/* ── CONTRIBUTE ── */
+.contribute-box {
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.contribute-text { font-size: 14px; color: var(--text-dim); max-width: 500px; }
+.contribute-text strong { color: var(--text); }
+.contribute-btn {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 9px 18px;
+  border-radius: 4px;
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s;
+}
+.contribute-btn:hover { border-color: var(--teal); color: var(--teal); }
+
+/* ── LIGHTBOX ── */
+#lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+}
+#lightbox.open { display: flex; }
+#lightbox img {
+  max-width: 90vw;
+  max-height: 88vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.lb-close {
+  position: absolute;
+  top: 16px; right: 20px;
+  font-size: 28px;
+  color: #fff;
+  cursor: pointer;
+  background: none;
+  border: none;
+  line-height: 1;
+}
+.lb-prev, .lb-next {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  font-size: 22px;
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+.lb-prev:hover, .lb-next:hover { background: rgba(255,255,255,0.2); }
+.lb-prev { left: 16px; }
+.lb-next { right: 16px; }
+.lb-counter {
+  position: absolute;
+  bottom: 16px; left: 50%; transform: translateX(-50%);
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+  font-family: var(--font-mono);
+}
+</style>
+</head>
+<body>
+
+<div id="header">
+  <a class="header-logo" href="../">
+    <div class="logo-mark">
+      <svg viewBox="0 0 32 32" fill="none">
+        <rect width="32" height="32" rx="4" fill="#1C1910"/>
+        <rect x="4" y="4" width="10" height="10" fill="#E8622A"/>
+        <rect x="18" y="4" width="10" height="10" fill="#3DB8A4"/>
+        <rect x="4" y="18" width="10" height="10" fill="#F0C040"/>
+        <rect x="18" y="18" width="10" height="10" fill="#251F12" stroke="#3A3220" stroke-width="1"/>
+      </svg>
+    </div>
+    <span class="header-title">Modernist <span>South Suburbs</span></span>
+  </a>
+  <nav class="header-nav">
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/map/">Map</a>
+    <a class="nav-link active" href="/browse/">Browse</a>
+    <a class="nav-link" href="/events/">Events</a>
+    <a class="nav-link" href="/architects/">Architects</a>
+    <a class="nav-link" href="/about/">About</a>
+    <a class="nav-link" href="/resources/">Resources</a>
+  </nav>
+</div>
+
+<div id="not-found">
+  <h2>Property not found</h2>
+  <p>The property you're looking for doesn't exist or the link may be broken.</p>
+  <a class="nav-btn" href="../browse/" style="margin-top:8px">← Browse all properties</a>
+</div>
+
+<div id="content" style="display:none">
+  <div class="breadcrumb">
+    <a href="../browse/">All Properties</a>
+    <span>›</span>
+    <span id="bc-city"></span>
+    <span>›</span>
+    <span id="bc-address"></span>
+  </div>
+
+  <div class="hero">
+    <div class="hero-photo" id="hero-photo" onclick="openLightbox(0)">
+      <div class="no-photo" id="no-photo-placeholder">
+        <span style="font-family:var(--font-mono);font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.2em">Image Coming Soon</span>
+      </div>
+      <img id="hero-img" src="" alt="" style="display:none">
+      <div class="photo-count-badge" id="photo-count" style="display:none"></div>
+    </div>
+
+    <div class="detail-panel">
+      <div>
+        <div class="property-address" id="prop-address"></div>
+        <div class="property-city" id="prop-city"></div>
+      </div>
+
+      <div class="badges" id="prop-badges"></div>
+
+      <div class="fact-table">
+        <div class="fact-row">
+          <div class="fact-label">Architect</div>
+          <div class="fact-value" id="fact-architect"></div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-label">Year Built</div>
+          <div class="fact-value" id="fact-year"></div>
+        </div>
+        <div class="fact-row">
+          <div class="fact-label">Type</div>
+          <div class="fact-value" id="fact-type"></div>
+        </div>
+        <div class="fact-row" id="row-owner" style="display:none">
+          <div class="fact-label">Owner</div>
+          <div class="fact-value" id="fact-owner"></div>
+        </div>
+      </div>
+
+      <div class="research-flags" id="research-flags">
+        <div class="flag" id="flag-photos"><div class="flag-dot"></div><span></span></div>
+        <div class="flag" id="flag-plans"><div class="flag-dot"></div><span></span></div>
+        <div class="flag" id="flag-permit"><div class="flag-dot"></div><span></span></div>
+        <div class="flag" id="flag-appraisal"><div class="flag-dot"></div><span></span></div>
+        <div class="flag" id="flag-historic"><div class="flag-dot"></div><span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- photo strip -->
+  <div id="photo-strip-wrap" style="display:none" class="section">
+    <div class="section-label">Photos</div>
+    <div class="photo-strip" id="photo-strip"></div>
+  </div>
+
+  <!-- history -->
+  <div class="section">
+    <div class="section-label">History &amp; Provenance</div>
+    <div class="section-body" id="prop-history"></div>
+  </div>
+
+  <!-- notes -->
+  <div class="section" id="notes-section" style="display:none">
+    <div class="section-label">Research Notes</div>
+    <div class="section-body" id="prop-notes"></div>
+  </div>
+
+  <!-- map -->
+  <div class="section">
+    <div class="section-label">Location</div>
+    <div id="mini-map"></div>
+  </div>
+
+  <!-- contribute -->
+  <div class="contribute-box">
+    <div class="contribute-text">
+      <strong>Know something about this property?</strong> Help us fill in the gaps — photos, permits, architectural plans, or homeowner history are all valuable.
+    </div>
+    <a class="contribute-btn" id="contribute-link" href="mailto:info@socomcm.org">Contribute Info</a>
+  </div>
+</div>
+
+<!-- lightbox -->
+<div id="lightbox">
+  <button class="lb-close" onclick="closeLightbox()">✕</button>
+  <button class="lb-prev" onclick="lbNav(-1)">‹</button>
+  <img id="lb-img" src="" alt="">
+  <button class="lb-next" onclick="lbNav(1)">›</button>
+  <div class="lb-counter" id="lb-counter"></div>
+</div>
+
+<script>
+let property = null;
+let photos = [];
+let lbIdx = 0;
+
+const slug = new URLSearchParams(window.location.search).get('slug');
+
+function getTypeClass(type) {
+  const t = (type || '').toLowerCase();
+  if (t.includes('residential')) return 'residential';
+  if (t.includes('institution')) return 'institutional';
+  if (t.includes('office') || t.includes('commercial')) return 'office';
+  if (t.includes('municipal')) return 'municipal';
+  return 'residential';
+}
+
+function capitalize(s) {
+  return s ? s.charAt(0).toUpperCase() + s.slice(1) : '';
+}
+
+function setFlag(el, yes, yesLabel, noLabel) {
+  const dot = el.querySelector('.flag-dot');
+  const span = el.querySelector('span');
+  if (yes) {
+    el.className = 'flag flag-yes';
+    span.textContent = yesLabel;
+  } else {
+    el.className = 'flag flag-no';
+    span.textContent = noLabel;
+  }
+}
+
+function openLightbox(idx) {
+  if (!photos.length) return;
+  lbIdx = idx;
+  document.getElementById('lb-img').src = photos[lbIdx];
+  document.getElementById('lb-counter').textContent = `${lbIdx + 1} / ${photos.length}`;
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+function lbNav(dir) {
+  lbIdx = (lbIdx + dir + photos.length) % photos.length;
+  document.getElementById('lb-img').src = photos[lbIdx];
+  document.getElementById('lb-counter').textContent = `${lbIdx + 1} / ${photos.length}`;
+  updateThumbActive();
+}
+function updateThumbActive() {
+  document.querySelectorAll('.photo-thumb').forEach((t,i) => {
+    t.classList.toggle('active', i === lbIdx);
+  });
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+
+function render(p) {
+  property = p;
+  photos = Array.isArray(p.photos) ? p.photos.filter(Boolean) : [];
+
+  document.title = `${p.address}, ${p.city} — Modernist South Suburbs`;
+
+  // breadcrumb
+  document.getElementById('bc-city').textContent = p.city;
+  document.getElementById('bc-address').textContent = p.address;
+
+  // address / city
+  document.getElementById('prop-address').textContent = p.address;
+  document.getElementById('prop-city').textContent = p.city + ', Illinois';
+
+  // hero photo
+  const heroPhoto = document.getElementById('hero-photo');
+  const heroImg = document.getElementById('hero-img');
+  const noPhotoPlaceholder = document.getElementById('no-photo-placeholder');
+  const photoCountEl = document.getElementById('photo-count');
+
+  if (photos.length) {
+    heroImg.src = photos[0];
+    heroImg.alt = p.address;
+    heroImg.style.display = 'block';
+    noPhotoPlaceholder.style.display = 'none';
+    if (photos.length > 1) {
+      photoCountEl.textContent = `1 / ${photos.length}`;
+      photoCountEl.style.display = 'block';
+    }
+  }
+
+  // badges
+  const badgesEl = document.getElementById('prop-badges');
+  const typeClass = getTypeClass(p.type_norm || p.type);
+  badgesEl.innerHTML = `<span class="badge badge-${typeClass}">${capitalize(p.type_norm || p.type || 'residential')}</span>`;
+  if (p.historic && p.historic !== '' && p.historic !== 'no' && p.historic !== 'false') {
+    badgesEl.innerHTML += `<span class="badge badge-historic">★ Historic</span>`;
+  }
+
+  // facts
+  const setFact = (id, val, fallback) => {
+    const el = document.getElementById(id);
+    if (val && val.trim && val.trim()) { el.textContent = val; }
+    else { el.textContent = fallback || '—'; el.classList.add('empty'); }
+  };
+  setFact('fact-architect', p.architect, 'Architect unknown');
+  setFact('fact-year', p.year, 'Year unknown');
+  setFact('fact-type', capitalize(p.type || p.type_norm), 'Unknown');
+  if (p.owner && p.owner.trim()) {
+    document.getElementById('fact-owner').textContent = p.owner;
+    document.getElementById('row-owner').style.display = 'grid';
+  }
+
+  // research flags
+  setFlag(document.getElementById('flag-photos'), photos.length > 0, `${photos.length} photo${photos.length !== 1 ? 's' : ''} on file`, 'No photos on file');
+  setFlag(document.getElementById('flag-plans'), p.hasPlans, 'Architectural plans documented', 'Architectural plans: unknown');
+  setFlag(document.getElementById('flag-permit'), p.hasPermit, 'Building permit on file', 'Building permit: not found');
+  setFlag(document.getElementById('flag-appraisal'), p.hasAppraisal, 'Appraisal on file', 'Appraisal: not found');
+  setFlag(document.getElementById('flag-historic'), p.historic && p.historic !== '' && p.historic !== 'no', 'Registered historic property', 'Not registered as historic');
+
+  // photo strip
+  if (photos.length > 1) {
+    const strip = document.getElementById('photo-strip');
+    strip.innerHTML = photos.map((url, i) =>
+      `<div class="photo-thumb${i === 0 ? ' active' : ''}" onclick="openLightbox(${i}); updateThumbActive()">
+        <img src="${url}" alt="Photo ${i+1}">
+      </div>`
+    ).join('');
+    document.getElementById('photo-strip-wrap').style.display = 'flex';
+  }
+
+  // history
+  const histEl = document.getElementById('prop-history');
+  if (p.history && p.history.trim()) {
+    histEl.textContent = p.history;
+  } else {
+    histEl.textContent = 'No historical information on file for this property. If you know the history of this home, please contribute below.';
+    histEl.classList.add('empty');
+  }
+
+  // notes
+  if (p.notes && p.notes.trim()) {
+    document.getElementById('prop-notes').textContent = p.notes;
+    document.getElementById('notes-section').style.display = 'flex';
+  }
+
+  // mini-map
+  if (p.lat && p.lng) {
+    const map = L.map('mini-map', { zoomControl: true, scrollWheelZoom: false }).setView([p.lat, p.lng], 15);
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      attribution: '© OpenStreetMap contributors © CARTO',
+      maxZoom: 19
+    }).addTo(map);
+    const icon = L.divIcon({
+      html: `<div style="width:14px;height:14px;background:var(--orange);border:2px solid #fff;border-radius:50%;box-shadow:0 0 6px rgba(232,98,42,0.8)"></div>`,
+      iconSize: [14,14], iconAnchor: [7,7], className: ''
+    });
+    L.marker([p.lat, p.lng], { icon }).addTo(map)
+      .bindPopup(`<strong>${p.address}</strong><br>${p.city}`);
+  } else {
+    document.getElementById('mini-map').innerHTML = '<div style="height:100%;display:flex;align-items:center;justify-content:center;color:var(--text-dim);font-size:13px">Location data not available</div>';
+  }
+
+  // contribute link — prefill subject with address
+  document.getElementById('contribute-link').href = `mailto:info@socomcm.org?subject=Property Info: ${encodeURIComponent(p.address + ', ' + p.city)}`;
+
+  // show content
+  document.getElementById('content').style.display = 'flex';
+}
+
+if (!slug) {
+  document.getElementById('not-found').style.display = 'flex';
+} else {
+  fetch('/data/properties.json')
+    .then(r => r.json())
+    .then(data => {
+      const p = data.find(x => x.slug === slug);
+      if (!p) {
+        document.getElementById('not-found').style.display = 'flex';
+      } else {
+        render(p);
+      }
+    })
+    .catch(() => {
+      document.getElementById('not-found').style.display = 'flex';
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+This folder was linked to the Vercel project "mikelrosenthal-site", which owns
+the live domain mikelrosenthal.com.
+
+Running `vercel --prod` here published THIS OLD SITE over the live one, again
+and again (Aug 5 2026). The link was disabled deliberately.
+
+DO NOT restore it. DO NOT run `vercel link` or `vercel --prod` in this folder.
+
+The live site deploys ONLY from:  /Users/mikelrosenthal/Sites/mikelrosenthal-site

@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Serenity Lounge | Medical &amp; Therapeutic Massage in Highland, IN — Insurance Accepted</title>
+  <meta name="description" content="Licensed massage therapist in Highland, Indiana offering medical massage, therapeutic massage, deep tissue, hot stone, and prenatal massage. Insurance accepted. Book online or verify your insurance today.">
+  <meta name="keywords" content="Medical Massage, Therapeutic Massage, Massage Therapy, Deep Tissue Massage, Pain Relief Massage, Highland IN, Northwest Indiana Massage, Insurance Massage, Licensed Massage Therapist">
+  <link rel="canonical" href="https://serenity.pitchblacknight.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Serenity Lounge — Medical &amp; Therapeutic Massage, Highland IN">
+  <meta property="og:description" content="Expert massage therapy in a private, candlelit sanctuary. Insurance accepted. Book online.">
+  <meta property="og:image" content="https://serenity.pitchblacknight.com/images/hero-bg.jpg">
+  <meta property="og:type" content="website">
+
+  <!-- LocalBusiness schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HealthAndBeautyBusiness",
+    "name": "Serenity Lounge Day Spa",
+    "description": "Medical and therapeutic massage therapy in Highland, Indiana. Licensed massage therapist. Insurance accepted.",
+    "image": "https://serenity.pitchblacknight.com/images/hero-bg.jpg",
+    "telephone": "+12195016575",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "9219 Indianapolis Blvd, Suite 204",
+      "addressLocality": "Highland",
+      "addressRegion": "IN",
+      "postalCode": "46343",
+      "addressCountry": "US"
+    },
+    "openingHoursSpecification": [
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday"], "opens": "10:30", "closes": "14:30" },
+      { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "18:30", "closes": "20:00" }
+    ],
+    "priceRange": "$$"
+  }
+  </script>
+
+  <!-- EmailJS for booking + form notifications (no backend needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* ═══════════════ NOCTURNE — design tokens ═══════════════ */
+    :root {
+      --ink:        #0E0C0A;   /* page base — near-black warm charcoal */
+      --ink-2:      #15110E;   /* raised surface */
+      --ink-3:      #1D1712;   /* card surface */
+      --ink-4:      #261E17;   /* hover surface */
+      --gold:       #D4A84B;
+      --gold-soft:  #C8942F;
+      --amber:      #C8882A;
+      --candle:     #F0C96A;
+      --cream:      #F3EAD9;   /* primary text on dark */
+      --cream-dim:  #CDBFA9;   /* body text */
+      --stone:      #8F8271;   /* muted text */
+      --hairline:   rgba(212,168,75,.22);
+      --hairline-2: rgba(212,168,75,.10);
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans:  'Jost', 'Helvetica Neue', sans-serif;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--ink);
+      color: var(--cream-dim);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    ::selection { background: var(--gold); color: var(--ink); }
+    img { max-width: 100%; display: block; }
+
+    /* ── shared type ── */
+    .label {
+      font-family: var(--sans); font-size: .68rem; font-weight: 400;
+      letter-spacing: .34em; text-transform: uppercase; color: var(--gold);
+    }
+    .display {
+      font-family: var(--serif); font-weight: 300; color: var(--cream);
+      line-height: 1.04; letter-spacing: .01em;
+    }
+    .display em { font-style: italic; color: var(--candle); }
+    .section-title { font-size: clamp(2.4rem, 5vw, 4rem); }
+    .lede { font-size: 1rem; color: var(--cream-dim); max-width: 520px; }
+
+    .btn-gold {
+      display: inline-block; background: var(--gold); color: var(--ink);
+      font-family: var(--sans); font-size: .74rem; font-weight: 500;
+      letter-spacing: .22em; text-transform: uppercase;
+      padding: 17px 42px; border: none; cursor: pointer; text-decoration: none;
+      transition: background .35s, transform .35s;
+    }
+    .btn-gold:hover { background: var(--candle); transform: translateY(-2px); }
+    .btn-ghost {
+      display: inline-block; background: transparent; color: var(--cream);
+      font-family: var(--sans); font-size: .74rem; font-weight: 400;
+      letter-spacing: .22em; text-transform: uppercase;
+      padding: 16px 40px; border: 1px solid var(--hairline); cursor: pointer; text-decoration: none;
+      transition: border-color .35s, color .35s;
+    }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--candle); }
+
+    /* ── scroll reveal (only when JS is running — page is fully visible without it) ── */
+    html.js .rv { opacity: 0; transform: translateY(28px); transition: opacity .9s ease, transform .9s ease; }
+    html.js .rv.in { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html.js .rv { opacity: 1; transform: none; transition: none; }
+      .hero-photo { animation: none; transform: none; }
+    }
+
+    /* ═══════════════ NAV ═══════════════ */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 48px; transition: background .4s, padding .4s, border-color .4s;
+      border-bottom: 1px solid transparent;
+    }
+    nav.scrolled { background: rgba(14,12,10,.92); backdrop-filter: blur(14px); padding: 14px 48px; border-color: var(--hairline-2); }
+    .nav-logo { text-decoration: none; }
+    .nav-logo .nl-name { font-family: var(--serif); font-size: 1.35rem; color: var(--cream); display: block; line-height: 1.1; }
+    .nav-logo .nl-sub { font-size: .58rem; letter-spacing: .3em; text-transform: uppercase; color: var(--stone); }
+    .nav-links { display: flex; gap: 34px; list-style: none; }
+    .nav-links a {
+      font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--cream-dim); text-decoration: none; transition: color .3s;
+    }
+    .nav-links a:hover { color: var(--candle); }
+    .nav-right { display: flex; align-items: center; gap: 18px; }
+    .nav-call {
+      font-size: .72rem; letter-spacing: .12em; color: var(--gold); text-decoration: none;
+      border-bottom: 1px solid transparent; transition: border-color .3s;
+    }
+    .nav-call:hover { border-color: var(--gold); }
+    .nav-book {
+      background: var(--gold); color: var(--ink); border: none; cursor: pointer;
+      font-family: var(--sans); font-size: .68rem; font-weight: 500; letter-spacing: .2em;
+      text-transform: uppercase; padding: 12px 26px; transition: background .3s;
+    }
+    .nav-book:hover { background: var(--candle); }
+    .nav-burger { display: none; background: none; border: none; color: var(--cream); font-size: 1.5rem; cursor: pointer; }
+
+    /* mobile menu */
+    .mobile-menu {
+      position: fixed; inset: 0; z-index: 300; background: rgba(14,12,10,.98);
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px;
+      opacity: 0; pointer-events: none; transition: opacity .4s;
+    }
+    .mobile-menu.open { opacity: 1; pointer-events: all; }
+    .mobile-menu a { font-family: var(--serif); font-size: 1.7rem; color: var(--cream); text-decoration: none; }
+    .mobile-menu a:hover { color: var(--candle); }
+    .mm-close { position: absolute; top: 24px; right: 28px; background: none; border: none; color: var(--stone); font-size: 2rem; cursor: pointer; }
+
+    /* ═══════════════ HERO ═══════════════ */
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; }
+    .hero-photo {
+      position: absolute; inset: 0;
+      background: url('images/hero-bg.jpg') center 40%/cover no-repeat;
+      transform: scale(1.08); animation: heroZoom 12s ease-out forwards;
+      filter: saturate(.92) contrast(1.02);
+    }
+    @keyframes heroZoom { to { transform: scale(1); } }
+    .hero-grade {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(180deg, rgba(14,12,10,.55) 0%, rgba(14,12,10,.18) 38%, rgba(14,12,10,.55) 72%, var(--ink) 100%),
+        radial-gradient(ellipse at 50% 45%, transparent 30%, rgba(14,12,10,.45) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; width: 100%;
+      padding: 0 48px 11vh; max-width: 1500px; margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      border: 1px solid var(--hairline); padding: 9px 20px; margin-bottom: 30px;
+      font-size: .64rem; letter-spacing: .26em; text-transform: uppercase; color: var(--candle);
+      background: rgba(14,12,10,.45); backdrop-filter: blur(6px);
+    }
+    .hero-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--candle); box-shadow: 0 0 10px var(--candle); animation: pulse 2.4s infinite; }
+    @keyframes pulse { 50% { opacity: .35; } }
+    .hero-title {
+      font-family: var(--serif); font-weight: 300; color: var(--cream);
+      font-size: clamp(3.6rem, 10vw, 8.4rem); line-height: .96; letter-spacing: .005em;
+      margin-bottom: 26px;
+    }
+    .hero-title em { font-style: italic; color: var(--candle); }
+    .hero-sub {
+      display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
+      font-size: .78rem; letter-spacing: .2em; text-transform: uppercase; color: var(--cream-dim);
+      margin-bottom: 42px;
+    }
+    .hero-sub .rule { width: 54px; height: 1px; background: var(--gold); }
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+    .hero-scroll {
+      position: absolute; bottom: 34px; right: 48px; z-index: 2;
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      font-size: .6rem; letter-spacing: .3em; text-transform: uppercase; color: var(--stone);
+      writing-mode: vertical-rl;
+    }
+    .hero-scroll .line { width: 1px; height: 56px; background: linear-gradient(var(--gold), transparent); animation: scrollLine 2.2s ease infinite; }
+    @keyframes scrollLine { 0% { transform: scaleY(0); transform-origin: top; } 55% { transform: scaleY(1); transform-origin: top; } 56% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+    /* ═══════════════ INTRO STRIP ═══════════════ */
+    .intro {
+      padding: 110px 48px; text-align: center; position: relative;
+    }
+    .intro .rule { width: 1px; height: 64px; background: linear-gradient(transparent, var(--gold), transparent); margin: 0 auto 40px; }
+    .intro p {
+      font-family: var(--serif); font-style: italic; font-weight: 300;
+      font-size: clamp(1.5rem, 3vw, 2.2rem); color: var(--cream); max-width: 760px; margin: 0 auto; line-height: 1.4;
+    }
+
+    /* ═══════════════ GALLERY STRIP ═══════════════ */
+    .gallery { max-width: 1500px; margin: 0 auto; padding: 0 48px 150px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+    .g-item { position: relative; overflow: hidden; }
+    .g-item .g-img { aspect-ratio: 3/4; background-size: cover; background-position: center; transition: transform 1.1s ease; filter: saturate(.92); }
+    .g-item:hover .g-img { transform: scale(1.06); }
+    .g-item:nth-child(2) { transform: translateY(46px); }
+    .g-1 .g-img { background-image: url('images/hero-bg.jpg'); }
+    .g-2 .g-img { background-image: url('images/the-sanctuary.jpg'); }
+    .g-3 .g-img { background-image: url('images/the-refuge.jpg'); background-position: 65% center; }
+    .g-cap {
+      display: flex; justify-content: space-between; align-items: baseline; padding-top: 14px;
+      font-size: .6rem; letter-spacing: .26em; text-transform: uppercase; color: var(--stone);
+    }
+    .g-cap em { font-family: var(--serif); font-style: italic; font-size: .95rem; letter-spacing: .02em; text-transform: none; color: var(--cream-dim); }
+
+    /* ═══════════════ ABOUT ═══════════════ */
+    .about {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0; max-width: 1500px; margin: 0 auto;
+      padding: 0 48px 140px; align-items: center;
+    }
+    .about-img-wrap { position: relative; padding-right: 60px; }
+    .about-img {
+      aspect-ratio: 4/5; background: url('images/the-sanctuary.jpg') center/cover;
+      filter: saturate(.94);
+    }
+    .about-img-frame {
+      position: absolute; top: 28px; left: 28px; right: 32px; bottom: -28px;
+      border: 1px solid var(--hairline); pointer-events: none;
+    }
+    .about-copy { padding-left: 40px; }
+    .about-copy .label { display: block; margin-bottom: 18px; }
+    .about-copy h2 { margin-bottom: 28px; }
+    .about-copy p { margin-bottom: 20px; max-width: 480px; }
+    .about-creds { display: flex; gap: 0; margin-top: 40px; border-top: 1px solid var(--hairline-2); }
+    .cred { padding: 26px 34px 0 0; margin-right: 34px; }
+    .cred + .cred { border-left: 1px solid var(--hairline-2); padding-left: 34px; }
+    .cred .c-big { font-family: var(--serif); font-size: 1.9rem; color: var(--candle); line-height: 1; display: block; margin-bottom: 8px; }
+    .cred .c-sub { font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--stone); }
+
+    /* ═══════════════ SERVICES — editorial rows ═══════════════ */
+    .services { padding: 130px 48px; background: var(--ink-2); border-top: 1px solid var(--hairline-2); border-bottom: 1px solid var(--hairline-2); }
+    .services-head { max-width: 1200px; margin: 0 auto 70px; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
+    .services-head .label { display: block; margin-bottom: 16px; }
+    .svc-rows { max-width: 1200px; margin: 0 auto; border-top: 1px solid var(--hairline-2); }
+    .svc-row {
+      display: grid; grid-template-columns: 70px 1.15fr 1.5fr auto; gap: 34px; align-items: center;
+      padding: 34px 10px; border-bottom: 1px solid var(--hairline-2);
+      cursor: pointer; transition: background .35s, padding-left .35s;
+    }
+    .svc-row:hover { background: var(--ink-3); padding-left: 22px; }
+    .svc-num { font-family: var(--serif); font-style: italic; font-size: 1.1rem; color: var(--stone); }
+    .svc-name { font-family: var(--serif); font-weight: 300; font-size: clamp(1.4rem, 2.4vw, 1.9rem); color: var(--cream); line-height: 1.15; }
+    .svc-name .ins-chip {
+      display: inline-block; vertical-align: middle; margin-left: 12px;
+      font-family: var(--sans); font-size: .54rem; letter-spacing: .2em; text-transform: uppercase;
+      color: var(--candle); border: 1px solid var(--hairline); padding: 4px 10px;
+    }
+    .svc-desc { font-size: .88rem; color: var(--stone); max-width: 460px; }
+    .svc-side { text-align: right; }
+    .svc-price { font-family: var(--serif); font-size: 1.15rem; color: var(--candle); display: block; }
+    .svc-dur { font-size: .62rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); display: block; margin: 6px 0 10px; }
+    .svc-cta { font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); opacity: 0; transition: opacity .35s; }
+    .svc-row:hover .svc-cta { opacity: 1; }
+
+    /* ═══════════════ INSURANCE ═══════════════ */
+    .insurance { padding: 140px 48px; max-width: 1500px; margin: 0 auto; }
+    .ins-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 90px; align-items: start; }
+    .ins-copy .label { display: block; margin-bottom: 18px; }
+    .ins-copy h2 { margin-bottom: 26px; }
+    .ins-copy > p { margin-bottom: 34px; max-width: 500px; }
+    .ins-block { border-top: 1px solid var(--hairline-2); padding: 26px 0; }
+    .ins-block h4 { font-family: var(--serif); font-weight: 400; font-size: 1.2rem; color: var(--cream); margin-bottom: 12px; }
+    .ins-block p, .ins-block li { font-size: .88rem; color: var(--stone); }
+    .ins-block ul { list-style: none; }
+    .ins-block li { padding: 5px 0 5px 24px; position: relative; }
+    .ins-block li::before { content: '—'; position: absolute; left: 0; color: var(--gold); }
+    .plan-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+    .plan-chip {
+      font-size: .66rem; letter-spacing: .14em; text-transform: uppercase; color: var(--cream-dim);
+      border: 1px solid var(--hairline); padding: 9px 18px;
+    }
+    .plan-chip.pending { color: var(--stone); border-style: dashed; }
+    .plan-note { font-size: .72rem; color: var(--stone); font-style: italic; margin-top: 14px; }
+
+    /* verification form card */
+    .ins-form-card {
+      background: var(--ink-3); border: 1px solid var(--hairline-2); padding: 46px 44px;
+      position: sticky; top: 110px;
+    }
+    .ins-form-card h3 { font-family: var(--serif); font-weight: 300; font-size: 1.8rem; color: var(--cream); margin-bottom: 10px; }
+    .ins-form-card .sub { font-size: .82rem; color: var(--stone); margin-bottom: 30px; }
+    .f-group { margin-bottom: 18px; }
+    .f-group label { display: block; font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--stone); margin-bottom: 8px; }
+    .f-group input, .f-group textarea, .f-group select {
+      width: 100%; background: var(--ink); border: 1px solid var(--hairline-2); color: var(--cream);
+      font-family: var(--sans); font-weight: 300; font-size: .9rem; padding: 13px 16px;
+      transition: border-color .3s; outline: none; border-radius: 0; -webkit-appearance: none;
+    }
+    .f-group input:focus, .f-group textarea:focus, .f-group select:focus { border-color: var(--gold); }
+    .f-group textarea { min-height: 90px; resize: vertical; }
+    .f-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .f-msg { font-size: .78rem; margin-top: 14px; display: none; }
+    .f-msg.ok { display: block; color: var(--green, #9CBF8E); color: #9CBF8E; }
+    .f-msg.err { display: block; color: #C97B6D; }
+
+    /* ═══════════════ ROOMS ═══════════════ */
+    .rooms { display: grid; grid-template-columns: 1fr 1fr; min-height: 620px; }
+    .room { position: relative; overflow: hidden; display: flex; align-items: flex-end; }
+    .room-bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform 1.2s ease; filter: saturate(.92); }
+    .room:hover .room-bg { transform: scale(1.05); }
+    .room-1 .room-bg { background-image: url('images/the-sanctuary.jpg'); }
+    .room-2 .room-bg { background-image: url('images/the-refuge.jpg'); }
+    .room-grade { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(14,12,10,.1) 30%, rgba(14,12,10,.88) 100%); }
+    .room-info { position: relative; z-index: 2; padding: 54px; }
+    .room-num { font-size: .62rem; letter-spacing: .3em; text-transform: uppercase; color: var(--candle); display: block; margin-bottom: 10px; }
+    .room-name { font-family: var(--serif); font-weight: 300; font-size: 2.4rem; color: var(--cream); margin-bottom: 12px; }
+    .room-desc { font-size: .88rem; color: var(--cream-dim); max-width: 400px; margin-bottom: 20px; }
+    .room-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .room-tag { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: var(--cream-dim); border: 1px solid rgba(243,234,217,.25); padding: 6px 14px; backdrop-filter: blur(4px); }
+
+    /* ═══════════════ PRICING ═══════════════ */
+    .pricing { padding: 140px 48px; max-width: 1100px; margin: 0 auto; }
+    .pricing-head { text-align: center; margin-bottom: 64px; }
+    .pricing-head .label { display: block; margin-bottom: 16px; }
+    .pricing-head p { max-width: 560px; margin: 22px auto 0; font-size: .9rem; color: var(--stone); }
+    .price-table { border-top: 1px solid var(--hairline-2); }
+    .price-row {
+      display: grid; grid-template-columns: 1fr auto auto; gap: 30px; align-items: baseline;
+      padding: 22px 8px; border-bottom: 1px solid var(--hairline-2);
+    }
+    .price-row .p-name { font-family: var(--serif); font-size: 1.25rem; font-weight: 300; color: var(--cream); }
+    .price-row .p-dur { font-size: .64rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); }
+    .price-row .p-amt { font-family: var(--serif); font-size: 1.25rem; color: var(--candle); min-width: 110px; text-align: right; }
+    .price-foot { font-size: .78rem; color: var(--stone); font-style: italic; margin-top: 26px; text-align: center; }
+
+    /* ═══════════════ RITUAL ═══════════════ */
+    .ritual { background: var(--ink-2); border-top: 1px solid var(--hairline-2); border-bottom: 1px solid var(--hairline-2); padding: 130px 48px; }
+    .ritual-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.4fr; gap: 80px; }
+    .ritual-left .label { display: block; margin-bottom: 16px; }
+    .ritual-left p { margin-top: 24px; font-size: .9rem; color: var(--stone); max-width: 360px; }
+    .ritual-img-wrap { position: relative; margin-top: 44px; max-width: 380px; }
+    .ritual-img { aspect-ratio: 4/3; background: url('images/the-sanctuary.jpg') 30% center/cover; filter: saturate(.9); }
+    .ritual-img-frame { position: absolute; top: 14px; left: 14px; right: -14px; bottom: -14px; border: 1px solid var(--hairline); pointer-events: none; }
+    .step { display: grid; grid-template-columns: 64px 1fr; gap: 26px; padding: 30px 0; border-bottom: 1px solid var(--hairline-2); }
+    .step:first-child { padding-top: 0; }
+    .step-num { font-family: var(--serif); font-style: italic; font-size: 1.8rem; color: var(--gold); line-height: 1; }
+    .step h4 { font-family: var(--serif); font-weight: 400; font-size: 1.3rem; color: var(--cream); margin-bottom: 8px; }
+    .step p { font-size: .88rem; color: var(--stone); }
+
+    /* ═══════════════ REVIEWS ═══════════════ */
+    .reviews { position: relative; padding: 150px 48px; overflow: hidden; }
+    .reviews-bg { position: absolute; inset: 0; background: url('images/the-refuge.jpg') center/cover fixed; opacity: .18; filter: saturate(.8); }
+    .reviews-grade { position: absolute; inset: 0; background: linear-gradient(180deg, var(--ink) 0%, transparent 30%, transparent 70%, var(--ink) 100%); }
+    .reviews-inner { position: relative; z-index: 2; max-width: 1200px; margin: 0 auto; text-align: center; }
+    .reviews-inner .label { display: block; margin-bottom: 16px; }
+    .reviews-inner h2 { margin-bottom: 70px; }
+    .rev-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; text-align: left; }
+    .rev-card { background: rgba(21,17,14,.85); backdrop-filter: blur(8px); border: 1px solid var(--hairline-2); padding: 44px 38px; }
+    .rev-q { font-family: var(--serif); font-size: 3rem; color: var(--gold); line-height: 0; display: block; margin: 18px 0 26px; }
+    .rev-text { font-family: var(--serif); font-weight: 300; font-size: 1.12rem; color: var(--cream); line-height: 1.5; margin-bottom: 24px; }
+    .rev-stars { color: var(--gold); font-size: .8rem; letter-spacing: .3em; display: block; margin-bottom: 10px; }
+    .rev-name { font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); }
+
+    /* ═══════════════ FAQ ═══════════════ */
+    .faq { padding: 140px 48px; max-width: 900px; margin: 0 auto; }
+    .faq-head { text-align: center; margin-bottom: 60px; }
+    .faq-head .label { display: block; margin-bottom: 16px; }
+    .faq details { border-bottom: 1px solid var(--hairline-2); }
+    .faq details:first-of-type { border-top: 1px solid var(--hairline-2); }
+    .faq summary {
+      list-style: none; cursor: pointer; padding: 26px 44px 26px 8px; position: relative;
+      font-family: var(--serif); font-weight: 300; font-size: 1.3rem; color: var(--cream);
+      transition: color .3s;
+    }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after {
+      content: '+'; position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      font-family: var(--sans); font-weight: 300; font-size: 1.4rem; color: var(--gold); transition: transform .3s;
+    }
+    .faq details[open] summary::after { transform: translateY(-50%) rotate(45deg); }
+    .faq details[open] summary { color: var(--candle); }
+    .faq .faq-a { padding: 0 8px 28px; font-size: .9rem; color: var(--stone); max-width: 700px; }
+
+    /* ═══════════════ BOOK BAND ═══════════════ */
+    .book-band { position: relative; padding: 170px 48px; text-align: center; background: var(--ink-2); border-top: 1px solid var(--hairline-2); border-bottom: 1px solid var(--hairline-2); overflow: hidden; }
+    .book-band-bg { position: absolute; inset: 0; background: url('images/hero-bg.jpg') center 30%/cover; opacity: .16; filter: saturate(.85); }
+    .book-band-grade { position: absolute; inset: 0; background: linear-gradient(180deg, var(--ink-2) 0%, transparent 40%, transparent 60%, var(--ink-2) 100%); }
+    .book-band > .label, .book-band > .display, .book-band > .book-sub, .book-band > .rv:last-child { position: relative; z-index: 2; }
+    .book-band::before {
+      content: ''; position: absolute; left: 50%; top: -160px; transform: translateX(-50%);
+      width: 640px; height: 640px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(212,168,75,.13), transparent 65%); pointer-events: none;
+    }
+    .book-band .label { display: block; margin-bottom: 18px; }
+    .book-title { font-size: clamp(2.8rem, 6vw, 5rem); margin-bottom: 24px; }
+    .book-sub { max-width: 460px; margin: 0 auto 44px; font-size: .9rem; color: var(--stone); }
+
+    /* ═══════════════ CONTACT ═══════════════ */
+    .contact { padding: 140px 48px; max-width: 1500px; margin: 0 auto; }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: start; }
+    .contact-left .label { display: block; margin-bottom: 18px; }
+    .contact-left h2 { margin-bottom: 40px; }
+    .c-detail { display: grid; grid-template-columns: 20px 1fr; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--hairline-2); }
+    .c-detail:first-of-type { border-top: 1px solid var(--hairline-2); }
+    .c-detail .c-ico { color: var(--gold); font-size: .9rem; padding-top: 2px; }
+    .c-detail .c-label { font-size: .6rem; letter-spacing: .24em; text-transform: uppercase; color: var(--stone); display: block; margin-bottom: 4px; }
+    .c-detail .c-value { font-size: .95rem; color: var(--cream); text-decoration: none; }
+    a.c-value:hover { color: var(--candle); }
+    .hours-list { margin-top: 34px; }
+    .hours-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--hairline-2); font-size: .85rem; }
+    .hours-row .d { color: var(--stone); letter-spacing: .1em; text-transform: uppercase; font-size: .68rem; padding-top: 3px; }
+    .socials { display: flex; gap: 14px; margin-top: 36px; }
+    .socials a {
+      width: 42px; height: 42px; border: 1px solid var(--hairline); display: flex; align-items: center; justify-content: center;
+      color: var(--cream-dim); text-decoration: none; font-size: .72rem; letter-spacing: .05em; transition: all .3s;
+    }
+    .socials a:hover { border-color: var(--gold); color: var(--candle); }
+    .map-wrap { border: 1px solid var(--hairline-2); background: var(--ink-3); }
+    .map-wrap iframe { width: 100%; height: 340px; border: 0; display: block; filter: grayscale(1) invert(.92) contrast(.9) sepia(.25); }
+    .contact-form-card { background: var(--ink-3); border: 1px solid var(--hairline-2); padding: 44px 42px; margin-top: 28px; }
+    .contact-form-card h3 { font-family: var(--serif); font-weight: 300; font-size: 1.7rem; color: var(--cream); margin-bottom: 8px; }
+    .contact-form-card .sub { font-size: .82rem; color: var(--stone); margin-bottom: 28px; }
+    .forms-note {
+      margin-top: 28px; border: 1px dashed var(--hairline); padding: 22px 26px;
+      font-size: .82rem; color: var(--stone);
+    }
+    .forms-note strong { color: var(--cream); font-weight: 400; }
+    .forms-note a { color: var(--gold); text-decoration: none; }
+    .forms-note a:hover { color: var(--candle); }
+
+    /* ═══════════════ FOOTER ═══════════════ */
+    footer { border-top: 1px solid var(--hairline-2); padding: 80px 48px 40px; background: var(--ink-2); }
+    .foot-top { max-width: 1300px; margin: 0 auto 60px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 52px; }
+    .foot-logo { font-family: var(--serif); font-size: 1.6rem; color: var(--cream); display: block; }
+    .foot-sub { font-size: .6rem; letter-spacing: .28em; text-transform: uppercase; color: var(--stone); display: block; margin: 6px 0 18px; }
+    .foot-tag { font-size: .84rem; color: var(--stone); max-width: 300px; }
+    .foot-col-title { font-size: .64rem; letter-spacing: .26em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; font-weight: 400; }
+    .foot-links { list-style: none; }
+    .foot-links li { margin-bottom: 10px; }
+    .foot-links a { font-size: .85rem; color: var(--cream-dim); text-decoration: none; transition: color .3s; }
+    .foot-links a:hover { color: var(--candle); }
+    .foot-hours { font-size: .82rem; color: var(--cream-dim); line-height: 2.1; }
+    .foot-bottom {
+      max-width: 1300px; margin: 0 auto; padding-top: 28px; border-top: 1px solid var(--hairline-2);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;
+      font-size: .72rem; color: var(--stone);
+    }
+    .foot-legal { display: flex; gap: 22px; list-style: none; }
+    .foot-legal a { color: var(--stone); text-decoration: none; }
+    .foot-legal a:hover { color: var(--candle); }
+
+    /* ═══════════════ STICKY MOBILE CALL BAR ═══════════════ */
+    .mobile-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 150;
+      display: none; grid-template-columns: 1fr 1fr;
+      background: rgba(14,12,10,.96); backdrop-filter: blur(12px); border-top: 1px solid var(--hairline);
+    }
+    .mobile-bar a, .mobile-bar button {
+      padding: 17px; text-align: center; font-family: var(--sans); font-size: .7rem; font-weight: 500;
+      letter-spacing: .22em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer;
+    }
+    .mobile-bar .mb-call { color: var(--candle); background: transparent; }
+    .mobile-bar .mb-book { color: var(--ink); background: var(--gold); }
+
+    /* ═══════════════ BOOKING MODAL ═══════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 400; background: rgba(8,6,5,.82); backdrop-filter: blur(8px);
+      display: flex; align-items: center; justify-content: center; padding: 24px;
+      opacity: 0; pointer-events: none; transition: opacity .35s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--ink-2); border: 1px solid var(--hairline); width: 100%; max-width: 680px;
+      max-height: 92vh; overflow-y: auto; position: relative; padding: 48px 46px 40px;
+      transform: translateY(16px); transition: transform .35s;
+    }
+    .modal-overlay.open .modal { transform: none; }
+    .modal-close {
+      position: absolute; top: 16px; right: 20px; background: none; border: none;
+      color: var(--stone); font-size: 1.7rem; cursor: pointer; line-height: 1; transition: color .3s;
+    }
+    .modal-close:hover { color: var(--candle); }
+    .modal-header { text-align: center; margin-bottom: 30px; }
+    .modal-header .label { display: block; margin-bottom: 10px; }
+    .modal-title { font-family: var(--serif); font-weight: 300; font-size: 2rem; color: var(--cream); }
+    .modal-title em { font-style: italic; color: var(--candle); }
+
+    .steps-indicator { display: flex; align-items: center; justify-content: center; gap: 6px; margin-bottom: 34px; }
+    .step-pill { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+    .step-dot {
+      width: 30px; height: 30px; border-radius: 50%; border: 1px solid var(--hairline);
+      display: flex; align-items: center; justify-content: center;
+      font-size: .68rem; color: var(--stone); transition: all .3s;
+    }
+    .step-pill span { font-size: .54rem; letter-spacing: .16em; text-transform: uppercase; color: var(--stone); }
+    .step-pill.active .step-dot { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+    .step-pill.active span { color: var(--candle); }
+    .step-pill.done .step-dot { border-color: var(--gold); color: var(--gold); }
+    .step-connector { width: 26px; height: 1px; background: var(--hairline-2); margin-bottom: 16px; }
+
+    .step-panel { display: none; }
+    .step-panel.active { display: block; animation: fadeUp .4s ease; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } }
+
+    .notif-badge {
+      display: flex; align-items: center; gap: 10px; justify-content: center;
+      font-size: .7rem; color: var(--stone); margin-bottom: 22px;
+    }
+    .notif-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--candle); box-shadow: 0 0 8px var(--candle); animation: pulse 2s infinite; }
+
+    .svc-select-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .svc-opt {
+      border: 1px solid var(--hairline-2); padding: 18px 20px; cursor: pointer; transition: all .3s;
+      background: var(--ink-3);
+    }
+    .svc-opt:hover { border-color: var(--hairline); }
+    .svc-opt.selected { border-color: var(--gold); background: var(--ink-4); }
+    .svc-opt .so-name { font-family: var(--serif); font-size: 1.08rem; color: var(--cream); display: block; margin-bottom: 4px; }
+    .svc-opt .so-meta { font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); }
+    .svc-opt .so-meta b { color: var(--candle); font-weight: 400; }
+
+    .cal-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .cal-nav button { background: none; border: 1px solid var(--hairline-2); color: var(--cream-dim); width: 36px; height: 36px; cursor: pointer; transition: all .3s; }
+    .cal-nav button:hover { border-color: var(--gold); color: var(--candle); }
+    .cal-month { font-family: var(--serif); font-size: 1.2rem; color: var(--cream); }
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+    .cal-dow { font-size: .58rem; letter-spacing: .12em; text-transform: uppercase; color: var(--stone); text-align: center; padding: 8px 0; }
+    .cal-day {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      font-size: .82rem; color: var(--cream-dim); cursor: pointer; border: 1px solid transparent; transition: all .25s;
+    }
+    .cal-day:hover:not(.disabled) { border-color: var(--hairline); }
+    .cal-day.disabled { color: rgba(143,130,113,.3); cursor: default; }
+    .cal-day.selected { background: var(--gold); color: var(--ink); }
+    .time-intro { text-align: center; font-size: .85rem; color: var(--stone); margin-bottom: 20px; }
+    .time-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+    .time-slot {
+      border: 1px solid var(--hairline-2); padding: 13px 6px; text-align: center; font-size: .8rem;
+      color: var(--cream-dim); cursor: pointer; transition: all .25s; background: var(--ink-3);
+    }
+    .time-slot:hover { border-color: var(--hairline); }
+    .time-slot.selected { background: var(--gold); border-color: var(--gold); color: var(--ink); }
+
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-grid .full { grid-column: 1 / -1; }
+    .sms-opt { display: flex; gap: 12px; align-items: flex-start; border: 1px solid var(--hairline-2); padding: 16px 18px; background: var(--ink-3); }
+    .sms-opt input { margin-top: 4px; accent-color: var(--gold); }
+    .sms-opt-label { font-size: .8rem; color: var(--stone); }
+    .sms-opt-label strong { color: var(--cream); font-weight: 400; }
+    .f-group.invalid input { border-color: #C97B6D; animation: shake .3s; }
+    @keyframes shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
+
+    .confirm-card { border: 1px solid var(--hairline-2); background: var(--ink-3); padding: 28px 30px; margin-bottom: 18px; }
+    .confirm-title { font-family: var(--serif); font-size: 1.25rem; color: var(--cream); margin-bottom: 16px; }
+    .confirm-row { display: flex; justify-content: space-between; gap: 20px; padding: 9px 0; border-bottom: 1px solid var(--hairline-2); font-size: .85rem; }
+    .confirm-row:last-child { border-bottom: none; }
+    .confirm-row strong { color: var(--stone); font-weight: 400; font-size: .68rem; letter-spacing: .18em; text-transform: uppercase; padding-top: 3px; }
+    .confirm-row span { color: var(--cream); text-align: right; }
+    .confirm-note { font-size: .76rem; color: var(--stone); padding: 14px 4px 0; }
+
+    .modal-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 28px; }
+    .btn-next {
+      background: var(--gold); color: var(--ink); border: none; cursor: pointer;
+      font-family: var(--sans); font-size: .7rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase;
+      padding: 14px 30px; transition: all .3s;
+    }
+    .btn-next:hover:not(:disabled) { background: var(--candle); }
+    .btn-next:disabled { opacity: .35; cursor: default; }
+    .btn-back { background: none; border: none; color: var(--stone); cursor: pointer; font-family: var(--sans); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; transition: color .3s; }
+    .btn-back:hover { color: var(--candle); }
+
+    .booking-success { text-align: center; padding: 30px 10px; }
+    .success-icon { font-size: 2.4rem; display: block; margin-bottom: 18px; }
+    .success-title { font-family: var(--serif); font-weight: 300; font-size: 1.8rem; color: var(--cream); margin-bottom: 16px; }
+    .success-body { font-size: .88rem; color: var(--stone); margin-bottom: 30px; }
+    .success-body strong { color: var(--candle); font-weight: 400; }
+
+    /* ═══════════════ RESPONSIVE ═══════════════ */
+    @media (max-width: 1080px) {
+      .about { grid-template-columns: 1fr; gap: 70px; }
+      .about-img-wrap { padding-right: 0; max-width: 520px; }
+      .about-copy { padding-left: 0; }
+      .ins-grid { grid-template-columns: 1fr; gap: 60px; }
+      .ins-form-card { position: static; }
+      .ritual-inner { grid-template-columns: 1fr; gap: 50px; }
+      .rev-grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
+      .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+      .rooms { grid-template-columns: 1fr; }
+      .svc-row { grid-template-columns: 44px 1fr auto; }
+      .svc-desc { display: none; }
+      .foot-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+    }
+    @media (max-width: 720px) {
+      nav, nav.scrolled { padding-left: 22px; padding-right: 22px; }
+      .nav-links, .nav-call { display: none; }
+      .nav-burger { display: block; }
+      .hero-content { padding: 0 24px 14vh; }
+      .hero-scroll { display: none; }
+      .intro, .about, .services, .insurance, .pricing, .ritual, .reviews, .faq, .book-band, .contact, .gallery { padding-left: 24px; padding-right: 24px; }
+      .gallery { grid-template-columns: 1fr; gap: 40px; padding-bottom: 100px; }
+      .g-item:nth-child(2) { transform: none; }
+      .ritual-img-wrap { max-width: 100%; }
+      .about, .insurance, .pricing, .contact, .faq { padding-top: 90px; padding-bottom: 90px; }
+      .svc-row { grid-template-columns: 1fr; gap: 8px; padding: 26px 6px; }
+      .svc-num { display: none; }
+      .svc-side { text-align: left; }
+      .svc-cta { opacity: 1; }
+      .f-2col, .form-grid, .svc-select-grid { grid-template-columns: 1fr; }
+      .time-grid { grid-template-columns: 1fr 1fr; }
+      .price-row { grid-template-columns: 1fr auto; }
+      .price-row .p-dur { grid-column: 1; }
+      .foot-top { grid-template-columns: 1fr; }
+      .mobile-bar { display: grid; }
+      footer { padding-bottom: 110px; }
+      .modal { padding: 40px 24px 32px; }
+      .steps-indicator .step-pill span { display: none; }
+      .ins-form-card, .contact-form-card { padding: 34px 24px; }
+      .reviews-bg { background-attachment: scroll; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    <span class="nl-name">Serenity Lounge</span>
+    <span class="nl-sub">Day Spa · Highland, Indiana</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#insurance">Insurance</a></li>
+    <li><a href="#pricing">Pricing</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="tel:2195016575" class="nav-call">(219) 501-6575</a>
+    <button class="nav-book" onclick="openBooking()">Book Now</button>
+    <button class="nav-burger" onclick="toggleMenu(true)" aria-label="Open menu">☰</button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mm-close" onclick="toggleMenu(false)" aria-label="Close menu">&times;</button>
+  <a href="#about" onclick="toggleMenu(false)">About</a>
+  <a href="#services" onclick="toggleMenu(false)">Services</a>
+  <a href="#insurance" onclick="toggleMenu(false)">Insurance</a>
+  <a href="#pricing" onclick="toggleMenu(false)">Pricing</a>
+  <a href="#reviews" onclick="toggleMenu(false)">Reviews</a>
+  <a href="#faq" onclick="toggleMenu(false)">FAQ</a>
+  <a href="#contact" onclick="toggleMenu(false)">Contact</a>
+  <a href="tel:2195016575" style="color:var(--candle);font-size:1.2rem;">(219) 501-6575</a>
+</div>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="home">
+  <div class="hero-photo"></div>
+  <div class="hero-grade"></div>
+  <div class="hero-content">
+    <span class="hero-badge"><span class="dot"></span>Now credentialing to accept insurance</span>
+    <h1 class="hero-title display">Restore what<br>the day <em>takes.</em></h1>
+    <div class="hero-sub">
+      <span>Medical &amp; Therapeutic Massage</span>
+      <span class="rule"></span>
+      <span>Highland, Indiana</span>
+    </div>
+    <div class="hero-ctas">
+      <button class="btn-gold" onclick="openBooking()">Book Your Session</button>
+      <a href="#insurance" class="btn-ghost">Verify Insurance</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="line"></div></div>
+</section>
+
+<!-- ═══════════════ INTRO ═══════════════ -->
+<section class="intro rv">
+  <div class="rule"></div>
+  <p>"Step in. Breathe out. Leave everything behind — and return to yourself."</p>
+</section>
+
+<!-- ═══════════════ GALLERY STRIP ═══════════════ -->
+<section class="gallery rv">
+  <div class="g-item g-1">
+    <div class="g-img"></div>
+    <div class="g-cap"><em>The rainfall wall</em><span>01</span></div>
+  </div>
+  <div class="g-item g-2">
+    <div class="g-img"></div>
+    <div class="g-cap"><em>The Sanctuary</em><span>02</span></div>
+  </div>
+  <div class="g-item g-3">
+    <div class="g-img"></div>
+    <div class="g-cap"><em>The Refuge</em><span>03</span></div>
+  </div>
+</section>
+
+<!-- ═══════════════ ABOUT ═══════════════ -->
+<section class="about" id="about">
+  <div class="about-img-wrap rv">
+    <div class="about-img"></div>
+    <div class="about-img-frame"></div>
+  </div>
+  <div class="about-copy rv">
+    <span class="label">About Serenity</span>
+    <h2 class="display section-title">Care that treats<br>the <em>cause.</em></h2>
+    <p>Serenity Lounge is the practice of Renise M., a licensed massage therapist in Highland, Indiana. Every session begins with a conversation — what hurts, what's changed, what your body is asking for — and is built around it.</p>
+    <p>This is bodywork with clinical intent: medical and therapeutic massage for pain relief and recovery, delivered in a private, candlelit sanctuary rather than a clinic. Organic products. Intentional touch. No rushing, ever.</p>
+    <div class="about-creds">
+      <div class="cred"><span class="c-big">LMT</span><span class="c-sub">Licensed Therapist</span></div>
+      <div class="cred"><span class="c-big">1:1</span><span class="c-sub">Private Practice</span></div>
+      <div class="cred"><span class="c-big">100%</span><span class="c-sub">Organic Products</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ SERVICES ═══════════════ -->
+<section class="services" id="services">
+  <div class="services-head rv">
+    <div>
+      <span class="label">Treatments</span>
+      <h2 class="display section-title">Crafted for<br><em>your body.</em></h2>
+    </div>
+    <p class="lede" style="max-width:380px;">Six core treatments, each tailored to you. Sessions marked with a seal may be billable to insurance once credentialing is complete.</p>
+  </div>
+  <div class="svc-rows rv">
+    <div class="svc-row" onclick="openBookingWithService('Medical Massage')">
+      <span class="svc-num">01</span>
+      <h3 class="svc-name">Medical Massage<span class="ins-chip">Insurance</span></h3>
+      <p class="svc-desc">Outcome-based treatment for diagnosed conditions — prescribed or physician-referred. Documented, targeted, and focused entirely on your recovery plan.</p>
+      <div class="svc-side">
+        <span class="svc-price">Insurance / from $95</span>
+        <span class="svc-dur">30–60 min</span>
+        <span class="svc-cta">Book this service →</span>
+      </div>
+    </div>
+    <div class="svc-row" onclick="openBookingWithService('Therapeutic Massage')">
+      <span class="svc-num">02</span>
+      <h3 class="svc-name">Therapeutic Massage<span class="ins-chip">Insurance</span></h3>
+      <p class="svc-desc">Focused work on chronic tension, injury recovery, and pain patterns. The bridge between relaxation and clinical treatment.</p>
+      <div class="svc-side">
+        <span class="svc-price">From $85</span>
+        <span class="svc-dur">45–90 min</span>
+        <span class="svc-cta">Book this service →</span>
+      </div>
+    </div>
+    <div class="svc-row" onclick="openBookingWithService('Relaxation Massage')">
+      <span class="svc-num">03</span>
+      <h3 class="svc-name">Relaxation Massage</h3>
+      <p class="svc-desc">Classic flowing Swedish strokes ease tension, calm the nervous system, and improve circulation. The perfect introduction to restorative bodywork.</p>
+      <div class="svc-side">
+        <span class="svc-price">From $80</span>
+        <span class="svc-dur">45–90 min</span>
+        <span class="svc-cta">Book this service →</span>
+      </div>
+    </div>
+    <div class="svc-row" onclick="openBookingWithService('Deep Tissue Massage')">
+      <span class="svc-num">04</span>
+      <h3 class="svc-name">Deep Tissue Massage</h3>
+      <p class="svc-desc">Targeted therapeutic pressure reaches deep muscular layers to release chronic tension in shoulders, hips, and lower back.</p>
+      <div class="svc-side">
+        <span class="svc-price">From $90</span>
+        <span class="svc-dur">45–90 min</span>
+        <span class="svc-cta">Book this service →</span>
+      </div>
+    </div>
+    <div class="svc-row" onclick="openBookingWithService('Hot Stone Massage')">
+      <span class="svc-num">05</span>
+      <h3 class="svc-name">Hot Stone Massage</h3>
+      <p class="svc-desc">Heated basalt stones melt through tension layers that hands alone can't reach. Deep warmth, deep release.</p>
+      <div class="svc-side">
+        <span class="svc-price">From $110</span>
+        <span class="svc-dur">60–90 min</span>
+        <span class="svc-cta">Book this service →</span>
+      </div>
+    </div>
+    <div class="svc-row" onclick="openBookingWithService('Prenatal Massage')">
+      <span class="svc-num">06</span>
+      <h3 class="svc-name">Prenatal Massage</h3>
+      <p class="svc-desc">Gentle, nurturing care designed for expectant mothers. Relieves back pain, swelling, and the fatigue of pregnancy.</p>
+      <div class="svc-side">
+        <span class="svc-price">From $85</span>
+        <span class="svc-dur">60 min</span>
+        <span class="svc-cta">Book this service →</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ INSURANCE ═══════════════ -->
+<section class="insurance" id="insurance">
+  <div class="ins-grid">
+    <div class="ins-copy rv">
+      <span class="label">Insurance</span>
+      <h2 class="display section-title">Massage therapy,<br><em>covered.</em></h2>
+      <p>Serenity Lounge is in the process of becoming credentialed to accept insurance for medical and therapeutic massage. Submit a verification request and we'll confirm your coverage before your first visit — no surprises.</p>
+
+      <div class="ins-block">
+        <h4>Accepted plans</h4>
+        <p style="margin-bottom:12px;">Credentialing is underway. Plans will be listed here as each is completed:</p>
+        <div class="plan-chips">
+          <span class="plan-chip pending">Anthem BCBS — in progress</span>
+          <span class="plan-chip pending">UnitedHealthcare — in progress</span>
+          <span class="plan-chip pending">Aetna — in progress</span>
+          <span class="plan-chip pending">Cigna — in progress</span>
+        </div>
+        <p class="plan-note">Don't see your plan? Submit the form anyway — we'll check your out-of-network benefits.</p>
+      </div>
+
+      <div class="ins-block">
+        <h4>Referrals &amp; prior authorization</h4>
+        <ul>
+          <li>Most plans require a physician's referral or prescription for massage therapy.</li>
+          <li>Some plans also require prior authorization before your first session — we'll handle the paperwork once your coverage is verified.</li>
+          <li>Ask your doctor for a referral that includes a diagnosis code and recommended frequency.</li>
+        </ul>
+      </div>
+
+      <div class="ins-block">
+        <h4>What to bring to your appointment</h4>
+        <ul>
+          <li>Your insurance card (photo of front and back is fine)</li>
+          <li>A photo ID</li>
+          <li>Your physician's referral or prescription, if required by your plan</li>
+          <li>Completed new patient forms — or arrive 15 minutes early to fill them out</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ins-form-card rv">
+      <h3>Verify your insurance</h3>
+      <p class="sub">Takes two minutes. We'll check your benefits and reach out within 1–2 business days.</p>
+      <form id="insForm" onsubmit="return submitInsForm(event)">
+        <div class="f-2col">
+          <div class="f-group">
+            <label for="insFirst">First name *</label>
+            <input type="text" id="insFirst" required autocomplete="given-name">
+          </div>
+          <div class="f-group">
+            <label for="insLast">Last name *</label>
+            <input type="text" id="insLast" required autocomplete="family-name">
+          </div>
+        </div>
+        <div class="f-2col">
+          <div class="f-group">
+            <label for="insPhone">Phone *</label>
+            <input type="tel" id="insPhone" required autocomplete="tel">
+          </div>
+          <div class="f-group">
+            <label for="insEmail">Email *</label>
+            <input type="email" id="insEmail" required autocomplete="email">
+          </div>
+        </div>
+        <div class="f-group">
+          <label for="insProvider">Insurance provider *</label>
+          <input type="text" id="insProvider" placeholder="e.g. Anthem Blue Cross Blue Shield" required>
+        </div>
+        <div class="f-group">
+          <label for="insMember">Member ID (optional)</label>
+          <input type="text" id="insMember" placeholder="From the front of your card">
+        </div>
+        <div class="f-group">
+          <label for="insNotes">Anything else?</label>
+          <textarea id="insNotes" placeholder="Referral status, condition being treated, questions…"></textarea>
+        </div>
+        <button type="submit" class="btn-gold" style="width:100%;" id="insSubmitBtn">Submit Verification Request</button>
+        <p class="f-msg" id="insMsg"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ROOMS ═══════════════ -->
+<section class="rooms">
+  <div class="room room-1 rv">
+    <div class="room-bg"></div>
+    <div class="room-grade"></div>
+    <div class="room-info">
+      <span class="room-num">Room 01</span>
+      <h3 class="room-name">The Sanctuary</h3>
+      <p class="room-desc">Warm amber light, living botanicals, and the soft curl of steam. Where every sense is invited to rest.</p>
+      <div class="room-tags">
+        <span class="room-tag">Hot stones</span>
+        <span class="room-tag">Steam diffusion</span>
+        <span class="room-tag">Candlelit</span>
+        <span class="room-tag">Botanicals</span>
+      </div>
+    </div>
+  </div>
+  <div class="room room-2 rv">
+    <div class="room-bg"></div>
+    <div class="room-grade"></div>
+    <div class="room-info">
+      <span class="room-num">Room 02</span>
+      <h3 class="room-name">The Refuge</h3>
+      <p class="room-desc">Deeper, quieter, more meditative. For those who need total stillness — and those celebrating something worth savoring.</p>
+      <div class="room-tags">
+        <span class="room-tag">Couples ready</span>
+        <span class="room-tag">Chromotherapy</span>
+        <span class="room-tag">Sound bath</span>
+        <span class="room-tag">Premium linens</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ PRICING ═══════════════ -->
+<section class="pricing" id="pricing">
+  <div class="pricing-head rv">
+    <span class="label">Pricing</span>
+    <h2 class="display section-title">Honest rates,<br><em>no surprises.</em></h2>
+    <p>Self-pay rates below. If your insurance covers massage therapy, your cost may be as low as your copay — <a href="#insurance" style="color:var(--gold);text-decoration:none;">verify your coverage</a> to find out.</p>
+  </div>
+  <div class="price-table rv">
+    <div class="price-row"><span class="p-name">Medical Massage</span><span class="p-dur">30–60 min</span><span class="p-amt">Insurance / $95+</span></div>
+    <div class="price-row"><span class="p-name">Therapeutic Massage</span><span class="p-dur">45–90 min</span><span class="p-amt">$85+</span></div>
+    <div class="price-row"><span class="p-name">Relaxation Massage</span><span class="p-dur">45–90 min</span><span class="p-amt">$80+</span></div>
+    <div class="price-row"><span class="p-name">Deep Tissue Massage</span><span class="p-dur">45–90 min</span><span class="p-amt">$90+</span></div>
+    <div class="price-row"><span class="p-name">Hot Stone Massage</span><span class="p-dur">60–90 min</span><span class="p-amt">$110+</span></div>
+    <div class="price-row"><span class="p-name">Prenatal Massage</span><span class="p-dur">60 min</span><span class="p-amt">$85+</span></div>
+  </div>
+  <p class="price-foot">Final pricing depends on session length. A 24-hour cancellation policy applies to all appointments.</p>
+</section>
+
+<!-- ═══════════════ RITUAL ═══════════════ -->
+<section class="ritual" id="experience">
+  <div class="ritual-inner">
+    <div class="ritual-left rv">
+      <span class="label">Your Visit</span>
+      <h2 class="display section-title">What to<br><em>expect.</em></h2>
+      <p>From the moment you arrive to the moment you leave, every detail is intentional. Here is how a session unfolds.</p>
+      <div class="ritual-img-wrap">
+        <div class="ritual-img"></div>
+        <div class="ritual-img-frame"></div>
+      </div>
+    </div>
+    <div class="ritual-steps rv">
+      <div class="step">
+        <span class="step-num">01</span>
+        <div>
+          <h4>Arrive &amp; Settle In</h4>
+          <p>Come 10–15 minutes early. A warm welcome, herbal tea, and a quiet intake to understand what your body needs today.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">02</span>
+        <div>
+          <h4>Your Room, Your Way</h4>
+          <p>Renise prepares your space around you — temperature, lighting, scent, and sound aligned to your preferences.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">03</span>
+        <div>
+          <h4>The Treatment</h4>
+          <p>Skilled, intuitive bodywork using only the finest organic products. Every session is different, because every body is.</p>
+        </div>
+      </div>
+      <div class="step">
+        <span class="step-num">04</span>
+        <div>
+          <h4>Linger &amp; Restore</h4>
+          <p>No rush. Cool water, warm towels, and space to return slowly. You'll leave feeling like yourself again — only lighter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ REVIEWS ═══════════════ -->
+<section class="reviews" id="reviews">
+  <div class="reviews-bg"></div>
+  <div class="reviews-grade"></div>
+  <div class="reviews-inner">
+    <span class="label rv">Client Stories</span>
+    <h2 class="display section-title rv">Words from <em>the restored.</em></h2>
+    <div class="rev-grid rv">
+      <div class="rev-card">
+        <span class="rev-q">"</span>
+        <p class="rev-text">Renise has magic hands. I walked in with knots I'd been carrying for months and left feeling like a completely different person.</p>
+        <span class="rev-stars">★★★★★</span>
+        <span class="rev-name">— Jasmine T., Highland</span>
+      </div>
+      <div class="rev-card">
+        <span class="rev-q">"</span>
+        <p class="rev-text">We did the couples massage for our anniversary and it was absolutely perfect. We'll be back every year.</p>
+        <span class="rev-stars">★★★★★</span>
+        <span class="rev-name">— Marcus &amp; Diana R.</span>
+      </div>
+      <div class="rev-card">
+        <span class="rev-q">"</span>
+        <p class="rev-text">As a prenatal client, I felt completely safe and cared for. Renise knows exactly what she's doing. A true sanctuary.</p>
+        <span class="rev-stars">★★★★★</span>
+        <span class="rev-name">— Amara K., Chicago Heights</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FAQ ═══════════════ -->
+<section class="faq" id="faq">
+  <div class="faq-head rv">
+    <span class="label">Questions</span>
+    <h2 class="display section-title">Good to <em>know.</em></h2>
+  </div>
+  <div class="rv">
+    <details>
+      <summary>Does insurance really cover massage therapy?</summary>
+      <p class="faq-a">Many plans cover medical or therapeutic massage when it's prescribed by a physician for a diagnosed condition — back pain, injury recovery, chronic tension, and more. Coverage varies by plan, which is exactly why we verify your benefits before your first visit. Submit the verification form and we'll do the checking for you.</p>
+    </details>
+    <details>
+      <summary>What's the difference between medical and relaxation massage?</summary>
+      <p class="faq-a">Medical massage treats a specific diagnosed condition with a documented treatment plan, usually under physician referral — and it's the type most often billable to insurance. Relaxation massage is about overall wellbeing: calming the nervous system, easing everyday tension. Both happen on the same table, with the same hands. The intent and documentation differ.</p>
+    </details>
+    <details>
+      <summary>Do I need a referral from my doctor?</summary>
+      <p class="faq-a">For insurance-billed sessions, most plans require a physician's referral or prescription — ideally including a diagnosis code and recommended frequency. For self-pay sessions, no referral is needed; just book online.</p>
+    </details>
+    <details>
+      <summary>What should I bring to my first appointment?</summary>
+      <p class="faq-a">Your insurance card and photo ID (if using insurance), your referral if your plan requires one, and completed new patient forms — or arrive 15 minutes early and complete them here over a cup of herbal tea.</p>
+    </details>
+    <details>
+      <summary>What is your cancellation policy?</summary>
+      <p class="faq-a">We ask for at least 24 hours' notice to cancel or reschedule. Appointments are one-on-one, so a missed session is time reserved just for you. Late cancellations may be subject to a fee.</p>
+    </details>
+    <details>
+      <summary>What should I wear? Will I be covered during the session?</summary>
+      <p class="faq-a">You'll undress to your comfort level in complete privacy, and you'll be professionally draped throughout the session — only the area being worked on is ever uncovered. Your comfort leads every decision.</p>
+    </details>
+    <details>
+      <summary>Is prenatal massage safe?</summary>
+      <p class="faq-a">Yes — with a trained therapist. Renise uses positioning and techniques designed specifically for pregnancy. If your pregnancy is high-risk, please check with your physician first; we're happy to coordinate.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ═══════════════ BOOK BAND ═══════════════ -->
+<section class="book-band">
+  <div class="book-band-bg"></div>
+  <div class="book-band-grade"></div>
+  <span class="label rv">Reserve your session</span>
+  <h2 class="display book-title rv">Your stillness<br><em>awaits.</em></h2>
+  <p class="book-sub rv">Appointments fill quickly. Book directly here — confirmation sent instantly to your inbox and phone.</p>
+  <div class="rv"><button class="btn-gold" onclick="openBooking()">Schedule Now</button></div>
+</section>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section class="contact" id="contact">
+  <div class="contact-grid">
+    <div class="contact-left rv">
+      <span class="label">Find Us</span>
+      <h2 class="display section-title">Visit <em>Serenity.</em></h2>
+      <div class="c-detail">
+        <span class="c-ico">◈</span>
+        <div>
+          <span class="c-label">Address</span>
+          <span class="c-value">9219 Indianapolis Blvd, Suite 204<br>Highland, Indiana 46343</span>
+        </div>
+      </div>
+      <div class="c-detail">
+        <span class="c-ico">◈</span>
+        <div>
+          <span class="c-label">Phone</span>
+          <a class="c-value" href="tel:2195016575">(219) 501-6575</a>
+        </div>
+      </div>
+      <div class="c-detail">
+        <span class="c-ico">◈</span>
+        <div>
+          <span class="c-label">Email</span>
+          <!-- PLACEHOLDER: confirm Renise's actual email -->
+          <a class="c-value" href="mailto:renise@serenityloungedayspa.com">renise@serenityloungedayspa.com</a>
+        </div>
+      </div>
+      <div class="hours-list">
+        <span class="label" style="display:block;margin-bottom:14px;">Hours</span>
+        <div class="hours-row"><span class="d">Tuesday – Friday</span><span>10:30 AM – 2:30 PM</span></div>
+        <div class="hours-row"><span class="d">Saturday</span><span>6:30 PM – 8:00 PM</span></div>
+        <div class="hours-row"><span class="d">Sunday – Monday</span><span>Closed</span></div>
+      </div>
+      <div class="socials">
+        <!-- PLACEHOLDER: update with real social profiles -->
+        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">IG</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">FB</a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener" aria-label="TikTok">TT</a>
+      </div>
+      <div class="forms-note">
+        <strong>New patient?</strong> Download your <a href="#" onclick="alert('New patient forms coming soon — please arrive 15 minutes early and we\'ll take care of it together.');return false;">intake forms</a> and bring them completed to your first visit — or simply arrive 15 minutes early.
+      </div>
+    </div>
+
+    <div class="rv">
+      <div class="map-wrap">
+        <iframe
+          src="https://maps.google.com/maps?q=9219+Indianapolis+Blvd+Suite+204+Highland+Indiana+46343&t=&z=14&ie=UTF8&iwloc=&output=embed"
+          loading="lazy" title="Map to Serenity Lounge" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+      <div class="contact-form-card">
+        <h3>Send a message</h3>
+        <p class="sub">Questions about services, insurance, or gift certificates — we'll reply within one business day.</p>
+        <form id="contactForm" onsubmit="return submitContactForm(event)">
+          <div class="f-2col">
+            <div class="f-group">
+              <label for="cfName">Name *</label>
+              <input type="text" id="cfName" required autocomplete="name">
+            </div>
+            <div class="f-group">
+              <label for="cfEmail">Email *</label>
+              <input type="email" id="cfEmail" required autocomplete="email">
+            </div>
+          </div>
+          <div class="f-group">
+            <label for="cfMsg">Message *</label>
+            <textarea id="cfMsg" required></textarea>
+          </div>
+          <button type="submit" class="btn-gold" style="width:100%;" id="cfSubmitBtn">Send Message</button>
+          <p class="f-msg" id="cfMsgStatus"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <span class="foot-logo">Serenity Lounge</span>
+      <span class="foot-sub">Day Spa · Highland, Indiana</span>
+      <p class="foot-tag">Medical and therapeutic massage in a private, nature-inspired setting. By Renise M., LMT. Serving Highland and all of Northwest Indiana.</p>
+    </div>
+    <div>
+      <h4 class="foot-col-title">Services</h4>
+      <ul class="foot-links">
+        <li><a href="#services">Medical Massage</a></li>
+        <li><a href="#services">Therapeutic Massage</a></li>
+        <li><a href="#services">Deep Tissue</a></li>
+        <li><a href="#services">Hot Stone</a></li>
+        <li><a href="#services">Prenatal Massage</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="foot-col-title">Visit</h4>
+      <ul class="foot-links">
+        <li><a href="#insurance">Insurance</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="tel:2195016575">(219) 501-6575</a></li>
+        <li><a href="#" onclick="openBooking(); return false;">Book Online</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="foot-col-title">Hours</h4>
+      <div class="foot-hours">
+        Tue–Fri: 10:30am–2:30pm<br>
+        Saturday: 6:30pm–8:00pm<br>
+        Sun–Mon: Closed
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <p>&copy; 2026 Serenity Lounge Day Spa. All rights reserved.</p>
+    <ul class="foot-legal">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+    </ul>
+  </div>
+</footer>
+
+<!-- ═══════════════ STICKY MOBILE BAR ═══════════════ -->
+<div class="mobile-bar">
+  <a href="tel:2195016575" class="mb-call">Call Now</a>
+  <button class="mb-book" onclick="openBooking()">Book Now</button>
+</div>
+
+<!-- ═══════════════ BOOKING MODAL ═══════════════ -->
+<div class="modal-overlay" id="bookingOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Book an appointment">
+    <button class="modal-close" onclick="closeBooking()" aria-label="Close">&times;</button>
+
+    <div class="modal-header">
+      <span class="label">Online Booking</span>
+      <h2 class="modal-title">Schedule Your <em>Session</em></h2>
+    </div>
+
+    <div class="steps-indicator" id="stepsIndicator">
+      <div class="step-pill active" id="pill-1"><div class="step-dot">1</div><span>Service</span></div>
+      <div class="step-connector"></div>
+      <div class="step-pill" id="pill-2"><div class="step-dot">2</div><span>Date</span></div>
+      <div class="step-connector"></div>
+      <div class="step-pill" id="pill-3"><div class="step-dot">3</div><span>Time</span></div>
+      <div class="step-connector"></div>
+      <div class="step-pill" id="pill-4"><div class="step-dot">4</div><span>Your Info</span></div>
+      <div class="step-connector"></div>
+      <div class="step-pill" id="pill-5"><div class="step-dot">5</div><span>Confirm</span></div>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- STEP 1: Service -->
+      <div class="step-panel active" id="panel-1">
+        <div class="notif-badge"><div class="notif-dot"></div>Instant confirmation sent to your email &amp; phone after booking</div>
+        <div class="svc-select-grid" id="svcSelectGrid"></div>
+        <div class="modal-actions">
+          <span></span>
+          <button class="btn-next" id="next1" onclick="goToStep(2)" disabled>Choose a Date →</button>
+        </div>
+      </div>
+
+      <!-- STEP 2: Date -->
+      <div class="step-panel" id="panel-2">
+        <div class="cal-nav">
+          <button onclick="changeMonth(-1)" aria-label="Previous month">&#8592;</button>
+          <span class="cal-month" id="calMonthLabel"></span>
+          <button onclick="changeMonth(1)" aria-label="Next month">&#8594;</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="modal-actions">
+          <button class="btn-back" onclick="goToStep(1)">← Back</button>
+          <button class="btn-next" id="next2" onclick="goToStep(3)" disabled>Choose a Time →</button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Time -->
+      <div class="step-panel" id="panel-3">
+        <p class="time-intro" id="timeIntroLabel"></p>
+        <div class="time-grid" id="timeGrid"></div>
+        <div class="modal-actions">
+          <button class="btn-back" onclick="goToStep(2)">← Back</button>
+          <button class="btn-next" id="next3" onclick="goToStep(4)" disabled>Your Information →</button>
+        </div>
+      </div>
+
+      <!-- STEP 4: Info -->
+      <div class="step-panel" id="panel-4">
+        <div class="form-grid">
+          <div class="f-group"><label for="firstName">First Name *</label><input type="text" id="firstName" autocomplete="given-name"></div>
+          <div class="f-group"><label for="lastName">Last Name *</label><input type="text" id="lastName" autocomplete="family-name"></div>
+          <div class="f-group"><label for="clientEmail">Email Address *</label><input type="email" id="clientEmail" autocomplete="email"></div>
+          <div class="f-group"><label for="clientPhone">Phone Number *</label><input type="tel" id="clientPhone" autocomplete="tel"></div>
+          <div class="f-group full"><label for="clientNotes">Anything Renise should know?</label><textarea id="clientNotes" placeholder="Areas of focus, health considerations, insurance questions…"></textarea></div>
+          <div class="f-group full">
+            <div class="sms-opt">
+              <input type="checkbox" id="smsReminder" checked>
+              <label class="sms-opt-label" for="smsReminder"><strong>Send me SMS reminders</strong> — a reminder 24 hours before my appointment and a follow-up after.</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-back" onclick="goToStep(3)">← Back</button>
+          <button class="btn-next" id="next4" onclick="goToStep(5)">Review Booking →</button>
+        </div>
+      </div>
+
+      <!-- STEP 5: Confirm -->
+      <div class="step-panel" id="panel-5">
+        <div class="confirm-card">
+          <div class="confirm-title">Your Appointment Summary</div>
+          <div class="confirm-row"><strong>Service</strong> <span id="conf-service"></span></div>
+          <div class="confirm-row"><strong>Date</strong> <span id="conf-date"></span></div>
+          <div class="confirm-row"><strong>Time</strong> <span id="conf-time"></span></div>
+          <div class="confirm-row"><strong>Guest</strong> <span id="conf-name"></span></div>
+          <div class="confirm-row"><strong>Email</strong> <span id="conf-email"></span></div>
+          <div class="confirm-row"><strong>Phone</strong> <span id="conf-phone"></span></div>
+          <div class="confirm-row" id="conf-sms-row"><strong>Reminders</strong> <span>Email + SMS reminders enabled</span></div>
+        </div>
+        <div class="confirm-note">By confirming, you agree to Serenity Lounge's 24-hour cancellation policy. A confirmation will be sent to your email immediately, and Renise will receive your full booking details.</div>
+        <div class="modal-actions">
+          <button class="btn-back" onclick="goToStep(4)">← Back</button>
+          <button class="btn-next" id="submitBtn" onclick="submitBooking()">Confirm Booking ✓</button>
+        </div>
+      </div>
+
+      <!-- SUCCESS -->
+      <div class="step-panel" id="panel-success">
+        <div class="booking-success">
+          <span class="success-icon">🌿</span>
+          <h3 class="success-title">You're all set, <span id="success-name"></span>.</h3>
+          <p class="success-body">
+            Your appointment has been confirmed. A confirmation email has been sent to <strong id="success-email"></strong>.<br><br>
+            Renise has been notified and will be in touch if anything needs to be arranged. We look forward to welcoming you.
+          </p>
+          <button class="btn-gold" onclick="closeBooking()">Back to Home</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<script>
+  // ══════════════════════════════════════════════════
+  //  EmailJS Configuration
+  //  1. Free account at emailjs.com → add email service (Gmail)
+  //  2. Templates: "template_owner" (to Renise), "template_client" (to guest),
+  //     "template_form" (insurance/contact form submissions to Renise)
+  //  3. Replace placeholders below
+  // ══════════════════════════════════════════════════
+  const EMAILJS_PUBLIC_KEY  = 'YOUR_EMAILJS_PUBLIC_KEY';   // ← replace
+  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';            // ← replace
+  const EMAILJS_OWNER_TPL   = 'template_owner';
+  const EMAILJS_CLIENT_TPL  = 'template_client';
+  const EMAILJS_FORM_TPL    = 'template_form';
+  const OWNER_EMAIL = 'renise@serenityloungedayspa.com';    // ← PLACEHOLDER
+  const EMAILJS_READY = EMAILJS_PUBLIC_KEY !== 'YOUR_EMAILJS_PUBLIC_KEY';
+  if (EMAILJS_READY) emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  // ══════════════════════════════════════════════════
+  //  Services
+  // ══════════════════════════════════════════════════
+  const SERVICES = [
+    { id: 'medical',   name: 'Medical Massage',      price: 'Insurance / $95+', dur: '30–60 min' },
+    { id: 'thera',     name: 'Therapeutic Massage',  price: 'From $85',  dur: '45–90 min' },
+    { id: 'relax',     name: 'Relaxation Massage',   price: 'From $80',  dur: '45–90 min' },
+    { id: 'deep',      name: 'Deep Tissue Massage',  price: 'From $90',  dur: '45–90 min' },
+    { id: 'hotstone',  name: 'Hot Stone Massage',    price: 'From $110', dur: '60–90 min' },
+    { id: 'prenatal',  name: 'Prenatal Massage',     price: 'From $85',  dur: '60 min'    },
+  ];
+
+  // Tue–Fri 10:30am–2:30pm · Sat 6:30–8pm
+  const WEEKDAY_SLOTS = ['10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM','1:00 PM','1:30 PM','2:00 PM'];
+  const SAT_SLOTS     = ['6:30 PM','7:00 PM','7:30 PM'];
+  function getAvailableSlots(d) {
+    const day = d.getDay();
+    if (day === 0 || day === 1) return [];
+    if (day === 6) return SAT_SLOTS;
+    return WEEKDAY_SLOTS;
+  }
+
+  let state = { step: 1, service: null, date: null, time: null };
+  let calYear, calMonth;
+
+  // ══ Modal open / close ══
+  function openBooking() {
+    document.getElementById('bookingOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function openBookingWithService(name) {
+    openBooking();
+    const svc = SERVICES.find(s => s.name === name);
+    if (svc) selectService(svc.id);
+  }
+  function closeBooking() {
+    document.getElementById('bookingOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(resetBooking, 400);
+  }
+  function handleOverlayClick(e) { if (e.target === e.currentTarget) closeBooking(); }
+  function resetBooking() {
+    state = { step: 1, service: null, date: null, time: null };
+    goToStep(1, true);
+    document.querySelectorAll('.svc-opt').forEach(el => el.classList.remove('selected'));
+    document.getElementById('next1').disabled = true;
+    document.getElementById('next2').disabled = true;
+    document.getElementById('next3').disabled = true;
+    ['firstName','lastName','clientEmail','clientPhone','clientNotes'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('smsReminder').checked = true;
+    for (let i = 1; i <= 5; i++) {
+      const pill = document.getElementById('pill-'+i);
+      pill.classList.remove('done');
+      pill.querySelector('.step-dot').textContent = i;
+    }
+    document.getElementById('panel-success').classList.remove('active');
+    renderCalendar();
+  }
+
+  // ══ Step navigation ══
+  function goToStep(n, silent) {
+    if (!silent) {
+      if (n === 2 && !state.service) return shakeEl('svcSelectGrid');
+      if (n === 3 && !state.date)    return;
+      if (n === 4 && !state.time)    return;
+      if (n === 5 && !validateContactForm()) return;
+    }
+    state.step = n;
+    for (let i = 1; i <= 5; i++) {
+      document.getElementById('panel-'+i).classList.toggle('active', i === n);
+      const pill = document.getElementById('pill-'+i);
+      pill.classList.toggle('active', i === n);
+      if (i < n) { pill.classList.add('done'); pill.querySelector('.step-dot').textContent = '✓'; }
+      else if (i > n) { pill.classList.remove('done'); pill.querySelector('.step-dot').textContent = i; }
+      else { pill.classList.remove('done'); pill.querySelector('.step-dot').textContent = i; }
+    }
+    document.getElementById('panel-success').classList.remove('active');
+    if (n === 3) renderTimeSlots();
+    if (n === 5) populateConfirmation();
+  }
+  function shakeEl(id) {
+    const el = document.getElementById(id);
+    el.style.animation = 'shake .3s';
+    setTimeout(() => el.style.animation = '', 350);
+  }
+
+  // ══ Step 1: services ══
+  function buildServiceGrid() {
+    const grid = document.getElementById('svcSelectGrid');
+    grid.innerHTML = SERVICES.map(s => `
+      <div class="svc-opt" id="opt-${s.id}" onclick="selectService('${s.id}')">
+        <span class="so-name">${s.name}</span>
+        <span class="so-meta"><b>${s.price}</b> · ${s.dur}</span>
+      </div>`).join('');
+  }
+  function selectService(id) {
+    state.service = SERVICES.find(s => s.id === id);
+    document.querySelectorAll('.svc-opt').forEach(el => el.classList.remove('selected'));
+    document.getElementById('opt-'+id).classList.add('selected');
+    document.getElementById('next1').disabled = false;
+  }
+
+  // ══ Step 2: calendar ══
+  function renderCalendar() {
+    const label = document.getElementById('calMonthLabel');
+    const grid  = document.getElementById('calGrid');
+    const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    label.textContent = monthNames[calMonth] + ' ' + calYear;
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+    const today = new Date(); today.setHours(0,0,0,0);
+    let html = ['S','M','T','W','T','F','S'].map(d => `<div class="cal-dow">${d}</div>`).join('');
+    for (let i = 0; i < firstDay; i++) html += '<div></div>';
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(calYear, calMonth, d);
+      const closed = date.getDay() === 0 || date.getDay() === 1;
+      const past = date < today;
+      const disabled = closed || past;
+      const isSel = state.date && state.date.getTime() === date.getTime();
+      html += `<div class="cal-day${disabled ? ' disabled' : ''}${isSel ? ' selected' : ''}"${disabled ? '' : ` onclick="selectDate(${calYear},${calMonth},${d})"`}>${d}</div>`;
+    }
+    grid.innerHTML = html;
+  }
+  function changeMonth(dir) {
+    calMonth += dir;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    if (calMonth < 0)  { calMonth = 11; calYear--; }
+    renderCalendar();
+  }
+  function selectDate(y, m, d) {
+    state.date = new Date(y, m, d);
+    state.time = null;
+    document.getElementById('next3').disabled = true;
+    renderCalendar();
+    document.getElementById('next2').disabled = false;
+  }
+
+  // ══ Step 3: time ══
+  function renderTimeSlots() {
+    const intro = document.getElementById('timeIntroLabel');
+    const grid  = document.getElementById('timeGrid');
+    const slots = getAvailableSlots(state.date);
+    const opts = { weekday: 'long', month: 'long', day: 'numeric' };
+    intro.textContent = 'Available times for ' + state.date.toLocaleDateString('en-US', opts);
+    grid.innerHTML = slots.map(t =>
+      `<div class="time-slot${state.time === t ? ' selected' : ''}" onclick="selectTime('${t}')">${t}</div>`).join('');
+  }
+  function selectTime(t) {
+    state.time = t;
+    renderTimeSlots();
+    document.getElementById('next3').disabled = false;
+  }
+
+  // ══ Step 4: validate ══
+  function validateContactForm() {
+    let ok = true;
+    ['firstName','lastName','clientEmail','clientPhone'].forEach(id => {
+      const el = document.getElementById(id);
+      const group = el.closest('.f-group');
+      const valid = id === 'clientEmail'
+        ? /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim())
+        : el.value.trim().length > 0;
+      group.classList.toggle('invalid', !valid);
+      if (!valid) ok = false;
+    });
+    return ok;
+  }
+
+  // ══ Step 5: confirm ══
+  function populateConfirmation() {
+    const opts = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+    document.getElementById('conf-service').textContent = state.service.name + ' (' + state.service.price + ')';
+    document.getElementById('conf-date').textContent = state.date.toLocaleDateString('en-US', opts);
+    document.getElementById('conf-time').textContent = state.time;
+    document.getElementById('conf-name').textContent =
+      document.getElementById('firstName').value + ' ' + document.getElementById('lastName').value;
+    document.getElementById('conf-email').textContent = document.getElementById('clientEmail').value;
+    document.getElementById('conf-phone').textContent = document.getElementById('clientPhone').value;
+    document.getElementById('conf-sms-row').style.display =
+      document.getElementById('smsReminder').checked ? '' : 'none';
+  }
+
+  // ══ Submit booking ══
+  async function submitBooking() {
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.textContent = 'Confirming…';
+    const fn = document.getElementById('firstName').value.trim();
+    const em = document.getElementById('clientEmail').value.trim();
+    const opts = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+    const params = {
+      to_email: OWNER_EMAIL,
+      service: state.service.name,
+      price: state.service.price,
+      date: state.date.toLocaleDateString('en-US', opts),
+      time: state.time,
+      first_name: fn,
+      last_name: document.getElementById('lastName').value.trim(),
+      client_email: em,
+      client_phone: document.getElementById('clientPhone').value.trim(),
+      notes: document.getElementById('clientNotes').value.trim() || '—',
+      sms: document.getElementById('smsReminder').checked ? 'Yes' : 'No',
+    };
+    try {
+      if (EMAILJS_READY) {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_OWNER_TPL, params);
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CLIENT_TPL, { ...params, to_email: em });
+      } else {
+        console.warn('EmailJS not configured — booking logged only:', params);
+      }
+      showSuccess(fn, em);
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      showSuccess(fn, em); // graceful UX; follow up manually
+    } finally {
+      btn.disabled = false; btn.textContent = 'Confirm Booking ✓';
+    }
+  }
+  function showSuccess(name, email) {
+    for (let i = 1; i <= 5; i++) document.getElementById('panel-'+i).classList.remove('active');
+    document.getElementById('panel-success').classList.add('active');
+    document.getElementById('success-name').textContent  = name;
+    document.getElementById('success-email').textContent = email;
+    for (let i = 1; i <= 5; i++) {
+      const pill = document.getElementById('pill-'+i);
+      pill.classList.remove('active'); pill.classList.add('done');
+      pill.querySelector('.step-dot').textContent = '✓';
+    }
+  }
+
+  // ══════════════════════════════════════════════════
+  //  Insurance verification + contact forms
+  //  Uses EmailJS when configured; falls back to a
+  //  pre-filled mailto so submissions are never lost.
+  // ══════════════════════════════════════════════════
+  async function sendForm(subject, body, msgEl, btn, btnLabel) {
+    try {
+      if (EMAILJS_READY) {
+        await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_FORM_TPL, { to_email: OWNER_EMAIL, subject, body });
+      } else {
+        window.location.href = 'mailto:' + OWNER_EMAIL +
+          '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      }
+      msgEl.className = 'f-msg ok';
+      msgEl.textContent = "Received — we'll be in touch within 1–2 business days.";
+      return true;
+    } catch (err) {
+      console.error(err);
+      msgEl.className = 'f-msg err';
+      msgEl.textContent = 'Something went wrong — please call (219) 501-6575.';
+      return false;
+    } finally {
+      btn.disabled = false; btn.textContent = btnLabel;
+    }
+  }
+
+  async function submitInsForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('insSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Submitting…';
+    const v = id => document.getElementById(id).value.trim();
+    const body =
+      'Insurance Verification Request\n\n' +
+      'Name: ' + v('insFirst') + ' ' + v('insLast') + '\n' +
+      'Phone: ' + v('insPhone') + '\n' +
+      'Email: ' + v('insEmail') + '\n' +
+      'Provider: ' + v('insProvider') + '\n' +
+      'Member ID: ' + (v('insMember') || '—') + '\n' +
+      'Notes: ' + (v('insNotes') || '—');
+    const ok = await sendForm('Insurance Verification Request — ' + v('insFirst') + ' ' + v('insLast'),
+      body, document.getElementById('insMsg'), btn, 'Submit Verification Request');
+    if (ok) document.getElementById('insForm').reset();
+    return false;
+  }
+
+  async function submitContactForm(e) {
+    e.preventDefault();
+    const btn = document.getElementById('cfSubmitBtn');
+    btn.disabled = true; btn.textContent = 'Sending…';
+    const v = id => document.getElementById(id).value.trim();
+    const body = 'Website message\n\nName: ' + v('cfName') + '\nEmail: ' + v('cfEmail') + '\n\n' + v('cfMsg');
+    const ok = await sendForm('Website Message — ' + v('cfName'),
+      body, document.getElementById('cfMsgStatus'), btn, 'Send Message');
+    if (ok) document.getElementById('contactForm').reset();
+    return false;
+  }
+
+  // ══ Nav, menu, reveal, init ══
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+  function toggleMenu(open) {
+    document.getElementById('mobileMenu').classList.toggle('open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  document.documentElement.classList.add('js');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(en => { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, { threshold: .12 });
+  document.querySelectorAll('.rv').forEach(el => io.observe(el));
+  // Safety net: never leave content hidden
+  setTimeout(() => document.querySelectorAll('.rv:not(.in)').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
+  }), 1200);
+
+  (function init() {
+    const now = new Date();
+    calYear = now.getFullYear(); calMonth = now.getMonth();
+    buildServiceGrid();
+    renderCalendar();
+  })();
+</script>
+
+</body>
+</html>

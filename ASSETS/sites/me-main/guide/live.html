@@ -154,7 +154,7 @@ var SAY=[
 {q:["How do you get design into production code?"],t:"design code production translation dev mode connect implementation",
  a:"Two halves, and people only ever do the fun one. The fun half is generating code from a design. The unglamorous half is Code Connect \u2014 actually mapping each component to the real thing in the repo. That's the half that makes anyone trust the output, and it's the half that gets skipped."},
 {q:["Tell me about a plugin you've built","Figma Plugin API experience?"],t:"plugin plugins figma api automation exporter dtcg built tooling",
- a:"The one I keep coming back to pulls a file's variable collections out as W3C token JSON, so the tokens can leave Figma and feed a build. The tricky part was keeping the aliases \u2014 flatten the semantic layer into resolved values and you get a file that's technically valid and architecturally dead.",
+ a:"The one I keep coming back to pulls a file's variable collections out as DTCG token JSON, so the tokens can leave Figma and feed a build. The tricky part was keeping the aliases \u2014 flatten the semantic layer into resolved values and you get a file that's technically valid and architecturally dead.",
  more:["The detail that proves you wrote it","Figma has one FLOAT type. The spec cares whether 4 means 4 pixels or a 4\u00d7 multiplier \u2014 and nothing in the API tells you which. So the real fix is upstream, in what you named the token. A design system problem wearing an engineering costume."]},
 {q:["What tools do you use for Figma to code?","Anima or Locofy?"],t:"figma code tools plugins anima locofy builder framelink mcp export",
  a:"The plugin route \u2014 Anima, Locofy, Builder \u2014 is the wrong shape for a design system. They export a finished frame, so you get a one-off. I use the Figma MCP server inside Claude Code instead, because it reads the live file rather than a snapshot of it.",
@@ -208,7 +208,7 @@ var SAY=[
  a:"That's how enterprise design systems get staffed \u2014 GE, Blue Cross, TransUnion, Verizon all brought me in as a specialist to build or scale a system. Every one outlasted my engagement, which is sort of the point. The counterweight is three years full-time at Avant owning Pathfinder end to end.",
  stop:"Don't get defensive. It reads as 'repeatedly hired to do the hard version.'"},
 {q:["What are you learning right now?"],t:"learning curious curiosity future headed next unknown",
- a:"The token spec still has no real answer for modes \u2014 light and dark are genuinely unsettled, and every tool solves it differently. I don't know what the right answer is there yet. That's the thing I'm poking at.",
+ a:"The spec answered that last October \u2014 resolvers, in the 2025.10 stable release. But it is only half-shipped: Style Dictionary has not implemented resolvers yet, and the spec covers composition, not runtime output. Authoring is settled, the pipeline is not \u2014 that is the part I am poking at.",
  more:["If he asks where systems are headed","Toward two consumers instead of one \u2014 humans and machines. And the second can't improvise around bad documentation, which makes documentation quality load-bearing in a way it never was."]}
 ];
 

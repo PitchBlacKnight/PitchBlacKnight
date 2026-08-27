@@ -1,0 +1,38 @@
+{
+  "$description": "Tier 2 — ELEVATION. Shadow, glow and backdrop values. Semantic tier: named by role, not by pixel count.",
+  "$source": "Figma effect styles PF3/Elevation/*, PF3/Focus/*, PF3/Backdrop/* — extracted as literals. Effect colours in this file are not bound to variables, so unlike the colour tier these cannot re-theme; both modes get the same shadow.",
+
+  "elevation": {
+    "sm": { "$type": "shadow", "$value": [
+      { "color": "#00000014", "offsetX": "0", "offsetY": "1px",  "blur": "3px",  "spread": "0" },
+      { "color": "#0000000a", "offsetX": "0", "offsetY": "1px",  "blur": "2px",  "spread": "-1px" }
+    ], "$figmaStyle": "PF3/Elevation/SM" },
+    "md": { "$type": "shadow", "$value": [
+      { "color": "#0000001a", "offsetX": "0", "offsetY": "4px",  "blur": "8px",  "spread": "-2px" },
+      { "color": "#0000000f", "offsetX": "0", "offsetY": "2px",  "blur": "4px",  "spread": "-2px" }
+    ], "$figmaStyle": "PF3/Elevation/MD" },
+    "lg": { "$type": "shadow", "$value": [
+      { "color": "#0000001f", "offsetX": "0", "offsetY": "12px", "blur": "20px", "spread": "-4px" },
+      { "color": "#0000000f", "offsetX": "0", "offsetY": "4px",  "blur": "8px",  "spread": "-4px" }
+    ], "$figmaStyle": "PF3/Elevation/LG" },
+    "xl": { "$type": "shadow", "$value": [
+      { "color": "#00000033", "offsetX": "0", "offsetY": "24px", "blur": "40px", "spread": "-8px" },
+      { "color": "#00000014", "offsetX": "0", "offsetY": "8px",  "blur": "16px", "spread": "-6px" }
+    ], "$figmaStyle": "PF3/Elevation/XL" },
+    "glow-purple":  { "$type": "shadow", "$value": [{ "color": "#8554f540", "offsetX": "0", "offsetY": "0", "blur": "24px", "spread": "0" }], "$figmaStyle": "PF3/Elevation/Glow-Purple" },
+    "glow-blue":    { "$type": "shadow", "$value": [{ "color": "#3d78f040", "offsetX": "0", "offsetY": "0", "blur": "24px", "spread": "0" }], "$figmaStyle": "PF3/Elevation/Glow-Blue" },
+    "glass-border": { "$type": "shadow", "$value": [{ "color": "#ffffff14", "offsetX": "0", "offsetY": "1px", "blur": "0", "spread": "0", "inset": true }], "$figmaStyle": "PF3/Elevation/Glass-Border" }
+  },
+
+  "focus": {
+    "$description": "The ring is a spread-only shadow so it can sit outside the control without affecting layout. It exists in Figma as an effect style, which means the file knows what a focus ring looks like — see the generated guidance for which components actually carry one.",
+    "ring":       { "$type": "shadow", "$value": [{ "color": "#3d78f066", "offsetX": "0", "offsetY": "0", "blur": "0", "spread": "3px" }], "$figmaStyle": "PF3/Focus/Ring" },
+    "ring-error": { "$type": "shadow", "$value": [{ "color": "#f0454566", "offsetX": "0", "offsetY": "0", "blur": "0", "spread": "3px" }], "$figmaStyle": "PF3/Focus/Ring-Error" }
+  },
+
+  "backdrop": {
+    "blur-sm": { "$type": "dimension", "$value": "8px",  "$figmaStyle": "PF3/Backdrop/Blur-SM" },
+    "blur-md": { "$type": "dimension", "$value": "16px", "$figmaStyle": "PF3/Backdrop/Blur-MD" },
+    "blur-lg": { "$type": "dimension", "$value": "32px", "$figmaStyle": "PF3/Backdrop/Blur-LG" }
+  }
+}

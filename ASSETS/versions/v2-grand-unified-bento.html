@@ -1,0 +1,1255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PitchBlacKnight — Fluxus Artist · Polymath</title>
+  <meta name="description" content="Mikel Rosenthal is a polymath and Fluxus artist working across music, performance, visual art, design, and voice." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@200;300;400;500;700&family=Schibsted+Grotesk:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@0,400;0,700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body { background: var(--black); color: var(--white); font-family: var(--font-sans); line-height: 1.6; overflow-x: hidden; }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; border: none; background: none; font: inherit; color: inherit; }
+
+    :root {
+      --black: #060606;
+      --near-black: #0d0d0d;
+      --surface: #111111;
+      --white: #f0f0f0;
+      --muted: #555566;
+      --muted-blue: #7b8db8;
+      --orange: #e8512a;
+      --border: rgba(255,255,255,0.07);
+      --font-sans: 'Schibsted Grotesk', system-ui, sans-serif;
+      --font-serif: 'Alexandria', sans-serif;
+      --font-mono: 'Space Mono', monospace;
+    }
+
+    /* LOADER */
+    #loader {
+      position: fixed; inset: 0; background: var(--black); z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+    .loader-inner { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+    .loader-bar { width: 200px; height: 1px; background: rgba(255,255,255,0.1); overflow: hidden; }
+    .loader-fill { height: 100%; background: var(--orange); width: 0; animation: loadprogress 0.8s ease forwards; }
+    @keyframes loadprogress { to { width: 100%; } }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem; background: rgba(6,6,6,0.93);
+      backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      font-family: var(--font-serif); font-size: 0.8rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--white); text-decoration: none;
+    }
+    .nav-logo .logo-mark { width: 22px; height: 22px; flex-shrink: 0; }
+    .nav-logo strong { font-weight: 700; }
+    .nav-logo span { font-weight: 300; }
+    .nav-links {
+      display: flex; align-items: center; gap: 1.8rem; list-style: none;
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase;
+    }
+    .nav-links a { color: var(--muted); text-decoration: none; transition: color .2s; padding: 0.3rem 0.5rem; }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a.active { color: var(--white); border: 1px solid rgba(255,255,255,0.3); }
+    .nav-resume { color: var(--orange) !important; display: flex; align-items: center; gap: 0.3rem; }
+    .nav-resume::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--orange); display: inline-block; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 0.3rem; }
+    .hamburger span { width: 22px; height: 1px; background: var(--white); transition: all 0.3s; display: block; }
+    .mobile-menu {
+      display: none; position: fixed; inset: 0; background: rgba(6,6,6,0.97);
+      z-index: 99; flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-family: var(--font-mono); font-size: 1.1rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); transition: color 0.2s;
+    }
+    .mobile-menu a:hover, .mobile-menu a.active { color: var(--white); }
+    .mobile-menu .nav-resume { color: var(--orange) !important; }
+    .mobile-close {
+      position: absolute; top: 1.5rem; right: 2rem; font-family: var(--font-mono);
+      font-size: 1.2rem; color: var(--muted); cursor: pointer;
+    }
+
+    /* HERO */
+    #hero {
+      position: relative; width: 100%; height: 100vh; min-height: 600px;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+    .hero-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.35); z-index: 1; }
+    .hero-content {
+      position: relative; z-index: 2; display: flex; flex-direction: column;
+      align-items: center; gap: 0.4rem; text-align: center;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.32em;
+      text-transform: uppercase; color: rgba(255,255,255,0.38);
+    }
+    .hero-sub {
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: rgba(255,255,255,0.32); margin-bottom: 0.5rem;
+    }
+    .hero-form { width: clamp(300px, 38vw, 480px); opacity: 0.93; display: block; }
+    .hero-scroll {
+      position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    }
+    .hero-scroll-label {
+      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.28em;
+      text-transform: uppercase; color: rgba(255,255,255,0.25);
+    }
+    .hero-scroll-line { width: 1px; height: 48px; background: rgba(255,255,255,0.2); }
+
+    /* SECTION COMMON */
+    section { padding: 7rem 2.5rem; }
+    .section-label {
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--muted); margin-bottom: 3rem;
+    }
+    .c-orange { color: var(--orange); }
+    .c-blue { color: var(--muted-blue); }
+    .c-white { color: var(--white); }
+
+    /* ABOUT */
+    #about {
+      background: var(--black); min-height: 100vh; display: flex; flex-direction: column;
+      justify-content: center; position: relative; overflow: hidden;
+    }
+    .about-glow {
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 50% at 40% 60%, rgba(180,80,30,0.18) 0%, transparent 70%);
+      pointer-events: none; z-index: 0;
+    }
+    .about-inner { position: relative; z-index: 1; }
+    .about-statement { display: flex; flex-direction: column; gap: 0; }
+    .about-statement p {
+      font-family: var(--font-serif); font-size: clamp(2rem, 3.5vw, 3.5rem); line-height: 1.15;
+    }
+
+    /* WORK */
+    #work { background: var(--near-black); }
+    .work-headline {
+      font-family: var(--font-serif); font-size: clamp(3rem, 7vw, 6rem);
+      font-weight: 700; line-height: 1; text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .work-desc {
+      font-family: var(--font-sans); font-size: 0.9rem; color: var(--muted);
+      max-width: 480px; margin-bottom: 3rem; line-height: 1.7;
+    }
+    .work-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--black); margin-bottom: 2rem;
+    }
+    .work-cell { aspect-ratio: 1/1; overflow: hidden; background: var(--near-black); }
+    .work-cell img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .4s ease, filter .4s ease; filter: grayscale(20%);
+    }
+    .work-cell:hover img { transform: scale(1.04); filter: grayscale(0%); }
+    .view-portfolio-btn {
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--orange); display: inline-block;
+      transition: text-decoration 0.2s;
+    }
+    .view-portfolio-btn:hover { text-decoration: underline; }
+
+    /* WEB DESIGN CATALOG */
+    .catalog-header {
+      margin: 5rem 0 0;
+      padding: 2.5rem 0 2rem;
+      border-top: 1px solid var(--border);
+      display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 2rem;
+    }
+    .catalog-eyebrow {
+      font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem;
+    }
+    .catalog-title {
+      font-family: var(--font-serif); font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 700; line-height: 1; text-transform: uppercase; color: var(--white);
+    }
+    .catalog-desc {
+      font-family: var(--font-sans); font-size: 0.82rem; color: var(--muted);
+      line-height: 1.7; max-width: 380px; margin-top: 1rem;
+    }
+    .catalog-count {
+      font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); text-align: right;
+      white-space: nowrap;
+    }
+    .catalog-count span {
+      display: block; font-family: var(--font-serif); font-size: 2.5rem;
+      font-weight: 700; color: var(--white); letter-spacing: -0.02em; line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .web-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 1px; background: var(--border); margin-bottom: 2.5rem;
+    }
+    .wpc { background: var(--black); display: flex; flex-direction: column; text-decoration: none; transition: opacity 0.2s; }
+    .wpc:hover { opacity: 0.88; }
+    .wpc-thumb {
+      aspect-ratio: 16/9; position: relative; overflow: hidden;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.4rem;
+    }
+    .wpc-thumb::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%);
+      pointer-events: none;
+    }
+    .wpc-eyebrow {
+      position: relative; z-index: 1;
+      font-family: var(--font-mono); font-size: 0.45rem; letter-spacing: 0.22em;
+      text-transform: uppercase; margin-bottom: 0.4rem; opacity: 0.7;
+    }
+    .wpc-hero {
+      position: relative; z-index: 1;
+      font-family: var(--font-serif); font-size: clamp(1rem, 2vw, 1.5rem);
+      font-weight: 700; line-height: 1.15; color: #fff;
+    }
+    .wpc-meta {
+      padding: 0.9rem 1.4rem; display: flex; justify-content: space-between;
+      align-items: center; border-top: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+    .wpc-name {
+      font-family: var(--font-sans); font-size: 0.78rem; font-weight: 500; color: var(--white);
+    }
+    .wpc-tag {
+      font-family: var(--font-mono); font-size: 0.48rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .wpc-arrow {
+      font-family: var(--font-mono); font-size: 0.7rem; color: var(--orange);
+      opacity: 0.7; transition: opacity 0.2s; flex-shrink: 0;
+    }
+    .wpc:hover .wpc-arrow { opacity: 1; }
+    @media (max-width: 600px) { .web-grid { grid-template-columns: 1fr; } }
+
+    /* MOTION ART */
+    #art { background: var(--near-black); }
+    .art-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--black); margin-top: 3rem;
+    }
+    .art-cell { aspect-ratio: 1/1; overflow: hidden; background: var(--near-black); cursor: pointer; position: relative; }
+    .art-cell img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s ease, filter .4s ease; filter: grayscale(15%); }
+    .art-cell:hover img { transform: scale(1.04); filter: grayscale(0%); }
+    .art-cell .art-title {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.82));
+      padding: 1.5rem 0.75rem 0.6rem;
+      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: rgba(255,255,255,0.7);
+      opacity: 0; transition: opacity .3s ease;
+    }
+    .art-cell:hover .art-title { opacity: 1; }
+    /* Art lightbox */
+    #art-lb {
+      display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.94);
+      z-index: 500; align-items: center; justify-content: center; flex-direction: column;
+    }
+    #art-lb.open { display: flex; }
+    #art-lb-img { max-width: 90vw; max-height: 82vh; object-fit: contain; }
+    #art-lb-cap {
+      margin-top: 1rem; font-family: var(--font-mono); font-size: 0.62rem;
+      letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.45);
+    }
+    #art-lb-x {
+      position: absolute; top: 1.5rem; right: 2rem; font-family: var(--font-mono);
+      font-size: 1.4rem; color: var(--muted); cursor: pointer; background: none;
+      border: none; color: var(--white); opacity: 0.5; transition: opacity .2s;
+    }
+    #art-lb-x:hover { opacity: 1; }
+    @media (max-width: 768px) { .art-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .art-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* MUSIC */
+    #music { background: var(--black); position: relative; overflow: hidden; }
+    #music::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 70% 60% at 50% 80%, rgba(232,81,42,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .music-intro {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem;
+      align-items: end; margin-bottom: 5rem;
+    }
+    .music-headline {
+      font-family: var(--font-serif); font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 700; line-height: 1; text-transform: uppercase;
+    }
+    .music-bio {
+      font-family: var(--font-sans); font-size: 0.88rem; color: var(--muted);
+      line-height: 1.8; max-width: 420px; padding-bottom: 0.5rem;
+    }
+    .music-tracks { display: flex; flex-direction: column; gap: 1px; background: var(--border); }
+    .music-track-entry {
+      display: grid; grid-template-columns: 3rem 1fr auto;
+      align-items: center; gap: 1.5rem; padding: 1.4rem 1.8rem;
+      background: var(--black); transition: background 0.2s;
+    }
+    .music-track-entry:hover { background: rgba(255,255,255,0.02); }
+    .music-track-entry.active { background: rgba(232,81,42,0.05); }
+    .mte-num {
+      font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em;
+      color: var(--muted); text-align: right; line-height: 1;
+    }
+    .mte-num .mte-bar-wrap { display: none; height: 18px; align-items: flex-end; gap: 1.5px; justify-content: flex-end; }
+    .music-track-entry.active .mte-num .mte-bar-wrap { display: flex; }
+    .music-track-entry.active .mte-num .num-label { display: none; }
+    .mte-bar {
+      width: 2px; background: var(--orange); border-radius: 1px; opacity: 0.8;
+      animation: mte-wave 0.9s ease-in-out infinite;
+    }
+    .mte-bar:nth-child(1) { --mh: 8px; animation-delay: 0s; }
+    .mte-bar:nth-child(2) { --mh: 14px; animation-delay: 0.15s; }
+    .mte-bar:nth-child(3) { --mh: 10px; animation-delay: 0.07s; }
+    .mte-bar:nth-child(4) { --mh: 16px; animation-delay: 0.22s; }
+    .mte-bar:nth-child(5) { --mh: 6px; animation-delay: 0.1s; }
+    @keyframes mte-wave { 0%,100%{height:2px} 50%{height:var(--mh,10px)} }
+    .active.paused .mte-bar { animation-play-state: paused; }
+    .mte-info { display: flex; flex-direction: column; gap: 0.25rem; }
+    .mte-title {
+      font-family: var(--font-serif); font-size: 1.05rem; font-weight: 700;
+      color: var(--white); line-height: 1;
+    }
+    .music-track-entry.active .mte-title { color: var(--orange); }
+    .mte-tag {
+      font-family: var(--font-mono); font-size: 0.5rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+    }
+    .mte-progress-wrap {
+      width: 100%; height: 1px; background: var(--border); margin-top: 0.5rem;
+      position: relative; display: none;
+    }
+    .music-track-entry.active .mte-progress-wrap { display: block; }
+    .mte-progress-fill {
+      height: 100%; background: var(--orange); width: 0%; transition: width 0.25s linear;
+    }
+    .mte-right { display: flex; align-items: center; gap: 1.2rem; }
+    .mte-duration {
+      font-family: var(--font-mono); font-size: 0.55rem; color: var(--muted);
+      min-width: 2.8rem; text-align: right;
+    }
+    .mte-play-btn {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15); background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s; flex-shrink: 0;
+    }
+    .mte-play-btn:hover { border-color: var(--orange); background: rgba(232,81,42,0.1); }
+    .music-track-entry.active .mte-play-btn { border-color: var(--orange); background: rgba(232,81,42,0.15); }
+    .mte-play-btn svg { fill: var(--white); }
+    .music-track-entry.active .mte-play-btn svg { fill: var(--orange); }
+    .hidden-audio { display: none; }
+    @media (max-width: 768px) {
+      .music-intro { grid-template-columns: 1fr; gap: 1.5rem; }
+      .music-track-entry { grid-template-columns: 2rem 1fr auto; gap: 1rem; padding: 1.2rem 1rem; }
+    }
+
+    /* DAILY WISDOM */
+    #wisdom { background: var(--black); }
+    .wisdom-quote {
+      border-left: 3px solid var(--orange); padding-left: 2rem; margin-bottom: 4rem;
+      max-width: 780px;
+    }
+    .wisdom-quote p {
+      font-family: var(--font-serif); font-size: clamp(1.3rem, 2.5vw, 2rem);
+      font-weight: 300; color: var(--white); line-height: 1.5; margin-bottom: 0.8rem;
+    }
+    .wisdom-quote cite { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.15em; color: var(--muted); font-style: normal; }
+    .poem-block { max-width: 600px; }
+    .poem-stanza { margin-bottom: 2rem; }
+    .poem-line { font-family: var(--font-serif); font-size: 1rem; color: rgba(255,255,255,0.7); line-height: 1.8; font-weight: 300; }
+
+    /* CONTACT */
+    #contact { background: var(--near-black); }
+    .contact-headline {
+      font-family: var(--font-serif); font-size: clamp(2.5rem, 6vw, 5rem);
+      font-weight: 700; text-transform: uppercase; line-height: 1.1; margin-bottom: 1.5rem;
+    }
+    .contact-sub { font-family: var(--font-sans); font-size: 0.9rem; color: var(--muted); max-width: 520px; margin-bottom: 3rem; line-height: 1.7; }
+    .form-label { font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.75rem; }
+    .form-row { display: flex; gap: 0.75rem; align-items: stretch; margin-bottom: 1rem; max-width: 500px; }
+    .form-row select {
+      flex: 1; background: var(--surface); border: 1px solid var(--border); color: var(--white);
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; padding: 0.75rem 1rem;
+      appearance: none; cursor: pointer; outline: none; transition: border-color 0.2s;
+    }
+    .form-row select:focus { border-color: var(--orange); }
+    .form-row button {
+      background: var(--orange); color: var(--white); padding: 0.75rem 1.5rem;
+      font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+      transition: opacity 0.2s; white-space: nowrap;
+    }
+    .form-row button:hover { opacity: 0.85; }
+    .form-phone { font-family: var(--font-sans); font-size: 0.8rem; color: var(--muted); margin-bottom: 3rem; }
+    .form-phone a { color: var(--white); transition: color 0.2s; }
+    .form-phone a:hover { color: var(--orange); }
+    .social-tags { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+    .social-tag {
+      border: 1px solid var(--border); padding: 0.4rem 0.9rem;
+      font-family: var(--font-mono); font-size: 0.6rem; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--muted); transition: border-color 0.2s, color 0.2s;
+    }
+    .social-tag:hover { border-color: var(--orange); color: var(--orange); }
+
+    /* FOOTER */
+    footer { background: #08111a; padding: 5rem 2.5rem 2rem; position: relative; overflow: hidden; }
+    .footer-bg-gif {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; opacity: 0.12; z-index: 0; pointer-events: none;
+    }
+    .footer-glow {
+      position: absolute; width: 500px; height: 400px; top: 50%; left: 45%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse 55% 45% at 45% 55%, rgba(235,225,190,0.85) 0%, rgba(210,195,150,0.3) 40%, transparent 70%);
+      filter: blur(2px); pointer-events: none; z-index: 0;
+    }
+    .footer-inner { position: relative; z-index: 1; }
+    .footer-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 4rem; max-width: 400px; }
+    .footer-col-title { font-family: var(--font-mono); font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+    .footer-col a { display: block; font-family: var(--font-sans); font-size: 0.85rem; color: rgba(255,255,255,0.5); margin-bottom: 0.6rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bar {
+      border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .footer-copy { font-family: var(--font-mono); font-size: 0.55rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.25); }
+    .footer-logo { display: flex; align-items: center; gap: 0.4rem; font-family: var(--font-serif); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.4); }
+    .footer-logo strong { font-weight: 700; }
+    .footer-logo span { font-weight: 300; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      section { padding: 5rem 1.5rem; }
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+      .music-layout { grid-template-columns: 1fr; }
+      .music-player { min-height: 260px; }
+      .hero-form { width: clamp(260px, 80vw, 360px); }
+      .about-statement p { font-size: clamp(1.6rem, 5.5vw, 2.5rem); }
+      .contact-headline { font-size: clamp(2rem, 8vw, 3rem); }
+      .form-row { flex-direction: column; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+      .footer-bar { flex-direction: column; gap: 1rem; text-align: center; }
+    }
+    @media (max-width: 480px) {
+      .work-grid { grid-template-columns: repeat(2, 1fr); }
+      .social-tags { gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- LOADER -->
+  <div id="loader">
+    <div class="loader-inner">
+      <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3,3 L11.8,3 M14.2,3 L21,3 L21,9.8 M21,12.2 L21,21 L12.2,21 M9.8,21 L3,21 L3,14.2 M3,11.8 L3,3" stroke="white" stroke-width="1.5" stroke-linecap="butt"/>
+        <path d="M12,2 L22,12 L21.85,12.15 M20.15,13.85 L13.85,20.15 M12.15,21.85 L12,22 L2,12 L2.15,11.85 M3.85,10.15 L10.15,3.85 M11.85,2.15 L12,2" stroke="white" stroke-width="1.5" stroke-linecap="butt"/>
+      </svg>
+      <div class="loader-bar"><div class="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- NAV -->
+  <nav id="main-nav">
+    <a href="#hero" class="nav-logo">
+      <svg class="logo-mark" width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3,3 L11.8,3 M14.2,3 L21,3 L21,9.8 M21,12.2 L21,21 L12.2,21 M9.8,21 L3,21 L3,14.2 M3,11.8 L3,3" stroke="white" stroke-width="1.5" stroke-linecap="butt"/>
+        <path d="M12,2 L22,12 L21.85,12.15 M20.15,13.85 L13.85,20.15 M12.15,21.85 L12,22 L2,12 L2.15,11.85 M3.85,10.15 L10.15,3.85 M11.85,2.15 L12,2" stroke="white" stroke-width="1.5" stroke-linecap="butt"/>
+      </svg>
+      <span>Pitch</span><strong>Black</strong><span>Night</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#about" data-section="about">About</a></li>
+      <li><a href="#wisdom" data-section="wisdom">Daily</a></li>
+      <li><a href="#work" data-section="work">Work</a></li>
+      <li><a href="#art" data-section="art">Art</a></li>
+      <li><a href="#music" data-section="music">Music</a></li>
+      <li><a href="#mixes" data-section="mixes">Mixes</a></li>
+      <li><a href="#contact" data-section="contact">Contact</a></li>
+      <li><a href="/home" style="color:var(--orange);font-family:var(--font-mono);letter-spacing:0.08em;">240 ↗</a></li>
+      <li><a href="resume.pdf" class="nav-resume" target="_blank">Resume</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobile-menu">
+    <span class="mobile-close" id="mobile-close">✕</span>
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#wisdom" class="mobile-link">Daily</a>
+    <a href="#work" class="mobile-link">Work</a>
+    <a href="#art" class="mobile-link">Art</a>
+    <a href="#music" class="mobile-link">Music</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+    <a href="/home" class="mobile-link" style="color:var(--orange);">240 ↗</a>
+    <a href="resume.pdf" class="mobile-link nav-resume" target="_blank">Resume</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="hero">
+    <img class="hero-video" src="images/motion-art/Butterfly effect.gif" alt="" />
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-glow"></div>
+    <div class="about-inner">
+      <p class="section-label">01 — About</p>
+      <div class="about-statement">
+        <p style="font-weight:700; color:var(--white);">Designer. Musician. Voice artist.</p>
+        <p style="font-weight:400; color:var(--muted-blue);">Thirty years of working across disciplines</p>
+        <p style="font-weight:400; color:var(--muted-blue);">because each one kept teaching me</p>
+        <p style="color:var(--orange); margin:0.5rem 0;">—</p>
+        <p style="font-weight:400; color:var(--orange);">something the others couldn't.</p>
+        <p style="font-weight:400; color:rgba(255,255,255,0.6);">Still learning. Still making.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORK -->
+  <section id="work">
+    <p class="section-label">02 — Work</p>
+    <h2 class="work-headline">THINGS<br><span class="c-orange">I'VE</span> <span class="c-blue">MADE.</span></h2>
+    <p class="work-desc">Design, music, voice, and web — work across thirty years and a lot of disciplines. Some of it is client work. Some of it is just something I needed to make.</p>
+    <div class="work-grid">
+      <div class="work-cell"><img src="images/work/0293cd1657f159440c57bf76a0be4d8adc52a396.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/0832c6f237ffa5e5e0f26cb6c0edafdad43cc36a.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/0a80b7fe8d1f65b169504729dd6d7926b49b2785.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/0c71886984d1fe0af61a0fccc3f0ef0b4e590501.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/10ea0744295aa6d36cb76d04921fdafa008627f9.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/11b27bbe199fef2b646764fee7b5614df2d3e131.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/1756fda6a895cf1fa5bfc010a641bbe55883d10d.png" alt="Work" loading="lazy" /></div>
+      <div class="work-cell"><img src="images/work/19ba9f6f064cc0718f7599da3a0eaa0c49eceaae.png" alt="Work" loading="lazy" /></div>
+    </div>
+    <div class="catalog-header">
+      <div>
+        <p class="catalog-eyebrow">Web Design</p>
+        <h3 class="catalog-title">The Catalog</h3>
+        <p class="catalog-desc">Websites built for people with something real to offer. The goal is always the same: make it clear, make it work, and get out of the way.</p>
+      </div>
+      <div class="catalog-count">
+        <span>04</span>
+        Projects
+      </div>
+    </div>
+    <div class="web-grid">
+
+      <!-- Bert Gillette — Real Estate -->
+      <a href="https://pitchblacknight.com/bert" target="_blank" class="wpc">
+        <div class="wpc-thumb" style="background-image:url(images/portfolio/thumb-bert.jpg);background-size:cover;background-position:center top;">
+          <span class="wpc-eyebrow" style="color:#C7B63D;">Real Estate · Denver</span>
+          <p class="wpc-hero">The art of finding<br><em>where</em> you belong.</p>
+        </div>
+        <div class="wpc-meta">
+          <div>
+            <p class="wpc-name">Bert Gillette — Milehimodern</p>
+            <p class="wpc-tag">Real Estate · Brand Site</p>
+          </div>
+          <span class="wpc-arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- For David — Multimedia Letter -->
+      <a href="https://pitchblacknight.com/david" target="_blank" class="wpc">
+        <div class="wpc-thumb" style="background-image:url(images/portfolio/thumb-david.jpg);background-size:cover;background-position:center top;">
+          <span class="wpc-eyebrow" style="color:#e8a020;">Multimedia · Personal</span>
+          <p class="wpc-hero" style="color:#f2f0eb;">For David.<br><span style="font-weight:300;font-size:0.7em;color:#7ecfce;">A remix. A letter. An audience of one.</span></p>
+        </div>
+        <div class="wpc-meta">
+          <div>
+            <p class="wpc-name">For David — PitchBlacKnight</p>
+            <p class="wpc-tag">Multimedia Art · Letter</p>
+          </div>
+          <span class="wpc-arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- Serenity Lounge Day Spa -->
+      <a href="https://pitchblacknight.com/serenity_lounge/" target="_blank" class="wpc">
+        <div class="wpc-thumb" style="background-image:url(images/portfolio/thumb-serenity.jpg);background-size:cover;background-position:center top;">
+          <span class="wpc-eyebrow" style="color:#C8882A;">Wellness · Highland, IN</span>
+          <p class="wpc-hero" style="color:#F8F2E9;">A sanctuary<br>of stillness.</p>
+        </div>
+        <div class="wpc-meta">
+          <div>
+            <p class="wpc-name">Serenity Lounge Day Spa</p>
+            <p class="wpc-tag">Wellness · Booking Site</p>
+          </div>
+          <span class="wpc-arrow">↗</span>
+        </div>
+      </a>
+
+      <!-- Lindsey Bingaman — Executive Coaching -->
+      <a href="https://www.lindseybingaman.com/" target="_blank" class="wpc">
+        <div class="wpc-thumb" style="background-image:url(images/portfolio/thumb-lindsey.jpg);background-size:cover;background-position:center top;">
+          <span class="wpc-eyebrow" style="color:#00BFA5;">Executive Coaching</span>
+          <p class="wpc-hero">Results through<br>relationship.</p>
+        </div>
+        <div class="wpc-meta">
+          <div>
+            <p class="wpc-name">Lindsey Bingaman</p>
+            <p class="wpc-tag">Executive Coaching · B2B</p>
+          </div>
+          <span class="wpc-arrow">↗</span>
+        </div>
+      </a>
+
+    </div>
+    <a href="#" class="view-portfolio-btn">View Full Portfolio →</a>
+  </section>
+
+  <!-- MOTION ART -->
+  <section id="art">
+    <p class="section-label">03 — Motion Art</p>
+    <h2 class="work-headline">THINGS<br><span class="c-orange">THAT</span> <span class="c-blue">MOVE.</span></h2>
+    <p class="work-desc">Animated loops made over the years — geometric systems, abstract patterns, things that wouldn't hold still. 169 pieces.</p>
+    <div class="art-grid">
+      <div class="art-cell" data-title="10 Orbits"><img src="images/motion-art/10 Orbits.gif" alt="10 Orbits" loading="lazy" /><span class="art-title">10 Orbits</span></div>
+      <div class="art-cell" data-title="3x Geo Twist"><img src="images/motion-art/3x Geo Twist.gif" alt="3x Geo Twist" loading="lazy" /><span class="art-title">3x Geo Twist</span></div>
+      <div class="art-cell" data-title="All night long"><img src="images/motion-art/All night long.gif" alt="All night long" loading="lazy" /><span class="art-title">All night long</span></div>
+      <div class="art-cell" data-title="Amalgamation"><img src="images/motion-art/Amalgamation.gif" alt="Amalgamation" loading="lazy" /><span class="art-title">Amalgamation</span></div>
+      <div class="art-cell" data-title="And what did you expect"><img src="images/motion-art/And what did you expect.gif" alt="And what did you expect" loading="lazy" /><span class="art-title">And what did you expect</span></div>
+      <div class="art-cell" data-title="Arc flip"><img src="images/motion-art/Arc flip.gif" alt="Arc flip" loading="lazy" /><span class="art-title">Arc flip</span></div>
+      <div class="art-cell" data-title="As We Drift"><img src="images/motion-art/As We Drift.gif" alt="As We Drift" loading="lazy" /><span class="art-title">As We Drift</span></div>
+      <div class="art-cell" data-title="Asention"><img src="images/motion-art/Asention.gif" alt="Asention" loading="lazy" /><span class="art-title">Asention</span></div>
+      <div class="art-cell" data-title="BC BG"><img src="images/motion-art/BC BG.gif" alt="BC BG" loading="lazy" /><span class="art-title">BC BG</span></div>
+      <div class="art-cell" data-title="Back to the beginning"><img src="images/motion-art/Back to the beginning.gif" alt="Back to the beginning" loading="lazy" /><span class="art-title">Back to the beginning</span></div>
+      <div class="art-cell" data-title="Black Sea"><img src="images/motion-art/Black Sea.gif" alt="Black Sea" loading="lazy" /><span class="art-title">Black Sea</span></div>
+      <div class="art-cell" data-title="Blurred Phase"><img src="images/motion-art/Blurred Phase.gif" alt="Blurred Phase" loading="lazy" /><span class="art-title">Blurred Phase</span></div>
+      <div class="art-cell" data-title="Box breaker"><img src="images/motion-art/Box breaker.gif" alt="Box breaker" loading="lazy" /><span class="art-title">Box breaker</span></div>
+      <div class="art-cell" data-title="Butterfly effect"><img src="images/motion-art/Butterfly effect.gif" alt="Butterfly effect" loading="lazy" /><span class="art-title">Butterfly effect</span></div>
+      <div class="art-cell" data-title="Bye for now"><img src="images/motion-art/Bye for now.gif" alt="Bye for now" loading="lazy" /><span class="art-title">Bye for now</span></div>
+      <div class="art-cell" data-title="CCCC"><img src="images/motion-art/CCCC.gif" alt="CCCC" loading="lazy" /><span class="art-title">CCCC</span></div>
+      <div class="art-cell" data-title="Can you see me"><img src="images/motion-art/Can you see me.gif" alt="Can you see me" loading="lazy" /><span class="art-title">Can you see me</span></div>
+      <div class="art-cell" data-title="Chess anyone"><img src="images/motion-art/Chess anyone.gif" alt="Chess anyone" loading="lazy" /><span class="art-title">Chess anyone</span></div>
+      <div class="art-cell" data-title="Circle drop"><img src="images/motion-art/Circle drop.gif" alt="Circle drop" loading="lazy" /><span class="art-title">Circle drop</span></div>
+      <div class="art-cell" data-title="Circle spheres"><img src="images/motion-art/Circle spheres.gif" alt="Circle spheres" loading="lazy" /><span class="art-title">Circle spheres</span></div>
+      <div class="art-cell" data-title="Cloud twists"><img src="images/motion-art/Cloud twists.gif" alt="Cloud twists" loading="lazy" /><span class="art-title">Cloud twists</span></div>
+      <div class="art-cell" data-title="Collapsing red and tan"><img src="images/motion-art/Collapsing red and tan.gif" alt="Collapsing red and tan" loading="lazy" /><span class="art-title">Collapsing red and tan</span></div>
+      <div class="art-cell" data-title="Coral Benz"><img src="images/motion-art/Coral Benz.gif" alt="Coral Benz" loading="lazy" /><span class="art-title">Coral Benz</span></div>
+      <div class="art-cell" data-title="Cosmos"><img src="images/motion-art/Cosmos.gif" alt="Cosmos" loading="lazy" /><span class="art-title">Cosmos</span></div>
+      <div class="art-cell" data-title="Crank still"><img src="images/motion-art/Crank still.gif" alt="Crank still" loading="lazy" /><span class="art-title">Crank still</span></div>
+      <div class="art-cell" data-title="Creative class"><img src="images/motion-art/Creative class.gif" alt="Creative class" loading="lazy" /><span class="art-title">Creative class</span></div>
+      <div class="art-cell" data-title="Daisy Bloom"><img src="images/motion-art/Daisy Bloom.gif" alt="Daisy Bloom" loading="lazy" /><span class="art-title">Daisy Bloom</span></div>
+      <div class="art-cell" data-title="Dance with me"><img src="images/motion-art/Dance with me.gif" alt="Dance with me" loading="lazy" /><span class="art-title">Dance with me</span></div>
+      <div class="art-cell" data-title="Dark skies"><img src="images/motion-art/Dark skies.gif" alt="Dark skies" loading="lazy" /><span class="art-title">Dark skies</span></div>
+      <div class="art-cell" data-title="Dark waves"><img src="images/motion-art/Dark waves.gif" alt="Dark waves" loading="lazy" /><span class="art-title">Dark waves</span></div>
+      <div class="art-cell" data-title="Data cycles"><img src="images/motion-art/Data cycles.gif" alt="Data cycles" loading="lazy" /><span class="art-title">Data cycles</span></div>
+      <div class="art-cell" data-title="Didn't mean to scare you"><img src="images/motion-art/Didn't mean to scare you.gif" alt="Didn't mean to scare you" loading="lazy" /><span class="art-title">Didn't mean to scare you</span></div>
+      <div class="art-cell" data-title="Distant spin"><img src="images/motion-art/Distant spin.gif" alt="Distant spin" loading="lazy" /><span class="art-title">Distant spin</span></div>
+      <div class="art-cell" data-title="Divide and conquer"><img src="images/motion-art/Divide and conquer.gif" alt="Divide and conquer" loading="lazy" /><span class="art-title">Divide and conquer</span></div>
+      <div class="art-cell" data-title="Do you see the numbers"><img src="images/motion-art/Do you see the numbers.gif" alt="Do you see the numbers" loading="lazy" /><span class="art-title">Do you see the numbers</span></div>
+      <div class="art-cell" data-title="Don't drowned"><img src="images/motion-art/Don't drowned.gif" alt="Don't drowned" loading="lazy" /><span class="art-title">Don't drowned</span></div>
+      <div class="art-cell" data-title="Don't look away"><img src="images/motion-art/Don't look away.gif" alt="Don't look away" loading="lazy" /><span class="art-title">Don't look away</span></div>
+      <div class="art-cell" data-title="Double Vision v2"><img src="images/motion-art/Double Vision v2.gif" alt="Double Vision v2" loading="lazy" /><span class="art-title">Double Vision v2</span></div>
+      <div class="art-cell" data-title="Down we go"><img src="images/motion-art/Down we go.gif" alt="Down we go" loading="lazy" /><span class="art-title">Down we go</span></div>
+      <div class="art-cell" data-title="Drawn animation"><img src="images/motion-art/Drawn animation.gif" alt="Drawn animation" loading="lazy" /><span class="art-title">Drawn animation</span></div>
+      <div class="art-cell" data-title="Drip Row"><img src="images/motion-art/Drip Row.gif" alt="Drip Row" loading="lazy" /><span class="art-title">Drip Row</span></div>
+      <div class="art-cell" data-title="Drop in bucket"><img src="images/motion-art/Drop in bucket.gif" alt="Drop in bucket" loading="lazy" /><span class="art-title">Drop in bucket</span></div>
+      <div class="art-cell" data-title="Drugs"><img src="images/motion-art/Drugs.gif" alt="Drugs" loading="lazy" /><span class="art-title">Drugs</span></div>
+      <div class="art-cell" data-title="Eggshell"><img src="images/motion-art/Eggshell.gif" alt="Eggshell" loading="lazy" /><span class="art-title">Eggshell</span></div>
+      <div class="art-cell" data-title="FAV0022"><img src="images/motion-art/FAV0022.gif" alt="FAV0022" loading="lazy" /><span class="art-title">FAV0022</span></div>
+      <div class="art-cell" data-title="Falling asleep"><img src="images/motion-art/Falling asleep.gif" alt="Falling asleep" loading="lazy" /><span class="art-title">Falling asleep</span></div>
+      <div class="art-cell" data-title="Fast as you can"><img src="images/motion-art/Fast as you can.gif" alt="Fast as you can" loading="lazy" /><span class="art-title">Fast as you can</span></div>
+      <div class="art-cell" data-title="Fibonacci twist"><img src="images/motion-art/Fibonacci twist.gif" alt="Fibonacci twist" loading="lazy" /><span class="art-title">Fibonacci twist</span></div>
+      <div class="art-cell" data-title="Fire by the Sea"><img src="images/motion-art/Fire by the Sea.gif" alt="Fire by the Sea" loading="lazy" /><span class="art-title">Fire by the Sea</span></div>
+      <div class="art-cell" data-title="Folding Time"><img src="images/motion-art/Folding Time.gif" alt="Folding Time" loading="lazy" /><span class="art-title">Folding Time</span></div>
+      <div class="art-cell" data-title="Follow Me"><img src="images/motion-art/Follow Me.gif" alt="Follow Me" loading="lazy" /><span class="art-title">Follow Me</span></div>
+      <div class="art-cell" data-title="Follow me into the dark"><img src="images/motion-art/Follow me into the dark.gif" alt="Follow me into the dark" loading="lazy" /><span class="art-title">Follow me into the dark</span></div>
+      <div class="art-cell" data-title="Follow the leader"><img src="images/motion-art/Follow the leader.gif" alt="Follow the leader" loading="lazy" /><span class="art-title">Follow the leader</span></div>
+      <div class="art-cell" data-title="For friends"><img src="images/motion-art/For friends.gif" alt="For friends" loading="lazy" /><span class="art-title">For friends</span></div>
+      <div class="art-cell" data-title="Forever and ever"><img src="images/motion-art/Forever and ever.gif" alt="Forever and ever" loading="lazy" /><span class="art-title">Forever and ever</span></div>
+      <div class="art-cell" data-title="Forever balance"><img src="images/motion-art/Forever balance.gif" alt="Forever balance" loading="lazy" /><span class="art-title">Forever balance</span></div>
+      <div class="art-cell" data-title="Forever builder"><img src="images/motion-art/Forever builder.gif" alt="Forever builder" loading="lazy" /><span class="art-title">Forever builder</span></div>
+      <div class="art-cell" data-title="Forever configuration"><img src="images/motion-art/Forever configuration.gif" alt="Forever configuration" loading="lazy" /><span class="art-title">Forever configuration</span></div>
+      <div class="art-cell" data-title="Forever drop"><img src="images/motion-art/Forever drop.gif" alt="Forever drop" loading="lazy" /><span class="art-title">Forever drop</span></div>
+      <div class="art-cell" data-title="Forever falling"><img src="images/motion-art/Forever falling.gif" alt="Forever falling" loading="lazy" /><span class="art-title">Forever falling</span></div>
+      <div class="art-cell" data-title="Forever for you"><img src="images/motion-art/Forever for you.gif" alt="Forever for you" loading="lazy" /><span class="art-title">Forever for you</span></div>
+      <div class="art-cell" data-title="Forever mind twist"><img src="images/motion-art/Forever mind twist.gif" alt="Forever mind twist" loading="lazy" /><span class="art-title">Forever mind twist</span></div>
+      <div class="art-cell" data-title="Forever wonder"><img src="images/motion-art/Forever wonder.gif" alt="Forever wonder" loading="lazy" /><span class="art-title">Forever wonder</span></div>
+      <div class="art-cell" data-title="Function of fashion"><img src="images/motion-art/Function of fashion.gif" alt="Function of fashion" loading="lazy" /><span class="art-title">Function of fashion</span></div>
+      <div class="art-cell" data-title="Grand Design"><img src="images/motion-art/Grand Design.gif" alt="Grand Design" loading="lazy" /><span class="art-title">Grand Design</span></div>
+      <div class="art-cell" data-title="Graph builds"><img src="images/motion-art/Graph builds.gif" alt="Graph builds" loading="lazy" /><span class="art-title">Graph builds</span></div>
+      <div class="art-cell" data-title="Grid collapse"><img src="images/motion-art/Grid collapse.gif" alt="Grid collapse" loading="lazy" /><span class="art-title">Grid collapse</span></div>
+      <div class="art-cell" data-title="Halloween masks"><img src="images/motion-art/Halloween masks.gif" alt="Halloween masks" loading="lazy" /><span class="art-title">Halloween masks</span></div>
+      <div class="art-cell" data-title="Hand drawing 2004"><img src="images/motion-art/Hand drawing 2004.gif" alt="Hand drawing 2004" loading="lazy" /><span class="art-title">Hand drawing 2004</span></div>
+      <div class="art-cell" data-title="Hand flicker"><img src="images/motion-art/Hand flicker.gif" alt="Hand flicker" loading="lazy" /><span class="art-title">Hand flicker</span></div>
+      <div class="art-cell" data-title="Have A Great Day"><img src="images/motion-art/Have A Great Day.gif" alt="Have A Great Day" loading="lazy" /><span class="art-title">Have A Great Day</span></div>
+      <div class="art-cell" data-title="Help me"><img src="images/motion-art/Help me.gif" alt="Help me" loading="lazy" /><span class="art-title">Help me</span></div>
+      <div class="art-cell" data-title="Here we go"><img src="images/motion-art/Here we go.gif" alt="Here we go" loading="lazy" /><span class="art-title">Here we go</span></div>
+      <div class="art-cell" data-title="Hill and clouds in sky"><img src="images/motion-art/Hill and clouds in sky.gif" alt="Hill and clouds in sky" loading="lazy" /><span class="art-title">Hill and clouds in sky</span></div>
+      <div class="art-cell" data-title="Hypno scope"><img src="images/motion-art/Hypno scope.gif" alt="Hypno scope" loading="lazy" /><span class="art-title">Hypno scope</span></div>
+      <div class="art-cell" data-title="I Promise"><img src="images/motion-art/I Promise.gif" alt="I Promise" loading="lazy" /><span class="art-title">I Promise</span></div>
+      <div class="art-cell" data-title="I can't see"><img src="images/motion-art/I can't see.gif" alt="I can't see" loading="lazy" /><span class="art-title">I can't see</span></div>
+      <div class="art-cell" data-title="I commend you sir"><img src="images/motion-art/I commend you sir.gif" alt="I commend you sir" loading="lazy" /><span class="art-title">I commend you sir</span></div>
+      <div class="art-cell" data-title="I like this one"><img src="images/motion-art/I like this one.gif" alt="I like this one" loading="lazy" /><span class="art-title">I like this one</span></div>
+      <div class="art-cell" data-title="I like your idea"><img src="images/motion-art/I like your idea.gif" alt="I like your idea" loading="lazy" /><span class="art-title">I like your idea</span></div>
+      <div class="art-cell" data-title="I love dust"><img src="images/motion-art/I love dust.gif" alt="I love dust" loading="lazy" /><span class="art-title">I love dust</span></div>
+      <div class="art-cell" data-title="I think I'm lost"><img src="images/motion-art/I think I'm lost.gif" alt="I think I'm lost" loading="lazy" /><span class="art-title">I think I'm lost</span></div>
+      <div class="art-cell" data-title="Inception Mock"><img src="images/motion-art/Inception Mock.gif" alt="Inception Mock" loading="lazy" /><span class="art-title">Inception Mock</span></div>
+      <div class="art-cell" data-title="Infinite dance"><img src="images/motion-art/Infinite dance.gif" alt="Infinite dance" loading="lazy" /><span class="art-title">Infinite dance</span></div>
+      <div class="art-cell" data-title="Into the sea"><img src="images/motion-art/Into the sea.gif" alt="Into the sea" loading="lazy" /><span class="art-title">Into the sea</span></div>
+      <div class="art-cell" data-title="It's all numbers"><img src="images/motion-art/It's all numbers.gif" alt="It's all numbers" loading="lazy" /><span class="art-title">It's all numbers</span></div>
+      <div class="art-cell" data-title="Joy waves"><img src="images/motion-art/Joy waves.gif" alt="Joy waves" loading="lazy" /><span class="art-title">Joy waves</span></div>
+      <div class="art-cell" data-title="Just one more thread"><img src="images/motion-art/Just one more thread.gif" alt="Just one more thread" loading="lazy" /><span class="art-title">Just one more thread</span></div>
+      <div class="art-cell" data-title="Keep adding"><img src="images/motion-art/Keep adding.gif" alt="Keep adding" loading="lazy" /><span class="art-title">Keep adding</span></div>
+      <div class="art-cell" data-title="Keep building"><img src="images/motion-art/Keep building.gif" alt="Keep building" loading="lazy" /><span class="art-title">Keep building</span></div>
+      <div class="art-cell" data-title="Lens effect"><img src="images/motion-art/Lens effect.gif" alt="Lens effect" loading="lazy" /><span class="art-title">Lens effect</span></div>
+      <div class="art-cell" data-title="Light dance"><img src="images/motion-art/Light dance.gif" alt="Light dance" loading="lazy" /><span class="art-title">Light dance</span></div>
+      <div class="art-cell" data-title="Logo concept"><img src="images/motion-art/Logo concept.gif" alt="Logo concept" loading="lazy" /><span class="art-title">Logo concept</span></div>
+      <div class="art-cell" data-title="Logo orb"><img src="images/motion-art/Logo orb.gif" alt="Logo orb" loading="lazy" /><span class="art-title">Logo orb</span></div>
+      <div class="art-cell" data-title="Look at me"><img src="images/motion-art/Look at me.gif" alt="Look at me" loading="lazy" /><span class="art-title">Look at me</span></div>
+      <div class="art-cell" data-title="Magic rain"><img src="images/motion-art/Magic rain.gif" alt="Magic rain" loading="lazy" /><span class="art-title">Magic rain</span></div>
+      <div class="art-cell" data-title="Masks"><img src="images/motion-art/Masks.gif" alt="Masks" loading="lazy" /><span class="art-title">Masks</span></div>
+      <div class="art-cell" data-title="Math class"><img src="images/motion-art/Math class.gif" alt="Math class" loading="lazy" /><span class="art-title">Math class</span></div>
+      <div class="art-cell" data-title="Maze falling"><img src="images/motion-art/Maze falling.gif" alt="Maze falling" loading="lazy" /><span class="art-title">Maze falling</span></div>
+      <div class="art-cell" data-title="Mind bender"><img src="images/motion-art/Mind bender.gif" alt="Mind bender" loading="lazy" /><span class="art-title">Mind bender</span></div>
+      <div class="art-cell" data-title="Modulus frame"><img src="images/motion-art/Modulus frame.gif" alt="Modulus frame" loading="lazy" /><span class="art-title">Modulus frame</span></div>
+      <div class="art-cell" data-title="Moving sitting still"><img src="images/motion-art/Moving sitting still.gif" alt="Moving sitting still" loading="lazy" /><span class="art-title">Moving sitting still</span></div>
+      <div class="art-cell" data-title="Moving spectral"><img src="images/motion-art/Moving spectral.gif" alt="Moving spectral" loading="lazy" /><span class="art-title">Moving spectral</span></div>
+      <div class="art-cell" data-title="Never still"><img src="images/motion-art/Never still.gif" alt="Never still" loading="lazy" /><span class="art-title">Never still</span></div>
+      <div class="art-cell" data-title="Night Moon"><img src="images/motion-art/Night Moon.gif" alt="Night Moon" loading="lazy" /><span class="art-title">Night Moon</span></div>
+      <div class="art-cell" data-title="Nightsun"><img src="images/motion-art/Nightsun.gif" alt="Nightsun" loading="lazy" /><span class="art-title">Nightsun</span></div>
+      <div class="art-cell" data-title="Noble owl"><img src="images/motion-art/Noble owl.gif" alt="Noble owl" loading="lazy" /><span class="art-title">Noble owl</span></div>
+      <div class="art-cell" data-title="Old memories"><img src="images/motion-art/Old memories.gif" alt="Old memories" loading="lazy" /><span class="art-title">Old memories</span></div>
+      <div class="art-cell" data-title="Orbit Wave"><img src="images/motion-art/Orbit Wave.gif" alt="Orbit Wave" loading="lazy" /><span class="art-title">Orbit Wave</span></div>
+      <div class="art-cell" data-title="Orbit v4"><img src="images/motion-art/Orbit v4.gif" alt="Orbit v4" loading="lazy" /><span class="art-title">Orbit v4</span></div>
+      <div class="art-cell" data-title="Orbitals"><img src="images/motion-art/Orbitals.gif" alt="Orbitals" loading="lazy" /><span class="art-title">Orbitals</span></div>
+      <div class="art-cell" data-title="Orbits and orbits"><img src="images/motion-art/Orbits and orbits.gif" alt="Orbits and orbits" loading="lazy" /><span class="art-title">Orbits and orbits</span></div>
+      <div class="art-cell" data-title="Oroboros"><img src="images/motion-art/Oroboros.gif" alt="Oroboros" loading="lazy" /><span class="art-title">Oroboros</span></div>
+      <div class="art-cell" data-title="Out We Go"><img src="images/motion-art/Out We Go.gif" alt="Out We Go" loading="lazy" /><span class="art-title">Out We Go</span></div>
+      <div class="art-cell" data-title="PBK Dark Flam"><img src="images/motion-art/PBK Dark Flam.gif" alt="PBK Dark Flam" loading="lazy" /><span class="art-title">PBK Dark Flam</span></div>
+      <div class="art-cell" data-title="PBK Logo"><img src="images/motion-art/PBK Logo.gif" alt="PBK Logo" loading="lazy" /><span class="art-title">PBK Logo</span></div>
+      <div class="art-cell" data-title="Perfect sink"><img src="images/motion-art/Perfect sink.gif" alt="Perfect sink" loading="lazy" /><span class="art-title">Perfect sink</span></div>
+      <div class="art-cell" data-title="Pitchblackknight"><img src="images/motion-art/Pitchblackknight.gif" alt="Pitchblackknight" loading="lazy" /><span class="art-title">Pitchblackknight</span></div>
+      <div class="art-cell" data-title="Play me"><img src="images/motion-art/Play me.gif" alt="Play me" loading="lazy" /><span class="art-title">Play me</span></div>
+      <div class="art-cell" data-title="Prism drift"><img src="images/motion-art/Prism drift.gif" alt="Prism drift" loading="lazy" /><span class="art-title">Prism drift</span></div>
+      <div class="art-cell" data-title="Promise me forever"><img src="images/motion-art/Promise me forever.gif" alt="Promise me forever" loading="lazy" /><span class="art-title">Promise me forever</span></div>
+      <div class="art-cell" data-title="Rhino"><img src="images/motion-art/Rhino.gif" alt="Rhino" loading="lazy" /><span class="art-title">Rhino</span></div>
+      <div class="art-cell" data-title="STFU"><img src="images/motion-art/STFU.gif" alt="STFU" loading="lazy" /><span class="art-title">STFU</span></div>
+      <div class="art-cell" data-title="Signal"><img src="images/motion-art/Signal.gif" alt="Signal" loading="lazy" /><span class="art-title">Signal</span></div>
+      <div class="art-cell" data-title="Simplicity"><img src="images/motion-art/Simplicity.gif" alt="Simplicity" loading="lazy" /><span class="art-title">Simplicity</span></div>
+      <div class="art-cell" data-title="Slices of me"><img src="images/motion-art/Slices of me.gif" alt="Slices of me" loading="lazy" /><span class="art-title">Slices of me</span></div>
+      <div class="art-cell" data-title="Slinky Forgo"><img src="images/motion-art/Slinky Forgo.gif" alt="Slinky Forgo" loading="lazy" /><span class="art-title">Slinky Forgo</span></div>
+      <div class="art-cell" data-title="Slowly going inward"><img src="images/motion-art/Slowly going inward.gif" alt="Slowly going inward" loading="lazy" /><span class="art-title">Slowly going inward</span></div>
+      <div class="art-cell" data-title="Solar B:W"><img src="images/motion-art/Solar B:W.gif" alt="Solar B:W" loading="lazy" /><span class="art-title">Solar B:W</span></div>
+      <div class="art-cell" data-title="Solve me"><img src="images/motion-art/Solve me.gif" alt="Solve me" loading="lazy" /><span class="art-title">Solve me</span></div>
+      <div class="art-cell" data-title="Space Trip"><img src="images/motion-art/Space Trip.gif" alt="Space Trip" loading="lazy" /><span class="art-title">Space Trip</span></div>
+      <div class="art-cell" data-title="Spectral arc"><img src="images/motion-art/Spectral arc.gif" alt="Spectral arc" loading="lazy" /><span class="art-title">Spectral arc</span></div>
+      <div class="art-cell" data-title="Speed shape"><img src="images/motion-art/Speed shape.gif" alt="Speed shape" loading="lazy" /><span class="art-title">Speed shape</span></div>
+      <div class="art-cell" data-title="Star twist"><img src="images/motion-art/Star twist.gif" alt="Star twist" loading="lazy" /><span class="art-title">Star twist</span></div>
+      <div class="art-cell" data-title="Stay in line"><img src="images/motion-art/Stay in line.gif" alt="Stay in line" loading="lazy" /><span class="art-title">Stay in line</span></div>
+      <div class="art-cell" data-title="Still waiting"><img src="images/motion-art/Still waiting.gif" alt="Still waiting" loading="lazy" /><span class="art-title">Still waiting</span></div>
+      <div class="art-cell" data-title="Stone Ascension"><img src="images/motion-art/Stone Ascension.gif" alt="Stone Ascension" loading="lazy" /><span class="art-title">Stone Ascension</span></div>
+      <div class="art-cell" data-title="Strings of chance"><img src="images/motion-art/Strings of chance.gif" alt="Strings of chance" loading="lazy" /><span class="art-title">Strings of chance</span></div>
+      <div class="art-cell" data-title="Swin me around"><img src="images/motion-art/Swin me around.gif" alt="Swin me around" loading="lazy" /><span class="art-title">Swin me around</span></div>
+      <div class="art-cell" data-title="Synchronization"><img src="images/motion-art/Synchronization.gif" alt="Synchronization" loading="lazy" /><span class="art-title">Synchronization</span></div>
+      <div class="art-cell" data-title="Tailspin"><img src="images/motion-art/Tailspin.gif" alt="Tailspin" loading="lazy" /><span class="art-title">Tailspin</span></div>
+      <div class="art-cell" data-title="Tall Noble owl"><img src="images/motion-art/Tall Noble owl.gif" alt="Tall Noble owl" loading="lazy" /><span class="art-title">Tall Noble owl</span></div>
+      <div class="art-cell" data-title="The biggest box"><img src="images/motion-art/The biggest box.gif" alt="The biggest box" loading="lazy" /><span class="art-title">The biggest box</span></div>
+      <div class="art-cell" data-title="The collector"><img src="images/motion-art/The collector.gif" alt="The collector" loading="lazy" /><span class="art-title">The collector</span></div>
+      <div class="art-cell" data-title="The world is yours"><img src="images/motion-art/The world is yours.gif" alt="The world is yours" loading="lazy" /><span class="art-title">The world is yours</span></div>
+      <div class="art-cell" data-title="Threads of time"><img src="images/motion-art/Threads of time.gif" alt="Threads of time" loading="lazy" /><span class="art-title">Threads of time</span></div>
+      <div class="art-cell" data-title="Time scale"><img src="images/motion-art/Time scale.gif" alt="Time scale" loading="lazy" /><span class="art-title">Time scale</span></div>
+      <div class="art-cell" data-title="Timebloom"><img src="images/motion-art/Timebloom.gif" alt="Timebloom" loading="lazy" /><span class="art-title">Timebloom</span></div>
+      <div class="art-cell" data-title="Tiny movements"><img src="images/motion-art/Tiny movements.gif" alt="Tiny movements" loading="lazy" /><span class="art-title">Tiny movements</span></div>
+      <div class="art-cell" data-title="Tunnel Vision"><img src="images/motion-art/Tunnel Vision.gif" alt="Tunnel Vision" loading="lazy" /><span class="art-title">Tunnel Vision</span></div>
+      <div class="art-cell" data-title="Twist Lattice"><img src="images/motion-art/Twist Lattice.gif" alt="Twist Lattice" loading="lazy" /><span class="art-title">Twist Lattice</span></div>
+      <div class="art-cell" data-title="Twist light"><img src="images/motion-art/Twist light.gif" alt="Twist light" loading="lazy" /><span class="art-title">Twist light</span></div>
+      <div class="art-cell" data-title="Twisted sphere"><img src="images/motion-art/Twisted sphere.gif" alt="Twisted sphere" loading="lazy" /><span class="art-title">Twisted sphere</span></div>
+      <div class="art-cell" data-title="Twisting triangles"><img src="images/motion-art/Twisting triangles.gif" alt="Twisting triangles" loading="lazy" /><span class="art-title">Twisting triangles</span></div>
+      <div class="art-cell" data-title="Twisting vector"><img src="images/motion-art/Twisting vector.gif" alt="Twisting vector" loading="lazy" /><span class="art-title">Twisting vector</span></div>
+      <div class="art-cell" data-title="Ultimate synchronization"><img src="images/motion-art/Ultimate synchronization.gif" alt="Ultimate synchronization" loading="lazy" /><span class="art-title">Ultimate synchronization</span></div>
+      <div class="art-cell" data-title="Under the cells"><img src="images/motion-art/Under the cells.gif" alt="Under the cells" loading="lazy" /><span class="art-title">Under the cells</span></div>
+      <div class="art-cell" data-title="Under the sea"><img src="images/motion-art/Under the sea.gif" alt="Under the sea" loading="lazy" /><span class="art-title">Under the sea</span></div>
+      <div class="art-cell" data-title="V"><img src="images/motion-art/V.gif" alt="V" loading="lazy" /><span class="art-title">V</span></div>
+      <div class="art-cell" data-title="Vector Spin"><img src="images/motion-art/Vector Spin.gif" alt="Vector Spin" loading="lazy" /><span class="art-title">Vector Spin</span></div>
+      <div class="art-cell" data-title="Vector echo"><img src="images/motion-art/Vector echo.gif" alt="Vector echo" loading="lazy" /><span class="art-title">Vector echo</span></div>
+      <div class="art-cell" data-title="Vector life"><img src="images/motion-art/Vector life.gif" alt="Vector life" loading="lazy" /><span class="art-title">Vector life</span></div>
+      <div class="art-cell" data-title="Walk the walk"><img src="images/motion-art/Walk the walk.gif" alt="Walk the walk" loading="lazy" /><span class="art-title">Walk the walk</span></div>
+      <div class="art-cell" data-title="Water droplet"><img src="images/motion-art/Water droplet.gif" alt="Water droplet" loading="lazy" /><span class="art-title">Water droplet</span></div>
+      <div class="art-cell" data-title="Where am I"><img src="images/motion-art/Where am I.gif" alt="Where am I" loading="lazy" /><span class="art-title">Where am I</span></div>
+      <div class="art-cell" data-title="Where is mom"><img src="images/motion-art/Where is mom.gif" alt="Where is mom" loading="lazy" /><span class="art-title">Where is mom</span></div>
+      <div class="art-cell" data-title="Wizard Stone"><img src="images/motion-art/Wizard Stone.gif" alt="Wizard Stone" loading="lazy" /><span class="art-title">Wizard Stone</span></div>
+      <div class="art-cell" data-title="Zen Circle"><img src="images/motion-art/Zen Circle.gif" alt="Zen Circle" loading="lazy" /><span class="art-title">Zen Circle</span></div>
+      <div class="art-cell" data-title="Zip line logo"><img src="images/motion-art/Zip line logo.gif" alt="Zip line logo" loading="lazy" /><span class="art-title">Zip line logo</span></div>
+    </div>
+  </section>
+
+  <!-- Art Lightbox -->
+  <div id="art-lb">
+    <button id="art-lb-x" onclick="document.getElementById('art-lb').classList.remove('open');document.getElementById('art-lb-img').src=''">×</button>
+    <img id="art-lb-img" src="" alt="" />
+    <div id="art-lb-cap"></div>
+  </div>
+
+  <!-- MUSIC -->
+  <section id="music">
+    <p class="section-label">04 — Music</p>
+    <div class="music-intro">
+      <h2 class="music-headline">MADE<br><span class="c-orange">FROM</span><br>SCRATCH.</h2>
+      <p class="music-bio">Original recordings — some produced, some improvised, all done in a single take. These aren't demos. They're just what came out when I sat down and didn't overthink it.</p>
+    </div>
+    <!-- ── FEATURED TRACKS — edit slug/title/tag below ── -->
+    <div class="music-tracks" id="music-tracks">
+
+      <div class="music-track-entry" data-slug="hollow-heart">
+        <div class="mte-num">
+          <span class="num-label">01</span>
+          <div class="mte-bar-wrap">
+            <div class="mte-bar"></div><div class="mte-bar"></div>
+            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
+          </div>
+        </div>
+        <div class="mte-info">
+          <p class="mte-title">Hollow Heart</p>
+          <p class="mte-tag">Original · PitchBlacKnight</p>
+          <div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div>
+        </div>
+        <div class="mte-right">
+          <span class="mte-duration">—:——</span>
+          <button class="mte-play-btn" aria-label="Play Hollow Heart">
+            <svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="music-track-entry" data-slug="black-kat">
+        <div class="mte-num">
+          <span class="num-label">02</span>
+          <div class="mte-bar-wrap">
+            <div class="mte-bar"></div><div class="mte-bar"></div>
+            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
+          </div>
+        </div>
+        <div class="mte-info">
+          <p class="mte-title">Black Kat</p>
+          <p class="mte-tag">Original · PitchBlacKnight</p>
+          <div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div>
+        </div>
+        <div class="mte-right">
+          <span class="mte-duration">—:——</span>
+          <button class="mte-play-btn" aria-label="Play Black Kat">
+            <svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="music-track-entry" data-slug="sounded-like-the-truth">
+        <div class="mte-num">
+          <span class="num-label">03</span>
+          <div class="mte-bar-wrap">
+            <div class="mte-bar"></div><div class="mte-bar"></div>
+            <div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div>
+          </div>
+        </div>
+        <div class="mte-info">
+          <p class="mte-title">Sounded Like the Truth</p>
+          <p class="mte-tag">Original · PitchBlacKnight</p>
+          <div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div>
+        </div>
+        <div class="mte-right">
+          <span class="mte-duration">—:——</span>
+          <button class="mte-play-btn" aria-label="Play Sounded Like the Truth">
+            <svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <audio id="audio-player" class="hidden-audio"></audio>
+  </section>
+
+  <!-- MIXES -->
+  <section id="mixes">
+    <p class="section-label">05 — Mixes</p>
+    <div class="music-intro">
+      <h2 class="music-headline">MIX<br><span class="c-orange">TAPE</span><br>2013–15.</h2>
+      <p class="music-bio">Ten episodes recorded live. No edits, no overdubs — just the room, the records, and whatever the night called for. Each one a document of a specific session.</p>
+    </div>
+    <div class="music-tracks" id="mixes-tracks">
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-01-koolaide-kids.m4a">
+        <div class="mte-num"><span class="num-label">01</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Koolaide Kids</p><p class="mte-tag">Episode 01 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Koolaide Kids"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-02-gritty-kitty.m4a">
+        <div class="mte-num"><span class="num-label">02</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Gritty Kitty</p><p class="mte-tag">Episode 02 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Gritty Kitty"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-03-beat-brulee.m4a">
+        <div class="mte-num"><span class="num-label">03</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Beat Brûlée</p><p class="mte-tag">Episode 03 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Beat Brulee"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-04-december-deleece.m4a">
+        <div class="mte-num"><span class="num-label">04</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">December Deleece</p><p class="mte-tag">Episode 04 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play December Deleece"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-05-march-tart.m4a">
+        <div class="mte-num"><span class="num-label">05</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">March Tart</p><p class="mte-tag">Episode 05 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play March Tart"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-06-thursday-night-li.m4a">
+        <div class="mte-num"><span class="num-label">06</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Thursday Night Li</p><p class="mte-tag">Episode 06 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Thursday Night Li"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-07-nevermind-november.m4a">
+        <div class="mte-num"><span class="num-label">07</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Nevermind November</p><p class="mte-tag">Episode 07 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Nevermind November"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-08-adrift.m4a">
+        <div class="mte-num"><span class="num-label">08</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Adrift</p><p class="mte-tag">Episode 08 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Adrift"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-09-just-in-time.m4a">
+        <div class="mte-num"><span class="num-label">09</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Just In Time</p><p class="mte-tag">Episode 09 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Just In Time"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+      <div class="music-track-entry" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-10-well-alright.m4a">
+        <div class="mte-num"><span class="num-label">10</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div>
+        <div class="mte-info"><p class="mte-title">Well Alright</p><p class="mte-tag">Episode 10 · 2013–2015 Mixes</p><div class="mte-progress-wrap"><div class="mte-progress-fill"></div></div></div>
+        <div class="mte-right"><span class="mte-duration">—:——</span><button class="mte-play-btn" aria-label="Play Well Alright"><svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg></button></div>
+      </div>
+
+    </div>
+    <audio id="mixes-player" class="hidden-audio"></audio>
+  </section>
+
+  <!-- DAILY WISDOM -->
+  <section id="wisdom">
+    <p class="section-label">06 — Daily Wisdom</p>
+    <div class="poem-block">
+      <div class="poem-stanza">
+        <p class="poem-line">Most of what I know</p>
+        <p class="poem-line">I learned by doing it wrong first.</p>
+        <p class="poem-line">The rest came from watching</p>
+        <p class="poem-line">what other people needed.</p>
+      </div>
+      <div class="poem-stanza">
+        <p class="poem-line">Good work doesn't announce itself.</p>
+        <p class="poem-line">It just makes the thing easier to use,</p>
+        <p class="poem-line">easier to hear,</p>
+        <p class="poem-line">easier to feel.</p>
+      </div>
+      <div class="poem-stanza">
+        <p class="poem-line">I'm still figuring things out.</p>
+        <p class="poem-line">I think that might be the whole point.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <p class="section-label">07 — Contact</p>
+    <h2 class="contact-headline"><span class="c-orange">Let's work</span><br>together.</h2>
+    <p class="contact-sub">If you're building something and could use a hand with design, music, voice, or web — I'd love to hear about it. No project is too small to talk about.</p>
+    <p class="form-label">I Need You For</p>
+    <div class="form-row">
+      <select id="ability-select">
+        <option value="">Select an Ability</option>
+        <option value="ux">UI/UX Design</option>
+        <option value="brand">Brand Identity</option>
+        <option value="voice">Voice Performance</option>
+        <option value="music">Music Production</option>
+        <option value="art">Fine Art Commission</option>
+        <option value="web">Website Design</option>
+      </select>
+      <button id="reach-out-btn">⚡ Reach Out</button>
+    </div>
+    <p class="form-phone">or call <a href="tel:+17734908523">+1 (773) 490-8523</a></p>
+    <div class="social-tags">
+      <a href="#" class="social-tag">LinkedIn ↗</a>
+      <a href="#" class="social-tag">Instagram ↗</a>
+      <a href="#" class="social-tag">Pinterest ↗</a>
+      <a href="#" class="social-tag">Spotify ↗</a>
+      <a href="#" class="social-tag">SoundCloud ↗</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img class="footer-bg-gif" src="images/motion-art/Cosmos.gif" alt="" />
+    <div class="footer-glow"></div>
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <p class="footer-col-title">Navigate</p>
+          <a href="#about">About</a>
+          <a href="#wisdom">Daily</a>
+          <a href="#work">Work</a>
+          <a href="#music">Music</a>
+        </div>
+        <div class="footer-col">
+          <p class="footer-col-title">Connect</p>
+          <a href="#">LinkedIn</a>
+          <a href="#">Instagram</a>
+          <a href="#">Pinterest</a>
+          <a href="#">Spotify</a>
+          <a href="#">SoundCloud</a>
+        </div>
+      </div>
+      <div class="footer-bar">
+        <span class="footer-copy">© 2026 PitchBlacknight. All rights reserved.</span>
+        <div class="footer-logo">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3,3 L11.8,3 M14.2,3 L21,3 L21,9.8 M21,12.2 L21,21 L12.2,21 M9.8,21 L3,21 L3,14.2 M3,11.8 L3,3" stroke="white" stroke-width="1.5" stroke-linecap="butt"/>
+            <path d="M12,2 L22,12 L21.85,12.15 M20.15,13.85 L13.85,20.15 M12.15,21.85 L12,22 L2,12 L2.15,11.85 M3.85,10.15 L10.15,3.85 M11.85,2.15 L12,2" stroke="white" stroke-width="1.5" stroke-linecap="butt"/>
+          </svg>
+          <span>Pitch</span><strong>Black</strong><span>Night</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  // ── LOADER ──────────────────────────────────────────────
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 800);
+  });
+
+  // ── HAMBURGER MENU ───────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileClose = document.getElementById('mobile-close');
+  hamburger.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('.mobile-link').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // ── SCROLLSPY ────────────────────────────────────────────
+  // ── ART LIGHTBOX ─────────────────────────────────────────
+  const artLb = document.getElementById('art-lb');
+  const artLbImg = document.getElementById('art-lb-img');
+  const artLbCap = document.getElementById('art-lb-cap');
+  document.querySelectorAll('.art-cell').forEach(cell => {
+    cell.addEventListener('click', () => {
+      const img = cell.querySelector('img');
+      artLbImg.src = img.src;
+      artLbCap.textContent = cell.dataset.title;
+      artLb.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+  });
+  artLb.addEventListener('click', (e) => {
+    if (e.target === artLb) {
+      artLb.classList.remove('open');
+      artLbImg.src = '';
+      document.body.style.overflow = '';
+    }
+  });
+  document.getElementById('art-lb-x').addEventListener('click', () => {
+    artLb.classList.remove('open');
+    artLbImg.src = '';
+    document.body.style.overflow = '';
+  });
+
+  const sections = ['about','work','art','music','mixes','wisdom','contact'];
+  const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navLinks.forEach(a => {
+          a.classList.toggle('active', a.dataset.section === id);
+        });
+      }
+    });
+  }, { threshold: 0.35 });
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // ── MUSIC PLAYER ─────────────────────────────────────────
+  (function initMusicPlayer() {
+    const audio = document.getElementById('audio-player');
+    const entries = document.querySelectorAll('.music-track-entry');
+    let activeEntry = null;
+    const PAUSE_SVG = '<svg width="10" height="14" viewBox="0 0 10 14"><rect x="0" y="0" width="3" height="14"/><rect x="7" y="0" width="3" height="14"/></svg>';
+    const PLAY_SVG  = '<svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>';
+
+    function fmtTime(s) {
+      if (!isFinite(s)) return '—:——';
+      const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+      return `${m}:${String(sec).padStart(2,'0')}`;
+    }
+
+    function deactivate(entry) {
+      if (!entry) return;
+      entry.classList.remove('active');
+      entry.querySelector('.mte-play-btn').innerHTML = PLAY_SVG;
+      entry.querySelector('.mte-progress-fill').style.width = '0%';
+    }
+
+    function activate(entry) {
+      entry.classList.add('active');
+      entry.querySelector('.mte-play-btn').innerHTML = PAUSE_SVG;
+    }
+
+    entries.forEach(entry => {
+      const slug = entry.dataset.slug;
+      const btn  = entry.querySelector('.mte-play-btn');
+      const dur  = entry.querySelector('.mte-duration');
+
+      // Pre-load duration without playing
+      const probe = new Audio(`https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/${slug}.mp3`);
+      probe.addEventListener('loadedmetadata', () => {
+        dur.textContent = fmtTime(probe.duration);
+      });
+
+      btn.addEventListener('click', () => {
+        const isThisActive = activeEntry === entry;
+        const isPlaying = !audio.paused;
+
+        if (isThisActive) {
+          // Toggle play/pause on the active track
+          if (isPlaying) {
+            audio.pause();
+            entry.classList.add('paused');
+            btn.innerHTML = PLAY_SVG;
+          } else {
+            audio.play();
+            entry.classList.remove('paused');
+            btn.innerHTML = PAUSE_SVG;
+          }
+        } else {
+          // Switch to a new track
+          deactivate(activeEntry);
+          activeEntry = entry;
+          audio.src = `https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/${slug}.mp3`;
+          audio.play().then(() => {
+            activate(entry);
+            entry.classList.remove('paused');
+          }).catch(() => {});
+        }
+      });
+    });
+
+    // Update progress bar
+    audio.addEventListener('timeupdate', () => {
+      if (!activeEntry || !audio.duration) return;
+      const pct = (audio.currentTime / audio.duration) * 100;
+      activeEntry.querySelector('.mte-progress-fill').style.width = pct + '%';
+      activeEntry.querySelector('.mte-duration').textContent =
+        fmtTime(audio.currentTime) + ' / ' + fmtTime(audio.duration);
+    });
+
+    audio.addEventListener('ended', () => {
+      if (activeEntry) {
+        deactivate(activeEntry);
+        activeEntry = null;
+      }
+    });
+  })();
+
+  // ── MIXES PLAYER ─────────────────────────────────────────
+  (function initMixesPlayer() {
+    const audio = document.getElementById('mixes-player');
+    const musicAudio = document.getElementById('audio-player');
+    const entries = document.querySelectorAll('#mixes-tracks .music-track-entry');
+    let activeEntry = null;
+    const PAUSE_SVG = '<svg width="10" height="14" viewBox="0 0 10 14"><rect x="0" y="0" width="3" height="14"/><rect x="7" y="0" width="3" height="14"/></svg>';
+    const PLAY_SVG  = '<svg width="12" height="14" viewBox="0 0 12 14"><path d="M0 0l12 7-12 7z"/></svg>';
+
+    function fmtTime(s) {
+      if (!isFinite(s)) return '—:——';
+      const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+      return `${m}:${String(sec).padStart(2,'0')}`;
+    }
+    function deactivate(entry) {
+      if (!entry) return;
+      entry.classList.remove('active');
+      entry.querySelector('.mte-play-btn').innerHTML = PLAY_SVG;
+      entry.querySelector('.mte-progress-fill').style.width = '0%';
+    }
+    function activate(entry) {
+      entry.classList.add('active');
+      entry.querySelector('.mte-play-btn').innerHTML = PAUSE_SVG;
+    }
+
+    entries.forEach(entry => {
+      const src = entry.dataset.src;
+      const dur = entry.querySelector('.mte-duration');
+      const probe = new Audio(src);
+      probe.addEventListener('loadedmetadata', () => { dur.textContent = fmtTime(probe.duration); });
+
+      entry.querySelector('.mte-play-btn').addEventListener('click', () => {
+        const isThisActive = activeEntry === entry;
+        const isPlaying = !audio.paused;
+        if (isThisActive) {
+          if (isPlaying) { audio.pause(); entry.classList.add('paused'); entry.querySelector('.mte-play-btn').innerHTML = PLAY_SVG; }
+          else { audio.play(); entry.classList.remove('paused'); entry.querySelector('.mte-play-btn').innerHTML = PAUSE_SVG; }
+        } else {
+          musicAudio.pause(); // stop featured track if playing
+          deactivate(activeEntry);
+          activeEntry = entry;
+          audio.src = src;
+          audio.play().then(() => { activate(entry); entry.classList.remove('paused'); }).catch(() => {});
+        }
+      });
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (!activeEntry || !audio.duration) return;
+      const pct = (audio.currentTime / audio.duration) * 100;
+      activeEntry.querySelector('.mte-progress-fill').style.width = pct + '%';
+      activeEntry.querySelector('.mte-duration').textContent = fmtTime(audio.currentTime) + ' / ' + fmtTime(audio.duration);
+    });
+    audio.addEventListener('ended', () => { if (activeEntry) { deactivate(activeEntry); activeEntry = null; } });
+  })();
+
+  // ── CONTACT REACH OUT ────────────────────────────────────
+  document.getElementById('reach-out-btn').addEventListener('click', () => {
+    const ability = document.getElementById('ability-select').value;
+    const subject = ability ? `Inquiry: ${ability}` : 'Project Inquiry';
+    window.location.href = `mailto:contact@pitchblacknight.com?subject=${encodeURIComponent(subject)}`;
+  });
+
+  </script>
+</body>
+</html>

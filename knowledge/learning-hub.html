@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Field Guide — Cutting Edge 2026</title>
+<meta name="description" content="A designer's field guide to Figma MCP, Figma Make, AI vibe coding, and design systems in 2026 — the state of each, how to learn it, and how to talk about it.">
+<meta property="og:title" content="Field Guide — Cutting Edge 2026">
+<meta property="og:description" content="Figma MCP · Figma Make · AI vibe coding · Design systems 2026. Where each stands, how to learn it, how to say it in an interview.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0F0C0A;--ink2:#171210;--ink3:#1F1815;--ink4:#2A211C;
+  --cream:#F1E8D6;--c70:rgba(241,232,214,.72);--c55:rgba(241,232,214,.55);
+  --c45:rgba(241,232,214,.45);--c25:rgba(241,232,214,.25);--line:rgba(241,232,214,.13);
+  --coral:#EF7A5E;--coral-dim:rgba(239,122,94,.14);--slate:#8FA8A6;--slate-dim:rgba(143,168,166,.13);
+  --serif:"Fraunces","Iowan Old Style","Palatino Linotype",Georgia,serif;
+  --sans:"Space Grotesk","Avenir Next","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--ink);color:var(--c70);font-family:var(--sans);font-weight:300;
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;padding:0 0 90px}
+.wrap{max-width:960px;margin:0 auto;padding:0 28px}
+code{font-family:var(--mono);font-size:.82em;background:var(--ink3);padding:2px 6px;border-radius:3px;color:var(--cream);white-space:nowrap}
+strong{color:var(--cream);font-weight:500} em{color:var(--cream);font-style:italic}
+a{color:var(--coral);text-decoration:none;border-bottom:1px solid rgba(239,122,94,.3)}
+a:hover{border-bottom-color:var(--coral)}
+a:focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:2px}
+
+/* ── HEADER ── */
+header{border-bottom:1px solid var(--line);padding:52px 0 30px;margin-bottom:6px}
+.kicker{font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--coral);margin-bottom:16px;
+  display:flex;align-items:center;gap:12px}
+.kicker::after{content:"";height:1px;flex:1;background:var(--line)}
+h1{font-family:var(--serif);font-weight:300;font-size:clamp(34px,6.5vw,64px);line-height:1.0;
+  color:var(--cream);letter-spacing:-.025em;margin-bottom:18px;text-wrap:balance}
+h1 em{font-style:italic;color:var(--coral)}
+.lede{font-size:clamp(16px,2vw,19px);color:var(--c55);max-width:60ch;line-height:1.55;font-weight:300}
+.lede strong{color:var(--c70);font-weight:400}
+
+.metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:6px;overflow:hidden;margin:34px 0 0}
+.metric{background:var(--ink2);padding:18px 20px}
+.metric .n{font-family:var(--serif);font-weight:300;font-size:32px;line-height:1;color:var(--cream);font-variant-numeric:tabular-nums}
+.metric .n em{font-style:italic;color:var(--coral)}
+.metric .l{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--c45);margin-top:8px;line-height:1.5}
+
+/* ── STICKY NAV ── */
+nav{position:sticky;top:0;z-index:20;background:rgba(15,12,10,.86);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--line);margin:0 -28px 0;padding:0 28px}
+.nav-in{max-width:960px;margin:0 auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.nav-in::-webkit-scrollbar{display:none}
+nav a{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c45);
+  padding:15px 14px;white-space:nowrap;border-bottom:2px solid transparent;font-weight:400}
+nav a:hover{color:var(--c70)}
+nav a.on{color:var(--cream);border-bottom-color:var(--coral)}
+
+/* ── SECTIONS ── */
+section{margin-top:60px;scroll-margin-top:64px}
+.eyebrow{font-size:10px;letter-spacing:.26em;text-transform:uppercase;color:var(--coral);
+  margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line);
+  display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.eyebrow .tag{color:var(--c25);letter-spacing:.16em}
+.sec-title{font-family:var(--serif);font-weight:400;font-size:clamp(25px,3.6vw,34px);color:var(--cream);
+  letter-spacing:-.015em;margin-bottom:8px;line-height:1.12;text-wrap:balance}
+.sec-title em{font-style:italic;color:var(--coral)}
+.sec-intro{color:var(--c55);max-width:64ch;margin-bottom:26px;font-size:15.5px}
+
+/* status pills */
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin:2px 0 22px}
+.pill{font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:100px;
+  border:1px solid var(--line);color:var(--c55);font-weight:400}
+.pill.ga{border-color:rgba(143,168,166,.4);color:var(--slate);background:var(--slate-dim)}
+.pill.new{border-color:rgba(239,122,94,.45);color:var(--coral);background:var(--coral-dim)}
+.pill.beta{border-color:var(--c25);color:var(--c45)}
+
+/* the working card */
+.card{background:var(--ink2);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.card + .card{margin-top:16px}
+.block{padding:24px 26px;border-top:1px solid var(--line)}
+.block:first-child{border-top:none}
+.block h3{font-family:var(--serif);font-weight:400;font-size:19px;color:var(--cream);margin-bottom:6px;
+  display:flex;align-items:center;gap:10px;letter-spacing:-.01em}
+.block h3 .mk{font-family:var(--sans);font-size:9px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--coral);border:1px solid rgba(239,122,94,.35);border-radius:3px;padding:2px 6px;font-weight:400}
+.block h3 .mk.slate{color:var(--slate);border-color:rgba(143,168,166,.35)}
+.block p{margin-bottom:12px;font-size:15px}.block p:last-child{margin-bottom:0}
+.block ul,.block ol{margin:6px 0 4px 18px}.block li{margin-bottom:8px;font-size:15px;padding-left:4px}
+.block ul{list-style:none;margin-left:0}
+.block ul li{position:relative;padding-left:22px}
+.block ul li::before{content:"→";position:absolute;left:0;color:var(--coral);font-size:14px}
+
+/* the "say it" callout */
+.say{background:var(--ink3);border-left:2px solid var(--coral);border-radius:0 6px 6px 0;
+  padding:16px 20px;margin:4px 0 0}
+.say .q{font-size:12px;letter-spacing:.04em;color:var(--slate);text-transform:uppercase;margin-bottom:8px;font-weight:400}
+.say p{font-family:var(--serif);font-weight:300;font-size:17px;line-height:1.5;color:var(--cream);font-style:italic;margin:0}
+
+/* follow row */
+.follow{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.follow a{font-size:12.5px;background:var(--ink3);border:1px solid var(--line);border-bottom:1px solid var(--line);
+  border-radius:5px;padding:6px 11px;color:var(--c70)}
+.follow a:hover{border-color:var(--coral);color:var(--cream)}
+
+/* two-col utility */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:720px){.grid2{grid-template-columns:1fr}}
+
+/* stay-current cadence */
+.cadence{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:8px;overflow:hidden}
+@media(max-width:720px){.cadence{grid-template-columns:1fr}}
+.cad{background:var(--ink2);padding:22px 22px}
+.cad .when{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral);margin-bottom:10px}
+.cad h4{font-family:var(--serif);font-weight:400;font-size:20px;color:var(--cream);margin-bottom:10px}
+.cad p{font-size:14px;color:var(--c55);margin:0}
+.cad ul{list-style:none;margin:8px 0 0}
+.cad li{font-size:13.5px;color:var(--c70);padding-left:16px;position:relative;margin-bottom:6px}
+.cad li::before{content:"·";position:absolute;left:2px;color:var(--coral)}
+
+/* interview rapid-fire */
+.qa{border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.qa details{border-top:1px solid var(--line)}
+.qa details:first-child{border-top:none}
+.qa summary{padding:17px 22px;cursor:pointer;list-style:none;color:var(--cream);font-size:15.5px;
+  display:flex;align-items:center;gap:14px;background:var(--ink2);transition:background .15s}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:hover{background:var(--ink3)}
+.qa summary .mrk{color:var(--coral);font-family:var(--mono);font-size:12px;flex-shrink:0}
+.qa summary::after{content:"+";margin-left:auto;color:var(--c45);font-size:20px;font-weight:300}
+.qa details[open] summary::after{content:"–"}
+.qa .ans{padding:4px 22px 20px 56px;background:var(--ink2);font-size:14.5px;color:var(--c70)}
+.qa .ans p{margin-bottom:10px}.qa .ans p:last-child{margin-bottom:0}
+
+/* ── CHEAT SHEET ── */
+kbd{font-family:var(--mono);font-size:11px;color:var(--cream);background:var(--ink4);
+  border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:2px 7px;
+  white-space:nowrap;display:inline-block;line-height:1.5}
+.cmd-grid{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:8px;overflow:hidden}
+@media(max-width:640px){.cmd-grid{grid-template-columns:1fr}}
+.cmd{background:var(--ink2);padding:16px 20px;display:flex;flex-direction:column;gap:5px}
+.cmd .c{font-family:var(--mono);font-size:14px;color:var(--coral)}
+.cmd .d{font-size:13.5px;color:var(--c70);line-height:1.5}
+.cmd .d b{color:var(--cream);font-weight:500}
+.keyrow{display:flex;flex-wrap:wrap;gap:10px 26px;margin:2px 0 0}
+.keyrow .kr{display:flex;align-items:baseline;gap:11px;flex:1 1 260px;min-width:240px}
+.keyrow .kr .kd{font-size:14px;color:var(--c70);line-height:1.5}
+.keyrow .kr .kd b{color:var(--cream);font-weight:500}
+.starter{font-family:var(--mono);font-size:13px;background:var(--ink);border:1px solid var(--line);
+  border-radius:6px;padding:14px 16px;color:var(--c70);line-height:1.9;overflow-x:auto}
+.starter .p{color:var(--coral)} .starter .c2{color:var(--slate)}
+.big-idea{font-family:var(--serif);font-weight:300;font-size:19px;font-style:italic;color:var(--cream);
+  line-height:1.5;border-left:2px solid var(--coral);padding-left:18px;margin:2px 0 0}
+.note{font-size:13px;color:var(--c45);margin-top:16px;line-height:1.6}
+footer{margin-top:70px;padding-top:24px;border-top:1px solid var(--line);
+  font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--c25);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+footer a{color:var(--c45)}
+</style></head>
+<body>
+
+<div class="wrap">
+<header>
+  <div class="kicker">Field Guide · Cutting Edge · Mid-2026</div>
+  <h1>The five things worth <em>staying sharp on</em></h1>
+  <p class="lede">A working reference for the moving parts of AI-era design. For each: <strong>where it stands right now</strong>, <strong>how you learn it by doing</strong>, and <strong>the line you'd give in an interview</strong>. This is the reference. Your <a href="dashboard.html">daily dashboard</a> is the practice.</p>
+  <div class="metrics">
+    <div class="metric"><div class="n">5</div><div class="l">Pillars to hold cold</div></div>
+    <div class="metric"><div class="n">15<em>m</em></div><div class="l">Daily practice loop</div></div>
+    <div class="metric"><div class="n">6<em>:07</em></div><div class="l">News agent runs weekdays</div></div>
+    <div class="metric"><div class="n">4<em>+</em></div><div class="l">Confidence target per claim</div></div>
+  </div>
+</header>
+</div>
+
+<nav><div class="nav-in">
+  <a href="#mcp">Figma MCP</a>
+  <a href="#make">Figma Make</a>
+  <a href="#vibe">Vibe Coding</a>
+  <a href="#systems">Design Systems '26</a>
+  <a href="#loop">The Figma Loop</a>
+  <a href="#current">Stay Current</a>
+  <a href="#interview">Interview Prep</a>
+  <a href="#cheat">Cheat Sheet</a>
+</div></nav>
+
+<div class="wrap">
+
+<!-- ═══ PILLAR 1 — FIGMA MCP ═══ -->
+<section id="mcp">
+  <div class="eyebrow"><span>Pillar · The design-to-code bridge</span><span class="tag">01</span></div>
+  <h2 class="sec-title">Figma MCP — the file becomes <em>queryable</em></h2>
+  <p class="sec-intro">The Model Context Protocol is a wire protocol: a standard way for a program that holds context (Figma) to expose it to a program that reasons (Claude, Cursor). It turns your design file from something an agent <em>looks at and guesses</em> into something it <em>asks and gets an answer</em>. This is your resume's Dev Mode / Code Connect claim, upgraded.</p>
+  <div class="pills">
+    <span class="pill new">New · Write to Canvas</span>
+    <span class="pill ga">Remote server · all plans</span>
+    <span class="pill">Local desktop server</span>
+    <span class="pill">Code Connect</span>
+  </div>
+
+  <div class="card">
+    <div class="block">
+      <h3>Where it stands</h3>
+      <ul>
+        <li><strong>Two servers.</strong> A <strong>remote</strong> one Figma hosts at <code>mcp.figma.com/mcp</code> — works on <em>every</em> plan including free Starter, needs only an account and a personal-access token with <code>file:read</code>. And a <strong>local desktop</strong> server at <code>127.0.0.1:3845/mcp</code> that runs beside the Figma desktop app.</li>
+        <li><strong>What it exposes.</strong> <code>get_design_context</code> (structured design → code), <code>get_variable_defs</code> (your tokens/variables), <code>get_code_connect_map</code>, <code>get_metadata</code>, <code>get_screenshot</code>. The remote server also creates files, uploads assets, searches your design system, and turns live web UI into editable Figma layers.</li>
+        <li><strong>Write to Canvas (the new frontier).</strong> Agents now <em>build and update</em> frames, components, variables and auto-layout in your file — using your design system as the source of truth. Free during beta, for Full and Dev seats on paid plans. This is the moment MCP stopped being read-only.</li>
+        <li><strong>Code Connect</strong> is the piece that matters most for you: it makes generated code use your <em>actual</em> components, imports and prop interfaces — not an invented <code>&lt;Btn&gt;</code> when your repo has <code>&lt;Button intent&gt;</code>.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Learn it by doing <span class="mk">this week</span></h3>
+      <ol>
+        <li>Point Claude Code at one real Figma file (a Verizon frame). Run <code>get_metadata</code>, then <code>get_design_context</code>. Save both to <code>notes/</code> — read what the agent actually receives.</li>
+        <li>Run <code>get_variable_defs</code> on a properly tokened file. <em>Diff what comes back against what you thought was in there.</em> The gaps are the lesson.</li>
+        <li>Wire <strong>one</strong> component end-to-end with Code Connect. Any component. The first mapping is the whole concept.</li>
+        <li>Try Write to Canvas: prompt an agent to build a small frame constrained to your variables. Note what it got right and where it drifted.</li>
+      </ol>
+    </div>
+    <div class="block">
+      <h3>Say it in an interview</h3>
+      <div class="say"><div class="q">"Why does MCP matter for design systems?"</div>
+      <p>"For twenty years the design-to-dev handoff was lossy by design — someone re-typed decisions between two systems with no shared vocabulary. MCP closes it by making the file queryable instead of viewable. It's the token argument — decisions live in one place and get consumed, never re-typed — extended past the boundary of the design tool."</p></div>
+    </div>
+    <div class="block">
+      <h3>Follow</h3>
+      <div class="follow">
+        <a href="https://www.figma.com/blog/introducing-figma-mcp-server/">Figma · MCP announcement</a>
+        <a href="https://help.figma.com/hc/en-us/articles/32132100833559-Guide-to-the-Figma-MCP-server">Figma Learn · MCP guide</a>
+        <a href="https://github.com/figma/mcp-server-guide">GitHub · figma/mcp-server-guide</a>
+        <a href="https://modelcontextprotocol.io">modelcontextprotocol.io</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PILLAR 2 — FIGMA MAKE ═══ -->
+<section id="make">
+  <div class="eyebrow"><span>Pillar · Prompt-to-app</span><span class="tag">02</span></div>
+  <h2 class="sec-title">Figma Make — assessed, <em>not hyped</em></h2>
+  <p class="sec-intro">Make generates working screens and apps from a prompt. It's now generally available — which means the interview question is no longer "have you seen it?" but "what's your <em>position</em> on it?" Have a real one, not a shrug. That's the entire differentiator here.</p>
+  <div class="pills">
+    <span class="pill ga">Generally available</span>
+    <span class="pill beta">Publishing · still beta</span>
+    <span class="pill">Credit-metered</span>
+  </div>
+
+  <div class="card">
+    <div class="block">
+      <h3>Where it stands</h3>
+      <ul>
+        <li><strong>Out of beta.</strong> Make — along with Edit Image and Boost Resolution — moved to general availability. <em>Publishing</em> Make files is still beta, unlocked for Full seats.</li>
+        <li><strong>The credit model is the real constraint.</strong> Starter plan: 500 credits/month, capped at 150/day — enough to poke, not to iterate on real work. Professional Full seat (~$16/mo annual) gives ~3,000 credits/month, which covers most single-user prototype work. Shipping Make output into a codebase is free during beta; standard credit usage applies once the agent goes GA.</li>
+        <li><strong>The honest limit.</strong> Expect roughly a 70–80% structural match — great for validating a concept, expensive and imperfect for production component work. Iteration burns credits fast.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Learn it by doing <span class="mk">this week</span></h3>
+      <ol>
+        <li>Generate one screen from a prompt. Time it. Note the first thing you'd have to fix.</li>
+        <li>Regenerate the same screen <em>constrained to your tokens</em>. Where does it drift off-system? That drift is your governance story.</li>
+        <li>Push output toward a real codebase and measure the last mile — the gap between "looks right" and "is right" is exactly what you get paid to close.</li>
+      </ol>
+    </div>
+    <div class="block">
+      <h3>Say it in an interview</h3>
+      <div class="say"><div class="q">"What's your take on Figma Make?"</div>
+      <p>"I reach for it to validate a concept or throw a prototype in front of stakeholders in an afternoon — where the ~80% match is a feature, not a flaw. I refuse it for production component work, because the last 20% is the part a design system exists to guarantee. It compresses the front of the process; it doesn't replace the governance at the back."</p></div>
+    </div>
+    <div class="block">
+      <h3>Follow</h3>
+      <div class="follow">
+        <a href="https://www.figma.com/blog/figma-make-general-availability/">Figma · Make is GA</a>
+        <a href="https://help.figma.com/hc/en-us/articles/33459875669015-How-AI-credits-work">Figma Learn · How AI credits work</a>
+        <a href="https://www.figma.com/pricing-faq/">Figma · Pricing FAQ</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PILLAR 3 — VIBE CODING ═══ -->
+<section id="vibe">
+  <div class="eyebrow"><span>Pillar · Directing the machine</span><span class="tag">03</span></div>
+  <h2 class="sec-title">AI vibe coding — the <em>orchestrator's</em> craft</h2>
+  <p class="sec-intro">The mechanical skill of typing code is being commoditized. The intellectual skill — system design, orchestration, critical review — is where the value moved. For a <em>designer</em> who can direct an agent and judge what it produces, this is the single biggest differentiator you can hold in 2026.</p>
+  <div class="pills">
+    <span class="pill">Claude Code</span>
+    <span class="pill">Cursor</span>
+    <span class="pill">Codex</span>
+    <span class="pill new">Blended workflows are the norm</span>
+  </div>
+
+  <div class="card">
+    <div class="block">
+      <h3>Where it stands</h3>
+      <ul>
+        <li><strong>The tool landscape.</strong> <em>Cursor</em> — AI-native IDE, deep repo awareness, multi-file refactors, inline diffs. <em>Claude Code</em> — terminal-native agent, best for repo-wide refactors and architecture, handles 50k+ LOC codebases reliably. <em>Codex</em> — reached for where raw model depth matters. The practitioner consensus is a <strong>blended workflow</strong>, not loyalty to one.</li>
+        <li><strong>The workflow underneath.</strong> Clear intent → small changes → honest review → knowing how to catch the AI when it drifts. That loop is the skill, independent of tool.</li>
+        <li><strong>What's actually valued now.</strong> System design, AI orchestration, security judgment, domain knowledge. Whoever can direct agents and <em>critically review generated code</em> is in higher demand than whoever types fastest.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Learn it by doing <span class="mk slate">ongoing</span></h3>
+      <ul>
+        <li>Build one small thing end-to-end in an agent — <em>you are doing it right now.</em> This field guide was generated in Claude Code. That's the artifact and the proof.</li>
+        <li>Practice the loop deliberately: plan → one small diff → review → correct. Resist the big-bang generate.</li>
+        <li>Keep a running <strong>"where the AI drifted"</strong> log. Each entry is an interview story about judgment — the thing they're actually screening for.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Say it in an interview</h3>
+      <div class="say"><div class="q">"How do you work with AI coding tools?"</div>
+      <p>"As the orchestrator, not the typist. I give clear intent, keep changes small, and review honestly — I've learned where these agents drift, so I catch it. As a designer that's my edge: I can wire the design system into the agent through MCP and Code Connect, then judge whether what comes out is actually on-system. The typing is commoditized; the judgment isn't."</p></div>
+    </div>
+    <div class="block">
+      <h3>Follow</h3>
+      <div class="follow">
+        <a href="https://docs.claude.com/en/docs/claude-code/overview">Claude Code docs</a>
+        <a href="https://www.anthropic.com/news">Anthropic · news &amp; changelog</a>
+        <a href="https://appwrite.io/blog/post/comparing-vibe-coding-tools">Appwrite · tools compared 2026</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PILLAR 4 — DESIGN SYSTEMS 2026 ═══ -->
+<section id="systems">
+  <div class="eyebrow"><span>Pillar · The ground you already own</span><span class="tag">04</span></div>
+  <h2 class="sec-title">Design systems in 2026 — now <em>consumed by agents</em></h2>
+  <p class="sec-intro">Everything you already know here still holds — but the consumer changed. Your system is no longer read only by humans; it's queried by agents. Naming, machine-readability, and drift are the new governance frontier, and they map directly onto your tokens and governance claims.</p>
+  <div class="pills">
+    <span class="pill new">DTCG token standard</span>
+    <span class="pill">MCP as machine-readable docs</span>
+    <span class="pill">Autonomous drift agents</span>
+    <span class="pill">A11y baked into tokens</span>
+  </div>
+
+  <div class="card">
+    <div class="block">
+      <h3>Where it stands</h3>
+      <ul>
+        <li><strong>Proprietary naming is out.</strong> Teams are standardizing on the <strong>Design Tokens Community Group (DTCG)</strong> JSON format for tool interoperability. Tokens are now the JSON an agent references every time it generates something.</li>
+        <li><strong>Docs became a machine-readable intelligence hub.</strong> Via MCP, agents "understand" your system and generate code, tickets and docs that are 100% on-system in real time. Documentation that a machine can't parse is now a liability.</li>
+        <li><strong>Autonomous drift detection.</strong> The leading edge is agents that watch the system across Figma, Jira and GitHub — spotting design drift before it reaches production, and correcting it without a prompt.</li>
+        <li><strong>Accessibility is foundational, not a review step.</strong> With the European Accessibility Act in force (June 2025), a11y constraints are being built into the tokens themselves.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Learn it by doing <span class="mk">this week</span></h3>
+      <ol>
+        <li>Take one token set and restructure it into clean DTCG JSON — primitive → semantic → component. Notice what your old naming can't express.</li>
+        <li>Bake one accessibility constraint (a contrast floor) into a semantic token so it can't be violated downstream.</li>
+        <li>Write down, in a paragraph, how an agent would detect drift in a system you've built. That paragraph is a senior-level interview answer.</li>
+      </ol>
+    </div>
+    <div class="block">
+      <h3>Say it in an interview</h3>
+      <div class="say"><div class="q">"What's changed about design systems?"</div>
+      <p>"The consumer. A system used to be read by designers and engineers; now it's queried by agents. That makes machine-readability a first-class governance concern — DTCG naming, tokens as JSON, docs exposed over MCP. My governance instincts didn't change; the interface for them did. Detach rate is still my health signal — now drift detection can be automated against it."</p></div>
+    </div>
+    <div class="block">
+      <h3>Follow</h3>
+      <div class="follow">
+        <a href="https://www.supernova.io/blog/the-future-of-enterprise-design-systems-2026-trends-and-tools-for-success">Supernova · 2026 enterprise trends</a>
+        <a href="https://tr.designtokens.org/">DTCG · token spec</a>
+        <a href="https://www.designsystems.com/">designsystems.com</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PILLAR 5 — THE LOOP ═══ -->
+<section id="loop">
+  <div class="eyebrow"><span>Pillar · Putting it together</span><span class="tag">05</span></div>
+  <h2 class="sec-title">The Figma loop — <em>streamlining the real work</em></h2>
+  <p class="sec-intro">The four pillars above aren't separate skills — they're one loop. Design → code → design, with the design system wired in as the source of truth at every step. Being able to describe and run this loop end-to-end is what "AI-augmented contribution" actually means on your resume.</p>
+
+  <div class="card">
+    <div class="block">
+      <h3>The loop, concretely</h3>
+      <ul>
+        <li><strong>Design → code.</strong> Agent pulls a frame over MCP (<code>get_design_context</code> + <code>get_variable_defs</code>), Code Connect ensures it emits your real components. You review the drift.</li>
+        <li><strong>Code → design.</strong> Write to Canvas pushes structure back into Figma, or turns live web UI into editable layers. You check what survived the round-trip.</li>
+        <li><strong>System watches both.</strong> Drift-detection agents span Figma / Jira / GitHub and flag when either side wanders off-system before it ships.</li>
+      </ul>
+    </div>
+    <div class="block">
+      <h3>Learn it by doing <span class="mk">real reps</span></h3>
+      <ol>
+        <li>Run the full loop once on a real frame. Log the <strong>three failure modes you actually hit</strong> — those are your best interview stories, because they're specific and they're yours.</li>
+        <li>Write your "AI-augmented contribution pattern" as a concrete procedure, not a buzzword: who reviews agent-authored components, what gate they pass, how a token change propagates.</li>
+      </ol>
+    </div>
+    <div class="block">
+      <h3>Say it in an interview</h3>
+      <div class="say"><div class="q">"How would you wire a design system to an AI coding agent?"</div>
+      <p>"Three moves. Expose the system over MCP so the agent queries tokens and context instead of guessing from a screenshot. Wire Code Connect so generated code uses our real components and prop interfaces. Then treat agent-authored contributions like any other PR — same review gate, same versioning — with drift detection watching the seam between design and code. The agent speeds the work; the governance is unchanged."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STAY CURRENT ═══ -->
+<section id="current">
+  <div class="eyebrow"><span>The system · How you stay ahead</span><span class="tag">Cadence</span></div>
+  <h2 class="sec-title">Staying current is a <em>cadence</em>, not a scramble</h2>
+  <p class="sec-intro">You already have the engine: a launchd agent fires <code>bin/daily-update.sh</code> every weekday at 6:07am, checks these exact sources for real changes, writes the day's unit, and republishes your dashboard. Your job is the 15 minutes. Here's the rhythm around it.</p>
+
+  <div class="cadence">
+    <div class="cad">
+      <div class="when">Every weekday · 15 min</div>
+      <h4>The loop</h4>
+      <p>Open the <a href="dashboard.html">daily dashboard</a>. Brief (3m) · Drill (9m) · Recall (3m). End by having <em>done</em> something — a note, a mapping, a screenshot.</p>
+      <ul>
+        <li>The drill always produces an artifact</li>
+        <li>Only you raise a confidence score</li>
+        <li>Miss a day — don't backfill</li>
+      </ul>
+    </div>
+    <div class="cad">
+      <div class="when">Weekly · Friday</div>
+      <h4>The proof</h4>
+      <p>Each week ends with one out-loud test: explain the week's idea in 90 seconds, no notes. Stall and you're a 3, not a 4.</p>
+      <ul>
+        <li>Skim the Figma release notes</li>
+        <li>Read one Claude Code changelog entry</li>
+        <li>Bank one new "where it drifted" story</li>
+      </ul>
+    </div>
+    <div class="cad">
+      <div class="when">Monthly · Audit</div>
+      <h4>The map</h4>
+      <p>Open the claim-coverage map. Every resume line should sit at 4+. Anything highlighted is an interview risk you fix before applying.</p>
+      <ul>
+        <li>Re-read the DTCG spec for changes</li>
+        <li>Check EAA / WCAG 2.2 movement</li>
+        <li>Rewrite one interview answer sharper</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="block">
+      <h3>The sources the agent watches — and you should too</h3>
+      <div class="grid2">
+        <div>
+          <p style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin-bottom:10px">Figma &amp; design</p>
+          <div class="follow">
+            <a href="https://www.figma.com/blog/">Figma Blog</a>
+            <a href="https://www.figma.com/release-notes/">Figma Release Notes</a>
+            <a href="https://forum.figma.com/">Figma Forum · product updates</a>
+            <a href="https://www.supernova.io/blog">Supernova Blog</a>
+          </div>
+        </div>
+        <div>
+          <p style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--slate);margin-bottom:10px">AI &amp; protocol</p>
+          <div class="follow">
+            <a href="https://www.anthropic.com/news">Anthropic News</a>
+            <a href="https://docs.claude.com/en/docs/claude-code/overview">Claude Code Docs</a>
+            <a href="https://modelcontextprotocol.io">MCP Spec</a>
+            <a href="https://tr.designtokens.org/">DTCG Spec</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INTERVIEW PREP ═══ -->
+<section id="interview">
+  <div class="eyebrow"><span>Rapid-fire · Have the answer ready</span><span class="tag">Prep</span></div>
+  <h2 class="sec-title">The questions you'll <em>actually get</em></h2>
+  <p class="sec-intro">Tap each to reveal a crisp answer — the kind you can deliver in 20–30 seconds without hedging. Read them until they're yours, then close the guide and say them out loud.</p>
+
+  <div class="qa">
+    <details>
+      <summary><span class="mrk">Q1</span>What is MCP, in one sentence, to a skeptical engineering director?</summary>
+      <div class="ans"><p>"It's a wire protocol that lets an AI agent query a design file directly — asking what a component <em>is</em> instead of guessing from a picture — so the design-to-code handoff stops being a re-typing exercise."</p></div>
+    </details>
+    <details>
+      <summary><span class="mrk">Q2</span>What's your position on Figma Make?</summary>
+      <div class="ans"><p>"Reach for it to validate concepts and prototype fast, where an 80% match is a feature. Refuse it for production component work, where the last 20% is the whole point of having a design system. It compresses the front of the process, not the governance at the back."</p></div>
+    </details>
+    <details>
+      <summary><span class="mrk">Q3</span>How do you work with AI coding agents as a designer?</summary>
+      <div class="ans"><p>"As the orchestrator. Clear intent, small changes, honest review. My edge is that I can wire the design system into the agent through MCP and Code Connect, then judge whether the output is actually on-system. The typing is commoditized; the judgment isn't."</p></div>
+    </details>
+    <details>
+      <summary><span class="mrk">Q4</span>What has changed about design systems in the last year?</summary>
+      <div class="ans"><p>"The consumer. Systems used to be read by people; now they're queried by agents. That makes machine-readability a governance concern — DTCG naming, tokens as JSON, docs over MCP. My governance instincts are the same; the interface for them changed."</p></div>
+    </details>
+    <details>
+      <summary><span class="mrk">Q5</span>Walk me through wiring a design system to an AI coding agent.</summary>
+      <div class="ans"><p>"Expose the system over MCP so the agent queries tokens instead of guessing. Wire Code Connect so it emits our real components and prop interfaces. Then treat agent-authored work like any PR — same review gate, same versioning — with drift detection watching the design-code seam."</p></div>
+    </details>
+    <details>
+      <summary><span class="mrk">Q6</span>Tell me about a time an AI tool got something wrong.</summary>
+      <div class="ans"><p><em>This is why you keep the "where it drifted" log.</em> Pick a specific, real instance: the agent invented a prop, or pulled a hard-coded color instead of the token. Say what you caught, how you caught it, and what gate you'd add so it can't recur. Specificity is the whole answer.</p></div>
+    </details>
+  </div>
+</section>
+
+<!-- ═══ CHEAT SHEET ═══ -->
+<section id="cheat">
+  <div class="eyebrow"><span>Daily driver · Claude Code in the terminal</span><span class="tag">Cheat sheet</span></div>
+  <h2 class="sec-title">The terminal, <em>demystified</em></h2>
+  <p class="sec-intro">You're already using Claude Code — the terminal is just the same tool with a plainer face. 95% of the time you type normal sentences, like you do in the app. The rest is a handful of shortcuts. Here's all of it on one screen. Launch it with <code>cd</code> into your project, then <code>claude</code>.</p>
+
+  <div class="card">
+    <div class="block">
+      <h3>The seven you'll actually use <span class="mk">type <code>/</code> to see the menu</span></h3>
+      <div class="cmd-grid">
+        <div class="cmd"><span class="c">/help</span><span class="d">Lists everything. Your safety net — <b>start here anytime.</b></span></div>
+        <div class="cmd"><span class="c">/clear</span><span class="d">Wipes the conversation for a <b>fresh start</b>. Use it when you switch tasks so old context doesn't bleed in.</span></div>
+        <div class="cmd"><span class="c">/model</span><span class="d">Switch which Claude you're talking to — <b>Opus for depth, a faster one for quick edits.</b></span></div>
+        <div class="cmd"><span class="c">/init</span><span class="d">Scans the project and writes a <b>CLAUDE.md</b> so every future session starts smarter. Run once per project.</span></div>
+        <div class="cmd"><span class="c">/resume</span><span class="d">Reopen a <b>past conversation</b> instead of starting over.</span></div>
+        <div class="cmd"><span class="c">/cost</span><span class="d">Shows how much you've <b>used this session.</b></span></div>
+        <div class="cmd"><span class="c">/exit</span><span class="d">Leaves Claude Code. Or press <kbd>Ctrl</kbd> + <kbd>C</kbd> twice.</span></div>
+        <div class="cmd"><span class="c">/config · /mcp · /agents</span><span class="d">Settings panels — <b>ignore on day one</b>, peek later when curious.</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>Keyboard basics <span class="mk slate">these trip up everyone</span></h3>
+      <div class="keyrow">
+        <div class="kr"><kbd>Enter</kbd><span class="kd"><b>Send</b> your message.</span></div>
+        <div class="kr"><kbd>Esc</kbd><span class="kd"><b>Interrupt</b> mid-response if it's going the wrong way.</span></div>
+        <div class="kr"><kbd>↑</kbd><span class="kd">Scroll back through <b>things you typed before.</b></span></div>
+        <div class="kr"><kbd>@</kbd><span class="kd">File picker — point at a <b>specific file</b> to work on.</span></div>
+        <div class="kr"><kbd>Ctrl</kbd> + <kbd>C</kbd><span class="kd">Twice to <b>quit</b> the session.</span></div>
+        <div class="kr"><span class="kd">Drag a file in, or paste its path, and it <b>reads the file.</b></span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h3>The one idea that matters</h3>
+      <p class="big-idea">Talk to it in normal sentences — "open the field guide and add a section about X." The slash commands are just housekeeping. Plain English is the real interface.</p>
+    </div>
+
+    <div class="block">
+      <h3>Your starter sequence <span class="mk">copy, paste, go</span></h3>
+      <p>Open Terminal (<kbd>⌘</kbd> + <kbd>Space</kbd>, type "Terminal"), then:</p>
+      <div class="starter"><span class="c2"># jump into this project and launch</span><br>
+cd "/Users/mikelrosenthal/PitchBlacKnight/CLAUDE CODE" &amp;&amp; claude<br><br>
+<span class="c2"># then, inside Claude Code:</span><br>
+<span class="p">/help</span>   <span class="c2">← read the list, close it</span><br>
+summarize what the knowledge folder does   <span class="c2">← just talk to it</span></div>
+      <p class="note">That's the entire learning curve. Everything you did building this guide, you can do from here too.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Field Guide · PitchBlacKnight</span>
+  <span><a href="dashboard.html">Daily dashboard →</a></span>
+  <span>Reference · not auto-generated · edit by hand</span>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('nav a'));
+  var secs=links.map(function(a){return document.querySelector(a.getAttribute('href'));});
+  if(!('IntersectionObserver' in window))return;
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var id='#'+e.target.id;
+        links.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')===id);});
+      }
+    });
+  },{rootMargin:'-20% 0px -70% 0px'});
+  secs.forEach(function(s){if(s)io.observe(s);});
+})();
+</script>
+</body></html>

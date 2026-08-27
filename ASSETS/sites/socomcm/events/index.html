@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events &amp; Programs — SoCoMCM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #111008;
+  --panel: #1C1910;
+  --panel-2: #251F12;
+  --border: #3A3220;
+  --orange: #E8622A;
+  --teal: #3DB8A4;
+  --mustard: #F0C040;
+  --cream: #F5EDD6;
+  --text: #D4CAB4;
+  --text-dim: #7A7060;
+  --purple: #9B7FD4;
+  --font-head: "Space Grotesk", sans-serif;
+  --font-mono: "Space Mono", monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-head);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ─── HEADER ──────────────────────────────────────────────── */
+#header {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  flex-shrink: 0;
+}
+
+#header::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--orange) 0%, var(--teal) 50%, var(--mustard) 100%);
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo-mark { width: 32px; height: 32px; flex-shrink: 0; }
+.logo-mark svg { width: 100%; height: 100%; }
+
+.header-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--cream);
+  line-height: 1.1;
+}
+
+.header-subtitle {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-top: 2px;
+}
+
+.header-divider {
+  width: 1px;
+  height: 32px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+.header-nav {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+
+.nav-link {
+  color: var(--text-dim);
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 2px;
+  transition: color 0.15s, background 0.15s;
+  white-space: nowrap;
+}
+
+.nav-link:hover { color: var(--text); background: var(--panel-2); }
+
+.nav-link.active {
+  color: var(--orange);
+  background: color-mix(in srgb, var(--orange) 10%, transparent);
+}
+
+/* ─── HERO ───────────────────────────────────────────────── */
+.page-hero {
+  background: var(--panel);
+  border-bottom: 1px solid var(--border);
+  padding: 64px 24px 56px;
+  text-align: center;
+}
+
+.page-hero-tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  margin-bottom: 16px;
+}
+
+.page-hero h1 {
+  font-size: clamp(28px, 5vw, 48px);
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.page-hero p {
+  font-size: 17px;
+  color: var(--text-dim);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.5;
+}
+
+/* ─── MAIN LAYOUT ─────────────────────────────────────────── */
+main {
+  flex: 1;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 60px 24px 80px;
+}
+
+/* ─── SECTION HEADERS ─────────────────────────────────────── */
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+}
+
+/* ─── FILTER TABS ─────────────────────────────────────────── */
+.filter-bar {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--text-dim) 50%, transparent);
+}
+
+.filter-btn.active {
+  background: var(--panel-2);
+  color: var(--cream);
+  border-color: var(--border);
+}
+
+.filter-btn[data-type="tour"].active   { color: var(--orange); border-color: var(--orange); background: color-mix(in srgb, var(--orange) 8%, var(--panel)); }
+.filter-btn[data-type="meeting"].active { color: var(--teal);   border-color: var(--teal);   background: color-mix(in srgb, var(--teal) 8%, var(--panel)); }
+.filter-btn[data-type="lecture"].active { color: var(--mustard); border-color: var(--mustard); background: color-mix(in srgb, var(--mustard) 8%, var(--panel)); }
+.filter-btn[data-type="walk"].active    { color: var(--purple); border-color: var(--purple); background: color-mix(in srgb, var(--purple) 8%, var(--panel)); }
+
+/* ─── EVENT CARDS ─────────────────────────────────────────── */
+.events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 56px;
+}
+
+.event-card {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+
+.event-card:hover {
+  border-color: color-mix(in srgb, var(--text-dim) 50%, transparent);
+}
+
+.event-card[data-type="tour"]    { border-left: 3px solid var(--orange); }
+.event-card[data-type="meeting"] { border-left: 3px solid var(--teal); }
+.event-card[data-type="lecture"] { border-left: 3px solid var(--mustard); }
+.event-card[data-type="walk"]    { border-left: 3px solid var(--purple); }
+
+/* Date block */
+.event-date-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 8px;
+  background: var(--panel-2);
+  border-right: 1px solid var(--border);
+  gap: 2px;
+}
+
+.event-month {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.event-day {
+  font-family: var(--font-mono);
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--cream);
+}
+
+/* Body */
+.event-body {
+  padding: 20px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.event-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.event-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--cream);
+  line-height: 1.25;
+}
+
+.event-badge {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 100px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+[data-type="tour"]    .event-badge { color: var(--orange); background: color-mix(in srgb, var(--orange) 12%, transparent); border: 1px solid color-mix(in srgb, var(--orange) 30%, transparent); }
+[data-type="meeting"] .event-badge { color: var(--teal);   background: color-mix(in srgb, var(--teal) 12%, transparent);   border: 1px solid color-mix(in srgb, var(--teal) 30%, transparent); }
+[data-type="lecture"] .event-badge { color: var(--mustard); background: color-mix(in srgb, var(--mustard) 12%, transparent); border: 1px solid color-mix(in srgb, var(--mustard) 30%, transparent); }
+[data-type="walk"]    .event-badge { color: var(--purple); background: color-mix(in srgb, var(--purple) 12%, transparent); border: 1px solid color-mix(in srgb, var(--purple) 30%, transparent); }
+
+.event-meta {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.event-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.event-meta-icon {
+  opacity: 0.5;
+  font-size: 11px;
+}
+
+.event-desc {
+  font-size: 14px;
+  color: var(--text);
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+
+.event-rsvp {
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 7px 16px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: all 0.15s;
+}
+
+.event-rsvp:hover {
+  color: var(--cream);
+  border-color: var(--text-dim);
+  background: var(--panel-2);
+}
+
+[data-type="tour"]    .event-rsvp:hover { color: var(--orange); border-color: var(--orange); }
+[data-type="meeting"] .event-rsvp:hover { color: var(--teal);   border-color: var(--teal); }
+[data-type="lecture"] .event-rsvp:hover { color: var(--mustard); border-color: var(--mustard); }
+[data-type="walk"]    .event-rsvp:hover { color: var(--purple); border-color: var(--purple); }
+
+/* ─── EMPTY STATE ─────────────────────────────────────────── */
+.events-empty {
+  text-align: center;
+  padding: 56px 24px;
+  border: 1px dashed var(--border);
+  border-radius: 3px;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  display: none;
+}
+
+/* ─── PAST EVENTS ─────────────────────────────────────────── */
+.past-section {
+  margin-bottom: 56px;
+}
+
+.past-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: left;
+}
+
+.past-toggle-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.past-toggle-count {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  background: var(--panel-2);
+  border: 1px solid var(--border);
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+
+.past-toggle-arrow {
+  margin-left: auto;
+  font-size: 10px;
+  color: var(--text-dim);
+  transition: transform 0.2s;
+}
+
+.past-toggle[aria-expanded="true"] .past-toggle-arrow {
+  transform: rotate(180deg);
+}
+
+.past-events-list {
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.past-events-list.open { display: flex; }
+
+.event-card.past {
+  opacity: 0.55;
+}
+
+.event-card.past .event-day {
+  color: var(--text-dim);
+}
+
+/* ─── HOW EVENTS WORK ─────────────────────────────────────── */
+.how-section {
+  margin-bottom: 56px;
+}
+
+.how-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 4px;
+}
+
+.how-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 24px 20px;
+}
+
+.how-card-icon {
+  font-size: 22px;
+  margin-bottom: 14px;
+  display: block;
+  line-height: 1;
+}
+
+.how-card-label {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.how-card[data-type="tour"]    .how-card-label { color: var(--orange); }
+.how-card[data-type="meeting"] .how-card-label { color: var(--teal); }
+.how-card[data-type="walk"]    .how-card-label { color: var(--purple); }
+
+.how-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+
+.how-card p {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+/* ─── MAILING LIST CTA ────────────────────────────────────── */
+.cta-block {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--mustard);
+  border-radius: 3px;
+  padding: 32px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 0;
+}
+
+.cta-copy {}
+
+.cta-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--mustard);
+  margin-bottom: 8px;
+}
+
+.cta-heading {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+
+.cta-text {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.55;
+}
+
+.cta-action {
+  flex-shrink: 0;
+}
+
+.cta-btn {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 13px 24px;
+  background: var(--mustard);
+  color: var(--bg);
+  text-decoration: none;
+  border-radius: 2px;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+
+.cta-btn:hover { opacity: 0.88; }
+
+/* ─── FOOTER ──────────────────────────────────────────────── */
+footer {
+  background: var(--panel);
+  border-top: 1px solid var(--border);
+  padding: 28px 24px;
+  text-align: center;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  font-family: var(--font-mono);
+}
+
+footer a { color: var(--text-dim); text-decoration: none; }
+footer a:hover { color: var(--text); }
+
+/* ─── DIVIDER ─────────────────────────────────────────────── */
+.section-divider {
+  height: 1px;
+  background: var(--border);
+  margin-bottom: 48px;
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────────── */
+@media (max-width: 700px) {
+  #header {
+    height: auto;
+    min-height: 56px;
+    padding: 12px 16px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .header-divider { display: none; }
+  .header-nav {
+    width: 100%;
+    margin-left: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    gap: 2px;
+    flex-wrap: wrap;
+  }
+  .nav-link { padding: 5px 8px; font-size: 10px; }
+  .page-hero { padding: 40px 20px 36px; }
+
+  main { padding: 40px 16px 60px; }
+
+  .event-card {
+    grid-template-columns: 60px 1fr;
+  }
+  .event-day { font-size: 30px; }
+  .event-body { padding: 16px 16px; }
+  .event-title { font-size: 15px; }
+  .event-top { flex-direction: column; gap: 6px; }
+
+  .how-grid { grid-template-columns: 1fr; }
+
+  .cta-block {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 24px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .event-card {
+    grid-template-columns: 1fr;
+  }
+  .event-date-block {
+    flex-direction: row;
+    justify-content: flex-start;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    gap: 8px;
+  }
+  .event-day { font-size: 22px; }
+  .event-month { font-size: 10px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════════════ -->
+<header id="header">
+  <a class="header-logo" href="/">
+    <div class="logo-mark">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="15" stroke="#3A3220" stroke-width="1"/>
+        <circle cx="16" cy="16" r="4" fill="#E8622A"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#E8622A" stroke-width="1" stroke-opacity="0.6" transform="rotate(30 16 16)"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#3DB8A4" stroke-width="1" stroke-opacity="0.6" transform="rotate(-30 16 16)"/>
+        <ellipse cx="16" cy="16" rx="14" ry="5.5" stroke="#F0C040" stroke-width="1" stroke-opacity="0.4" transform="rotate(90 16 16)"/>
+      </svg>
+    </div>
+    <div>
+      <div class="header-title">SoCoMCM</div>
+      <div class="header-subtitle">South Cook County</div>
+    </div>
+  </a>
+  <div class="header-divider"></div>
+  <nav class="header-nav">
+    <a class="nav-link" href="/">Home</a>
+    <a class="nav-link" href="/map/">Map</a>
+    <a class="nav-link" href="/browse/">Browse</a>
+    <a class="nav-link active" href="/events/">Events</a>
+    <a class="nav-link" href="/architects/">Architects</a>
+    <a class="nav-link" href="/about/">About</a>
+    <a class="nav-link" href="/resources/">Resources</a>
+  </nav>
+</header>
+
+<!-- ═══ HERO ══════════════════════════════════════════════════ -->
+<section class="page-hero">
+  <div class="page-hero-tag">Gatherings &amp; Tours</div>
+  <h1>Events &amp; Programs</h1>
+  <p>House tours, research meetings, architecture walks, and public lectures across Chicago's south suburbs — open to members and the public.</p>
+</section>
+
+<!-- ═══ MAIN ══════════════════════════════════════════════════ -->
+<main>
+
+  <!-- ── Upcoming Events ── -->
+  <section id="upcoming-section" style="margin-bottom: 56px;">
+    <div style="margin-bottom: 24px;">
+      <span class="section-eyebrow">What's Coming Up</span>
+      <h2 class="section-title">Upcoming Events</h2>
+    </div>
+
+    <!-- Filter tabs -->
+    <div class="filter-bar" role="group" aria-label="Filter events by type">
+      <button class="filter-btn active" data-type="all">All</button>
+      <button class="filter-btn" data-type="tour">Tours</button>
+      <button class="filter-btn" data-type="meeting">Meetings</button>
+      <button class="filter-btn" data-type="walk">Walks</button>
+      <button class="filter-btn" data-type="lecture">Lectures</button>
+    </div>
+
+    <!-- Event cards injected by JS -->
+    <div class="events-list" id="upcoming-list"></div>
+    <div class="events-empty" id="upcoming-empty">No events match this filter.</div>
+  </section>
+
+  <!-- ── Past Events (collapsed) ── -->
+  <div class="past-section" id="past-section" style="display:none;">
+    <div class="section-divider"></div>
+    <button class="past-toggle" id="past-toggle" aria-expanded="false" aria-controls="past-list">
+      <span class="past-toggle-label">Past Events</span>
+      <span class="past-toggle-count" id="past-count">0</span>
+      <span class="past-toggle-arrow">▼</span>
+    </button>
+    <div class="past-events-list" id="past-list"></div>
+  </div>
+
+  <!-- ── How Events Work ── -->
+  <section class="how-section">
+    <div class="section-divider"></div>
+    <div style="margin-bottom: 24px;">
+      <span class="section-eyebrow">Participation</span>
+      <h2 class="section-title">How Events Work</h2>
+    </div>
+    <div class="how-grid">
+      <div class="how-card" data-type="tour">
+        <span class="how-card-icon">🏠</span>
+        <div class="how-card-label">House Tours &amp; Social Events</div>
+        <h3>Members &amp; Public</h3>
+        <p>Home tours, cocktail receptions, and annual parties open the region's finest MCM residences to members and the public. Some events are members-only with limited capacity — join the mailing list to stay informed.</p>
+      </div>
+      <div class="how-card" data-type="meeting">
+        <span class="how-card-icon">🎄</span>
+        <div class="how-card-label">Member Gatherings</div>
+        <h3>For the SoCoMCM Community</h3>
+        <p>Annual celebrations, holiday pick-ups, and informal gatherings bring the membership together at member homes and curated venues. Members receive first notice and priority access to ticketed events.</p>
+      </div>
+      <div class="how-card" data-type="lecture" style="--card-accent: var(--mustard);">
+        <span class="how-card-icon">🎙</span>
+        <div class="how-card-label">Lectures &amp; Education</div>
+        <h3>Free &amp; Open to the Public</h3>
+        <p>Our lecture series covers historic landmark designation, architectural history, renovation tactics, and landscape planning — presented by leading experts. Free admission. The public is always welcome.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Mailing List CTA ── -->
+  <div class="cta-block">
+    <div class="cta-copy">
+      <div class="cta-eyebrow">Stay in the Loop</div>
+      <div class="cta-heading">Get Notified About New Events</div>
+      <p class="cta-text">Join the SoCoMCM mailing list to receive announcements for house tours, lectures, photography walks, and research meetings as soon as they're scheduled.</p>
+    </div>
+    <div class="cta-action">
+      <a class="cta-btn" href="mailto:soco@socomcm.org?subject=Add%20me%20to%20the%20SoCoMCM%20mailing%20list">Join Mailing List</a>
+    </div>
+  </div>
+
+</main>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════ -->
+<footer>
+  <span>SoCoMCM &mdash; South Cook County Mid-Century Modern</span>
+  &nbsp;&nbsp;·&nbsp;&nbsp;
+  <a href="mailto:soco@socomcm.org">soco@socomcm.org</a>
+</footer>
+
+<!-- ═══ SCRIPT ════════════════════════════════════════════════ -->
+<script>
+const EVENTS = [
+  {
+    title: "Sound Bath at the Rockwell House",
+    date: "2026-05-31",
+    time: "3:00 PM",
+    location: "Rockwell House, Chicago",
+    description: "A 90-minute outdoor sound bath combining gentle yoga and calming sound therapy on the grounds of this landmark glass house. Members only — limited spots.",
+    type: "tour",
+    tickets: "Members Only",
+    ticketUrl: "https://www.zeffy.com"
+  },
+  {
+    title: "Keck & Keck Open House",
+    date: "2026-06-07",
+    time: "4:00 PM",
+    location: "1301 Saint Andrews Drive, Schererville, Indiana",
+    description: "Home tour and cocktail reception at a notable Keck & Keck residence in Briar Ridge. The architectural and preservation community is invited. RSVP details coming soon.",
+    type: "tour",
+    tickets: "RSVP Coming Soon",
+    ticketUrl: ""
+  },
+  {
+    title: "Happy Hour & Home Tour — Norton House",
+    date: "2026-06-20",
+    time: "4:00 PM",
+    location: "Norton House, Park Forest, IL",
+    description: "Tour of a Richard A. Norton–designed organic modernist home featuring sweeping views over a ravine, hosted by the original architect's son. Ticketing coming soon.",
+    type: "tour",
+    tickets: "Coming Soon",
+    ticketUrl: ""
+  },
+  {
+    title: "Annual Party & Home Tour — Pascale House",
+    date: "2026-07-25",
+    time: "3:00 PM",
+    location: "Pascale House, Olympia Fields, IL",
+    description: "Third annual celebration with a Mid-Century Italian Cinema theme at a Leo Cohen–designed home featuring a vintage television collection. Details coming soon.",
+    type: "tour",
+    tickets: "Coming Soon",
+    ticketUrl: ""
+  },
+  {
+    title: "Lecture Series 002 — Historic Registration",
+    date: "2026-09-15",
+    time: "6:30 PM",
+    location: "TBD — Southland",
+    description: "\"Demystifying Historic Registration for Properties and Districts\" — presented by Susan S. Benjamin, co-author of Modern in the Middle. Date is tentative.",
+    type: "lecture",
+    tickets: "Free",
+    ticketUrl: ""
+  },
+  {
+    title: "Exclusive House of Tomorrow Tour",
+    date: "2026-10-10",
+    time: "TBD",
+    location: "Beverly Shores, Indiana",
+    description: "Private tour of George Fred Keck's 1933 pioneering work of modern architecture, currently undergoing restoration by Indiana Landmarks. Date is tentative.",
+    type: "tour",
+    tickets: "Members Only",
+    ticketUrl: ""
+  },
+  {
+    title: "Lecture Series 003 & Annual Meeting",
+    date: "2026-11-12",
+    time: "6:30 PM",
+    location: "TBD — Southland",
+    description: "Discussion on modernism's evolution into Mid-Century Modern, followed by the annual membership meeting. Date is tentative.",
+    type: "lecture",
+    tickets: "Members",
+    ticketUrl: ""
+  },
+  {
+    title: "2026 Ornament Pick-Up & Holiday Gathering",
+    date: "2026-12-12",
+    time: "TBD",
+    location: "Member's Home — TBD",
+    description: "Informal holiday celebration at a member's home featuring curated seasonal objects. Date is tentative.",
+    type: "meeting",
+    tickets: "Members",
+    ticketUrl: ""
+  }
+];
+
+// ── helpers ──────────────────────────────────────────────────
+
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+const TYPE_LABELS = {
+  tour: "House Tour",
+  meeting: "Meeting",
+  lecture: "Lecture",
+  walk: "Walk"
+};
+
+function parseLocalDate(str) {
+  // Parse YYYY-MM-DD without timezone conversion
+  const [y, m, d] = str.split('-').map(Number);
+  return new Date(y, m - 1, d);
+}
+
+function buildCard(ev, isPast) {
+  const d = parseLocalDate(ev.date);
+  const day = d.getDate();
+  const month = MONTHS[d.getMonth()];
+  const label = TYPE_LABELS[ev.type] || ev.type;
+  const rsvpSubject = encodeURIComponent('RSVP: ' + ev.title);
+
+  // Build ticket/action button
+  let actionHtml = '';
+  if (ev.tickets === 'Members Only' && ev.ticketUrl) {
+    actionHtml = `<a class="event-rsvp" href="${ev.ticketUrl}" target="_blank" rel="noopener">Members Only — Register →</a>`;
+  } else if (ev.tickets === 'Members Only') {
+    actionHtml = `<span class="event-rsvp" style="cursor:default; opacity:0.6;">Members Only</span>`;
+  } else if (ev.tickets === 'Free') {
+    actionHtml = `<a class="event-rsvp" href="mailto:soco@socomcm.org?subject=${rsvpSubject}">Free — RSVP →</a>`;
+  } else if (ev.ticketUrl) {
+    actionHtml = `<a class="event-rsvp" href="${ev.ticketUrl}" target="_blank" rel="noopener">Get Tickets →</a>`;
+  } else if (ev.tickets && ev.tickets !== 'Coming Soon' && ev.tickets !== 'RSVP Coming Soon') {
+    actionHtml = `<a class="event-rsvp" href="mailto:soco@socomcm.org?subject=${rsvpSubject}">RSVP / Info →</a>`;
+  } else {
+    actionHtml = `<span class="event-rsvp" style="cursor:default; opacity:0.6;">${ev.tickets || 'Details Coming Soon'}</span>`;
+  }
+
+  // Ticket info label
+  const ticketLabel = ev.tickets ? `<div class="event-meta-item"><span class="event-meta-icon">◈</span><span>${ev.tickets}</span></div>` : '';
+
+  const card = document.createElement('article');
+  card.className = 'event-card' + (isPast ? ' past' : '');
+  card.dataset.type = ev.type;
+
+  card.innerHTML = `
+    <div class="event-date-block">
+      <div class="event-month">${month}</div>
+      <div class="event-day">${day}</div>
+    </div>
+    <div class="event-body">
+      <div class="event-top">
+        <div class="event-title">${ev.title}</div>
+        <div class="event-badge">${label}</div>
+      </div>
+      <div class="event-meta">
+        <div class="event-meta-item">
+          <span class="event-meta-icon">◷</span>
+          <span>${ev.time}</span>
+        </div>
+        <div class="event-meta-item">
+          <span class="event-meta-icon">◎</span>
+          <span>${ev.location}</span>
+        </div>
+        ${ticketLabel}
+      </div>
+      <p class="event-desc">${ev.description}</p>
+      ${actionHtml}
+    </div>
+  `;
+  return card;
+}
+
+// ── render ───────────────────────────────────────────────────
+
+const today = new Date('2026-05-14');
+today.setHours(0, 0, 0, 0);
+
+const sorted = [...EVENTS].sort((a, b) => parseLocalDate(a.date) - parseLocalDate(b.date));
+
+const upcoming = sorted.filter(e => parseLocalDate(e.date) >= today);
+const past     = sorted.filter(e => parseLocalDate(e.date) < today).reverse(); // most recent first
+
+const upcomingList = document.getElementById('upcoming-list');
+const upcomingEmpty = document.getElementById('upcoming-empty');
+const pastList = document.getElementById('past-list');
+const pastSection = document.getElementById('past-section');
+const pastCount = document.getElementById('past-count');
+const pastToggle = document.getElementById('past-toggle');
+
+// Render upcoming
+upcoming.forEach(ev => upcomingList.appendChild(buildCard(ev, false)));
+
+// Render past
+if (past.length > 0) {
+  pastSection.style.display = '';
+  pastCount.textContent = past.length;
+  past.forEach(ev => pastList.appendChild(buildCard(ev, true)));
+}
+
+// ── filter tabs ──────────────────────────────────────────────
+
+let activeFilter = 'all';
+
+function applyFilter(type) {
+  activeFilter = type;
+  const cards = upcomingList.querySelectorAll('.event-card');
+  let visible = 0;
+  cards.forEach(card => {
+    const match = type === 'all' || card.dataset.type === type;
+    card.style.display = match ? '' : 'none';
+    if (match) visible++;
+  });
+  upcomingEmpty.style.display = visible === 0 ? 'block' : 'none';
+}
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    applyFilter(btn.dataset.type);
+  });
+});
+
+// ── past toggle ───────────────────────────────────────────────
+
+pastToggle.addEventListener('click', () => {
+  const isOpen = pastList.classList.toggle('open');
+  pastToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+});
+</script>
+</body>
+</html>

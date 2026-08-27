@@ -1,0 +1,1743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>For David — PitchBlacKnight</title>
+
+  <!-- Open Graph / social link preview -->
+  <meta property="og:type"        content="website">
+  <meta property="og:url"         content="https://pitchblacknight.com/david">
+  <meta property="og:title"       content="For David — PitchBlacKnight">
+  <meta property="og:description" content="A private experience built for David Byrne. Music, memory, and Theater of the Mind.">
+  <meta property="og:image"       content="https://pitchblacknight.com/david/assets/pbk-profile.png">
+  <meta name="twitter:card"       content="summary_large_image">
+  <meta name="twitter:image"      content="https://pitchblacknight.com/david/assets/pbk-profile.png">
+  <meta name="twitter:title"      content="For David — PitchBlacKnight">
+  <meta name="twitter:description" content="A private experience built for David Byrne. Music, memory, and Theater of the Mind.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black:  #000000;
+      --white:  #f2f0eb;
+      --amber:  #e8a020;   /* 2400K — Room 1 candlelight */
+      --red:    #d62828;
+      --teal:   #7ecfce;
+      --dim:    #555;
+      --font-display: 'Anton', sans-serif;
+      --font-body:    'IBM Plex Mono', monospace;
+      --font-alt:     'Space Grotesk', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: var(--font-body);
+      overflow-x: hidden;
+      cursor: crosshair;
+    }
+
+    ::-webkit-scrollbar { width: 2px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--amber); }
+
+    /* ── AMBIENT MUSIC BUTTON ── */
+    #amb-btn {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,160,32,0.4);
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      color: var(--amber);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color .3s, box-shadow .3s;
+      opacity: 0;
+      animation: fadeIn 1s ease 3s forwards;
+    }
+    #amb-btn:hover {
+      border-color: var(--amber);
+      box-shadow: 0 0 16px rgba(232,160,32,0.3);
+    }
+    #amb-btn svg { width: 16px; height: 16px; fill: currentColor; }
+    #amb-btn .wave-bars {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      height: 16px;
+    }
+    #amb-btn .wave-bars span {
+      display: block;
+      width: 3px;
+      background: var(--amber);
+      border-radius: 2px;
+      animation: wave-bar 1s ease-in-out infinite;
+    }
+    #amb-btn .wave-bars span:nth-child(1) { height: 6px;  animation-delay: 0s; }
+    #amb-btn .wave-bars span:nth-child(2) { height: 12px; animation-delay: .2s; }
+    #amb-btn .wave-bars span:nth-child(3) { height: 8px;  animation-delay: .4s; }
+    #amb-btn .wave-bars span:nth-child(4) { height: 14px; animation-delay: .1s; }
+    #amb-btn.muted .wave-bars span { animation-play-state: paused; opacity: 0.3; }
+    @keyframes wave-bar {
+      0%,100% { transform: scaleY(1); }
+      50%      { transform: scaleY(0.35); }
+    }
+
+    /* track switcher tooltip */
+    #amb-track-name {
+      position: fixed;
+      bottom: 80px;
+      right: 28px;
+      z-index: 999;
+      font-size: 9px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--amber);
+      background: rgba(0,0,0,0.8);
+      border: 1px solid rgba(232,160,32,0.2);
+      padding: 6px 12px;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity .4s ease;
+      pointer-events: none;
+    }
+    #amb-track-name.show { opacity: 1; }
+
+    /* ══════════════════════════════════════
+       FULL-BLEED GIF LAYER
+    ══════════════════════════════════════ */
+    .scene-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    /* Two layered imgs for crossfade */
+    .scene-bg img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      mix-blend-mode: screen;
+      filter: grayscale(30%);
+      transition: opacity 2.5s ease;
+    }
+    .scene-bg img.bg-a { opacity: 0.18; z-index: 1; }
+    .scene-bg img.bg-b { opacity: 0;    z-index: 2; }
+    .scene-bg img.bg-b.show { opacity: 0.18; }
+
+    .scene-bg.hi  img.bg-a,
+    .scene-bg.hi  img.bg-b.show { opacity: 0.28; }
+    .scene-bg.lo  img.bg-a,
+    .scene-bg.lo  img.bg-b.show { opacity: 0.10; }
+    .scene-bg.amb img { mix-blend-mode: overlay; filter: sepia(40%) saturate(160%); }
+    .scene-bg.amb img.bg-a,
+    .scene-bg.amb img.bg-b.show { opacity: 0.08; }
+
+    /* Dark veil over letter section for readability */
+    #letter::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,.52);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════════
+       KEYFRAMES
+    ══════════════════════════════════════ */
+    @keyframes fadeUp   { from { opacity:0; transform:translateY(60px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes fadeIn   { from { opacity:0; } to { opacity:1; } }
+    @keyframes blink    { 50% { opacity:0; } }
+    @keyframes marquee  { from { transform:translateX(100vw); } to { transform:translateX(-100%); } }
+    @keyframes breathe  { 0%,100%{transform:scale(1);} 50%{transform:scale(1.015);} }
+    @keyframes spin     { to { transform:rotate(360deg); } }
+    @keyframes pulse-ring {
+      0%   { box-shadow: 0 0 0 0 rgba(232,160,32,.6); }
+      70%  { box-shadow: 0 0 0 18px rgba(232,160,32,0); }
+      100% { box-shadow: 0 0 0 0 rgba(232,160,32,0); }
+    }
+
+    /* ══════════════════════════════════════
+       REVEAL
+    ══════════════════════════════════════ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+    .reveal.in { opacity:1; transform:translateY(0); }
+    .reveal.in.delay-1 { transition-delay:.15s; }
+    .reveal.in.delay-2 { transition-delay:.3s; }
+    .reveal.in.delay-3 { transition-delay:.5s; }
+
+    /* ══════════════════════════════════════
+       SECTIONS — base
+    ══════════════════════════════════════ */
+    .scene {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .scene-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 100px 48px;
+    }
+
+    /* ══════════════════════════════════════
+       UTILITY TEXT
+    ══════════════════════════════════════ */
+    .label {
+      font-size: 10px;
+      letter-spacing: .55em;
+      text-transform: uppercase;
+      color: var(--amber);
+      display: block;
+      margin-bottom: 20px;
+    }
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--amber);
+      margin: 40px 0;
+    }
+    .divider.full { width: 100%; opacity: .15; }
+
+    /* ══════════════════════════════════════
+       ① HERO
+    ══════════════════════════════════════ */
+    #hero {
+      background: var(--black);
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-end;
+      min-height: 100vh;
+      padding: 0 64px 80px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      font-size: 10px;
+      letter-spacing: .55em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 28px;
+      animation: fadeIn 2s ease .5s both;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(100px, 22vw, 280px);
+      line-height: .85;
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+      animation: fadeUp 1.2s ease .2s both;
+    }
+    .hero-title .t-for   { display: block; color: var(--white); }
+    .hero-title .t-david {
+      display: block;
+      color: transparent;
+      -webkit-text-stroke: 2px var(--white);
+    }
+
+    .hero-meta {
+      margin-top: 48px;
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      animation: fadeIn 2s ease 1.2s both;
+    }
+    .hero-meta .tagline {
+      font-family: var(--font-body);
+      font-size: 13px;
+      color: var(--dim);
+      font-style: italic;
+      letter-spacing: .08em;
+      max-width: 360px;
+      line-height: 1.7;
+    }
+    .hero-badge {
+      font-size: 9px;
+      letter-spacing: .45em;
+      text-transform: uppercase;
+      border: 1px solid rgba(232,160,32,.5);
+      color: var(--amber);
+      padding: 8px 20px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      right: 64px;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      animation: fadeIn 2s ease 2s both;
+    }
+    .hero-scroll span {
+      font-size: 9px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--dim);
+      writing-mode: vertical-rl;
+    }
+    .hero-scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--amber), transparent);
+      animation: blink 2.5s ease infinite;
+    }
+
+    /* ══════════════════════════════════════
+       MARQUEE
+    ══════════════════════════════════════ */
+    .marquee-wrap {
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 12px 0;
+      border-top: 1px solid #111;
+      border-bottom: 1px solid #111;
+      background: #050505;
+    }
+    .marquee-track {
+      display: inline-flex;
+      animation: marquee 28s linear infinite;
+    }
+    .marquee-track span {
+      font-family: var(--font-display);
+      font-size: 11px;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      padding: 0 48px;
+      color: #333;
+    }
+    .marquee-track span.hi { color: var(--amber); }
+
+    /* ══════════════════════════════════════
+       ② LETTER
+    ══════════════════════════════════════ */
+    #letter { background: #060504; }
+
+    .letter-heading {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 10vw, 130px);
+      line-height: .88;
+      text-transform: uppercase;
+      margin-bottom: 64px;
+    }
+    .letter-heading em { color: var(--amber); font-style: normal; }
+
+    .letter-date {
+      font-size: 10px;
+      letter-spacing: .3em;
+      color: var(--dim);
+      margin-bottom: 32px;
+      display: block;
+    }
+
+    .salutation {
+      font-family: var(--font-display);
+      font-size: 36px;
+      color: var(--teal);
+      letter-spacing: .04em;
+      margin-bottom: 40px;
+    }
+
+    .prose {
+      font-family: var(--font-body);
+      font-size: 15px;
+      line-height: 2;
+      color: #bbb;
+    }
+    .prose p { margin-bottom: 28px; }
+    .prose p:last-child { margin-bottom: 0; }
+    .prose .pull {
+      font-size: 20px;
+      line-height: 1.6;
+      color: var(--white);
+      font-style: italic;
+      border-left: 2px solid var(--amber);
+      padding-left: 24px;
+      margin: 40px 0;
+    }
+
+    .sig {
+      margin-top: 56px;
+      padding-top: 40px;
+      border-top: 1px solid #181818;
+    }
+    .sig .name {
+      font-family: var(--font-display);
+      font-size: 26px;
+      letter-spacing: .08em;
+      color: var(--white);
+    }
+    .sig .role {
+      font-size: 10px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-top: 6px;
+    }
+
+    /* ══════════════════════════════════════
+       ③ REMIX — cinematic player
+    ══════════════════════════════════════ */
+    #remix { background: #030303; }
+
+    .remix-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    /* ── large GIF ring ── */
+    .vinyl-wrap {
+      position: relative;
+      width: clamp(240px, 38vw, 360px);
+      height: clamp(240px, 38vw, 360px);
+      margin-bottom: 40px;
+    }
+    .vinyl-ring {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      padding: 5px;
+      background: conic-gradient(var(--amber), var(--teal), #fff, var(--red), var(--amber));
+      animation: vinyl-spin 8s linear infinite;
+      box-shadow: 0 0 40px rgba(232,160,32,.12);
+      transition: box-shadow .6s ease;
+    }
+    .vinyl-ring.playing {
+      animation: vinyl-spin 1.8s linear infinite;
+      box-shadow: 0 0 80px rgba(232,160,32,.45), 0 0 160px rgba(126,207,206,.15);
+    }
+    @keyframes vinyl-spin { to { transform: rotate(360deg); } }
+    .vinyl-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      overflow: hidden;
+      background: var(--black);
+    }
+    .vinyl-inner img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+    }
+    /* counter-rotate so the GIF stays upright */
+    .vinyl-ring.playing .vinyl-inner { animation: vinyl-counter 1.8s linear infinite; }
+    @keyframes vinyl-counter { to { transform: rotate(-360deg); } }
+
+    /* play-overlay on GIF */
+    .vinyl-overlay {
+      position: absolute;
+      inset: 5px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,.35);
+      opacity: 0;
+      transition: opacity .25s;
+      cursor: pointer;
+      font-size: 2.4rem;
+      color: var(--amber);
+    }
+    .vinyl-wrap:hover .vinyl-overlay { opacity: 1; }
+    .vinyl-ring.playing + .vinyl-overlay { opacity: 0; }
+    .vinyl-ring.playing:hover + .vinyl-overlay { opacity: 1; }
+
+    /* ── waveform bars ── */
+    .waveform {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 40px;
+      margin-bottom: 36px;
+    }
+    .waveform span {
+      display: block;
+      width: 3px;
+      border-radius: 2px;
+      background: var(--amber);
+      opacity: .25;
+      transform-origin: bottom;
+      transform: scaleY(.2);
+      transition: opacity .4s, transform .4s;
+    }
+    .waveform.playing span {
+      opacity: 1;
+      animation: bar-bounce var(--dur, .8s) ease-in-out infinite alternate;
+    }
+    @keyframes bar-bounce {
+      from { transform: scaleY(var(--lo, .15)); }
+      to   { transform: scaleY(var(--hi, 1)); }
+    }
+
+    /* ── player card ── */
+    .player {
+      width: 100%;
+      background: #080808;
+      border: 1px solid #181818;
+      padding: 32px 32px 28px;
+      position: relative;
+    }
+    .player::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(to right, transparent, var(--amber), var(--teal), transparent);
+    }
+    .player-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 5vw, 44px);
+      letter-spacing: .04em;
+      color: var(--white);
+      margin-bottom: 4px;
+    }
+    .player-sub {
+      font-size: 9px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 28px;
+    }
+    .progress-wrap {
+      height: 3px;
+      background: #1c1c1c;
+      cursor: pointer;
+      margin-bottom: 6px;
+      position: relative;
+      border-radius: 2px;
+    }
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, var(--amber), var(--teal));
+      transition: width .1s linear;
+      border-radius: 2px;
+      position: relative;
+    }
+    .progress-bar::after {
+      content: '';
+      position: absolute;
+      right: -5px; top: -3.5px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--amber);
+      box-shadow: 0 0 10px var(--amber);
+    }
+    .player-times {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      color: var(--dim);
+      letter-spacing: .08em;
+      margin-bottom: 24px;
+      font-variant-numeric: tabular-nums;
+    }
+    .player-controls {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .btn-play {
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      border: 1.5px solid var(--amber);
+      background: transparent;
+      color: var(--amber);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .25s ease;
+      flex-shrink: 0;
+    }
+    .btn-play:hover { background: var(--amber); color: var(--black); box-shadow: 0 0 32px rgba(232,160,32,.5); }
+    .btn-play svg { width: 20px; height: 20px; fill: currentColor; }
+    .player-status-txt {
+      font-size: 9px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--dim);
+      min-width: 100px;
+    }
+    .player-status-txt.live { color: var(--teal); }
+    .player-time { font-size: 11px; color: var(--dim); letter-spacing: .1em; font-variant-numeric: tabular-nums; }
+    .btn-icon {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      border: 1px solid rgba(232,160,32,.3);
+      background: transparent;
+      color: var(--dim);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: all .2s ease;
+      flex-shrink: 0;
+      text-decoration: none;
+    }
+    .btn-icon:hover { border-color: var(--amber); color: var(--amber); }
+    .btn-icon svg { width: 14px; height: 14px; fill: currentColor; }
+    .btn-icon.muted { color: var(--red); border-color: rgba(214,40,40,.4); }
+    .player-note {
+      margin-top: 24px;
+      font-size: 12px;
+      color: #3a3a3a;
+      font-style: italic;
+      line-height: 1.8;
+      border-left: 1px solid #1e1e1e;
+      padding-left: 16px;
+      text-align: left;
+    }
+
+    /* ══════════════════════════════════════
+       ④ THEATER — ROOMS
+    ══════════════════════════════════════ */
+    #theater { background: #040404; }
+
+    .theater-heading {
+      font-family: var(--font-display);
+      font-size: clamp(56px, 10vw, 130px);
+      line-height: .88;
+      text-transform: uppercase;
+      margin-bottom: 56px;
+    }
+    .theater-heading .t-teal { color: var(--teal); }
+
+    .david-quote {
+      position: relative;
+      padding: 44px 44px 44px 72px;
+      border: 1px solid rgba(126,207,206,.12);
+      background: rgba(126,207,206,.02);
+      margin-bottom: 72px;
+    }
+    .david-quote::before {
+      content: '"';
+      position: absolute;
+      top: 16px; left: 24px;
+      font-family: var(--font-display);
+      font-size: 80px;
+      color: var(--teal);
+      opacity: .15;
+      line-height: 1;
+    }
+    .david-quote p {
+      font-size: clamp(14px,2vw,18px);
+      line-height: 1.85;
+      color: var(--teal);
+      font-style: italic;
+      font-weight: 300;
+    }
+    .david-quote cite {
+      display: block;
+      font-size: 9px;
+      letter-spacing: .45em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-top: 20px;
+      font-style: normal;
+    }
+
+    /* Room tabs */
+    .room-tabs {
+      display: flex;
+      gap: 2px;
+      margin-bottom: 56px;
+    }
+    .room-tab {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      padding: 12px 28px;
+      border: 1px solid #1a1a1a;
+      background: transparent;
+      color: var(--dim);
+      cursor: pointer;
+      transition: all .2s ease;
+    }
+    .room-tab:hover { border-color: var(--amber); color: var(--white); }
+    .room-tab.on { background: var(--amber); border-color: var(--amber); color: var(--black); font-weight: 700; }
+
+    /* Room panel */
+    .room-panel { display: none; }
+    .room-panel.on { display: block; }
+
+    .room-num {
+      font-family: var(--font-display);
+      font-size: clamp(120px, 20vw, 240px);
+      line-height: 1;
+      color: #0d0d0d;
+      position: absolute;
+      right: 0;
+      top: -20px;
+      pointer-events: none;
+      user-select: none;
+      z-index: 0;
+    }
+    .room-header {
+      position: relative;
+      z-index: 1;
+      margin-bottom: 48px;
+    }
+    .room-name {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 56px);
+      text-transform: uppercase;
+      color: var(--teal);
+      letter-spacing: .06em;
+    }
+
+    .room-body {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* big text moments */
+    .moment {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 72px);
+      line-height: .92;
+      text-transform: uppercase;
+      color: var(--white);
+      margin: 56px 0;
+      letter-spacing: .01em;
+    }
+    .moment .r { color: var(--red); }
+    .moment .a { color: var(--amber); }
+    .moment .t { color: var(--teal); }
+
+    /* Rooms 2 & 3 keep their floating gif */
+    .room-gif {
+      float: right;
+      width: 180px;
+      height: 180px;
+      margin: 0 0 32px 48px;
+      overflow: hidden;
+      position: relative;
+    }
+    .room-gif img { width:100%; height:100%; object-fit:cover; display:block; }
+    .room-gif::before {
+      content:'';
+      position:absolute;
+      inset:0;
+      border: 1px solid rgba(126,207,206,.3);
+      z-index:2;
+      pointer-events:none;
+      animation: blink 3s ease-in-out infinite;
+    }
+
+    /* Room 1 — cinematic letterbox strip instead of the eye */
+    .room-strip {
+      width: 100%;
+      height: 90px;
+      overflow: hidden;
+      margin-bottom: 44px;
+      position: relative;
+      border-top: 1px solid rgba(232,160,32,.15);
+      border-bottom: 1px solid rgba(232,160,32,.15);
+    }
+    .room-strip img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(.35) saturate(1.6);
+      mix-blend-mode: screen;
+      display: block;
+    }
+    .room-strip::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right,
+        rgba(0,0,0,.9) 0%,
+        transparent 18%,
+        transparent 82%,
+        rgba(0,0,0,.9) 100%);
+      pointer-events: none;
+    }
+
+    /* ══════════════════════════════════════
+       ⑤ AFTERMATH
+    ══════════════════════════════════════ */
+    #aftermath { background: #030303; }
+
+    .aftermath-heading {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 8vw, 100px);
+      line-height: .9;
+      text-transform: uppercase;
+      margin-bottom: 64px;
+    }
+    .aftermath-heading .a { color: var(--amber); }
+
+    .life-stat {
+      display: flex;
+      align-items: baseline;
+      gap: 20px;
+      margin: 24px 0;
+      padding-left: 20px;
+      border-left: 2px solid #1a1a1a;
+    }
+    .life-stat .num {
+      font-family: var(--font-display);
+      font-size: 48px;
+      color: var(--amber);
+      line-height: 1;
+    }
+    .life-stat .desc {
+      font-size: 13px;
+      color: #888;
+      line-height: 1.6;
+    }
+
+    .big-statement {
+      font-family: var(--font-display);
+      font-size: clamp(52px, 9vw, 120px);
+      line-height: .9;
+      text-transform: uppercase;
+      color: var(--white);
+      margin: 72px 0;
+    }
+
+    /* ══════════════════════════════════════
+       ⑥ CLOSING
+    ══════════════════════════════════════ */
+    #closing {
+      background: var(--black);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .closing-inner {
+      position: relative;
+      z-index: 2;
+      padding: 80px 48px;
+    }
+
+    .closing-gif-ring {
+      width: 220px;
+      height: 220px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 56px;
+      position: relative;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+    .closing-gif-ring.in { opacity: 1; }
+    .closing-gif-ring img { width:100%; height:100%; object-fit:cover; object-position: 30% 30%; }
+    .closing-gif-ring::after {
+      content:'';
+      position:absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: linear-gradient(var(--black),var(--black)) padding-box,
+                  conic-gradient(var(--amber), var(--teal), var(--red), var(--amber)) border-box;
+      animation: spin 8s linear infinite;
+    }
+
+    .closing-photo {
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 0 auto 32px;
+      border: 2px solid rgba(126,207,206,.35);
+    }
+    .closing-photo img { width:100%; height:100%; object-fit:cover; object-position: center 20%; }
+
+    .closing-sig {
+      display: block;
+      width: clamp(160px, 28vw, 320px);
+      margin: 16px auto 32px;
+      opacity: 0.85;
+      filter: drop-shadow(0 0 8px rgba(126,207,206,.15));
+    }
+
+    .closing-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 9vw, 110px);
+      line-height: .9;
+      text-transform: uppercase;
+      color: var(--white);
+      margin-bottom: 28px;
+    }
+    .closing-title .a { color: var(--amber); }
+
+    .closing-by {
+      font-size: 10px;
+      letter-spacing: .55em;
+      text-transform: uppercase;
+      color: var(--dim);
+      margin-bottom: 32px;
+    }
+
+    .closing-url a {
+      font-size: 11px;
+      letter-spacing: .2em;
+      color: var(--amber);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .closing-url a:hover { color: var(--white); }
+
+    /* ── PBK NAME COLORS ───────────────────── */
+    .pbk-pitch, .pbk-blac, .pbk-night { font-weight: 700; }
+    .pbk-pitch { color: var(--white); }
+    .pbk-blac  { color: var(--red); }
+    .pbk-night { color: var(--teal); }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════════════ */
+    @media (max-width: 680px) {
+      .hero-inner { padding: 0 28px 60px; }
+      .scene-inner { padding: 80px 28px; }
+      .remix-layout { grid-template-columns: 1fr; gap: 48px; }
+      .room-gif { float: none; width:100%; height:180px; margin:0 0 32px; }
+      .hero-scroll { right: 28px; }
+      .room-num { font-size: 30vw; opacity:.5; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── AMBIENT AUDIO ── -->
+<audio id="amb-audio" preload="none">
+  <source src="assets/audio/dreams-of-dying.mp3"  type="audio/mpeg">
+  <source src="assets/audio/the-effect.mp3"        type="audio/mpeg">
+</audio>
+
+<!-- Ambient mute toggle (bottom-right) -->
+<button id="amb-btn" class="muted" aria-label="Toggle ambient music" title="Ambient music">
+  <div class="wave-bars">
+    <span></span><span></span><span></span><span></span>
+  </div>
+</button>
+<div id="amb-track-name"></div>
+
+<!-- ══════════════════════════════════════
+     ① HERO
+══════════════════════════════════════ -->
+<section id="hero">
+  <div class="scene-bg lo" id="bg-hero">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="hero-inner">
+    <p class="hero-eyebrow"><span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span> — Private Transmission — 2026</p>
+    <h1 class="hero-title">
+      <span class="t-for">For</span>
+      <span class="t-david">David</span>
+    </h1>
+    <div class="hero-meta">
+      <p class="tagline">A remix. A letter. What happens when the audience makes the inferences themselves.</p>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span class="hi">Theater of the Mind</span>
+    <span>✦</span>
+    <span><span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span></span>
+    <span>✦</span>
+    <span class="hi">333 N. LaSalle</span>
+    <span>✦</span>
+    <span>Once in a Lifetime</span>
+    <span>✦</span>
+    <span class="hi">Dumbarton, Scotland</span>
+    <span>✦</span>
+    <span>Bicycle Diaries</span>
+    <span>✦</span>
+    <span class="hi">Show Don't Tell</span>
+    <span>✦</span>
+    <span>Rhode Island School of Design</span>
+    <span>✦</span>
+    <span class="hi">Brian Eno</span>
+    <span>✦</span>
+    <span>Chicago Heights</span>
+    <span>✦</span>
+    <span class="hi">Mala Gaonkar</span>
+    <span>✦</span>
+    <span>Neurosociety</span>
+    <span>✦</span>
+    <span class="hi">Theater of the Mind</span>
+    <span>✦</span>
+    <span><span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span></span>
+    <span>✦</span>
+    <span>Once in a Lifetime</span>
+    <span>✦</span>
+    <span class="hi">Dumbarton, Scotland</span>
+    <span>✦</span>
+    <span>Bicycle Diaries</span>
+    <span>✦</span>
+    <span class="hi">Rhode Island School of Design</span>
+    <span>✦</span>
+    <span>Brian Eno</span>
+    <span>✦</span>
+    <span class="hi">Mala Gaonkar</span>
+    <span>✦</span>
+    <span>Neurosociety</span>
+    <span>✦</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ② THE LETTER
+══════════════════════════════════════ -->
+<section id="letter" class="scene">
+  <div class="scene-bg" id="bg-letter">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">This Must Be the Place</span>
+      <h2 class="letter-heading">Dear<br><em>David.</em></h2>
+    </div>
+
+    <div class="reveal delay-1">
+      <span class="letter-date">March 2026 — Chicago Heights, IL</span>
+      <p class="salutation">Dear David,</p>
+
+      <div class="prose">
+        <p>I don't normally do this. I'm not someone who writes letters to artists — I grew up in Mexico, Missouri, and we didn't have a language for reaching out to the people whose work shaped you. You just let the music live inside you and got on with things.</p>
+
+        <p>But I can't do that this time.</p>
+
+        <p>My name is Mikel Rosenthal — I go by the alias PBK, short for PitchBlacKnight. I live in Chicago Heights now with my husband Brandon and our black cat Hexadecimal — HEX — a rescue who showed up on our doorstep three Halloweens ago and never left. An odd number that keeps presenting itself in my life. But that's a whole other topic. We're in a mid-century modern house we were incredibly lucky to find. I produce music and animations. I've loved your music for as long as I can remember.</p>
+
+        <p>Everything I make — the music, the art, the design, the way I move through life — is first-try improv. I go back and do a live mastering pass, but I never rebuild from scratch. The first take is the truth of the moment. I think you understand that better than almost anyone. In a world drowning in machine-perfect sound, I want the fingerprints to show.</p>
+
+        <p>You built Talking Heads at the Rhode Island School of Design — the same place that trained you to think simultaneously as a visual artist and a musician. I didn't know that when I first heard your music. I just knew it felt like it had been made by someone who saw the world differently than anyone else. Turns out it was.</p>
+
+        <p>When Brandon and I got married — during COVID, in that mid-century modern house — we had a live performance of "This Must Be the Place" in our living room. Fifteen friends in the house, the rest watching on a broadcast we sent out to everyone we loved. Brandon's best friends sang it together, as a couple, for all of us. Your song was the one we chose for that moment. I don't think that's a coincidence anymore.</p>
+
+        <p class="pull">Then I walked into 333 N. LaSalle. And I haven't been the same since.</p>
+
+        <p>I need to tell you what happened to me in those first three rooms. Not because I think you owe me anything — but because you built something that reached inside a person who had been carrying thirty years of grief and chronic pain, and pulled out something I didn't know was still buried in there.</p>
+
+        <p>What you said about the show — <em>"visceral, immediate and profound"</em> — that's not marketing copy. That's exactly what happened to me. My body knew it before my mind did.</p>
+
+        <p>I made you something. A remix — not for release, not for anyone else. Just for you. One copy. The one on this page. It's the only way I know how to say what follows in the language I speak best.</p>
+
+        <p>I would love nothing more than even a short conversation with you, David. To hear what you think. To tell you directly what those three rooms did to me. And to say thank you in the way it deserves.</p>
+      </div>
+
+      <div class="sig">
+        <p class="name">MIKEL ROSENTHAL</p>
+        <p class="role"><span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span> — Chicago Heights, IL</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE 2 -->
+<div class="marquee-wrap">
+  <div class="marquee-track" style="animation-direction:reverse; animation-duration:32s;">
+    <span class="hi">Exclusive</span>
+    <span>✦</span>
+    <span>Made Only For You</span>
+    <span>✦</span>
+    <span class="hi">One Copy Exists</span>
+    <span>✦</span>
+    <span>One Listen</span>
+    <span>✦</span>
+    <span class="hi">Exclusive</span>
+    <span>✦</span>
+    <span>Made Only For You</span>
+    <span>✦</span>
+    <span class="hi">One Copy Exists</span>
+    <span>✦</span>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════
+     ③ THE REMIX
+══════════════════════════════════════ -->
+<section id="remix" class="scene">
+  <div class="scene-bg" id="bg-remix">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <span class="label reveal">Once in a Lifetime</span>
+
+    <div class="remix-center reveal delay-1">
+
+      <!-- GIF ring -->
+      <div class="vinyl-wrap" id="vinyl-wrap">
+        <div class="vinyl-ring" id="vinyl-ring">
+          <div class="vinyl-inner">
+            <img id="vinyl-gif" src="assets/gifs/bg/BLK0001.gif" alt="">
+          </div>
+        </div>
+        <div class="vinyl-overlay" id="vinyl-overlay">▶</div>
+      </div>
+
+      <!-- animated waveform bars -->
+      <div class="waveform" id="waveform"></div>
+
+      <!-- player card -->
+      <div class="player" id="audio-player">
+        <p class="player-title">FOR DAVID</p>
+        <p class="player-sub"><span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span> — Exclusive Remix, 2026</p>
+
+        <div class="progress-wrap" id="progress-wrap">
+          <div class="progress-bar" id="audio-progress"></div>
+        </div>
+        <div class="player-times">
+          <span id="audio-cur">0:00</span>
+          <span id="audio-dur">—</span>
+        </div>
+
+        <div class="player-controls">
+          <button class="btn-icon" id="btn-mute" aria-label="Mute / Unmute">
+            <svg id="icon-vol" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+            <svg id="icon-mute" viewBox="0 0 24 24" style="display:none"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+          </button>
+          <span class="player-status-txt" id="player-status">Press play</span>
+          <button class="btn-play" id="btn-play" aria-label="Play / Pause">
+            <svg id="icon-play"  viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+            <svg id="icon-pause" viewBox="0 0 24 24" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          </button>
+          <a class="btn-icon" id="btn-download" aria-label="Download" download="PBK-For-David-Remix-2026.mp3">
+            <svg viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zm-8 2V5h2v6h1.17L12 13.17 9.83 11H11zm-6 7h14v2H5v-2z"/></svg>
+          </a>
+        </div>
+
+        <audio id="audio-el" preload="none">
+          <source src="assets/audio/remix-for-david.mp3" type="audio/mpeg">
+        </audio>
+
+        <p class="player-note">
+          This is a remix of your song "Theater of the Mind." No disrespect — I was simply too taken by your sound to leave it alone. Everything I make is first-take improv. No rehearsal, no blueprint. Then I remix it. Then I remix the remix. Then I remix that. Each pass is live mastering — one take, one truth. This is somewhere deep in that chain, and it's yours alone. No one else has heard it. No one else will.
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ④ THEATER OF THE MIND
+══════════════════════════════════════ -->
+<section id="theater" class="scene">
+  <div class="scene-bg lo" id="bg-theater">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">Road to Somewhere</span>
+      <h2 class="theater-heading">Theater<br><span class="t-teal">of the Mind.</span></h2>
+    </div>
+
+    <!-- ROOM TABS -->
+    <div class="room-tabs reveal delay-2">
+      <button class="room-tab on" data-room="1">Room 01</button>
+      <button class="room-tab"    data-room="2">Room 02</button>
+      <button class="room-tab"    data-room="3">Room 03</button>
+    </div>
+
+    <!-- ROOM 1 -->
+    <div class="room-panel on" id="room-1">
+      <div style="position:relative;">
+        <div class="room-num">01</div>
+        <div class="room-header reveal">
+          <span class="label">The Funeral Parlor</span>
+          <p class="room-name">The Funeral Parlor</p>
+        </div>
+
+        <div class="room-body prose reveal delay-1">
+          <p>I walked in not knowing what was coming. And the first thing that hit me — before a single word was spoken — was the light. 2400 Kelvin. That warm amber tone that only comes from real candle-range sources. I noticed it immediately because I notice light the way most people notice weather. It changes everything about how you feel in a space.</p>
+
+          <p>Then the music came in.</p>
+
+          <p>And it was wrong. Beautifully, intentionally wrong. The tones were off. There was this strange harmonic complexity underneath — dissonance that didn't resolve the way you expect it to. I produce music and animations. I spend my life inside sound. I knew immediately that this wasn't an accident.</p>
+
+          <div class="moment">Then she came<br>out of the <span class="r">coffin.</span></div>
+
+          <p>And something broke open in me.</p>
+
+          <p>I was in the front row. And I want to be honest with you, David, because this is the part that matters: I had lost my father. And my best friend — my best friend killed himself. I had been carrying all of that, compressed, for a long time.</p>
+
+          <p>When that music hit and she stood up — I began weeping. Not politely. Not the kind of crying you do at movies. The deepest weeping I have ever felt in my entire life. Like something that had been locked in my body for years finally had a door to walk through.</p>
+
+          <p class="pull">It felt like I was reaching into something dark and pulling out everything I'd been holding — and dropping it right there on the floor of that room.</p>
+
+          <p>My friend Ela put her arm around me. Her hand on my back. I was fully in it — not performing, not self-conscious, just completely inside the moment. I had crossed whatever threshold you built that room to create.</p>
+
+          <p>Then I noticed the pillar. Off to the left. A completely different light source — somewhere between 7200 and 9000 Kelvin, cold, almost surgical — and the perspective around it was skewed. It felt like the floor was tilting toward it. You were already inside my visual cortex, rearranging furniture.</p>
+
+          <p>I was in the room for only minutes. I felt like I had lived a year.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROOM 2 -->
+    <div class="room-panel" id="room-2">
+      <div style="position:relative;">
+        <div class="room-num">02</div>
+        <div class="room-header reveal">
+          <span class="label">The Dark Dome</span>
+          <p class="room-name">The Dark Dome</p>
+        </div>
+
+        <div class="room-gif">
+          <img src="assets/gifs/drk1.gif" alt="">
+        </div>
+
+        <div class="room-body prose reveal delay-1">
+          <p>The second room was a large dome. Round seats in a circle. Cameras. And the most extraordinary acoustic environment I had ever stood inside — because when you sat in that circle, you could turn your head and hear every single person in the room almost simultaneously.</p>
+
+          <p>I became immediately, totally, overwhelmingly exuberant.</p>
+
+          <p>I'm a person who has lived with a nervous system on high alert for thirty years. Chronic pain rewires you. Medication quiets you. I had spent years dampening the signal just to function. But in that dome, in that acoustic space — I was <em>alive</em> in a way I hadn't been in a very long time.</p>
+
+          <div class="moment">Brandon said he<br>could hear me<br><span class="t">moving in the dark.</span></div>
+
+          <p>He was worried. I know. I was loud. I was moving. When they did the photo countdown I made the most insane contorted face I could — something I used to do as a kid growing up in Mexico, Missouri, to make people laugh. The staff probably thought I was having some kind of episode. I was just finally, fully awake.</p>
+
+          <p>The actor asked: <em>"Have you ever seen something that wasn't there?"</em></p>
+
+          <p>I said <em>no</em>. And then I started explaining why I said no. And it turned into something about molecules — about how two human beings in close proximity are literally passing through each other at the atomic level, and what that means for the idea of a "separate" person, and whether seeing something that isn't there is even a meaningful distinction if—</p>
+
+          <p>I caught myself. I was talking over the show.</p>
+
+          <p class="pull">Whatever you built in that room, it opened something in me that I had been chemically suppressing for years. I'm not on those medications anymore. I made that choice. But that dome was one of the moments I understood, in my body, why I was right to.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ROOM 3 -->
+    <div class="room-panel" id="room-3">
+      <div style="position:relative;">
+        <div class="room-num">03</div>
+        <div class="room-header reveal">
+          <span class="label">The Mission Room</span>
+          <p class="room-name">The Mission Room</p>
+        </div>
+
+        <div class="room-gif">
+          <img src="assets/gifs/drk10.gif" alt="">
+        </div>
+
+        <div class="room-body prose reveal delay-1">
+          <p>The third room looked like a Cold War outpost. Czechoslovakia, 1953. Screens on every wall — four on the sides, two large ones in the center — all running information, images, data. The aesthetic was perfect. I felt like I had stepped into a classified archive.</p>
+
+          <p>The host sat me down at the desk in the front. Right at the center. I felt chosen. I felt like I was supposed to be there, like she had seen something in me and was pulling me into the experience intentionally.</p>
+
+          <p>I have a thing with numbers. Always have.</p>
+
+          <div class="moment">I changed every<br>number on the<br>calendar to <span class="a">threes.</span></div>
+
+          <p>Every number. All threes. I thought it was funny. I thought I was participating. I didn't understand that I wasn't supposed to be touching things — or maybe I understood and I just couldn't help it, because this room felt like an invitation and I am not someone who turns down invitations to play.</p>
+
+          <p>They asked me gently if I needed to step away. And I did. I stepped away. I didn't get to see the rest of the experience.</p>
+
+          <p class="pull">And here's what I want you to know: that moment — being asked to leave, the slight embarrassment of it, the coming back down — that was also part of the experience. You made something so immersive, so real, that I forgot I was an audience member. I forgot there was a fourth wall. I just walked right through it.</p>
+
+          <p>I'm going back. Multiple times. I want to see what happens after Room 3. I want to bring people and watch their faces. I want to podcast about it, write about it, tell everyone I know.</p>
+
+          <p>You have created something that surpasses every expectation I had of you, David — and I already thought you were one of the most interesting minds alive.</p>
+
+          <p>One small practical note, offered only because I care about this thing you made: the lockers in the lobby all share the same key. Anyone could walk in off the street and open every bag in there. It's an easy fix, and your vision is too important for bad press over something preventable.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ⑤ AFTERMATH — THE TRANSFORMATION
+══════════════════════════════════════ -->
+<section id="aftermath" class="scene">
+  <div class="scene-bg lo" id="bg-aftermath">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="scene-inner">
+    <div class="reveal">
+      <span class="label">Nothing But Flowers</span>
+      <h2 class="aftermath-heading">What it<br>actually<br><span class="a">changed.</span></h2>
+    </div>
+
+    <div class="prose reveal delay-1">
+      <p>I want to be clear about what I mean when I say it changed my life.</p>
+      <p>For thirty years I lived with chronic pain. The medications my doctors had me on were meant to numb not just my body but my mind — quiet the nervous system, stop the signals, keep me functional. I was medicated into a kind of silence.</p>
+    </div>
+
+    <div class="reveal delay-2" style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin:56px 0;">
+      <div class="life-stat">
+        <span class="num">35</span>
+        <span class="desc">pounds lost. Real weight — the physical weight of medicated stillness.</span>
+      </div>
+      <div class="life-stat">
+        <span class="num">30</span>
+        <span class="desc">years of chronic pain. Three decades of a nervous system I finally stopped fighting.</span>
+      </div>
+      <div class="life-stat">
+        <span class="num">6</span>
+        <span class="desc">medications gone. Each one meant to numb not just my body but my mind.</span>
+      </div>
+      <div class="life-stat">
+        <span class="num">∞</span>
+        <span class="desc">hours in the hot tub with Jimmy the Frito-Lay driver, talking philosophy of life.</span>
+      </div>
+    </div>
+
+    <div class="big-statement reveal delay-2">I am so<br>excited<br>about life.</div>
+
+    <div class="prose reveal delay-3">
+      <p>Theater of the Mind didn't cause all of that. But it confirmed it. It was proof — felt in the body, not just understood in the mind — that the nervous system I'd been suppressing for three decades was not broken. It was just waiting for the right room.</p>
+      <p>You built that room, David.</p>
+      <p>Thank you.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ⑥ CLOSING
+══════════════════════════════════════ -->
+<section id="closing">
+  <div class="scene-bg lo" id="bg-closing">
+    <img class="bg-a" src="" alt="">
+    <img class="bg-b" src="" alt="">
+  </div>
+
+  <div class="closing-inner">
+    <div class="closing-photo reveal">
+      <img src="assets/mikel-profile.jpg" alt="Mikel Rosenthal / PBK">
+    </div>
+    <img class="closing-sig reveal" src="assets/pbk-signature.png" alt="PBK signature">
+    <h2 class="closing-title reveal">Thank you,<br><span class="a">David.</span></h2>
+    <p class="closing-by reveal">— <span class="pbk-pitch">PITCH</span><span class="pbk-blac">BLAC</span><span class="pbk-night">KNIGHT</span> —</p>
+    <p class="closing-url reveal">
+      <a href="https://pitchblacknight.com" target="_blank">pitchblacknight.com</a>
+    </p>
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════
+     JS
+══════════════════════════════════════ -->
+<script>
+  // ── PATH DETECTION (live site vs local preview) ──────────
+  // On Vercel the page is served from /david (no trailing slash),
+  // so relative paths would resolve from root. We detect this and
+  // prepend /david/ so all assets load correctly in both environments.
+  const PATH_BASE = (location.hostname === 'pitchblacknight.com' ||
+                     location.hostname.endsWith('.vercel.app'))
+                    ? '/david/' : '';
+
+  // Fix static img src attributes for live site
+  if (PATH_BASE) {
+    document.querySelectorAll('img[src]:not([src=""])').forEach(img => {
+      const rel = img.getAttribute('src');
+      if (!rel.startsWith('/') && !rel.startsWith('http')) {
+        img.src = PATH_BASE + rel;
+      }
+    });
+    // Fix remix audio source
+    const remixSrc = document.querySelector('#audio-el source');
+    if (remixSrc) {
+      remixSrc.src = PATH_BASE + 'assets/audio/remix-for-david.mp3';
+      document.getElementById('audio-el').load();
+    }
+  }
+
+  // ── AMBIENT MUSIC ───────────────────────
+  const AMB_TRACKS = [
+    { src: PATH_BASE + 'assets/audio/dreams-of-dying.mp3',        title: 'Dreams of Dying'              },
+    { src: PATH_BASE + 'assets/audio/the-effect.mp3',              title: 'The Effect You Have On Others' },
+    { src: PATH_BASE + 'assets/audio/tiptoe-trip.mp3',             title: 'TipToe Trip'                  }
+  ];
+
+  const AMB_TARGET   = 0.14;   // max volume (14%)
+  const FADE_IN_MS   = 4000;   // 4 s fade-in at track start
+  const FADE_OUT_MS  = 4000;   // 4 s fade-out before track ends
+  const FADE_OUT_SEC = FADE_OUT_MS / 1000;
+
+  const ambAudio   = document.getElementById('amb-audio');
+  const ambBtn     = document.getElementById('amb-btn');
+  const ambLabel   = document.getElementById('amb-track-name');
+  let   ambPlaying = false;
+  let   ambStarted = false;
+  let   labelTimer = null;
+  let   fadingOut  = false;
+  let   trackIdx   = Math.floor(Math.random() * AMB_TRACKS.length);
+
+  function loadTrack(idx) {
+    ambAudio.src    = AMB_TRACKS[idx].src;
+    ambAudio.volume = 0;
+    fadingOut       = false;
+  }
+  loadTrack(trackIdx);
+
+  function showLabel(text) {
+    ambLabel.textContent = text;
+    ambLabel.classList.add('show');
+    clearTimeout(labelTimer);
+    labelTimer = setTimeout(() => ambLabel.classList.remove('show'), 3500);
+  }
+
+  function fadeIn(ms) {
+    const step = AMB_TARGET / (ms / 50);
+    const t = setInterval(() => {
+      ambAudio.volume = Math.min(AMB_TARGET, +(ambAudio.volume + step).toFixed(4));
+      if (ambAudio.volume >= AMB_TARGET) clearInterval(t);
+    }, 50);
+  }
+
+  // Fade out — optionally pause when silent (for mute button)
+  function fadeOut(ms, pause = true) {
+    const start = ambAudio.volume;
+    const step  = start / (ms / 50);
+    const t = setInterval(() => {
+      ambAudio.volume = Math.max(0, +(ambAudio.volume - step).toFixed(4));
+      if (ambAudio.volume <= 0) { clearInterval(t); if (pause) ambAudio.pause(); }
+    }, 50);
+  }
+
+  // Fade out near end of track (no pause — let 'ended' fire naturally)
+  ambAudio.addEventListener('timeupdate', () => {
+    if (!ambPlaying || fadingOut || !ambAudio.duration) return;
+    const remaining = ambAudio.duration - ambAudio.currentTime;
+    if (remaining > 0 && remaining <= FADE_OUT_SEC) {
+      fadingOut = true;
+      fadeOut(remaining * 1000, false);
+    }
+  });
+
+  // When a track ends, advance to the next one and fade back in
+  ambAudio.addEventListener('ended', () => {
+    if (!ambPlaying) return;
+    trackIdx = (trackIdx + 1) % AMB_TRACKS.length;
+    loadTrack(trackIdx);
+    ambAudio.play().then(() => {
+      fadeIn(FADE_IN_MS);
+      showLabel(AMB_TRACKS[trackIdx].title);
+    }).catch(() => {});
+  });
+
+  function startAmb() {
+    if (ambStarted) return;
+    ambStarted = true;
+    ambAudio.play().then(() => {
+      ambPlaying = true;
+      ambBtn.classList.remove('muted');
+      fadeIn(FADE_IN_MS);
+      showLabel(AMB_TRACKS[trackIdx].title);
+    }).catch(() => {
+      // Autoplay blocked — stays muted, user can click
+    });
+  }
+
+  // Try to start on first scroll
+  const ambScrollOnce = () => { startAmb(); window.removeEventListener('scroll', ambScrollOnce); };
+  window.addEventListener('scroll', ambScrollOnce, { passive: true });
+
+  // Also try on first click anywhere
+  const ambClickOnce = () => { startAmb(); window.removeEventListener('click', ambClickOnce); };
+  window.addEventListener('click', ambClickOnce, { once: true });
+
+  // Mute/unmute toggle button
+  ambBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!ambStarted) { startAmb(); return; }
+    if (ambPlaying) {
+      fadeOut(1500, true);
+      ambPlaying = false;
+      ambBtn.classList.add('muted');
+      showLabel('Muted');
+    } else {
+      ambAudio.play().then(() => {
+        ambPlaying = true;
+        ambBtn.classList.remove('muted');
+        fadeIn(2000);
+        showLabel(AMB_TRACKS[trackIdx].title);
+      });
+    }
+  });
+
+  // ── RANDOM BACKGROUND GIFS ──────────────
+  const BG_POOL = [
+    '20cmotio.gif','3DVorono.gif','9squares.gif',
+    'BLK0001.gif','BLK0013.gif','BLK0025.gif','BLK0038.gif','BLK0050.gif',
+    'BLK0062.gif','BLK0074.gif','BLK0086.gif','BLK0098.gif','BLK0110.gif',
+    'BLK0122.gif','BLK0134.gif','BLK0146.gif','BLK0158.gif','BLK0170.gif',
+    'BLK0182.gif','BLK0194.gif','BLK0206.gif','BLK0218.gif','BLK0230.gif',
+    'BLK0242.gif','BLK0254.gif','BLK0266.gif','BLK0278.gif','BLK0290.gif',
+    'BLU0001.gif','BLU0005.gif','BLU0009.gif','BLU0013.gif','BLU0017.gif',
+    'BLU0021.gif','BLU0025.gif','BLU0029.gif','BLU0033.gif','BLU0037.gif',
+    'BLU0041.gif','BLU0045.gif','BLU0049.gif',
+    'CYN0001.gif','CYN0004.gif','CYN0007.gif','CYN0010.gif','CYN0013.gif',
+    'CYN0016.gif','CYN0019.gif','CYN0022.gif','CYN0025.gif','CYN0028.gif','CYN0031.gif',
+    'GRY0001.gif','GRY0009.gif','GRY0017.gif','GRY0025.gif','GRY0033.gif',
+    'GRY0041.gif','GRY0049.gif','GRY0057.gif','GRY0065.gif','GRY0073.gif',
+    'GRY0081.gif','GRY0089.gif','GRY0097.gif','GRY0105.gif','GRY0113.gif',
+    'GRY0121.gif','GRY0129.gif','GRY0137.gif','GRY0145.gif','GRY0153.gif',
+    'GRY0161.gif','GRY0169.gif','GRY0177.gif','GRY0185.gif','GRY0193.gif',
+    'GRY0201.gif','GRY0209.gif','GRY0217.gif','GRY0225.gif','GRY0233.gif',
+    'GRY0241.gif','GRY0249.gif','GRY0257.gif','GRY0266.gif','GRY0274.gif',
+    'GRY0282.gif','GRY0290.gif','GRY0298.gif','GRY0306.gif','GRY0314.gif',
+    'GRY0322.gif','GRY0330.gif','GRY0338.gif','GRY0346.gif','GRY0354.gif',
+    'GRY0362.gif','peUNcIQ.gif'
+  ].map(f => PATH_BASE + 'assets/gifs/bg/' + f);
+
+  // Shuffle array in place (Fisher-Yates)
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Each section gets its own shuffled pool + pointer
+  const SECTIONS = ['bg-hero','bg-letter','bg-remix','bg-theater','bg-aftermath','bg-closing'];
+
+  const sectionState = {};
+  SECTIONS.forEach(id => {
+    const pool = shuffle([...BG_POOL]);
+    sectionState[id] = { pool, idx: 0, active: 'a' };
+  });
+
+  // Randomize the vinyl ring GIF every page load
+  const vinylGif = document.getElementById('vinyl-gif');
+  if (vinylGif) {
+    const vinylPool = shuffle([...BG_POOL]);
+    vinylGif.src = vinylPool[Math.floor(Math.random() * vinylPool.length)];
+  }
+
+  function pickNext(id) {
+    const state = sectionState[id];
+    state.idx = (state.idx + 1) % state.pool.length;
+    // Re-shuffle when we wrap
+    if (state.idx === 0) shuffle(state.pool);
+    return state.pool[state.idx];
+  }
+
+  function initBg(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const state = sectionState[id];
+    const imgA = el.querySelector('.bg-a');
+    const imgB = el.querySelector('.bg-b');
+    imgA.src = state.pool[0];
+    imgB.src = state.pool[1] || state.pool[0];
+    state.idx = 1;
+    state.active = 'a';
+  }
+
+  function rotateBg(id) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const state = sectionState[id];
+    const imgA = el.querySelector('.bg-a');
+    const imgB = el.querySelector('.bg-b');
+    const next = pickNext(id);
+
+    if (state.active === 'a') {
+      // Load into B, fade B in, fade A out
+      imgB.src = next;
+      imgB.classList.add('show');
+      imgA.style.opacity = '0';
+      state.active = 'b';
+      setTimeout(() => { imgA.style.opacity = ''; }, 2600);
+    } else {
+      // Load into A, swap
+      imgA.src = next;
+      imgB.classList.remove('show');
+      state.active = 'a';
+    }
+  }
+
+  // Init all backgrounds immediately
+  SECTIONS.forEach(id => initBg(id));
+
+  // Randomize vinyl ring GIF on every load
+  const vinylImg = document.querySelector('#vinyl-ring img');
+  if (vinylImg) vinylImg.src = BG_POOL[Math.floor(Math.random() * BG_POOL.length)];
+
+  // Rotate each section independently on staggered intervals
+  const ROTATE_MS = 9000; // 9 seconds base
+  SECTIONS.forEach((id, i) => {
+    // Stagger start so they don't all flip at once
+    setTimeout(() => {
+      rotateBg(id);
+      setInterval(() => rotateBg(id), ROTATE_MS);
+    }, i * 1500 + Math.random() * 2000);
+  });
+
+  // ── REVEAL ──────────────────────────────
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        if (e.target.id === 'closing-ring') e.target.classList.add('in');
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ── AUDIO PLAYER ────────────────────────
+  const audio      = document.getElementById('audio-el');
+  const btnPlay    = document.getElementById('btn-play');
+  const iconPlay   = document.getElementById('icon-play');
+  const iconPause  = document.getElementById('icon-pause');
+  const progBar    = document.getElementById('audio-progress');
+  const curEl      = document.getElementById('audio-cur');
+  const durEl      = document.getElementById('audio-dur');
+  const vinylRing  = document.getElementById('vinyl-ring');
+  const vinylOver  = document.getElementById('vinyl-overlay');
+  const statusEl   = document.getElementById('player-status');
+  const progWrap   = document.getElementById('progress-wrap');
+  const waveformEl = document.getElementById('waveform');
+
+  // Build waveform bars
+  const BAR_COUNT = 28;
+  const barHeights = Array.from({length: BAR_COUNT}, () => ({
+    lo: (Math.random() * .15 + .05).toFixed(2),
+    hi: (Math.random() * .6  + .35).toFixed(2),
+    dur:(Math.random() * .5  + .5 ).toFixed(2)
+  }));
+  barHeights.forEach(b => {
+    const span = document.createElement('span');
+    span.style.cssText = `height:${Math.round(b.hi * 40)}px; --lo:${b.lo}; --hi:${b.hi}; --dur:${b.dur}s; animation-delay:${(Math.random()*.4).toFixed(2)}s`;
+    waveformEl.appendChild(span);
+  });
+
+  function fmt(s) {
+    if (!isFinite(s)) return '—';
+    return `${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`;
+  }
+  function tick() {
+    const d = audio.duration || 0;
+    const p = d > 0 ? (audio.currentTime / d) * 100 : 0;
+    progBar.style.width = p + '%';
+    if (curEl) curEl.textContent = fmt(audio.currentTime);
+    if (durEl && d) durEl.textContent = fmt(d);
+  }
+
+  function setPlaying(playing) {
+    iconPlay.style.display  = playing ? 'none'  : 'block';
+    iconPause.style.display = playing ? 'block' : 'none';
+    vinylRing.classList.toggle('playing', playing);
+    waveformEl.classList.toggle('playing', playing);
+    statusEl.classList.toggle('live', playing);
+    vinylOver.textContent = playing ? '⏸' : '▶';
+    statusEl.textContent  = playing ? 'Now Playing' : 'Paused';
+  }
+
+  btnPlay.addEventListener('click', () => audio.paused ? audio.play() : audio.pause());
+  vinylOver.addEventListener('click', () => audio.paused ? audio.play() : audio.pause());
+
+  // Mute
+  const btnMute  = document.getElementById('btn-mute');
+  const iconVol  = document.getElementById('icon-vol');
+  const iconMute = document.getElementById('icon-mute');
+  btnMute.addEventListener('click', () => {
+    audio.muted = !audio.muted;
+    btnMute.classList.toggle('muted', audio.muted);
+    iconVol.style.display  = audio.muted ? 'none'  : 'block';
+    iconMute.style.display = audio.muted ? 'block' : 'none';
+  });
+
+  // Download — set href once src is resolved
+  const btnDownload = document.getElementById('btn-download');
+  btnDownload.href = (PATH_BASE || '') + 'assets/audio/remix-for-david.mp3';
+
+  audio.addEventListener('play',  () => setPlaying(true));
+  audio.addEventListener('pause', () => setPlaying(false));
+  audio.addEventListener('ended', () => {
+    setPlaying(false);
+    statusEl.textContent = 'Press play';
+    progBar.style.width  = '0%';
+    if (curEl) curEl.textContent = '0:00';
+  });
+  audio.addEventListener('timeupdate',    tick);
+  audio.addEventListener('loadedmetadata',() => { tick(); if(durEl) durEl.textContent = fmt(audio.duration); });
+  progWrap.addEventListener('click', e => {
+    const r = progWrap.getBoundingClientRect();
+    if (audio.duration) audio.currentTime = ((e.clientX - r.left) / r.width) * audio.duration;
+  });
+
+  // ── ROOM TABS ────────────────────────────
+  document.querySelectorAll('.room-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const t = btn.dataset.room;
+      document.querySelectorAll('.room-tab').forEach(b => b.classList.remove('on'));
+      document.querySelectorAll('.room-panel').forEach(p => p.classList.remove('on'));
+      btn.classList.add('on');
+      document.getElementById(`room-${t}`).classList.add('on');
+      document.querySelectorAll(`#room-${t} .reveal`).forEach(el => {
+        el.classList.remove('in');
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('in')));
+      });
+    });
+  });
+</script>
+</body>
+</html>

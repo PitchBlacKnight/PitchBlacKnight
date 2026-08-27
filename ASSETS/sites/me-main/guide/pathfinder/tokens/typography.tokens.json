@@ -1,0 +1,40 @@
+{
+  "$description": "Tier 2 — TYPE RAMP. The public API for type. Sits at the semantic tier: purpose-named, referenced by components, never bypassed with a raw font-size.",
+  "$source": "Figma text styles PF3/* — 21 styles. These are STYLES, not variables: Figma has no font-size or line-height variable collection in this file, so the numbers below are literals rather than aliases. Family and weight are the only parts that can point at a variable, so they do.",
+
+  "typography": {
+    "display": {
+      "xl": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.bold}",     "fontSize": "48px", "lineHeight": "56px", "letterSpacing": "-1.5px" }, "$figmaStyle": "PF3/Display/XL" },
+      "lg": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.bold}",     "fontSize": "36px", "lineHeight": "44px", "letterSpacing": "-1px" },   "$figmaStyle": "PF3/Display/LG" },
+      "md": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.semibold}", "fontSize": "30px", "lineHeight": "38px", "letterSpacing": "-0.5px" }, "$figmaStyle": "PF3/Display/MD" }
+    },
+    "heading": {
+      "h1": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.semibold}", "fontSize": "24px", "lineHeight": "32px", "letterSpacing": "-0.3px" }, "$figmaStyle": "PF3/Heading/H1" },
+      "h2": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.semibold}", "fontSize": "20px", "lineHeight": "28px", "letterSpacing": "-0.2px" }, "$figmaStyle": "PF3/Heading/H2" },
+      "h3": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.medium}",   "fontSize": "18px", "lineHeight": "26px", "letterSpacing": "0" },      "$figmaStyle": "PF3/Heading/H3" },
+      "h4": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.medium}",   "fontSize": "16px", "lineHeight": "24px", "letterSpacing": "0" },      "$figmaStyle": "PF3/Heading/H4" }
+    },
+    "body": {
+      "lg": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.regular}", "fontSize": "18px", "lineHeight": "28px", "letterSpacing": "0" }, "$figmaStyle": "PF3/Body/LG" },
+      "md": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.regular}", "fontSize": "16px", "lineHeight": "24px", "letterSpacing": "0" }, "$figmaStyle": "PF3/Body/MD" },
+      "sm": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.regular}", "fontSize": "14px", "lineHeight": "20px", "letterSpacing": "0" }, "$figmaStyle": "PF3/Body/SM" },
+      "xs": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.regular}", "fontSize": "12px", "lineHeight": "18px", "letterSpacing": "0" }, "$figmaStyle": "PF3/Body/XS" }
+    },
+    "label": {
+      "lg": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.medium}", "fontSize": "14px", "lineHeight": "20px", "letterSpacing": "0" },     "$figmaStyle": "PF3/Label/LG" },
+      "md": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.medium}", "fontSize": "12px", "lineHeight": "18px", "letterSpacing": "0" },     "$figmaStyle": "PF3/Label/MD" },
+      "sm": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.medium}", "fontSize": "11px", "lineHeight": "16px", "letterSpacing": "0.2px" }, "$figmaStyle": "PF3/Label/SM" },
+      "xs": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.medium}", "fontSize": "10px", "lineHeight": "14px", "letterSpacing": "0.3px" }, "$figmaStyle": "PF3/Label/XS" }
+    },
+    "kpi": {
+      "lg": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.bold}", "fontSize": "36px", "lineHeight": "44px", "letterSpacing": "-1px" },   "$figmaStyle": "PF3/KPI/LG" },
+      "md": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.bold}", "fontSize": "28px", "lineHeight": "36px", "letterSpacing": "-0.5px" }, "$figmaStyle": "PF3/KPI/MD" },
+      "sm": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.bold}", "fontSize": "20px", "lineHeight": "28px", "letterSpacing": "-0.3px" }, "$figmaStyle": "PF3/KPI/SM" }
+    },
+    "caption":  { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.regular}",  "fontSize": "12px", "lineHeight": "16px", "letterSpacing": "0.2px" }, "$figmaStyle": "PF3/Caption" },
+    "overline": { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.sans}", "fontWeight": "{primitive.font.weight.semibold}", "fontSize": "11px", "lineHeight": "16px", "letterSpacing": "1.5px", "textTransform": "uppercase" }, "$figmaStyle": "PF3/Overline" },
+    "code":     { "$type": "typography", "$value": { "fontFamily": "{primitive.font.family.mono}", "fontWeight": "{primitive.font.weight.regular}",  "fontSize": "13px", "lineHeight": "20px", "letterSpacing": "0" }, "$figmaStyle": "PF3/Code" }
+  },
+
+  "$note": "The KPI ramp is a duplicate of the Display ramp at bold — kpi.lg and display.lg resolve to the same three numbers. It survives because dashboards read 'KPI' and marketing reads 'Display', and one name per audience is cheaper than one name that satisfies neither. The build reports the overlap rather than hiding it."
+}

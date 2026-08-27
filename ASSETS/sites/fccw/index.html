@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>First Congregational Church of Wilmette — Everyone Belongs Here</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+    <div class="nav-logo-mark">
+      <img src="images/FCCW-UCC_Logo_800x200.png" alt="FCCW mark" />
+    </div>
+    <div class="nav-logo-wordmark">
+      <span class="nav-logo-name">First Congregational</span>
+      <span class="nav-logo-sub">Church of Wilmette · Est. 1875</span>
+    </div>
+  </a>
+  <button class="hamburger" aria-label="Menu" onclick="toggleMenu()">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links" id="nav-links">
+    <a href="events.html">Events</a>
+    <a href="groups.html">Groups</a>
+    <a href="services.html">Services</a>
+    <a href="outreach.html">Outreach</a>
+    <a href="services.html#visit" class="nav-cta">Plan a Visit</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="background-image:linear-gradient(160deg, rgba(15,17,23,0.5) 0%, rgba(15,17,23,0.85) 60%, rgba(15,17,23,0.96) 100%), url('images/1101v1_SanctuaryPurpleLentBanners.jpg'); background-size:cover; background-position:center;">
+  <div class="hero-inner">
+    <span class="hero-eyebrow">Open &amp; Affirming · UCC · Est. 1875</span>
+    <h1>A place where<br /><em>everyone belongs.</em></h1>
+    <p>No matter where you are on life's journey — your questions, your doubts, your whole self — you are welcome here.</p>
+    <div class="hero-actions">
+      <a href="services.html#visit" class="btn btn-primary">Plan Your First Visit</a>
+      <a href="events.html" class="btn btn-outline-white">See What's Happening</a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICE BAR -->
+<div class="service-bar">
+  <div><strong>Sunday Worship</strong><span>10:00 AM</span></div>
+  <div><strong>Location</strong><span>1125 Wilmette Avenue, Wilmette, IL</span></div>
+  <div><strong>Phone</strong><span>(847) 251-6660</span></div>
+</div>
+
+<!-- WELCOME -->
+<section>
+  <div class="section-inner">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:start;">
+      <div>
+        <p class="section-label">Welcome</p>
+        <h2 class="section-title">More than a church.<br />A community.</h2>
+        <p style="color:var(--body); line-height:1.75; margin-bottom:1.25rem; font-weight:300;">First Congregational Church of Wilmette has been a gathering place for seekers, thinkers, and doers since 1875. We are a United Church of Christ congregation — Open and Affirming — which means every person is truly welcome at our table.</p>
+        <p style="color:var(--body); line-height:1.75; margin-bottom:2.5rem; font-weight:300;">Whether you grew up in church, left it behind, or never set foot in one — whether you have questions, doubts, or deep faith — there is a place for you here.</p>
+        <a href="services.html" class="btn btn-outline">About Our Worship</a>
+      </div>
+      <div>
+        <div style="border-radius:14px; overflow:hidden; margin-bottom:1.5rem;">
+          <img src="images/IMG_5495-Interioir-W-entry_cropped.jpg" alt="FCCW church interior entrance" style="width:100%; object-fit:cover; max-height:340px; display:block;" />
+        </div>
+        <div class="pull-quote">
+          <p>"No matter where you are on life's journey, you are welcome here."</p>
+          <cite>— Reverend Mary Herbig</cite>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-top:1.5rem;">
+          <div class="stat-box" style="background:var(--cream);">
+            <div class="stat-num" style="color:var(--teal);">150+</div>
+            <div class="stat-label" style="color:var(--slate);">Years of community</div>
+          </div>
+          <div class="stat-box" style="background:var(--cream);">
+            <div class="stat-num" style="color:var(--teal);">1875</div>
+            <div class="stat-label" style="color:var(--slate);">Founded in Wilmette</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EVENTS -->
+<section class="band">
+  <div class="section-inner">
+    <p class="section-label">What's Coming Up</p>
+    <h2 class="section-title">Upcoming Events</h2>
+    <p class="section-sub">From worship and music to service trips and social gatherings — there's always something happening at FCCW.</p>
+
+    <div style="display:flex; flex-direction:column; margin-bottom:3rem;">
+      <a href="events.html" class="event-card">
+        <div class="event-date"><span class="event-month">May</span><span class="event-day">18</span></div>
+        <div class="event-info">
+          <div class="event-title">Sunday Worship — "The Courage to Belong"</div>
+          <div class="event-time">Sun, May 18 · 10:00 AM · Sanctuary</div>
+        </div>
+      </a>
+      <a href="events.html" class="event-card">
+        <div class="event-date"><span class="event-month">May</span><span class="event-day">20</span></div>
+        <div class="event-info">
+          <div class="event-title">Youth Group Dinner &amp; Discussion</div>
+          <div class="event-time">Tue, May 20 · 6:30 PM · Fellowship Hall</div>
+        </div>
+      </a>
+      <a href="events.html" class="event-card">
+        <div class="event-date"><span class="event-month">May</span><span class="event-day">22</span></div>
+        <div class="event-info">
+          <div class="event-title">Interfaith Housing Volunteer Day</div>
+          <div class="event-time">Thu, May 22 · 9:00 AM · Meet at Church</div>
+        </div>
+      </a>
+      <a href="events.html" class="event-card">
+        <div class="event-date"><span class="event-month">Jun</span><span class="event-day">7</span></div>
+        <div class="event-info">
+          <div class="event-title">Summer Concert Series — Opening Night</div>
+          <div class="event-time">Sat, Jun 7 · 7:00 PM · Fellowship Hall</div>
+        </div>
+      </a>
+    </div>
+
+    <a href="events.html" class="btn btn-dark">View All Events →</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- MINISTRIES -->
+<section>
+  <div class="section-inner">
+    <p class="section-label">Find Your Place</p>
+    <h2 class="section-title">There's a group for you.</h2>
+    <p class="section-sub">Connection happens through shared meals, shared work, and shared purpose. Explore the ways to plug in.</p>
+
+    <div class="grid-3">
+      <div class="ministry-card">
+        <div class="ministry-num">01</div>
+        <div class="ministry-title">Music Ministry</div>
+        <div class="ministry-text">Our choir and instrumental ensembles bring worship to life. Singers and musicians of all levels are welcome to join.</div>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-num">02</div>
+        <div class="ministry-title">Youth &amp; Family</div>
+        <div class="ministry-text">Sunday School, confirmation, youth group, and family events create space for kids and teens to grow in faith and friendship.</div>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-num">03</div>
+        <div class="ministry-title">Small Groups</div>
+        <div class="ministry-text">Bible study, book groups, men's and women's fellowship — intimate settings where real relationships form.</div>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-num">04</div>
+        <div class="ministry-title">Social Justice</div>
+        <div class="ministry-text">We put faith into action. Join us in advocating for housing, equity, and a more just world — locally and beyond.</div>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-num">05</div>
+        <div class="ministry-title">Nursery School</div>
+        <div class="ministry-text">Wilmette Community Nursery School has served families on the North Shore for decades, nurturing the youngest learners.</div>
+      </div>
+      <div class="ministry-card">
+        <div class="ministry-num">06</div>
+        <div class="ministry-title">Interfaith Connections</div>
+        <div class="ministry-text">We build bridges with our neighbors of all faiths — because understanding one another is itself a holy act.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:2.5rem;">
+      <a href="groups.html" class="btn btn-primary">Explore All Groups →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- OUTREACH HIGHLIGHT -->
+<section class="band-dark" style="background-image:linear-gradient(160deg, rgba(15,17,23,0.9) 0%, rgba(15,17,23,0.96) 100%), url('images/1402v1_Serving_Dinner-for-the-Homeless.jpg'); background-size:cover; background-position:center;">
+  <div class="section-inner">
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:5rem; align-items:center;">
+      <div>
+        <p class="section-label" style="color:var(--teal-mid);">Our Outreach</p>
+        <h2 class="section-title" style="color:var(--white);">Faith in action.<br />Right here and far away.</h2>
+        <p style="color:rgba(255,255,255,0.6); line-height:1.75; margin-bottom:2rem; font-weight:300;">FCCW has a long history of showing up — from resettling nearly 400,000 refugees after WWII to civil rights and fair housing activism, to our ongoing work with Connections for the Homeless in Evanston and our interfaith partnership with Congregation Sukkat Shalom.</p>
+        <a href="outreach.html" class="btn btn-primary">See Our Outreach Work</a>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+        <div class="stat-box" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);">
+          <div class="stat-num" style="color:var(--teal-mid);">400K</div>
+          <div class="stat-label" style="color:rgba(255,255,255,0.55);">Refugees assisted after WWII</div>
+        </div>
+        <div class="stat-box" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);">
+          <div class="stat-num" style="color:var(--teal-mid);">∞</div>
+          <div class="stat-label" style="color:rgba(255,255,255,0.55);">Families helped through Interfaith Housing</div>
+        </div>
+        <div class="stat-box" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);">
+          <div class="stat-num" style="color:var(--teal-mid);">100%</div>
+          <div class="stat-label" style="color:rgba(255,255,255,0.55);">Open &amp; Affirming — all are welcome</div>
+        </div>
+        <div class="stat-box" style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1);">
+          <div class="stat-num" style="color:var(--teal-mid);">1875</div>
+          <div class="stat-label" style="color:rgba(255,255,255,0.55);">Founded in Wilmette — 150 years strong</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VISIT CTA -->
+<section style="background:var(--teal); color:white; padding:5rem 2rem; text-align:center;">
+  <div class="section-inner">
+    <p style="font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.6); margin-bottom:1rem;">Ready to Visit?</p>
+    <h2 style="font-size:clamp(2rem,4vw,3.2rem); font-weight:700; letter-spacing:-0.03em; color:white; margin-bottom:1rem; line-height:1;">Your first Sunday starts here.</h2>
+    <p style="color:rgba(255,255,255,0.7); font-size:1rem; max-width:460px; margin:0 auto 2.5rem; line-height:1.7; font-weight:300;">Come as you are — no dress code, no expectations, just a warm welcome waiting for you.</p>
+    <div style="display:flex; gap:1rem; justify-content:center; flex-wrap:wrap;">
+      <a href="services.html#visit" class="btn btn-white">Plan My Visit</a>
+      <a href="services.html" class="btn btn-outline-white">What to Expect</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">First Congregational Church of Wilmette</div>
+        <p class="footer-tagline">An Open &amp; Affirming United Church of Christ congregation where everyone belongs — no matter where you are on life's journey.</p>
+        <p style="font-size:0.82rem; font-weight:300;">1125 Wilmette Avenue · Wilmette, IL 60091<br />(847) 251-6660 · 1stchurch@fccw.org</p>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <a href="events.html">Events</a>
+        <a href="groups.html">Groups &amp; Ministries</a>
+        <a href="services.html">Worship Services</a>
+        <a href="outreach.html">Outreach</a>
+      </div>
+      <div class="footer-col">
+        <h4>Visit</h4>
+        <a href="services.html#visit">Plan a Visit</a>
+        <a href="services.html#what-to-expect">What to Expect</a>
+        <a href="services.html#sermons">Sermon Archive</a>
+        <a href="#">Directions &amp; Parking</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        <a href="#">Newsletter Signup</a>
+        <a href="#">Facebook</a>
+        <a href="#">YouTube</a>
+        <a href="#">Contact Us</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 First Congregational Church of Wilmette · All rights reserved.</span>
+      <span style="opacity:0.4;">Website by PBK Studio, LLC · mikelrosenthal.com</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.getElementById('nav-links').classList.toggle('open');
+  }
+</script>
+</body>
+</html>

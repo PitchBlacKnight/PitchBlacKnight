@@ -26,6 +26,6 @@ git checkout main          # return to latest
 To deploy a specific version:
 ```bash
 git checkout v1.0
-vercel --prod --yes
+# DISABLED — see DO-NOT-DEPLOY.md (this folder must never deploy)
 git checkout main
 ```

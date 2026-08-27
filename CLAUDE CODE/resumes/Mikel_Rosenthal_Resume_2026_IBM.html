@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mikel Rosenthal — Resume 2026</title><!-- IBM Sr Product Designer variant -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f2ecdf; --ink:#221e1a; --ink-80:rgba(34,30,26,.84); --ink-60:rgba(34,30,26,.6);
+    --muted:#8d8478; --coral:#e56a4d; --rule:rgba(34,30,26,.18); --rule-soft:rgba(34,30,26,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--cream);color:var(--ink);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{font-family:'Space Grotesk',sans-serif;font-weight:300;font-size:10.2pt;line-height:1.46;
+    -webkit-font-smoothing:antialiased;}
+  .page{max-width:7.35in;margin:0 auto;padding:0.5in 0.15in;}
+  a{color:inherit;text-decoration:none;}
+
+  /* ── Header ── */
+  .eyebrow{font-size:8pt;font-weight:400;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--ink-60);display:flex;align-items:center;gap:14px;}
+  .eyebrow::before{content:"";width:30px;height:1px;background:var(--coral);}
+  .name{font-family:'Fraunces',Georgia,serif;font-weight:300;font-size:37pt;line-height:1.05;
+    letter-spacing:-0.01em;margin:11px 0 8px;}
+  .name em{font-style:italic;color:var(--coral);font-weight:400;}
+  .role{font-size:8.6pt;font-weight:400;letter-spacing:.19em;text-transform:uppercase;
+    color:var(--ink-60);margin-bottom:12px;}
+  .contact{font-size:9pt;color:var(--ink-80);}
+  .contact a{color:var(--coral);}
+  .contact .sep{color:var(--rule);margin:0 8px;}
+
+  /* ── Section heads ── */
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:20px 0 11px;}
+  .sec-num{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:11pt;color:var(--coral);}
+  .sec-name{font-size:9pt;font-weight:400;letter-spacing:.26em;text-transform:uppercase;color:var(--ink);}
+  .sec-head::after{content:"";flex:1;height:1px;background:var(--rule);transform:translateY(-3px);}
+
+  .summary{font-size:10.4pt;line-height:1.52;color:var(--ink-80);}
+  .summary b{color:var(--ink);font-weight:400;}
+  .summary .tag{font-family:'Fraunces',serif;font-style:italic;color:var(--coral);}
+
+  /* ── Experience ── */
+  .job{margin-bottom:12px;break-inside:avoid;page-break-inside:avoid;}
+  .job-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;}
+  .job-co{font-family:'Fraunces',serif;font-weight:400;font-size:12.6pt;letter-spacing:.005em;}
+  .job-co .jrole{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:10.6pt;
+    color:var(--coral);margin-left:7px;}
+  .job-date{font-size:7.8pt;font-weight:400;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);white-space:nowrap;}
+  .job-meta{font-size:7.8pt;font-weight:400;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin:2px 0 6px;}
+  .job-sum{color:var(--ink-80);margin-bottom:4px;font-size:10.1pt;}
+  .job ul{list-style:none;}
+  .job li{position:relative;padding-left:17px;margin-bottom:2px;font-size:9.9pt;
+    line-height:1.42;color:var(--ink-80);}
+  .job li::before{content:"–";position:absolute;left:0;color:var(--coral);}
+
+  /* ── Skills ── */
+  .skills{font-size:10.2pt;line-height:1.68;color:var(--ink-80);}
+  .skills b{color:var(--ink);font-weight:400;}
+  .job li b,.job-sum b{color:var(--ink);font-weight:400;}
+
+  /* ── Awards / Edu ── */
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px 48px;}
+  .item{font-size:10.1pt;color:var(--ink-80);margin-bottom:5px;break-inside:avoid;}
+  .item b{font-family:'Fraunces',serif;font-weight:400;color:var(--ink);font-size:10.6pt;}
+  .item .meta{display:block;font-size:7.6pt;font-weight:400;letter-spacing:.13em;
+    text-transform:uppercase;color:var(--muted);margin-top:1px;}
+
+  /* ── Footer ── */
+  .footer{margin-top:20px;padding-top:10px;border-top:1px solid var(--rule-soft);
+    font-size:8pt;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-80);}
+  .footer-links{display:flex;justify-content:space-between;}
+  .footer .lab{color:var(--coral);margin-right:10px;}
+  .footer .copy{color:var(--muted);}
+
+  @page{size:8.5in 32.17in;margin:0;}
+  @media print{.page{padding:0.62in 0.7in;max-width:none;}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="eyebrow">Mikel Rosenthal · Portfolio 2026 · MikelRosenthal.com</div>
+    <h1 class="name">Mikel <em>Rosenthal</em></h1>
+    <div class="role">Senior Product Designer · End-to-End UX · Design Systems · Visual Craft · iOS · Android · Web</div>
+    <div class="contact">
+      mikelrosenthal@me.com<span class="sep">·</span>+1 (773) 490-6923<span class="sep">·</span>Chicago Heights, IL (Remote, US)<span class="sep">·</span><a href="https://www.linkedin.com/in/mikel-rosenthal-5b85b17">LinkedIn</a><span class="sep">·</span><a href="https://www.mikelrosenthal.com">mikelrosenthal.com</a>
+    </div>
+  </header>
+
+  <div class="sec-head"><span class="sec-num">I.</span><span class="sec-name">Summary</span></div>
+  <p class="summary">A senior product designer with <b>23 years designing end-to-end experiences for complex web and mobile products</b> — from early concepts, workflows, and wireframes through prototypes and final production-ready specifications — and obsessed with the visual craft most teams never get to: typography, spacing, color, motion, interaction detail. Deep enterprise history in regulated healthcare and fintech: core contributor to <b>GE Healthcare's</b> Edison Design System (2020 Red Dot for Interface Design), builder of <b>Blue Cross Blue Shield's</b> FIBER system — five design systems built, plus contributions inside mature systems at GE and Verizon. Comfortable working independently from partially defined requirements: surfacing gaps, risks, and dependencies, evaluating multiple solution approaches, and making clear, well-reasoned recommendations with rationale, assumptions, edge cases, and alternate states documented. Works AI-forward, designing and building in production code (AI-assisted design engineering): Claude Code for prototypes and production front-end, Figma Make for rapid clickable concepts, and agent workflows for multi-step production and documentation — with every craft decision staying human. Accessibility (WCAG) designed in by default, and implementation supported through design reviews, developer handoff, and design QA. Principal Designer at <b>PBK Studio</b>. <span class="tag">Complex software, made beautiful, built to scale.</span></p>
+
+  <div class="sec-head"><span class="sec-num">II.</span><span class="sec-name">Experience</span></div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">PBK Studio<span class="jrole">Principal Designer</span></div><div class="job-date">May 2026 – Present</div></div>
+    <div class="job-meta">Design Systems · Product · Brand · Web · Motion · Voice · AI-Native Workflows · Design Engineering</div>
+    <p class="job-sum">Independent multidisciplinary studio designing composable design systems, AI-augmented product experiences, generative brand identity, and original music/voice work for enterprise and consumer clients.</p>
+    <ul>
+      <li>Engagements span enterprise design systems (healthcare, fintech, insurance), real estate microsites, brand identity, and responsive web.</li>
+      <li>Deliverables ship with governance, accessibility, and developer handoff built in — Figma-first, with clear documentation and contribution patterns.</li>
+      <li>Original music released as PitchBlacKnight; SAG-eligible voice performance for commercial, narrative, and sonic branding.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">Verizon<span class="jrole">Senior Design System Designer II</span></div><div class="job-date">Dec 2025</div></div>
+    <div class="job-meta">Short-Term Contract via Insight Global · Fully Remote</div>
+    <p class="job-sum">Scoped contract on Verizon's post-rebrand enterprise design system: designed and delivered the system's calendar component — full states and accessibility on its tokens and variables, handed off complete. A month of scope, shipped in the first week.</p>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">The Bettering Company<span class="jrole">Brand Designer</span></div><div class="job-date">May 2024 – Aug 2025</div></div>
+    <div class="job-meta">Freelance · Remote / Chicago, IL</div>
+    <p class="job-sum">Built a new brand identity and lightweight design system, translating the company's core values into a cohesive visual language and shipping-ready guidelines.</p>
+    <ul>
+      <li>Generated and refined a wide range of logo concepts — exploring form, symbolism, and narrative to capture the brand's mission.</li>
+      <li>Established brand guidelines and flexible foundations for consistent application across digital and physical touchpoints.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">Avant<span class="jrole">Senior Product, UI/UX &amp; Design Systems</span></div><div class="job-date">May 2021 – Aug 2024</div></div>
+    <div class="job-meta">Full-Time · Hybrid / Chicago, IL</div>
+    <p class="job-sum">Led design and development of Avant's Pathfinder Design System and a marketing design library spanning product and brand.</p>
+    <ul>
+      <li>Defined the visual language and component architecture that kept multi-platform work consistent.</li>
+      <li>Designed dense, data-heavy advisor tooling in a dark-themed product UI; partnered with engineering on reusable Figma libraries and themeable variants.</li>
+      <li>Worked from partially defined requirements in an ambiguous fintech space — mapped workflows, wireframes, and prototypes into production-ready specs with edge cases and alternate states covered.</li>
+      <li>Partnered daily with Product and Engineering to evaluate tradeoffs and navigate technical constraints; supported implementation through design reviews, developer handoff, and design QA.</li>
+      <li>Introduced a brand/marketing design library that streamlined consistency for 350+ marketers.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">GE Healthcare<span class="jrole">Senior UX/UI Product Designer, Design Systems</span></div><div class="job-date">Jan 2020 – Feb 2021</div></div>
+    <div class="job-meta">Contract · Hybrid / Chicago, IL</div>
+    <p class="job-sum">Core contributor to the award-winning Edison Design System — designed and evangelized modules as part of the team behind a foundation unifying 40+ regulated clinical and enterprise healthcare products.</p>
+    <ul>
+      <li>Developed scalable Figma component libraries and UX documentation adopted across diverse clinical product teams and device surfaces.</li>
+      <li>Central role in winning the 2020 Red Dot Award, Fast Company Innovation by Design, and dmi:DVA Award for Interface Design.</li>
+      <li>Partnered with accessibility and compliance teams to meet WCAG standards across regulated clinical environments.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">SurePeople<span class="jrole">Lead UX/UI Visual Product Designer</span></div><div class="job-date">Jun 2020 – Sep 2020</div></div>
+    <div class="job-meta">Contract · Remote / Chicago, IL</div>
+    <p class="job-sum">Led UX and visual design of the PRISM psychometric platform, translating complex behavioral data into clear, human-readable visualization.</p>
+    <ul>
+      <li>Defined interaction models, visual hierarchy, and IA for complex data visualization; built the platform's modular UI system from scratch in Figma.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">Blue Cross Blue Shield<span class="jrole">Senior Product / Design Systems Designer</span></div><div class="job-date">May 2018 – Dec 2019</div></div>
+    <div class="job-meta">Contract · Hybrid / Chicago, IL</div>
+    <p class="job-sum">Created and maintained the FIBER Design System — a coded, production-ready framework that accelerated product-to-market timelines.</p>
+    <ul>
+      <li>Defined typography, color, grids, and iconography; partnered with engineering on themeable, documented components.</li>
+      <li>Ran design reviews, developer handoff, and design QA with engineering; mentored teams in accessibility and documentation standards.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">TransUnion<span class="jrole">Senior UX Designer, Design Systems</span></div><div class="job-date">May 2018 – Jun 2019</div></div>
+    <div class="job-meta">Contract · Hybrid / Chicago, IL</div>
+    <p class="job-sum">Designed the global TUCM Design System and visual identity for customer-facing and internal applications.</p>
+    <ul>
+      <li>Built responsive, scalable UI libraries and universal style guidelines.</li>
+      <li><b>TrueCredit rebrand</b> — brought the consumer credit product into the TransUnion brand, realigning identity, UI, and customer-facing surfaces on the unified system.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">Maven Wave / Eviden<span class="jrole">UX Team Senior Lead, Design Systems</span></div><div class="job-date">Jan 2013 – May 2018</div></div>
+    <div class="job-meta">Full-Time · Hybrid / Chicago, IL</div>
+    <p class="job-sum">Directed conceptual and visual direction across Fortune 500 client projects, integrating UX principles with brand storytelling.</p>
+    <ul>
+      <li>Established scalable design workflows and early design-system patterns for clients including Google, AT&amp;T, and Nike.</li>
+      <li>Created prototypes, journey maps, and digital ecosystems across app, web, and co-branded products; mentored design teams.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">Biersma Creative <small>(merged into Maven Wave)</small><span class="jrole">Senior Designer &amp; UX Lead</span></div><div class="job-date">Jan 2006 – Jan 2013</div></div>
+    <div class="job-meta">Full-Time · Chicago, IL</div>
+    <p class="job-sum">Led visual brand and UX direction across energy, healthcare, retail, and entertainment for clients including Leor Energy, Aflac, AbbVie, Crate &amp; Barrel, Disney, Google, Nike, Herman Miller, and Salesforce.</p>
+    <ul>
+      <li><b>Leor Energy</b> (natural-gas exploration) — sole designer on the account: product UI, marketing site, investor materials, and brand and marketing design, keeping one visual system consistent from internal tooling through investor-facing communications.</li>
+    </ul>
+  </div>
+
+  <div class="job">
+    <div class="job-top"><div class="job-co">Firebelly Design<span class="jrole">Junior Graphic Designer</span></div><div class="job-date">Jan 2003 – Jan 2005</div></div>
+    <div class="job-meta">Full-Time · Chicago, IL</div>
+    <p class="job-sum">Concept-to-execution brand and web design; print and digital for ComEd, Petco, Harris Bank, and Scholastic.</p>
+  </div>
+
+  <div class="sec-head"><span class="sec-num">III.</span><span class="sec-name">Skills</span></div>
+  <p class="skills"><b>End-to-End Product Design</b> (concepts → workflows → wireframes → prototypes → final specs) · <b>UI &amp; Visual Design Craft</b> · Typography · Layout &amp; Composition · Color · <b>Native Mobile UI</b> (Apple HIG · Material Design) · Cross-Platform (iOS · Android · Web) · <b>Design Systems</b> (five built · contributor at GE &amp; Verizon) · Interaction &amp; Motion Design · Edge Cases &amp; Alternate States · Tradeoff Analysis &amp; Design Rationale · <b>AI-Accelerated Workflow</b> (Design Engineering · Claude Code · Figma Make · agent workflows · generative exploration) · High-Fidelity Prototyping (Figma · HTML/CSS) · <b>Figma</b> (components · libraries · variables · prototyping) · Complex Data Visualization · Regulated Healthcare &amp; Enterprise UI · Accessibility (WCAG 2.2) · Design Reviews · Developer Handoff · Design QA · Art Direction &amp; Brand · Adobe Creative Suite</p>
+
+  <div class="sec-head"><span class="sec-num">IV.</span><span class="sec-name">Awards &amp; Education</span></div>
+  <div class="grid2">
+    <div>
+      <div class="item"><b>2020 Red Dot Award</b> — Interface Design<span class="meta">Edison Design System · GE Healthcare</span></div>
+      <div class="item"><b>2020 Fast Company</b> — Innovation by Design</div>
+      <div class="item"><b>2020 dmi:DVA</b> — Design Value Award</div>
+      <div class="item"><b>MSU Film Festival</b> — 1st, Published Works</div>
+    </div>
+    <div>
+      <div class="item"><b>Missouri State University</b> · Springfield, MO<span class="meta">BFA, Summa Cum Laude — Electronic Arts &amp; Design</span><span class="meta">Minor: Mass Media &amp; Communications</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-links">
+      <span><span class="lab">Work</span><a href="https://www.mikelrosenthal.com">MikelRosenthal.com</a></span>
+      <span><span class="lab">Art</span><a href="https://pitchblacknight.com">PitchBlacKnight.com</a></span>
+    </div>
+  </div>
+</div>
+</body>
+</html>

@@ -3,3 +3,8 @@
 .claude/
 project/PitchBlacKnight.make
 ASSETS/deploy/audio/
+ASSETS/deploy/audio-320k/
+ASSETS/deploy/music/
+
+# Pathfinder demo — tracked in its own standalone repo
+CLAUDE CODE/pathfinder-2.0/
