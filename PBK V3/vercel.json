@@ -1,0 +1,15 @@
+{
+  "routes": [
+    { "src": "/david/(.*)",            "dest": "/david/$1" },
+    { "src": "/david",                 "dest": "/david/index.html" },
+    { "src": "/Lindsey-Bingaman/(.*)", "dest": "/Lindsey-Bingaman/$1" },
+    { "src": "/Lindsey-Bingaman",      "dest": "/Lindsey-Bingaman/index.html" },
+    { "src": "/serenity_lounge/(.*)",  "dest": "/serenity_lounge/$1" },
+    { "src": "/serenity_lounge",       "dest": "/serenity_lounge/index.html" },
+    { "src": "/ourdens/(.*)",          "dest": "/ourdens/$1" },
+    { "src": "/ourdens",               "dest": "/ourdens/index.html" },
+    { "src": "/daily-admin",           "dest": "/daily-admin.html" },
+    { "src": "/",                      "dest": "/index.html" },
+    { "src": "/(.*)",                  "dest": "/$1" }
+  ]
+}

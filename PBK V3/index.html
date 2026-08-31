@@ -1,0 +1,2266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PitchBlacKnight — Mikel Rosenthal · Fluxus Artist</title>
+<meta name="description" content="Mikel Rosenthal is a Fluxus artist working across design systems, music, performance, visual art, voice, and brand. 25 years of making. Still going.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="PitchBlacKnight">
+<meta property="og:title" content="PitchBlacKnight — Mikel Rosenthal · Fluxus Artist">
+<meta property="og:description" content="Music, digital art, voice, and design — a Fluxus practice running since 1990. 156 works and counting.">
+<meta property="og:url" content="https://pitchblacknight.com">
+<meta property="og:image" content="https://pitchblacknight.com/og-card.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PitchBlacKnight — Mikel Rosenthal, Fluxus Artist, still making.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="PitchBlacKnight — Mikel Rosenthal · Fluxus Artist">
+<meta name="twitter:description" content="Music, digital art, voice, and design — a Fluxus practice running since 1990.">
+<meta name="twitter:image" content="https://pitchblacknight.com/og-card.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Alexandria:wght@200;300;400;700;900&family=Space+Mono:wght@400;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+/* ━━ RESET ━━ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:#060606;color:#f0f0f0;
+  font-family:'EB Garamond',Georgia,serif;
+  font-size:18px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+button{cursor:pointer;border:none;background:none;font:inherit;color:inherit}
+
+/* ━━ TOKENS ━━ */
+:root{
+  --black:#060606;
+  --surface:#111;
+  --orange:#e8512a;
+  --blue:#7b8db8;
+  --white:#f0f0f0;
+  --muted:#b0bad0;
+  --dim:rgba(240,240,240,.82);
+  --rule:rgba(255,255,255,.07);
+  --max:1400px;
+}
+
+/* ━━ SECTION GIF BG SYSTEM ━━ */
+.gif-section{position:relative;overflow:hidden}
+.gif-section .s-gif{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;pointer-events:none;
+  opacity:0;
+}
+.gif-section .s-scrim{
+  position:absolute;inset:0;z-index:10;pointer-events:none;
+  background:linear-gradient(160deg,rgba(6,6,6,.72) 0%,rgba(6,6,6,.58) 100%);
+}
+.gif-section>.s-inner{position:relative;z-index:11}
+
+/* ━━ LOADER ━━ */
+#loader{
+  position:fixed;inset:0;background:#060606;z-index:9999;
+  display:flex;align-items:center;justify-content:center;
+  transition:opacity .6s ease,visibility .6s ease;
+}
+#loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.loader-inner{display:flex;flex-direction:column;align-items:center;gap:20px}
+.loader-gif{width:100px;height:100px;object-fit:cover;border-radius:50%}
+.loader-bar{width:180px;height:1px;background:rgba(255,255,255,.1);overflow:hidden}
+.loader-fill{height:100%;background:var(--orange);width:0;animation:lprogress .9s ease forwards}
+@keyframes lprogress{to{width:100%}}
+.loader-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--muted);
+}
+
+/* ━━ NAV ━━ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:900;
+  background:rgba(6,6,6,.93);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--rule);
+}
+.nav-row{
+  max-width:var(--max);margin:0 auto;padding:0 40px;
+  height:60px;display:flex;align-items:center;justify-content:space-between;gap:32px;
+}
+.nav-logo{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+}
+.nav-logo-gif{width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.logo-p{color:var(--white);font-weight:700}
+.logo-b{color:var(--orange);font-weight:700}
+.logo-k{color:var(--blue);font-weight:700}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);transition:color .15s;
+}
+.nav-links a:hover,.nav-links a.active{color:var(--white)}
+.nav-avail{
+  display:flex;align-items:center;gap:8px;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;color:#c8f520;white-space:nowrap;
+}
+.nav-dot{width:6px;height:6px;border-radius:50%;background:#c8f520;animation:blink 2.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.nav-burger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.nav-burger span{display:block;width:20px;height:1px;background:var(--white)}
+
+/* Mobile menu */
+.nav-mobile{
+  display:none;position:fixed;top:60px;left:0;right:0;z-index:899;
+  background:#060606;border-bottom:1px solid var(--rule);padding:20px 40px 28px;
+  flex-direction:column;gap:0;
+}
+.nav-mobile.open{display:flex}
+.nav-mobile a{
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);padding:14px 0;
+  border-bottom:1px solid var(--rule);display:block;transition:color .15s;
+}
+.nav-mobile a:hover{color:var(--white)}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   HERO
+━━━━━━━━━━━━━━━━━━━━ */
+#hero{
+  position:relative;width:100%;height:100vh;min-height:600px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.hero-reel{position:absolute;inset:0;z-index:0;overflow:hidden}
+.hero-reel-img{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;opacity:0;
+  transition:opacity 2s cubic-bezier(0.4,0,0.2,1);
+  transform:scale(1.05);
+  will-change:opacity,transform;
+}
+.hero-reel-img.hr-on{
+  opacity:1;
+  animation:hr-drift 10s ease-out forwards;
+}
+@keyframes hr-drift{
+  from{transform:scale(1.05)}
+  to  {transform:scale(1.0)}
+}
+.hero-scrim{
+  position:absolute;inset:0;z-index:1;
+  /* vignette: burns edges, opens center */
+  background:
+    radial-gradient(ellipse 90% 90% at 50% 50%, transparent 25%, rgba(6,6,6,.72) 100%),
+    linear-gradient(to bottom, rgba(6,6,6,.2) 0%, transparent 35%, rgba(6,6,6,.85) 100%);
+}
+/* color grade: orange low-left, blue high-right — overlay blend like PS */
+.hero-scrim::after{
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(135deg,
+    rgba(232,81,42,.22) 0%,
+    transparent 42%,
+    rgba(123,141,184,.16) 100%
+  );
+  mix-blend-mode:overlay;
+}
+.hero-content{
+  position:relative;z-index:2;display:flex;flex-direction:column;
+  align-items:center;gap:6px;text-align:center;
+}
+.hero-name{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(4rem,14vw,13rem);
+  line-height:.88;letter-spacing:.04em;
+  perspective:1400px;
+  filter:url(#pbk-inner);
+}
+.hero-name span{display:inline-block}
+.hn-pitch{animation:hn-enter-a 1s cubic-bezier(0.16,1,0.3,1) 0.95s both}
+.hn-blac{animation:hn-enter-b 1s cubic-bezier(0.16,1,0.3,1) 1.12s both}
+.hn-knight{animation:hn-enter-c 1s cubic-bezier(0.16,1,0.3,1) 1.29s both}
+@keyframes hn-enter-a{
+  from{opacity:0;transform:translateY(-70px) rotateX(75deg) translateZ(-50px)}
+  to  {opacity:1;transform:translateY(0) rotateX(0) translateZ(0)}
+}
+@keyframes hn-enter-b{
+  from{opacity:0;transform:translateY(60px) rotateX(-65deg) translateZ(-70px)}
+  to  {opacity:1;transform:translateY(0) rotateX(0) translateZ(0)}
+}
+@keyframes hn-enter-c{
+  from{opacity:0;transform:translateY(-50px) rotateY(50deg) translateZ(-90px)}
+  to  {opacity:1;transform:translateY(0) rotateY(0) translateZ(0)}
+}
+.hero-sub{
+  font-family:'Space Mono',monospace;
+  font-size:clamp(.6rem,1.4vw,.85rem);letter-spacing:.35em;
+  text-transform:uppercase;color:rgba(255,255,255,.80);margin-top:4px;
+}
+.hero-tags{
+  display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:20px;
+}
+.hero-tag{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;padding:6px 14px;
+  border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.4);
+  transition:all .2s;
+}
+.hero-tag:hover{border-color:var(--orange);color:var(--orange)}
+.hero-feat{display:flex;align-items:center;gap:18px;background:#e8512a;padding:16px 20px;margin:42px auto 0;max-width:600px;text-align:left;cursor:pointer;box-shadow:0 0 0 1px rgba(6,6,6,.4),0 18px 50px rgba(232,81,42,.4);transition:transform .2s ease,box-shadow .2s ease}
+.hero-feat:hover{transform:translateY(-3px);box-shadow:0 0 0 1px rgba(6,6,6,.4),0 26px 60px rgba(232,81,42,.55)}
+.hero-feat-art{width:72px;height:72px;object-fit:cover;border:2px solid #060606;flex-shrink:0}
+.hero-feat-info{display:flex;flex-direction:column;gap:5px;flex:1;min-width:0}
+.hero-feat-badge{font-family:var(--font-mono);font-size:11px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#060606}
+.hero-feat-name{font-size:clamp(20px,3vw,28px)!important;flex:initial!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hero-feat-dur{font-size:14px!important;min-width:auto!important}
+@media(max-width:600px){.hero-feat{gap:12px;padding:12px 14px;margin-top:32px}.hero-feat-art{width:56px;height:56px}.hero-feat-badge{font-size:9px}}
+.hero-scroll{
+  position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);
+  z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.hero-scroll-lbl{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.28em;
+  text-transform:uppercase;color:rgba(255,255,255,.2);
+}
+.hero-scroll-line{
+  width:1px;height:44px;
+  background:linear-gradient(to bottom,rgba(255,255,255,.2),transparent);
+  animation:spulse 1.8s ease-in-out infinite;
+}
+@keyframes spulse{0%,100%{opacity:.3;transform:scaleY(.7);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   SHARED SECTION STYLES
+━━━━━━━━━━━━━━━━━━━━ */
+.section-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:56px;
+  display:flex;align-items:center;gap:16px;
+}
+.section-label::after{content:'';flex:1;max-width:120px;height:1px;background:var(--rule)}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   MANIFESTO / ABOUT
+━━━━━━━━━━━━━━━━━━━━ */
+#manifesto{padding:120px 40px}
+.mf-inner{max-width:var(--max);margin:0 auto}
+.mf-statement{display:flex;flex-direction:column;gap:0}
+.mf-statement p{
+  font-family:'Alexandria',sans-serif;
+  font-size:clamp(2.2rem,5vw,4.2rem);
+  line-height:1.1;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   PROFESSIONAL
+━━━━━━━━━━━━━━━━━━━━ */
+#professional{border-top:1px solid var(--rule)}
+.pro-inner{max-width:var(--max);margin:0 auto}
+.pro-top{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;
+  margin-bottom:80px;align-items:start;
+}
+.pro-title{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3rem,7vw,7rem);
+  line-height:.9;letter-spacing:.02em;
+}
+.pro-title span{color:var(--orange)}
+.pro-bio{
+  font-family:'EB Garamond',serif;font-size:20px;line-height:1.6;
+  color:rgba(240,240,240,.85);
+  border-top:1px solid var(--rule);padding-top:28px;
+}
+.pro-stats{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border-top:1px solid var(--rule);
+}
+.stat-cell{
+  padding:40px 32px;border-right:1px solid var(--rule);
+}
+.stat-cell:last-child{border-right:none}
+.stat-n{
+  font-family:'Alexandria',sans-serif;font-weight:700;
+  font-size:clamp(2.5rem,5vw,4.5rem);letter-spacing:-.03em;
+  color:var(--white);line-height:1;
+}
+.stat-n span{color:var(--orange)}
+.stat-l{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin-top:8px;line-height:1.5;
+}
+
+/* Career timeline */
+.career-list{border-top:1px solid var(--rule);margin-top:80px}
+.career-item{
+  display:grid;grid-template-columns:140px 1fr;gap:32px;
+  padding:28px 0;border-bottom:1px solid var(--rule);
+}
+.ci-period{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.04em;
+  color:var(--muted);line-height:1.5;padding-top:2px;
+}
+.ci-role{
+  font-family:'Alexandria',sans-serif;font-weight:500;
+  font-size:16px;letter-spacing:-.01em;color:var(--white);margin-bottom:2px;
+}
+.ci-org{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:#c8f520;margin-bottom:8px;
+}
+.ci-note{
+  font-family:'EB Garamond',serif;font-size:14px;line-height:1.5;
+  color:rgba(240,240,240,.80);
+}
+
+/* ── CV ACCORDION ── */
+.pro-cv-bar{
+  max-width:var(--max);margin:0 auto;padding:48px 40px;
+  display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;
+}
+.pro-cv-meta{display:flex;flex-direction:column;gap:10px}
+.pro-cv-tagline{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--muted);
+}
+.pro-cv-toggle{
+  display:flex;align-items:center;gap:12px;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--orange);
+  border:1px solid rgba(232,81,42,.35);padding:10px 22px;
+  cursor:pointer;transition:all .2s;flex-shrink:0;
+}
+.pro-cv-toggle:hover{background:rgba(232,81,42,.07);border-color:var(--orange)}
+.pro-cv-icon{font-size:16px;line-height:1;transition:transform .4s cubic-bezier(.4,0,.2,1)}
+#professional.cv-open .pro-cv-icon{transform:rotate(45deg)}
+.pro-cv-body{
+  display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows .55s cubic-bezier(.4,0,.2,1);
+}
+#professional.cv-open .pro-cv-body{grid-template-rows:1fr}
+.pro-cv-inner{overflow:hidden;min-height:0}
+.pro-cv-content{padding:0 40px 80px;max-width:var(--max);margin:0 auto}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   SERVICES
+━━━━━━━━━━━━━━━━━━━━ */
+#services{padding:120px 40px;border-top:1px solid var(--rule)}
+.svc-inner{max-width:var(--max);margin:0 auto}
+.svc-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:0;
+  border-top:1px solid var(--rule);border-left:1px solid var(--rule);
+  margin-top:56px;
+}
+.svc-card{
+  padding:36px 32px 40px;
+  border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  position:relative;transition:background .2s;
+}
+.svc-card:hover{background:rgba(232,81,42,.03)}
+.svc-card::before{
+  content:'';position:absolute;left:0;top:0;bottom:0;width:2px;
+  background:var(--svc-accent,var(--orange));
+  opacity:0;transition:opacity .2s;
+}
+.svc-card:hover::before{opacity:1}
+.svc-num{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:20px;
+}
+.svc-title{
+  font-family:'Alexandria',sans-serif;font-weight:700;
+  font-size:18px;letter-spacing:-.01em;color:var(--white);
+  margin-bottom:14px;line-height:1.2;
+}
+.svc-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px}
+.svc-tag{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--orange);
+  border:1px solid rgba(232,81,42,.3);padding:3px 8px;
+}
+.svc-desc{
+  font-family:'EB Garamond',serif;font-size:15px;line-height:1.6;
+  color:rgba(240,240,240,.84);
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   CASE STUDIES
+━━━━━━━━━━━━━━━━━━━━ */
+#work{padding:0 0 80px;border-top:1px solid var(--rule)}
+.work-bar{
+  max-width:var(--max);margin:0 auto;padding:80px 40px 40px;
+  display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;
+}
+.work-hed{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3.5rem,8vw,8rem);letter-spacing:.02em;line-height:.9;
+}
+.work-hed span{color:var(--orange)}
+.work-note{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);max-width:220px;text-align:right;line-height:1.6;
+}
+.proj-table{border-top:1px solid var(--rule)}
+.proj-row{border-bottom:1px solid var(--rule)}
+.proj-head{
+  display:grid;grid-template-columns:72px 1fr auto auto;align-items:center;
+  gap:24px;padding:22px 40px;cursor:pointer;transition:background .15s;
+  width:100%;background:none;border:none;text-align:left;
+}
+.proj-head:hover{background:rgba(232,81,42,.03)}
+.proj-row.open .proj-head{background:rgba(232,81,42,.04)}
+.p-num{font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.06em;color:var(--muted)}
+.p-info{display:flex;flex-direction:column;gap:5px}
+.p-name{
+  font-family:'Alexandria',sans-serif;font-weight:500;
+  font-size:clamp(16px,2vw,22px);letter-spacing:-.015em;color:var(--white);
+  transition:color .15s;
+}
+.proj-head:hover .p-name,.proj-row.open .p-name{color:var(--orange)}
+.p-client{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.07em;
+  text-transform:uppercase;color:var(--muted);
+}
+.p-year{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);white-space:nowrap}
+.p-arrow{
+  font-size:20px;color:var(--muted);transition:transform .35s cubic-bezier(.4,0,.2,1),color .15s;
+  line-height:1;font-family:'Space Mono',monospace;
+}
+.proj-row.open .p-arrow{transform:rotate(45deg);color:var(--orange)}
+.proj-body{
+  display:grid;grid-template-rows:0fr;
+  transition:grid-template-rows .42s cubic-bezier(.4,0,.2,1);
+}
+.proj-row.open .proj-body{grid-template-rows:1fr}
+.proj-body-inner{overflow:hidden;min-height:0}
+.proj-content{padding:0 40px 52px}
+.proj-content .case-info{
+  display:grid;grid-template-columns:1fr 280px;gap:48px;align-items:start;margin-top:32px;
+}
+.case-narrative{
+  font-family:'EB Garamond',serif;font-size:17px;line-height:1.7;
+  color:rgba(240,240,240,.80);border-top:1px solid var(--rule);padding-top:24px;
+}
+.case-kpis{display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--rule);padding-top:20px}
+.kpi{display:flex;justify-content:space-between;align-items:baseline;gap:16px}
+.kpi-n{
+  font-family:'Alexandria',sans-serif;font-weight:700;
+  font-size:clamp(18px,2vw,26px);letter-spacing:-.025em;color:var(--white);white-space:nowrap;
+}
+.kpi-l{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);text-align:right;line-height:1.4;
+}
+.case-meta{border-top:1px solid var(--rule);padding-top:18px;display:flex;flex-direction:column;gap:12px;margin-top:28px}
+.cm-row{display:flex;flex-direction:column;gap:4px}
+.cm-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.cm-val{font-family:'EB Garamond',serif;font-size:15px;color:rgba(240,240,240,.75);line-height:1.4}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   DIGITAL ART GALLERY
+━━━━━━━━━━━━━━━━━━━━ */
+#art{border-top:1px solid var(--rule)}
+.art-header{
+  max-width:var(--max);margin:0 auto;padding:80px 40px 0;
+}
+.art-hed{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3.5rem,9vw,9rem);letter-spacing:.02em;line-height:.9;
+}
+.art-hed span{color:var(--orange)}
+.art-filters{
+  display:flex;gap:8px;flex-wrap:wrap;margin-top:32px;
+  padding-bottom:32px;border-bottom:1px solid var(--rule);
+}
+.art-filter{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;padding:7px 16px;
+  border:1px solid var(--rule);color:var(--muted);cursor:pointer;transition:all .15s;
+}
+.art-filter:hover,.art-filter.active{border-color:var(--orange);color:var(--orange)}
+.art-grid{
+  display:grid;grid-template-columns:repeat(6,1fr);gap:2px;
+  margin-top:2px;
+}
+.art-cell{
+  aspect-ratio:1/1;overflow:hidden;background:#0a0a0a;position:relative;
+  cursor:pointer;
+}
+.art-cell img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(.75) saturate(.8);
+  transition:filter .4s,transform .4s;
+}
+.art-cell:hover img{filter:brightness(1) saturate(1.1);transform:scale(1.05)}
+.art-cell .art-label{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:8px 10px 6px;
+  background:linear-gradient(to top,rgba(6,6,6,.9),transparent);
+  font-family:'Space Mono',monospace;font-size:7px;letter-spacing:.1em;
+  text-transform:uppercase;color:rgba(255,255,255,.72);
+  opacity:0;transition:opacity .25s;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.art-cell:hover .art-label{opacity:1}
+
+/* Lightbox */
+#lightbox{
+  position:fixed;inset:0;z-index:9000;background:rgba(6,6,6,.96);
+  display:none;align-items:center;justify-content:center;cursor:pointer;
+}
+#lightbox.open{display:flex}
+#lightbox img{max-width:90vw;max-height:90vh;object-fit:contain}
+#lb-close{
+  position:absolute;top:24px;right:32px;
+  font-family:'Space Mono',monospace;font-size:12px;letter-spacing:.1em;
+  color:var(--muted);cursor:pointer;
+}
+#lb-close:hover{color:var(--white)}
+#lb-title{
+  position:absolute;bottom:32px;left:50%;transform:translateX(-50%);
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   MUSIC
+━━━━━━━━━━━━━━━━━━━━ */
+#music{padding:120px 40px;border-top:1px solid var(--rule)}
+.music-inner{max-width:var(--max);margin:0 auto}
+.music-hed{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3.5rem,9vw,9rem);letter-spacing:.02em;line-height:.9;
+  margin-bottom:56px;
+}
+.music-hed span{color:var(--orange)}
+.music-hed .b{color:var(--blue)}
+
+/* Featured track */
+.music-featured{
+  background:rgba(232,81,42,.05);border:1px solid rgba(232,81,42,.2);
+  padding:24px 28px;margin-bottom:40px;
+  display:flex;align-items:center;gap:20px;
+}
+.mf-badge{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--orange);white-space:nowrap;
+}
+.mf-title{
+  font-family:'Alexandria',sans-serif;font-weight:700;
+  font-size:18px;color:var(--white);flex:1;
+}
+.mf-note{display:block;font-family:var(--font-body);font-size:13px;line-height:1.65;color:rgba(240,240,240,.42);margin-top:7px;max-width:420px;}
+.mf-play{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid rgba(232,81,42,.4);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--orange);transition:all .2s;flex-shrink:0;
+}
+.mf-play:hover{background:rgba(232,81,42,.15)}
+.mf-gif{width:64px;height:64px;object-fit:cover;flex-shrink:0;border:1px solid rgba(232,81,42,.2)}
+.mf-info{display:flex;flex-direction:column;gap:4px;flex:1}
+
+/* ── ARCHIVES BANNER ── */
+#archives{background:#e8512a;padding:80px 40px;position:relative;overflow:hidden}
+#arch-waves{position:absolute;inset:0;pointer-events:none;background:url("https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Dark%20waves.gif") repeat-x center/auto 100%;mix-blend-mode:screen;opacity:.3}
+.arch-inner{position:relative;z-index:11}
+.arch-inner{max-width:var(--max);margin:0 auto}
+.arch-eyebrow{font-family:var(--font-mono);font-size:14px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;color:#060606;margin-bottom:20px;display:block}
+.arch-title{font-family:var(--font-display);font-size:clamp(52px,9vw,96px);line-height:.9;color:#060606;margin-bottom:8px}
+.arch-sub{font-family:var(--font-mono);font-size:15px;letter-spacing:.05em;color:#060606;max-width:540px;margin-bottom:56px;line-height:1.6}
+.arch-list{display:flex;flex-direction:column;gap:0}
+.arch-row{
+  display:flex;align-items:center;gap:20px;
+  padding:22px 0;
+  border-top:1px solid rgba(6,6,6,.32);
+  cursor:pointer;
+}
+.arch-row:last-child{border-bottom:1px solid rgba(6,6,6,.32)}
+.arch-row:hover .arch-play{background:#060606;color:#e8512a}
+.arch-num{font-family:var(--font-mono);font-size:14px;color:rgba(6,6,6,.75);letter-spacing:.1em;min-width:34px}
+.arch-name{font-family:var(--font-display);font-size:clamp(26px,4vw,38px);color:#060606;flex:1;line-height:1}
+.arch-year{font-family:var(--font-mono);font-size:16px;font-weight:700;color:#060606;letter-spacing:.05em}
+.arch-play{
+  width:38px;height:38px;border-radius:50%;
+  background:rgba(6,6,6,.12);border:none;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s,color .15s;color:#060606;flex-shrink:0;
+}
+.arch-play svg{margin-left:2px}
+.arch-playing .arch-play{background:#060606;color:#e8512a}
+.arch-playing .arch-name{opacity:.7}
+@media(max-width:600px){#archives{padding:60px 24px}}
+
+.music-layout{
+  display:grid;grid-template-columns:1fr 1.8fr;gap:3px;
+}
+.music-player-panel{
+  background:var(--surface);border:1px solid var(--rule);
+  padding:28px;display:flex;flex-direction:column;justify-content:flex-end;
+  min-height:360px;position:relative;overflow:hidden;
+}
+.player-gif{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;opacity:.62;transition:opacity .35s}
+.player-gif-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(6,6,6,.92) 0%,rgba(6,6,6,.52) 38%,rgba(6,6,6,.06) 100%)}
+#viz-canvas{display:none}
+.music-player-panel>*:not(canvas):not(.player-gif):not(.player-gif-scrim){position:relative;z-index:2}
+.player-now-playing{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.25em;
+  text-transform:uppercase;color:var(--orange);margin-bottom:6px;
+}
+.player-title{
+  font-family:'Alexandria',sans-serif;font-weight:700;font-size:1.2rem;color:var(--white);
+}
+.player-sub{
+  font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--muted);margin-top:4px;
+}
+.player-progress{width:100%;height:28px;display:flex;align-items:center;margin:12px 0 2px;cursor:pointer;position:relative}
+.player-progress::after{content:'';position:absolute;left:0;right:0;height:2px;background:var(--rule);border-radius:1px;pointer-events:none}
+.player-progress-fill{position:absolute;left:0;height:2px;background:var(--orange);width:0;transition:width .25s linear;z-index:1;border-radius:1px;pointer-events:none}
+.player-time-row{
+  display:flex;justify-content:space-between;
+  font-family:'Space Mono',monospace;font-size:8px;color:var(--muted);
+}
+.player-controls{display:flex;align-items:center;gap:14px;margin-top:16px}
+.ctrl-btn{
+  color:rgba(255,255,255,.3);transition:color .2s;padding:4px;
+  display:flex;align-items:center;
+}
+.ctrl-btn:hover{color:var(--white)}
+.ctrl-play{
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.15)!important;
+  justify-content:center;color:rgba(255,255,255,.78);
+}
+.ctrl-play.playing{border-color:var(--orange)!important;color:var(--orange)}
+.ctrl-skip{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.04em;color:rgba(255,255,255,.3);padding:4px 5px;transition:color .15s;display:flex;align-items:center}
+.ctrl-skip:hover{color:var(--white)}
+.mte-dur{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted);min-width:34px;text-align:right}
+.arch-dur{font-family:var(--font-mono);font-size:16px;font-weight:700;color:#060606;min-width:72px;text-align:right}
+/* ── FLOATING WIDGET ── */
+/* ── AUDIO ORB ──────────────────────────────────────── */
+#pbk-orb{
+  position:fixed;bottom:28px;right:28px;width:80px;height:80px;
+  z-index:9999;user-select:none;touch-action:none;
+  opacity:0;pointer-events:none;transition:opacity .4s ease;
+}
+#pbk-orb.orb-on{opacity:1;pointer-events:auto;}
+#pbk-orb.orb-grab,.orb-scrubbing{cursor:grabbing!important;}
+.orb-bg{
+  position:absolute;top:5px;left:5px;width:70px;height:70px;
+  border-radius:50%;background:rgba(6,6,6,.96);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,.08);transition:border-color .4s;
+}
+#pbk-orb.orb-playing .orb-bg{border-color:rgba(232,81,42,.45);}
+@keyframes orb-pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(232,81,42,.4);}
+  55%{box-shadow:0 0 0 12px rgba(232,81,42,0);}
+}
+#pbk-orb.orb-playing .orb-bg{animation:orb-pulse 2.4s ease-in-out infinite;}
+.orb-svg{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  transform:rotate(-90deg);pointer-events:none;
+}
+.orb-ring-bg{fill:none;stroke:rgba(255,255,255,.07);stroke-width:3.5;}
+.orb-ring-fill{
+  fill:none;stroke:var(--orange);stroke-width:3.5;stroke-linecap:round;
+  stroke-dasharray:213.6;stroke-dashoffset:213.6;
+  transition:stroke-dashoffset .18s linear;
+}
+.orb-seek-layer{
+  position:absolute;top:0;left:0;width:100%;height:100%;
+  border-radius:50%;z-index:2;cursor:crosshair;
+}
+#orb-play-btn{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  width:60px;height:60px;border-radius:50%;background:none;border:none;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  color:rgba(240,240,240,.82);z-index:3;transition:color .2s;
+}
+#orb-play-btn:hover{color:var(--orange);}
+.orb-panel{
+  position:absolute;right:92px;bottom:0;top:auto;
+  transform:translateX(10px);
+  background:rgba(6,6,6,.97);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);
+  border:1px solid rgba(255,255,255,.09);border-radius:3px;
+  padding:16px 18px;width:248px;
+  opacity:0;pointer-events:none;
+  transition:opacity .22s ease,transform .22s ease;
+}
+#pbk-orb:hover .orb-panel,
+#pbk-orb.orb-panel-open .orb-panel{
+  opacity:1;pointer-events:auto;
+  transform:translateX(0);
+}
+.orb-p-src{
+  font-family:var(--font-mono);font-size:8px;letter-spacing:.22em;
+  color:var(--orange);display:block;margin-bottom:6px;
+}
+.orb-p-title{
+  font-family:var(--font-body);font-size:13px;color:var(--white);
+  display:block;margin-bottom:5px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.orb-p-time{
+  font-family:var(--font-mono);font-size:9px;color:rgba(240,240,240,.32);
+  display:block;margin-bottom:11px;
+}
+.orb-scrub{
+  width:100%;height:3px;background:rgba(255,255,255,.1);
+  border-radius:2px;cursor:pointer;position:relative;margin-bottom:13px;
+}
+.orb-scrub-fill{
+  position:absolute;left:0;top:0;height:100%;
+  background:var(--orange);border-radius:2px;pointer-events:none;width:0;
+  transition:width .12s linear;
+}
+.orb-scrub-handle{
+  position:absolute;top:50%;width:10px;height:10px;border-radius:50%;
+  background:var(--orange);transform:translate(-50%,-50%);
+  pointer-events:none;opacity:0;transition:opacity .15s;left:0;
+}
+.orb-scrub:hover .orb-scrub-handle{opacity:1;}
+.orb-ctrl-row{display:flex;gap:5px;}
+.orb-ctl{
+  flex:1;background:none;border:1px solid rgba(255,255,255,.1);
+  color:rgba(240,240,240,.45);font-family:var(--font-mono);font-size:8px;
+  letter-spacing:.08em;padding:6px 0;border-radius:2px;cursor:pointer;
+  transition:color .15s,border-color .15s;text-align:center;
+}
+.orb-ctl:hover{color:var(--white);border-color:rgba(255,255,255,.35);}
+.orb-dismiss{
+  display:block;width:100%;margin-top:11px;padding:4px 0;
+  background:none;border:none;color:rgba(255,255,255,.15);
+  font-family:var(--font-mono);font-size:8px;letter-spacing:.16em;
+  cursor:pointer;text-align:center;transition:color .2s;
+}
+.orb-dismiss:hover{color:rgba(255,255,255,.5);}
+@media(max-width:520px){
+  #pbk-orb{bottom:20px;right:20px;}
+  .orb-panel{
+    right:auto;left:0;bottom:92px;top:auto;
+    transform:translateY(6px)!important;
+    width:calc(100vw - 40px);max-width:280px;
+  }
+  #pbk-orb:hover .orb-panel,#pbk-orb.orb-panel-open .orb-panel{
+    transform:translateY(0)!important;
+  }
+}
+
+
+/* ── INTERSTITIAL QUOTE ───────────────────────────── */
+#interstitial{background:#060606;border-top:1px solid rgba(255,255,255,.07);}
+.interstitial-inner{max-width:760px;margin:0 auto;padding:80px 40px;text-align:center;}
+.interstitial-inner blockquote{font-family:'EB Garamond',serif;font-size:clamp(19px,2.4vw,26px);line-height:1.72;color:rgba(240,240,240,.72);font-style:italic;font-weight:400;}
+.interstitial-inner .int-attr{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;color:var(--orange);text-transform:uppercase;margin-top:28px;display:block;}
+@media(max-width:600px){.interstitial-inner{padding:60px 24px;}}
+
+/* Track list */
+.music-track-list{display:flex;flex-direction:column;gap:1px;background:var(--rule)}
+.music-track-entry{
+  display:grid;grid-template-columns:3rem 1fr auto;align-items:center;gap:16px;
+  padding:14px 18px;background:#060606;transition:background .2s;cursor:pointer;
+}
+.music-track-entry:hover{background:rgba(255,255,255,.02)}
+.music-track-entry.active{background:rgba(232,81,42,.05)}
+.mte-num{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;color:var(--muted);text-align:right}
+.mte-bar-wrap{display:none;height:18px;align-items:flex-end;gap:1.5px;justify-content:flex-end}
+.music-track-entry.active .mte-bar-wrap{display:flex}
+.music-track-entry.active .num-label{display:none}
+.mte-bar{width:2px;background:var(--orange);border-radius:1px;opacity:.8;animation:mte-wave .9s ease-in-out infinite}
+.mte-bar:nth-child(1){--mh:8px;animation-delay:0s}
+.mte-bar:nth-child(2){--mh:14px;animation-delay:.15s}
+.mte-bar:nth-child(3){--mh:10px;animation-delay:.07s}
+.mte-bar:nth-child(4){--mh:16px;animation-delay:.22s}
+.mte-bar:nth-child(5){--mh:6px;animation-delay:.1s}
+@keyframes mte-wave{0%,100%{height:2px}50%{height:var(--mh,10px)}}
+.active.paused .mte-bar{animation-play-state:paused}
+.mte-info{display:flex;flex-direction:column;gap:2px}
+.mte-title{
+  font-family:'Alexandria',sans-serif;font-weight:700;
+  font-size:.9rem;color:var(--white);line-height:1;
+}
+.music-track-entry.active .mte-title{color:var(--orange)}
+.mte-tag{font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.mte-dots{font-family:'Space Mono',monospace;font-size:9px;color:var(--muted)}
+.load-more-btn{
+  display:block;width:100%;padding:16px;text-align:center;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--muted);background:#060606;border:1px solid var(--rule);margin-top:1px;
+  cursor:pointer;transition:color .2s,border-color .2s;
+}
+.load-more-btn:hover{color:var(--orange);border-color:var(--orange)}
+.load-more-btn.hidden{display:none}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   DAILY WISDOM
+━━━━━━━━━━━━━━━━━━━━ */
+#wisdom{padding:140px 40px;border-top:1px solid var(--rule)}
+.wisdom-inner{max-width:var(--max);margin:0 auto}
+.wisdom-quote{
+  font-family:'Alexandria',sans-serif;font-weight:200;
+  font-size:clamp(1.8rem,4vw,3.6rem);letter-spacing:-.03em;line-height:1.2;
+  color:var(--white);max-width:900px;margin-bottom:24px;
+  transition:opacity .5s ease;
+}
+.wisdom-nav{display:flex;align-items:center;gap:20px;margin-top:28px}
+.wisdom-btn{background:none;border:1px solid var(--rule);color:var(--muted);
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;
+  padding:8px 16px;cursor:pointer;text-transform:uppercase;transition:color .2s,border-color .2s}
+.wisdom-btn:hover{color:var(--orange);border-color:var(--orange)}
+.wisdom-counter{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.14em;color:var(--muted)}
+.wisdom-quote em{font-style:normal;font-weight:700;color:var(--orange)}
+.wisdom-attr{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);
+  display:flex;align-items:center;gap:14px;
+}
+.wisdom-attr::before{content:'';display:block;width:28px;height:1px;background:var(--muted)}
+.poem-block{max-width:560px;border-top:1px solid var(--rule);padding-top:64px;margin-top:64px}
+.poem-stanza{margin-bottom:32px}
+.poem-line{
+  font-family:'EB Garamond',serif;font-size:1.1rem;
+  color:rgba(240,240,240,.80);line-height:1.9;font-style:italic;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   CONTACT
+━━━━━━━━━━━━━━━━━━━━ */
+#contact{padding:140px 40px;border-top:1px solid var(--rule)}
+.contact-inner{max-width:var(--max);margin:0 auto}
+.contact-hed{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(3.5rem,10vw,10rem);letter-spacing:.02em;line-height:.88;
+  margin-bottom:80px;
+}
+.contact-hed span{color:var(--orange)}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
+.contact-links{display:flex;flex-direction:column;gap:0}
+.c-link{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:20px 0;border-bottom:1px solid var(--rule);
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);transition:color .15s;
+}
+.c-link:hover{color:var(--white)}
+.c-link-arrow{color:var(--orange);font-size:14px}
+.c-ability{margin-top:48px}
+.c-ability-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:16px;
+}
+.c-ability-row{display:flex;gap:8px;align-items:stretch}
+.c-ability-select{
+  flex:1;background:var(--surface);border:1px solid var(--rule);color:var(--white);
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.1em;
+  padding:12px 16px;appearance:none;cursor:pointer;outline:none;
+  transition:border-color .2s;
+}
+.c-ability-select:focus{border-color:var(--orange)}
+.c-ability-btn{
+  background:var(--orange);color:var(--white);padding:12px 20px;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.12em;
+  text-transform:uppercase;transition:opacity .2s;white-space:nowrap;
+}
+.c-ability-btn:hover{opacity:.85}
+.c-phone{
+  font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.08em;
+  color:var(--muted);margin-top:20px;
+}
+.c-phone a{color:var(--white);transition:color .2s}
+.c-phone a:hover{color:var(--orange)}
+
+.cform{display:flex;flex-direction:column;gap:0}
+.cf-field{border-bottom:1px solid var(--rule)}
+.cf-field:first-child{border-top:1px solid var(--rule)}
+.cf-label{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--muted);display:block;padding:14px 0 4px;
+}
+.cf-input,.cf-textarea{
+  width:100%;background:transparent;border:none;outline:none;
+  font-family:'EB Garamond',serif;font-size:17px;color:var(--white);
+  padding:0 0 12px;
+}
+.cf-input::placeholder,.cf-textarea::placeholder{color:rgba(240,240,240,.32)}
+.cf-textarea{resize:none;min-height:90px}
+.cf-submit{
+  margin-top:28px;align-self:flex-start;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  padding:14px 28px;background:var(--orange);color:var(--white);
+  font-weight:700;transition:opacity .2s;
+}
+.cf-submit:hover{opacity:.85}
+.cf-status{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;color:var(--muted);margin-top:12px}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   FOOTER
+━━━━━━━━━━━━━━━━━━━━ */
+footer{
+  border-top:1px solid var(--rule);padding:80px 40px 40px;position:relative;overflow:hidden;
+}
+.footer-gif{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;pointer-events:none;opacity:.07}
+.footer-scrim{position:absolute;inset:0;z-index:1;background:rgba(6,6,6,.82);pointer-events:none}
+.footer-inner{position:relative;z-index:2}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;margin-bottom:64px}
+.footer-brand{display:flex;flex-direction:column;gap:16px}
+.footer-logo-row{
+  display:flex;align-items:center;gap:10px;
+  font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+}
+.footer-logo-gif{width:32px;height:32px;border-radius:50%;object-fit:cover}
+.footer-tagline{
+  font-family:'EB Garamond',serif;font-size:15px;line-height:1.6;
+  color:rgba(240,240,240,.65);max-width:340px;
+}
+.footer-col-title{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:20px;
+}
+.footer-col a{
+  display:block;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.06em;
+  text-transform:uppercase;color:rgba(240,240,240,.68);margin-bottom:12px;
+  transition:color .15s;
+}
+.footer-col a:hover{color:var(--white)}
+.footer-bar{
+  border-top:1px solid var(--rule);padding-top:28px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+}
+.footer-copy{
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;
+  color:rgba(240,240,240,.2);
+}
+
+/* ── ORIGIN / STORY ── */
+#origin{padding:120px 40px}
+.origin-inner{max-width:var(--max);margin:0 auto}
+.origin-beats{margin-top:80px}
+.origin-beat{
+  display:grid;
+  grid-template-columns:180px 1fr;
+  gap:56px;
+  padding:60px 0;
+  border-top:1px solid var(--rule);
+  align-items:start;
+}
+.origin-beat:last-child{border-bottom:1px solid var(--rule)}
+.ob-era{
+  font-family:'Space Mono',monospace;
+  font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted);
+  line-height:2;
+  padding-top:8px;
+}
+.ob-era strong{
+  display:block;font-size:11px;
+  color:rgba(240,240,240,.45);font-weight:400;
+  letter-spacing:.1em;margin-bottom:4px;
+}
+.ob-hed{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(2.4rem,4.5vw,4.8rem);
+  line-height:.9;letter-spacing:.02em;
+  color:var(--white);
+  margin-bottom:22px;
+}
+.ob-hed em{color:var(--orange);font-style:normal}
+.ob-hed span{color:var(--blue)}
+.ob-body{
+  font-family:'EB Garamond',serif;
+  font-size:18px;line-height:1.78;
+  color:rgba(240,240,240,.68);
+  max-width:560px;
+}
+
+/* ━━━━━━━━━━━━━━━━━━━━
+   RESPONSIVE
+━━━━━━━━━━━━━━━━━━━━ */
+@media(max-width:1100px){
+  .pro-top{grid-template-columns:1fr}
+  .music-layout{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  .art-grid{grid-template-columns:repeat(4,1fr)}
+  .proj-content .case-info{grid-template-columns:1fr}
+  .footer-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:760px){
+  .nav-links,.nav-avail{display:none}
+  .nav-burger{display:flex}
+  #manifesto,#origin,#services,.work-bar,.art-header,#music,#wisdom,#contact,.footer-inner,.pro-cv-bar,.pro-cv-content{
+    padding-left:20px;padding-right:20px;
+  }
+  .origin-beat{grid-template-columns:1fr;gap:16px}
+  .hero-name{font-size:clamp(3rem,16vw,6rem)}
+  .art-grid{grid-template-columns:repeat(3,1fr)}
+  .svc-grid{grid-template-columns:1fr 1fr}
+  .pro-stats{grid-template-columns:1fr 1fr}
+  .stat-cell:last-child{border-right:none;border-top:1px solid var(--rule)}
+  .proj-head{padding:18px 20px;grid-template-columns:48px 1fr auto}
+  .p-year{display:none}
+  .footer-grid{grid-template-columns:1fr}
+  .career-item{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  .art-grid{grid-template-columns:repeat(2,1fr)}
+  .svc-grid{grid-template-columns:1fr}
+  .pro-stats{grid-template-columns:1fr}
+  .stat-cell{border-right:none;border-bottom:1px solid var(--rule)}
+  .hero-name{font-size:clamp(64px,20vw,90px);text-align:center}
+  .hn-pitch,.hn-blac,.hn-knight{display:block;line-height:.88}
+}
+</style>
+</head>
+<body>
+
+<!-- ── SVG FILTER DEFS ─────────────────────────────────── -->
+<svg xmlns="http://www.w3.org/2000/svg" width="0" height="0" style="position:absolute;overflow:hidden" aria-hidden="true">
+  <defs>
+    <filter id="pbk-inner" x="-8%" y="-20%" width="116%" height="150%" color-interpolation-filters="linearRGB">
+      <!-- dark shadow from the top: invert alpha → blur → shift down → clip to letters → colorize -->
+      <feComponentTransfer in="SourceAlpha" result="inv1"><feFuncA type="linear" slope="-1" intercept="1"/></feComponentTransfer>
+      <feGaussianBlur stdDeviation="5" in="inv1" result="blur1"/>
+      <feOffset dx="1" dy="7" in="blur1" result="shift1"/>
+      <feComposite in="shift1" in2="SourceAlpha" operator="in" result="clip1"/>
+      <feFlood flood-color="rgba(0,0,0,0.88)" result="col1"/>
+      <feComposite in="col1" in2="clip1" operator="in" result="shadow1"/>
+      <!-- orange ember from the bottom: shift upward, low opacity -->
+      <feComponentTransfer in="SourceAlpha" result="inv2"><feFuncA type="linear" slope="-1" intercept="1"/></feComponentTransfer>
+      <feGaussianBlur stdDeviation="4" in="inv2" result="blur2"/>
+      <feOffset dx="-1" dy="-5" in="blur2" result="shift2"/>
+      <feComposite in="shift2" in2="SourceAlpha" operator="in" result="clip2"/>
+      <feFlood flood-color="rgba(232,81,42,0.38)" result="col2"/>
+      <feComposite in="col2" in2="clip2" operator="in" result="shadow2"/>
+      <!-- stack: source · dark shadow · orange ember -->
+      <feMerge>
+        <feMergeNode in="SourceGraphic"/>
+        <feMergeNode in="shadow1"/>
+        <feMergeNode in="shadow2"/>
+      </feMerge>
+    </filter>
+  </defs>
+</svg>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-inner">
+    <img class="loader-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Orbit Wave.gif" alt="">
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <p class="loader-label">PITCHBLACKNIGHT</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav" id="main-nav">
+  <div class="nav-row">
+    <a href="#hero" class="nav-logo">
+      <img class="nav-logo-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Orbit Wave.gif" alt="PBK">
+      <span class="logo-p">PITCH</span><span class="logo-b">BLAC</span><span class="logo-k">KNIGHT</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#music" data-section="music">MUSIC</a></li>
+      <li><a href="#art" data-section="art">ART</a></li>
+      <li><a href="#manifesto" data-section="manifesto">ABOUT</a></li>
+      <li><a href="#contact" data-section="contact">CONTACT</a></li>
+    </ul>
+    <div class="nav-avail">
+      <span class="nav-dot"></span>AVAILABLE NOW
+    </div>
+    <div class="nav-burger" id="nav-burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+<nav class="nav-mobile" id="nav-mobile">
+  <a href="#music">MUSIC</a>
+  <a href="#art">ART</a>
+  <a href="#manifesto">ABOUT</a>
+  <a href="#contact">CONTACT</a>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <div class="hero-reel">
+    <img class="hero-reel-img hr-on" id="hr-a" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Orbit Wave.gif" alt="">
+    <img class="hero-reel-img" id="hr-b" src="" alt="">
+  </div>
+  <div class="hero-scrim"></div>
+  <div class="hero-content">
+    <h1 class="hero-name">
+      <span class="hn-pitch" style="color:var(--white)">PITCH</span><span class="hn-blac" style="color:var(--orange)">BLAC</span><span class="hn-knight" style="color:var(--blue)">KNIGHT</span>
+    </h1>
+    <p class="hero-sub">MIKEL ROSENTHAL · FLUXUS ARTIST · STILL MAKING</p>
+    <div class="hero-tags">
+      <span class="hero-tag">DESIGN SYSTEMS</span>
+      <span class="hero-tag">MUSIC</span>
+      <span class="hero-tag">DIGITAL ART</span>
+      <span class="hero-tag">VOICE PERFORMANCE</span>
+      <span class="hero-tag">BRAND IDENTITY</span>
+    </div>
+    <div class="hero-feat arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/hearing-damage-unhinged.mp3" role="button" tabindex="0" aria-label="Play featured track Hearing Damage Unhinged">
+      <img class="hero-feat-art" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Double%20Vision%20v2.gif" alt="">
+      <div class="hero-feat-info">
+        <span class="hero-feat-badge">Latest Remix · 2026</span>
+        <span class="arch-name hero-feat-name">Hearing Damage Unhinged</span>
+      </div>
+      <span class="arch-dur hero-feat-dur">2:59</span>
+      <button class="arch-play" aria-label="Play Hearing Damage Unhinged"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <span class="hero-scroll-lbl">SCROLL TO EXPLORE</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+
+<!-- ══ INTERSTITIAL QUOTE ══ -->
+<section id="interstitial">
+  <div class="interstitial-inner">
+    <blockquote>"First take. No blueprint. No rehearsal. The imperfection is the craft — the breath of the moment, not the sterility of infinite takes."</blockquote>
+    <span class="int-attr">Mikel Rosenthal</span>
+  </div>
+</section>
+
+<!-- ══ MUSIC ══ -->
+<section id="music" class="gif-section">
+  <img class="s-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Dark%20skies.gif" alt="" style="opacity:0.22;object-position:center center">
+  <div class="s-scrim" style="background:linear-gradient(180deg,rgba(6,6,6,0.82) 0%,rgba(6,6,6,0.74) 50%,rgba(6,6,6,0.86) 100%)"></div>
+  <div class="s-inner music-inner">
+    <p class="section-label">01 — MUSIC</p>
+    <h2 class="music-hed">SOUND<br><span>FROM</span> <span class="b">SILENCE.</span></h2>
+    <p style="font-family:'EB Garamond',serif;font-size:19px;line-height:1.7;color:rgba(240,240,240,.78);max-width:580px;margin-bottom:40px;">Eighteen years of improvisation, recorded live in single takes. No overdubs. No reconstruction. Each track documents a moment that cannot be repeated. A session could run ninety minutes — and a single imprecision near the end was enough to discard all of it. There are hundreds of recordings that have never been heard by anyone. This is what made it through. What you hear is what happened, once, and only once, imperfections and all.</p>
+    <div class="music-featured" id="featured-track">
+      <img id="featured-gif" src="" alt="" class="mf-gif">
+      <div class="mf-info">
+        <span class="mf-badge">★ FEATURED TRACK</span>
+        <span class="mf-title">Never Thought I Could</span>
+      </div>
+      <button class="mf-play" id="featured-play-btn" title="Play Never Thought I Could">
+        <svg width="12" height="14" viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7z"/></svg>
+      </button>
+    </div>
+    <div class="music-layout">
+      <div class="music-player-panel">
+        <img id="player-gif" class="player-gif" src="" alt="">
+        <div class="player-gif-scrim"></div>
+        <canvas id="viz-canvas"></canvas>
+        <div>
+          <p class="player-now-playing">NOW PLAYING</p>
+          <p class="player-title" id="player-title">Select a track</p>
+          <p class="player-sub" id="player-sub">Live improvisation · Single take · Unrepeatable</p>
+        </div>
+        <div class="player-progress" id="player-progress">
+          <div class="player-progress-fill" id="player-progress-fill"></div>
+        </div>
+        <div class="player-time-row">
+          <span id="player-time">0:00</span>
+          <span id="player-time-total">0:00</span>
+        </div>
+        <div class="player-controls">
+          <button class="ctrl-btn" id="ctrl-prev" title="Previous track">
+            <svg width="14" height="12" viewBox="0 0 14 12" fill="currentColor"><rect x="0" y="0" width="2" height="12"/><path d="M12 0L3 6l9 6z"/></svg>
+          </button>
+          <button class="ctrl-btn ctrl-skip" id="ctrl-back" title="Back 15s">−15</button>
+          <button class="ctrl-btn ctrl-play" id="ctrl-play" title="Play/Pause">
+            <svg id="ctrl-play-icon" width="12" height="14" viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7z"/></svg>
+          </button>
+          <button class="ctrl-btn ctrl-skip" id="ctrl-fwd" title="Forward 15s">+15</button>
+          <button class="ctrl-btn" id="ctrl-next" title="Next track">
+            <svg width="14" height="12" viewBox="0 0 14 12" fill="currentColor"><rect x="12" y="0" width="2" height="12"/><path d="M2 0l9 6-9 6z"/></svg>
+          </button>
+        </div>
+      </div>
+      <div>
+        <div class="music-track-list" id="music-tracks"></div>
+        <button class="load-more-btn" id="load-more-btn">LOAD 12 MORE ↓</button>
+        <audio id="ap" crossorigin="anonymous" playsinline></audio>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ARCHIVES ══ -->
+<section id="archives">
+  <div id="arch-waves" aria-hidden="true"></div>
+  <div class="arch-inner">
+    <span class="arch-eyebrow">PitchBlacKnight · Original Mixtapes · 2013 – 2014</span>
+    <div class="arch-title">THE<br>ARCHIVES.</div>
+    <p class="arch-sub">The first mixes PBK ever made — recorded and released between 2013 and 2014. Long-form DJ sets, full ideas, unfiltered. Most people have never heard any of this.</p>
+    <div class="arch-list">
+      <div class="arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-01-koolaide-kids.mp3">
+        <span class="arch-num">01</span>
+        <span class="arch-name">Koolaide Kids</span>
+        <span class="arch-year">2013</span>
+        <span class="arch-dur">44:50</span>
+        <button class="arch-play" aria-label="Play Koolaide Kids"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+      </div>
+      <div class="arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-02-gritty-kitty.mp3">
+        <span class="arch-num">02</span>
+        <span class="arch-name">Gritty Kitty</span>
+        <span class="arch-year">2013</span>
+        <span class="arch-dur">53:43</span>
+        <button class="arch-play" aria-label="Play Gritty Kitty"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+      </div>
+      <div class="arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-03-beat-brulee.mp3">
+        <span class="arch-num">03</span>
+        <span class="arch-name">Beat Brulee</span>
+        <span class="arch-year">2013</span>
+        <span class="arch-dur">53:43</span>
+        <button class="arch-play" aria-label="Play Beat Brulee"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+      </div>
+      <div class="arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-04-december-deleece.mp3">
+        <span class="arch-num">04</span>
+        <span class="arch-name">December Deleece</span>
+        <span class="arch-year">2013</span>
+        <span class="arch-dur">1:00:27</span>
+        <button class="arch-play" aria-label="Play December Deleece"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+      </div>
+      <div class="arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-05-march-tart.mp3">
+        <span class="arch-num">05</span>
+        <span class="arch-name">March Tart</span>
+        <span class="arch-year">2014</span>
+        <span class="arch-dur">1:03:43</span>
+        <button class="arch-play" aria-label="Play March Tart"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+      </div>
+      <div class="arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-06-thursday-night-li.mp3">
+        <span class="arch-num">06</span>
+        <span class="arch-name">Thursday Night Live</span>
+        <span class="arch-year">2014</span>
+        <span class="arch-dur">56:03</span>
+        <button class="arch-play" aria-label="Play Thursday Night Live"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+      </div>
+      <div class="arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-07-nevermind-november.mp3">
+        <span class="arch-num">07</span>
+        <span class="arch-name">Nevermind November</span>
+        <span class="arch-year">2014</span>
+        <span class="arch-dur">49:22</span>
+        <button class="arch-play" aria-label="Play Nevermind November"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+      </div>
+      <div class="arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-08-adrift.mp3">
+        <span class="arch-num">08</span>
+        <span class="arch-name">Adrift</span>
+        <span class="arch-year">2014</span>
+        <span class="arch-dur">35:37</span>
+        <button class="arch-play" aria-label="Play Adrift"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+      </div>
+      <div class="arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-09-just-in-time.mp3">
+        <span class="arch-num">09</span>
+        <span class="arch-name">Just in Time</span>
+        <span class="arch-year">2014</span>
+        <span class="arch-dur">47:26</span>
+        <button class="arch-play" aria-label="Play Just in Time"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+      </div>
+      <div class="arch-row" data-src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/mixes/episode-10-well-alright.mp3">
+        <span class="arch-num">10</span>
+        <span class="arch-name">Well Alright</span>
+        <span class="arch-year">2014</span>
+        <span class="arch-dur">53:10</span>
+        <button class="arch-play" aria-label="Play Well Alright"><svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg></button>
+      </div>
+    </div>
+    <audio id="arch-audio" crossorigin="anonymous" playsinline></audio>
+  </div>
+</section>
+
+<!-- ══ MANIFESTO ══ -->
+<section id="manifesto" class="gif-section">
+  <img class="s-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Cosmos.gif" alt="" style="opacity:0.18;object-position:center center">
+  <div class="s-scrim" style="background:linear-gradient(160deg,rgba(6,6,6,0.71) 0%,rgba(6,6,6,0.58) 100%)"></div>
+  <div class="s-inner mf-inner" style="padding:120px 40px">
+    <p class="section-label">01 — MANIFESTO</p>
+    <div class="mf-statement">
+      <p style="font-weight:700;color:var(--white)">Every discipline is a different lens on the same question.</p>
+      <p style="font-weight:400;color:var(--blue)">Design. Music. Art. Voice. Movement. Philosophy.</p>
+      <p style="font-weight:700;color:var(--orange)">When something catches me, I go all the way in.</p>
+      <p style="font-weight:700;color:var(--white)">Fluxus is the closest word for what that produces.</p>
+      <p style="font-weight:400;color:var(--blue)">Not a style. A way of investigating.</p>
+      <p style="font-weight:400;color:rgba(240,240,240,.75)">The edges keep moving. That's how you know you're still in it.</p>
+      <p style="font-weight:400;color:rgba(240,240,240,.58);font-family:'EB Garamond',serif;font-size:17px;max-width:560px;line-height:1.8;margin-top:20px;">The practice started in 1990 — a Mac in a high school computer lab, Photoshop 1.0, before digital art had a language. Thirty-six years across every discipline, most of it unseen. One imprecision was enough to discard ninety minutes of music. Hundreds of recordings, never heard. Then something changed at the foundation: body, chemistry, how the present tense actually feels. Twenty-five years medicated, done. Thirty-five pounds gone. A clarity I don't have a better word for than <span style="color:var(--blue);font-style:italic">awake.</span> Revelations keep arriving. This site is what the opening looks like.</p>
+      <p style="font-weight:400;color:var(--orange);margin-top:8px;">Still going.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ORIGIN ══ -->
+<section id="origin" class="gif-section">
+  <img class="s-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Back to the beginning.gif" alt="" style="opacity:0.13;object-position:center center">
+  <div class="s-scrim" style="background:linear-gradient(160deg,rgba(6,6,6,0.76) 0%,rgba(6,6,6,0.64) 100%)"></div>
+  <div class="s-inner origin-inner">
+    <p class="section-label">ORIGIN</p>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,7rem);line-height:.9;letter-spacing:.02em;">THE STORY<br><span style="color:var(--orange)">IN FULL.</span></h2>
+
+    <div class="origin-beats">
+
+      <div class="origin-beat">
+        <div class="ob-era"><strong>1990</strong>Mexico, MO<br>Freshman year<br>High school</div>
+        <div>
+          <h3 class="ob-hed">PHOTOSHOP 1.0.<br><em>BEFORE DIGITAL ART<br>HAD A NAME.</em></h3>
+          <p class="ob-body">The school's first Mac arrived freshman year — and with it, Photoshop 1.0, days after its release. Before the internet was visual. Before digital art had a culture or a community of practice. Most people wouldn't encounter these tools for another decade. That's where it started. Not late. Not early. At the exact beginning.</p>
+        </div>
+      </div>
+
+      <div class="origin-beat">
+        <div class="ob-era"><strong>1993 — 1999</strong>Missouri State<br>BFA · Summa<br>The loops begin</div>
+        <div>
+          <h3 class="ob-hed">SUMMA CUM LAUDE.<br><em>THEN: THE LOOPS.</em></h3>
+          <p class="ob-body">Electronic Arts &amp; Design. Two years out of college, the animated GIF work began — generative, algorithmic, hand-crafted. 156 survive and are shown here. More exist in the archive. The earliest nearly didn't make it: lost in an incident involving an exterminator, a can of bug spray, and a stack of discs laid face-up on cheap carpet. The exterminator had one job.</p>
+        </div>
+      </div>
+
+      <div class="origin-beat">
+        <div class="ob-era"><strong>2002 — 2024</strong>Chicago<br>The double life<br>Both at once</div>
+        <div>
+          <h3 class="ob-hed">TWENTY-FIVE YEARS.<br><em>BOTH LIVES<br>AT ONCE.</em></h3>
+          <p class="ob-body">A career building design systems for GE Healthcare, BCBS, Avant, TransUnion — systems used by 500,000+ people, recognized by the Red Dot, Fast Company, and dmi:DVA. Running alongside it, invisible: eighteen years of improvised music recorded in single takes and mostly destroyed. 156 GIF works accumulating quietly. Two complete bodies of work, almost entirely unseen.</p>
+        </div>
+      </div>
+
+      <div class="origin-beat">
+        <div class="ob-era"><strong>18 years</strong>The archive<br>The standard<br>The silence</div>
+        <div>
+          <h3 class="ob-hed">HUNDREDS.<br><em>NEVER HEARD.</em></h3>
+          <p class="ob-body">A session could run ninety minutes. A single imprecision near the end was enough to discard all of it. Not laziness. Not doubt in the work. Something closer to reverence — and something that looked, from the outside, an awful lot like fear. The standard was real. So was the silence it imposed.</p>
+        </div>
+      </div>
+
+      <div class="origin-beat">
+        <div class="ob-era"><strong>Now · 2026</strong>Chicago Heights<br>The emergence<br>Still going</div>
+        <div>
+          <h3 class="ob-hed">TWENTY-FIVE YEARS<br>MEDICATED.<br><em>THEN: AWAKE.</em></h3>
+          <p class="ob-body">Off medication. Thirty-five pounds gone. A clarity arriving in waves, each one larger than the last. It felt like waking from a coma — because it was. The work is the same work it has always been. The willingness to share it is new. The revelations keep arriving faster than they can be catalogued. This site is what the opening looks like. Still figuring it out. Still going.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROFESSIONAL ══ -->
+<section id="professional" class="gif-section">
+  <img class="s-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Grand Design.gif" alt="" style="opacity:0.16;object-position:center top">
+  <div class="s-scrim" style="background:linear-gradient(180deg,rgba(6,6,6,0.68) 0%,rgba(6,6,6,0.56) 50%,rgba(6,6,6,0.72) 100%)"></div>
+  <div class="s-inner">
+    <div class="pro-cv-bar">
+      <div class="pro-cv-meta">
+        <p class="section-label" style="margin-bottom:0">02 — CV</p>
+        <p class="pro-cv-tagline">Design Systems Lead · 20+ Yrs · Avant · GE Healthcare · BCBS · Maven Wave</p>
+      </div>
+      <button class="pro-cv-toggle" onclick="toggleCV()">
+        <span id="pro-cv-label">VIEW RÉSUMÉ</span>
+        <span class="pro-cv-icon" id="pro-cv-icon">+</span>
+      </button>
+    </div>
+    <div class="pro-cv-body" id="pro-cv-body">
+      <div class="pro-cv-inner">
+        <div class="pro-cv-content">
+          <div class="pro-top">
+            <div>
+              <h2 class="pro-title">MIKEL<br>ROSEN<span>THAL</span></h2>
+            </div>
+            <div>
+              <p class="pro-bio">Over twenty years designing systems that have to hold — clinical tools, fintech products, insurance platforms, enterprise frameworks. Edison for GE Healthcare (Red Dot Award · Fast Company Innovation by Design · dmi:DVA). Pathfinder for Avant. FIBER for BCBS. Alongside the professional work: eighteen years of improvised music, 156 digital artworks, voice performance, and a Fluxus practice that ties all of it together.</p>
+            </div>
+          </div>
+          <div class="pro-stats">
+            <div class="stat-cell">
+              <div class="stat-n">20<span>+</span></div>
+              <div class="stat-l">Years of<br>experience</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-n">40<span>+</span></div>
+              <div class="stat-l">Design systems<br>shipped</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-n">120<span>+</span></div>
+              <div class="stat-l">Brand projects<br>delivered</div>
+            </div>
+          </div>
+          <div class="career-list">
+            <div class="career-item">
+              <div class="ci-period">2024 — 2025</div>
+              <div>
+                <div class="ci-role">Brand Designer</div>
+                <div class="ci-org">The Bettering Company · Freelance</div>
+                <div class="ci-note">Led brand identity and design system from zero — translating the company's mission into a cohesive visual language across digital and physical touchpoints.</div>
+              </div>
+            </div>
+            <div class="career-item">
+              <div class="ci-period">2021 — 2024</div>
+              <div>
+                <div class="ci-role">Senior Product & Design Systems Lead</div>
+                <div class="ci-org">Avant</div>
+                <div class="ci-note">Led Pathfinder™ Design System — component architecture, governance model, Figma standardization, and a marketing library that unified brand consistency for 350+ marketers across the organization.</div>
+              </div>
+            </div>
+            <div class="career-item">
+              <div class="ci-period">2020 — 2021</div>
+              <div>
+                <div class="ci-role">Senior UX/UI Design Systems Designer</div>
+                <div class="ci-org">GE Healthcare</div>
+                <div class="ci-note">Designed and evangelized the Edison Design System™ across 40+ enterprise products. Red Dot Award · Fast Company Innovation by Design · dmi:DVA Award for Interface Design.</div>
+              </div>
+            </div>
+            <div class="career-item">
+              <div class="ci-period">2018 — 2020</div>
+              <div>
+                <div class="ci-role">Senior Design Systems Designer</div>
+                <div class="ci-org">BCBS · TransUnion · SurePeople</div>
+                <div class="ci-note">Three parallel contract engagements: FIBER system for BCBS, TUCM global identity for TransUnion, and PRISM psychometric platform for SurePeople.</div>
+              </div>
+            </div>
+            <div class="career-item">
+              <div class="ci-period">2002 — 2018</div>
+              <div>
+                <div class="ci-role">Designer → Senior Lead</div>
+                <div class="ci-org">Maven Wave · Biersma Creative · Firebelly Design</div>
+                <div class="ci-note">Sixteen years across three studios — climbing from junior to team lead. Fortune 500 clients including Google, Nike, AT&T, Disney, Crate & Barrel, AbbVie, and Salesforce.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section id="services" class="gif-section">
+  <img class="s-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Orbitals.gif" alt="" style="opacity:0.18;object-position:center center">
+  <div class="s-scrim" style="background:linear-gradient(160deg,rgba(6,6,6,0.7) 0%,rgba(6,6,6,0.58) 100%)"></div>
+  <div class="s-inner svc-inner">
+    <p class="section-label">03 — SERVICES</p>
+    <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,7vw,7rem);line-height:.9;letter-spacing:.02em;">AREAS OF<br><span style="color:var(--orange)">PRACTICE</span></h2>
+    <div class="svc-grid">
+      <div class="svc-card" style="--svc-accent:var(--orange)">
+        <div class="svc-num">01</div>
+        <div class="svc-title">UI/UX Design</div>
+        <div class="svc-tags"><span class="svc-tag">Figma</span><span class="svc-tag">Prototyping</span><span class="svc-tag">Research</span></div>
+        <div class="svc-desc">Product design from strategy through implementation. Research, wireframes, visual design, and usability — structured to grow with the product.</div>
+      </div>
+      <div class="svc-card" style="--svc-accent:#7b8db8">
+        <div class="svc-num">02</div>
+        <div class="svc-title">Brand Identity</div>
+        <div class="svc-tags"><span class="svc-tag">Logo</span><span class="svc-tag">Visual Language</span><span class="svc-tag">Guidelines</span></div>
+        <div class="svc-desc">Logos and full identity systems — marks, typography, color, voice, and motion. Designed with clear internal logic so the system holds as it scales.</div>
+      </div>
+      <div class="svc-card" style="--svc-accent:#c8f520">
+        <div class="svc-num">03</div>
+        <div class="svc-title">Website Design &amp; Build</div>
+        <div class="svc-tags"><span class="svc-tag">HTML/CSS/JS</span><span class="svc-tag">Webflow</span><span class="svc-tag">Next.js</span></div>
+        <div class="svc-desc">Custom-designed and hand-coded websites. No templates. Considered layout, clean code, fast load — built to work as well as it looks.</div>
+      </div>
+      <div class="svc-card" style="--svc-accent:#e8c42a">
+        <div class="svc-num">04</div>
+        <div class="svc-title">VoiceOver &amp; Voice Performance</div>
+        <div class="svc-tags"><span class="svc-tag">Commercial</span><span class="svc-tag">Narration</span><span class="svc-tag">Character</span></div>
+        <div class="svc-desc">Professional VO for commercials, e-learning, documentaries, and creative projects. Versatile range — authoritative to playful.</div>
+      </div>
+      <div class="svc-card" style="--svc-accent:#b03060">
+        <div class="svc-num">05</div>
+        <div class="svc-title">Sound Design &amp; Mimicry</div>
+        <div class="svc-tags"><span class="svc-tag">Foley</span><span class="svc-tag">Vocal FX</span><span class="svc-tag">Impressions</span></div>
+        <div class="svc-desc">Sound design, audio branding, and vocal mimicry. Technical craft and natural performance range, developed across 20 years of practice.</div>
+      </div>
+      <div class="svc-card" style="--svc-accent:var(--orange)">
+        <div class="svc-num">06</div>
+        <div class="svc-title">Music Production</div>
+        <div class="svc-tags"><span class="svc-tag">Original</span><span class="svc-tag">Composition</span><span class="svc-tag">Mixing</span></div>
+        <div class="svc-desc">Original composition and production across genres. 80+ released originals, recorded live in one take. Sync-ready catalog and custom scores available.</div>
+      </div>
+      <div class="svc-card" style="--svc-accent:#7b8db8">
+        <div class="svc-num">07</div>
+        <div class="svc-title">Live Music Performance</div>
+        <div class="svc-tags"><span class="svc-tag">Live Set</span><span class="svc-tag">Events</span><span class="svc-tag">Collab</span></div>
+        <div class="svc-desc">Live solo performances and collaborative sets. Experimental, ambient, and electronic — improvised and composed to evolve in the room.</div>
+      </div>
+      <div class="svc-card" style="--svc-accent:#c8f520">
+        <div class="svc-num">08</div>
+        <div class="svc-title">Art Performance</div>
+        <div class="svc-tags"><span class="svc-tag">Fluxus</span><span class="svc-tag">Installation</span><span class="svc-tag">Durational</span></div>
+        <div class="svc-desc">Performance art in the Fluxus tradition — durational, participatory, and site-specific. Installations, happenings, and live interventions.</div>
+      </div>
+      <div class="svc-card" style="--svc-accent:#e8c42a">
+        <div class="svc-num">09</div>
+        <div class="svc-title">Fine Art Commission</div>
+        <div class="svc-tags"><span class="svc-tag">Digital</span><span class="svc-tag">Generative</span><span class="svc-tag">Print</span></div>
+        <div class="svc-desc">Original commissioned artworks. Digital, generative, and mixed-media. Each piece is singular — built to a specific question, a specific space, a specific intention.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ DIGITAL ART ══ -->
+<section id="art" class="gif-section">
+  <img class="s-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Timebloom.gif" alt="" style="opacity:0.16;object-position:center center">
+  <div class="s-scrim" style="background:linear-gradient(180deg,rgba(6,6,6,0.7) 0%,rgba(6,6,6,0.56) 50%,rgba(6,6,6,0.74) 100%)"></div>
+  <div class="s-inner">
+    <div class="art-header">
+      <p class="section-label">05 — DIGITAL ART</p>
+      <h2 class="art-hed">156 WORKS.<br><span>MORE EXIST.</span></h2>
+      <p style="font-family:'EB Garamond',serif;font-size:18px;color:rgba(240,240,240,.75);max-width:600px;margin-top:20px;line-height:1.6;">
+        The practice started in a high school computer lab in 1990 — the school's first Mac, Photoshop 1.0, days after its release. Before the internet was visual. Before digital art had a name. The animated loops began after college, in 1999. 156 of them are here. There are more in the archive — this is the curated set. The earliest nearly didn't survive: lost in an incident involving an exterminator, a can of bug spray, and a stack of discs laid face-up on cheap carpet. The exterminator had one job. Each work started as a question about what a single form could do, and kept going until it answered.
+      </p>
+      <div class="art-filters">
+        <button class="art-filter active" data-filter="all">ALL 156</button>
+        <button class="art-filter" data-filter="orbit">ORBIT &amp; MOTION</button>
+        <button class="art-filter" data-filter="geo">GEOMETRIC</button>
+        <button class="art-filter" data-filter="dark">DARK &amp; DEEP</button>
+        <button class="art-filter" data-filter="forever">FOREVER SERIES</button>
+        <button class="art-filter" data-filter="nature">NATURE &amp; ORGANIC</button>
+      </div>
+    </div>
+    <div class="art-grid" id="art-grid"></div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" onclick="closeLightbox()">
+  <span id="lb-close">✕ CLOSE</span>
+  <img id="lb-img" src="" alt="">
+  <span id="lb-title"></span>
+</div>
+
+<!-- ══ DAILY WISDOM ══ -->
+<section id="wisdom" class="gif-section">
+  <img class="s-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Night Moon.gif" alt="" style="opacity:0.22;object-position:center center">
+  <div class="s-scrim" style="background:linear-gradient(180deg,rgba(6,6,6,0.64) 0%,rgba(6,6,6,0.48) 50%,rgba(6,6,6,0.68) 100%)"></div>
+  <div class="s-inner wisdom-inner">
+    <p class="section-label">07 — DAILY WISDOM</p>
+    <blockquote class="wisdom-quote" id="wisdom-quote"></blockquote>
+    <div class="wisdom-attr">MIKEL ROSENTHAL · <span id="wisdom-counter"></span></div>
+    <div class="wisdom-nav">
+      <button class="wisdom-btn" id="wisdom-prev">← PREV</button>
+      <button class="wisdom-btn" id="wisdom-next">NEXT →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact" class="gif-section">
+  <img class="s-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Space Trip.gif" alt="" style="opacity:0.18;object-position:center center">
+  <div class="s-scrim" style="background:linear-gradient(180deg,rgba(6,6,6,0.68) 0%,rgba(6,6,6,0.54) 50%,rgba(6,6,6,0.7) 100%)"></div>
+  <div class="s-inner contact-inner">
+    <p class="section-label">08 — CONTACT</p>
+    <h2 class="contact-hed">START A<br><span>CONVERSATION.</span></h2>
+    <div class="contact-grid">
+      <div>
+        <div class="contact-links">
+          <a href="mailto:contact@pitchblacknight.com" class="c-link">EMAIL <span class="c-link-arrow">→</span></a>
+          <a href="https://www.linkedin.com/in/mikel-rosenthal-5b85b17" target="_blank" class="c-link">LINKEDIN <span class="c-link-arrow">→</span></a>
+          <a href="https://www.instagram.com/pitch_blac_knight/" target="_blank" class="c-link">INSTAGRAM <span class="c-link-arrow">→</span></a>
+          <a href="https://soundcloud.com/pitchblacknight123/tracks" target="_blank" class="c-link">SOUNDCLOUD <span class="c-link-arrow">→</span></a>
+          <a href="https://open.spotify.com" target="_blank" class="c-link">SPOTIFY <span class="c-link-arrow">→</span></a>
+        </div>
+        <div class="c-ability">
+          <p class="c-ability-label">WHAT DO YOU NEED?</p>
+          <div class="c-ability-row">
+            <select class="c-ability-select" id="ability-select">
+              <option value="">SELECT A DISCIPLINE</option>
+              <option value="ux">UI/UX Design</option>
+              <option value="brand">Brand Identity</option>
+              <option value="web">Website Design &amp; Build</option>
+              <option value="voice">VoiceOver Performance</option>
+              <option value="sound">Sound Design</option>
+              <option value="music">Music Production</option>
+              <option value="art">Fine Art Commission</option>
+              <option value="systems">Design Systems</option>
+            </select>
+            <button class="c-ability-btn" id="reach-out-btn">REACH OUT →</button>
+          </div>
+          <p class="c-phone">or call <a href="tel:+17734906923">+1 (773) 490-6923</a></p>
+        </div>
+      </div>
+      <form class="cform" id="contact-form" onsubmit="handleContactSubmit(event)">
+        <div class="cf-field">
+          <label class="cf-label" for="cf-name">YOUR NAME</label>
+          <input class="cf-input" id="cf-name" type="text" placeholder="Full name">
+        </div>
+        <div class="cf-field">
+          <label class="cf-label" for="cf-email">EMAIL ADDRESS</label>
+          <input class="cf-input" id="cf-email" type="email" placeholder="your@email.com">
+        </div>
+        <div class="cf-field">
+          <label class="cf-label" for="cf-message">MESSAGE</label>
+          <textarea class="cf-textarea" id="cf-message" placeholder="Tell me about your project..."></textarea>
+        </div>
+        <button type="submit" class="cf-submit">SEND MESSAGE →</button>
+        <p class="cf-status" id="cf-status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <img class="footer-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/PBK Dark Flam.gif" alt="" style="opacity:.18">
+  <div class="footer-scrim" style="opacity:.72"></div>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <img class="footer-logo-gif" src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/Orbit Wave.gif" alt="PBK">
+          <span><span style="color:var(--white);font-weight:700">PITCH</span><span style="color:var(--orange);font-weight:700">BLAC</span><span style="color:var(--blue);font-weight:700">KNIGHT</span></span>
+        </div>
+        <p class="footer-tagline">Mikel Rosenthal is a Fluxus artist working across design systems, music, performance, visual art, and voice. 36 years of making. Still going.</p>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">NAVIGATE</p>
+        <a href="#manifesto">About</a>
+        <a href="#origin">Origin</a>
+        <a href="#professional">CV</a>
+        <a href="#services">Services</a>
+        <a href="#work">Work</a>
+        <a href="#art">Art</a>
+        <a href="#music">Music</a>
+        <a href="#wisdom">Wisdom</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">CONNECT</p>
+        <a href="mailto:contact@pitchblacknight.com">Email</a>
+        <a href="https://www.linkedin.com/in/mikel-rosenthal-5b85b17" target="_blank">LinkedIn</a>
+        <a href="https://www.instagram.com/pitch_blac_knight/" target="_blank">Instagram</a>
+        <a href="https://soundcloud.com/pitchblacknight123/tracks" target="_blank">SoundCloud</a>
+        <a href="https://open.spotify.com" target="_blank">Spotify</a>
+      </div>
+    </div>
+    <div class="footer-bar">
+      <span class="footer-copy">© 2026 PitchBlacKnight / Mikel Rosenthal. All rights reserved.</span>
+      <span class="footer-copy">home.pitchblacknight.com</span>
+    </div>
+  </div>
+</footer>
+
+<div id="pbk-orb">
+  <div class="orb-bg"></div>
+  <svg class="orb-svg" viewBox="0 0 80 80">
+    <circle class="orb-ring-bg" cx="40" cy="40" r="34"/>
+    <circle class="orb-ring-fill" id="orb-ring" cx="40" cy="40" r="34"/>
+  </svg>
+  <div class="orb-seek-layer" id="orb-seek-layer"></div>
+  <button id="orb-play-btn" title="Play / Pause">
+    <svg width="14" height="16" viewBox="0 0 12 14" fill="currentColor">
+      <path id="orb-icon" d="M1 0l10 7-10 7z"/>
+    </svg>
+  </button>
+  <div class="orb-panel">
+    <span class="orb-p-src" id="orb-src">—</span>
+    <span class="orb-p-title" id="orb-ttl">—</span>
+    <span class="orb-p-time" id="orb-time">0:00 / —</span>
+    <div class="orb-scrub" id="orb-scrub">
+      <div class="orb-scrub-fill" id="orb-sf"></div>
+      <div class="orb-scrub-handle" id="orb-handle"></div>
+    </div>
+    <div class="orb-ctrl-row">
+      <button class="orb-ctl" id="orb-prev">◂ PREV</button>
+      <button class="orb-ctl" id="orb-back">−30s</button>
+      <button class="orb-ctl" id="orb-fwd">+30s</button>
+      <button class="orb-ctl" id="orb-next">NEXT ▸</button>
+    </div>
+    <button class="orb-dismiss" id="orb-dismiss">✕ &nbsp; STOP &amp; DISMISS</button>
+  </div>
+</div>
+
+<script>
+/* ── LOADER ──────────────────────────────────────────── */
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('hidden'), 900);
+});
+
+/* ── NAV MOBILE ─────────────────────────────────────── */
+const navBurger = document.getElementById('nav-burger');
+const navMobile = document.getElementById('nav-mobile');
+navBurger.addEventListener('click', () => navMobile.classList.toggle('open'));
+navMobile.querySelectorAll('a').forEach(a => a.addEventListener('click', () => navMobile.classList.remove('open')));
+
+/* ── SCROLLSPY ──────────────────────────────────────── */
+const navLinks = document.querySelectorAll('.nav-links a[data-section]');
+const spObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.section === id));
+    }
+  });
+}, { threshold: 0.25 });
+['manifesto','professional','services','work','art','music','wisdom','contact'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) spObs.observe(el);
+});
+
+/* ── CV ACCORDION ───────────────────────────────────── */
+function toggleCV() {
+  const sec = document.getElementById('professional');
+  sec.classList.toggle('cv-open');
+  document.getElementById('pro-cv-label').textContent =
+    sec.classList.contains('cv-open') ? 'CLOSE' : 'VIEW RÉSUMÉ';
+}
+
+/* ── CASE STUDY ACCORDION ───────────────────────────── */
+function toggleProject(btn) {
+  const row = btn.closest('.proj-row');
+  const isOpen = row.classList.contains('open');
+  document.querySelectorAll('.proj-row.open').forEach(r => r.classList.remove('open'));
+  if (!isOpen) row.classList.add('open');
+}
+
+/* ── ART GALLERY ────────────────────────────────────── */
+const ALL_GIFS = ["10 Orbits.gif","3x Geo Twist.gif","All night long.gif","And what did you expect.gif","Arc flip.gif","As We Drift.gif","Asention.gif","Back to the beginning.gif","Black Sea.gif","Blurred Phase.gif","Box breaker.gif","Butterfly effect.gif","Bye for now.gif","CCCC.gif","Can you see me.gif","Chess anyone.gif","Circle drop.gif","Circle spheres.gif","Cloud twists.gif","Collapsing red and tan.gif","Coral Benz.gif","Cosmos.gif","Crank still.gif","Daisy Bloom.gif","Dance with me.gif","Dark skies.gif","Dark waves.gif","Data cycles.gif","Didn't mean to scare you.gif","Distant spin.gif","Divide and conquer.gif","Do you see the numbers.gif","Don't drowned.gif","Don't look away.gif","Double Vision v2.gif","Down we go.gif","Drip Row.gif","Drop in bucket.gif","Drugs.gif","Eggshell.gif","FAV0022.gif","Falling asleep.gif","Fast as you can.gif","Fibonacci twist.gif","Fire by the Sea.gif","Folding Time.gif","Follow Me.gif","Follow me into the dark.gif","Follow the leader.gif","For friends.gif","Forever and ever.gif","Forever balance.gif","Forever builder.gif","Forever configuration.gif","Forever drop.gif","Forever for you.gif","Forever wonder.gif","Grand Design.gif","Graph builds.gif","Grid collapse.gif","Halloween masks.gif","Hand drawing 2004.gif","Hand flicker.gif","Help me.gif","Here we go.gif","Hill and clouds in sky.gif","I Promise.gif","I can't see.gif","I commend you sir.gif","I like this one.gif","I like your idea.gif","I think I'm lost.gif","Infinite dance.gif","Into the sea.gif","It's all numbers.gif","Joy waves.gif","Just one more thread.gif","Keep adding.gif","Keep building.gif","Lens effect.gif","Light dance.gif","Logo concept.gif","Logo orb.gif","Look at me.gif","Magic rain.gif","Masks.gif","Math class.gif","Maze falling.gif","Mind bender.gif","Modulus frame.gif","Moving sitting still.gif","Moving spectral.gif","Never still.gif","Night Moon.gif","Nightsun.gif","Noble owl.gif","Old memories.gif","Orbit Wave.gif","Orbit v4.gif","Orbitals.gif","Orbits and orbits.gif","Out We Go.gif","PBK Dark Flam.gif","PBK Logo.gif","Perfect sink.gif","Play me.gif","Prism drift.gif","Promise me forever.gif","Signal.gif","Simplicity.gif","Slices of me.gif","Slinky Forgo.gif","Slowly going inward.gif","Solar B:W.gif","Solve me.gif","Space Trip.gif","Spectral arc.gif","Speed shape.gif","Star twist.gif","Stay in line.gif","Still waiting.gif","Stone Ascension.gif","Strings of chance.gif","Swin me around.gif","Synchronization.gif","Tailspin.gif","Tall Noble owl.gif","The biggest box.gif","The collector.gif","The world is yours.gif","Threads of time.gif","Time scale.gif","Timebloom.gif","Tiny movements.gif","Tunnel Vision.gif","Twist Lattice.gif","Twist light.gif","Twisted sphere.gif","Twisting triangles.gif","Twisting vector.gif","Ultimate synchronization.gif","Under the cells.gif","Under the sea.gif","V.gif","Vector Spin.gif","Vector echo.gif","Vector life.gif","Walk the walk.gif","Water droplet.gif","Where am I.gif","Where is mom.gif","Wizard Stone.gif","Zen Circle.gif","Zip line logo.gif"];
+
+const GIF_TAGS = {
+  orbit: ['orbit','spin','rotation','vector spin','10 orbits','orbit v4','orbitals','orbits and orbits','distant spin','arc flip','vector echo','vector life','vector spin','twisting vector','twisting triangles','twisted sphere','twist light','twist lattice','swin me around','spectral arc'],
+  geo: ['3x geo','box breaker','chess','circle','fibonacci','folding','grand design','graph','grid','math','maze','modulus','signal','simplicity','slices','solve','star twist','stay in line','cccc','data cycles','divide','synchronization','timebloom','time scale','strings','threads','keep adding','keep building','just one more'],
+  dark: ['black sea','dark skies','dark waves','don\'t look','follow me into the dark','falling asleep','halloween','help me','i can\'t see','i think i\'m lost','masks','mind bender','never still','night moon','nightsun','pbk dark flam','slowly going inward','slinky forgo','tunnel vision','under the cells','under the sea','where am i','where is mom','dark mutters','don\'t drowned'],
+  forever: ['forever and ever','forever balance','forever builder','forever configuration','forever drop','forever for you','forever wonder','promise me forever','for friends'],
+  nature: ['all night long','as we drift','butterfly effect','coral benz','cosmos','daisy bloom','dance with me','fire by the sea','hill and clouds','joy waves','light dance','magic rain','night moon','noble owl','old memories','out we go','solar','space trip','stone ascension','tall noble owl','tiny movements','under the sea','water droplet','wizard stone','cloud twists','collapsing red']
+};
+
+function getGifCategory(name) {
+  const n = name.replace('.gif','').toLowerCase();
+  for (const [cat, terms] of Object.entries(GIF_TAGS)) {
+    if (terms.some(t => n.includes(t) || t.includes(n))) return cat;
+  }
+  return null;
+}
+
+function buildGallery(filter) {
+  const grid = document.getElementById('art-grid');
+  grid.innerHTML = '';
+  const toShow = filter === 'all' ? ALL_GIFS : ALL_GIFS.filter(g => getGifCategory(g) === filter);
+  toShow.forEach(gif => {
+    const cell = document.createElement('div');
+    cell.className = 'art-cell';
+    const enc = gif.split('').map(c => c === ' ' ? '%20' : c === "'" ? '%27' : c === '!' ? '%21' : c).join('');
+    cell.innerHTML = `<img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/${enc}" alt="${gif.replace('.gif','')}" loading="lazy"><div class="art-label">${gif.replace('.gif','')}</div>`;
+    cell.addEventListener('click', () => openLightbox('https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/' + enc, gif.replace('.gif','')));
+    grid.appendChild(cell);
+  });
+}
+buildGallery('all');
+
+document.querySelectorAll('.art-filter').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.art-filter').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    buildGallery(btn.dataset.filter);
+  });
+});
+
+function openLightbox(src, title) {
+  document.getElementById('lb-img').src = src;
+  document.getElementById('lb-title').textContent = title.toUpperCase();
+  document.getElementById('lightbox').classList.add('open');
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+/* ── MUSIC PLAYER ────────────────────────────────────── */
+
+/* ── MEDIA SESSION — shared by music + archives players ── */
+function updateMediaSession(title,albumName,audioEl,onPrev,onNext){
+  if(!('mediaSession' in navigator))return;
+  navigator.mediaSession.metadata=new MediaMetadata({title:title,artist:'PitchBlacKnight',album:albumName||'Original Works'});
+  navigator.mediaSession.setActionHandler('play',()=>audioEl.play().catch(()=>{}));
+  navigator.mediaSession.setActionHandler('pause',()=>audioEl.pause());
+  navigator.mediaSession.setActionHandler('stop',()=>{audioEl.pause();audioEl.currentTime=0;});
+  navigator.mediaSession.setActionHandler('previoustrack',onPrev||null);
+  navigator.mediaSession.setActionHandler('nexttrack',onNext||null);
+  try{navigator.mediaSession.setActionHandler('seekbackward',(d)=>{audioEl.currentTime=Math.max(0,audioEl.currentTime-(d.seekOffset||15));});}catch(e){}
+  try{navigator.mediaSession.setActionHandler('seekforward',(d)=>{audioEl.currentTime=Math.min(audioEl.duration||0,audioEl.currentTime+(d.seekOffset||15));});}catch(e){}
+  try{navigator.mediaSession.setActionHandler('seekto',(d)=>{if(d.seekTime!=null)audioEl.currentTime=d.seekTime;});}catch(e){}
+}
+
+(function initMusicPlayer() {
+  const ALL_TRACKS = [
+    'for-jon','death-tinker','you-have-a-wanting-alan','building-short-wave','hollow-heart','clicky-clock-low-stock',
+    'deeply-entertained','dreams-of-dying','dripping-magma','drop-tick',
+    'eh','everybody-flows','first-run','fresh-like-lettuce',
+    'halloween-store','i-cant-go-for-that','i-like-you','never-thought-i-could',
+    'new-york-i-thought-she-was','nice-groove','nice-matchup','old-fast',
+    'piano-doodle','pleasure-pain-by-your-side','roughasf','simian',
+    'slow-drip-piano-twist','slow-loris','slow-trip-piano','slowfastslow',
+    'speed-trip','tell-me-when-it-kicks-in','the-effect-you-have-on-others',
+    'when-you-leave','dracula-grind-and-bump'
+  ];
+  function slugToTitle(s){return s.replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase())}
+  const CHUNK=12;let loaded=0,activeEntry=null,currentTrackIndex=-1;
+  const audio=document.getElementById('ap'),container=document.getElementById('music-tracks'),
+    loadMoreBtn=document.getElementById('load-more-btn'),playerTitle=document.getElementById('player-title'),
+    playerSub=document.getElementById('player-sub'),playerProgressFill=document.getElementById('player-progress-fill'),
+    playerTime=document.getElementById('player-time'),playerTimeTotal=document.getElementById('player-time-total'),
+    playerProgress=document.getElementById('player-progress'),ctrlPlay=document.getElementById('ctrl-play'),
+    ctrlPlayIcon=document.getElementById('ctrl-play-icon'),ctrlPrev=document.getElementById('ctrl-prev'),
+    ctrlNext=document.getElementById('ctrl-next'),featuredBtn=document.getElementById('featured-play-btn');
+  const PLAY_PATH='M0 0l12 7-12 7z',PAUSE_PATH='M0 0h4v14H0zM8 0h4v14H8z';
+  function fmtTime(s){if(!isFinite(s))return'0:00';const h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=String(Math.floor(s%60)).padStart(2,'0');return h>0?h+':'+String(m).padStart(2,'0')+':'+sec:m+':'+sec}
+  function setPlayIcon(p){ctrlPlayIcon.setAttribute('d',p?PAUSE_PATH:PLAY_PATH);ctrlPlay.classList.toggle('playing',p)}
+  function deactivate(e){if(e)e.classList.remove('active','paused')}
+  function activateWidget(title){
+    if(window.PBK) window.PBK.activate(audio,title,'MUSIC',
+      ()=>playTrackByIndex(Math.max(0,currentTrackIndex-1)),
+      ()=>playTrackByIndex(Math.min(ALL_TRACKS.length-1,currentTrackIndex+1))
+    );
+  }
+  function playTrackByIndex(idx){
+    if(idx<0||idx>=ALL_TRACKS.length)return;
+    currentTrackIndex=idx;const slug=ALL_TRACKS[idx],title=slugToTitle(slug);
+    const entry=container.querySelector(`[data-slug="${slug}"]`);
+    deactivate(activeEntry);activeEntry=entry||null;if(entry)entry.classList.add('active');
+    setPlayerGif();
+    audio.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/'+slug+'.mp3';
+    audio.load();audio.play().catch(e=>console.warn('Playback blocked:',e.message));
+    playerTitle.textContent=title;playerSub.textContent='Live improvisation · Single take · Unrepeatable';
+    updateMediaSession(title,'Original Works',audio,
+      ()=>playTrackByIndex(Math.max(0,currentTrackIndex-1)),
+      ()=>playTrackByIndex(Math.min(ALL_TRACKS.length-1,currentTrackIndex+1))
+    );activateWidget(title);
+  }
+  function handleTrackClick(entry,slug){
+    if(activeEntry===entry){
+      if(!audio.paused){audio.pause();entry.classList.add('paused')}
+      else{audio.play();entry.classList.remove('paused')}
+    }else{
+      const title=slugToTitle(slug);
+      currentTrackIndex=ALL_TRACKS.indexOf(slug);deactivate(activeEntry);
+      activeEntry=entry;entry.classList.add('active');
+      audio.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/'+slug+'.mp3';
+      audio.load();audio.play().catch(e=>{console.warn(e.message);entry.classList.remove('active');activeEntry=null;currentTrackIndex=-1});
+      playerTitle.textContent=title;playerSub.textContent='Live improvisation · Single take · Unrepeatable';
+      updateMediaSession(title,'Original Works',audio,
+      ()=>playTrackByIndex(Math.max(0,currentTrackIndex-1)),
+      ()=>playTrackByIndex(Math.min(ALL_TRACKS.length-1,currentTrackIndex+1))
+    );activateWidget(title);
+    }
+  }
+  ctrlPlay.addEventListener('click',()=>{
+    if(currentTrackIndex===-1){playTrackByIndex(0);return}
+    if(audio.paused){audio.play().catch(()=>{});if(activeEntry)activeEntry.classList.remove('paused')}
+    else{audio.pause();if(activeEntry)activeEntry.classList.add('paused')}
+  });
+  ctrlPrev.addEventListener('click',()=>playTrackByIndex(Math.max(0,currentTrackIndex-1)));
+  ctrlNext.addEventListener('click',()=>playTrackByIndex(Math.min(ALL_TRACKS.length-1,currentTrackIndex+1)));
+  document.getElementById('ctrl-back').addEventListener('click',()=>{if(audio.duration)audio.currentTime=Math.max(0,audio.currentTime-15);});
+  document.getElementById('ctrl-fwd').addEventListener('click',()=>{if(audio.duration)audio.currentTime=Math.min(audio.duration,audio.currentTime+15);});
+  const GIFS=['10 Orbits.gif','3x Geo Twist.gif','All night long.gif','And what did you expect.gif','Arc flip.gif','As We Drift.gif','Asention.gif','Back to the beginning.gif','Black Sea.gif','Blurred Phase.gif','Box breaker.gif','Butterfly effect.gif','Bye for now.gif','CCCC.gif','Can you see me.gif','Chess anyone.gif','Circle drop.gif','Circle spheres.gif','Cloud twists.gif','Collapsing red and tan.gif','Coral Benz.gif','Cosmos.gif','Crank still.gif','Daisy Bloom.gif','Dance with me.gif','Dark skies.gif','Dark waves.gif','Data cycles.gif','Didn\'t mean to scare you.gif','Distant spin.gif','Divide and conquer.gif','Do you see the numbers.gif','Don\'t drowned.gif','Don\'t look away.gif','Double Vision v2.gif','Down we go.gif','Drip Row.gif','Drop in bucket.gif','Drugs.gif','Eggshell.gif','FAV0022.gif','Falling asleep.gif','Fast as you can.gif','Fibonacci twist.gif','Fire by the Sea.gif','Folding Time.gif','Follow Me.gif','Follow me into the dark.gif','Follow the leader.gif','For friends.gif','Forever and ever.gif','Forever balance.gif','Forever builder.gif','Forever configuration.gif','Forever drop.gif','Forever for you.gif','Forever wonder.gif','Grand Design.gif','Graph builds.gif','Grid collapse.gif','Halloween masks.gif','Hand drawing 2004.gif','Hand flicker.gif','Help me.gif','Here we go.gif','Hill and clouds in sky.gif','I Promise.gif','I can\'t see.gif','I commend you sir.gif','I like this one.gif','I like your idea.gif','I think I\'m lost.gif','Infinite dance.gif','Into the sea.gif','It\'s all numbers.gif','Joy waves.gif','Just one more thread.gif','Keep adding.gif','Keep building.gif','Lens effect.gif','Light dance.gif','Logo concept.gif','Logo orb.gif','Look at me.gif','Magic rain.gif','Masks.gif','Math class.gif','Maze falling.gif','Mind bender.gif','Modulus frame.gif','Moving sitting still.gif','Moving spectral.gif','Never still.gif','Night Moon.gif','Nightsun.gif','Noble owl.gif','Old memories.gif','Orbit Wave.gif','Orbit v4.gif','Orbitals.gif','Orbits and orbits.gif','Out We Go.gif','PBK Dark Flam.gif','PBK Logo.gif','Perfect sink.gif','Play me.gif','Prism drift.gif','Promise me forever.gif','Signal.gif','Simplicity.gif','Slices of me.gif','Slinky Forgo.gif','Slowly going inward.gif','Solar B:W.gif','Solve me.gif','Space Trip.gif','Spectral arc.gif','Speed shape.gif','Star twist.gif','Stay in line.gif','Still waiting.gif','Stone Ascension.gif','Strings of chance.gif','Swin me around.gif','Synchronization.gif','Tailspin.gif','Tall Noble owl.gif','The biggest box.gif','The collector.gif','The world is yours.gif','Threads of time.gif','Time scale.gif','Timebloom.gif','Tiny movements.gif','Tunnel Vision.gif','Twist Lattice.gif','Twist light.gif','Twisted sphere.gif','Twisting triangles.gif','Twisting vector.gif','Ultimate synchronization.gif','Under the cells.gif','Under the sea.gif','V.gif','Vector Spin.gif','Vector echo.gif','Vector life.gif','Walk the walk.gif','Water droplet.gif','Where am I.gif','Where is mom.gif','Wizard Stone.gif','Zen Circle.gif','Zip line logo.gif'];
+  const playerGifEl=document.getElementById('player-gif'),featuredGifEl=document.getElementById('featured-gif');
+  function pickGif(){return GIFS[Math.floor(Math.random()*GIFS.length)]}
+  function setPlayerGif(){
+    playerGifEl.style.opacity='0';
+    setTimeout(()=>{playerGifEl.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/'+encodeURIComponent(pickGif());playerGifEl.style.opacity='';},300);
+  }
+  featuredGifEl.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/'+encodeURIComponent(pickGif());
+  setPlayerGif();
+  featuredBtn.addEventListener('click',()=>{
+    audio.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/never-thought-i-could.mp3';
+    audio.load();audio.play().catch(e=>console.warn('Playback blocked:',e.message));
+    playerTitle.textContent='Never Thought I Could';playerSub.textContent='Live improvisation · Single take · Unrepeatable';
+    updateMediaSession('Never Thought I Could','Original Works',audio,null,
+      ()=>playTrackByIndex(0)
+    );
+    setPlayerGif();activateWidget('Never Thought I Could');
+  });
+  playerProgress.addEventListener('click',e=>{
+    if(!audio.duration)return;const rect=playerProgress.getBoundingClientRect();
+    audio.currentTime=((e.clientX-rect.left)/rect.width)*audio.duration;
+  });
+  audio.addEventListener('play',()=>setPlayIcon(true));
+  audio.addEventListener('pause',()=>setPlayIcon(false));
+  audio.addEventListener('timeupdate',()=>{
+    if(!audio.duration)return;
+    playerProgressFill.style.width=(audio.currentTime/audio.duration*100)+'%';
+    playerTime.textContent=fmtTime(audio.currentTime);playerTimeTotal.textContent=fmtTime(audio.duration);
+    if('mediaSession' in navigator&&navigator.mediaSession.setPositionState){
+      try{navigator.mediaSession.setPositionState({duration:audio.duration,playbackRate:audio.playbackRate,position:audio.currentTime});}catch(e){}
+    }
+  });
+  audio.addEventListener('ended',()=>{
+    deactivate(activeEntry);activeEntry=null;
+    if(currentTrackIndex<ALL_TRACKS.length-1)playTrackByIndex(currentTrackIndex+1);
+    else{currentTrackIndex=-1;setPlayIcon(false)}
+  });
+
+  /* updateMediaSession defined globally above */
+
+  function fmtTime(s){if(!isFinite(s)||s<0)return'—';const h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=String(Math.floor(s%60)).padStart(2,'0');return h>0?h+':'+String(m).padStart(2,'0')+':'+sec:m+':'+sec;}
+  function buildTrackRow(slug,idx){
+    const div=document.createElement('div');div.className='music-track-entry';div.dataset.slug=slug;
+    div.innerHTML=`<div class="mte-num"><span class="num-label">${String(idx+1).padStart(2,'0')}</span><div class="mte-bar-wrap"><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div><div class="mte-bar"></div></div></div><div class="mte-info"><p class="mte-title">${slugToTitle(slug)}</p><p class="mte-tag">Single take · Unrepeatable</p></div><span class="mte-dur">—</span>`;
+    const durEl=div.querySelector('.mte-dur');
+    const tmp=new Audio();tmp.preload='metadata';
+    tmp.src='https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/audio/'+slug+'.mp3';
+    tmp.addEventListener('loadedmetadata',()=>{durEl.textContent=fmtTime(tmp.duration);tmp.src='';});
+    div.addEventListener('click',()=>handleTrackClick(div,slug));return div;
+  }
+  function loadChunk(){
+    const end=Math.min(loaded+CHUNK,ALL_TRACKS.length);
+    for(let i=loaded;i<end;i++)container.appendChild(buildTrackRow(ALL_TRACKS[i],i));
+    loaded=end;if(loaded>=ALL_TRACKS.length)loadMoreBtn.classList.add('hidden');
+  }
+  loadMoreBtn.addEventListener('click',loadChunk);loadChunk();
+})();
+
+/* ── CONTACT ─────────────────────────────────────────── */
+document.getElementById('reach-out-btn').addEventListener('click',()=>{
+  const ability=document.getElementById('ability-select').value;
+  const subject=ability?'Inquiry: '+ability:'Project Inquiry';
+  window.location.href='mailto:contact@pitchblacknight.com?subject='+encodeURIComponent(subject);
+});
+function handleContactSubmit(e){
+  e.preventDefault();
+  const name=document.getElementById('cf-name').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const message=document.getElementById('cf-message').value.trim();
+  if(!name||!email||!message){document.getElementById('cf-status').textContent='Please fill in all fields.';return}
+  window.location.href=`mailto:contact@pitchblacknight.com?subject=${encodeURIComponent('Message from '+name)}&body=${encodeURIComponent(message+'\n\n— '+name+'\n'+email)}`;
+}
+
+/* ── GIF SECTION BACKGROUNDS ─────────────────────────── */
+(function initGifBgs() {
+  const ALL_GIFS = ["10 Orbits.gif","3x Geo Twist.gif","All night long.gif","And what did you expect.gif","Arc flip.gif","As We Drift.gif","Asention.gif","Back to the beginning.gif","Black Sea.gif","Blurred Phase.gif","Box breaker.gif","Butterfly effect.gif","Bye for now.gif","CCCC.gif","Can you see me.gif","Chess anyone.gif","Circle drop.gif","Circle spheres.gif","Cloud twists.gif","Collapsing red and tan.gif","Coral Benz.gif","Cosmos.gif","Crank still.gif","Daisy Bloom.gif","Dance with me.gif","Dark skies.gif","Dark waves.gif","Data cycles.gif","Didn't mean to scare you.gif","Distant spin.gif","Divide and conquer.gif","Do you see the numbers.gif","Don't drowned.gif","Don't look away.gif","Double Vision v2.gif","Down we go.gif","Drip Row.gif","Drop in bucket.gif","Drugs.gif","Eggshell.gif","FAV0022.gif","Falling asleep.gif","Fast as you can.gif","Fibonacci twist.gif","Fire by the Sea.gif","Folding Time.gif","Follow Me.gif","Follow me into the dark.gif","Follow the leader.gif","For friends.gif","Forever and ever.gif","Forever balance.gif","Forever builder.gif","Forever configuration.gif","Forever drop.gif","Forever for you.gif","Forever wonder.gif","Grand Design.gif","Graph builds.gif","Grid collapse.gif","Halloween masks.gif","Hand drawing 2004.gif","Hand flicker.gif","Help me.gif","Here we go.gif","Hill and clouds in sky.gif","I Promise.gif","I can't see.gif","I commend you sir.gif","I like this one.gif","I like your idea.gif","I think I'm lost.gif","Infinite dance.gif","Into the sea.gif","It's all numbers.gif","Joy waves.gif","Just one more thread.gif","Keep adding.gif","Keep building.gif","Lens effect.gif","Light dance.gif","Logo concept.gif","Logo orb.gif","Look at me.gif","Magic rain.gif","Masks.gif","Math class.gif","Maze falling.gif","Mind bender.gif","Modulus frame.gif","Moving sitting still.gif","Moving spectral.gif","Never still.gif","Night Moon.gif","Nightsun.gif","Noble owl.gif","Old memories.gif","Orbit Wave.gif","Orbit v4.gif","Orbitals.gif","Orbits and orbits.gif","Out We Go.gif","PBK Dark Flam.gif","PBK Logo.gif","Perfect sink.gif","Play me.gif","Prism drift.gif","Promise me forever.gif","Signal.gif","Simplicity.gif","Slices of me.gif","Slinky Forgo.gif","Slowly going inward.gif","Solar B:W.gif","Solve me.gif","Space Trip.gif","Spectral arc.gif","Speed shape.gif","Star twist.gif","Stay in line.gif","Still waiting.gif","Stone Ascension.gif","Strings of chance.gif","Swin me around.gif","Synchronization.gif","Tailspin.gif","Tall Noble owl.gif","The biggest box.gif","The collector.gif","The world is yours.gif","Threads of time.gif","Time scale.gif","Timebloom.gif","Tiny movements.gif","Tunnel Vision.gif","Twist Lattice.gif","Twist light.gif","Twisted sphere.gif","Twisting triangles.gif","Twisting vector.gif","Ultimate synchronization.gif","Under the cells.gif","Under the sea.gif","V.gif","Vector Spin.gif","Vector echo.gif","Vector life.gif","Walk the walk.gif","Water droplet.gif","Where am I.gif","Where is mom.gif","Wizard Stone.gif","Zen Circle.gif","Zip line logo.gif"];
+
+  // Single layer per section — one GIF crossfading into the next, every 12 seconds
+  const OPACITY  = 0.18;
+  const INTERVAL = 5000;
+  const FADE     = 2500; // transition duration ms
+
+  const SECTIONS = ['manifesto','origin','professional','services','work','art','wisdom','contact'];
+
+  function enc(n){ return n.split('').map(c=>c===' '?'%20':c==="'"?'%27':c).join('') }
+
+  function shuffle(arr){
+    const a=[...arr];
+    for(let i=a.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [a[i],a[j]]=[a[j],a[i]];
+    }
+    return a;
+  }
+
+  SECTIONS.forEach((id, si) => {
+    const section = document.getElementById(id);
+    if (!section) return;
+
+    section.querySelectorAll('.s-gif').forEach(el => el.remove());
+
+    const seq = shuffle(ALL_GIFS);
+    let idx = 0;
+
+    // A/B crossfade buffer — one image always fading in while the other fades out
+    const imgA = document.createElement('img');
+    const imgB = document.createElement('img');
+    [imgA, imgB].forEach(img => {
+      img.className = 's-gif';
+      img.alt = '';
+      img.style.transition = `opacity ${FADE}ms ease-in-out`;
+      section.insertBefore(img, section.firstChild);
+    });
+
+    let active = imgA, inactive = imgB;
+
+    imgA.src = 'https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/' + enc(seq[0]);
+    imgA.style.opacity = OPACITY;
+
+    function advance() {
+      idx = (idx + 1) % seq.length;
+      inactive.src = 'https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/' + enc(seq[idx]);
+
+      function swap() {
+        inactive.style.opacity = OPACITY;
+        active.style.opacity   = '0';
+        [active, inactive] = [inactive, active];
+      }
+
+      if (inactive.complete && inactive.naturalWidth > 0) swap();
+      else inactive.onload = swap;
+    }
+
+    // Stagger each section's start so they never all swap at once
+    setTimeout(() => setInterval(advance, INTERVAL), si * 1500);
+  });
+})();
+
+/* ── HERO REEL ──────────────────────────────────────────── */
+(function initHeroReel(){
+  const GIFS = ["10 Orbits.gif","3x Geo Twist.gif","All night long.gif","And what did you expect.gif","Arc flip.gif","As We Drift.gif","Asention.gif","Back to the beginning.gif","Black Sea.gif","Blurred Phase.gif","Box breaker.gif","Butterfly effect.gif","Bye for now.gif","CCCC.gif","Can you see me.gif","Chess anyone.gif","Circle drop.gif","Circle spheres.gif","Cloud twists.gif","Collapsing red and tan.gif","Coral Benz.gif","Cosmos.gif","Crank still.gif","Daisy Bloom.gif","Dance with me.gif","Dark skies.gif","Dark waves.gif","Data cycles.gif","Didn't mean to scare you.gif","Distant spin.gif","Divide and conquer.gif","Do you see the numbers.gif","Don't drowned.gif","Don't look away.gif","Double Vision v2.gif","Down we go.gif","Drip Row.gif","Drop in bucket.gif","Drugs.gif","Eggshell.gif","FAV0022.gif","Falling asleep.gif","Fast as you can.gif","Fibonacci twist.gif","Fire by the Sea.gif","Folding Time.gif","Follow Me.gif","Follow me into the dark.gif","Follow the leader.gif","For friends.gif","Forever and ever.gif","Forever balance.gif","Forever builder.gif","Forever configuration.gif","Forever drop.gif","Forever for you.gif","Forever wonder.gif","Grand Design.gif","Graph builds.gif","Grid collapse.gif","Halloween masks.gif","Hand drawing 2004.gif","Hand flicker.gif","Help me.gif","Here we go.gif","Hill and clouds in sky.gif","I Promise.gif","I can't see.gif","I commend you sir.gif","I like this one.gif","I like your idea.gif","I think I'm lost.gif","Infinite dance.gif","Into the sea.gif","It's all numbers.gif","Joy waves.gif","Just one more thread.gif","Keep adding.gif","Keep building.gif","Lens effect.gif","Light dance.gif","Logo concept.gif","Logo orb.gif","Look at me.gif","Magic rain.gif","Masks.gif","Math class.gif","Maze falling.gif","Mind bender.gif","Modulus frame.gif","Moving sitting still.gif","Moving spectral.gif","Never still.gif","Night Moon.gif","Nightsun.gif","Noble owl.gif","Old memories.gif","Orbit Wave.gif","Orbit v4.gif","Orbitals.gif","Orbits and orbits.gif","Out We Go.gif","PBK Dark Flam.gif","PBK Logo.gif","Perfect sink.gif","Play me.gif","Prism drift.gif","Promise me forever.gif","Signal.gif","Simplicity.gif","Slices of me.gif","Slinky Forgo.gif","Slowly going inward.gif","Solar B:W.gif","Solve me.gif","Space Trip.gif","Spectral arc.gif","Speed shape.gif","Star twist.gif","Stay in line.gif","Still waiting.gif","Stone Ascension.gif","Strings of chance.gif","Swin me around.gif","Synchronization.gif","Tailspin.gif","Tall Noble owl.gif","The biggest box.gif","The collector.gif","The world is yours.gif","Threads of time.gif","Time scale.gif","Timebloom.gif","Tiny movements.gif","Tunnel Vision.gif","Twist Lattice.gif","Twist light.gif","Twisted sphere.gif","Twisting triangles.gif","Twisting vector.gif","Ultimate synchronization.gif","Under the cells.gif","Under the sea.gif","V.gif","Vector Spin.gif","Vector echo.gif","Vector life.gif","Walk the walk.gif","Water droplet.gif","Where am I.gif","Where is mom.gif","Wizard Stone.gif","Zen Circle.gif","Zip line logo.gif"];
+  // Fisher-Yates shuffle so order is different every load
+  for(let i=GIFS.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[GIFS[i],GIFS[j]]=[GIFS[j],GIFS[i]];}
+  const HOLD = 7000; // ms each image shows
+  function enc(n){ return n.split('').map(c=>c===' '?'%20':c).join('') }
+
+  const imgA = document.getElementById('hr-a');
+  const imgB = document.getElementById('hr-b');
+  if(!imgA||!imgB) return;
+
+  let cur = 0;
+  let active = imgA, incoming = imgB;
+
+  setInterval(() => {
+    cur = (cur + 1) % GIFS.length;
+    incoming.src = 'https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/art/' + enc(GIFS[cur]);
+
+    function swap(){
+      // restart drift animation on incoming
+      incoming.classList.remove('hr-on');
+      void incoming.offsetWidth;
+      incoming.classList.add('hr-on');
+      // fade out active
+      active.classList.remove('hr-on');
+      [active, incoming] = [incoming, active];
+    }
+
+    if(incoming.complete && incoming.naturalWidth > 0) swap();
+    else incoming.onload = swap;
+  }, HOLD);
+})();
+
+/* ── DAILY WISDOM CYCLE ─────────────────────────────────── */
+(function initWisdom(){
+  const QUOTES = [
+    "Perfectionism is often the most elegant form of fear. When it finally breaks — really breaks — what you're left with is just the work, which was always enough.",
+    "The most radical act is to be entirely, unapologetically yourself in a world that profits from your self-doubt.",
+    "Growth is not construction. It is excavation. You are not building something new — you are uncovering what was always there, set down for safekeeping.",
+    "Art is not separate from life. Work is not separate from art. Every output is the same gesture, refracted differently.",
+    "Polymath is not a resume word. It's a condition. The edges blur. That's the point.",
+    "Every piece of work enters the world with intention. If it doesn't serve something larger, it doesn't leave the studio.",
+    "First take. No blueprint. No rehearsal. The imperfection is the craft — the breath of the moment, not the sterility of infinite takes.",
+    "Remix the remix. Layer on layer until the original DNA is just a ghost signal. That signal is still you.",
+    "Compression is not peace. The thaw is not explosive, not dramatic — just a door left open that you forgot you had the key to.",
+    "Silence while working feels like a missed opportunity.",
+    "I make art from other people's leftovers because everything deserves a second life.",
+    "There are 98 options between every yes and no. The extremes are comfortable because they require no tolerance — only position. Living in the gray means accepting the complexity of being right and wrong at the same time. That's not weakness. That's where the actual world is.",
+    "Binary thinking is not clarity. It's avoidance. The real answer to almost every question is somewhere in the middle — inconvenient, textured, and true.",
+    "Before you say 'it's either this or nothing' — remember that black and white together only account for 2% of what's possible. The answer you need is probably living somewhere in the other 98.",
+  ];
+
+  const el   = document.getElementById('wisdom-quote');
+  const ctr  = document.getElementById('wisdom-counter');
+  const prev = document.getElementById('wisdom-prev');
+  const next = document.getElementById('wisdom-next');
+  if(!el) return;
+
+  // Start on today's quote, naturally cycles through the year
+  const doy = Math.floor((new Date() - new Date(new Date().getFullYear(),0,0)) / 86400000);
+  let idx = doy % QUOTES.length;
+
+  function show(i){
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.textContent = '“' + QUOTES[i] + '”';
+      el.style.opacity = '1';
+      if(ctr) ctr.textContent = (i+1) + ' / ' + QUOTES.length;
+    }, 280);
+  }
+
+  show(idx);
+  if(prev) prev.addEventListener('click', () => { idx = (idx - 1 + QUOTES.length) % QUOTES.length; show(idx); });
+  if(next) next.addEventListener('click', () => { idx = (idx + 1) % QUOTES.length; show(idx); });
+})();
+/* ── ARCHIVES PLAYER ── */
+
+(function initArchives(){
+  const audio=document.getElementById('arch-audio');if(!audio)return;
+  const rows=Array.from(document.querySelectorAll('.arch-row'));
+  let curRow=null;
+  const PAUSE_ICON='<svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><rect x="0" y="0" width="3" height="12"/><rect x="7" y="0" width="3" height="12"/></svg>';
+  const PLAY_ICON='<svg width="10" height="12" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"/></svg>';
+  function archFmt(s){if(!isFinite(s)||s<0)return'—';const h=Math.floor(s/3600),m=Math.floor(s%3600/60),sec=String(Math.floor(s%60)).padStart(2,'0');return h>0?h+':'+String(m).padStart(2,'0')+':'+sec:m+':'+sec;}
+  // lazy-load durations
+  rows.forEach(row=>{
+    const durEl=row.querySelector('.arch-dur');if(!durEl)return;
+    const tmp=new Audio();tmp.preload='metadata';tmp.src=row.dataset.src;
+    tmp.addEventListener('loadedmetadata',()=>{durEl.textContent=archFmt(tmp.duration);tmp.src='';});
+  });
+  function resetAll(){rows.forEach(r=>{r.classList.remove('arch-playing');r.querySelector('.arch-play').innerHTML=PLAY_ICON;});}
+  function playRow(row){
+    resetAll();curRow=row;
+    audio.src=row.dataset.src;
+    audio.play().catch(()=>{});
+    row.classList.add('arch-playing');row.querySelector('.arch-play').innerHTML=PAUSE_ICON;
+    const title=row.querySelector('.arch-name').textContent;
+    const idx=rows.indexOf(row);
+    if(window.PBK) window.PBK.activate(audio,title,'ARCHIVES',
+      ()=>{if(idx>0)playRow(rows[idx-1]);},
+      ()=>{if(idx<rows.length-1)playRow(rows[idx+1]);}
+    );
+    updateMediaSession(title,'The Archives',audio,
+      idx>0?()=>playRow(rows[idx-1]):null,
+      idx<rows.length-1?()=>playRow(rows[idx+1]):null
+    );
+  }
+  rows.forEach(row=>{
+    row.addEventListener('click',()=>{
+      if(curRow===row&&!audio.paused){audio.pause();return;}
+      if(curRow===row&&audio.paused){audio.play().catch(()=>{});if(window.PBK)window.PBK._sync();return;}
+      playRow(row);
+    });
+  });
+  audio.addEventListener('ended',()=>{
+    if(!curRow)return;const idx=rows.indexOf(curRow);resetAll();curRow=null;
+    if(idx<rows.length-1)playRow(rows[idx+1]);
+  });
+  audio.addEventListener('pause',()=>{if(curRow){curRow.classList.remove('arch-playing');curRow.querySelector('.arch-play').innerHTML=PLAY_ICON;}});
+  audio.addEventListener('play',()=>{if(curRow){curRow.classList.add('arch-playing');curRow.querySelector('.arch-play').innerHTML=PAUSE_ICON;}});
+})();
+
+/* ── ARCHIVES CANVAS WAVES ── */
+(function archWave(){
+  const c=document.getElementById('arch-canvas');if(!c)return;
+  const ctx=c.getContext('2d');
+  let W,H,t=0;
+  function resize(){
+    const sec=document.getElementById('archives');
+    W=c.width=sec.offsetWidth;H=c.height=sec.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize',resize,{passive:true});
+  const WAVES=[
+    [.11,22,.0055,.22,2.5],
+    [.22,14,.009, .30,1.5],
+    [.34,30,.0038,.16,3.5],
+    [.45,10,.012, .40,1.2],
+    [.57,26,.006, .19,2.8],
+    [.68,16,.0082,.33,1.8],
+    [.79,32,.0044,.14,3.2],
+    [.90,12,.010, .28,1.4],
+  ];
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    ctx.strokeStyle='#060606';
+    WAVES.forEach(([yf,amp,freq,spd,lw],i)=>{
+      const y0=H*yf,phase=t*spd+i*1.7;
+      ctx.lineWidth=lw;ctx.beginPath();
+      for(let x=0;x<=W;x+=3){
+        const y=y0+Math.sin(x*freq+phase)*amp+Math.sin(x*freq*.5+phase*.7)*amp*.4;
+        x===0?ctx.moveTo(x,y):ctx.lineTo(x,y);
+      }
+      ctx.stroke();
+    });
+    t+=0.018;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── AUDIO ORB ───────────────────────────────────────── */
+(function initOrb(){
+  const orb=document.getElementById('pbk-orb');if(!orb)return;
+  const orbRing=document.getElementById('orb-ring');
+  const orbIcon=document.getElementById('orb-icon');
+  const orbSeek=document.getElementById('orb-seek-layer');
+  const orbPlayBtn=document.getElementById('orb-play-btn');
+  const orbSrc=document.getElementById('orb-src');
+  const orbTtl=document.getElementById('orb-ttl');
+  const orbTime=document.getElementById('orb-time');
+  const orbScrub=document.getElementById('orb-scrub');
+  const orbSf=document.getElementById('orb-sf');
+  const orbHandle=document.getElementById('orb-handle');
+  const orbPrev=document.getElementById('orb-prev');
+  const orbNext=document.getElementById('orb-next');
+  const orbBack=document.getElementById('orb-back');
+  const orbFwd=document.getElementById('orb-fwd');
+  const orbDismiss=document.getElementById('orb-dismiss');
+  const CIRC=213.6;
+  const PLAY_D='M1 0l10 7-10 7z',PAUSE_D='M1 0h4v14H1zM7 0h4v14H7z';
+  function fmt(s){if(!isFinite(s)||s<0)return'0:00';return Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');}
+
+  /* — drag — */
+  let dragging=false,dox=0,doy=0,sx=0,sy=0;
+  orb.addEventListener('pointerdown',e=>{
+    if(e.target.closest('#orb-play-btn,.orb-panel'))return;
+    const r=orb.getBoundingClientRect();
+    if(!orb.style.left){orb.style.right='';orb.style.bottom='';orb.style.left=r.left+'px';orb.style.top=r.top+'px';}
+    sx=e.clientX;sy=e.clientY;dox=e.clientX-r.left;doy=e.clientY-r.top;
+    dragging=false;orb.setPointerCapture(e.pointerId);
+  });
+  orb.addEventListener('pointermove',e=>{
+    if(!orb.hasPointerCapture(e.pointerId))return;
+    if(!dragging&&(Math.abs(e.clientX-sx)>5||Math.abs(e.clientY-sy)>5)){dragging=true;orb.classList.add('orb-grab');}
+    if(!dragging)return;
+    orb.style.left=Math.max(0,Math.min(window.innerWidth-80,e.clientX-dox))+'px';
+    orb.style.top=Math.max(0,Math.min(window.innerHeight-80,e.clientY-doy))+'px';
+  });
+  orb.addEventListener('pointerup',()=>{orb.classList.remove('orb-grab');dragging=false;});
+
+  /* — ring seek — */
+  orbSeek.addEventListener('click',e=>{
+    if(dragging)return;
+    const a=window.PBK.audio;if(!a||!a.duration)return;
+    const r=orbSeek.getBoundingClientRect();
+    const cx=r.left+r.width/2,cy=r.top+r.height/2;
+    const dist=Math.hypot(e.clientX-cx,e.clientY-cy);
+    if(dist<24)return; // center = play button, skip
+    let ang=Math.atan2(e.clientY-cy,e.clientX-cx)*180/Math.PI+90;
+    if(ang<0)ang+=360;
+    a.currentTime=(ang/360)*a.duration;
+  });
+
+  /* — scrub bar — */
+  let scrubActive=false;
+  function applyScrub(e){
+    const a=window.PBK.audio;if(!a||!a.duration)return;
+    const r=orbScrub.getBoundingClientRect();
+    const pct=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));
+    a.currentTime=pct*a.duration;
+    orbSf.style.width=(pct*100)+'%';
+    if(orbHandle)orbHandle.style.left=(pct*100)+'%';
+  }
+  orbScrub.addEventListener('mousedown',e=>{scrubActive=true;document.body.classList.add('orb-scrubbing');applyScrub(e);e.preventDefault();});
+  orbScrub.addEventListener('click',applyScrub);
+  document.addEventListener('mousemove',e=>{if(scrubActive)applyScrub(e);});
+  document.addEventListener('mouseup',()=>{if(scrubActive){scrubActive=false;document.body.classList.remove('orb-scrubbing');}});
+
+  /* — play/pause — */
+  orbPlayBtn.addEventListener('click',()=>{const a=window.PBK.audio;if(!a)return;a.paused?a.play().catch(()=>{}):a.pause();});
+
+  /* — skip controls — */
+  orbPrev.addEventListener('click',()=>{if(window.PBK._onPrev)window.PBK._onPrev();});
+  orbNext.addEventListener('click',()=>{if(window.PBK._onNext)window.PBK._onNext();});
+  orbBack.addEventListener('click',()=>{const a=window.PBK.audio;if(a)a.currentTime=Math.max(0,a.currentTime-30);});
+  orbFwd.addEventListener('click',()=>{const a=window.PBK.audio;if(a&&a.duration)a.currentTime=Math.min(a.duration,a.currentTime+30);});
+  orbDismiss.addEventListener('click',()=>{const a=window.PBK.audio;if(a)a.pause();orb.classList.remove('orb-on','orb-playing');});
+
+  /* — time sync — */
+  ['ap','arch-audio'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.addEventListener('play',()=>{if(window.PBK.audio===el)window.PBK._sync();});
+    el.addEventListener('pause',()=>{if(window.PBK.audio===el)window.PBK._sync();});
+    el.addEventListener('timeupdate',()=>{
+      if(window.PBK.audio!==el||scrubActive)return;
+      const pct=el.duration?el.currentTime/el.duration:0;
+      orbRing.style.strokeDashoffset=CIRC*(1-pct);
+      orbSf.style.width=(pct*100)+'%';
+      if(orbHandle)orbHandle.style.left=(pct*100)+'%';
+      orbTime.textContent=fmt(el.currentTime)+' / '+fmt(el.duration);
+    });
+  });
+
+  /* — PBK interface — */
+  window.PBK={
+    audio:null,_onPrev:null,_onNext:null,
+    activate(audioEl,title,source,onPrev,onNext){
+      if(this.audio&&this.audio!==audioEl)this.audio.pause();
+      this.audio=audioEl;this._onPrev=onPrev;this._onNext=onNext;
+      orbSrc.textContent=source;orbTtl.textContent=title;
+      orbTime.textContent='0:00 / —';orbRing.style.strokeDashoffset=CIRC;
+      orbSf.style.width='0';if(orbHandle)orbHandle.style.left='0';
+      orb.classList.add('orb-on');this._sync();
+    },
+    _sync(){
+      if(!this.audio)return;
+      const p=!this.audio.paused;
+      orbIcon.setAttribute('d',p?PAUSE_D:PLAY_D);
+      orb.classList.toggle('orb-playing',p);
+    }
+  };
+})();
+</script>
+</body>
+</html>

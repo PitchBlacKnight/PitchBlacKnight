@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Work Section — Mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@300;400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg:    #0a0a0a;
+    --white: #ffffff;
+    --coral: #E86E59;
+    --steel: #7b8fa6;
+    --dim:   #555;
+    --font-display: 'Anton', sans-serif;
+    --font-body:    'IBM Plex Mono', monospace;
+    --font-alt:     'Space Grotesk', sans-serif;
+  }
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: var(--font-body);
+    min-height: 100vh;
+    padding: 80px 48px;
+  }
+
+  .label {
+    font-family: var(--font-body);
+    font-size: 9px;
+    letter-spacing: .5em;
+    text-transform: uppercase;
+    color: var(--coral);
+    display: block;
+    margin-bottom: 16px;
+  }
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(56px, 10vw, 120px);
+    line-height: .88;
+    text-transform: uppercase;
+    margin-bottom: 64px;
+  }
+  .section-heading .cs { color: var(--steel); }
+
+  /* ── WORK LIST ── */
+  .work-list {
+    border-top: 1px solid #1a1a1a;
+  }
+
+  .work-row {
+    display: grid;
+    grid-template-columns: 36px 80px 1fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 0;
+    border-bottom: 1px solid #141414;
+    cursor: pointer;
+    position: relative;
+    transition: border-color .2s;
+  }
+  .work-row::before {
+    content: '';
+    position: absolute;
+    left: -48px;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: var(--coral);
+    transform: scaleY(0);
+    transition: transform .25s ease;
+    transform-origin: bottom;
+  }
+  .work-row:hover::before,
+  .work-row.open::before { transform: scaleY(1); }
+  .work-row:hover { border-bottom-color: #242424; }
+
+  .work-row-num {
+    font-family: var(--font-body);
+    font-size: 9px;
+    letter-spacing: .3em;
+    color: #555;
+    padding-top: 4px;
+    align-self: flex-start;
+  }
+  .work-row.open .work-row-num { color: var(--coral); }
+
+  .work-row-abbr {
+    font-family: var(--font-display);
+    font-size: clamp(28px, 4vw, 52px);
+    line-height: 1;
+    color: #555;
+    text-transform: uppercase;
+    transition: color .2s;
+    letter-spacing: .02em;
+  }
+  .work-row:hover .work-row-abbr,
+  .work-row.open .work-row-abbr { color: var(--white); }
+
+  .work-row-info { display: flex; flex-direction: column; gap: 4px; }
+  .work-row-name {
+    font-family: var(--font-alt);
+    font-size: clamp(15px, 2vw, 22px);
+    font-weight: 500;
+    color: #ccc;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    transition: color .2s;
+  }
+  .work-row:hover .work-row-name,
+  .work-row.open .work-row-name { color: var(--white); }
+
+  .work-row-desc {
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: .15em;
+    color: #666;
+    text-transform: uppercase;
+    transition: color .2s;
+  }
+  .work-row:hover .work-row-desc { color: #999; }
+
+  .work-row-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-shrink: 0;
+  }
+  .work-row-tag {
+    font-family: var(--font-body);
+    font-size: 8px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: #666;
+    border: 1px solid #2a2a2a;
+    padding: 5px 12px;
+    transition: all .2s;
+  }
+  .work-row:hover .work-row-tag { color: #999; border-color: #444; }
+  .work-row.open .work-row-tag { color: var(--coral); border-color: rgba(232,110,89,.3); }
+
+  .work-row-arrow {
+    font-size: 14px;
+    color: #666;
+    transition: color .2s, transform .3s ease;
+  }
+  .work-row:hover .work-row-arrow { color: #aaa; }
+  .work-row.open .work-row-arrow { color: var(--coral); transform: rotate(45deg); }
+  .work-row-static .work-row-arrow { display: none; }
+  .work-row-static { cursor: default; }
+
+  /* ── EXPAND PANEL ── */
+  .work-panel {
+    grid-column: 1 / -1;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .55s cubic-bezier(.4,0,.2,1);
+  }
+  .work-panel.open { max-height: 9999px; }
+  .work-panel-inner {
+    padding: 32px 0 40px 140px;
+    border-bottom: 1px solid #141414;
+  }
+
+  /* Web cards inside panel */
+  .panel-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: #111;
+  }
+  .panel-card {
+    background: #040404;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    transition: opacity .2s;
+  }
+  .panel-card:hover { opacity: .85; }
+  .panel-card-thumb {
+    aspect-ratio: 16/9;
+    overflow: hidden;
+    position: relative;
+    background: #0e0e0e;
+  }
+  .panel-card-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top;
+    filter: grayscale(15%);
+    transition: transform .5s ease, filter .3s;
+  }
+  .panel-card:hover .panel-card-thumb img { transform: scale(1.03); filter: grayscale(0); }
+  .panel-card-thumb::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(4,4,4,.75) 0%, transparent 50%);
+  }
+  .panel-card-eyebrow {
+    position: absolute; bottom: 40px; left: 16px; z-index: 2;
+    font-family: var(--font-body); font-size: 8px;
+    letter-spacing: .3em; text-transform: uppercase;
+    color: var(--coral); opacity: .8;
+  }
+  .panel-card-hero {
+    position: absolute; bottom: 14px; left: 16px; right: 16px; z-index: 2;
+    font-family: 'Anton', sans-serif; font-size: 1.1rem;
+    color: var(--white); line-height: 1.1; text-transform: uppercase;
+  }
+  .panel-card-meta {
+    padding: 14px 16px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid #111;
+  }
+  .panel-card-name { font-family: var(--font-alt); font-size: 11px; font-weight: 500; color: var(--white); }
+  .panel-card-tag  { font-family: var(--font-body); font-size: 8px; letter-spacing: .2em; text-transform: uppercase; color: var(--dim); margin-top: 2px; }
+  .panel-card-arrow { font-size: 12px; color: var(--coral); opacity: .6; transition: opacity .2s; }
+  .panel-card:hover .panel-card-arrow { opacity: 1; }
+
+  /* DSG projects */
+  .panel-dsg-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: #111;
+  }
+  .panel-dsg-card {
+    background: #040404;
+    display: flex;
+    flex-direction: column;
+  }
+  .panel-dsg-thumb {
+    aspect-ratio: 4/3;
+    overflow: hidden;
+    position: relative;
+    background: #0e0e0e;
+  }
+  .panel-dsg-thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; filter: grayscale(20%); transition: filter .3s, transform .4s; }
+  .panel-dsg-card:hover .panel-dsg-thumb img { filter: grayscale(0); transform: scale(1.03); }
+  .panel-dsg-meta { padding: 10px 12px; border-top: 1px solid #111; }
+  .panel-dsg-name { font-family: var(--font-alt); font-size: 10px; font-weight: 500; color: var(--white); }
+  .panel-dsg-tag  { font-family: var(--font-body); font-size: 7px; letter-spacing: .18em; text-transform: uppercase; color: var(--dim); margin-top: 2px; }
+
+  /* Coming soon note */
+  .panel-soon {
+    font-family: var(--font-body);
+    font-size: 10px;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: #2a2a2a;
+    padding: 20px 0;
+  }
+
+  /* ── NOTE ── */
+  .mockup-note {
+    position: fixed;
+    top: 20px; right: 24px;
+    background: rgba(232,110,89,.12);
+    border: 1px solid rgba(232,110,89,.3);
+    padding: 10px 16px;
+    font-family: var(--font-body);
+    font-size: 9px;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--coral);
+  }
+</style>
+</head>
+<body>
+
+<div class="mockup-note">Mockup — not live</div>
+
+<span class="label">Output</span>
+<h2 class="section-heading">The <span class="cs">Catalog.</span></h2>
+
+<div class="work-list">
+
+  <!-- VOX -->
+  <div class="work-row work-row-static">
+    <span class="work-row-num">01</span>
+    <span class="work-row-abbr">VOX</span>
+    <div class="work-row-info">
+      <span class="work-row-name">VoiceOver</span>
+      <span class="work-row-desc">Phonetic mimic · any voice · one take</span>
+    </div>
+    <div class="work-row-right">
+      <span class="work-row-tag">Coming Soon</span>
+    </div>
+  </div>
+
+  <!-- WEB -->
+  <div class="work-row" id="row-web" onclick="toggle('web')">
+    <span class="work-row-num">02</span>
+    <span class="work-row-abbr">WEB</span>
+    <div class="work-row-info">
+      <span class="work-row-name">Web Design</span>
+      <span class="work-row-desc">Brand sites · portfolios · custom builds</span>
+    </div>
+    <div class="work-row-right">
+      <span class="work-row-tag">4 Sites</span>
+      <span class="work-row-arrow">+</span>
+    </div>
+  </div>
+  <div class="work-panel" id="panel-web">
+    <div class="work-panel-inner">
+      <div class="panel-grid">
+        <a href="https://pitchblacknight.com/bert" target="_blank" class="panel-card">
+          <div class="panel-card-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/portfolio/thumb-bert.jpg" alt="Bert Gillette" />
+            <span class="panel-card-eyebrow">Real Estate · Denver</span>
+            <p class="panel-card-hero">The art of finding<br>where you belong.</p>
+          </div>
+          <div class="panel-card-meta">
+            <div><p class="panel-card-name">Bert Gillette — Milehimodern</p><p class="panel-card-tag">Real Estate · Brand Site</p></div>
+            <span class="panel-card-arrow">↗</span>
+          </div>
+        </a>
+        <a href="https://pitchblacknight.com/david" target="_blank" class="panel-card">
+          <div class="panel-card-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/portfolio/thumb-david.jpg" alt="For David" />
+            <span class="panel-card-eyebrow">Multimedia · Personal</span>
+            <p class="panel-card-hero">For David.<br><span style="font-size:.75em;opacity:.7;">A remix. A letter.</span></p>
+          </div>
+          <div class="panel-card-meta">
+            <div><p class="panel-card-name">For David — PitchBlacKnight</p><p class="panel-card-tag">Multimedia Art · Letter</p></div>
+            <span class="panel-card-arrow">↗</span>
+          </div>
+        </a>
+        <a href="https://pitchblacknight.com/serenity_lounge/" target="_blank" class="panel-card">
+          <div class="panel-card-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/portfolio/thumb-serenity.jpg" alt="Serenity Lounge" />
+            <span class="panel-card-eyebrow">Wellness · Highland, IN</span>
+            <p class="panel-card-hero">A sanctuary<br>of stillness.</p>
+          </div>
+          <div class="panel-card-meta">
+            <div><p class="panel-card-name">Serenity Lounge Day Spa</p><p class="panel-card-tag">Wellness · Booking Site</p></div>
+            <span class="panel-card-arrow">↗</span>
+          </div>
+        </a>
+        <a href="https://www.lindseybingaman.com/" target="_blank" class="panel-card">
+          <div class="panel-card-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/portfolio/thumb-lindsey.jpg" alt="Lindsey Bingaman" />
+            <span class="panel-card-eyebrow">Executive Coaching</span>
+            <p class="panel-card-hero">Results through<br>relationship.</p>
+          </div>
+          <div class="panel-card-meta">
+            <div><p class="panel-card-name">Lindsey Bingaman</p><p class="panel-card-tag">Executive Coaching · B2B</p></div>
+            <span class="panel-card-arrow">↗</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DGA -->
+  <div class="work-row" id="row-dga" onclick="toggle('dga')">
+    <span class="work-row-num">03</span>
+    <span class="work-row-abbr">DGA</span>
+    <div class="work-row-info">
+      <span class="work-row-name">Digital Art</span>
+      <span class="work-row-desc">Motion art · GIF loops · abstract animation</span>
+    </div>
+    <div class="work-row-right">
+      <span class="work-row-tag">156 Works</span>
+      <span class="work-row-arrow">+</span>
+    </div>
+  </div>
+  <div class="work-panel" id="panel-dga">
+    <div class="work-panel-inner">
+      <p class="panel-soon">↓ &nbsp;156-piece motion art gallery loads here</p>
+    </div>
+  </div>
+
+  <!-- ART -->
+  <div class="work-row work-row-static">
+    <span class="work-row-num">04</span>
+    <span class="work-row-abbr">ART</span>
+    <div class="work-row-info">
+      <span class="work-row-name">Fine Art</span>
+      <span class="work-row-desc">Found documents · estate sales · physical work</span>
+    </div>
+    <div class="work-row-right">
+      <span class="work-row-tag">Coming Soon</span>
+    </div>
+  </div>
+
+  <!-- DSG -->
+  <div class="work-row" id="row-dsg" onclick="toggle('dsg')">
+    <span class="work-row-num">05</span>
+    <span class="work-row-abbr">DSG</span>
+    <div class="work-row-info">
+      <span class="work-row-name">Design Systems</span>
+      <span class="work-row-desc">Enterprise · multi-product · Figma</span>
+    </div>
+    <div class="work-row-right">
+      <span class="work-row-tag">4 Projects</span>
+      <span class="work-row-arrow">+</span>
+    </div>
+  </div>
+  <div class="work-panel" id="panel-dsg">
+    <div class="work-panel-inner">
+      <div class="panel-dsg-grid">
+        <div class="panel-dsg-card">
+          <div class="panel-dsg-thumb" style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#111;aspect-ratio:auto;height:120px;">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/pathfinder/01-login.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;" />
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/pathfinder/02-dashboard.jpg" style="width:100%;height:100%;object-fit:cover;object-position:top;" />
+          </div>
+          <div class="panel-dsg-meta">
+            <p class="panel-dsg-name">AVANT — Pathfinder 2.0</p>
+            <p class="panel-dsg-tag">Sales Platform · 3 Years</p>
+          </div>
+        </div>
+        <div class="panel-dsg-card">
+          <div class="panel-dsg-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/pathfinder/fiber-design-system.png" />
+          </div>
+          <div class="panel-dsg-meta">
+            <p class="panel-dsg-name">BCBS — FIBER</p>
+            <p class="panel-dsg-tag">Web + Mobile System</p>
+          </div>
+        </div>
+        <div class="panel-dsg-card">
+          <div class="panel-dsg-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/pathfinder/ge-healthcare-design-system.jpg" />
+          </div>
+          <div class="panel-dsg-meta">
+            <p class="panel-dsg-name">GE Healthcare — EDS</p>
+            <p class="panel-dsg-tag">Component Library</p>
+          </div>
+        </div>
+        <div class="panel-dsg-card">
+          <div class="panel-dsg-thumb">
+            <img src="https://cauzutgwdhfconnjpsfv.supabase.co/storage/v1/object/public/pathfinder/transunion-app-store.jpg" />
+          </div>
+          <div class="panel-dsg-meta">
+            <p class="panel-dsg-name">TransUnion — myTU</p>
+            <p class="panel-dsg-tag">Mobile · Credit App</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function toggle(id) {
+    const row   = document.getElementById('row-' + id);
+    const panel = document.getElementById('panel-' + id);
+    const open  = panel.classList.toggle('open');
+    row.classList.toggle('open', open);
+  }
+</script>
+</body>
+</html>

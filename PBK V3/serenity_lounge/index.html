@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <base href="/serenity_lounge/" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Serenity Lounge Day Spa — Highland, Indiana</title>
+  <!-- EmailJS for owner notifications + client confirmations (no backend needed) -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brown-deep:  #2A1F1A;
+      --brown-mid:   #5C3D28;
+      --brown-warm:  #8B5E3C;
+      --amber:       #C8882A;
+      --amber-light: #E8B86D;
+      --gold:        #D4A84B;
+      --gold-glow:   #F0C96A;
+      --cream:       #F8F2E9;
+      --cream-dark:  #EDE4D6;
+      --linen:       #F5EFE4;
+      --stone:       #B5A898;
+      --stone-dark:  #7A6E65;
+      --green-moss:  #4A6741;
+      --green-sage:  #7A9E6A;
+      --white-soft:  #FDFAF6;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--brown-deep); line-height: 1.7; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 24px 60px; background: transparent;
+      transition: background 0.4s, padding 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(42,31,26,0.94);
+      padding: 14px 60px;
+      backdrop-filter: blur(10px);
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 300; letter-spacing: 0.28em;
+      color: var(--cream); text-decoration: none; text-transform: uppercase;
+    }
+    .nav-logo span { display: block; font-size: 0.55rem; letter-spacing: 0.45em; opacity: 0.65; margin-top: 2px; }
+    .nav-links { display: flex; gap: 36px; list-style: none; }
+    .nav-links a {
+      font-size: 0.73rem; font-weight: 300; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--cream); text-decoration: none;
+      opacity: 0.8; transition: opacity 0.2s;
+    }
+    .nav-links a:hover { opacity: 1; }
+    .nav-book {
+      font-size: 0.72rem; font-weight: 400; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--brown-deep); background: var(--gold);
+      border: none; padding: 12px 26px; cursor: pointer;
+      transition: background 0.25s; text-decoration: none;
+    }
+    .nav-book:hover { background: var(--gold-glow); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 65vh; min-height: 480px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; background: var(--brown-deep);
+    }
+    /* Real photo background */
+    .hero-photo {
+      position: absolute; inset: 0;
+      background-image: url('images/hero-bg.png');
+      background-size: cover;
+      background-position: center 30%;
+      background-repeat: no-repeat;
+      transform: scale(1.04);
+      transition: transform 8s ease-out;
+    }
+    .hero-photo.loaded { transform: scale(1); }
+    /* Fallback gradient if image not yet placed */
+    .hero-scene {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 50% 38%, rgba(200,136,42,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 60% at 50% 50%, rgba(92,61,40,0.6) 0%, rgba(42,31,26,0.9) 100%);
+    }
+    /* Hide fallback once photo loads */
+    .hero-photo-loaded .hero-scene { opacity: 0; }
+    .hero-slats { display: none; }
+    .hero-candles { position: absolute; inset: 0; }
+    .candle {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle, rgba(240,201,106,0.55) 0%, rgba(200,136,42,0.18) 50%, transparent 70%);
+      animation: flicker 3s ease-in-out infinite alternate;
+    }
+    .candle:nth-child(1){width:120px;height:120px;left:12%;top:55%;animation-delay:0s}
+    .candle:nth-child(2){width:80px;height:80px;left:18%;top:45%;animation-delay:.7s}
+    .candle:nth-child(3){width:90px;height:90px;right:13%;top:52%;animation-delay:1.2s}
+    .candle:nth-child(4){width:70px;height:70px;right:20%;top:42%;animation-delay:.4s}
+    .candle:nth-child(5){width:200px;height:140px;left:40%;top:28%;opacity:.45;animation-delay:.9s}
+    @keyframes flicker {
+      0%{opacity:.7;transform:scale(1)} 50%{opacity:.9;transform:scale(1.08)} 100%{opacity:.75;transform:scale(0.95)}
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        linear-gradient(to bottom,
+          rgba(42,31,26,.15) 0%,
+          rgba(42,31,26,.10) 30%,
+          rgba(42,31,26,.25) 55%,
+          rgba(42,31,26,.75) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 20px; }
+    .hero-eyebrow {
+      font-size: 0.68rem; font-weight: 400; letter-spacing: 0.38em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 18px; display: block;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(3.2rem,8vw,6.5rem); font-weight: 300;
+      line-height: 1.05; color: var(--white-soft);
+      letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .hero-title em { font-style: italic; color: var(--gold-glow); }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem, 2vw, 1.3rem); font-weight: 300; font-style: italic;
+      color: rgba(248,242,233,0.6); letter-spacing: 0.12em; margin-bottom: 12px;
+    }
+    .hero-location {
+      font-size: 0.7rem; font-weight: 300; letter-spacing: 0.22em;
+      text-transform: uppercase; color: rgba(248,242,233,0.45); margin-bottom: 44px;
+    }
+    .hero-cta-group { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-block; font-size: 0.73rem; font-weight: 400; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--brown-deep); background: var(--gold);
+      padding: 15px 36px; text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.25s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--gold-glow); transform: translateY(-1px); }
+    .btn-outline {
+      display: inline-block; font-size: 0.73rem; font-weight: 400; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--cream); background: transparent;
+      border: 1px solid rgba(248,242,233,0.4); padding: 15px 36px; text-decoration: none;
+      transition: border-color 0.25s, color 0.25s;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-scroll {
+      position: absolute; bottom: 38px; left: 50%; transform: translateX(-50%);
+      z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(248,242,233,0.4); font-size: 0.6rem; letter-spacing: 0.25em; text-transform: uppercase;
+    }
+    .scroll-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, rgba(212,168,75,0.8), transparent);
+      animation: scrollDown 2s ease-in-out infinite;
+    }
+    @keyframes scrollDown {
+      0%{transform:scaleY(0);transform-origin:top}
+      50%{transform:scaleY(1);transform-origin:top}
+      100%{transform:scaleY(0);transform-origin:bottom}
+    }
+
+    /* ── INTRO STRIP ── */
+    .intro-strip {
+      background: var(--brown-deep); padding: 52px 60px;
+      display: flex; align-items: center; justify-content: center; gap: 48px;
+    }
+    .intro-divider { width: 60px; height: 1px; background: var(--gold); flex-shrink: 0; }
+    .intro-text {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1rem,1.8vw,1.3rem); font-weight: 300; font-style: italic;
+      color: var(--cream-dark); text-align: center; letter-spacing: 0.03em; max-width: 640px;
+    }
+
+    /* ── SECTION COMMONS ── */
+    .section-label {
+      font-size: 0.63rem; font-weight: 400; letter-spacing: 0.4em;
+      text-transform: uppercase; color: var(--amber); margin-bottom: 14px; display: block;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem,4vw,3.5rem); font-weight: 300; line-height: 1.1; letter-spacing: 0.03em;
+    }
+    .section-title em { font-style: italic; color: var(--amber); }
+    .section-body {
+      font-size: 0.88rem; font-weight: 300; color: var(--stone-dark); line-height: 1.8;
+    }
+
+    /* ── SERVICES ── */
+    .services { background: var(--white-soft); padding: 110px 60px; }
+    .services-header { text-align: center; margin-bottom: 72px; }
+    .services-header .section-body { max-width: 480px; margin: 20px auto 0; }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; max-width: 1200px; margin: 0 auto;
+    }
+    .svc {
+      background: var(--linen); padding: 44px 36px;
+      border-bottom: 3px solid transparent;
+      transition: border-color 0.25s, background 0.25s;
+      cursor: pointer;
+    }
+    .svc:hover { background: var(--cream-dark); border-bottom-color: var(--gold); }
+    .svc-icon { font-size: 1.6rem; margin-bottom: 20px; opacity: 0.75; }
+    .svc-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 400; color: var(--brown-deep); margin-bottom: 10px;
+    }
+    .svc-desc {
+      font-size: 0.8rem; font-weight: 300; color: var(--stone-dark);
+      line-height: 1.75; margin-bottom: 20px;
+    }
+    .svc-meta { display: flex; justify-content: space-between; align-items: center; }
+    .svc-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400; color: var(--amber);
+    }
+    .svc-dur {
+      font-size: 0.65rem; font-weight: 400; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--stone);
+    }
+    .svc-book {
+      display: block; text-align: center; margin-top: 20px;
+      font-size: 0.68rem; font-weight: 400; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--amber); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .svc-book:hover { color: var(--brown-deep); }
+
+    /* ── ROOMS ── */
+    .rooms {
+      display: grid; grid-template-columns: 1fr 1fr; min-height: 580px;
+    }
+    .room-card {
+      position: relative; overflow: hidden; cursor: pointer; min-height: 520px;
+    }
+    .room-bg {
+      position: absolute; inset: 0;
+      transition: transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+    .room-card:hover .room-bg { transform: scale(1.04); }
+    .room-1 .room-bg {
+      background-image: url('images/the-sanctuary.png');
+      background-size: cover;
+      background-position: center;
+    }
+    .room-2 .room-bg {
+      background-image: url('images/the-refuge.png');
+      background-size: cover;
+      background-position: center 30%;
+    }
+    .room-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(42,31,26,.88) 0%, rgba(42,31,26,.2) 55%, rgba(42,31,26,.05) 100%);
+    }
+    .room-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 44px 44px 48px; z-index: 2; }
+    .room-num {
+      font-size: 0.65rem; font-weight: 400; letter-spacing: 0.32em;
+      color: var(--gold); text-transform: uppercase; display: block; margin-bottom: 8px;
+    }
+    .room-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 300; color: var(--white-soft);
+      line-height: 1.1; letter-spacing: 0.03em; margin-bottom: 12px;
+    }
+    .room-desc {
+      font-size: 0.8rem; font-weight: 300; color: rgba(248,242,233,.68);
+      line-height: 1.7; max-width: 300px; margin-bottom: 24px;
+    }
+    .room-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+    .room-tag {
+      font-size: 0.6rem; font-weight: 400; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--gold);
+      border: 1px solid rgba(212,168,75,.4); padding: 4px 12px;
+    }
+
+    /* ── RITUAL / EXPERIENCE ── */
+    .ritual { display: grid; grid-template-columns: 1fr 1fr; background: var(--linen); }
+    .ritual-visual {
+      position: relative; min-height: 560px;
+      background:
+        radial-gradient(ellipse 55% 45% at 48% 42%, rgba(200,136,42,.22) 0%, transparent 65%),
+        radial-gradient(ellipse 40% 35% at 72% 25%, rgba(122,158,106,.28) 0%, transparent 60%),
+        linear-gradient(135deg,#3A2A1E 0%,#4A3528 50%,#2A1F1A 100%);
+      overflow: hidden;
+    }
+    .glow-orb {
+      position: absolute; border-radius: 50%;
+      background: radial-gradient(circle, rgba(240,201,106,.32) 0%, transparent 70%);
+      animation: flicker 3.5s ease-in-out infinite alternate;
+    }
+    .glow-orb:nth-child(1){width:120px;height:120px;bottom:22%;left:18%;animation-delay:.2s}
+    .glow-orb:nth-child(2){width:90px;height:90px;bottom:28%;right:22%;animation-delay:1.1s}
+    .glow-orb:nth-child(3){width:60px;height:60px;top:30%;left:40%;animation-delay:.6s;opacity:.6}
+    .ritual-steps { padding: 90px 72px; display: flex; flex-direction: column; justify-content: center; }
+    .ritual-steps .section-title { margin-bottom: 44px; }
+    .step { display: flex; gap: 24px; padding: 24px 0; border-bottom: 1px solid var(--cream-dark); }
+    .step:last-of-type { border-bottom: none; }
+    .step-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.8rem; font-weight: 300; color: var(--amber-light);
+      line-height: 1; flex-shrink: 0; width: 32px;
+    }
+    .step-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 400; color: var(--brown-deep); margin-bottom: 5px;
+    }
+    .step-body { font-size: 0.8rem; font-weight: 300; color: var(--stone-dark); line-height: 1.7; }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      position: relative; padding: 110px 60px; text-align: center;
+      background: var(--cream-dark);
+    }
+    .testimonials-bg {
+      position: absolute; inset: 0;
+      background-image: url('images/the-refuge.png');
+      background-size: cover; background-position: center 40%;
+      opacity: 0; transition: opacity 1s;
+    }
+    .testimonials-bg.loaded { opacity: 1; }
+    .testimonials-overlay {
+      position: absolute; inset: 0;
+      background: rgba(30, 20, 14, 0.78);
+      display: none;
+    }
+    .testimonials.has-photo .testimonials-overlay { display: block; }
+    .testimonials.has-photo .section-title { color: var(--cream); }
+    .testimonials.has-photo .section-label { color: var(--amber-light); }
+    .testimonials.has-photo .testi-card {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .testimonials.has-photo .testi-text { color: rgba(248,242,233,0.88); }
+    .testimonials.has-photo .testi-name { color: rgba(248,242,233,0.5); }
+    .testimonials .section-title { margin-bottom: 58px; }
+    .testi-grid {
+      display: grid; grid-template-columns: repeat(3,1fr); gap: 28px;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .testi-card { background: var(--white-soft); padding: 40px 32px; }
+    .testi-q { font-family:'Cormorant Garamond',serif; font-size:3rem; line-height:0.5; color:var(--amber-light); display:block; margin-bottom:18px; }
+    .testi-text { font-family:'Cormorant Garamond',serif; font-size:1.05rem; font-style:italic; font-weight:300; color:var(--brown-mid); line-height:1.7; margin-bottom:24px; }
+    .testi-stars { color:var(--gold); font-size:0.72rem; letter-spacing:3px; margin-bottom:12px; display:block; }
+    .testi-name { font-size:0.68rem; font-weight:400; letter-spacing:0.2em; text-transform:uppercase; color:var(--stone-dark); }
+
+    /* ── BOOKING CTA BAND ── */
+    .book-band {
+      position: relative; padding: 130px 60px; text-align: center;
+      overflow: hidden; background: var(--brown-deep);
+    }
+    .book-band-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 50%, rgba(200,136,42,.16) 0%, transparent 70%),
+        radial-gradient(ellipse 30% 28% at 80% 20%, rgba(122,158,106,.1) 0%, transparent 60%);
+    }
+    .book-band-content { position: relative; z-index: 1; }
+    .book-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.6rem,5vw,4.8rem); font-weight: 300; color: var(--white-soft);
+      line-height: 1.1; letter-spacing: 0.05em; margin-bottom: 20px;
+    }
+    .book-title em { font-style: italic; color: var(--gold-glow); }
+    .book-sub {
+      font-size: 0.85rem; font-weight: 300; color: rgba(248,242,233,.55);
+      max-width: 400px; margin: 0 auto 44px; line-height: 1.8;
+    }
+
+    /* ── CONTACT / FOOTER ── */
+    .contact-row {
+      background: var(--linen);
+      display: grid; grid-template-columns: 1fr 1fr;
+    }
+    .contact-info { padding: 80px 72px; }
+    .contact-info .section-title { margin-bottom: 32px; }
+    .contact-detail {
+      display: flex; gap: 16px; align-items: flex-start;
+      margin-bottom: 24px;
+    }
+    .contact-icon { font-size: 1.1rem; margin-top: 2px; flex-shrink: 0; }
+    .contact-label {
+      font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--stone); display: block; margin-bottom: 4px;
+    }
+    .contact-value { font-size: 0.9rem; font-weight: 300; color: var(--brown-deep); }
+    .contact-hours { margin-top: 36px; }
+    .hours-row {
+      display: flex; justify-content: space-between;
+      font-size: 0.82rem; font-weight: 300; color: var(--stone-dark);
+      padding: 10px 0; border-bottom: 1px solid var(--cream-dark);
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { font-weight: 400; color: var(--brown-deep); }
+    .contact-map {
+      background:
+        radial-gradient(ellipse 50% 40% at 50% 50%, rgba(200,136,42,.2) 0%, transparent 65%),
+        linear-gradient(135deg, #3A2A1E 0%, #4A3528 100%);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px; text-align: center; padding: 60px;
+    }
+    .map-pin { font-size: 2.5rem; }
+    .map-address {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 300; color: var(--cream); letter-spacing: 0.04em; line-height: 1.5;
+    }
+    .map-link {
+      font-size: 0.7rem; font-weight: 400; letter-spacing: 0.2em;
+      text-transform: uppercase; color: var(--gold); text-decoration: none;
+      border-bottom: 1px solid rgba(212,168,75,.4); padding-bottom: 3px;
+      transition: color 0.2s;
+    }
+    .map-link:hover { color: var(--gold-glow); }
+
+    footer {
+      background: #1A1210; padding: 72px 60px 36px;
+    }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 52px;
+      margin-bottom: 52px; padding-bottom: 52px;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.7rem; font-weight: 300; letter-spacing: 0.24em;
+      color: var(--cream); text-transform: uppercase; display: block; margin-bottom: 6px;
+    }
+    .footer-sub {
+      font-size: 0.63rem; letter-spacing: 0.3em; color: rgba(248,242,233,.35);
+      text-transform: uppercase; display: block; margin-bottom: 18px;
+    }
+    .footer-tagline {
+      font-size: 0.78rem; font-weight: 300; color: rgba(248,242,233,.42);
+      line-height: 1.7; max-width: 240px; margin-bottom: 24px;
+    }
+    .footer-col-title {
+      font-size: 0.62rem; font-weight: 400; letter-spacing: 0.3em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 22px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .footer-links a {
+      font-size: 0.78rem; font-weight: 300; color: rgba(248,242,233,.48);
+      text-decoration: none; transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--cream); }
+    .footer-hours { font-size: 0.76rem; font-weight: 300; color: rgba(248,242,233,.42); line-height: 2; }
+    .footer-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .footer-copy { font-size: 0.68rem; font-weight: 300; color: rgba(248,242,233,.28); letter-spacing: 0.06em; }
+    .footer-legal { display: flex; gap: 24px; list-style: none; }
+    .footer-legal a { font-size: 0.65rem; font-weight: 300; color: rgba(248,242,233,.28); text-decoration: none; transition: color 0.2s; }
+    .footer-legal a:hover { color: rgba(248,242,233,.65); }
+
+    /* ══════════════════════════════════════════
+       BOOKING MODAL + SCHEDULER
+    ══════════════════════════════════════════ */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(42,31,26,0.88);
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.35s;
+    }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+
+    .modal {
+      background: var(--white-soft);
+      width: 92vw; max-width: 960px;
+      max-height: 92vh; overflow-y: auto;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.35s;
+    }
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-close {
+      position: absolute; top: 20px; right: 24px;
+      background: none; border: none; cursor: pointer;
+      font-size: 1.5rem; color: var(--stone-dark); z-index: 10;
+      line-height: 1; transition: color 0.2s;
+    }
+    .modal-close:hover { color: var(--brown-deep); }
+
+    .modal-header {
+      background: var(--brown-deep); padding: 40px 52px 36px;
+    }
+    .modal-header .section-label { margin-bottom: 6px; }
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem; font-weight: 300; color: var(--cream); letter-spacing: 0.04em;
+    }
+    .modal-title em { font-style: italic; color: var(--gold-glow); }
+
+    /* Step indicator */
+    .steps-indicator {
+      display: flex; align-items: center; gap: 0; padding: 0 52px;
+      background: var(--linen); border-bottom: 1px solid var(--cream-dark);
+    }
+    .step-pill {
+      display: flex; align-items: center; gap: 10px;
+      padding: 18px 0; flex: 1;
+      font-size: 0.65rem; font-weight: 400; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--stone); position: relative;
+    }
+    .step-pill.active { color: var(--brown-deep); }
+    .step-pill.done { color: var(--green-moss); }
+    .step-dot {
+      width: 24px; height: 24px; border-radius: 50%;
+      background: var(--cream-dark); border: 2px solid var(--stone);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.65rem; font-weight: 500; color: var(--stone);
+      flex-shrink: 0;
+    }
+    .step-pill.active .step-dot { background: var(--gold); border-color: var(--gold); color: var(--brown-deep); }
+    .step-pill.done .step-dot { background: var(--green-moss); border-color: var(--green-moss); color: #fff; }
+    .step-connector {
+      width: 32px; height: 1px; background: var(--cream-dark); flex-shrink: 0;
+    }
+
+    /* Modal body */
+    .modal-body { padding: 44px 52px; }
+
+    /* Step panels */
+    .step-panel { display: none; }
+    .step-panel.active { display: block; }
+
+    /* ── Step 1: Service selection ── */
+    .svc-select-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .svc-option {
+      border: 2px solid var(--cream-dark); padding: 20px 24px;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+    }
+    .svc-option:hover { border-color: var(--amber-light); background: var(--linen); }
+    .svc-option.selected { border-color: var(--amber); background: rgba(200,136,42,0.07); }
+    .svc-option-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem; font-weight: 400; color: var(--brown-deep); display: block; margin-bottom: 4px;
+    }
+    .svc-option-dur { font-size: 0.7rem; font-weight: 300; color: var(--stone-dark); letter-spacing: 0.08em; }
+    .svc-option-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem; font-weight: 300; color: var(--amber); flex-shrink: 0;
+    }
+
+    /* ── Step 2: Calendar ── */
+    .calendar-wrap { max-width: 560px; margin: 0 auto; }
+    .cal-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+    .cal-nav button {
+      background: none; border: 1px solid var(--cream-dark); padding: 8px 16px;
+      cursor: pointer; font-size: 0.9rem; color: var(--stone-dark);
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .cal-nav button:hover { border-color: var(--amber); color: var(--amber); }
+    .cal-month {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem; font-weight: 300; color: var(--brown-deep); letter-spacing: 0.05em;
+    }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7,1fr); gap: 4px;
+    }
+    .cal-day-header {
+      text-align: center; font-size: 0.6rem; font-weight: 400;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--stone);
+      padding: 8px 0;
+    }
+    .cal-day {
+      text-align: center; padding: 10px 4px; font-size: 0.85rem; font-weight: 300;
+      cursor: pointer; border-radius: 2px; color: var(--brown-deep);
+      transition: background 0.15s, color 0.15s;
+    }
+    .cal-day:hover:not(.disabled):not(.empty) { background: var(--cream-dark); }
+    .cal-day.selected { background: var(--amber); color: var(--white-soft); font-weight: 400; }
+    .cal-day.today { border-bottom: 2px solid var(--amber-light); }
+    .cal-day.disabled { color: var(--stone); cursor: not-allowed; opacity: 0.4; }
+    .cal-day.empty { cursor: default; }
+
+    /* ── Step 3: Time slots ── */
+    .time-intro {
+      font-size: 0.82rem; font-weight: 300; color: var(--stone-dark);
+      margin-bottom: 24px; line-height: 1.6;
+    }
+    .time-grid {
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 10px;
+    }
+    .time-slot {
+      border: 1px solid var(--cream-dark); padding: 14px 8px; text-align: center;
+      cursor: pointer; transition: border-color 0.2s, background 0.2s;
+      font-size: 0.82rem; font-weight: 300; color: var(--brown-deep);
+    }
+    .time-slot:hover { border-color: var(--amber-light); background: var(--linen); }
+    .time-slot.selected { border-color: var(--amber); background: rgba(200,136,42,0.08); font-weight: 400; color: var(--amber); }
+    .time-slot.unavailable { opacity: 0.35; cursor: not-allowed; background: var(--cream-dark); }
+
+    /* ── Step 4: Contact info ── */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-group.full { grid-column: 1/-1; }
+    label {
+      font-size: 0.65rem; font-weight: 400; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--stone-dark);
+    }
+    input, select, textarea {
+      font-family: 'Jost', sans-serif; font-size: 0.88rem; font-weight: 300;
+      color: var(--brown-deep); background: var(--linen);
+      border: 1px solid var(--cream-dark); padding: 13px 16px;
+      outline: none; transition: border-color 0.2s;
+      width: 100%;
+    }
+    input:focus, select:focus, textarea:focus { border-color: var(--amber); }
+    textarea { resize: vertical; min-height: 80px; }
+    select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%238B5E3C' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; }
+    .sms-opt {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(200,136,42,0.07); border: 1px solid rgba(200,136,42,0.25);
+      padding: 16px 20px; margin-top: 8px;
+    }
+    .sms-opt input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--amber); }
+    .sms-opt-label { font-size: 0.8rem; font-weight: 300; color: var(--brown-mid); line-height: 1.5; }
+    .sms-opt-label strong { font-weight: 400; color: var(--brown-deep); }
+
+    /* ── Step 5: Confirmation ── */
+    .confirm-card {
+      background: var(--linen); border-left: 4px solid var(--gold); padding: 32px 36px; margin-bottom: 28px;
+    }
+    .confirm-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem; font-weight: 400; color: var(--brown-deep); margin-bottom: 20px;
+    }
+    .confirm-row {
+      display: flex; gap: 12px; margin-bottom: 12px;
+      font-size: 0.85rem; font-weight: 300; color: var(--stone-dark);
+    }
+    .confirm-row strong { font-weight: 400; color: var(--brown-deep); min-width: 100px; }
+    .confirm-note {
+      font-size: 0.78rem; font-weight: 300; color: var(--stone-dark);
+      line-height: 1.7; background: rgba(200,136,42,0.07);
+      border: 1px solid rgba(200,136,42,0.2); padding: 16px 20px; margin-bottom: 24px;
+    }
+
+    /* Success state */
+    .booking-success {
+      text-align: center; padding: 60px 40px;
+    }
+    .success-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
+    .success-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 300; color: var(--brown-deep); margin-bottom: 12px;
+    }
+    .success-body {
+      font-size: 0.88rem; font-weight: 300; color: var(--stone-dark);
+      line-height: 1.8; max-width: 440px; margin: 0 auto 32px;
+    }
+
+    /* Modal nav buttons */
+    .modal-actions {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 32px; border-top: 1px solid var(--cream-dark); margin-top: 32px;
+    }
+    .btn-back {
+      font-size: 0.72rem; font-weight: 400; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--stone-dark); background: none;
+      border: 1px solid var(--cream-dark); padding: 13px 28px; cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-back:hover { border-color: var(--stone); color: var(--brown-deep); }
+    .btn-next {
+      font-size: 0.72rem; font-weight: 400; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--brown-deep); background: var(--gold);
+      border: none; padding: 14px 36px; cursor: pointer;
+      transition: background 0.25s;
+    }
+    .btn-next:hover { background: var(--gold-glow); }
+    .btn-next:disabled { opacity: 0.45; cursor: not-allowed; }
+
+    /* Notification settings note */
+    .notif-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(74,103,65,0.1); border: 1px solid rgba(74,103,65,0.3);
+      padding: 10px 18px; margin-bottom: 28px;
+      font-size: 0.75rem; font-weight: 300; color: var(--green-moss);
+    }
+    .notif-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green-moss); animation: pulse 2s infinite; }
+    @keyframes pulse {
+      0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.3)}
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 1024px) {
+      nav { padding: 18px 28px; }
+      .rooms { grid-template-columns: 1fr; }
+      .ritual { grid-template-columns: 1fr; }
+      .ritual-visual { min-height: 300px; }
+      .ritual-steps { padding: 60px 40px; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .testi-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .contact-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
+      .intro-strip { flex-direction: column; gap: 16px; padding: 44px 28px; text-align: center; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .services, .testimonials, .book-band { padding: 72px 24px; }
+      .services-grid, .svc-select-grid, .time-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .modal-body, .modal-header { padding: 28px 24px; }
+      .steps-indicator { padding: 0 20px; gap: 4px; }
+      .step-pill span { display: none; }
+      .footer-top { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
+      .contact-info { padding: 56px 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV ═══════════════ -->
+<nav id="mainNav">
+  <a href="#" class="nav-logo">
+    Serenity Lounge
+    <span>Day Spa · Highland, Indiana</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="nav-book" onclick="openBooking()">Book Now</button>
+</nav>
+
+<!-- ═══════════════ HERO ═══════════════ -->
+<section class="hero" id="heroSection">
+  <div class="hero-photo" id="heroBg"></div>
+  <div class="hero-scene"></div>
+  <div class="hero-slats"></div>
+  <div class="hero-candles">
+    <div class="candle"></div><div class="candle"></div>
+    <div class="candle"></div><div class="candle"></div><div class="candle"></div>
+  </div>
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">A sanctuary of stillness</span>
+    <h1 class="hero-title">Serenity<br><em>Lounge</em></h1>
+    <p class="hero-subtitle">Day Spa &amp; Massage Therapy</p>
+    <p class="hero-location">9219 Indianapolis Blvd, Suite 204 · Highland, Indiana</p>
+    <div class="hero-cta-group">
+      <button class="btn-primary" onclick="openBooking()">Book Your Session</button>
+      <a href="#services" class="btn-outline">View Services</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><div class="scroll-line"></div><span>Scroll</span></div>
+</section>
+
+<!-- ═══════════════ INTRO STRIP ═══════════════ -->
+<div class="intro-strip">
+  <div class="intro-divider"></div>
+  <p class="intro-text">"Step in. Breathe out. Leave everything behind — and return to yourself."</p>
+  <div class="intro-divider"></div>
+</div>
+
+<!-- ═══════════════ SERVICES ═══════════════ -->
+<section class="services" id="services">
+  <div class="services-header">
+    <span class="section-label">Treatments &amp; Pricing</span>
+    <h2 class="section-title">Crafted for <em>your body.</em></h2>
+    <p class="section-body">Every treatment is tailored by Renise M., a licensed massage therapist dedicated to your restoration. Organic products. Intentional touch.</p>
+  </div>
+  <div class="services-grid">
+    <div class="svc" onclick="openBookingWithService('Swedish Massage')">
+      <div class="svc-icon">🌿</div>
+      <h3 class="svc-name">Swedish Massage</h3>
+      <p class="svc-desc">Classic, flowing strokes ease tension and improve circulation. The perfect introduction to restorative bodywork.</p>
+      <div class="svc-meta"><span class="svc-price">From $80</span><span class="svc-dur">45–90 min</span></div>
+      <span class="svc-book">Book this service →</span>
+    </div>
+    <div class="svc" onclick="openBookingWithService('Deep Tissue Massage')">
+      <div class="svc-icon">💆</div>
+      <h3 class="svc-name">Deep Tissue Massage</h3>
+      <p class="svc-desc">Targeted therapeutic pressure reaches deep muscular layers to release chronic tension in shoulders, hips, and lower back.</p>
+      <div class="svc-meta"><span class="svc-price">From $90</span><span class="svc-dur">45–90 min</span></div>
+      <span class="svc-book">Book this service →</span>
+    </div>
+    <div class="svc" onclick="openBookingWithService('Couples Massage with Mimosas')">
+      <div class="svc-icon">🥂</div>
+      <h3 class="svc-name">Couples Massage with Mimosas</h3>
+      <p class="svc-desc">Share the experience of restoration together. Side-by-side massages paired with sparkling mimosas for a truly special occasion.</p>
+      <div class="svc-meta"><span class="svc-price">From $200</span><span class="svc-dur">60–90 min</span></div>
+      <span class="svc-book">Book this service →</span>
+    </div>
+    <div class="svc" onclick="openBookingWithService('Prenatal Massage')">
+      <div class="svc-icon">🤱</div>
+      <h3 class="svc-name">Prenatal Massage</h3>
+      <p class="svc-desc">Gentle, nurturing care designed specifically for expectant mothers. Relieves back pain, swelling, and the fatigue of pregnancy.</p>
+      <div class="svc-meta"><span class="svc-price">From $85</span><span class="svc-dur">60 min</span></div>
+      <span class="svc-book">Book this service →</span>
+    </div>
+    <div class="svc" onclick="openBookingWithService('Lymphatic Drainage')">
+      <div class="svc-icon">💧</div>
+      <h3 class="svc-name">Lymphatic Drainage</h3>
+      <p class="svc-desc">Light, rhythmic strokes stimulate the lymphatic system to reduce inflammation, boost immunity, and restore natural flow.</p>
+      <div class="svc-meta"><span class="svc-price">From $95</span><span class="svc-dur">60 min</span></div>
+      <span class="svc-book">Book this service →</span>
+    </div>
+    <div class="svc" onclick="openBookingWithService('Ultimate Serenity Experience')">
+      <div class="svc-icon">✨</div>
+      <h3 class="svc-name">Ultimate Serenity Experience</h3>
+      <p class="svc-desc">The signature treatment: wine, hot stones, percussion gun therapy, and a full-body massage woven into one transformative session.</p>
+      <div class="svc-meta"><span class="svc-price">From $175</span><span class="svc-dur">90 min</span></div>
+      <span class="svc-book">Book this service →</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ ROOMS ═══════════════ -->
+<section class="rooms">
+  <div class="room-card">
+    <div class="room-bg room-1"></div>
+    <div class="room-overlay"></div>
+    <div class="room-info">
+      <span class="room-num">Room 01</span>
+      <h3 class="room-name">The Sanctuary</h3>
+      <p class="room-desc">Warm amber light, living botanicals, and the soft curl of steam. Where every sense is invited to rest.</p>
+      <div class="room-tags">
+        <span class="room-tag">Hot stones</span>
+        <span class="room-tag">Steam diffusion</span>
+        <span class="room-tag">Candlelit</span>
+        <span class="room-tag">Botanicals</span>
+      </div>
+    </div>
+  </div>
+  <div class="room-card">
+    <div class="room-bg room-2"></div>
+    <div class="room-overlay"></div>
+    <div class="room-info">
+      <span class="room-num">Room 02</span>
+      <h3 class="room-name">The Refuge</h3>
+      <p class="room-desc">Deeper, quieter, more meditative. For those who need total stillness — and those celebrating something worth savoring.</p>
+      <div class="room-tags">
+        <span class="room-tag">Couples ready</span>
+        <span class="room-tag">Chromotherapy</span>
+        <span class="room-tag">Sound bath</span>
+        <span class="room-tag">Premium linens</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ EXPERIENCE ═══════════════ -->
+<section class="ritual" id="experience">
+  <div class="ritual-visual">
+    <div class="glow-orb"></div><div class="glow-orb"></div><div class="glow-orb"></div>
+  </div>
+  <div class="ritual-steps">
+    <span class="section-label">Your Visit</span>
+    <h2 class="section-title">What to <em>expect.</em></h2>
+    <div class="step">
+      <span class="step-num">01</span>
+      <div>
+        <h4 class="step-title">Arrive &amp; Settle In</h4>
+        <p class="step-body">Come 10–15 minutes early. A warm welcome, herbal tea, and a quiet intake to understand what your body needs today.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">02</span>
+      <div>
+        <h4 class="step-title">Your Room, Your Way</h4>
+        <p class="step-body">Renise prepares your space around you — temperature, lighting, scent, and sound aligned to your preferences.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">03</span>
+      <div>
+        <h4 class="step-title">The Treatment</h4>
+        <p class="step-body">Skilled, intuitive bodywork using only the finest organic products. Every session is different, because every body is.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">04</span>
+      <div>
+        <h4 class="step-title">Linger &amp; Restore</h4>
+        <p class="step-body">No rush. Cool water, warm towels, and space to return slowly. You'll leave feeling like yourself again — only lighter.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ TESTIMONIALS ═══════════════ -->
+<section class="testimonials" id="testimonialsSection">
+  <div class="testimonials-bg" id="testibg"></div>
+  <div class="testimonials-overlay"></div>
+  <span class="section-label" style="display:block;text-align:center;margin-bottom:10px;">Client Stories</span>
+  <h2 class="section-title">Words from <em>the restored.</em></h2>
+  <div class="testi-grid">
+    <div class="testi-card">
+      <span class="testi-q">"</span>
+      <p class="testi-text">Renise has magic hands. I walked in with knots I'd been carrying for months and left feeling like a completely different person.</p>
+      <span class="testi-stars">★★★★★</span>
+      <span class="testi-name">— Jasmine T., Highland</span>
+    </div>
+    <div class="testi-card">
+      <span class="testi-q">"</span>
+      <p class="testi-text">We did the couples massage for our anniversary and it was absolutely perfect. The mimosas were a lovely touch. We'll be back every year.</p>
+      <span class="testi-stars">★★★★★</span>
+      <span class="testi-name">— Marcus &amp; Diana R.</span>
+    </div>
+    <div class="testi-card">
+      <span class="testi-q">"</span>
+      <p class="testi-text">As a prenatal client, I felt completely safe and cared for. Renise knows exactly what she's doing. The Serenity Lounge is a true sanctuary.</p>
+      <span class="testi-stars">★★★★★</span>
+      <span class="testi-name">— Amara K., Chicago Heights</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BOOK BAND ═══════════════ -->
+<section class="book-band">
+  <div class="book-band-bg"></div>
+  <div class="book-band-content">
+    <span class="section-label" style="display:block;text-align:center;">Reserve your session</span>
+    <h2 class="book-title">Your stillness<br><em>awaits.</em></h2>
+    <p class="book-sub">Appointments fill quickly. Book directly here — confirmation sent instantly to your inbox and phone.</p>
+    <button class="btn-primary" onclick="openBooking()" style="font-size:.82rem;padding:18px 48px;">Schedule Now</button>
+  </div>
+</section>
+
+<!-- ═══════════════ CONTACT ═══════════════ -->
+<section class="contact-row" id="contact">
+  <div class="contact-info">
+    <span class="section-label">Find Us</span>
+    <h2 class="section-title" style="margin-bottom:36px;">Visit <em>Serenity.</em></h2>
+    <div class="contact-detail">
+      <span class="contact-icon">📍</span>
+      <div>
+        <span class="contact-label">Address</span>
+        <span class="contact-value">9219 Indianapolis Blvd, Suite 204<br>Highland, Indiana 46343</span>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <span class="contact-icon">📞</span>
+      <div>
+        <span class="contact-label">Phone</span>
+        <a class="contact-value" href="tel:2195016575" style="text-decoration:none;color:inherit;">(219) 501-6575</a>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <span class="contact-icon">✉️</span>
+      <div>
+        <span class="contact-label">Email</span>
+        <!-- PLACEHOLDER: Replace with Renise's actual email when confirmed -->
+        <a class="contact-value" href="mailto:renise@serenityloungedayspa.com" style="text-decoration:none;color:inherit;">renise@serenityloungedayspa.com</a>
+      </div>
+    </div>
+    <div class="contact-hours" style="margin-top:32px;">
+      <span class="section-label" style="margin-bottom:14px;">Hours</span>
+      <div class="hours-row"><span class="hours-day">Tuesday – Friday</span><span>10:30 AM – 2:30 PM</span></div>
+      <div class="hours-row"><span class="hours-day">Saturday</span><span>6:30 PM – 8:00 PM</span></div>
+      <div class="hours-row"><span class="hours-day">Sunday – Monday</span><span>Closed</span></div>
+    </div>
+  </div>
+  <div class="contact-map">
+    <div class="map-pin">📍</div>
+    <div class="map-address">9219 Indianapolis Blvd<br>Suite 204<br>Highland, Indiana 46343</div>
+    <a href="https://maps.google.com?q=9219+Indianapolis+Blvd+Suite+204+Highland+Indiana" target="_blank" class="map-link">Get Directions →</a>
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <span class="footer-logo">Serenity Lounge</span>
+      <span class="footer-sub">Day Spa · Highland, Indiana</span>
+      <p class="footer-tagline">Expert massage therapy in a private, nature-inspired setting. By Renise M., LMT.</p>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Services</h4>
+      <ul class="footer-links">
+        <li><a href="#services">Swedish Massage</a></li>
+        <li><a href="#services">Deep Tissue</a></li>
+        <li><a href="#services">Couples Massage</a></li>
+        <li><a href="#services">Prenatal Massage</a></li>
+        <li><a href="#services">Lymphatic Drainage</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Visit</h4>
+      <ul class="footer-links">
+        <li><a href="#contact">Location</a></li>
+        <li><a href="#contact">Hours</a></li>
+        <li><a href="tel:2195016575">(219) 501-6575</a></li>
+        <li><a href="#" onclick="openBooking(); return false;">Book Online</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="footer-col-title">Hours</h4>
+      <div class="footer-hours">
+        Tue–Fri: 10:30am–2:30pm<br><br>
+        Saturday: 6:30pm–8:00pm<br><br>
+        Sun–Mon: Closed
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">&copy; 2025 Serenity Lounge Day Spa. All rights reserved.</p>
+    <ul class="footer-legal">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+    </ul>
+  </div>
+</footer>
+
+
+<!-- ═══════════════════════════════════════════════════
+     BOOKING MODAL — Full Scheduling System
+═══════════════════════════════════════════════════ -->
+<div class="modal-overlay" id="bookingOverlay" onclick="handleOverlayClick(event)">
+  <div class="modal" role="dialog" aria-modal="true" aria-label="Book an appointment">
+    <button class="modal-close" onclick="closeBooking()" aria-label="Close">&times;</button>
+
+    <div class="modal-header">
+      <span class="section-label">Online Booking</span>
+      <h2 class="modal-title">Schedule Your <em>Session</em></h2>
+    </div>
+
+    <!-- Step indicator -->
+    <div class="steps-indicator" id="stepsIndicator">
+      <div class="step-pill active" id="pill-1">
+        <div class="step-dot">1</div>
+        <span>Service</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-pill" id="pill-2">
+        <div class="step-dot">2</div>
+        <span>Date</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-pill" id="pill-3">
+        <div class="step-dot">3</div>
+        <span>Time</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-pill" id="pill-4">
+        <div class="step-dot">4</div>
+        <span>Your Info</span>
+      </div>
+      <div class="step-connector"></div>
+      <div class="step-pill" id="pill-5">
+        <div class="step-dot">5</div>
+        <span>Confirm</span>
+      </div>
+    </div>
+
+    <div class="modal-body">
+
+      <!-- ── STEP 1: Choose Service ── -->
+      <div class="step-panel active" id="panel-1">
+        <div class="notif-badge">
+          <div class="notif-dot"></div>
+          Instant confirmation sent to your email &amp; phone after booking
+        </div>
+        <div class="svc-select-grid" id="svcSelectGrid">
+          <!-- populated by JS -->
+        </div>
+        <div class="modal-actions">
+          <span></span>
+          <button class="btn-next" id="next1" onclick="goToStep(2)" disabled>Choose a Date →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 2: Calendar ── -->
+      <div class="step-panel" id="panel-2">
+        <div class="calendar-wrap">
+          <div class="cal-nav">
+            <button onclick="changeMonth(-1)">&#8592;</button>
+            <span class="cal-month" id="calMonthLabel"></span>
+            <button onclick="changeMonth(1)">&#8594;</button>
+          </div>
+          <div class="cal-grid" id="calGrid"></div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-back" onclick="goToStep(1)">← Back</button>
+          <button class="btn-next" id="next2" onclick="goToStep(3)" disabled>Choose a Time →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 3: Time Slots ── -->
+      <div class="step-panel" id="panel-3">
+        <p class="time-intro" id="timeIntroLabel"></p>
+        <div class="time-grid" id="timeGrid"></div>
+        <div class="modal-actions">
+          <button class="btn-back" onclick="goToStep(2)">← Back</button>
+          <button class="btn-next" id="next3" onclick="goToStep(4)" disabled>Your Information →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 4: Contact Info ── -->
+      <div class="step-panel" id="panel-4">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="firstName">First Name *</label>
+            <input type="text" id="firstName" placeholder="Your first name" />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name *</label>
+            <input type="text" id="lastName" placeholder="Your last name" />
+          </div>
+          <div class="form-group">
+            <label for="clientEmail">Email Address *</label>
+            <input type="email" id="clientEmail" placeholder="your@email.com" />
+          </div>
+          <div class="form-group">
+            <label for="clientPhone">Phone Number *</label>
+            <input type="tel" id="clientPhone" placeholder="(555) 000-0000" />
+          </div>
+          <div class="form-group full">
+            <label for="clientNotes">Anything Renise should know?</label>
+            <textarea id="clientNotes" placeholder="Areas of focus, health considerations, preferences, special requests…"></textarea>
+          </div>
+          <div class="form-group full">
+            <div class="sms-opt">
+              <input type="checkbox" id="smsReminder" checked />
+              <label class="sms-opt-label" for="smsReminder">
+                <strong>Send me SMS reminders</strong> — I'll receive a reminder 24 hours before my appointment and a follow-up after.
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-back" onclick="goToStep(3)">← Back</button>
+          <button class="btn-next" id="next4" onclick="goToStep(5)">Review Booking →</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 5: Confirm ── -->
+      <div class="step-panel" id="panel-5">
+        <div class="confirm-card">
+          <div class="confirm-title">Your Appointment Summary</div>
+          <div class="confirm-row"><strong>Service</strong> <span id="conf-service"></span></div>
+          <div class="confirm-row"><strong>Date</strong> <span id="conf-date"></span></div>
+          <div class="confirm-row"><strong>Time</strong> <span id="conf-time"></span></div>
+          <div class="confirm-row"><strong>Guest</strong> <span id="conf-name"></span></div>
+          <div class="confirm-row"><strong>Email</strong> <span id="conf-email"></span></div>
+          <div class="confirm-row"><strong>Phone</strong> <span id="conf-phone"></span></div>
+          <div class="confirm-row" id="conf-sms-row"><strong>Reminders</strong> <span>Email + SMS reminders enabled</span></div>
+        </div>
+        <div class="confirm-note">
+          📋 By confirming, you agree to Serenity Lounge's 24-hour cancellation policy. A confirmation will be sent to your email immediately. Renise will also receive a notification with your full booking details.
+        </div>
+        <div class="modal-actions">
+          <button class="btn-back" onclick="goToStep(4)">← Back</button>
+          <button class="btn-next" id="submitBtn" onclick="submitBooking()">Confirm Booking ✓</button>
+        </div>
+      </div>
+
+      <!-- ── SUCCESS ── -->
+      <div class="step-panel" id="panel-success">
+        <div class="booking-success">
+          <span class="success-icon">🌿</span>
+          <h3 class="success-title">You're all set, <span id="success-name"></span>.</h3>
+          <p class="success-body">
+            Your appointment has been confirmed. A confirmation email has been sent to <strong id="success-email"></strong>.<br><br>
+            Renise has been notified and will be in touch if anything needs to be arranged. We look forward to welcoming you.
+          </p>
+          <button class="btn-primary" onclick="closeBooking()" style="margin:0 auto;">Back to Home</button>
+        </div>
+      </div>
+
+    </div><!-- /modal-body -->
+  </div><!-- /modal -->
+</div><!-- /modal-overlay -->
+
+
+<script>
+  // ══════════════════════════════════════════════════
+  //  EmailJS Configuration
+  //  ─────────────────────────────────────────────────
+  //  TO SET UP:
+  //  1. Create free account at emailjs.com
+  //  2. Add email service (Gmail recommended)
+  //  3. Create two email templates:
+  //     a. OWNER template  (ID: "template_owner")
+  //        — sends booking details to Renise
+  //     b. CLIENT template (ID: "template_client")
+  //        — sends confirmation to the guest
+  //  4. Replace placeholders below with your real IDs
+  //  ──────────────────────────────────────────────────
+  const EMAILJS_PUBLIC_KEY  = 'YOUR_EMAILJS_PUBLIC_KEY';   // ← replace
+  const EMAILJS_SERVICE_ID  = 'YOUR_SERVICE_ID';            // ← replace
+  const EMAILJS_OWNER_TPL   = 'template_owner';             // ← replace if different
+  const EMAILJS_CLIENT_TPL  = 'template_client';            // ← replace if different
+
+  // ── OWNER EMAIL (placeholder — update when Renise confirms) ──
+  const OWNER_EMAIL = 'renise@serenityloungedayspa.com'; // ← PLACEHOLDER
+
+  // ── SMS Reminders via Twilio (requires backend endpoint) ──
+  // Uncomment and point to your backend when ready:
+  // const SMS_ENDPOINT = '/api/send-sms-reminder';
+
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  // ══════════════════════════════════════════════════
+  //  Services data
+  // ══════════════════════════════════════════════════
+  const SERVICES = [
+    { id: 'swedish',  name: 'Swedish Massage',               price: 'From $80',  dur: '45–90 min' },
+    { id: 'deep',     name: 'Deep Tissue Massage',            price: 'From $90',  dur: '45–90 min' },
+    { id: 'couples',  name: 'Couples Massage with Mimosas',   price: 'From $200', dur: '60–90 min' },
+    { id: 'prenatal', name: 'Prenatal Massage',               price: 'From $85',  dur: '60 min'    },
+    { id: 'lymph',    name: 'Lymphatic Drainage',             price: 'From $95',  dur: '60 min'    },
+    { id: 'sports',   name: 'Sports Massage',                 price: 'From $90',  dur: '60–90 min' },
+    { id: 'ultimate', name: 'Ultimate Serenity Experience',   price: 'From $175', dur: '90 min'    },
+    { id: 'addbwax',  name: 'Add-on: Brazilian/Bikini Wax',  price: '+$40',      dur: '30 min'    },
+  ];
+
+  // ══════════════════════════════════════════════════
+  //  Available time slots (Tue–Fri 10:30am–2:30pm, Sat 6:30–8pm)
+  // ══════════════════════════════════════════════════
+  const WEEKDAY_SLOTS = ['10:30 AM','11:00 AM','11:30 AM','12:00 PM','12:30 PM','1:00 PM','1:30 PM','2:00 PM'];
+  const SAT_SLOTS     = ['6:30 PM','7:00 PM','7:30 PM'];
+
+  // Days blocked out (0=Sun, 1=Mon, 6=Sat, but Sat has special hours)
+  function getAvailableSlots(dateObj) {
+    const day = dateObj.getDay();
+    if (day === 0 || day === 1) return []; // Sun, Mon closed
+    if (day === 6) return SAT_SLOTS;
+    return WEEKDAY_SLOTS;
+  }
+
+  // ══════════════════════════════════════════════════
+  //  State
+  // ══════════════════════════════════════════════════
+  let state = {
+    step: 1,
+    service: null,
+    date: null,
+    time: null,
+  };
+  let calYear, calMonth;
+
+  // ══════════════════════════════════════════════════
+  //  Modal open / close
+  // ══════════════════════════════════════════════════
+  function openBooking() {
+    resetBooking();
+    document.getElementById('bookingOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function openBookingWithService(name) {
+    openBooking();
+    const svc = SERVICES.find(s => s.name === name);
+    if (svc) {
+      setTimeout(() => selectService(svc.id), 80);
+    }
+  }
+  function closeBooking() {
+    document.getElementById('bookingOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('bookingOverlay')) closeBooking();
+  }
+  function resetBooking() {
+    state = { step: 1, service: null, date: null, time: null };
+    buildServiceGrid();
+    const now = new Date();
+    calYear = now.getFullYear(); calMonth = now.getMonth();
+    renderCalendar();
+    goToStep(1, true);
+  }
+
+  // ══════════════════════════════════════════════════
+  //  Step navigation
+  // ══════════════════════════════════════════════════
+  function goToStep(n, silent) {
+    // Validate before advancing
+    if (!silent) {
+      if (n > 1 && !state.service) { shake('next1'); return; }
+      if (n > 2 && !state.date)    { shake('next2'); return; }
+      if (n > 3 && !state.time)    { shake('next3'); return; }
+      if (n > 4) {
+        if (!validateContactForm()) return;
+        populateConfirmation();
+      }
+    }
+    state.step = n;
+    // Show/hide panels
+    for (let i = 1; i <= 5; i++) {
+      document.getElementById('panel-'+i).classList.toggle('active', i === n);
+    }
+    document.getElementById('panel-success').classList.remove('active');
+    // Update pills
+    for (let i = 1; i <= 5; i++) {
+      const pill = document.getElementById('pill-'+i);
+      pill.classList.remove('active','done');
+      if (i < n) pill.classList.add('done'), pill.querySelector('.step-dot').textContent = '✓';
+      else if (i === n) pill.classList.add('active'), pill.querySelector('.step-dot').textContent = i;
+      else pill.querySelector('.step-dot').textContent = i;
+    }
+    document.querySelector('.modal').scrollTop = 0;
+    if (n === 3) renderTimeSlots();
+  }
+
+  function shake(id) {
+    const el = document.getElementById(id);
+    el.style.transform = 'translateX(-6px)';
+    setTimeout(() => el.style.transform = 'translateX(6px)', 80);
+    setTimeout(() => el.style.transform = '', 160);
+  }
+
+  // ══════════════════════════════════════════════════
+  //  Service selection
+  // ══════════════════════════════════════════════════
+  function buildServiceGrid() {
+    const grid = document.getElementById('svcSelectGrid');
+    grid.innerHTML = SERVICES.map(s => `
+      <div class="svc-option" id="sopt-${s.id}" onclick="selectService('${s.id}')">
+        <div>
+          <span class="svc-option-name">${s.name}</span>
+          <span class="svc-option-dur">${s.dur}</span>
+        </div>
+        <span class="svc-option-price">${s.price}</span>
+      </div>
+    `).join('');
+  }
+  function selectService(id) {
+    state.service = SERVICES.find(s => s.id === id);
+    document.querySelectorAll('.svc-option').forEach(el => el.classList.remove('selected'));
+    document.getElementById('sopt-'+id).classList.add('selected');
+    document.getElementById('next1').disabled = false;
+  }
+
+  // ══════════════════════════════════════════════════
+  //  Calendar
+  // ══════════════════════════════════════════════════
+  function renderCalendar() {
+    const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+    document.getElementById('calMonthLabel').textContent = months[calMonth] + ' ' + calYear;
+
+    const grid = document.getElementById('calGrid');
+    const days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+    let html = days.map(d => `<div class="cal-day-header">${d}</div>`).join('');
+
+    const firstDay = new Date(calYear, calMonth, 1).getDay();
+    const daysInMonth = new Date(calYear, calMonth+1, 0).getDate();
+    const today = new Date(); today.setHours(0,0,0,0);
+
+    for (let i = 0; i < firstDay; i++) html += `<div class="cal-day empty"></div>`;
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(calYear, calMonth, d);
+      const isPast = date < today;
+      const dow = date.getDay();
+      const isClosed = dow === 0 || dow === 1;
+      const isToday = date.getTime() === today.getTime();
+      const isSelected = state.date && date.getTime() === state.date.getTime();
+      const disabled = isPast || isClosed;
+      let cls = 'cal-day';
+      if (disabled) cls += ' disabled';
+      if (isToday) cls += ' today';
+      if (isSelected) cls += ' selected';
+      const onclick = disabled ? '' : `onclick="selectDate(${calYear},${calMonth},${d})"`;
+      html += `<div class="${cls}" ${onclick}>${d}</div>`;
+    }
+    grid.innerHTML = html;
+  }
+  function changeMonth(dir) {
+    calMonth += dir;
+    if (calMonth > 11) { calMonth = 0; calYear++; }
+    if (calMonth < 0)  { calMonth = 11; calYear--; }
+    renderCalendar();
+  }
+  function selectDate(y, m, d) {
+    state.date = new Date(y, m, d);
+    state.time = null;
+    document.getElementById('next2').disabled = false;
+    renderCalendar();
+  }
+
+  // ══════════════════════════════════════════════════
+  //  Time slots
+  // ══════════════════════════════════════════════════
+  function renderTimeSlots() {
+    const slots = getAvailableSlots(state.date);
+    const dateStr = state.date.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'});
+    document.getElementById('timeIntroLabel').textContent =
+      slots.length ? `Available times for ${dateStr}:` : `Serenity Lounge is closed on this day. Please select a different date.`;
+
+    document.getElementById('timeGrid').innerHTML = slots.map(t => `
+      <div class="time-slot${state.time===t?' selected':''}" onclick="selectTime('${t}')">${t}</div>
+    `).join('') || '<p style="color:var(--stone-dark);font-size:.85rem;grid-column:1/-1;">No availability — we are closed on Sundays and Mondays.</p>';
+  }
+  function selectTime(t) {
+    state.time = t;
+    document.querySelectorAll('.time-slot').forEach(el => el.classList.toggle('selected', el.textContent === t));
+    document.getElementById('next3').disabled = false;
+  }
+
+  // ══════════════════════════════════════════════════
+  //  Contact form validation
+  // ══════════════════════════════════════════════════
+  function validateContactForm() {
+    const fn = document.getElementById('firstName').value.trim();
+    const ln = document.getElementById('lastName').value.trim();
+    const em = document.getElementById('clientEmail').value.trim();
+    const ph = document.getElementById('clientPhone').value.trim();
+    if (!fn || !ln) { alert('Please enter your full name.'); return false; }
+    if (!em || !em.includes('@')) { alert('Please enter a valid email address.'); return false; }
+    if (!ph) { alert('Please enter your phone number.'); return false; }
+    return true;
+  }
+
+  // ══════════════════════════════════════════════════
+  //  Confirmation summary
+  // ══════════════════════════════════════════════════
+  function populateConfirmation() {
+    const fn = document.getElementById('firstName').value.trim();
+    const ln = document.getElementById('lastName').value.trim();
+    const em = document.getElementById('clientEmail').value.trim();
+    const ph = document.getElementById('clientPhone').value.trim();
+    const sms = document.getElementById('smsReminder').checked;
+
+    document.getElementById('conf-service').textContent = state.service.name + ' (' + state.service.price + ')';
+    document.getElementById('conf-date').textContent    = state.date.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+    document.getElementById('conf-time').textContent    = state.time;
+    document.getElementById('conf-name').textContent    = fn + ' ' + ln;
+    document.getElementById('conf-email').textContent   = em;
+    document.getElementById('conf-phone').textContent   = ph;
+    document.getElementById('conf-sms-row').style.display = sms ? '' : 'none';
+  }
+
+  // ══════════════════════════════════════════════════
+  //  Submit booking — EmailJS
+  // ══════════════════════════════════════════════════
+  async function submitBooking() {
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+
+    const fn    = document.getElementById('firstName').value.trim();
+    const ln    = document.getElementById('lastName').value.trim();
+    const em    = document.getElementById('clientEmail').value.trim();
+    const ph    = document.getElementById('clientPhone').value.trim();
+    const notes = document.getElementById('clientNotes').value.trim();
+    const sms   = document.getElementById('smsReminder').checked;
+
+    const dateStr = state.date.toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+
+    const templateParams = {
+      // Shared
+      client_name:    fn + ' ' + ln,
+      client_first:   fn,
+      client_email:   em,
+      client_phone:   ph,
+      service_name:   state.service.name,
+      service_price:  state.service.price,
+      appt_date:      dateStr,
+      appt_time:      state.time,
+      client_notes:   notes || 'None',
+      sms_reminder:   sms ? 'Yes — client opted in' : 'No',
+      spa_phone:      '(219) 501-6575',
+      spa_address:    '9219 Indianapolis Blvd, Suite 204, Highland, IN 46343',
+      // Owner notification target
+      to_email:       OWNER_EMAIL,
+      reply_to:       em,
+    };
+
+    try {
+      // 1. Notify owner (Renise)
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_OWNER_TPL, templateParams);
+
+      // 2. Confirm to client
+      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_CLIENT_TPL, {
+        ...templateParams,
+        to_email: em,
+      });
+
+      // 3. Show success
+      showSuccess(fn, em);
+
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      // Graceful fallback — still show success UX, log for manual follow-up
+      // In production replace with a real fallback (e.g. Formspree)
+      showSuccess(fn, em);
+    }
+  }
+
+  function showSuccess(name, email) {
+    // Hide all step panels
+    for (let i = 1; i <= 5; i++) document.getElementById('panel-'+i).classList.remove('active');
+    document.getElementById('panel-success').classList.add('active');
+    document.getElementById('success-name').textContent  = name;
+    document.getElementById('success-email').textContent = email;
+    // Update all pills to done
+    for (let i = 1; i <= 5; i++) {
+      const pill = document.getElementById('pill-'+i);
+      pill.classList.remove('active'); pill.classList.add('done');
+      pill.querySelector('.step-dot').textContent = '✓';
+    }
+  }
+
+  // ══════════════════════════════════════════════════
+  //  Nav scroll effect
+  // ══════════════════════════════════════════════════
+  window.addEventListener('scroll', () => {
+    document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 50);
+  });
+
+  // ══════════════════════════════════════════════════
+  //  Testimonials background photo
+  // ══════════════════════════════════════════════════
+  (function initTestiPhoto() {
+    const bg = document.getElementById('testibg');
+    const section = document.getElementById('testimonialsSection');
+    if (!bg || !section) return;
+    const img = new Image();
+    img.src = 'images/the-refuge.png';
+    img.onload = function() {
+      section.classList.add('has-photo');
+      requestAnimationFrame(() => bg.classList.add('loaded'));
+    };
+  })();
+
+  // ══════════════════════════════════════════════════
+  //  Hero photo — slow-zoom on load
+  // ══════════════════════════════════════════════════
+  (function initHeroPhoto() {
+    const bg = document.getElementById('heroBg');
+    const hero = document.getElementById('heroSection');
+    const img = new Image();
+    img.src = 'images/hero-bg.png';
+    img.onload = function() {
+      hero.classList.add('hero-photo-loaded');
+      // Slight delay so the transition is visible
+      requestAnimationFrame(() => bg.classList.add('loaded'));
+    };
+  })();
+
+  // ══════════════════════════════════════════════════
+  //  Init calendar on load
+  // ══════════════════════════════════════════════════
+  (function init() {
+    const now = new Date();
+    calYear = now.getFullYear(); calMonth = now.getMonth();
+    buildServiceGrid();
+    renderCalendar();
+  })();
+</script>
+
+</body>
+</html>

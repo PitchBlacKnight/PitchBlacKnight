@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<title>Daily Mix Admin · PBK</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --coral: #E86E59;
+  --steel: #7b8fa6;
+  --dim:   #6e6e6e;
+  --bg:    #060606;
+  --card:  #0d0d0d;
+  --border:#1e1e1e;
+}
+body {
+  background: var(--bg);
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  min-height: 100vh;
+  padding: 0 0 60px;
+}
+
+/* PIN screen */
+#pin-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  gap: 32px;
+}
+.pin-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 32px;
+  letter-spacing: .04em;
+}
+.pin-logo .c { color: var(--coral); }
+.pin-label {
+  font-size: 9px;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.pin-input {
+  width: 100%;
+  max-width: 280px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  letter-spacing: .3em;
+  padding: 16px 20px;
+  text-align: center;
+  outline: none;
+  -webkit-appearance: none;
+}
+.pin-input:focus { border-color: var(--coral); }
+.pin-error {
+  font-size: 9px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--coral);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.pin-error.show { opacity: 1; }
+.pin-btn {
+  width: 100%;
+  max-width: 280px;
+  background: var(--coral);
+  border: none;
+  color: #000;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  padding: 16px;
+  cursor: pointer;
+}
+
+/* Admin screen */
+#admin-screen { display: none; padding: 0; }
+
+.admin-header {
+  background: var(--card);
+  border-bottom: 2px solid var(--coral);
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.admin-logo {
+  font-family: 'Anton', sans-serif;
+  font-size: 20px;
+  letter-spacing: .04em;
+}
+.admin-logo .c { color: var(--coral); }
+.admin-logout {
+  font-size: 8px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--dim);
+  background: none;
+  border: 1px solid var(--border);
+  padding: 6px 14px;
+  cursor: pointer;
+  color: var(--dim);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.admin-body { padding: 24px; max-width: 600px; margin: 0 auto; }
+
+/* Current mix card */
+.current-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--coral);
+  padding: 20px;
+  margin-bottom: 32px;
+}
+.current-label {
+  font-size: 8px;
+  letter-spacing: .45em;
+  text-transform: uppercase;
+  color: var(--coral);
+  opacity: .55;
+  display: block;
+  margin-bottom: 8px;
+}
+.current-title {
+  font-family: 'Anton', sans-serif;
+  font-size: 28px;
+  text-transform: uppercase;
+  color: #fff;
+  line-height: .9;
+  margin-bottom: 6px;
+}
+.current-date {
+  font-size: 9px;
+  letter-spacing: .25em;
+  color: var(--dim);
+}
+
+/* Form */
+.form-section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 24px;
+  margin-bottom: 16px;
+}
+.form-section-label {
+  font-size: 8px;
+  letter-spacing: .5em;
+  text-transform: uppercase;
+  color: var(--coral);
+  opacity: .55;
+  display: block;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.field { margin-bottom: 20px; }
+.field label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 8px;
+}
+.field input[type="text"],
+.field textarea {
+  width: 100%;
+  background: #0a0a0a;
+  border: 1px solid var(--border);
+  color: #fff;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  padding: 12px 14px;
+  outline: none;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.field input[type="text"]:focus,
+.field textarea:focus { border-color: var(--coral); }
+.field textarea { height: 72px; resize: vertical; }
+
+/* File drop zone */
+.file-zone {
+  border: 2px dashed var(--border);
+  padding: 36px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color .2s, background .2s;
+  position: relative;
+  margin-bottom: 20px;
+}
+.file-zone.drag-over { border-color: var(--coral); background: rgba(232,110,89,.04); }
+.file-zone.has-file { border-color: var(--coral); border-style: solid; background: rgba(232,110,89,.04); }
+.file-zone input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+}
+.file-icon {
+  font-size: 32px;
+  display: block;
+  margin-bottom: 10px;
+  line-height: 1;
+}
+.file-zone-label {
+  font-size: 10px;
+  letter-spacing: .25em;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.file-zone-sub {
+  font-size: 9px;
+  color: #333;
+  margin-top: 6px;
+  letter-spacing: .1em;
+}
+.file-name {
+  font-size: 12px;
+  color: var(--coral);
+  margin-top: 8px;
+  word-break: break-all;
+}
+
+/* Progress */
+.progress-wrap {
+  height: 3px;
+  background: #1e1e1e;
+  margin: 16px 0 8px;
+  display: none;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--coral);
+  transition: width .15s linear;
+}
+.progress-label {
+  font-size: 9px;
+  letter-spacing: .25em;
+  color: var(--dim);
+  text-align: center;
+}
+
+/* Submit */
+.submit-btn {
+  width: 100%;
+  background: var(--coral);
+  border: none;
+  color: #000;
+  font-family: 'Anton', sans-serif;
+  font-size: 18px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: 20px;
+  cursor: pointer;
+  transition: opacity .2s;
+  margin-top: 8px;
+}
+.submit-btn:disabled { opacity: .4; cursor: not-allowed; }
+.submit-btn.done { background: #1a6b3c; color: #fff; }
+
+/* Status */
+.status-msg {
+  margin-top: 16px;
+  font-size: 10px;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  text-align: center;
+  min-height: 20px;
+  color: var(--dim);
+}
+.status-msg.ok  { color: #4ade80; }
+.status-msg.err { color: var(--coral); }
+</style>
+</head>
+<body>
+
+<!-- ── PIN SCREEN ───────────────────────────────────────── -->
+<div id="pin-screen">
+  <div>
+    <div class="pin-logo"><span class="c">PITCH</span>BLAC<span class="c">K</span>NIGHT</div>
+    <div class="pin-label" style="margin-top:6px">Daily Mix Admin</div>
+  </div>
+  <div style="width:100%;max-width:280px;display:flex;flex-direction:column;align-items:center;gap:12px">
+    <input class="pin-input" id="pin-input" type="password" inputmode="numeric"
+           placeholder="••••••" autocomplete="current-password"
+           onkeydown="if(event.key==='Enter')checkPin()">
+    <div class="pin-error" id="pin-error">Wrong PIN</div>
+    <button class="pin-btn" onclick="checkPin()">Enter</button>
+  </div>
+</div>
+
+<!-- ── ADMIN SCREEN ─────────────────────────────────────── -->
+<div id="admin-screen">
+
+  <div class="admin-header">
+    <div class="admin-logo"><span class="c">PBK</span> Daily Mix</div>
+    <button class="admin-logout" onclick="logout()">Lock</button>
+  </div>
+
+  <div class="admin-body">
+
+    <!-- Current mix -->
+    <div class="current-card" id="current-card">
+      <span class="current-label">Currently Live</span>
+      <div class="current-title" id="cur-title">Loading…</div>
+      <div class="current-date" id="cur-date"></div>
+    </div>
+
+    <!-- Upload form -->
+    <div class="form-section">
+      <span class="form-section-label">Today's Mix</span>
+
+      <div class="file-zone" id="file-zone">
+        <input type="file" id="audio-file" accept="audio/*,.mp3,.m4a,.wav,.aiff,.aac"
+               onchange="onFileChosen(this)">
+        <span class="file-icon">🎵</span>
+        <div class="file-zone-label">Tap to choose audio file</div>
+        <div class="file-zone-sub">MP3 · M4A · WAV · any length</div>
+        <div class="file-name" id="file-name"></div>
+      </div>
+
+      <div class="field">
+        <label>Track Title</label>
+        <input type="text" id="track-title" placeholder="Name of today's mix">
+      </div>
+
+      <div class="field">
+        <label>Session Note <span style="opacity:.4">(optional)</span></label>
+        <textarea id="track-note" placeholder="What happened in the room…"></textarea>
+      </div>
+
+      <div class="progress-wrap" id="progress-wrap">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div class="progress-label" id="progress-label"></div>
+
+      <button class="submit-btn" id="submit-btn" onclick="uploadMix()" disabled>
+        Upload + Set as Today
+      </button>
+
+      <div class="status-msg" id="status-msg"></div>
+    </div>
+
+    <!-- Live Broadcast -->
+    <div class="form-section" id="live-section">
+      <span class="form-section-label">Live Broadcast</span>
+      <div id="live-status-card" style="margin-bottom:16px;padding:14px 16px;border-radius:8px;background:#111;font-family:monospace;font-size:13px;color:#aaa;">Checking…</div>
+      <div class="field" id="live-fields">
+        <label>Platform</label>
+        <select id="live-platform" style="width:100%;padding:10px 12px;background:#111;border:1px solid #333;border-radius:8px;color:#f0f0f0;font-size:15px;">
+          <option value="twitch">Twitch</option>
+          <option value="youtube">YouTube</option>
+        </select>
+      </div>
+      <div class="field" id="live-channel-field">
+        <label>Twitch Channel Name</label>
+        <input type="text" id="live-channel" placeholder="e.g. pitchblacknight">
+      </div>
+      <div class="field" id="live-ytid-field" style="display:none">
+        <label>YouTube Video ID</label>
+        <input type="text" id="live-ytid" placeholder="e.g. dQw4w9WgXcQ">
+      </div>
+      <div class="field">
+        <label>Session Title</label>
+        <input type="text" id="live-title-input" placeholder="Live Mix Session">
+      </div>
+      <button class="submit-btn" id="live-go-btn" onclick="goLive()" style="background:#e8512a;">Go Live</button>
+      <button class="submit-btn" id="live-end-btn" onclick="endLive()" style="display:none;background:#333;">End Broadcast</button>
+      <div class="status-msg" id="live-status-msg"></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── CONFIG ───────────────────────────────────────────────
+const PIN          = 'pbk2026';
+const SUPA_URL     = 'https://cauzutgwdhfconnjpsfv.supabase.co';
+const SUPA_KEY     = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNhdXp1dGd3ZGhmY29ubmpwc2Z2Iiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc3MTg5MDczOSwiZXhwIjoyMDg3NDY2NzM5fQ.IXnbTBI6NWQ7jcA_qMoBXfl-_nq2by_HoLrk7gZaK5w';
+const AUDIO_BUCKET = 'audio';
+const JSON_PATH    = 'daily.json';
+const PUBLIC_BASE  = `${SUPA_URL}/storage/v1/object/public/${AUDIO_BUCKET}`;
+
+// ── PIN ──────────────────────────────────────────────────
+function checkPin() {
+  const val = document.getElementById('pin-input').value.trim();
+  if (val === PIN) {
+    sessionStorage.setItem('pbk-admin', '1');
+    showAdmin();
+  } else {
+    const err = document.getElementById('pin-error');
+    err.classList.add('show');
+    setTimeout(() => err.classList.remove('show'), 2000);
+    document.getElementById('pin-input').value = '';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem('pbk-admin');
+  document.getElementById('admin-screen').style.display = 'none';
+  document.getElementById('pin-screen').style.display   = 'flex';
+  document.getElementById('pin-input').value = '';
+}
+
+async function showAdmin() {
+  document.getElementById('pin-screen').style.display   = 'none';
+  document.getElementById('admin-screen').style.display = 'block';
+  loadCurrentMix();
+}
+
+// Auto-login if session active
+if (sessionStorage.getItem('pbk-admin')) showAdmin();
+
+// ── CURRENT MIX ──────────────────────────────────────────
+async function loadCurrentMix() {
+  try {
+    const r = await fetch(`${PUBLIC_BASE}/${JSON_PATH}?t=${Date.now()}`);
+    if (!r.ok) throw new Error();
+    const d = await r.json();
+    document.getElementById('cur-title').textContent = d.title || '—';
+    document.getElementById('cur-date').textContent  = d.date  || '';
+  } catch(e) {
+    document.getElementById('cur-title').textContent = 'No mix set yet';
+  }
+}
+
+// ── FILE CHOSEN ──────────────────────────────────────────
+let chosenFile = null;
+
+function onFileChosen(input) {
+  const f = input.files[0];
+  if (!f) return;
+  chosenFile = f;
+  const zone = document.getElementById('file-zone');
+  zone.classList.add('has-file');
+  document.getElementById('file-name').textContent = f.name;
+
+  // Auto-fill title from filename
+  const titleInput = document.getElementById('track-title');
+  if (!titleInput.value) {
+    titleInput.value = f.name
+      .replace(/\.[^.]+$/, '')          // strip extension
+      .replace(/[-_]/g, ' ')            // dashes to spaces
+      .replace(/\b\w/g, c => c.toUpperCase()); // Title Case
+  }
+
+  document.getElementById('submit-btn').disabled = false;
+}
+
+// Drag & drop
+const zone = document.getElementById('file-zone');
+zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('drag-over'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('drag-over'));
+zone.addEventListener('drop', e => {
+  e.preventDefault();
+  zone.classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f) {
+    document.getElementById('audio-file').files = e.dataTransfer.files;
+    onFileChosen({ files: [f] });
+  }
+});
+
+// ── UPLOAD ───────────────────────────────────────────────
+async function uploadMix() {
+  if (!chosenFile) return;
+
+  const title = document.getElementById('track-title').value.trim() || chosenFile.name;
+  const note  = document.getElementById('track-note').value.trim();
+  const btn   = document.getElementById('submit-btn');
+  const prog  = document.getElementById('progress-wrap');
+  const fill  = document.getElementById('progress-fill');
+  const lbl   = document.getElementById('progress-label');
+  const status= document.getElementById('status-msg');
+
+  // Build filename: daily-YYYY-MM-DD-title.mp3
+  const today = new Date();
+  const dateStr = today.toISOString().slice(0,10); // YYYY-MM-DD
+  const safeName = title.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  const ext = chosenFile.name.split('.').pop().toLowerCase();
+  const filename = `daily-${dateStr}-${safeName}.${ext}`;
+
+  btn.disabled = true;
+  btn.textContent = 'Uploading…';
+  prog.style.display = 'block';
+  lbl.textContent = 'Uploading audio…';
+  status.textContent = '';
+  status.className = 'status-msg';
+
+  try {
+    // ── Step 1: Upload audio file ──────────────────────
+    await uploadWithProgress(
+      chosenFile,
+      `${SUPA_URL}/storage/v1/object/${AUDIO_BUCKET}/${encodeURIComponent(filename)}`,
+      fill,
+      pct => { lbl.textContent = `Uploading audio… ${pct}%`; }
+    );
+
+    // ── Step 2: Update daily.json ──────────────────────
+    fill.style.width = '95%';
+    lbl.textContent = 'Updating site…';
+
+    const dateDisplay = today.toLocaleDateString('en-US', { month:'long', day:'numeric', year:'numeric' });
+    const json = {
+      title,
+      src:  `${PUBLIC_BASE}/${encodeURIComponent(filename)}`,
+      note: note || '',
+      date: dateDisplay,
+    };
+
+    const r2 = await fetch(
+      `${SUPA_URL}/storage/v1/object/${AUDIO_BUCKET}/${JSON_PATH}`,
+      {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${SUPA_KEY}`,
+          'Content-Type': 'application/json',
+          'x-upsert': 'true',
+        },
+        body: JSON.stringify(json),
+      }
+    );
+    if (!r2.ok) throw new Error(`JSON update failed: ${r2.status}`);
+
+    // ── Done ───────────────────────────────────────────
+    fill.style.width = '100%';
+    lbl.textContent = '';
+    btn.textContent = '✓ Live on Site';
+    btn.classList.add('done');
+    status.textContent = `"${title}" is now the daily mix.`;
+    status.className = 'status-msg ok';
+
+    // Reset after 4s
+    setTimeout(() => {
+      btn.textContent = 'Upload + Set as Today';
+      btn.classList.remove('done');
+      btn.disabled = true;
+      prog.style.display = 'none';
+      fill.style.width = '0%';
+      document.getElementById('file-zone').classList.remove('has-file');
+      document.getElementById('file-name').textContent = '';
+      document.getElementById('track-title').value = '';
+      document.getElementById('track-note').value  = '';
+      document.getElementById('audio-file').value  = '';
+      chosenFile = null;
+      loadCurrentMix();
+    }, 4000);
+
+  } catch(err) {
+    btn.disabled = false;
+    btn.textContent = 'Upload + Set as Today';
+    prog.style.display = 'none';
+    status.textContent = 'Error: ' + err.message;
+    status.className = 'status-msg err';
+    console.error(err);
+  }
+}
+
+// XHR upload with progress tracking
+function uploadWithProgress(file, url, fillEl, onProgress) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', url);
+    xhr.setRequestHeader('Authorization', `Bearer ${SUPA_KEY}`);
+    xhr.setRequestHeader('Content-Type', file.type || 'audio/mpeg');
+    xhr.setRequestHeader('x-upsert', 'true');
+
+    xhr.upload.addEventListener('progress', e => {
+      if (e.lengthComputable) {
+        const pct = Math.round((e.loaded / e.total) * 90); // cap at 90, rest for JSON
+        fillEl.style.width = pct + '%';
+        onProgress(pct);
+      }
+    });
+
+    xhr.addEventListener('load', () => {
+      if (xhr.status === 200 || xhr.status === 201) resolve(xhr);
+      else reject(new Error(`Upload failed: ${xhr.status}`));
+    });
+    xhr.addEventListener('error', () => reject(new Error('Network error')));
+    xhr.send(file);
+  });
+}
+
+// ── LIVE BROADCAST ───────────────────────────────────────
+const STREAM_CONFIG_PATH = 'config/stream.json';
+
+document.getElementById('live-platform').addEventListener('change', function(){
+  const isTwitch = this.value === 'twitch';
+  document.getElementById('live-channel-field').style.display = isTwitch ? '' : 'none';
+  document.getElementById('live-ytid-field').style.display    = isTwitch ? 'none' : '';
+  const lbl = document.getElementById('live-channel-field').querySelector('label');
+  if(lbl) lbl.textContent = 'Twitch Channel Name';
+});
+
+async function loadLiveState() {
+  try {
+    const r = await fetch(`${SUPA_URL}/storage/v1/object/public/${STREAM_CONFIG_PATH}?t=` + Date.now());
+    const cfg = await r.json();
+    const card = document.getElementById('live-status-card');
+    const goBtn = document.getElementById('live-go-btn');
+    const endBtn = document.getElementById('live-end-btn');
+    if (cfg.live) {
+      card.style.color = '#e8512a';
+      card.textContent = `● ON AIR — ${cfg.platform === 'twitch' ? 'twitch.tv/' + cfg.channel : 'YouTube ' + cfg.video_id} — "${cfg.title}"`;
+      goBtn.style.display = 'none';
+      endBtn.style.display = '';
+      document.getElementById('live-platform').value = cfg.platform || 'twitch';
+      document.getElementById('live-channel').value  = cfg.channel || '';
+      document.getElementById('live-ytid').value     = cfg.video_id || '';
+      document.getElementById('live-title-input').value = cfg.title || '';
+    } else {
+      card.style.color = '#555';
+      card.textContent = '○ OFFLINE — not broadcasting';
+      goBtn.style.display = '';
+      endBtn.style.display = 'none';
+    }
+  } catch(e) {
+    document.getElementById('live-status-card').textContent = 'Could not load stream state';
+  }
+}
+
+async function putStreamJSON(payload) {
+  const blob = new Blob([JSON.stringify(payload)], {type:'application/json'});
+  // Try UPSERT (update existing)
+  const r = await fetch(`${SUPA_URL}/storage/v1/object/${STREAM_CONFIG_PATH}`, {
+    method: 'PUT',
+    headers: {'Authorization': 'Bearer ' + SUPA_KEY, 'Content-Type': 'application/json', 'x-upsert': 'true'},
+    body: blob
+  });
+  if(!r.ok) throw new Error('Upload failed: ' + r.status);
+}
+
+async function goLive() {
+  const platform = document.getElementById('live-platform').value;
+  const channel  = document.getElementById('live-channel').value.trim();
+  const ytid     = document.getElementById('live-ytid').value.trim();
+  const title    = document.getElementById('live-title-input').value.trim() || 'Live Mix Session';
+  const msg      = document.getElementById('live-status-msg');
+  if(platform === 'twitch' && !channel) { msg.textContent = 'Enter your Twitch channel name.'; return; }
+  if(platform === 'youtube' && !ytid)   { msg.textContent = 'Enter the YouTube Video ID.'; return; }
+  msg.textContent = 'Going live…';
+  try {
+    await putStreamJSON({live:true, platform, channel, video_id:ytid, title});
+    msg.textContent = '● You are live!';
+    loadLiveState();
+  } catch(e) { msg.textContent = 'Error: ' + e.message; }
+}
+
+async function endLive() {
+  const msg = document.getElementById('live-status-msg');
+  msg.textContent = 'Ending broadcast…';
+  try {
+    const r = await fetch(`${SUPA_URL}/storage/v1/object/public/${STREAM_CONFIG_PATH}?t=` + Date.now());
+    const cfg = await r.json();
+    await putStreamJSON({...cfg, live:false});
+    msg.textContent = 'Broadcast ended.';
+    loadLiveState();
+  } catch(e) { msg.textContent = 'Error: ' + e.message; }
+}
+
+// Load live state when admin screen opens
+const _origShowAdmin = showAdmin;
+showAdmin = async function(){
+  await _origShowAdmin();
+  loadLiveState();
+};
+if(sessionStorage.getItem('pbk-admin')) loadLiveState();
+</script>
+</body>
+</html>

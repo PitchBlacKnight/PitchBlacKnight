@@ -1,0 +1,10 @@
+# Large audio files — upload directly to server, do not commit to git
+# Separate projects — keep out of pitchblacknight.com repo entirely
+.DS_Store
+.claude/
+.vercel
+CLAUDE.md
+Desktop/
+david/assets/audio/*.mp3
+david/assets/mixes/*.mp3
+node_modules/
