@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>PetWatch Panel Cheat Sheet · private</title>
+<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080B14; --surf:rgba(255,255,255,.04); --surf-2:rgba(255,255,255,.07);
+  --line:rgba(255,255,255,.09); --ink:#F2F5FA; --ink-2:#A7B2C6; --ink-3:#6D7A90;
+  --accent:#4D8DFF; --accent-2:#93B9FF; --ok:#3DD9C4; --warn:#E0A64A;
+  --mono:ui-monospace,'SF Mono',Menlo,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink-2);font-family:'Alexandria',system-ui,sans-serif;
+  font-weight:300;line-height:1.55;-webkit-font-smoothing:antialiased;font-size:13.5px;
+  padding:34px 28px 60px}
+body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(900px 500px at 80% -10%,rgba(77,141,255,.15),transparent 60%)}
+.top{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+h1{font-size:24px;font-weight:600;letter-spacing:-.03em;color:var(--ink)}
+.priv{font-family:var(--mono);font-size:9px;letter-spacing:.16em;color:var(--warn);
+  border:1px solid rgba(224,166,74,.4);border-radius:99px;padding:3px 9px;text-transform:uppercase}
+.sub{color:var(--ink-3);font-size:12.5px;margin-bottom:22px}
+.cols{display:grid;grid-template-columns:minmax(340px,5fr) minmax(420px,7fr);gap:26px;align-items:start}
+@media(max-width:980px){.cols{grid-template-columns:1fr}}
+
+h2{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin:20px 0 10px;font-weight:400}
+h2:first-child{margin-top:0}
+.card{background:var(--surf);border:1px solid var(--line);border-radius:14px;padding:14px 16px;margin-bottom:10px}
+.say{font-size:15px;color:var(--ink);line-height:1.5;border-left:2px solid var(--accent);
+  padding-left:12px;font-style:italic}
+.steps{counter-reset:s}
+.step{display:flex;gap:11px;margin-bottom:9px}
+.step .n{counter-increment:s;flex:none;width:22px;height:22px;border-radius:50%;
+  background:var(--surf-2);border:1px solid var(--line);display:grid;place-items:center;
+  font-family:var(--mono);font-size:10px;color:var(--accent-2)}
+.step .n::before{content:counter(s)}
+.step b{color:var(--ink);font-weight:500}
+.rule{font-size:12.5px;color:var(--ink-2)}
+.rule b{color:var(--ink);font-weight:500}
+.spine{display:flex;gap:8px;align-items:center;flex-wrap:wrap;font-size:12.5px;color:var(--ink)}
+.spine span{background:var(--surf-2);border:1px solid var(--line);border-radius:9px;padding:6px 10px}
+.spine i{color:var(--ink-3);font-style:normal}
+.dont{color:var(--ink-3);font-size:12px}
+.dont b{color:var(--warn);font-weight:500}
+
+table{border-collapse:collapse;width:100%;font-size:12px}
+th{text-align:left;font-family:var(--mono);font-size:8.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-3);padding:7px 10px;border-bottom:1px solid var(--line);
+  font-weight:400;white-space:nowrap}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.45}
+tr:last-child td{border-bottom:0}
+td:first-child{color:var(--ink);font-weight:500;min-width:150px}
+td .w{display:block;font-size:10.5px;color:var(--ink-3);font-weight:300;margin-top:1px}
+.loc{font-family:var(--mono);font-size:10px;color:var(--accent-2)}
+.doc{font-family:var(--mono);font-size:10px;color:var(--ok)}
+.tbl{background:var(--surf);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:10px}
+
+.jumps{display:flex;gap:6px;flex-wrap:wrap}
+.jumps a{font-family:var(--mono);font-size:10px;color:var(--accent-2);text-decoration:none;
+  background:var(--surf-2);border:1px solid var(--line);border-radius:99px;padding:6px 11px}
+.jumps a:hover{border-color:var(--accent)}
+@media print{body{background:#fff;color:#222}.card,.tbl{border-color:#ccc;background:#fff}}
+</style>
+</head>
+<body>
+
+<div class="top"><h1>PetWatch panel: the gaps, and where everything lives</h1>
+  <span class="priv">Private · not part of the submission</span></div>
+<div class="sub">Cast: Priya (you, owner of Kenji + watching Hex) · Kenji the pug · Hex the cat, insulin at 7:15 ·
+Jessie (the other watcher) · Marcus (Hex's owner) · Dana (not on PetWatch)</div>
+
+<div class="cols">
+<div>
+  <h2>Framing · say this first</h2>
+  <div class="card rule">It's an <b>absence, not an error</b>. The stories are internally consistent
+  and would build cleanly. That is exactly what makes the omission hard to see - and someone in this
+  room may have written them. Respect first, then the finding.</div>
+
+  <h2>The 20-second version</h2>
+  <div class="card"><p class="say">The stories let the owner write a schedule and the watcher read it.
+  But nothing anywhere marks a task done, and nothing travels back. I read them three times before
+  I noticed.</p></div>
+
+  <h2>The 2-minute escalation · in this order</h2>
+  <div class="card steps">
+    <div class="step"><span class="n"></span><div class="rule"><b>The owner's job is unserved.</b>
+      Nobody wants a schedule; they want to stop worrying. A schedule you can't verify doesn't
+      reduce anxiety, it itemizes it.</div></div>
+    <div class="step"><span class="n"></span><div class="rule"><b>The watcher's job is unserved.</b>
+      Their fear isn't "what do I do," it's "what if I get it wrong and they blame me." No way to
+      show they did it right.</div></div>
+    <div class="step"><span class="n"></span><div class="rule"><b>It's a safety defect.</b>
+      Multiple watchers + medication are both in the brief. Two watchers, one read-only schedule,
+      one diabetic cat: that's a double dose waiting to happen.</div></div>
+  </div>
+  <div class="card rule">Then <b>stop talking and show it</b>: Prototype tab → "Feed a dog who's
+  already been fed." The guard argues better than you can. "Jessie did it at 7:12" is the whole thesis
+  in one screen.</div>
+
+  <h2>The constraint · keep this distinction sharp</h2>
+  <div class="card rule">Registered-users-only is a <b>rule I was given and obeyed</b>, not a gap I'm
+  criticizing. Say it plainly: <i>"I think it's the riskiest thing in the brief, so v1 obeys it
+  gracefully and starts counting how often it hurts."</i> Obedience plus instrumentation - that's
+  the whole posture.</div>
+
+  <h2>The 90-second spine · if time collapses</h2>
+  <div class="card"><div class="spine">
+    <span>Overview pull-quote</span><i>→</i><span>Prototype: the guard demo</span><i>→</i><span>Maps 01: THE LOOP</span>
+  </div>
+  <div class="dont" style="margin-top:9px">Claim, proof, systems view. <b>Don't</b> open the documents
+  live unless asked - point at them, they're the depth behind the answer, not the show.</div></div>
+</div>
+
+<div>
+  <h2>Locator · every gap, site spot, doc section</h2>
+  <div class="tbl"><table>
+    <tr><th>Gap</th><th>On the site</th><th>In the documents</th></tr>
+    <tr><td>No completion state<span class="w">the thesis</span></td>
+      <td><span class="loc">Overview · pull-quote + Brief row 1</span></td>
+      <td><span class="doc">PRD §2 → The proposal</span></td></tr>
+    <tr><td>Double-dosing risk<span class="w">two watchers + meds</span></td>
+      <td><span class="loc">Prototype · "already fed" demo</span></td>
+      <td><span class="doc">PRD §2 (item 3) · §6.2 · §5 D3 · PW-17 safety</span></td></tr>
+    <tr><td>The loop, drawn</td>
+      <td><span class="loc">Maps 01 · cells marked THE LOOP</span></td>
+      <td><span class="doc">-</span></td></tr>
+    <tr><td>Registration constraint<span class="w">blocks the core loop</span></td>
+      <td><span class="loc">Prototype · invite Dana · Maps 02 dashed box</span></td>
+      <td><span class="doc">PRD §7 · PW-21 · PW-31</span></td></tr>
+    <tr><td>Whose 7am?<span class="w">no timezone in the stories</span></td>
+      <td><span class="loc">Maps 03 · starred on Pet</span></td>
+      <td><span class="doc">PRD §5 D2 · PW-14</span></td></tr>
+    <tr><td>Missed tasks unhandled</td>
+      <td><span class="loc">Maps 04 · "Missed task" = specified, not built</span></td>
+      <td><span class="doc">PW-29 "hardest design problem"</span></td></tr>
+    <tr><td>No watch period<span class="w">start/end dates</span></td>
+      <td><span class="loc">-</span></td>
+      <td><span class="doc">PW-30</span></td></tr>
+    <tr><td>Revoke vs. history</td>
+      <td><span class="loc">Prototype · pet detail, watchers</span></td>
+      <td><span class="doc">PRD §6.6 · §8 Access</span></td></tr>
+    <tr><td>Edge cases generally</td>
+      <td><span class="loc">Maps 02 · "every arrow is a QA test case"</span></td>
+      <td><span class="doc">PRD §8</span></td></tr>
+    <tr><td>Platform unchosen<span class="w">"web or mobile"</span></td>
+      <td><span class="loc">Overview · Brief row 3</span></td>
+      <td><span class="doc">Backlog R2 · PW-25</span></td></tr>
+    <tr><td>Recurrence depth<span class="w">the RRULE trap</span></td>
+      <td><span class="loc">Overview · Brief row 5</span></td>
+      <td><span class="doc">PRD §5 D1 · PW-14</span></td></tr>
+    <tr><td>Success undefined</td>
+      <td><span class="loc">Overview · Brief row 7</span></td>
+      <td><span class="doc">PRD §9 + counter-metric</span></td></tr>
+  </table></div>
+
+  <h2>Jump links · open before the panel starts</h2>
+  <div class="card"><div class="jumps">
+    <a href="https://petwatch-exercise.vercel.app/#overview">#overview</a>
+    <a href="https://petwatch-exercise.vercel.app/#prototype">#prototype</a>
+    <a href="https://petwatch-exercise.vercel.app/#maps">#maps</a>
+    <a href="https://petwatch-exercise.vercel.app/#direction">#direction</a>
+    <a href="https://petwatch-exercise.vercel.app/#prd">#prd</a>
+    <a href="https://petwatch-exercise.vercel.app/#backlog">#backlog</a>
+    <a href="https://petwatch-exercise.vercel.app/#research-plan">#research-plan</a>
+    <a href="https://petwatch-exercise.vercel.app/#ai-log">#ai-log</a>
+  </div></div>
+
+  <h2>Likely pushback · one-line answers</h2>
+  <div class="tbl"><table>
+    <tr><td>"Isn't completion surveillance?"</td>
+      <td colspan="2">Held loosely on purpose. It's written as the watcher's receipt, never the
+      owner's inspection - and it's research question A1, with the kill-rule written before the
+      interviews. <span class="doc">research-plan A1</span></td></tr>
+    <tr><td>"Why didn't you design X screen?"</td>
+      <td colspan="2">Maps 04 shows all twenty, honestly labeled. Depth over breadth was the
+      four-hour call; the missed-task screen is deliberately unrushed. <span class="doc">PW-29</span></td></tr>
+    <tr><td>"How did you use AI?"</td>
+      <td colspan="2">Acceleration, not judgment - and three concrete cases where it was confidently
+      wrong and got overridden. <span class="doc">ai-log</span></td></tr>
+    <tr><td>"Would you really override our stories?"</td>
+      <td colspan="2">I didn't - I made the case in a document and obeyed the constraint I was given.
+      Week 0, in a room, is where I'd raise it on a real team. <span class="doc">ways-of-working</span></td></tr>
+  </table></div>
+</div>
+</div>
+
+</body>
+</html>

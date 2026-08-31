@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mikel Rosenthal · Prepared for Teladoc Health</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Space+Grotesk:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#f2ecdf; --ink:#221e1a; --ink-80:rgba(34,30,26,.84); --ink-60:rgba(34,30,26,.6);
+    --muted:#8d8478; --coral:#e56a4d; --rule:rgba(34,30,26,.18); --rule-soft:rgba(34,30,26,.12);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--cream);color:var(--ink);
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body{font-family:'Space Grotesk',sans-serif;font-weight:300;font-size:10.2pt;line-height:1.55;
+    -webkit-font-smoothing:antialiased;}
+  .page{max-width:7.35in;margin:0 auto;padding:0.62in 0.15in;}
+  a{color:var(--coral);text-decoration:none;}
+
+  .eyebrow{font-size:8pt;font-weight:400;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--ink-60);display:flex;align-items:center;gap:14px;}
+  .eyebrow::before{content:"";width:30px;height:1px;background:var(--coral);}
+  .name{font-family:'Fraunces',Georgia,serif;font-weight:300;font-size:31pt;line-height:1.06;
+    letter-spacing:-0.01em;margin:14px 0 8px;}
+  .name em{font-style:italic;color:var(--coral);font-weight:400;}
+  .role{font-size:8.6pt;font-weight:400;letter-spacing:.19em;text-transform:uppercase;
+    color:var(--ink-60);margin-bottom:14px;}
+  .standfirst{font-size:10.4pt;line-height:1.6;color:var(--ink-80);max-width:6.5in;}
+  .standfirst b{color:var(--ink);font-weight:400;}
+  .standfirst .tag{font-family:'Fraunces',serif;font-style:italic;color:var(--coral);}
+
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin:32px 0 16px;}
+  .sec-num{font-family:'Fraunces',serif;font-style:italic;font-weight:300;font-size:11pt;color:var(--coral);}
+  .sec-name{font-size:9pt;font-weight:400;letter-spacing:.26em;text-transform:uppercase;color:var(--ink);}
+  .sec-head::after{content:"";flex:1;height:1px;background:var(--rule);transform:translateY(-3px);}
+
+  /* ── The read ── */
+  .read{display:grid;grid-template-columns:1fr 1fr;gap:14px 40px;}
+  .read .card{break-inside:avoid;page-break-inside:avoid;}
+  .read h4{font-family:'Fraunces',serif;font-weight:400;font-size:11pt;margin-bottom:3px;}
+  .read p{font-size:9.7pt;line-height:1.48;color:var(--ink-80);}
+  .thesis{margin-top:18px;padding:14px 18px;border-left:2px solid var(--coral);
+    background:rgba(229,106,77,.07);break-inside:avoid;}
+  .thesis p{font-size:10.3pt;line-height:1.55;color:var(--ink);}
+  .thesis .lede{font-family:'Fraunces',serif;font-style:italic;color:var(--coral);}
+
+  /* ── Ask / Answer rows ── */
+  .row{display:grid;grid-template-columns:2.15in 1fr;gap:0 34px;
+    padding:14px 0;border-top:1px solid var(--rule-soft);break-inside:avoid;page-break-inside:avoid;}
+  .row:first-of-type{border-top:none;padding-top:0;}
+  .ask{font-family:'Fraunces',serif;font-weight:400;font-size:10.8pt;line-height:1.36;color:var(--ink);}
+  .ask .qmark{display:block;font-family:'Space Grotesk',sans-serif;font-size:7.4pt;font-weight:400;
+    letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+  .ans{font-size:9.9pt;line-height:1.5;color:var(--ink-80);}
+  .ans .lead{color:var(--ink);}
+  .ans ul{list-style:none;margin-top:6px;}
+  .ans li{position:relative;padding-left:16px;margin-bottom:3px;}
+  .ans li::before{content:"–";position:absolute;left:0;color:var(--coral);}
+  .ans .piece{font-family:'Fraunces',serif;font-style:italic;color:var(--ink);}
+
+  /* ── Build cards ── */
+  .build{padding:14px 0;border-top:1px solid var(--rule-soft);break-inside:avoid;page-break-inside:avoid;}
+  .build:first-of-type{border-top:none;padding-top:0;}
+  .build-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;}
+  .build-name{font-family:'Fraunces',serif;font-weight:400;font-size:12.2pt;}
+  .build-name .kicker{font-family:'Fraunces',serif;font-style:italic;font-weight:300;
+    font-size:10pt;color:var(--coral);margin-left:7px;}
+  .build-time{font-size:7.8pt;font-weight:400;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);white-space:nowrap;}
+  .build p{font-size:9.9pt;line-height:1.5;color:var(--ink-80);margin-top:4px;}
+  .proves{font-size:7.8pt;font-weight:400;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--muted);margin-top:6px;}
+  .proves b{color:var(--coral);font-weight:400;}
+
+  /* ── Walkthrough ── */
+  .walk{list-style:none;counter-reset:w;}
+  .walk li{position:relative;padding-left:34px;margin-bottom:9px;font-size:9.9pt;
+    line-height:1.5;color:var(--ink-80);break-inside:avoid;}
+  .walk li::before{counter-increment:w;content:counter(w,decimal-leading-zero);
+    position:absolute;left:0;top:1px;font-family:'Fraunces',serif;font-style:italic;
+    font-size:9.6pt;color:var(--coral);}
+  .walk b{color:var(--ink);font-weight:400;}
+  .walk .clock{color:var(--muted);}
+
+  .footer{margin-top:32px;padding-top:13px;border-top:1px solid var(--rule-soft);
+    font-size:8pt;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-80);}
+  .footer-links{display:flex;justify-content:space-between;margin-bottom:9px;}
+  .footer .lab{color:var(--coral);margin-right:10px;}
+  .footer a{color:inherit;}
+  .footer .copy{color:var(--muted);}
+
+  .tk{background:rgba(229,106,77,.18);box-shadow:0 0 0 2px rgba(229,106,77,.18);border-radius:2px;}
+
+  @page{size:8.5in 26in;margin:0;}
+  @media print{.page{padding:0.62in 0.7in;max-width:none;}.tk{background:none;box-shadow:none;}}
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="eyebrow">Prepared for Teladoc Health · Designer, AI · Mikel Rosenthal</div>
+    <h1 class="name">Experimentation, <em>with a trail</em></h1>
+    <div class="role">mikelrosenthal.com · mikelrosenthal@me.com · 773 490 6923 · Remote, US</div>
+    <p class="standfirst">You are looking for someone fluent in AI who can improve your AI outcomes through experimentation. Plenty of designers can make a striking generative image. Far fewer can make a hundred of them stay on brand, and fewer still can do that inside a regulated healthcare category where every asset meets a reviewer before it meets a member. <b>I have spent most of twenty years in that category</b>, at GE Healthcare, Blue Cross Blue Shield, AbbVie, and Catamaran, and the last stretch running my creative process through GenAI. <span class="tag">That intersection is the whole pitch.</span></p>
+  </header>
+
+  <div class="sec-head"><span class="sec-num">I.</span><span class="sec-name">My read on the problem</span></div>
+  <div class="read">
+    <div class="card">
+      <h4>The volume is the constraint</h4>
+      <p>A two-brand consumer portfolio running continuous paid social, email, display, and landing work needs more finished variants than a lean in-house team can hand-build. That gap is exactly what generative production closes.</p>
+    </div>
+    <div class="card">
+      <h4>Efficiency is the actual brief</h4>
+      <p>The public story this year is a tighter media and cost posture. So the win is not novelty. The win is more usable, on-brand assets per hour and per dollar, without the brand loosening at the edges.</p>
+    </div>
+    <div class="card">
+      <h4>Review is where AI work dies</h4>
+      <p>In healthcare, generative output runs into implied clinical claims, synthetic people who read as patients or clinicians, and model licensing that may or may not carry indemnification. Most teams discover this late.</p>
+    </div>
+    <div class="card">
+      <h4>You already said the thing</h4>
+      <p>Teladoc's own AI position is about moving from experimentation to execution with governance and human oversight. Creative deserves the same treatment, and almost never gets it.</p>
+    </div>
+  </div>
+  <div class="thesis">
+    <p><span class="lede">So the offer is this.</span> Bring me in to experiment loudly and then do the unglamorous half: turn what works into a documented, repeatable house workflow your team can run without me, with the rights and review questions answered up front instead of discovered in legal. Experimentation that leaves something behind.</p>
+  </div>
+
+  <div class="sec-head"><span class="sec-num">II.</span><span class="sec-name">What you asked for, and where it lives</span></div>
+
+  <div class="row">
+    <div class="ask"><span class="qmark">You asked</span>Strong core graphic and digital design craft</div>
+    <div class="ans"><span class="lead">Twenty years of it, brand through interface.</span>
+      <ul>
+        <li><span class="piece">Spacelab</span>, full identity and packaging system: naming, illustration language, boxes, tins, foils, jars. <a href="https://www.mikelrosenthal.com/#cf-spacelab">See it</a></li>
+        <li><span class="piece">Logofolio</span>, twenty marks across seventeen years of identity work. <a href="https://www.mikelrosenthal.com/#cf-logofolio">See it</a></li>
+        <li>Campaign and retail craft for Nike, Disney, Crate &amp; Barrel, Whirlpool, Herman Miller, Aflac.</li>
+        <li>2020 Red Dot Award for Interface Design, plus Fast Company Innovation by Design and dmi:DVA, for GE Healthcare's Edison system.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="ask"><span class="qmark">You asked</span>Heavy hands-on use of GenAI in the creative process</div>
+    <div class="ans"><span class="lead">It is the front half of my process, not a garnish.</span>
+      <ul>
+        <li>Concepting wide with generative image sets, narrowing against the brief, then finishing by hand in Photoshop and Illustrator. The machine opens the territory, taste closes it.</li>
+        <li><span class="tk">Named projects and before/after asset pairs go here. Confirm which are shareable.</span></li>
+        <li><span class="piece">MikelRosenthal.com</span> and my daily intel dashboard were designed and built in one pass with Claude Code, concept to production front-end. <a href="https://www.mikelrosenthal.com">See it</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="ask"><span class="qmark">You asked</span>Comfortable with Midjourney, Firefly, ChatGPT, Runway</div>
+    <div class="ans"><span class="lead">Working set, chosen per job rather than by habit.</span>
+      <ul>
+        <li><span class="tk">Confirm the honest list and depth on each before sending.</span></li>
+        <li>How I choose: brand fidelity, controllability across a set, edit-ability of the output, cost per usable asset, and rights posture. For a healthcare brand that last one is not a footnote, and it is the reason Firefly and Midjourney are not interchangeable.</li>
+        <li>Adjacent fluency: Figma Make for clickable concepts in an afternoon, Claude Code for production front-end, agent workflows for variant runs and documentation.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="ask"><span class="qmark">You asked</span>Curious and experimental, helps the broader team get better results</div>
+    <div class="ans"><span class="lead">This is the part I am actually built for.</span>
+      <ul>
+        <li>Five design systems founded or led. Documentation, naming, versioning, and governance are reflexes, and they are precisely what an AI creative workflow is missing.</li>
+        <li><span class="piece">Avant marketing library</span>: campaign templates and paid social kits that let a lean team produce at agency volume without agency drift, used by 350+ marketers. Same problem, pre-AI. <a href="https://www.mikelrosenthal.com/#cf-marketing">See it</a></li>
+        <li>A 156-piece generative motion practice, every one built from a constraint. That is the same muscle as prompt discipline. <a href="https://pitchblacknight.com">See it</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="ask"><span class="qmark">You asked</span>Prompt development, iterating outputs, image generation and manipulation, concepting and production</div>
+    <div class="ans"><span class="lead">Prompts written and versioned like type specs.</span>
+      <ul>
+        <li>Reusable house-style blocks, negative prompts, seed and reference control so a set holds together across twenty assets instead of three.</li>
+        <li>Iteration logs, so a winning direction is reproducible on demand rather than rediscovered by luck. This doubles as the audit trail a reviewer wants.</li>
+        <li>Generation into manipulation into production: composite, retouch, typeset, place in the layout, ship every size.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="sec-head"><span class="sec-num">III.</span><span class="sec-name">Three things I would build for you</span></div>
+
+  <div class="build">
+    <div class="build-top"><div class="build-name">The Variant Engine<span class="kicker">one concept, thirty finished placements</span></div><div class="build-time">2 to 3 days</div></div>
+    <p>One campaign concept for a fictional virtual-care brand, carried into a full paid social matrix through a single prompt system: feed statics, story and reel crops, display sizes, an email header. Shown with the seams visible, so the brief, the prompt set and its revisions, the raw generations, the selection criteria, and the finished hand-off are all legible. The argument is not that the images are pretty. It is that the thirtieth one is as on-brand as the first.</p>
+    <div class="proves"><b>Proves</b> · image generation and manipulation · concepting through production · the volume math that makes this role pay for itself</div>
+  </div>
+
+  <div class="build">
+    <div class="build-top"><div class="build-name">The Bake-Off<span class="kicker">same brief, four tools, one scorecard</span></div><div class="build-time">2 days</div></div>
+    <p>A single healthcare-adjacent brief run through Midjourney, Firefly, an image model in ChatGPT, and Runway for motion. Scored on brand fidelity, controllability across a set, edit-ability, cost per usable asset, and commercial rights posture, with a healthcare column the generic comparisons never include: indemnification, synthetic-person and likeness risk, and whether the output can plausibly clear review. Ends in a one-page recommendation, tool by job.</p>
+    <div class="proves"><b>Proves</b> · comfort across your exact tool list · curious and experimental · testing workflows so the team gets better results</div>
+  </div>
+
+  <div class="build">
+    <div class="build-top"><div class="build-name">The House Recipe Book<span class="kicker">a design system, for prompts</span></div><div class="build-time">2 days</div></div>
+    <p>The artifact almost nobody brings to a design interview. House-style prompt blocks, negative prompts written against implied-claim and synthetic-clinician risk, reference and seed control for consistency, naming and versioning conventions, and a pre-review checklist covering rights, likeness, accessibility, and brand safety. Twenty years of design-system practice aimed at the AI workflow, so output arrives approvable instead of needing a rescue. Yours to keep either way.</p>
+    <div class="proves"><b>Proves</b> · lifts the whole team, not just my own output · the reason to hire a systems-trained designer into an AI role</div>
+  </div>
+
+  <div class="sec-head"><span class="sec-num">IV.</span><span class="sec-name">The twenty-minute walkthrough</span></div>
+  <ol class="walk">
+    <li><b>Craft, fast.</b> Slow-scroll the featured five on mikelrosenthal.com. Spacelab and the Logofolio carry the graphic craft in under two minutes. <span class="clock">3 min</span></li>
+    <li><b>The Variant Engine.</b> One concept into thirty placements. Talk through why each prompt revision happened, not just what came out. <span class="clock">6 min</span></li>
+    <li><b>The Bake-Off.</b> The scorecard, then the recommendation, then the healthcare column nobody else scored. <span class="clock">4 min</span></li>
+    <li><b>The House Recipe Book.</b> Hand it over as something the team could adopt on Monday. <span class="clock">4 min</span></li>
+    <li><b>The regulated-category argument.</b> Edison, FIBER, AbbVie, Catamaran. Why my AI output is reproducible and reviewable rather than lucky. <span class="clock">3 min</span></li>
+  </ol>
+
+  <div class="footer">
+    <div class="footer-links">
+      <span><span class="lab">Work</span><a href="https://www.mikelrosenthal.com">MikelRosenthal.com</a></span>
+      <span><span class="lab">Art</span><a href="https://pitchblacknight.com">PitchBlacKnight.com</a></span>
+    </div>
+    <div class="copy">© 2026 Mikel Rosenthal · PBK Studio · Chicago</div>
+  </div>
+</div>
+</body>
+</html>

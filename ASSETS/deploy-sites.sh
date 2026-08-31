@@ -22,7 +22,8 @@ echo ""
 echo "  ┌─────────────────────────────────────────────────────────────────┐"
 echo "  │  PBK SITES                                                      │"
 echo "  ├────────────┬────────────────────────────────────────────────────┤"
-echo "  │  pbk       │  pitchblacknight.com        (deploy/)              │"
+echo "  │  pbk       │  pitchblacknight.com        (PBK V3/)              │"
+echo "  │  home      │  home.pitchblacknight.com   (deploy/)              │"
 echo "  │  me        │  mikelrosenthal.com  (~/Sites/mikelrosenthal-site) │"
 echo "  │  me-alt    │  me-alt.pitchblacknight.com (sites/me-alt/)        │"
 echo "  │  guide     │  guide.mikelrosenthal.com   (interview-kit/)       │"
@@ -68,14 +69,25 @@ check_not_empty() {
 case "$1" in
 
   pbk)
+    # pitchblacknight.com is OWNED by the pitchblacknight-website project, which
+    # deploys ONLY from PBK V3/ (the restored mixes homepage). A production
+    # deploy takes the domain automatically — never `vercel alias set` it, and
+    # never deploy ASSETS/deploy to it. The old alias-set step here is how the
+    # two projects kept overwriting each other (fixed 2026-08-26; the project's
+    # GitHub auto-deploy hook was disconnected the same day).
+    PBK_SITE="$HOME/PitchBlacKnight/PBK V3"
+    check_project "$PBK_SITE" "pitchblacknight-website"
+    echo "→ Deploying pitchblacknight.com from $PBK_SITE ..."
+    cd "$PBK_SITE" && vercel --prod --yes --scope pitchblacknight
+    ;;
+
+  home)
+    # The Fluxus Artist page (ASSETS/deploy) lives at home.pitchblacknight.com
+    # via the `deploy` project. Its production URL updates on deploy — no alias
+    # step, and it must never be pointed at pitchblacknight.com.
     check_project "$ASSETS/deploy" "deploy"
-    echo "→ Deploying pitchblacknight.com..."
+    echo "→ Deploying home.pitchblacknight.com..."
     cd "$ASSETS/deploy" && vercel --prod --yes
-    DEPLOY_URL=$(cd "$ASSETS/deploy" && vercel ls --scope pitchblacknight 2>&1 | grep "● Ready" | head -1 | awk '{print $3}')
-    if [ -n "$DEPLOY_URL" ]; then
-      vercel alias set "$DEPLOY_URL" pitchblacknight.com --scope pitchblacknight --yes 2>/dev/null || true
-      echo "  ✓ pitchblacknight.com → $DEPLOY_URL"
-    fi
     ;;
 
   me)
@@ -161,7 +173,7 @@ case "$1" in
     ;;
 
   *)
-    echo "Usage: $0 [pbk|me|me-alt|guide|lindsey|david|bert|socomcm|fccw|fccw2|serenity|240ccr]"
+    echo "Usage: $0 [pbk|home|me|me-alt|guide|lindsey|david|bert|socomcm|fccw|fccw2|serenity|240ccr]"
     exit 1
     ;;
 esac

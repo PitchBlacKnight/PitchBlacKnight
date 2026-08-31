@@ -1,0 +1,307 @@
+<title>How I Work</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;1,500&family=Manrope:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+
+<style>
+:root{
+  --bg:#171b26; --bg-2:#1c2130; --card:#222837;
+  --ink:#f4efe6; --ink-2:#b9bfcc; --ink-3:#8b92a5;
+  --line:#30374b; --line-2:#414a61;
+  --gold:#f0a93a; --gold-soft:#f5c063; --gold-wash:rgba(240,169,58,.13);
+  --serif:'Playfair Display','Iowan Old Style',Georgia,serif;
+  --sans:'Manrope',-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --code:'IBM Plex Mono','SF Mono',Menlo,monospace;
+  --w:1080px;
+  --pad:clamp(22px,5vw,56px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:inherit}
+::selection{background:var(--gold-wash);color:var(--gold-soft)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:2px}
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01ms !important;animation-duration:.01ms !important}}
+
+.wrap{max-width:var(--w);margin:0 auto;padding:0 var(--pad)}
+section{padding:clamp(48px,7vw,96px) 0}
+section + section{border-top:1px solid var(--line)}
+
+.eyebrow{font-family:var(--code);font-size:11.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3);margin-bottom:18px}
+h1{font-family:var(--serif);font-weight:500;font-size:clamp(34px,5.4vw,62px);line-height:1.08;letter-spacing:-.01em;max-width:16ch;text-wrap:balance}
+h2{font-family:var(--serif);font-weight:500;font-size:clamp(25px,3.2vw,38px);line-height:1.15;max-width:26ch;text-wrap:balance;margin-bottom:14px}
+h3{font-family:var(--sans);font-weight:700;font-size:18px;margin-bottom:6px}
+p{max-width:60ch}
+.lede{font-size:clamp(17px,1.5vw,20px);line-height:1.6;color:var(--ink-2);max-width:52ch;margin-top:20px}
+.lede strong{color:var(--ink);font-weight:500}
+.quiet{color:var(--ink-3);font-size:15px}
+
+/* hero */
+.hero{padding-top:clamp(52px,8vw,104px)}
+.chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:28px}
+.chip{font-family:var(--code);font-size:11.5px;letter-spacing:.05em;padding:7px 13px;border:1px solid var(--line-2);border-radius:100px;color:var(--ink-2);text-decoration:none;white-space:nowrap}
+a.chip:hover{border-color:var(--gold);color:var(--gold-soft)}
+.chip.gold{border-color:rgba(240,169,58,.5);color:var(--gold-soft)}
+
+/* the five stages */
+.stage{display:grid;grid-template-columns:78px 1fr;gap:clamp(14px,3vw,32px);padding:clamp(24px,3.4vw,38px) 0;border-top:1px solid var(--line)}
+.stage:first-of-type{border-top:0;padding-top:6px}
+.stage .num{font-family:var(--serif);font-style:italic;font-size:clamp(34px,4.4vw,52px);line-height:1;color:var(--gold);opacity:.85}
+.stage h3{font-size:clamp(19px,2.1vw,25px);font-family:var(--serif);font-weight:500;font-style:normal;margin-bottom:9px}
+.stage p{font-size:16.5px;color:var(--ink-2)}
+.stage p + p{margin-top:9px}
+.ai{display:flex;gap:10px;align-items:baseline;margin-top:14px;padding-top:12px;border-top:1px dashed var(--line-2);max-width:60ch}
+.ai .tag{font-family:var(--code);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);white-space:nowrap;flex:none}
+.ai span.t{font-size:14.5px;color:var(--ink-3);line-height:1.5}
+
+/* split */
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:8px}
+.col{background:var(--card);border:1px solid var(--line);border-radius:7px;padding:18px 20px;border-top:2px solid var(--line-2)}
+.col.mine{border-top-color:#e8b4a0}
+.col.both{border-top-color:#9fc6c9}
+.col.its{border-top-color:var(--ink-3)}
+.col h3{font-size:15px}
+.col p{font-size:14.5px;color:var(--ink-2);max-width:none}
+
+/* the red / amber moment */
+.compare{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;max-width:760px}
+.cmp-lbl{font-family:var(--code);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px}
+.cmp-lbl.bad{color:#e5697d}
+.cmp-lbl.good{color:var(--gold-soft)}
+.trow{display:flex;align-items:center;gap:13px;background:var(--card);border:1px solid var(--line);border-radius:9px;padding:14px 15px}
+.trow .dot{width:23px;height:23px;border-radius:50%;flex:none;border:1.5px solid var(--line-2)}
+.trow.red .dot{border-color:#e5484d}
+.trow .b{flex:1;min-width:0}
+.trow b{display:block;font-size:14.5px;color:var(--ink)}
+.trow .sub{display:block;font-size:12.5px;color:var(--ink-3);margin-top:1px}
+.trow.red .sub{color:#e5697d}
+.pill{font-family:var(--code);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px;border-radius:100px;background:rgba(229,72,77,.18);color:#f08a92;border:1px solid rgba(229,72,77,.45);white-space:nowrap}
+.pill.ok{background:var(--gold-wash);color:var(--gold-soft);border-color:rgba(240,169,58,.35);text-transform:none;letter-spacing:.02em;font-family:var(--sans);font-size:12px}
+
+/* dig deeper */
+.deeper{display:inline-flex;align-items:center;gap:8px;margin-top:15px;font-family:var(--code);font-size:11.5px;letter-spacing:.04em;color:var(--ink-3);text-decoration:none;border-bottom:1px solid var(--line-2);padding-bottom:2px}
+.deeper::after{content:"\2192";font-size:13px;opacity:.7}
+.deeper:hover{color:var(--gold-soft);border-bottom-color:var(--gold)}
+.deepers{display:flex;flex-wrap:wrap;gap:10px 22px;margin-top:22px}
+
+/* figures */
+figure{margin:clamp(24px,3.5vw,38px) 0 0}
+.frame{background:var(--bg-2);border:1px solid var(--line);border-radius:7px;padding:9px;overflow:hidden}
+.frame img{border-radius:3px}
+figcaption{font-size:14.5px;line-height:1.55;color:var(--ink-3);padding-top:11px;max-width:74ch}
+figcaption b{color:var(--ink-2);font-weight:700}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.pair figure{margin:0}
+
+/* lists */
+.gets{list-style:none;display:grid;gap:11px;margin-top:6px;max-width:62ch}
+.gets li{display:grid;grid-template-columns:20px 1fr;gap:12px;font-size:16px;color:var(--ink-2)}
+.gets .tick{color:var(--gold);font-family:var(--code);font-size:14px;line-height:1.6}
+.gets b{color:var(--ink);font-weight:700}
+
+/* who */
+.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,34px);align-items:center}
+.facts{display:grid;gap:13px;max-width:52ch}
+.facts p{font-size:16px;color:var(--ink-2);max-width:none}
+.facts strong{color:var(--ink);font-weight:700}
+
+/* foot */
+footer{padding:clamp(40px,5vw,64px) 0 clamp(56px,7vw,88px);border-top:1px solid var(--line)}
+.links{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.link{display:inline-flex;align-items:center;gap:7px;font-family:var(--code);font-size:12px;color:var(--gold-soft);text-decoration:none;border:1px solid rgba(240,169,58,.4);border-radius:100px;padding:7px 14px}
+.link::before{content:"\2197";opacity:.8}
+.link:hover{background:var(--gold-wash)}
+
+@media (max-width:760px){
+  .three,.compare,.pair,.who-grid{grid-template-columns:1fr}
+  .stage{grid-template-columns:52px 1fr}
+}
+@media (max-width:460px){
+  body{font-size:16px}
+  .stage{grid-template-columns:1fr;gap:6px}
+  .stage .num{font-size:30px}
+  .trow{flex-wrap:wrap}
+  .trow .b{flex:1 1 60%}
+  .ai{flex-direction:column;gap:5px}
+  .chips .chip{white-space:normal}
+}
+</style>
+
+<div class="wrap">
+
+<section class="hero">
+  <p class="eyebrow">Mikel Rosenthal &#183; product design</p>
+  <h1>You hand me an assignment. Here's what happens next.</h1>
+  <p class="lede">Five stages. A prototype you can click by week three, not week nine. <strong>I use AI heavily and I'll show you exactly where</strong>, including the places it was confidently wrong and I had to overrule it.</p>
+  <div class="chips">
+    <span class="chip gold">Four minutes to read</span>
+    <a class="chip" href="https://petwatch-exercise.vercel.app" target="_blank" rel="noopener">See a prototype I built</a>
+    <a class="chip" href="/method">The detailed version</a>
+  </div>
+</section>
+
+<section>
+  <h2>The five stages.</h2>
+  <p class="quiet" style="margin-bottom:26px">Same shape whether it's a six-week project or a four-hour exercise.</p>
+
+  <div class="stage">
+    <div class="num">1</div>
+    <div>
+      <h3>Read it twice before I draw anything.</h3>
+      <p>Once for what it says. Once for what it takes for granted. I'm hunting for the thing nobody wrote down, because that's usually the expensive one.</p>
+      <p>On a recent assignment the brief described an app where you could schedule care for a pet and watch someone else do it. There was nowhere to mark anything as done. Nothing in the document said that was missing. You only find it by reading closely.</p>
+      <div class="ai"><span class="tag">AI here</span><span class="t">Reads every document, ticket and old research file in minutes. I still read the brief myself first, cold, because a summary smooths over the gaps.</span></div>
+      <a class="deeper" href="/method#finding-the-gap">The seven questions I run at any brief</a>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="num">2</div>
+    <div>
+      <h3>Set the rules before I design.</h3>
+      <p>I write down what governs the project: the words we'll use for things, what we're deliberately not building, the accessibility floor. Then I choose which of my AI tools to switch on, and how far to turn them up.</p>
+      <p>A calm care app and a dense data dashboard need very different settings. Picking those settings is a design decision, so I make it out loud.</p>
+      <div class="ai"><span class="tag">AI here</span><span class="t">Everything generated after this obeys those rules, so the work doesn't drift halfway through.</span></div>
+      <a class="deeper" href="/method#the-setup">What setting up actually looks like</a>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="num">3</div>
+    <div>
+      <h3>Get everyone to agree on the problem.</h3>
+      <p>Ninety minutes, one room, before anything is designed. Everyone writes the problem in one sentence on their own, and then we read them out. They never match, and it's much cheaper to find that out now.</p>
+      <p>We leave with one number we're trying to move and a written line for what's not in version one.</p>
+      <div class="ai"><span class="tag">AI here</span><span class="t">It preps the reading and writes up the decisions afterwards. It does not attend. The meeting is people.</span></div>
+      <a class="deeper" href="/method#agreeing-on-the-problem">The ninety-minute agenda</a>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="num">4</div>
+    <div>
+      <h3>Build the real thing early.</h3>
+      <p>Something you can click by week three. Not a slideshow about it. A prototype ends arguments that a description keeps going.</p>
+      <p>Every state gets built, including empty, error and offline, because those are cheap to build now and they're where products quietly get worse. And I write the reasoning onto the screens as I go, so it travels with the work instead of living in my head.</p>
+      <div class="ai"><span class="tag">AI here</span><span class="t">Builds the front end at full speed from my decisions. I make the calls about how it behaves.</span></div>
+      <a class="deeper" href="/method#building-it">How the prototype gets built</a>
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="num">5</div>
+    <div>
+      <h3>Hand it over so it survives without me.</h3>
+      <p>A written record of what we chose, what we turned down, and what would make us reopen it. The colour, type and spacing rules in a format your engineers' build can read directly. Documentation generated from the same source as the components, so the two can't drift apart.</p>
+      <p>The test I hold myself to is whether your team still needs me in the room. They shouldn't.</p>
+      <div class="ai"><span class="tag">AI here</span><span class="t">Keeps five documents saying the same thing forever, which is the thing people are worst at.</span></div>
+      <a class="deeper" href="/method#handing-over">Everything in the handoff</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>Where the AI stops and I start.</h2>
+  <p class="quiet" style="margin-bottom:24px">This is the question I get asked most, so here it is plainly.</p>
+  <div class="three">
+    <div class="col mine">
+      <h3>Mine</h3>
+      <p>Spotting what's missing. Every decision about what we cut. Which question is worth researching. And taste, which is mostly knowing when a correct-looking answer is wrong for this particular product.</p>
+    </div>
+    <div class="col both">
+      <h3>Shared</h3>
+      <p>It gives me options, I pick one, and I'm the one who has to defend the pick. Most of the work actually lives here.</p>
+    </div>
+    <div class="col its">
+      <h3>Its</h3>
+      <p>Reading everything. First drafts. Building the front end. Listing the weird cases I'd miss at four in the afternoon. Keeping everything consistent.</p>
+    </div>
+  </div>
+
+  <figure>
+    <div class="cmp-lbl" style="color:var(--ink-3);letter-spacing:.14em">One example of the difference</div>
+    <div class="compare">
+      <div>
+        <div class="cmp-lbl bad">What it gave me</div>
+        <div class="trow red"><span class="dot"></span><span class="b"><b>Evening medication</b><span class="sub">Overdue by 20 minutes</span></span><span class="pill">Overdue</span></div>
+      </div>
+      <div>
+        <div class="cmp-lbl good">What shipped</div>
+        <div class="trow"><span class="dot"></span><span class="b"><b>Evening medication</b><span class="sub">Was due at 7:15</span></span><span class="pill ok">Still needs doing</span></div>
+      </div>
+    </div>
+    <figcaption><b>Red is the textbook answer, and it arrived in about four seconds.</b> It's wrong here, because the person being flagged is a neighbour doing you a favour, and red shouts at them. Amber, and it moves up the list instead of shouting. Knowing which confident answer to overrule is the job now.</figcaption>
+  </figure>
+  <div class="deepers">
+    <a class="deeper" href="/method#who-does-what">The full split, line by line</a>
+    <a class="deeper" href="/method#where-ai-was-wrong">Three times it was confidently wrong</a>
+  </div>
+</section>
+
+<section>
+  <h2>What you get at the end.</h2>
+  <ul class="gets">
+    <li><span class="tick">01</span><span><b>A working prototype</b>, with the reasoning written onto the screens.</span></li>
+    <li><span class="tick">02</span><span><b>A decision record</b> that says what we chose, what we rejected, and what would reopen it.</span></li>
+    <li><span class="tick">03</span><span><b>Design rules your engineers build against</b>, in a format their code reads directly rather than a picture of a palette.</span></li>
+    <li><span class="tick">04</span><span><b>Documentation that can't go stale</b>, because it's generated from the same source as the components.</span></li>
+    <li><span class="tick">05</span><span><b>One shared vocabulary</b>, so the design, the tickets and the code all call the same thing by the same name.</span></li>
+  </ul>
+
+  <figure>
+    <div class="frame"><img src="assets/hiw-prototype.jpg" alt="A working prototype: a movable clock on the left, the running app in the middle, and numbered design notes down the right side"></div>
+    <figcaption><b>A prototype from a recent assignment.</b> Left is a clock you can move, so nobody has to take my word for how it behaves when a task is late. Middle is the running app. Right is ten design notes tied to the screen. That right-hand column is the real handoff.</figcaption>
+  </figure>
+
+  <div class="pair" style="margin-top:26px">
+    <figure>
+      <div class="frame"><img loading="lazy" src="assets/hiw-designrules.jpg" alt="A colour and spacing system in three tiers, resolving into a dark product theme and a light marketing theme"></div>
+      <figcaption><b>Design rules, built to be consumed by code.</b> Change one layer and the whole product re-themes.</figcaption>
+    </figure>
+    <figure>
+      <div class="frame"><img loading="lazy" src="assets/hiw-audit.jpg" alt="An interface audit counting five different primary blues, three button shapes and three type stacks in one live product"></div>
+      <figcaption><b>An audit from 2021, long before any of this tooling.</b> Five different blues in one live product. Counting it is what got the rebuild funded.</figcaption>
+    </figure>
+  </div>
+  <div class="deepers">
+    <a class="deeper" href="/method#scope-and-time">What this looks like week by week</a>
+    <a class="deeper" href="/method#pressure-test">How it gets stress-tested before build</a>
+  </div>
+</section>
+
+<section>
+  <h2>Who's doing this.</h2>
+  <div class="who-grid">
+    <div class="facts">
+      <p><strong>Twenty-odd years,</strong> a lot of it in regulated work at GE Healthcare, Blue Cross Blue Shield and AbbVie, where everything you make goes past a reviewer before a customer ever sees it.</p>
+      <p><strong>Brand and product</strong> for Nike, Disney, Crate &amp; Barrel, Whirlpool, Herman Miller and Aflac. Identity through interface, not one or the other.</p>
+      <p><strong>Red Dot Award for Interface Design, 2020</strong>, for GE Healthcare's Edison system. Fast Company Innovation by Design.</p>
+      <p class="quiet">None of this process is new. What's new is that the expensive parts of it got cheap, so a small team can now afford the version that used to need a big one.</p>
+      <a class="deeper" href="/method#background">More on where this came from</a>
+    </div>
+    <div class="pair" style="grid-template-columns:1fr 1fr">
+      <div class="frame"><img loading="lazy" src="assets/hiw-identity.jpg" alt="Spacelab brand identity and packaging system"></div>
+      <div class="frame"><img loading="lazy" src="assets/hiw-product.jpg" alt="Pathfinder product interface for Avant Communications"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <h2 style="font-size:clamp(22px,2.6vw,30px)">Happy to walk through any of it in more detail.</h2>
+  <p class="quiet" style="margin-top:10px">Or hand me a brief on a call and I'll do the first two stages live, on an assignment I've never seen.</p>
+  <div class="deepers" style="margin-top:20px">
+    <a class="deeper" href="/method#client-data">What I put into AI tools, and what I never do</a>
+    <a class="deeper" href="/method#constraints">How this runs under legal or clinical review</a>
+    <a class="deeper" href="/method#three-stories">Three things that actually happened</a>
+  </div>
+  <div class="links">
+    <a class="link" href="https://petwatch-exercise.vercel.app" target="_blank" rel="noopener">a working prototype</a>
+    <a class="link" href="/method">the detailed version of this</a>
+    <a class="link" href="https://pbk-guide.vercel.app" target="_blank" rel="noopener">a design system I built</a>
+    <a class="link" href="https://mikelrosenthal.com" target="_blank" rel="noopener">mikelrosenthal.com</a>
+  </div>
+</footer>
+
+</div>

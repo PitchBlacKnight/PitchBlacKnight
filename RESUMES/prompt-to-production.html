@@ -1,0 +1,1144 @@
+<title>Prompt to Production</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=IBM+Plex+Mono:wght@300;400;500&family=Space+Grotesk:wght@300;400;500;700&display=swap">
+
+<style>
+/* ═══════════════ TOKENS ═══════════════ */
+:root{
+  --paper:#efe9dc; --paper-2:#e7e0d1; --paper-3:#ded6c4;
+  --ink:#1f1c18; --ink-72:rgba(31,28,24,.74); --ink-46:rgba(31,28,24,.5); --ink-26:rgba(31,28,24,.26);
+  --rule:rgba(31,28,24,.16); --rule-2:rgba(31,28,24,.09);
+  --coral:#e56a4d; --coral-ink:#bf4726; --coral-wash:rgba(229,106,77,.10);
+  --plate:#23201c; --plate-ink:#e3dccd; --plate-dim:rgba(227,220,205,.42); --plate-rule:rgba(227,220,205,.16);
+  --ok:#41704e; --warn:#8f6a12; --stop:#bf4726;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#191613; --paper-2:#201d19; --paper-3:#282420;
+    --ink:#ece5d7; --ink-72:rgba(236,229,215,.74); --ink-46:rgba(236,229,215,.5); --ink-26:rgba(236,229,215,.26);
+    --rule:rgba(236,229,215,.17); --rule-2:rgba(236,229,215,.09);
+    --coral:#f07a55; --coral-ink:#f6906f; --coral-wash:rgba(240,122,85,.13);
+    --plate:#100e0c; --plate-rule:rgba(227,220,205,.14);
+    --ok:#7fb08c; --warn:#cfa544; --stop:#f6906f;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#191613; --paper-2:#201d19; --paper-3:#282420;
+  --ink:#ece5d7; --ink-72:rgba(236,229,215,.74); --ink-46:rgba(236,229,215,.5); --ink-26:rgba(236,229,215,.26);
+  --rule:rgba(236,229,215,.17); --rule-2:rgba(236,229,215,.09);
+  --coral:#f07a55; --coral-ink:#f6906f; --coral-wash:rgba(240,122,85,.13);
+  --plate:#100e0c; --plate-rule:rgba(227,220,205,.14);
+  --ok:#7fb08c; --warn:#cfa544; --stop:#f6906f;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--paper);color:var(--ink);
+  font-family:'Space Grotesk',ui-sans-serif,system-ui,sans-serif;font-weight:300;
+  font-size:16px;line-height:1.65;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:var(--coral-ink);text-decoration:none;border-bottom:1px solid var(--coral-wash);transition:border-color .15s}
+a:hover{border-bottom-color:var(--coral)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:1px}
+::selection{background:var(--coral);color:#fff}
+
+/* ═══════════════ SHELL ═══════════════ */
+.rail{position:fixed;top:0;left:0;width:14.5rem;height:100vh;overflow-y:auto;
+  padding:2.2rem 1.1rem 2.2rem 1.7rem;border-right:1px solid var(--rule-2);background:var(--paper);z-index:40}
+.stage{margin-left:14.5rem;padding:0 2.6rem}
+.flow{max-width:57rem;margin:0 auto}
+@media (max-width:1080px){
+  .rail{position:static;width:auto;height:auto;border-right:none;border-bottom:1px solid var(--rule);padding:1.4rem}
+  .stage{margin-left:0;padding:0 1.4rem}
+}
+.rail-mark{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:1.12rem;line-height:1.14;
+  font-variation-settings:'SOFT' 24,'WONK' 1,'opsz' 40;margin-bottom:.15rem}
+.rail-mark em{font-style:italic;color:var(--coral-ink)}
+.rail-sub{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.6rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-46);line-height:1.6;margin-bottom:1.5rem}
+.rail nav{display:flex;flex-direction:column;gap:1px}
+.rail-grp{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.58rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--ink-26);margin:1.15rem 0 .35rem}
+.rail nav a{display:grid;grid-template-columns:1.9rem 1fr;align-items:baseline;padding:.2rem 0;
+  font-size:.795rem;line-height:1.32;color:var(--ink-72);border:none}
+.rail nav a span.n{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.6rem;color:var(--ink-26)}
+.rail nav a:hover{color:var(--coral-ink)}
+.rail nav a.on{color:var(--ink);font-weight:400}
+.rail nav a.on span.n{color:var(--coral)}
+.rail-foot{margin-top:1.8rem;padding-top:.9rem;border-top:1px solid var(--rule-2);
+  font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-26);line-height:1.8}
+@media (max-width:1080px){
+  .rail nav{display:grid;grid-template-columns:repeat(auto-fill,minmax(11rem,1fr));gap:0 1.2rem}
+  .rail-grp{grid-column:1/-1}
+  .rail-foot{display:none}
+}
+
+/* ═══════════════ TYPE ═══════════════ */
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:400;text-wrap:balance}
+h1{font-size:clamp(2.7rem,6.6vw,4.6rem);line-height:1.01;letter-spacing:-.021em;font-weight:300;
+  font-variation-settings:'SOFT' 20,'WONK' 1,'opsz' 144}
+h1 em{font-style:italic;color:var(--coral-ink);font-weight:400}
+h2{font-size:clamp(1.6rem,3vw,2.15rem);line-height:1.11;letter-spacing:-.014em;
+  font-variation-settings:'SOFT' 22,'WONK' 1,'opsz' 90}
+h3{font-size:1.14rem;line-height:1.25;margin-bottom:.28rem;font-variation-settings:'SOFT' 30,'opsz' 40}
+h3 .tail{font-style:italic;font-weight:300;font-size:.92rem;color:var(--coral-ink);margin-left:.5rem;
+  font-variation-settings:'SOFT' 60,'opsz' 20}
+h4{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.63rem;font-weight:400;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink-46);margin:1.7rem 0 .55rem}
+p{margin-bottom:.8rem;color:var(--ink-72);max-width:39rem}
+p b,li b,td b{color:var(--ink);font-weight:400}
+.lede{font-size:1.07rem;line-height:1.57;color:var(--ink-72);max-width:38rem;margin-bottom:1.2rem}
+.lede b{color:var(--ink);font-weight:400}
+.eyebrow{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.63rem;letter-spacing:.22em;
+  text-transform:uppercase;color:var(--ink-46);display:flex;align-items:center;gap:.75rem}
+.eyebrow::before{content:"";width:1.6rem;height:1px;background:var(--coral);flex:none}
+
+/* ═══════════════ SECTIONS ═══════════════ */
+section{padding:3.8rem 0;border-top:1px solid var(--rule-2);scroll-margin-top:1rem}
+section:first-of-type{border-top:none}
+.sec-head{display:grid;grid-template-columns:3.6rem 1fr;gap:0 .6rem;align-items:start;margin-bottom:1.2rem}
+.sec-n{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.72rem;color:var(--coral);padding-top:.5rem}
+
+.pair{display:grid;grid-template-columns:minmax(0,1fr) 12.5rem;gap:0 2.4rem;align-items:start}
+.note{font-size:.79rem;line-height:1.5;color:var(--ink-46);border-top:1px solid var(--coral);padding-top:.5rem}
+.note b{display:block;font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:.28rem;color:var(--coral-ink);font-weight:400}
+@media (max-width:1080px){
+  .pair{grid-template-columns:1fr;gap:.9rem}
+  .note{border-top:none;border-left:2px solid var(--coral);padding:.1rem 0 .1rem .9rem;max-width:39rem}
+}
+
+ul.dash{list-style:none;margin-bottom:.9rem;max-width:39rem}
+ul.dash li{position:relative;padding-left:1.15rem;margin-bottom:.4rem;color:var(--ink-72);line-height:1.55}
+ul.dash li::before{content:"";position:absolute;left:0;top:.72em;width:.55rem;height:1px;background:var(--coral)}
+ol.steps{list-style:none;counter-reset:st;margin-bottom:.9rem;max-width:39rem}
+ol.steps li{position:relative;padding-left:2.1rem;margin-bottom:.55rem;color:var(--ink-72);line-height:1.55}
+ol.steps li::before{counter-increment:st;content:counter(st,decimal-leading-zero);position:absolute;left:0;top:.15em;
+  font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--coral)}
+ul.check{list-style:none;max-width:39rem}
+ul.check li{position:relative;padding-left:1.5rem;margin-bottom:.4rem;color:var(--ink-72)}
+ul.check li::before{content:"";position:absolute;left:0;top:.52em;width:.62rem;height:.62rem;
+  border:1px solid var(--coral);border-radius:1px}
+
+/* ═══════════════ BRIEF PANEL ═══════════════ */
+.brief{background:var(--paper-2);border:1px solid var(--rule-2);border-radius:2px;
+  padding:1.3rem 1.5rem;margin:1.4rem 0 .6rem;max-width:41rem}
+.brief h4{margin:0 0 .7rem}
+.brief ol{list-style:none;counter-reset:bf}
+.brief li{position:relative;padding-left:1.7rem;margin-bottom:.5rem;color:var(--ink-72);
+  font-size:.94rem;line-height:1.5}
+.brief li:last-child{margin-bottom:0}
+.brief li::before{counter-increment:bf;content:counter(bf);position:absolute;left:0;top:.1em;
+  font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--coral)}
+.brief li b{color:var(--ink);font-weight:400}
+
+/* ═══════════════ DETAILS ═══════════════ */
+details{border-top:1px solid var(--rule);margin:.9rem 0 1.3rem;max-width:44rem}
+summary{cursor:pointer;list-style:none;padding:.62rem 0;font-family:'IBM Plex Mono',monospace;
+  font-size:.63rem;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-ink);
+  display:flex;justify-content:space-between;align-items:center;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-family:'IBM Plex Mono',monospace;font-size:.95rem;color:var(--ink-26);flex:none}
+details[open] summary::after{content:"\2013"}
+details[open] summary{border-bottom:1px solid var(--rule-2);margin-bottom:.7rem}
+
+/* ═══════════════ PLATE ═══════════════ */
+.plate{background:var(--plate);color:var(--plate-ink);font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:.73rem;font-weight:300;line-height:1.72;padding:1.15rem 1.3rem;margin:.8rem 0 1.1rem;
+  white-space:pre-wrap;word-break:break-word;overflow-x:auto;position:relative;border-radius:2px}
+.plate .k{color:var(--coral)}
+.plate .c{color:var(--plate-dim)}
+.plate .h{color:#f2c14e}
+.copy{position:absolute;top:.55rem;right:.6rem;background:transparent;color:var(--plate-dim);
+  border:1px solid var(--plate-rule);border-radius:2px;cursor:pointer;font-family:'IBM Plex Mono',monospace;
+  font-size:.56rem;letter-spacing:.14em;text-transform:uppercase;padding:.24rem .5rem;transition:.15s}
+.copy:hover{background:var(--coral);color:#fff;border-color:var(--coral)}
+code{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.855em;background:var(--paper-3);
+  padding:.06em .34em;border-radius:2px;color:var(--ink)}
+
+/* ═══════════════ TABLES ═══════════════ */
+.tw{overflow-x:auto;margin:.8rem 0 1.2rem;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:.855rem;min-width:31rem}
+th{text-align:left;font-weight:400;font-family:'IBM Plex Mono',monospace;font-size:.6rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink-46);padding:0 1rem .5rem 0;
+  border-bottom:1px solid var(--rule);vertical-align:bottom}
+td{padding:.58rem 1rem .58rem 0;border-bottom:1px solid var(--rule-2);color:var(--ink-72);
+  vertical-align:top;line-height:1.45}
+td:first-child{color:var(--ink)}
+tr:last-child td{border-bottom:none}
+.ok{color:var(--ok)}.warn{color:var(--warn)}.stop{color:var(--stop)}
+
+/* ═══════════════ CALLOUT ═══════════════ */
+.call{background:var(--coral-wash);border-left:2px solid var(--coral);padding:.95rem 1.2rem;
+  margin:1.1rem 0;max-width:39rem}
+.call .lab{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.19em;
+  text-transform:uppercase;color:var(--coral-ink);margin-bottom:.3rem}
+.call p{color:var(--ink);margin-bottom:0;max-width:none}
+.call p+p{margin-top:.55rem}
+
+/* ═══════════════ CARDS ═══════════════ */
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:0;
+  border-top:1px solid var(--rule);margin:1.1rem 0 1.3rem}
+.cards>div{padding:.95rem 1.4rem 1rem 0;border-bottom:1px solid var(--rule-2)}
+.cards h3{font-size:1rem;margin-bottom:.22rem}
+.cards p{font-size:.85rem;margin-bottom:0;line-height:1.5}
+
+/* ═══════════════ HERO ═══════════════ */
+.hero{padding:clamp(2.6rem,7vh,5rem) 0 3.2rem}
+.hero-top{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2rem;align-items:end;margin-bottom:2.1rem}
+@media (max-width:820px){.hero-top{grid-template-columns:1fr}}
+.hero h1{margin:1.1rem 0 1rem}
+.hero .thesis{font-size:1.12rem;line-height:1.55;color:var(--ink-72);max-width:33rem}
+.hero .thesis b{color:var(--ink);font-weight:400}
+.stamp{border:1px solid var(--coral);color:var(--coral-ink);border-radius:2px;padding:.7rem .95rem;
+  font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
+  line-height:1.85;transform:rotate(-1.4deg);flex:none}
+.stamp b{display:block;font-size:.72rem;letter-spacing:.17em;color:var(--coral);font-weight:500}
+.sheet{background:var(--paper-2);border:1px solid var(--rule-2);border-radius:2px;padding:1.1rem 1.1rem .8rem;margin-top:.6rem}
+.sheet-hd{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;
+  font-size:.58rem;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-46);margin-bottom:.75rem}
+.frames{display:grid;grid-template-columns:repeat(8,1fr);gap:.5rem}
+@media (max-width:820px){.frames{grid-template-columns:repeat(4,1fr)}}
+.fr{position:relative}
+.fr .img{aspect-ratio:4/5;border-radius:1px;position:relative;overflow:hidden;opacity:0;animation:pop .5s ease-out forwards}
+.fr .lb{font-family:'IBM Plex Mono',monospace;font-size:.48rem;color:var(--ink-26);margin-top:.22rem;display:block;text-align:center}
+@keyframes pop{from{opacity:0;transform:translateY(5px) scale(.97)}to{opacity:1;transform:none}}
+.fr.pick .img{outline:2px solid var(--coral);outline-offset:2px;animation:pop .5s ease-out forwards, mark .7s ease-out 2.6s both}
+@keyframes mark{from{outline-color:transparent}to{outline-color:var(--coral)}}
+.fr.pick .lb{color:var(--coral-ink)}
+.fr.pick::after{content:"SELECT";position:absolute;top:-.1rem;left:50%;transform:translateX(-50%);
+  font-family:'IBM Plex Mono',monospace;font-size:.44rem;letter-spacing:.14em;background:var(--coral);
+  color:#fff;padding:.08rem .3rem;border-radius:1px;opacity:0;animation:fadein .5s ease-out 3.1s both;z-index:2}
+@keyframes fadein{to{opacity:1}}
+.fr.dim .img{filter:saturate(.25);opacity:.55;animation:pop .5s ease-out forwards, fade .8s ease-out 2.6s both}
+@keyframes fade{to{opacity:.34}}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .fr .img,.fr.pick .img,.fr.pick::after,.fr.dim .img{animation:none!important;opacity:1}
+  .fr.dim .img{opacity:.4}
+  .fr.pick::after{opacity:1}
+  *{transition:none!important}
+}
+
+/* ═══════════════ FIGURES ═══════════════ */
+figure{margin:1.3rem 0 1.5rem;max-width:44rem}
+figure .fw{overflow-x:auto;background:var(--paper-2);border:1px solid var(--rule-2);border-radius:2px;padding:1.3rem 1.1rem}
+figure svg{display:block;max-width:100%;height:auto;margin:0 auto;color:var(--ink-72)}
+figcaption{font-size:.775rem;line-height:1.5;color:var(--ink-46);margin-top:.6rem;padding-left:.9rem;border-left:1px solid var(--rule)}
+
+/* ═══════════════ RESUME ═══════════════ */
+.rz{max-width:41rem}
+.rz-job{padding:.9rem 0;border-top:1px solid var(--rule-2)}
+.rz-job:first-of-type{border-top:1px solid var(--rule)}
+.rz-top{display:flex;justify-content:space-between;align-items:baseline;gap:1.2rem;flex-wrap:wrap}
+.rz-co{font-family:'Fraunces',Georgia,serif;font-size:1.04rem;font-weight:400;font-variation-settings:'SOFT' 28,'opsz' 40}
+.rz-co .rl{font-style:italic;font-weight:300;font-size:.89rem;color:var(--coral-ink);margin-left:.45rem}
+.rz-dt{font-family:'IBM Plex Mono',monospace;font-size:.6rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-46);white-space:nowrap;font-variant-numeric:tabular-nums}
+.rz-meta{font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--ink-26);margin:.14rem 0 .32rem}
+.rz-job p{font-size:.87rem;margin-bottom:.28rem;line-height:1.5}
+.rz-job ul.dash li{font-size:.85rem;margin-bottom:.22rem}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.7rem 2.5rem;max-width:39rem}
+.aw{font-size:.87rem;color:var(--ink-72);margin-bottom:.5rem}
+.aw b{font-family:'Fraunces',serif;font-weight:400;color:var(--ink);font-size:.94rem}
+.aw span{display:block;font-family:'IBM Plex Mono',monospace;font-size:.57rem;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink-26);margin-top:.05rem}
+.skills{font-size:.89rem;line-height:1.95;color:var(--ink-72);max-width:40rem}
+.skills b{color:var(--ink);font-weight:400}
+
+/* ═══════════════ CONTACT ═══════════════ */
+.cta{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));gap:1.3rem 2.5rem;max-width:44rem;margin-top:1.3rem}
+.cta div span{display:block;font-family:'IBM Plex Mono',monospace;font-size:.58rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--ink-26);margin-bottom:.2rem}
+.cta div a,.cta div p{font-size:1rem;color:var(--ink);margin:0}
+footer{padding:2.3rem 0 4rem;border-top:1px solid var(--rule);font-family:'IBM Plex Mono',monospace;
+  font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-26);
+  display:flex;justify-content:space-between;gap:1.4rem;flex-wrap:wrap}
+
+@media print{
+  .rail,.copy{display:none}
+  .stage{margin-left:0;padding:0}
+  body{background:#fff;color:#000;font-size:10pt}
+  details{border:none}
+  details summary{display:none}
+  details>*{display:revert!important}
+  section{padding:1.4rem 0}
+  .plate{background:#f2efe8;color:#000;border:1px solid #ccc}
+  .plate .c{color:#777}
+  .rz-job,.call,figure,table{page-break-inside:avoid}
+  @page{margin:.7in}
+}
+</style>
+
+<aside class="rail">
+  <div class="rail-mark">Prompt to <em>Production</em></div>
+  <div class="rail-sub">M. Rosenthal<br>For Teladoc Health<br>Aug 2026</div>
+  <nav id="nav">
+    <div class="rail-grp">The case</div>
+    <a href="#read"><span class="n">01</span><span>The read</span></a>
+    <a href="#evidence"><span class="n">02</span><span>Where the ask lives</span></a>
+    <a href="#loop"><span class="n">03</span><span>The production loop</span></a>
+    <div class="rail-grp">The standard</div>
+    <a href="#principles"><span class="n">04</span><span>Principles</span></a>
+    <a href="#arch"><span class="n">05</span><span>Prompt architecture</span></a>
+    <a href="#house"><span class="n">06</span><span>The house block</span></a>
+    <a href="#yours"><span class="n">06b</span><span>If this were yours</span></a>
+    <a href="#neg"><span class="n">07</span><span>The negative library</span></a>
+    <a href="#consist"><span class="n">08</span><span>Consistency</span></a>
+    <a href="#naming"><span class="n">09</span><span>Naming</span></a>
+    <a href="#tools"><span class="n">10</span><span>Tool selection</span></a>
+    <div class="rail-grp">The risk</div>
+    <a href="#rights"><span class="n">11</span><span>Rights</span></a>
+    <a href="#person"><span class="n">12</span><span>Synthetic people</span></a>
+    <a href="#finish"><span class="n">13</span><span>Human finish</span></a>
+    <a href="#a11y"><span class="n">14</span><span>Accessibility</span></a>
+    <a href="#packet"><span class="n">15</span><span>The review packet</span></a>
+    <div class="rail-grp">The proof</div>
+    <a href="#metrics"><span class="n">16</span><span>Measuring outcomes</span></a>
+    <a href="#kill"><span class="n">17</span><span>Kill criteria</span></a>
+    <a href="#builds"><span class="n">18</span><span>What I would build</span></a>
+    <div class="rail-grp">The person</div>
+    <a href="#resume"><span class="n">19</span><span>Résumé</span></a>
+    <a href="#contact"><span class="n">20</span><span>Contact</span></a>
+  </nav>
+  <div class="rail-foot">Mikel Rosenthal<br>PBK Studio · Chicago</div>
+</aside>
+
+<main class="stage"><div class="flow">
+
+<!-- ─────────── HERO ─────────── -->
+<header class="hero">
+  <div class="hero-top">
+    <div>
+      <div class="eyebrow">Generative AI Design Practice · Prepared for Teladoc Health</div>
+      <h1>Experimentation,<br><em>with a trail.</em></h1>
+      <p class="thesis">Lots of designers can make one striking generative image. Fewer can make a hundred that stay on brand. Fewer still can do it in a category where every asset meets a reviewer before it meets a member. <b>I have spent most of twenty years in that category.</b></p>
+    </div>
+    <div class="stamp"><b>AI-Assisted</b>Reviewed · Sourced<br>Reproducible · Approved</div>
+  </div>
+
+  <div class="sheet">
+    <div class="sheet-hd">
+      <span>Contact Sheet · MRD-Q3-EVERYDAY · Plate 03</span>
+      <span>24 generated · 1 selected · yield 4%</span>
+    </div>
+    <div class="frames" id="frames" role="img" aria-label="A contact sheet of twenty-four generated frames with one selected, illustrating that generation produces range and a person chooses."></div>
+    <div class="sheet-hd" style="margin:.7rem 0 0">
+      <span>The model opens the territory</span>
+      <span>A person closes it</span>
+    </div>
+  </div>
+
+  <div class="brief">
+    <h4>The short version</h4>
+    <ol>
+      <li><b>Generation is the cheap part.</b> The expensive part is getting a hundred assets through review without the brand drifting.</li>
+      <li><b>Move the approval upstream.</b> Sign off one style plate, then derive every placement from it. That is where the time actually comes from.</li>
+      <li><b>Write prompts in layers</b>, so when something fails review you know which layer broke.</li>
+      <li><b>Generate places and light. License or shoot the faces.</b> One rule, most of the risk gone.</li>
+      <li><b>Measure it.</b> Cost per usable asset and first-pass review rate. Otherwise you are arguing from anecdotes.</li>
+    </ol>
+  </div>
+  <p style="font-size:.85rem;color:var(--ink-46);max-width:41rem;margin-top:.7rem">Sections 04 through 17 are the full standard, written out. Skim the headings, open what you need. Everything long is behind a toggle.</p>
+</header>
+
+<!-- ─────────── 01 ─────────── -->
+<section id="read">
+  <div class="sec-head"><span class="sec-n">01</span><div><h2>The read</h2></div></div>
+  <p class="lede">Before the work, the diagnosis. Here is what I think you are solving, based on what Teladoc has said publicly.</p>
+
+  <div class="cards">
+    <div>
+      <h3>Volume is the constraint</h3>
+      <p>Two consumer brands running continuous paid social, email, and display need more finished variants than a lean in-house team can hand-build.</p>
+    </div>
+    <div>
+      <h3>Efficiency is the real brief</h3>
+      <p>The public story this year is a tighter media and cost posture. So the win is not novelty. It is more usable assets per dollar, without the brand loosening at the edges.</p>
+    </div>
+    <div>
+      <h3>Review is where AI work dies</h3>
+      <p>Implied clinical claims. Synthetic people who read as patients. Model licensing that may or may not carry indemnification. Most teams hit all three late.</p>
+    </div>
+    <div>
+      <h3>You already said the thing</h3>
+      <p>Your own AI position is about moving from experimentation to execution with governance and human oversight. Creative rarely gets that same treatment.</p>
+    </div>
+  </div>
+
+  <div class="call">
+    <div class="lab">So the offer</div>
+    <p>Let me experiment loudly, then do the unglamorous half: turn what works into a documented workflow your team can run without me, with the rights and review questions answered up front rather than discovered in legal. The rest of this page is that workflow. It is yours to keep either way.</p>
+  </div>
+</section>
+
+<!-- ─────────── 02 ─────────── -->
+<section id="evidence">
+  <div class="sec-head"><span class="sec-n">02</span><div><h2>Where the ask lives</h2></div></div>
+  <p class="lede">Your brief, line by line, against work you can go look at.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:11rem">You asked for</th><th>Where it lives</th></tr></thead>
+    <tbody>
+      <tr><td>Core graphic and digital craft</td><td><b>Spacelab</b>, a full identity and packaging system: naming, illustration, boxes, tins, foils, jars. <b>Logofolio</b>, twenty marks over seventeen years. Campaign work for Nike, Disney, Crate &amp; Barrel, Whirlpool, Aflac. A 2020 Red Dot for Interface Design at GE Healthcare. <a href="https://www.mikelrosenthal.com">mikelrosenthal.com</a></td></tr>
+      <tr><td>Hands-on GenAI in the creative process</td><td>It sits at the front of my process, not on top of it. Concepting wide with generative sets, narrowing against the brief, finishing by hand. This page was designed and built in one pass with Claude Code, concept to production front-end.</td></tr>
+      <tr><td>Comfort with Midjourney, Firefly, ChatGPT, Runway</td><td>I pick per job, not per habit: brand fidelity, control across a set, edit-ability, cost per usable asset, and rights posture. For a health brand that last one decides things, which is why Firefly and Midjourney are not interchangeable. <a href="#tools">Section 10</a>.</td></tr>
+      <tr><td>Curious, experimental, lifts the team</td><td>Five design systems founded or led. Documentation, naming, and versioning are reflexes, and they are what an AI workflow is usually missing. The <b>Avant marketing library</b> let a lean team produce at agency volume for 350+ marketers. Same problem, before AI.</td></tr>
+      <tr><td>Prompts, iteration, image manipulation, concept to production</td><td>Prompts written and versioned like type specs. House blocks, negative prompts, seed and reference control, iteration logs so a good direction can be reproduced instead of rediscovered. <a href="#arch">Section 05</a> onward.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<!-- ─────────── 03 ─────────── -->
+<section id="loop">
+  <div class="sec-head"><span class="sec-n">03</span><div><h2>The production loop</h2></div></div>
+  <p class="lede">One brief, end to end. <b>The interesting part is not the generating. It is where the approval gate sits.</b></p>
+
+  <figure>
+    <div class="fw">
+      <svg viewBox="0 0 660 258" role="img" aria-label="Two pipelines compared. The common approach generates twelve assets then sends all twelve to review. The plate-first approach approves one style plate before generating, then reframes rather than regenerating, sending one batch to review.">
+        <defs>
+          <marker id="ar" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><polygon points="0,1 8,4 0,7" fill="currentColor"/></marker>
+          <marker id="arc" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto"><polygon points="0,1 8,4 0,7" fill="#e56a4d"/></marker>
+        </defs>
+        <text x="0" y="12" font-family="IBM Plex Mono, monospace" font-size="10" fill="currentColor" opacity=".55" letter-spacing="1.4">COMMON APPROACH</text>
+        <g font-family="Space Grotesk, sans-serif" font-size="11" fill="currentColor">
+          <rect x="0" y="26" width="92" height="34" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
+          <text x="46" y="47" text-anchor="middle">Brief</text>
+          <line x1="92" y1="43" x2="128" y2="43" stroke="currentColor" stroke-width="1" opacity=".45" marker-end="url(#ar)"/>
+          <rect x="132" y="26" width="120" height="34" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
+          <text x="192" y="47" text-anchor="middle">Generate 12 assets</text>
+          <line x1="252" y1="43" x2="288" y2="43" stroke="currentColor" stroke-width="1" opacity=".45" marker-end="url(#ar)"/>
+          <rect x="292" y="26" width="120" height="34" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
+          <text x="352" y="47" text-anchor="middle">Finish all 12</text>
+          <line x1="412" y1="43" x2="448" y2="43" stroke="currentColor" stroke-width="1" opacity=".45" marker-end="url(#ar)"/>
+          <rect x="452" y="26" width="132" height="34" fill="none" stroke="#e56a4d" stroke-width="1.5"/>
+          <text x="518" y="47" text-anchor="middle" fill="#e56a4d">12 review conversations</text>
+        </g>
+        <path d="M 518 60 L 518 78 L 192 78 L 192 62" fill="none" stroke="#e56a4d" stroke-width="1" stroke-dasharray="3 3" marker-end="url(#arc)"/>
+        <text x="355" y="92" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#e56a4d" letter-spacing=".6">rework loop, 12 wide</text>
+        <line x1="0" y1="116" x2="660" y2="116" stroke="currentColor" stroke-width="1" opacity=".16"/>
+        <text x="0" y="140" font-family="IBM Plex Mono, monospace" font-size="10" fill="#e56a4d" letter-spacing="1.4">PLATE-FIRST</text>
+        <g font-family="Space Grotesk, sans-serif" font-size="11" fill="currentColor">
+          <rect x="0" y="154" width="78" height="34" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
+          <text x="39" y="175" text-anchor="middle">Layout</text>
+          <line x1="78" y1="171" x2="106" y2="171" stroke="currentColor" stroke-width="1" opacity=".45" marker-end="url(#ar)"/>
+          <rect x="110" y="154" width="104" height="34" fill="none" stroke="#e56a4d" stroke-width="1.5"/>
+          <text x="162" y="169" text-anchor="middle" fill="#e56a4d" font-size="10.5">Approve</text>
+          <text x="162" y="182" text-anchor="middle" fill="#e56a4d" font-size="10.5">1 style plate</text>
+          <line x1="214" y1="171" x2="242" y2="171" stroke="currentColor" stroke-width="1" opacity=".45" marker-end="url(#ar)"/>
+          <rect x="246" y="154" width="104" height="34" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
+          <text x="298" y="175" text-anchor="middle">Generate wide</text>
+          <line x1="350" y1="171" x2="378" y2="171" stroke="currentColor" stroke-width="1" opacity=".45" marker-end="url(#ar)"/>
+          <rect x="382" y="154" width="104" height="34" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
+          <text x="434" y="169" text-anchor="middle" font-size="10.5">Reframe,</text>
+          <text x="434" y="182" text-anchor="middle" font-size="10.5">not regenerate</text>
+          <line x1="486" y1="171" x2="514" y2="171" stroke="currentColor" stroke-width="1" opacity=".45" marker-end="url(#ar)"/>
+          <rect x="518" y="154" width="120" height="34" fill="none" stroke="currentColor" stroke-width="1" opacity=".45"/>
+          <text x="578" y="175" text-anchor="middle">1 batch to review</text>
+        </g>
+        <path d="M 162 188 L 162 206" fill="none" stroke="#e56a4d" stroke-width="1" stroke-dasharray="3 3"/>
+        <text x="162" y="220" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#e56a4d" letter-spacing=".6">the gate moves here</text>
+        <text x="162" y="234" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="currentColor" opacity=".5" letter-spacing=".6">1 approval, not 12</text>
+      </svg>
+    </div>
+    <figcaption>Same tools, same people, same brief. The saving is not faster generation. It is moving the approval off twelve finished assets and onto one style plate, then deriving every placement from it.</figcaption>
+  </figure>
+
+  <details>
+    <summary>The ten steps, in order</summary>
+    <ol class="steps">
+      <li><b>Build the layout first.</b> Figma frames with live type. Export the widest as an empty composition reference, so you know where the image has to stay quiet.</li>
+      <li><b>Write the subject list.</b> Twelve ordinary moments, one line each, before touching a model. This is still art direction.</li>
+      <li><b>Generate the style plate.</b> Base and house blocks, neutral subject, about twenty tries. Pick one and circulate it. Get the sign-off here.</li>
+      <li><b>Generate the widest ratio only.</b> Every subject at 16:9 against the approved plate, seeds recorded, negative block applied.</li>
+      <li><b>Select against the layout,</b> with type on. Never against the bare image.</li>
+      <li><b>Reframe, do not regenerate.</b> Generative expand into every other ratio.</li>
+      <li><b>Human finish.</b> Type, logo, color to brand tokens, retouch, contrast checked on the final crop.</li>
+      <li><b>Provenance.</b> Reverse image search and trademark scan. Screenshots saved.</li>
+      <li><b>Submit as one batch,</b> not twelve separate conversations.</li>
+      <li><b>Log the metrics,</b> then fold anything review sent back into the blocks.</li>
+    </ol>
+  </details>
+
+  <div class="call">
+    <div class="lab">Where the time actually goes</div>
+    <p>Generation is a small slice of the hours. The savings come from three places, none of them the model: one plate approved instead of twelve assets, reframing instead of regenerating, and a first-pass review rate high enough that the batch clears in one round. The tools are the easy part. Everyone already has them.</p>
+  </div>
+</section>
+
+<!-- ─────────── 04 ─────────── -->
+<section id="principles">
+  <div class="sec-head"><span class="sec-n">04</span><div><h2>Principles</h2></div></div>
+  <p class="lede">Five rules that settle the arguments below. When a later section looks like it costs time, one of these is the reason it earns it back.</p>
+
+  <div class="pair">
+    <div>
+      <h3>The model opens the territory. A person closes it.</h3>
+      <p>Generation is for range and volume. Selection, cropping, typesetting, color, and retouch stay human. A generated image is a raw plate, not a finished asset.</p>
+      <h3 style="margin-top:1.4rem">If it cannot be regenerated, it cannot ship.</h3>
+      <p>Every production asset records enough state that someone else could remake it in eight months. That is not bureaucracy. That is what you need when legal asks where an image came from and the person who made it has left.</p>
+      <h3 style="margin-top:1.4rem">Assume every asset will be challenged.</h3>
+      <p>The question here is never just "is it good." It is whether it implies a clinical claim, whether that person looks like a real person, and whether we have the right to use it.</p>
+      <h3 style="margin-top:1.4rem">Consistency beats brilliance across a set.</h3>
+      <p>One stunning generation is a screenshot. Thirty that read as one campaign is a capability. Optimize for the thirtieth.</p>
+      <h3 style="margin-top:1.4rem">Know when the answer is not AI.</h3>
+      <p>Real talent, licensed stock, and illustration are still correct answers. A workflow with no stopping rule is not a workflow.</p>
+    </div>
+    <div class="note"><b>Why they are here</b>Everything downstream traces back to one of these. The naming spec exists because of rule two. The negative library exists because of rule three. The kill criteria are rule five.</div>
+  </div>
+</section>
+
+<!-- ─────────── 05 ─────────── -->
+<section id="arch">
+  <div class="sec-head"><span class="sec-n">05</span><div><h2>Prompt architecture</h2></div></div>
+  <p class="lede">Prompts get built in five layers, the way a design system gets built in tiers. The layers change at different rates, and that is the whole point.</p>
+
+  <figure>
+    <div class="fw">
+      <svg viewBox="0 0 620 236" role="img" aria-label="Five prompt layers with their change rates. Base changes yearly, house per campaign, subject every asset, tech carries provenance, negative changes on every review rejection.">
+        <g font-family="Space Grotesk, sans-serif" font-size="11.5" fill="currentColor">
+          <text x="0" y="12" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".5" letter-spacing="1.3">LAYER</text>
+          <text x="430" y="12" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="currentColor" opacity=".5" letter-spacing="1.3">CHANGES</text>
+          <rect x="0" y="22" width="410" height="36" fill="none" stroke="currentColor" stroke-width="1" opacity=".4"/>
+          <text x="14" y="38" font-family="IBM Plex Mono, monospace" font-size="10" fill="#e56a4d">[BASE]</text>
+          <text x="14" y="52" font-size="10.5" opacity=".72">Medium, camera, lens, light quality</text>
+          <text x="430" y="45" font-family="IBM Plex Mono, monospace" font-size="9.5" opacity=".55">once a year</text>
+          <rect x="0" y="62" width="410" height="36" fill="none" stroke="currentColor" stroke-width="1" opacity=".4"/>
+          <text x="14" y="78" font-family="IBM Plex Mono, monospace" font-size="10" fill="#e56a4d">[HOUSE]</text>
+          <text x="14" y="92" font-size="10.5" opacity=".72">Palette, tonality, framing, the brand's eye</text>
+          <text x="430" y="85" font-family="IBM Plex Mono, monospace" font-size="9.5" opacity=".55">per campaign</text>
+          <rect x="0" y="102" width="410" height="36" fill="#e56a4d" fill-opacity=".1" stroke="#e56a4d" stroke-width="1.5"/>
+          <text x="14" y="118" font-family="IBM Plex Mono, monospace" font-size="10" fill="#e56a4d">[SUBJECT]</text>
+          <text x="14" y="132" font-size="10.5" opacity=".78">Person, action, setting, moment</text>
+          <text x="430" y="125" font-family="IBM Plex Mono, monospace" font-size="9.5" fill="#e56a4d">every asset</text>
+          <rect x="0" y="142" width="410" height="36" fill="none" stroke="currentColor" stroke-width="1" opacity=".4"/>
+          <text x="14" y="158" font-family="IBM Plex Mono, monospace" font-size="10" fill="#e56a4d">[TECH]</text>
+          <text x="14" y="172" font-size="10.5" opacity=".72">Ratio, seed, references, model version</text>
+          <text x="430" y="165" font-family="IBM Plex Mono, monospace" font-size="9.5" opacity=".55">carries provenance</text>
+          <rect x="0" y="182" width="410" height="36" fill="none" stroke="currentColor" stroke-width="1" opacity=".4"/>
+          <text x="14" y="198" font-family="IBM Plex Mono, monospace" font-size="10" fill="#e56a4d">[NEG]</text>
+          <text x="14" y="212" font-size="10.5" opacity=".72">What must never appear</text>
+          <text x="430" y="205" font-family="IBM Plex Mono, monospace" font-size="9.5" opacity=".55">every rejection</text>
+        </g>
+        <line x1="415" y1="22" x2="415" y2="218" stroke="currentColor" stroke-width="1" opacity=".16"/>
+      </svg>
+    </div>
+    <figcaption>Only the highlighted layer changes between asset 01 and asset 30. That is what holds a set together.</figcaption>
+  </figure>
+
+  <p><b>Why layers rather than one long prompt.</b> When an asset fails review you need to know what caused it. A single block gives you one variable and no diagnosis. Layers let you swap <code>[SUBJECT]</code> across twelve assets while the rest holds, and let you fix a compliance problem once, in <code>[NEG]</code>, for everything that follows.</p>
+
+  <div class="plate"><button class="copy" type="button">Copy</button><span class="c"># MERIDIAN · Q3 Everyday Care · asset 07</span>
+<span class="k">[BASE]</span>    editorial documentary photography, 35mm, shallow depth of field f/2.0,
+          natural available light, soft directional window light from camera left,
+          fine grain, unposed candid framing, no studio lighting, no lens flare
+
+<span class="k">[HOUSE]</span>   warm neutral palette, oatmeal and clay and soft white, one cool accent only,
+          lived-in domestic interiors, mid-morning light, generous negative space
+          upper third for type, subject on left or right third, never centered,
+          calm and ordinary, no aspirational gloss
+
+<span class="k">[SUBJECT]</span> a woman in her early sixties at a kitchen table, holding a mug in both hands,
+          mid-conversation looking off-camera, relaxed shoulders, slight smile
+
+<span class="k">[TECH]</span>    --ar 4:5 --style raw --stylize 150 --seed 774213 --sref MRD-PLATE-03 --v 7
+
+<span class="k">[NEG]</span>    --no white coat, scrubs, stethoscope, medical device, pill bottle, medication,
+          hospital, clinic, exam room, IV line, hospital wristband, clinical signage,
+          before-and-after framing, body-part focus, expression of pain or distress,
+          text, logo, watermark, signature</div>
+  <p style="font-size:.85rem;color:var(--ink-46)">Reference brand here is <b>Meridian Health</b>, a stand-in. Swap in your own tokens.</p>
+</section>
+
+<!-- ─────────── 06 ─────────── -->
+<section id="house">
+  <div class="sec-head"><span class="sec-n">06</span><div><h2>The house block</h2></div></div>
+  <p class="lede">The house block is your brand, written in language a model can act on. Writing one is a real design exercise and it deserves the rigor of a type scale.</p>
+
+  <ol class="steps">
+    <li><b>Pull twenty images</b> the team already agrees are right. Shipped work, not moodboard aspiration.</li>
+    <li><b>Name what they share</b> across light, palette, framing, subject behavior, and environment. Literal descriptions beat adjectives. "Mid-morning window light from one side" beats "warm and inviting."</li>
+    <li><b>Name what they never do.</b> If the brand never centers a subject, say so.</li>
+    <li><b>Test it.</b> Same subject line, block on and off, four generations each. If a stranger can sort the eight into two piles, it works.</li>
+    <li><b>Version and date it,</b> so a look change is traceable to a block change.</li>
+  </ol>
+
+  <div class="pair">
+    <div>
+      <p><b>The anti-pattern:</b> "beautiful, high quality, professional, award winning, 8k, ultra detailed, cinematic, masterpiece." None of that describes a brand. It describes generic model-pleasing. It raises polish and kills specificity, which is backwards for any brand whose equity is calm and ordinary.</p>
+    </div>
+    <div class="note"><b>Two jobs, one artifact</b>Write it as prose a human reads too. A new freelancer who reads the house block understands the brand's eye faster than they would from a PDF guideline.</div>
+  </div>
+</section>
+
+<!-- ─────────── 06b ─────────── -->
+<section id="yours">
+  <div class="sec-head"><span class="sec-n">06b</span><div><h2>If this were your brand</h2></div></div>
+  <p class="lede">So here is yours, drafted from published materials only. No guidelines, no assets, no logo. This is what an afternoon of looking produces, and it is the first thing I would put in front of your team.</p>
+
+  <div class="pair">
+    <div>
+      <ul class="dash">
+        <li><b>Type.</b> Display is Reckless Neue at 500. Body is Lexend Deca, from a family designed to improve reading proficiency. For a brand whose homepage says 100M+ Americans have access, that is an accessibility decision made at the typeface level.</li>
+        <li><b>Photography.</b> Warm domestic interiors, natural window light, unposed and mid-gesture, real texture in fabric and hair. Ordinary rooms. No studio, no gloss.</li>
+        <li><b>The rule most people miss.</b> The clinician is on the device screen, never in the room. Care arrives through the glass. That is your product proposition expressed as a framing constraint, and it is the single most useful thing to encode in a prompt.</li>
+        <li><b>Shape grammar.</b> Circle, half-circle, and squircle with one squared corner, snapped to a shared grid. Flat color sits next to photo-masked fields. Never a gradient, never an overlay on the photograph.</li>
+        <li><b>Attribution.</b> Member stories run under real first names with a results-may-vary disclaimer.</li>
+      </ul>
+    </div>
+    <div class="note"><b>Read this way</b>Every line is a generation rule in waiting. That is what reading a brand for AI actually means.</div>
+  </div>
+
+  <details>
+    <summary>Observed palette and the drafted block</summary>
+    <div class="plate"><span class="c"># From computed styles, teladochealth.com, August 2026</span>
+<span class="k">core</span>        #351F65   indigo, primary voice
+            #6240E8   violet, action
+            #00B5E2   cyan, second half of the wordmark
+<span class="k">neutral</span>     #14161A   body text
+            #78879A   secondary text
+            #EFF2F7   surface
+<span class="k">expressive</span>  magenta and green appear in recruitment and culture work,
+            not the core marketing set. A separate register.</div>
+    <div class="plate"><button class="copy" type="button">Copy</button><span class="c"># TDOC · HOUSE-v0.1 · drafted from published work, not from guidelines</span>
+<span class="k">[HOUSE]</span> candid documentary photography of ordinary domestic life, natural window
+        light, unposed and mid-gesture, genuine unperformed expression, real
+        texture in fabric and hair, lived-in interiors, calm and unremarkable
+        rooms, generous clean ground around the subject, subject placed to allow
+        a hard geometric mask, no studio lighting, no gradient, no color wash
+        over the photograph, no aspirational staging, no stock affect</div>
+  </details>
+
+  <h4>Two negatives your brand adds to tier 1</h4>
+  <div class="tw"><table>
+    <thead><tr><th style="width:10rem">Negative</th><th>Why it belongs here specifically</th></tr></thead>
+    <tbody>
+      <tr><td><code>clinician in the room</code></td><td>Your work puts the provider on the screen, not in the space. An image that places them physically alongside the member contradicts the proposition, not just the look.</td></tr>
+      <tr><td><code>gradient, overlay, wash</code></td><td>Color meets photography edge to edge in your system, never on top of it. Models add atmospheric overlays by default and it reads as a different brand immediately.</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="call">
+    <div class="lab">What this changes downstream</div>
+    <p><b>Section 14 gets easier.</b> A brand that chose its body face for reading proficiency already decided legibility is not negotiable. Generated imagery only has to clear a bar the typography cleared first.</p>
+    <p><b>Section 12 stops being a new restriction.</b> Running member stories under real names with a results-may-vary disclaimer means you already treat attributed experience as a regulated claim. The synthetic-person policy is not something I would be introducing. It is the discipline you already practice, extended to imagery before someone extends it for you.</p>
+  </div>
+
+  <p style="font-size:.85rem;color:var(--ink-46)">This page stays in my own visual identity on purpose. Dressing speculative work in your trademark would contradict sections 11 and 12 on the same scroll. Reading a brand well enough to write it down is the useful skill.</p>
+</section>
+
+<!-- ─────────── 07 ─────────── -->
+<section id="neg">
+  <div class="sec-head"><span class="sec-n">07</span><div><h2>The negative library</h2></div></div>
+  <p class="lede">In an unregulated category, negatives fix hands and text artifacts. Here they carry legal weight. Every one below has a reason, and the reason is what makes it defensible in a review conversation.</p>
+
+  <h4>Tier 1 · Implied credential and clinical setting</h4>
+  <div class="tw"><table>
+    <thead><tr><th style="width:10rem">Negative</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td><code>white coat</code></td><td>A non-clinician in a lab coat reads as an implied credential. Standard review rejection.</td></tr>
+      <tr><td><code>stethoscope</code></td><td>Same problem, more portable. Models add them unprompted near any health context.</td></tr>
+      <tr><td><code>scrubs</code></td><td>Implies clinical staffing you are not depicting or employing.</td></tr>
+      <tr><td><code>exam room, clinic</code></td><td>Implies in-person care, which contradicts a virtual-care proposition.</td></tr>
+      <tr><td><code>clinical signage</code></td><td>Generated signage is illegible pseudo-text and sometimes names a real institution by accident.</td></tr>
+    </tbody>
+  </table></div>
+
+  <details>
+    <summary>Tiers 2 and 3, plus the portable block</summary>
+    <h4 style="margin-top:.3rem">Tier 2 · Implied treatment, outcome, condition</h4>
+    <div class="tw"><table>
+      <thead><tr><th style="width:10rem">Negative</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><code>pill bottle, medication</code></td><td>Implies a treatment claim, sometimes a specific drug. Never generate. Art-direct around it.</td></tr>
+        <tr><td><code>medical device, IV line</code></td><td>Implies acuity and diagnosis, and becomes a regulatory surface if a device is recognizable.</td></tr>
+        <tr><td><code>before-and-after framing</code></td><td>The most reliable way to imply an outcome claim without writing one.</td></tr>
+        <tr><td><code>body-part focus</code></td><td>A cropped torso or a scale reads as a condition or a result. Keep subjects whole.</td></tr>
+        <tr><td><code>pain or distress</code></td><td>Depicts a condition you are not qualified to depict, and reads as fear-based marketing.</td></tr>
+        <tr><td><code>visible symptoms</code></td><td>Generated skin conditions and injuries are inaccurate by default.</td></tr>
+      </tbody>
+    </table></div>
+    <h4>Tier 3 · Craft and provenance</h4>
+    <div class="tw"><table>
+      <thead><tr><th style="width:10rem">Negative</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td><code>text, lettering</code></td><td>Unreliable, and it occasionally reproduces real marks. All type is set by hand.</td></tr>
+        <tr><td><code>logo, watermark</code></td><td>Invented marks can collide with real trademarks.</td></tr>
+        <tr><td><code>public figure</code></td><td>Right of publicity. See <a href="#person">section 12</a>.</td></tr>
+        <tr><td><code>stock-photo affect</code></td><td>Thumbs up, crossed arms, laughing at salad. Defensive against the model's pull toward stock.</td></tr>
+      </tbody>
+    </table></div>
+    <div class="plate"><button class="copy" type="button">Copy</button><span class="c"># MERIDIAN · NEG-v1.4 · paste into every generation</span>
+--no white coat, scrubs, stethoscope, exam room, clinic, hospital, clinical signage,
+     pill bottle, medication, blister pack, medical device, IV line, patient monitor,
+     hospital wristband, before-and-after framing, body-part focus, visible symptoms,
+     expression of pain or distress, celebrity, public figure,
+     text, lettering, signage, logo, watermark, signature,
+     thumbs up, crossed arms, stock photo affect</div>
+    <p style="font-size:.85rem"><b>On syntax.</b> The <code>--no</code> form is Midjourney. Firefly uses a separate negative field, and conversational models want a plain sentence. Keep the library in one place and translate per tool.</p>
+  </details>
+
+  <div class="call">
+    <div class="lab">The rule that makes this real</div>
+    <p>When an asset is rejected, do not just fix that asset. Add the reason to the library the same day. This is the only part of the standard that should grow every month, and a library that has not changed in a quarter is one nobody is using.</p>
+  </div>
+</section>
+
+<!-- ─────────── 08 ─────────── -->
+<section id="consist">
+  <div class="sec-head"><span class="sec-n">08</span><div><h2>Consistency</h2></div></div>
+  <p class="lede">The difference between a lucky image and a campaign. Four mechanisms, in the order you reach for them.</p>
+
+  <h3>The style plate<span class="tail">do this first, always</span></h3>
+  <p>Generate one image that nails the look with a deliberately neutral subject. Approve it. Then every production asset references it. The diagram in section 03 is this idea drawn out.</p>
+
+  <div class="plate"><button class="copy" type="button">Copy</button><span class="c"># Step 1 · generate and approve the plate</span>
+<span class="k">[BASE]</span> + <span class="k">[HOUSE]</span> + "an empty kitchen table by a window, morning light, one mug"
+<span class="k">[TECH]</span> --ar 1:1 --style raw --stylize 150 --v 7
+<span class="c"># Save the winner as MRD-PLATE-03. Record its seed and job URL.</span>
+
+<span class="c"># Step 2 · every production asset inherits it</span>
+<span class="k">[TECH]</span> --sref MRD-PLATE-03 --sw 90 --seed &lt;per-asset&gt; --ar 4:5</div>
+
+  <h3>Seeds<span class="tail">the reproducibility primitive</span></h3>
+  <ul class="dash">
+    <li><b>Exploring:</b> no seed. Let it roam, record anything promising.</li>
+    <li><b>Refining:</b> lock the seed, change one layer at a time. A controlled experiment, not a slot machine.</li>
+    <li><b>Producing:</b> seed always recorded. Without it, principle two fails.</li>
+  </ul>
+
+  <h3>References<span class="tail">style, character, composition</span></h3>
+  <p>Style reference carries the look across assets. Character reference keeps a recurring person consistent, though read <a href="#person">section 12</a> first. Composition reference is the underused one: feed a rough layout so the model leaves space exactly where the headline goes.</p>
+
+  <div class="call">
+    <div class="lab">Generate to the layout, not the frame</div>
+    <p>Most designers generate a nice image and then fight it into the placement. Do it the other way. Build the frame first, export the empty layout as a composition reference, and generate into it. Yield goes up sharply, because "beautiful, but the head is where the logo goes" stops being a category of failure.</p>
+  </div>
+
+  <h3>Aspect ratios<span class="tail">generate wide, crop down</span></h3>
+  <p>Generate the widest placement, then reframe down with generative expand. Regenerating per ratio gives you a set that drifts. Reframing one approved plate gives you a set that matches, and cuts credit spend by roughly the number of ratios you skipped.</p>
+</section>
+
+<!-- ─────────── 09 ─────────── -->
+<section id="naming">
+  <div class="sec-head"><span class="sec-n">09</span><div><h2>Naming</h2></div></div>
+  <p class="lede">A file name is the cheapest metadata there is. This one lets someone who has never seen the project answer four questions from the filename alone.</p>
+
+  <details>
+    <summary>The naming spec</summary>
+    <div class="plate"><button class="copy" type="button">Copy</button>BRAND_campaign_concept_placement_model_vNN_seedNNNNNN.ext
+
+<span class="c">Example</span>
+MRD_q3everyday_kitchentable_meta4x5_mj7_v03_s774213.png
+MRD_q3everyday_kitchentable_story9x16_ff5_v01_s000000.png
+MRD_q3everyday_kitchentable_hero16x9_veo31_v02_s114900.mp4
+
+<span class="c">Fields</span>
+BRAND      MRD             three-letter brand or sub-brand code
+campaign   q3everyday      lowercase, matches the brief
+concept    kitchentable    the idea, not the file contents
+placement  meta4x5         channel plus ratio, so a producer can sort by channel
+model      mj7 ff5 veo31   model and major version. Non-negotiable field.
+vNN        v03             iteration of this asset
+seed       s774213         s000000 when the tool exposes no seed</div>
+  </details>
+
+  <ul class="dash">
+    <li><b>The model field is the one people drop and the one that matters most.</b> When a vendor's terms change, or someone asks which assets came from which tool, this turns an archaeology project into a search.</li>
+    <li><b>Version the blocks separately.</b> <code>HOUSE-v1.2</code> and <code>NEG-v1.4</code> live in the asset record. A block change is a campaign-wide event.</li>
+    <li><b>Never rename on approval.</b> Approval state belongs in the DAM, not in overwritten provenance.</li>
+  </ul>
+</section>
+
+<!-- ─────────── 10 ─────────── -->
+<section id="tools">
+  <div class="sec-head"><span class="sec-n">10</span><div><h2>Tool selection</h2></div></div>
+  <p class="lede">Chosen per job, not per habit. The column most comparisons leave out is the one that decides whether the asset can ship.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:6.5rem">Tool</th><th>Reach for it when</th><th style="width:9rem">Rights posture</th><th style="width:6.5rem">Editability</th></tr></thead>
+    <tbody>
+      <tr><td>Firefly</td><td>The asset is headed for a regulated placement, or into Photoshop for reframing. Trained on licensed and public-domain material.</td><td class="ok">Enterprise indemnification offered</td><td>High, native to Photoshop</td></tr>
+      <tr><td>Midjourney</td><td>Concepting, mood, style plates. Exploratory work where the look matters more than the shipping path.</td><td class="stop">No indemnification. Verify before production use.</td><td>Medium, strong references</td></tr>
+      <tr><td>GPT Image</td><td>Prompt adherence, conversational edits, compositions with specific spatial instructions.</td><td class="warn">Check current terms per plan</td><td>High, conversational</td></tr>
+      <tr><td>Veo / Flow</td><td>Image to video, motion from an approved still, generous free tier for exploring.</td><td class="warn">Check current terms per plan</td><td>Low once generated</td></tr>
+      <tr><td>Runway</td><td>Motion control, camera moves, video to video.</td><td class="warn">Check current terms per plan</td><td>Medium, strong motion tools</td></tr>
+      <tr><td>Licensed stock</td><td>Any asset needing a recognizable, real, releasable person.</td><td class="ok">Model release on file</td><td>Not applicable</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="call">
+    <div class="lab">The split that solves most healthcare problems</div>
+    <p><b>Generate environments, textures, light, and abstraction. License or shoot the faces.</b> That one rule removes most of the likeness and release risk while keeping the speed, because backgrounds, patterns, and reframing are where the volume actually is.</p>
+  </div>
+
+  <p style="font-size:.85rem;color:var(--ink-46)">Model terms move faster than this document. Re-verify the rights column quarterly and date the table. An out-of-date rights claim is worse than no claim, because someone will rely on it.</p>
+</section>
+
+<!-- ─────────── 11 ─────────── -->
+<section id="rights">
+  <div class="sec-head"><span class="sec-n">11</span><div><h2>Rights</h2></div></div>
+  <p class="lede">Three separate questions that usually get collapsed into one.</p>
+
+  <h3>Can we use it commercially?</h3>
+  <p>Most paid tiers grant commercial rights. Most free tiers do not, or grant them with conditions. A free-tier generation is a fine experiment and a bad production asset. Record which tier produced each shipping asset.</p>
+
+  <h3>Will the vendor defend us?</h3>
+  <p>Not the same question, and this is what separates the tools. Adobe offers IP indemnification on Firefly output for eligible enterprise plans, which is why it is the default for anything shipping. Most other image models offer no equivalent. That is not a reason to avoid them. It is a reason to use them upstream of production and to know which is which, which is what the model field in section 09 is for.</p>
+
+  <h3>Does the output contain something we have no right to?</h3>
+  <ul class="dash">
+    <li><b>Trademarks.</b> Models put logos on clothing and signage unprompted. Scan at 100 percent before review.</li>
+    <li><b>Real places.</b> Recognizable buildings can carry property releases and trade dress.</li>
+    <li><b>Artist style.</b> Naming a living artist in a prompt is risk with no creative upside. Describe the technique instead.</li>
+  </ul>
+
+  <div class="call">
+    <div class="lab">The reverse-image check</div>
+    <p>Run every generated asset through reverse image search before review. Sixty seconds, and it catches the two failure modes that are genuinely expensive: output that closely resembles an existing photograph, and a synthetic face that resembles a real, findable person. Log the result.</p>
+  </div>
+</section>
+
+<!-- ─────────── 12 ─────────── -->
+<section id="person">
+  <div class="sec-head"><span class="sec-n">12</span><div><h2>Synthetic people</h2></div></div>
+  <p class="lede">The highest-risk, highest-frequency decision in health marketing. It deserves a written position rather than a case-by-case argument.</p>
+
+  <ol class="steps">
+    <li><b>Faces that carry the message are licensed or shot.</b> If a person is the hero of an asset, they are a real person with a release. No exceptions for speed.</li>
+    <li><b>Generated people appear incidentally.</b> At distance, in soft focus, from behind, or cropped below the eyeline, where they read as context rather than as a subject.</li>
+    <li><b>Never pair a generated person with a quote,</b> a name, a condition, or an outcome. That combination manufactures a testimonial.</li>
+    <li><b>Never depict a generated person as a clinician,</b> regardless of framing.</li>
+    <li><b>Reverse-image check every generated face that ships,</b> and log it.</li>
+  </ol>
+
+  <div class="call">
+    <div class="lab">Why this is stricter than the law requires</div>
+    <p>Because the exposure is lopsided. The upside of a generated hero face is a few hundred dollars and a day of production. The downside is a real person finding their likeness selling a health service, in a category where trust is the product. Saying that out loud is what turns a restriction into a position, and it is the reasoning a reviewer will repeat for you when you are not in the room.</p>
+  </div>
+
+  <p><b>Disclosure.</b> Decide once, at brand level, whether AI-assisted imagery gets labeled and where. Platform policies already require it in some ad formats. Record the decision and its date even if the decision is not to label.</p>
+</section>
+
+<!-- ─────────── 13 ─────────── -->
+<section id="finish">
+  <div class="sec-head"><span class="sec-n">13</span><div><h2>Human finish</h2></div></div>
+  <p class="lede">Principle one, made operational. What never gets left to a model, so that "AI-assisted" never quietly becomes "AI-produced."</p>
+
+  <div class="pair">
+    <div>
+      <ul class="check">
+        <li><b>All typography</b> set by hand in brand type. Generated lettering is never kept, even when it looks right.</li>
+        <li><b>Logo and lockup placement</b> is manual, to clear-space rules.</li>
+        <li><b>Color corrected to brand tokens.</b> Output lands near the palette, not on it.</li>
+        <li><b>Retouch is manual:</b> hands, ears, eyes, teeth, jewelry, patterned fabric, and anywhere two objects meet.</li>
+        <li><b>Crop decided against the real layout,</b> with live type in place.</li>
+        <li><b>Contrast verified after the final crop,</b> not before.</li>
+      </ul>
+    </div>
+    <div class="note"><b>Say it in the room</b>"The plate is generated, the finish is ours." Vagueness here is what makes leadership nervous, not the technology.</div>
+  </div>
+</section>
+
+<!-- ─────────── 14 ─────────── -->
+<section id="a11y">
+  <div class="sec-head"><span class="sec-n">14</span><div><h2>Accessibility</h2></div></div>
+  <p class="lede">Missing from nearly every AI creative guideline in circulation, and directly relevant to a brand serving this many people.</p>
+
+  <ul class="dash">
+    <li><b>Contrast under type.</b> Generated backgrounds are busy in ways stock is not. Verify 4.5:1 for body copy against the actual pixels, after the final crop.</li>
+    <li><b>Prompt for the quiet zone.</b> The house block asks for negative space in the upper third for this reason. Cheaper to prompt than to fix.</li>
+    <li><b>A person writes the alt text,</b> describing what the image is doing in the layout, not what is in it.</li>
+    <li><b>Watch motion in generated video.</b> Rapid camera moves and morphing transitions are a common artifact and a known trigger.</li>
+    <li><b>Represent the real member population.</b> Models pull hard toward young, thin, light-skinned, non-disabled subjects. Left alone, a generated library ends up less representative than the stock library it replaced.</li>
+  </ul>
+
+  <div class="call">
+    <div class="lab">The audit that makes the point</div>
+    <p>Once per campaign, lay every generated person in the set on one board and look at it as a population. Individually defensible assets can add up to an indefensible library. Fifteen minutes, and most teams only discover they needed it after someone outside points it out.</p>
+  </div>
+</section>
+
+<!-- ─────────── 15 ─────────── -->
+<section id="packet">
+  <div class="sec-head"><span class="sec-n">15</span><div><h2>The review packet</h2></div></div>
+  <p class="lede">What goes with every AI-assisted asset into legal, medical, or brand review. Standardizing this is the highest-leverage thing here, because it turns review from an interrogation into a form.</p>
+
+  <details>
+    <summary>The full record</summary>
+    <div class="plate"><button class="copy" type="button">Copy</button><span class="h"># AI-ASSISTED ASSET RECORD</span>
+
+Asset ID          MRD_q3everyday_kitchentable_meta4x5_mj7_v03_s774213
+Campaign          Q3 Everyday Care
+Placement         Meta feed, 4:5
+Created           2026-08-27          Designer   M. Rosenthal
+
+<span class="k">GENERATION</span>
+Model / version   Midjourney v7
+Plan tier         Standard, commercial use granted
+Full prompt       [attached, all five blocks]
+Block versions    HOUSE-v1.2  ·  NEG-v1.4
+Seed              774213
+Style reference   MRD-PLATE-03 (approved 2026-08-19)
+Generations run   14        Selected  1        Yield  7%
+
+<span class="k">RIGHTS</span>
+Commercial use    Granted under plan tier
+Indemnification   None from this vendor. Reviewed and accepted for this placement.
+Reverse search    Run 2026-08-27. No close matches. Screenshot attached.
+Trademark scan    Clear at 100%.
+Human subject     Generated. Incidental, three-quarter rear view, no eyeline.
+                  Not paired with quote, name, condition, or outcome.
+
+<span class="k">HUMAN FINISH</span>
+Edits applied     Generative expand to 4:5 · background artifact removed
+                  color corrected to brand tokens · hands retouched
+Type              Set by hand, per layout
+Contrast          5.1:1 headline over final crop. Pass.
+Alt text          Written by designer, attached.
+
+<span class="k">REVIEW</span>
+Claims check      No implied clinical claim, outcome, or credential.
+Reviewer          ____________________     Date  __________
+Disposition       [ ] Approved   [ ] With changes   [ ] Rejected
+Rejection reason  ______________________  ->  add to NEG library same day</div>
+  </details>
+
+  <div class="call">
+    <div class="lab">Why a yield number sits on a legal form</div>
+    <p>It looks out of place, and that is on purpose. It builds the dataset for section 16 without asking anyone to fill in a second document. Instrument the artifact people already have to complete, because nobody maintains a metrics spreadsheet voluntarily.</p>
+  </div>
+</section>
+
+<!-- ─────────── 16 ─────────── -->
+<section id="metrics">
+  <div class="sec-head"><span class="sec-n">16</span><div><h2>Measuring outcomes</h2></div></div>
+  <p class="lede">If the brief is to improve AI outcomes, the first job is defining what an outcome is. Most teams skip that and then argue about whether AI is working using anecdotes. All six of these come out of the review packet.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th style="width:8.5rem">Metric</th><th>Definition</th><th style="width:11rem">Why this one</th></tr></thead>
+    <tbody>
+      <tr><td>Yield rate</td><td>Selected ÷ generated</td><td>The honest measure of prompt quality.</td></tr>
+      <tr><td>Cost per usable asset</td><td>(Credits × unit cost) ÷ selected</td><td>The number finance understands. Compare it to a stock license and a shoot day.</td></tr>
+      <tr><td>Time to first approvable</td><td>Brief to first asset that clears review</td><td>Measures the pipeline, not just generation. Catches review being the bottleneck.</td></tr>
+      <tr><td>First-pass review rate</td><td>Approved unchanged ÷ submitted</td><td>Tells you whether the negative library is working.</td></tr>
+      <tr><td>Recipe reuse rate</td><td>Assets made from a saved recipe with no new iteration</td><td>The only metric about the system itself.</td></tr>
+      <tr><td>Set fidelity</td><td>Blind 1 to 5 brand rating across a full set</td><td>Catches drift that per-asset review never sees.</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><b>Baseline first.</b> Measure two weeks of the current workflow before changing anything, or every later claim is unfalsifiable. Then pick one target, not six. In a tightening media environment that is almost always cost per usable asset, with first-pass review rate as the guardrail so cost is not bought with rework. Report it monthly in one sentence.</p>
+
+  <div class="call">
+    <div class="lab">The counterintuitive one</div>
+    <p>A rising yield rate is not automatically good. If yield hits 80 percent, the team has probably stopped exploring and is only running safe, known-good prompts. Some waste is the cost of finding anything new. Watch yield next to set fidelity: high yield with flat fidelity means the recipes work, high yield with falling fidelity means the team is coasting on one look.</p>
+  </div>
+</section>
+
+<!-- ─────────── 17 ─────────── -->
+<section id="kill">
+  <div class="sec-head"><span class="sec-n">17</span><div><h2>Kill criteria</h2></div></div>
+  <p class="lede">When to stop generating and do something else. Written down in advance, because in the moment the sunk cost of forty generations is very persuasive.</p>
+
+  <ul class="dash">
+    <li><b>Three refinement rounds without hitting a 4 on set fidelity.</b> The direction is fighting the model. Change the tool or the concept, not the prompt a fourth time.</li>
+    <li><b>The asset needs a specific, recognizable, real person.</b> License or shoot.</li>
+    <li><b>The asset needs to depict a condition, treatment, or outcome.</b> Art-direct around it. No prompt solves this.</li>
+    <li><b>Cost per usable asset passes the stock license price.</b> The economics have inverted.</li>
+    <li><b>Repair time exceeds compositing from licensed elements.</b> Track this honestly. Repair time is invisible in credit spend, and it is where AI workflows quietly lose their advantage.</li>
+    <li><b>Reverse image search returns a close match.</b> Stop. Do not iterate from that seed. Start from a different plate.</li>
+  </ul>
+</section>
+
+<!-- ─────────── 18 ─────────── -->
+<section id="builds">
+  <div class="sec-head"><span class="sec-n">18</span><div><h2>What I would build first</h2></div></div>
+  <p class="lede">Three things. You are reading the third one.</p>
+
+  <div class="pair">
+    <div>
+      <h3>The Variant Engine<span class="tail">one concept, thirty placements</span></h3>
+      <p>One campaign concept carried into a full paid social matrix through a single prompt system: feed statics, story and reel crops, display sizes, an email header. Shown with the seams visible, so the prompt revisions, the raw generations, and the selection criteria are all legible. The argument is not that the images are pretty. It is that the thirtieth one is as on-brand as the first.</p>
+      <h3 style="margin-top:1.5rem">The Bake-Off<span class="tail">four tools, one scorecard</span></h3>
+      <p>One brief run through Midjourney, Firefly, GPT Image, and Runway. Scored on brand fidelity, control across a set, edit-ability, cost per usable asset, and rights posture, with a healthcare column the generic comparisons never include. Ends in a one-page recommendation, tool by job.</p>
+      <h3 style="margin-top:1.5rem">The House Recipe Book<span class="tail">sections 04 to 17</span></h3>
+      <p>Already written, and yours whether or not we work together. Swap Meridian for Teladoc and BetterHelp and the negative library becomes a live instrument the day someone uses it.</p>
+    </div>
+    <div class="note"><b>Together they cover</b>Every line of your brief, plus the part it does not ask for: proof that the results are repeatable rather than lucky.</div>
+  </div>
+</section>
+
+<!-- ─────────── 19 ─────────── -->
+<section id="resume">
+  <div class="sec-head"><span class="sec-n">19</span><div><h2>Mikel Rosenthal</h2></div></div>
+  <p class="lede">A graphic and digital designer with deep craft roots in brand, packaging, campaign, and interface work, now spending most of my discretionary time on generative AI and what it changes about how creative gets made. Most of the career sits inside regulated healthcare: <b>GE Healthcare</b>, <b>Blue Cross Blue Shield</b>, <b>AbbVie</b>, alongside <b>Google</b>, <b>Nike</b>, and <b>Disney</b>.</p>
+
+  <div class="pair" style="margin-bottom:1.4rem">
+    <div>
+      <p><b>Hands-on today.</b> Adobe Firefly and Photoshop generative fill and expand for image extension, reframing across placements, and cleanup, chosen partly because it is the model with a commercial indemnification path. ChatGPT and Claude daily for concepting, iteration, and image work. Figma Make for clickable prototypes. Claude Code and Codex for building.</p>
+      <p><b>Actively evaluating.</b> Midjourney, Runway, Veo and Flow. I am running the same brief through each and scoring on the criteria in <a href="#tools">section 10</a>. I would rather show you an honest comparison than overstate a tool I have used twice. That evaluation is the work, and it is the part most teams never get to.</p>
+    </div>
+    <div class="note"><b>Straight answer</b>Everything above section 18 is what I know. This is where I am on the tools themselves.</div>
+  </div>
+
+  <div class="rz">
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">PBK Studio<span class="rl">Principal Designer</span></div><div class="rz-dt">May 2026 – Present</div></div>
+      <div class="rz-meta">Brand · Campaign · Digital · Motion · Generative AI Workflows</div>
+      <p>Independent studio: brand identity, AI-augmented creative production, responsive web, and original motion and sound. GenAI runs through concepting and production, with final craft decisions kept human. Work ships with documentation so a client team can reproduce it after I leave.</p>
+    </div>
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">Verizon<span class="rl">Senior Design System Designer II</span></div><div class="rz-dt">Dec 2025</div></div>
+      <div class="rz-meta">Short-Term Contract via Insight Global · Remote</div>
+      <p>Scoped engagement on the post-rebrand enterprise design system. Delivered the calendar component with full states, tokens, and accessibility. A month of scope, shipped in the first week.</p>
+    </div>
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">The Bettering Company<span class="rl">Brand Designer</span></div><div class="rz-dt">May 2024 – Aug 2025</div></div>
+      <div class="rz-meta">Freelance · Remote</div>
+      <p>New brand identity and lightweight system. Generated and refined a wide field of logo concepts before narrowing to a mark, then built guidelines for digital and physical use.</p>
+    </div>
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">Avant<span class="rl">Senior Designer, Brand &amp; Product</span></div><div class="rz-dt">May 2021 – Aug 2024</div></div>
+      <div class="rz-meta">Hybrid · Chicago, IL</div>
+      <p>Owned the marketing design library and the Pathfinder product design system, spanning campaign and interface work in one practice.</p>
+      <ul class="dash">
+        <li>Campaign templates and paid social kits that let a lean team produce at agency volume without agency drift. Used by 350+ marketers.</li>
+        <li>Art-directed paid social, email, display, web, and event, holding one voice across every surface and size.</li>
+      </ul>
+    </div>
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">GE Healthcare<span class="rl">Senior UX/UI Designer, Edison Design System</span></div><div class="rz-dt">Jan 2020 – Feb 2021</div></div>
+      <div class="rz-meta">Contract · Hybrid / Chicago, IL</div>
+      <p>Core contributor to the Edison Design System, the foundation unifying 40+ regulated clinical and enterprise products. Partnered with accessibility and compliance so the work held up under regulated review, not just design review. Central role in the 2020 Red Dot Award for Interface Design, Fast Company Innovation by Design, and the dmi:DVA Design Value Award.</p>
+    </div>
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">SurePeople<span class="rl">Lead UX/UI Visual Product Designer</span></div><div class="rz-dt">Jun 2020 – Sep 2020</div></div>
+      <div class="rz-meta">Contract · Remote / Chicago, IL</div>
+      <p>Led UX and visual design of the PRISM behavioral health platform, turning dense psychometric data into readable dashboards for coaches and teams.</p>
+    </div>
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">Blue Cross Blue Shield<span class="rl">Senior Product / Design Systems Designer</span></div><div class="rz-dt">May 2018 – Dec 2019</div></div>
+      <div class="rz-meta">Contract · Hybrid / Chicago, IL</div>
+      <p>Created and maintained the FIBER design system for a national health plan: typography, color, grids, and iconography, with themeable documented components built alongside engineering, inside a compliance-reviewed environment.</p>
+    </div>
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">TransUnion<span class="rl">Senior UX Designer, Design Systems</span></div><div class="rz-dt">May 2018 – Jun 2019</div></div>
+      <div class="rz-meta">Contract · Hybrid / Chicago, IL</div>
+      <p>Designed the global TUCM design system and visual identity for customer-facing and internal applications.</p>
+    </div>
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">Maven Wave / Eviden<span class="rl">UX Team Senior Lead</span></div><div class="rz-dt">Jan 2013 – May 2018</div></div>
+      <div class="rz-meta">Full-Time · Chicago, IL</div>
+      <p>Conceptual and visual direction across Fortune 500 work for Google, AT&amp;T, Nike, and Catamaran, the pharmacy benefit manager, where brand and member app work ran under healthcare privacy constraints.</p>
+    </div>
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">Biersma Creative<span class="rl">Senior Designer &amp; UX Lead</span></div><div class="rz-dt">Jan 2006 – Jan 2013</div></div>
+      <div class="rz-meta">Full-Time · Chicago, IL · Merged into Maven Wave</div>
+      <p>Visual brand and campaign direction for AbbVie, Aflac, Crate &amp; Barrel, Disney, Google, Nike, Herman Miller, and Salesforce. Pharma and payer work ran through medical, legal, and regulatory review.</p>
+    </div>
+    <div class="rz-job">
+      <div class="rz-top"><div class="rz-co">Firebelly Design<span class="rl">Graphic Designer</span></div><div class="rz-dt">Jan 2003 – Jan 2005</div></div>
+      <div class="rz-meta">Full-Time · Chicago, IL</div>
+      <p>Concept-to-execution brand and web design, print and digital, for ComEd, Petco, Harris Bank, and Scholastic.</p>
+    </div>
+  </div>
+
+  <h4>Skills</h4>
+  <p class="skills"><b>Generative AI, in production</b> Adobe Firefly · Photoshop generative fill and expand · ChatGPT and Claude · Figma Make · Claude Code · Codex · <b>Under active evaluation</b> Midjourney · Runway · Veo and Flow · <b>AI method</b> Layered prompt architecture · Negative-prompt libraries for regulated categories · Seed and reference control · Tool evaluation and scorecards · Asset rights and indemnification · Outcome metrics · Team documentation · <b>Craft</b> Typography · Layout · Color · Illustration direction · Retouching and compositing · Motion · <b>Disciplines</b> Brand identity · Packaging · Paid social and performance creative · Email and display · Art direction · Regulated healthcare marketing · Web and digital product · Design systems · Accessibility (WCAG 2.2) · <b>Core tools</b> Adobe Creative Suite · Figma · HTML/CSS</p>
+
+  <h4>Selected work and awards</h4>
+  <div class="grid2">
+    <div>
+      <div class="aw"><b>Spacelab</b> · Identity &amp; Packaging<span>Naming, illustration language, boxes, tins, foils, jars · 2021</span></div>
+      <div class="aw"><b>2020 Red Dot Award</b> · Interface Design<span>Edison Design System · GE Healthcare</span></div>
+      <div class="aw"><b>2020 Fast Company</b> · Innovation by Design</div>
+      <div class="aw"><b>2020 dmi:DVA</b> · Design Value Award</div>
+    </div>
+    <div>
+      <div class="aw"><b>Missouri State University</b><span>BFA, Summa Cum Laude · Electronic Arts &amp; Design</span><span>Minor: Mass Media &amp; Communications</span></div>
+      <div class="aw"><b>Generative Motion Archive</b><span>156 works · pitchblacknight.com</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── 20 ─────────── -->
+<section id="contact">
+  <div class="sec-head"><span class="sec-n">20</span><div><h2>Let's run the experiment</h2></div></div>
+  <p class="lede">This page is the argument and the sample at the same time. Designed and built in one pass, which is how I would work on your team.</p>
+
+  <div class="cta">
+    <div><span>Email</span><a href="mailto:mikelrosenthal@me.com">mikelrosenthal@me.com</a></div>
+    <div><span>Phone</span><p>773 490 6923</p></div>
+    <div><span>Portfolio</span><a href="https://www.mikelrosenthal.com">mikelrosenthal.com</a></div>
+    <div><span>Motion archive</span><a href="https://pitchblacknight.com">pitchblacknight.com</a></div>
+    <div><span>Availability</span><p>Immediate, 40 hrs</p></div>
+    <div><span>Location</span><p>Remote, US · Chicago</p></div>
+  </div>
+</section>
+
+<footer>
+  <span>Mikel Rosenthal · PBK Studio</span>
+  <span>Prompt to Production · August 2026</span>
+  <span>Designed and built in one pass</span>
+</footer>
+
+</div></main>
+
+<script>
+(function(){
+  var f = document.getElementById('frames');
+  if(f){
+    var pick = 11, hues = [28,32,24,36,30,26,34,29,31,27,33,25];
+    for(var i=0;i<24;i++){
+      var d = document.createElement('div');
+      d.className = 'fr' + (i===pick ? ' pick' : ' dim');
+      var h = hues[i%12], l1 = 62 + (i%5)*4, l2 = 34 + (i%7)*3, ang = 110 + (i*23)%140;
+      var img = document.createElement('div');
+      img.className = 'img';
+      img.style.background = 'linear-gradient('+ang+'deg, hsl('+h+',26%,'+l1+'%) 0%, hsl('+(h+8)+',20%,'+l2+'%) 100%)';
+      img.style.animationDelay = (i*55) + 'ms';
+      var lb = document.createElement('span');
+      lb.className = 'lb';
+      lb.textContent = 's' + (770000 + i*1319);
+      d.appendChild(img); d.appendChild(lb);
+      f.appendChild(d);
+    }
+  }
+
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var c = btn.parentNode.cloneNode(true);
+      var b = c.querySelector('.copy'); if(b) b.remove();
+      var t = c.textContent.replace(/^\s*\n/,'');
+      navigator.clipboard.writeText(t).then(function(){
+        var was = btn.textContent; btn.textContent = 'Copied';
+        setTimeout(function(){ btn.textContent = was; }, 1400);
+      }).catch(function(){ btn.textContent = 'Select manually'; });
+    });
+  });
+
+  var links = {}, secs = document.querySelectorAll('section[id]');
+  document.querySelectorAll('#nav a').forEach(function(a){ links[a.getAttribute('href').slice(1)] = a; });
+  var cur = null, tick = false;
+  function spy(){
+    tick = false;
+    var line = window.scrollY + window.innerHeight * 0.28, best = null;
+    for(var i=0;i<secs.length;i++){ if(secs[i].offsetTop <= line) best = secs[i].id; else break; }
+    if(best === cur) return;
+    if(cur && links[cur]) links[cur].classList.remove('on');
+    cur = best;
+    if(cur && links[cur]){
+      var a = links[cur]; a.classList.add('on');
+      var rail = a.closest('.rail'), r = a.getBoundingClientRect();
+      if(rail && rail.scrollHeight > rail.clientHeight && (r.top < 60 || r.bottom > rail.clientHeight - 40)){
+        a.scrollIntoView({block:'nearest'});
+      }
+    }
+  }
+  window.addEventListener('scroll', function(){ if(!tick){ tick = true; window.requestAnimationFrame(spy); } }, {passive:true});
+  spy();
+})();
+</script>
