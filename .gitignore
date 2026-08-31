@@ -6,5 +6,15 @@ ASSETS/deploy/audio/
 ASSETS/deploy/audio-320k/
 ASSETS/deploy/music/
 
-# Pathfinder demo — tracked in its own standalone repo
+# Pathfinder demo. Tracked in its own standalone repo.
 CLAUDE CODE/pathfinder-2.0/
+
+# Claude Code agent worktrees. These are full checkouts of the repo and
+# accumulate fast: ten of them reached 12 GB before the 2026-08-30 cleanup.
+# Remove stale ones with: git worktree list && git worktree remove <path>
+**/.claude/worktrees/
+.worktrees/
+
+# Vercel build/CLI state. Per-machine, never shared.
+.vercel/cache/
+.vercel/output/
